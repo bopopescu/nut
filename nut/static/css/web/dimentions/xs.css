@@ -1097,7 +1097,9 @@ p.boolean-false {
 }
 @media (max-width: 768px) {
   #category-container #category-item-container .slick-prev:before,
-  #category-container #category-item-container .slick-next:before {
+  .new-index-body #index-banners .slick-prev:before,
+  #category-container #category-item-container .slick-next:before,
+  .new-index-body #index-banners .slick-next:before {
     display: none;
   }
   .tag-intro-wrapper {
