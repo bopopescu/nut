@@ -2760,6 +2760,10 @@ body.new-index-body .new-banner-wrapper .slick-next {
 body.new-index-body .guoku-content.new-index-page {
   margin-top: 0px;
 }
+body.new-index-body #index-banners .banner-image-cell,
+body.new-index-body #middle-page-banner .banner-image-cell {
+  max-height: 360px;
+}
 body.new-index-body .new-section-title-wrapper {
   margin-top: 40px;
   margin-bottom: 16px;
@@ -2813,14 +2817,14 @@ body.new-index-body .latest-entity-wrapper {
 #index-banners .banner-image-cell.banner-image-cell-control,
 .new-banner-wrapper .banner-image-cell.banner-image-cell-control {
   display: inline-block;
-  padding: 0 5px;
+  padding: 0 2px;
   position: relative;
 }
 #index-banners .banner-image-cell .banner-image-wrapper,
 .new-banner-wrapper .banner-image-cell .banner-image-wrapper {
   height: 0;
   width: 100%;
-  padding-bottom: 55.56%;
+  padding-bottom: 45.91%;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
