@@ -214,6 +214,13 @@
                         </a>
                     </li>
 
+                {% url 'management_article_report' as management_article_report_url  %}
+                    <li {% if management_article_report_url in request.path %}class="active"{% endif %}>
+                        <a href="{{ management_article_report_url }}">
+                            <i class="fa fa-file-text"></i>&nbsp;<span>{% trans '图文报告' %}</span>
+                        </a>
+                    </li>
+
                     {% url 'management_media_list' as management_meida_list_url %}
                     <li {% if management_meida_list_url in request.path %}class="active"{% endif %}>
                         <a href="{{ management_meida_list_url }}">
