@@ -1217,11 +1217,11 @@ p.boolean-false {
 #category-item-container .slick-next {
   right: -11px;
 }
-#discover_container .recommend-user-list .slick-prev {
+.recommend-user-list .slick-prev {
   left: -15px;
   top: 39px;
 }
-#discover_container .recommend-user-list .slick-next {
+.recommend-user-list .slick-next {
   right: -15px;
   top: 39px;
 }

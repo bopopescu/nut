@@ -5344,7 +5344,9 @@ body.new-index-body .latest-entity-wrapper {
 }
 @media (max-width: 992px) {
   #discover_container .slick-prev:before,
-  #discover_container .slick-next:before {
+  .new-index-page .slick-prev:before,
+  #discover_container .slick-next:before,
+  .new-index-page .slick-next:before {
     display: none;
   }
 }
