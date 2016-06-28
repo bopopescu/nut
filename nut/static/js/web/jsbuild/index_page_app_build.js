@@ -4244,7 +4244,7 @@ define('subapp/index/banner',['jquery', 'libs/Class','libs/slick','fastdom'], fu
                     console.log('subapp index banner  start !');
                 },
                 init_slick:function(){
-                    $('#index-banners').slick({
+                    $('#index-banners,#middle-page-banner').slick({
                         centerMode: true,
                         arrows: true,
                         slidesToShow: 1,
