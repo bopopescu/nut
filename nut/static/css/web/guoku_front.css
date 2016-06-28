@@ -2751,6 +2751,9 @@ body.compact-body {
 body.new-index-body {
   padding-top: 91px;
 }
+body.new-index-body .slick-slider {
+  margin-bottom: 0;
+}
 body.new-index-body .new-banner-wrapper .slick-prev {
   left: 12%;
 }
@@ -2786,8 +2789,14 @@ body.new-index-body .category-list-wrapper .category-list .category-list-item {
   font-size: 14px;
   color: #757575;
 }
+body.new-index-body #selection_article_list {
+  margin-bottom: -25px;
+}
 body.new-index-body .latest-entity-wrapper {
   margin-bottom: -18px;
+}
+body.new-index-body .recommend-user-wrapper {
+  margin-bottom: -30px;
 }
 #index-banners,
 .new-banner-wrapper {
