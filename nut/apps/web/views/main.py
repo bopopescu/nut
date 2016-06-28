@@ -57,10 +57,16 @@ class IndexView(TemplateView):
     def get_top_entities(self):
         return []
 
+    def get_hot_entities(self):
+        popular_list = Entity_Like.objects.popular_random()
+        _hot_entities = Entity.objects.filter(id__in=popular_list)
+        return _hot_entities
+
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs);
         context['banners'] = self.get_banners()
         context['selection_entities'] = self.get_selection_entities()
+        context['hot_entities'] = self.get_hot_entities()
         context['selection_articles'] = self.get_selection_articles()
         context['categories'] = self.get_hot_categories()
         context['top_articles'] = self.get_top_articles()
