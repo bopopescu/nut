@@ -37,40 +37,86 @@
     {% endfor %}
 </div>
 <div class="guoku-content index-page new-index-page container">
-      <div class="row new-section-title-wrapper">
-          <div class="col-sm-12">
-              <div class="section-title">
-                  最新精选
+    <div class="row new-section-title-wrapper">
+        <div class="col-sm-12">
+            <div class="section-title">
+                最新精选
                    <span class="pull-right">
                        <a href="" target="_blank">
                            查看更多&nbsp;
                            <i class="fa fa-caret-right"></i>
                        </a>
                    </span>
-              </div>
-{#              <div class="category-list-wrapper">#}
-{#                  <ul class="category-list">#}
-{#                      <li class="category-list-item">#}
-{#                          <a href="" target="_blank">#}
-{#                              居家#}
-{#                          </a>#}
-{#                      </li>#}
-{#                       <li class="category-list-item">#}
-{#                          <a href="" target="_blank">#}
-{#                              居家#}
-{#                          </a>#}
-{#                      </li>#}
-{#                       <li class="category-list-item">#}
-{#                          <a href="" target="_blank">#}
-{#                              居家#}
-{#                          </a>#}
-{#                      </li>#}
-{#                  </ul>#}
-{#              </div>#}
+            </div>
+        </div>
 
-          </div>
-
-      </div>
+    </div>
+    <div class="row category-list-wrapper">
+        <div class="col-sm-12">
+            <ul class="category-list">
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        居家
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        男装
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        女装
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        科技
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        玩乐
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        母婴
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        美容
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        户外
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        文化
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        保健
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        厨具
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        美食
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
       <div class="row latest-entity-wrapper">
           {% for sle in selection_entities %}
                     <a href="{{ sle.entity.absolute_url }}" target="_blank" class="hover-light">

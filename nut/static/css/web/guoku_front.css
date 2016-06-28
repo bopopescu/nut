@@ -2749,7 +2749,7 @@ body.compact-body {
   padding-top: 51px;
 }
 body.new-index-body {
-  padding-top: 83px;
+  padding-top: 91px;
 }
 body.new-index-body #index-banners .slick-prev {
   left: 12%;
@@ -2757,11 +2757,20 @@ body.new-index-body #index-banners .slick-prev {
 body.new-index-body #index-banners .slick-next {
   right: 12%;
 }
-body.new-index-body .guoku-content.index-page {
-  margin-top: 0;
+body.new-index-body .guoku-content.new-index-page {
+  margin-top: 0px;
 }
 body.new-index-body .new-section-title-wrapper {
-  margin: 32px 0 16px;
+  margin: 40px 0 16px;
+}
+body.new-index-body .category-list-wrapper {
+  margin: 16px 0;
+}
+body.new-index-body .category-list-wrapper .category-list .category-list-item {
+  float: left;
+  margin-left: 28px;
+  font-size: 14px;
+  color: #757575;
 }
 body.new-index-body .latest-entity-wrapper {
   margin-bottom: -18px;
