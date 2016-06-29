@@ -2846,6 +2846,7 @@ body.new-index-body .recommend-user-wrapper {
 }
 #index-banners .banner-image-cell .banner-image-wrapper,
 .new-banner-wrapper .banner-image-cell .banner-image-wrapper {
+  position: relative;
   height: 0;
   width: 100%;
   padding-bottom: 45.91%;
