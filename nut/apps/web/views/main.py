@@ -82,7 +82,9 @@ class IndexView(TemplateView):
         popular_list = Entity_Like.objects.popular_random()
         context['entities'] = Entity.objects.filter(id__in=popular_list)  # 热门商品
         context['article_tags'] = Tags.objects.top_article_tags()  # 图文标签
-        context['articles'] = Selection_Article.objects.all()[:3]  # 最新精选图文
+        context['articles'] = Selection_Article.objects.select_related('article').all()[:3]  # 最新精选图文
+        test = Selection_Article.objects\
+                              .select_related('article').using('slave')
         context['recommand_users'] = GKUser.objects.recommended_user()[:20]  # 推荐用户
         context['middle_banners'] = StorePageBanners.objects.filter(status=StorePageBanners.enabled)  # 中间banner
         return context
