@@ -87,6 +87,7 @@ class IndexView(TemplateView):
                               .select_related('article').using('slave')
         context['recommand_users'] = GKUser.objects.recommended_user()[:20]  # 推荐用户
         context['middle_banners'] = StorePageBanners.objects.filter(status=StorePageBanners.enabled)  # 中间banner
+        context['selection_entity'] = Selection_Entity.objects.select_related('entity')[:6]
         return context
 
 
