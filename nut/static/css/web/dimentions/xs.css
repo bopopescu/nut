@@ -1171,6 +1171,9 @@ a.new-blue-link:hover {
     padding-left: 0;
     padding-right: 0;
   }
+  body.new-index-body .new-banner-wrapper .article-intro-wrapper .article-title-wrapper a.article-title {
+    font-size: 18px;
+  }
   .round-link {
     display: none!important;
   }
