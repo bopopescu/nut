@@ -11,6 +11,12 @@ from haystack.query import SearchQuerySet
 class EntityLikeView():
     template_name = 'management/selection_report/list.html'
     model = Entity_Like
-    paginate_by = 40
+    # paginate_by = 40
     context_object_name = 'Entity_Like'
-    paginator_class = ExtentPaginator
+    # paginator_class = ExtentPaginator
+
+    def get_query(self):
+        self.id = self.request.GET.get('id', None)
+        entity_id = self.request.GET.get('entity_id', None)
+        use_id = self.request.GET.get("user_id")
+        return use_id
