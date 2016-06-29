@@ -4981,9 +4981,9 @@ body.new-index-body .latest-entity-wrapper {
   background-repeat: no-repeat;
 }
 #selection_article_list .selection-article-item .article-panel .article-title {
-  font-size: 22px;
+  font-size: 24px;
   color: #424242;
-  margin: 15px 10px;
+  margin: 16px 24px;
   min-height: 54px;
   max-height: 54px;
   line-height: 1.3;
@@ -5000,19 +5000,20 @@ body.new-index-body .latest-entity-wrapper {
 }
 #selection_article_list .selection-article-item .article-panel .article-intro {
   font-size: 14px;
-  color: #9D9E9F;
-  margin: 15px 10px;
+  color: #757575;
+  margin: 16px 24px;
   min-height: 84px;
   max-height: 84px;
+  line-height: 1.6;
 }
 #selection_article_list .selection-article-item .article-panel .article-info {
-  min-height: 30px;
+  overflow: hidden;
+  padding: 0 24px 24px 24px;
+  color: #757575;
 }
 #selection_article_list .selection-article-item .article-panel .article-info .create-time {
   float: right;
-  padding-right: 10px;
-  color: #9D9E9F;
-  font-size: 13px;
+  font-size: 12px;
 }
 #selection_article_list .selection-article-item .article-panel .article-info .create-time .fa {
   margin-right: 5px;
