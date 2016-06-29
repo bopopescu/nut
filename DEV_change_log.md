@@ -1,4 +1,11 @@
 
+3. mng  tag page search function 
+2. fix message page refresh bug 
+1. add article enter selection time  for solr index 
+
+=======================
+# merged to master 2016 6-24
+=======================
 
 3. tag page raw list link , show buy link
 2. tag page add raw list link , only for staff user 
