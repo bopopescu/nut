@@ -435,11 +435,42 @@
                 {% include 'web/main/partial/entity.html' with entity=entity%}
             {% endfor %}
     </div>
-    <div class="row hidden-xs">
-        <div class="col-sm-offset-12">
-            <a class="btn-top" href="javascript:;"  title="回到顶部" target="_self"><i class="fa fa-angle-up fa-lg"></i></a>
+     <div class="row hidden-xs">
+            <div class="col-sm-offset-12">
+                <div class="gotop-wrapper">
+                    <ul>
+                        <li>
+                            <a class="new-btn-top" href="javascript:;"  title="回到顶部" target="_self">
+                                <i class="fa fa-angle-up fa-lg"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="gk-download">
+                                <i class="fa fa-download"></i>
+                                <div class="qrcode-wrapper download-qrcode-wrapper display-toggle">
+                                    <img src="{%  static 'images/article/DL_guoku.jpg' %}" class="qrcode-img">
+                                    <div class="qr-text">下载应用</div>
+                                    <span class="bottom-bot"></span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="gk-wechat-share">
+                                <i class="fa fa-wechat"></i>
+                                <div class="qrcode-wrapper wechat-qrcode-wrapper display-toggle">
+                                    <img src="{%  static 'images/footer/QR-code.jpg' %}" class="qrcode-img">
+                                    <div class="qr-text">微信公众平台</div>
+                                    <span class="bottom-bot"></span>
+                                </div>
+                            </a>
+
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
         </div>
-    </div>
 
 {#    <div class="row">#}
 {#        <div class="container-fluid content-panel">#}
