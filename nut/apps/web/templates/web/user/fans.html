@@ -10,7 +10,7 @@
                             <img class="media-object img-circle" src="{{ f.follower.profile.avatar_url }}" width="60" height="60" style="width:60px;height:60px;">
                         </a>
                     {% if f.follower_id == request.user.id %}
-                        <a href="#" class="btn btn-cancel pull-right disabled">&nbsp; <b>{% trans 'Myself' %}</b></a>
+                        <a href="#" class="guoku-button button-disabled disabled-button"><b>{% trans 'Myself' %}</b></a>
                     {% elif f.follower_id in request.user.concren %}
                         <a data-status="1" data-user-id="{{ f.follower_id }}" href="javascript:;" class="follow is-fan btn btn-cancel pull-right"><i class="fa fa-exchange fa-lg" style="color: #ccc"></i>&nbsp; <b>{% trans "Unfollow" %}</b></a>
 {#                        <a href="#" class="follow is-fan btn btn-primary pull-right"><i class="fa fa-plus fa-lg" style="color: #fff"></i>&nbsp; <b>关注</b></a>#}

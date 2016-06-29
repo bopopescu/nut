@@ -1,6 +1,6 @@
 from django.views.generic import ListView
 from django.shortcuts import get_object_or_404
-from apps.core.models import Brand, Entity_Like, Entity
+from apps.core.models import Brand, Entity_Like, Entity, Entity_Brand
 from haystack.query import SearchQuerySet
 
 
@@ -25,12 +25,12 @@ class BrandDetailView(ListView):
 
     def get_queryset(self):
         brand_pk = self.kwargs.get('pk')
-        brand = get_object_or_404(Brand, pk=brand_pk)
-
+        # brand = get_object_or_404(Brand, pk=brand_pk)
+        entity_brand = Entity_Brand.objects.filter(brand_id=int(brand_pk)).order_by('brand_order')
         if self.get_order_by() == 'olike':
-            sqs = SearchQuerySet().models(Entity).filter(brand=brand.name).order_by('like_count')
+            sqs = sorted(entity_brand, key=lambda x: x.entity.like_count, reverse=True)
         else:
-            sqs = SearchQuerySet().models(Entity).filter(brand=brand.name).order_by('-created_time')
+            sqs = sorted(entity_brand, key=lambda x: (x.brand_order, x.entity.created_time))
 
         return sqs
 
@@ -42,33 +42,12 @@ class BrandDetailView(ListView):
         context['sort_method'] = self.get_order_by()
 
         el = list()
-        sqs = self.get_queryset()
-        e_ids = [e.entity_id for e in sqs]
+        # sqs = self.get_queryset()
+        # e_ids = [e.entity_id for e in self.object_list]
+        e_ids = [e.id for e in self.object_list]
         if self.request.user.is_authenticated():
              el = Entity_Like.objects.user_like_list(user=self.request.user,
                                                     entity_list=e_ids
                                                     ).using('slave')
         context['user_entity_likes'] = el
         return context
-
-
-
-
-
-    # def get_queryset(self):
-    #     cid = self.get_category_id()
-    #     order_by_like = False
-    #     if self.get_order_by() == 'olike':
-    #         order_by_like = True
-    #     self.cid = cid
-    #     entity_list = Entity.objects.sort(category_id=cid,
-    #                                       like=order_by_like).exclude(
-    #         selection_entity__is_published=False)
-    #     return entity_list
-    #
-    #
-    #     order_by_like = False
-    #     if self.get_order_by() == 'olike':
-    #         order_by_like = True
-
-

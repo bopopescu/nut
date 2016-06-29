@@ -1393,8 +1393,8 @@ define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
 
 define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class, $){
 
-    var  store2015UrlReg = /store2015/;
-    var store2015CookieKey = 'store_2015_cookie_key'
+    var  test_url_reg = /20160624/;
+    var visited_cookie_key = 'pop_up_store_key'
     // here we use a global var isFromMobile, which is bootstraped in base.html (template)
 
     var TopAd = Class.extend({
@@ -1404,30 +1404,39 @@ define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class,
             this.initCloseButton();
         },
         initCloseButton: function(){
-            $('.top-ad .close-button').click(this.hideTopAd.bind(this));
+            if($('.entity-selection-body').length>0){
+                $('.top-ad .close-button').hide();
+            }else{
+                $('.top-ad .close-button').click(this.hideTopAd.bind(this));
+            }
         },
 
         handleTrackerCookie: function(){
-            if(store2015UrlReg.test(location.href)){
+            if(test_url_reg.test(location.href)){
                 console.log('access page');
-                $.cookie(store2015CookieKey, 'visited', { expires: 7, path: '/' });
+                $.cookie(visited_cookie_key, 'visited', { expires: 7, path: '/' });
             }
         },
 
         handleTopAdDisplay:function(){
-            if($.cookie(store2015CookieKey) === 'visited'){
-                return ;
-                //console.log('store 2015 page visited');
-            }else{
-                this.displayTopAd();
-            }
+            //if($.cookie(visited_cookie_key) === 'visited'){
+            //    return ;
+            //    //console.log('store 2015 page visited');
+            //}else{
+            //    this.displayTopAd();
+            //}
+            this.displayTopAd();
         },
         displayTopAd: function(){
 
-            if (!isFromMobile){
+            if (isFromMobile ||  test_url_reg.test(location.href)){
+                //$('.top-ad').hide();
+                return ;
+            }else{
                  $('.top-ad').slideDown();
             }
 
+            return
         },
         hideTopAd: function(event){
             $('.top-ad .close-button').hide();
@@ -1438,15 +1447,106 @@ define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class,
 
     return TopAd;
 });
+
+define('subapp/top_notification/top_notification',[
+    'libs/Class',
+    'jquery',
+    'libs/fastdom',
+    'underscore',
+     'cookie'
+], function(
+    Class,
+    $,
+    fastdom,
+    _
+){
+    var TopNotification = Class.extend({
+        init: function(){
+            this.flag = 0;
+            console.log('top notification begin');
+            this.initClickBell();
+            this.checkBadge();
+        },
+        initClickBell: function(){
+            $('.navbar-collapse .notification-icon').click(this.handleClickBell.bind(this));
+        },
+        checkBadge:function(){
+            if($('.nav-user-actions .badge').length > 0){
+                $('.nav-notification-wrapper .notification-round').css({display:'inline-block'});
+            }else{
+                 $('.nav-notification-wrapper .notification-round').css({display:'none'});
+            }
+        },
+        handleClickBell:function(){
+
+            $('.navbar-collapse .notification-drop-list-wrapper').toggle(this.flag++ % 2 == 0);
+            console.log('flag:'+this.flag);
+            if(this.flag % 2 == 0){
+                console.log('no request');
+            }else if($('.notification-drop-list').children('.notification-list-item').length){
+               console.log('no request');
+            }else{
+                this.postAjaxNotification();
+            }
+        },
+        postAjaxNotification:function(){
+            console.log('post ajax request');
+             $.when(
+                    $.ajax({
+                        cache:true,
+                        type:"get",
+                        url: '/message/newmessage/',
+                        data:''
+                    })
+                ).then(
+                  this.postSuccess.bind(this),
+                 this.postFail.bind(this)
+                );
+        },
+        postSuccess:function(result){
+            var status = parseInt(result.status);
+            if(status == 1){
+                this.hiddenLoadingIcon();
+                this.showNotificationItems(result);
+            }else{
+                this.hiddenLoadingIcon();
+                this.showFail(result);
+            }
+        },
+        showNotificationItems:function($ele){
+            var ajaxDatas = $ele;
+            var notificationItems = _.template($('#notification_item_template').html());
+            var datas = {
+                objects:ajaxDatas.data,
+                notification_length:ajaxDatas.data.length
+
+            };
+            $('.notification-drop-list').append(notificationItems(datas));
+        },
+        showFail:function($ele){
+            console.log('ajax data failed.');
+        },
+        postFail:function(data){
+            console.log('request failed.please try again');
+        },
+        hiddenLoadingIcon:function(){
+            $('.notification-loading-icon').hide();
+        }
+
+    });
+
+    return TopNotification;
+});
 define('subapp/topmenu',['bootstrap',
         'libs/Class',
         'underscore',
         'jquery',
         'fastdom',
         'cookie',
-        'subapp/top_ad/top_ad'
+        'subapp/top_ad/top_ad',
+        'subapp/top_notification/top_notification'
     ],
-    function(boot, Class,_,$,fastdom,cookie,TopAd){
+    function(boot, Class,_,$,fastdom,cookie,TopAd,TopNotification){
 
     // cookie is a shim resource , it will attch to jquery objects.
 
@@ -1473,11 +1573,12 @@ define('subapp/topmenu',['bootstrap',
             this.scrollTop = null;
             this.lastScrollTop = null;
             this.read = this.write = null;
-
+            this.initHiddenBottomAd();
             this.setupScrollMenu();
             this.checkSNSBindVisit();
             this.checkEventRead();
             //this.topAd = new TopAd();
+            this.topNotification = new TopNotification();
             this.setupBottomCloseButton();
 
         },
@@ -1520,6 +1621,14 @@ define('subapp/topmenu',['bootstrap',
             if (!this.read){
                 this.read = fastdom.read(function(){
                     that.scrollTop = $(window).scrollTop();
+                    that.screenHeight = window.screen.height;
+                    if($('#main_article').length){
+                          that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
+                    }
+                    that.pageHeight = document.body.scrollHeight;
+                    that.hiddenLeftCondition = that.screenHeight + that.scrollTop;
+                    that.hiddenRightCondition = that.articleHeight + 102;
+
                 });
             }
 
@@ -1543,13 +1652,20 @@ define('subapp/topmenu',['bootstrap',
 
             if(this.lastScrollTop > this.scrollTop){
                 this.showHeader();
+                this.showBottomAd();
             }else{
                 if (this.scrollTop < 140){
                     this.showHeader();
+                    this.showBottomAd();
                 }else{
                      this.hideHeader(this.scrollTop);
+                    this.hiddenBottomAd();
                 }
 
+            }
+            if(this.hiddenLeftCondition > this.hiddenRightCondition){
+                this.hideHeader();
+                 this.hiddenBottomAd();
             }
 
             this.read = null;
@@ -1558,13 +1674,32 @@ define('subapp/topmenu',['bootstrap',
         },
 
 
-
+        checkArticleDetailUrl:function(){
+             var testUrl = /articles\/\d+/.test(location.href);
+             return testUrl;
+        },
+        initHiddenBottomAd:function(){
+            if(this.checkArticleDetailUrl){
+                 $('.bottom-ad').removeClass('showing');
+            }
+        },
+        showBottomAd:function(){
+            if(!this.checkArticleDetailUrl()){
+                 $('.bottom-ad').addClass('showing');
+            }
+        },
+        hiddenBottomAd:function(){
+            if(!this.checkArticleDetailUrl){
+                 $('.bottom-ad').removeClass('showing');
+            }
+        },
         showHeader: function(){
             //console.log('show header');
             this.$menu.removeClass('hidden-header');
             this.$menu.addClass('shown-header');
             $('.round-link').show();
-            $('.bottom-ad').addClass('showing');
+            $('.bottom-article-share-wrapper').removeClass('hidden-animation');
+
             //console.log((new Date()).getMilliseconds());
 
         },
@@ -1573,7 +1708,8 @@ define('subapp/topmenu',['bootstrap',
             this.$menu.removeClass('shown-header');
             this.$menu.addClass('hidden-header');
             $('.round-link').hide();
-            $('.bottom-ad').removeClass('showing');
+            $('.bottom-article-share-wrapper').addClass('hidden-animation');
+
             //console.log((new Date()).getMilliseconds());
         }
     });
@@ -1591,68 +1727,92 @@ define("libs/underscore", function(){});
 define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
     function($,_,Class,fastdom){
 
-    var GoTop = Class.extend({
-        init: function(){
-            this.topLink = $('.btn-top');
-            if (this.topLink.length > 0){
-                this.setupWatcher();
-                this.topLink.on('click', function(){
-                    $("html, body").animate(
-                    {scrollTop : 0}, 800
-                    );
-                    return false;
-                });
-            }else{
-                return ;
-            }
-        },
-        setupWatcher:function(){
-            $(window).scroll(this.onScroll.bind(this));
-        },
-        onScroll:function(){
-            if(this.read){
-                fastdom.clear(this.read);
-            }
-            this.read = fastdom.read(this.doRead.bind(this));
-            if(this.write){
-                fastdom.clear(this.write);
-            }
-            this.write = fastdom.write(this.doWrite.bind(this));
-        },
-        doRead: function(){
-            this.scrollTop = $(window).scrollTop();
-            this.btnRect = this.topLink[0].getBoundingClientRect()
-            this.footerRect = $('#guoku_footer')[0].getBoundingClientRect()
+        var GoTop = Class.extend({
+            init: function(){
+                this.topLinkWrapper = $('.gotop-wrapper');
+                this.topLink = $('.btn-top');
+                this.newTopLink = $('.new-btn-top');
+                if(this.topLink.length > 0){
+                    this.topLinkExist = true;
+                }
+                if(this.newTopLink.length > 0){
+                    this.newTopLinkExist = true;
 
+                }
+                if ( this.topLinkExist|| this.newTopLinkExist){
+                    this.setupWatcher();
+                    if(this.topLinkExist){
+                        this.topLink.on('click', function(){
+                            $("html, body").animate(
+                                {scrollTop : 0}, 800
+                            );
+                            return false;
+                        });
+                    }
+                    if(this.newTopLinkExist){
+                        this.newTopLink.on('click', function(){
+                            $("html, body").animate(
+                                {scrollTop : 0}, 800
+                            );
+                            return false;
+                        });
+                    }
+                }else{
+                    return ;
+                }
+            },
+            setupWatcher:function(){
+                $(window).scroll(this.onScroll.bind(this));
+            },
+            onScroll:function(){
+                if(this.read){
+                    fastdom.clear(this.read);
+                }
+                this.read = fastdom.read(this.doRead.bind(this));
+                if(this.write){
+                    fastdom.clear(this.write);
+                }
+                this.write = fastdom.write(this.doWrite.bind(this));
+            },
+            doRead: function(){
+                this.scrollTop = $(window).scrollTop();
+                if(this.topLinkExist){
+                    this.btnRect = this.topLink[0].getBoundingClientRect();
+                }
+                this.footerRect = $('#guoku_footer')[0].getBoundingClientRect();
+            },
+            doWrite: function(){
+                var that = this ;
+                if (!this.scrollTop){return ;}
+                if (this.scrollTop > 400 ){
 
-        },
-        doWrite: function(){
-            var that = this ;
-            if (!this.scrollTop){return ;}
-            if (this.scrollTop > 400 ){
-
-                fastdom.write(function(){
-                        that.topLink.show();
-                        if (that.btnRect.bottom >= that.footerRect.top){
-                            that.topLink.css({bottom:'370px'});
-                        }else{
-                            //that.topLink.css({bottom:'170px'});
+                    fastdom.write(function(){
+                        that.topLinkWrapper.show();
+                        if(that.topLinkExist){
+                            that.topLink.show();
+                            if (that.btnRect.bottom >= that.footerRect.top){
+                                that.topLink.css({bottom:'370px'});
+                            }else{
+                                //that.topLink.css({bottom:'170px'});
+                            }
                         }
-                });
 
-            }else{
-                fastdom.write(function(){
-                    that.topLink.hide();
-                });
+                    });
+
+                }else{
+                    fastdom.write(function(){
+                        that.topLinkWrapper.hide();
+                        that.topLink.hide();
+                    });
+                }
+
+
+
             }
+        });
 
-
-
-        }
+        return GoTop;
     });
-
-    return GoTop;
-});
 require(
     [
         'jquery',

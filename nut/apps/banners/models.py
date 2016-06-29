@@ -3,7 +3,7 @@ from django.db import  models
 from django.conf import  settings
 from django.utils.translation import ugettext_lazy as _
 
-from apps.core.models import BaseModel, Media
+from apps.core.models import BaseModel
 
 
 image_host = getattr(settings, 'IMAGE_HOST', None)

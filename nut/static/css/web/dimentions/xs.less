@@ -3,6 +3,22 @@
 @import "../../lib/widgets.less";
 //for xs screen , and all screen NOT sx
 
+@media (max-width:768px){
+   //for category in discover page
+  #category-container #category-item-container {
+    .slick-prev:before, .slick-next:before {
+        display: none;
+    }
+  }
+
+  .tag-intro-wrapper{
+    height:240px;
+    .tag-desc{
+      display: none;
+    }
+  }
+}
+
 //add 580px style for authorized seller
 @media (max-width:580px){
 .authorized-seller-body{
@@ -26,15 +42,16 @@
 }
 }
 @media(max-width: 767px){
-
-
+  .round-link{
+    display: none!important;
+  }
 .entity-selection-body{
   background-color: @very-light-gray;
   .selection-item{
      padding:0px 2px;
   }
   .entity-selection{
-     margin-bottom:4px!important;
+     margin-bottom:18px!important;
      .posttime{
        display:none;
      }
@@ -90,19 +107,23 @@
 
   }
 
+  //for recommend entities in good store page
+  #recommend-entity-container #recommend-entity-wrapper{
+     .slick-prev:before, .slick-next:before {
+        display: none;
+    }
+  }
 }
 
 @media(max-width: 767px){
-  .mail-result{
   .check-icon-wrapper{
    .big-check-icon{
      font-size:80px;
    }
-    .message{
+    .message,.more-message{
       font-size: @smaller-primary;
     }
   }
-}
 
     #selection_article_list{
       .selection-article-item{
@@ -286,18 +307,21 @@
        }
     }
 // for mobile article
-
+  #detail_content{
+    overflow: hidden;
+  }
   #main_article{
     .article-wrapper{
       .content-wrapper img{
-        max-width:110%;
-        width:110%;
         position: relative;
-        left : -5%;
         display: block;
+        width:110%;
+        max-width:110%;
+        left:-5%;
+        .box-sizing(border-box)
 
       }
-      .guoku-card img, {
+      .guoku-card img{
         max-width:100%;
         width:100%;
         left:0;
@@ -343,6 +367,9 @@
             display:none;
          }
      }
+  }
+  .article-share-wx-dialog .modal-dialog{
+    margin:150px auto;
   }
 }
 
@@ -422,6 +449,8 @@
 
   #detail_content_right{
     max-width:  330px;
+    //opacity: 1;
+    //.transition(all 2000ms);
   }
 
   .more-article-wrapper{

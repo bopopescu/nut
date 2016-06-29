@@ -1,20 +1,24 @@
 # coding=utf-8
 from django.http import Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from django.views.generic import ListView
-from django.shortcuts import  redirect
+from django.views.generic import ListView, View
+from django.shortcuts import  redirect, get_object_or_404
 from django.utils.log import getLogger
 
 from braces.views import StaffuserRequiredMixin
 
-from apps.core.models import Brand
-from apps.core.models import Entity
+from apps.core.models import Entity,Brand, Entity_Brand
 from apps.core.views import BaseListView, BaseFormView
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 from apps.management.forms.brand import EditBrandForm, CreateBrandForm
 
 from haystack.query import SearchQuerySet
 from apps.core.mixins.views import SortMixin, FilterMixin
+from apps.management.mixins.auth import EditorRequiredMixin
+
+from braces.views import JSONRequestResponseMixin,AjaxResponseMixin,StaffuserRequiredMixin
+
+
 
 log = getLogger('django')
 
@@ -48,7 +52,7 @@ class BrandStatView(BaseListView):
         return self.render_to_response(context)
 
 
-class BrandListView(StaffuserRequiredMixin, FilterMixin, ListView):
+class BrandListView(EditorRequiredMixin, FilterMixin, ListView):
     template_name = "management/brand/list.html"
     context_object_name = 'brands'
     paginate_by = 30
@@ -97,13 +101,16 @@ class BrandEntityListView(BaseListView):
         brand = self._brand.split()
         return ''.join(brand)
 
+
     def get_queryset(self, **kwargs):
         name = kwargs.pop('brand_name')
         sqs = SearchQuerySet().models(Entity).filter(brand=name)
         return sqs
 
+
     def get(self, request, **kwargs):
-        self._brand = kwargs.pop('brand')
+        self._brand = self.kwargs.get('brand')
+        self._brand_id = self.kwargs.get('brand_id')
         assert self._brand is not None
         _entity_list = self.get_queryset(brand_name=self.brand)
         page = request.GET.get('page', 1)
@@ -117,9 +124,18 @@ class BrandEntityListView(BaseListView):
         except EmptyPage:
             raise Http404
 
+        # for entity in _entities:
+        #     try:
+        #         entity_brand = Entity_Brand.objects.get(entity_id=entity.entity_id)
+        #         if entity_brand.brand_id == int(self._brand_id):
+        #             entity.is_belong = True
+        #     except:
+        #         pass
+
         context = {
             'brand': self.brand,
             'entities': _entities,
+            'brand_id':self._brand_id,
         }
         return self.render_to_response(context)
 
@@ -166,7 +182,7 @@ class BrandEditView(BaseFormView):
         form = self.get_form_class(brand=brand)
         if form.is_valid():
             brand = form.save()
-            return redirect('management_brand_list')
+            # return redirect('management_brand_list')
 
 
         context = {
@@ -245,5 +261,66 @@ class BrandCreateView(BaseFormView):
             'form': form
         }
         return self.render_to_response(context)
+
+class AddBrandEntityView(EditorRequiredMixin,AjaxResponseMixin,JSONRequestResponseMixin, View):
+
+    def post_ajax(self, request, *args, **kwargs):
+        post_data = self.get_request_json()
+        brand_id =  int(post_data.get('brand_id'))
+        entity_id = int(post_data.get('entity_id'))
+        isBrandEntity = bool(post_data.get('isBrandEntity'))
+
+        try:
+            if isBrandEntity:
+                Entity_Brand.objects.get_or_create(brand_id=brand_id,entity_id=entity_id)
+            else:
+                Entity_Brand.objects.filter(brand_id=brand_id, entity_id=entity_id).delete()
+        except Exception as e:
+            return self.render_json_response({'result':'fail'}, status=500)
+
+        return self.render_json_response({'result':'ok'})
+
+class BrandSelectedEntitiesView(EditorRequiredMixin,AjaxResponseMixin, JSONRequestResponseMixin, View):
+
+    def get_ajax(self, request, *args, **kwargs):
+        brand_id = self.kwargs.get('brand_id')
+        brand = get_object_or_404(Brand, id=brand_id)
+        res = []
+        for entity in  brand.entities_link.all().order_by('brand_order'):
+            entity_dic = {
+                'entity_id': entity.entity.id,
+                'title': entity.entity.title,
+                'cover': entity.entity.chief_image,
+                'order': entity.brand_order
+            }
+            res.append(entity_dic)
+
+        return self.render_json_response({'entities': res})
+
+
+class SaveSortedEntityView(EditorRequiredMixin,AjaxResponseMixin, JSONRequestResponseMixin, View):
+    def post_ajax(self, request, *args, **kwargs):
+        post_data = self.get_request_json()
+        brand_id = post_data.get('brand_id')
+        ids = post_data.get('entity_ids')
+
+        try :
+
+            Entity_Brand.objects.filter(brand_id=brand_id).exclude(entity_id__in=ids).delete()
+            for index , id in enumerate(ids):
+
+                eb, created = Entity_Brand.objects\
+                            .get_or_create(
+                                brand_id=brand_id,
+                                entity_id=id,
+                            )
+                eb.brand_order = index
+                eb.save()
+
+        except Exception as e :
+
+            return self.render_json_response({'result':'error'}, status=500)
+
+        return self.render_json_response({'result': 'ok'}, status=200)
 
 __author__ = 'edison'

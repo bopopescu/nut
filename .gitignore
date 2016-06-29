@@ -86,7 +86,7 @@ log.txt
 *.sqlite3
 *.rdb
 
-# spider 
+# spider
 spider/log.txt
 spider/dbs/
 spider/items/

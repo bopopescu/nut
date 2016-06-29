@@ -89,7 +89,6 @@
   }
 }
 
-
 .button-white{
   background-color: #fff;
   color: @common-gray;
@@ -142,7 +141,6 @@
   }
 }
 
-
 .button-sharp{
 
   .border-radius(0px);
@@ -152,10 +150,10 @@
 }
 
 .button-disabled{
-  background-color: @common-gray;
+  background-color: @gray-light;
   color:@very-light-gray;
   &:hover,&:focus{
-    background-color: @common-gray;
+    background-color: @gray-light;
     color:@very-light-gray;
   }
 }
@@ -212,6 +210,7 @@
   overflow: hidden;
 }
 
+
 // img box
 
 .img-box{
@@ -228,7 +227,6 @@
 
     img{
       background-color: #f6f6f6;
-      width: 100%;
       max-height: 100%;
       max-width: 100%;
     }
@@ -236,14 +234,23 @@
 }
 
 .event-entity-item{
+  .img-box-control{
+    position:relative;
+    a{
+      position:absolute;
+      top:50%;
+      .transform(translateY(-50%));
+    }
+  }
 
   .img-box{
     a{
        padding: 8px;
+      width: 100%;
     }
   }
   .section-info{
-     height: 97px;
+     //height: 97px;
      div {
        font-size:@smaller-primary;
        margin-left: 30px;
@@ -254,10 +261,15 @@
      }
      .entity-brand{
         margin-top: 15px;
+       .single-text-overflow;
+
      }
     .entity-title{
        margin-bottom:0px;
        margin-top: 0px;
+      .multiple-text-overflow(2);
+      min-height:40px;
+      max-height:40px;
     }
     .entity-price{
         .price-tag-widget;
@@ -274,7 +286,6 @@
 
 .entity-four .img-box img,
 .entity-selection .img-box img,
-.guoku-button,
 #detail_content_right .section-list .section-banner img,
 .guess_img .img-box img,
 .article-wrapper .cover-wrapper a img,
@@ -457,7 +468,7 @@ p .b_day{
     margin-top:16px;
     overflow: hidden;
     .caption {
-      width:60%;
+      width:75%;
       height:80px;
       float:left;
       margin:0;
@@ -487,10 +498,89 @@ p .b_day{
       }
   }
    }
-
 }
 
+.gotop-wrapper{
+  display: none;
+  width:40px;
+  height:120px;
+  position:fixed;
+  bottom:65px;
+  right:40px;
+  background-color: @panel-background-color;
+  border:1px solid @divider-color;
+  .drop-shadow();
+  ul{
+    width:100%;
+    height:100%;
+    li{
+      width:100%;
+      height:40px;
+      line-height: 40px;
+      text-align: center;
+      border-bottom:1px solid @divider-color;
+      &:last-child{
+        border-bottom: none;
+      }
+      a{
+        display: inline-block;
+        width:100%;
+        height:100%;
+        color:@new-text-gray;
+        font-size:@primary-size;
+      }
+      a.gk-download{
+        position:relative;
+        &:hover{
+          color:@btn-blue-dark;
+          .download-qrcode-wrapper{
+            display: block;
+          }
+        }
+      }
+      a.gk-wechat-share{
+         position:relative;
+        &:hover{
+          cursor: pointer;
+          color:@wechat-hover-color;
+        .wechat-qrcode-wrapper{
+          display:block;
+        }
+      }
+      }
+      .qrcode-wrapper{
+              position:absolute;
+              bottom:-56px;
+              left:-116px;
+              padding:10px 9px;
+              background-color: #fff;
+              box-shadow: @panel-shaddow;
+              display: none;
+              .qrcode-img{
+                width:80px;
+              }
+              .qr-text{
+                font-size:@mini-size;
+                color:#414243;
+                width:100%;
+                text-align: center;
+                margin-top:10px;
+              }
+              .bottom-bot{
+                position:absolute;
+                bottom:50%;
+                left:100%;
+                width:0;
+                height:0;
+                border-width:5px;
+                border-style:solid;
+                border-color:transparent transparent transparent #ffffff;
+              }
+            }
 
+    }
+  }
+}
 .btn-top {
   .acc-layer;
 
@@ -693,6 +783,7 @@ p.boolean-false{
   }
 }
 
+
 .user-icon-middle{
   img{
             display: block;
@@ -711,13 +802,17 @@ p.boolean-false{
             margin-right:12px;
 }
 
+.guoku-small-col{
+  padding:0 2px;
+  margin-bottom:4px;
+}
 .guoku-normal-col {
   padding: 0 5px;
   margin-bottom: 10px;
 }
 .guoku-middle-col {
   padding: 0 9px;
-  margin-bottom: 17px;
+  margin-bottom: 18px;
 }
 
 .normal-share-btn{
@@ -814,7 +909,16 @@ p.boolean-false{
   }
 }
 
-
+.newest-btn-primary{
+   border:1px solid @btn-blue;
+  background-color: @btn-blue;
+  color: #ffffff;
+  &:hover,&:focus{
+    border:1px solid @btn-blue-dark;
+    background-color: @btn-blue-dark;
+    color:#ffffff;
+  }
+}
 .newest-button-blue{
   border:1px solid @btn-blue;
   background-color: #ffffff;
@@ -822,6 +926,7 @@ p.boolean-false{
   &:hover{
     color:@btn-blue-dark;
     border:1px solid @btn-blue-dark;
+    background-color: #ffffff;
     i.fa-plus{
       color: @btn-blue-dark;
     }
@@ -834,4 +939,109 @@ p.boolean-false{
    i.fa-plus{
     color: @btn-blue;
   }
+}
+
+.check-icon-wrapper{
+  text-align: center;
+  margin-top:40px;
+  .check-well-icon{
+     color:@check-well-green;
+  }
+  .check-wrong-icon{
+    color:@common-gray
+  }
+  .big-check-icon{
+    font-size:132px;
+  }
+  .small-check-icon{
+    font-size:80px;
+  }
+  .message{
+     margin-top:30px;
+     font-size:@primary-title-size;
+  }
+  .more-message{
+    font-size: @primary-size;
+    color:@common-gray;
+  }
+}
+
+//dark section item widget,but I don't delete the hot section style in good store page.
+//it is complex
+.dark-section-wrapper{
+  margin-bottom: 10px;
+    .dark-section-item{
+      a{
+        color:#ffffff;
+        &hover,&focus{
+          color:#ffffff;
+        }
+        .section-panel{
+        .panel-no-padding;
+
+        width:100%;
+        &:hover{
+          .bg-layer{
+            display: block;
+          }
+        }
+        position:relative;
+          .bg-pic{
+           .normal-scale-bg;
+          }
+          .section-name{
+            position:absolute;
+            top:50%;
+            left:50%;
+            .transform(translate(-50%,-50%));
+            p{
+              margin-bottom:0;
+            }
+            span{
+              font-size:@most-mini-size;
+            }
+          }
+        .bg-layer{
+          display: none;
+          width:100%;
+          height:0;
+          padding-bottom: 100%;
+          position:absolute;
+          top:0;
+          left:0;
+          background-color: rgba(0,0,0,0.18);
+        }
+
+      }
+      }
+
+    }
+  }
+
+
+//common scale bg pic
+.normal-scale-bg{
+  width:100%;
+  height:0;
+  padding-bottom: 55%;
+  background-position:center;
+  background-size: cover;
+  background-repeat:no-repeat;
+}
+
+.square-scale-bg{
+  width:100%;
+  height:0;
+  padding-bottom: 100%;
+  background-position:center;
+  background-size: cover;
+  background-repeat:no-repeat;
+}
+
+.single-text-overflow{
+//  width:100%;
+  //height:auto;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }

@@ -41,7 +41,7 @@ define(['libs/Class','jquery', 'subapp/account'], function(Class,$,AccountApp){
                     console.log('mutual !!!');
                     $followButton.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关注');
                     $followButton.removeClass('button-blue').addClass('btn-cancel');
-                     $followButton.removeClass("newest-button-blue").addClass("new-btn-cancel");
+                    $followButton.removeClass("newest-button-blue").addClass("new-btn-cancel");
                     $followButton.attr('data-status', '1');
 
                 } else if (data.status == 0) {

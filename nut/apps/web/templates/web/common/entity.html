@@ -5,17 +5,17 @@
     <div class="thumbnail">
         <div class="img-box">
             <a href="{% url 'web_entity_detail' entity.entity_hash %}">
-                <img class="img-responsive" alt="{{ entity.title }}" src="{{ entity.chief_image|resize:'240' }}" width='240' height='240'>
+                <img class="img-responsive entity_img_link" data.entity="{{ entity.id }}" data-entity-title="{{ entity.title }}" alt="{{ entity.title }}" src="{{ entity.chief_image|resize:'240' }}" width='240' height='240'>
             </a>
         </div>
         <div class="caption">
             {% if entity.id in user_entity_likes %}
-                <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
+                <a class="btn btn-like" href="javascript:;" data-entity-title="{{ entity.title }}" rel="nofollow" data-entity="{{ entity.id }}">
                     <i class="fa fa-heart fa-lg"></i>
                     &nbsp;{% trans 'Like' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
                 </a>
             {% else %}
-                <a class="btn btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
+                <a class="btn btn-unlike" href="javascript:;" data-entity-title="{{ entity.title }}" rel="nofollow" data-entity="{{ entity.id }}">
                     <i class="fa fa-heart-o fa-lg"></i>
                     {% trans 'Like' %}&nbsp;<span class="like-count">{{ entity.like_count }}</span>
                 </a>

@@ -3,6 +3,8 @@
 import requests
 import re
 from time import time
+
+from apps.core.utils.fetch.tmall import get_price
 from bs4 import BeautifulSoup
 from urllib import unquote
 from hashlib import md5
@@ -115,9 +117,10 @@ class Tmall():
                 html = r.text
                 self._headers = r.headers
         #       price must be retrieved as soon as possible
-                script_url =  self.fix_script_url(self.extract_price_script_url(html))
-                price_script_response  = s.get(script_url, headers=self.get_tmall_header()).text
-                self._price = self.process_price_response(price_script_response)
+        #         script_url =  self.fix_script_url(self.extract_price_script_url(html))
+        #         price_script_response  = s.get(script_url, headers=self.get_tmall_header()).text
+        #         self._price = self.process_price_response(price_script_response)
+                self._price = get_price(html, s)
         return html
 
     def process_price_response(self,price_script_response):

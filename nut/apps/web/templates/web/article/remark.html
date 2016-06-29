@@ -1,0 +1,161 @@
+{% load i18n static %}
+{% load  common guoku %}
+
+<div id="login_user_remark">
+    {% if request.user.is_blocked == True %}
+        <div class="media" style="padding: 15px" class="blocked-user-notice">
+            <div class="pull-left ">
+                <i class="fa fa-exclamation-triangle"></i>
+            </div>
+            <div class="media-body post-note">
+                <p>果库倡导友好、宽容和理性的对待不同的看法和意见，尊重他人。</p>
+                <p>你的帐号因多次违规，已被禁言。可通过 hi@guoku.com 联系管理员。</p>
+            </div>
+        </div>
+    {% elif request.user.id %}
+        <div class="media" >
+            <div class="pull-left">
+                <img class="media-object img-circle" src="{{ user.profile.avatar_url }}" alt="{{ user.profile.nickname }}" width="50" height="50">
+            </div>
+            <div class="media-body post-note">
+                <form id='article_remark_form' class="form-horizontal" action="{% url 'web_article_remark' article.id %}" method="POST" role="form">
+                    {% csrf_token %}
+                    <fieldset>
+                        {% for field in form %}
+                            {{ field }}
+                        {% endfor %}
+                    </fieldset>
+                    <div class="action pull-right" style="margin-top:10px;">
+                        <button id="submit_button" class="btn btn-primary btn-post" type="submit" value="Submit">发布</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    {% elif not request.user.id %}
+        <div class="media">
+            <div class="visitor-note-wrapper">
+                <div id="visitor_note" class="pull-right blue-button guoku-button">
+                    我来点评
+                    <i class="fa fa-angle-right"></i>
+                    <i class="fa fa-angle-right"></i>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+<ul id="remark-list">
+    {% for remark in remarks %}
+        <li class="remark-list-item-wrapper">
+            <div class="remark-item">
+                <a class="pull-left" href="{% url 'web_user_index' remark.user.pk %}" target="_blank">
+                    <img class="media-object img-circle" src="{{ remark.user.avatar_url }}" alt="{{ remark.user.nickname }}" style="width:50px;height:50px;">
+                </a>
+
+                <div class="remark-detail">
+                    <div class="remark-user" user_id="{{ remark.user.pk }}" user_name="{{ remark.user.nickname }}" remark_id="{{ remark.id }}">
+                        <a href="{% url 'web_user_index' remark.user.pk %}" target="_blank">
+                            {{ remark.user.nickname }}
+                        </a>
+                        {% if remark.reply_to.user.nickname %}
+                            <span>
+                                回复:
+                                <a href="{% url 'web_user_index' remark.reply_to.user.pk %}" target="_blank">
+                                    {{ remark.reply_to.user.nickname }}
+                                </a>
+                            </span>
+                        {% endif %}
+
+                    </div>
+                    <div class="remark-content">
+                        <p>
+                            {{ remark.content }}
+                        </p>
+                    </div>
+                    <div class="remark-operate">
+                        <div class="pull-left remark-time">
+                            <i class="fa fa-clock-o"></i>&nbsp;{{ remark.create_time|date:"Y-m-d" }}
+                        </div>
+                         {% if remark.user != request.user %}
+                             <div class="pull-left remark-reply">
+                                 <span class="reply-icon">
+                                     <img src="{% static 'images/article/reply.png' %}" style="width:16px;height:16px;">
+                                 </span>
+                                 回复
+                             </div>
+                         {% endif %}
+                        {% if remark.user == request.user %}
+                             <div class="pull-left remark-delete">
+                                 <i class="fa fa-trash-o"></i>&nbsp;删除
+                             </div>
+                         {% endif %}
+{#                        {% if remark.user == request.user %}#}
+{#                            <span class="pull-right my-note">我的点评</span>#}
+{#                        {% endif %}#}
+                    </div>
+                </div>
+
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

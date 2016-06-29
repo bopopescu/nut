@@ -1,3 +1,4 @@
+import  random
 from django.views.generic import ListView
 from django.core.urlresolvers import reverse_lazy
 
@@ -54,11 +55,19 @@ class SellerStoreListView(ListView):
         # entities_recent = Entity.objects.active().filter(user__in=sellers_ids)[:10]
         return recent_articles
 
+    def get_recent_seller_entities(self):
+        return Entity.objects.random_seller_entities()
+
+
+
+
 
     def get_context_data(self, *args, **kwargs):
         context = super(SellerStoreListView, self).get_context_data(*args, **kwargs)
         context['banners'] = self.get_banners()
         context['recommends'] = self.get_recommends()
+
+        context['recent_entities'] = self.get_recent_seller_entities()
 
         context['shop_type_filters'] = Shop.SHOP_TYPE_CHOICES
         context['shop_style_filters'] = Shop.SHOP_STYLE_CHOICES
@@ -66,6 +75,6 @@ class SellerStoreListView(ListView):
         context['current_shop_style'] = self.get_current_shop_style()
         context['base_url'] = reverse_lazy('good_store')
 
-        context['recent_articles'] = self.get_recent_articles()
+        # context['recent_articles'] = self.get_recent_articles()
 
         return context

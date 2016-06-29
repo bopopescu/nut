@@ -14,9 +14,9 @@ IMAGE_HOST = 'http://imgcdn.guoku.com/'
 
 # LOCAL_IMG_DEBUG=True
 # IMAGE_HOST = 'http://127.0.0.1:9766/'
-# INTRANET_IMAGE_SERVER = 'http://images.hello.new/'
+# INTRANET_IMAGE_SERVER = 'http://nutimages.hello.new/'
 # MEDIA_ROOT='/media/upload/'
-# AVATAR_HOST = IMAGE_HOST
+# AVATAR_HOST = 'http://imgcdn.guoku.com/'
 
 
 IMG_COUNTER_HOST = 'http://127.0.0.1:9766'
@@ -27,15 +27,15 @@ IMG_COUNTER_HOST = 'http://127.0.0.1:9766'
 
 #for local solr search
 
-# HAYSTACK_CONNECTIONS = {
-#     'default': {
-#         # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-#         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-#         'URL': 'http://10.0.2.115:8983/solr/',
-#         'INCLUDE_SPELLING': True,
-#         # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
-#     }
-# }
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://10.0.2.115:8983/solr/',
+        'INCLUDE_SPELLING': True,
+        # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
+    }
+}
 # # HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 # HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
@@ -46,7 +46,8 @@ SESSION_CACHE_ALIAS = "default"
 # http://docs.celeryproject.org/en/2.5/getting-started/brokers/redis.html#broker-redis
 
 # CELERY #################################
-BROKER_URL = 'redis://localhost:6379/0'
+CELERY_ALWAYS_EAGER = True
+BROKER_URL = 'redis://localhost:6ev379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 #celery end  #############################
 import djcelery
@@ -95,6 +96,9 @@ Current_Dbhost = 'localhost'
 # Current_Dbhost = '10.0.1.110'
 # Current_Dbhost = '10.0.2.90'
 
+# DATABASES = PRODUCTION_DATABASES
+#
+#
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -104,7 +108,7 @@ DATABASES = {
         'HOST': Current_Dbhost,
         'PORT': '',
         'OPTIONS': {
-            'use_unicode':'utf-8',
+            'use_unicode':'utf8mb4',
             'init_command':'SET storage_engine=INNODB',
         }
     },
@@ -116,11 +120,12 @@ DATABASES = {
         'HOST': Current_Dbhost,
         'PORT': '',
         'OPTIONS': {
-            'use_unicode':'utf-8',
+            'use_unicode':'utf8mb4',
             'init_command':'SET storage_engine=INNODB',
         }
     },
 }
+
 
 # need this for popular category like back trace time
 #  the test server will have very little entity like data

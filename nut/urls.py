@@ -1,7 +1,10 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from apps.web.feeds import SelectionFeeds, ArticlesFeeds,ArticlesInterviewFeeds
+from apps.web.feeds import SelectionFeeds,\
+                            ArticlesFeeds,\
+                            ArticlesInterviewFeeds,\
+                            GKEditorSelectionFeed
 
 
 urlpatterns = staticfiles_urlpatterns()
@@ -20,7 +23,7 @@ urlpatterns = staticfiles_urlpatterns()
 
 handler500 = 'apps.web.views.page_error'
 handler404 = 'apps.web.views.webpage_not_found'
-handler403 = 'django.views.defaults.permission_denied'
+handler403 = 'apps.web.views.permission_denied'
 
 
 urlpatterns += patterns(
@@ -78,6 +81,7 @@ urlpatterns += patterns(
     url(r'^feed/selection/$', SelectionFeeds()),
     url(r'^feed/articles/$', ArticlesFeeds()),
     url(r'^feed/articles/interview/$', ArticlesInterviewFeeds()),
+    url(r'^feed/articles/editor/$', GKEditorSelectionFeed()),
 )
 
 if settings.DEBUG:
