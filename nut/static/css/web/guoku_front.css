@@ -2829,7 +2829,7 @@ body.new-index-body .category-list-wrapper .category-list .category-list-item a 
   color: #757575;
 }
 body.new-index-body .category-list-wrapper .category-list .category-list-item a:hover {
-  text-decoration: none;
+  color: #212121;
 }
 body.new-index-body #selection_article_list {
   margin-bottom: -25px;
