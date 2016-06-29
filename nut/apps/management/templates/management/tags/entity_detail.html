@@ -27,6 +27,7 @@
                                     <thead>
                                         <tr>
                                             <th>{% trans '链接' %}</th>
+                                            <th style="width:300px">{% trans '点评' %}</th>
                                             <th style="width:300px">{% trans 'entity' %} <span class="info"></span></th>
                                         </tr>
                                     </thead>
@@ -36,6 +37,11 @@
                                                 <td>
 {#                                                    <a href="{% url 'web_entity_detail' obj.target.entity.entity_hash %}" target="_blank">#}
                                                         {{ obj.target.entity.default_buy_link.link }}
+{#                                                    </a>#}
+                                                </td>
+                                                <td>
+{#                                                    <a href="{% url 'web_entity_detail' obj.target.entity.entity_hash %}" target="_blank">#}
+                                                        {{ obj.target.entity.top_note}}
 {#                                                    </a>#}
                                                 </td>
 
