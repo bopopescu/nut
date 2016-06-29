@@ -72,7 +72,7 @@
         </div>
     </div>
     <div class="row latest-entity-wrapper">
-          {% for sle in selection_entities %}
+          {% for sle in selection_entity %}
                     <a href="{{ sle.entity.absolute_url }}" target="_blank" class="hover-light">
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2 guoku-middle-col">
                         <div class="guoku-bg-image-wrapper" style="background-image:url('{{ sle.entity.chief_image|resize:'180' }}')">
