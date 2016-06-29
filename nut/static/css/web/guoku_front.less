@@ -126,7 +126,40 @@ body.new-index-body{
     margin-bottom:-18px;
   }
 }
-#index-banners,.new-banner-wrapper{
+#index-banners{
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1170px;
+  .slick-list{
+    overflow: hidden!important;
+    .slick-slide{
+      &:active,&:focus,&:hover{
+        border: none!important;
+        box-shadow: none!important;
+        outline: none;
+      }
+    }
+  }
+  .banner-image-cell{
+    padding: 0 10px;
+    max-height:420px;
+    &.banner-image-cell-control{
+      display: inline-block;
+      padding:0 2px;
+      position:relative;
+    }
+    .banner-image-wrapper{
+      position:relative;
+      height: 0;
+      width: 100%;
+      padding-bottom: 45.91%;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+  }
+}
+.new-banner-wrapper{
   width: 100%;
   margin: 0 auto;
   max-width: 1170px;

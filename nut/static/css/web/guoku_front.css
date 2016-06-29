@@ -2844,38 +2844,63 @@ body.new-index-body #selection_article_list {
 body.new-index-body .latest-entity-wrapper {
   margin-bottom: -18px;
 }
-#index-banners,
+#index-banners {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1170px;
+}
+#index-banners .slick-list {
+  overflow: hidden!important;
+}
+#index-banners .slick-list .slick-slide:active,
+#index-banners .slick-list .slick-slide:focus,
+#index-banners .slick-list .slick-slide:hover {
+  border: none!important;
+  box-shadow: none!important;
+  outline: none;
+}
+#index-banners .banner-image-cell {
+  padding: 0 10px;
+  max-height: 420px;
+}
+#index-banners .banner-image-cell.banner-image-cell-control {
+  display: inline-block;
+  padding: 0 2px;
+  position: relative;
+}
+#index-banners .banner-image-cell .banner-image-wrapper {
+  position: relative;
+  height: 0;
+  width: 100%;
+  padding-bottom: 45.91%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
 .new-banner-wrapper {
   width: 100%;
   margin: 0 auto;
   max-width: 1170px;
 }
-#index-banners .slick-list,
 .new-banner-wrapper .slick-list {
   overflow: hidden!important;
 }
-#index-banners .slick-list .slick-slide:active,
 .new-banner-wrapper .slick-list .slick-slide:active,
-#index-banners .slick-list .slick-slide:focus,
 .new-banner-wrapper .slick-list .slick-slide:focus,
-#index-banners .slick-list .slick-slide:hover,
 .new-banner-wrapper .slick-list .slick-slide:hover {
   border: none!important;
   box-shadow: none!important;
   outline: none;
 }
-#index-banners .banner-image-cell,
 .new-banner-wrapper .banner-image-cell {
   padding: 0 10px;
   max-height: 420px;
 }
-#index-banners .banner-image-cell.banner-image-cell-control,
 .new-banner-wrapper .banner-image-cell.banner-image-cell-control {
   display: inline-block;
   padding: 0 2px;
   position: relative;
 }
-#index-banners .banner-image-cell .banner-image-wrapper,
 .new-banner-wrapper .banner-image-cell .banner-image-wrapper {
   position: relative;
   height: 0;
@@ -5105,6 +5130,13 @@ body.new-index-body .latest-entity-wrapper {
   }
 }
 @media (max-width: 767px) {
+  body.new-index-body {
+    padding-top: 51px;
+  }
+  body.new-index-body .new-banner-wrapper {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
   .round-link {
     display: none!important;
   }
