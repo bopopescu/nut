@@ -28,7 +28,7 @@
 
 <div class="guoku-content index-page new-index-page container">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12 new-banner-container">
             <div class="banner-wrapper new-banner-wrapper" id="index-banners">
                 {% for banner in banners %}
                     <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}">
@@ -165,7 +165,7 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12 new-banner-container">
             <div class="banner-wrapper new-banner-wrapper" id="middle-page-banner">
                 {% for banner in middle_banners %}
                     <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}">
