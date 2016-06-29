@@ -2854,6 +2854,9 @@ body.new-index-body .recommend-user-wrapper {
   background-position: center center;
   background-repeat: no-repeat;
 }
+#middle-page-banner .banner-image-cell .banner-image-wrapper {
+  padding-bottom: 55.56%;
+}
 .new-banner-wrapper .article-intro-wrapper {
   position: absolute;
   left: 0;
@@ -2867,6 +2870,31 @@ body.new-index-body .recommend-user-wrapper {
   background: -moz-linear-gradient(top, transparent, rgba(255, 0, 0, 0.5));
   background: -ms-linear-gradient(top, transparent, rgba(255, 0, 0, 0.5));
   background: -o-linear-gradient(top, transparent, rgba(255, 0, 0, 0.5));
+}
+.new-banner-wrapper .article-intro-wrapper .article-title-wrapper {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  padding: 32px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.new-banner-wrapper .article-intro-wrapper .article-title-wrapper .article-desc {
+  font-size: 12px;
+  color: #ffffff;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.new-banner-wrapper .article-intro-wrapper .article-title-wrapper a.article-title {
+  font-size: 24px;
+  color: #ffffff;
+}
+.new-banner-wrapper .article-intro-wrapper .article-title-wrapper a:hover {
+  cursor: pointer;
+  text-decoration: none;
 }
 #guoku_main_nav {
   backface-visibility: hidden;

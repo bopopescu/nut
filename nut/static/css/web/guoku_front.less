@@ -157,6 +157,14 @@ body.new-index-body{
     }
   }
 }
+#middle-page-banner{
+  .banner-image-cell{
+    .banner-image-wrapper{
+      padding-bottom:55.56%;
+    }
+  }
+
+}
 .new-banner-wrapper{
   .article-intro-wrapper{
     position:absolute;
@@ -166,6 +174,33 @@ body.new-index-body{
     height:50%;
     background-color:rgba(255,0,0,0.5);
     .gradient(transparent,rgba(255,0,0,0.5));
+    .article-title-wrapper{
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:100%;
+      height:auto;
+      padding:32px;
+      margin-left:5px;
+      margin-right:5px;
+      .article-desc{
+        font-size: @more-mini-size;
+        color:#ffffff;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      a{
+        &.article-title{
+           font-size:@big-title-size;
+           color: #ffffff;
+        }
+        &:hover{
+          cursor: pointer;
+          text-decoration: none;
+        }
+      }
+    }
   }
 }
 
