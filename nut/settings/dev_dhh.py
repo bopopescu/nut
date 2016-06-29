@@ -9,14 +9,14 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 CELERY_ALWAYS_EAGER = False
 CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
 #
-# IMAGE_HOST = 'http://imgcdn.guoku.com/'
+IMAGE_HOST = 'http://imgcdn.guoku.com/'
 #
 
-LOCAL_IMG_DEBUG=True
-IMAGE_HOST = 'http://127.0.0.1:9766/'
-INTRANET_IMAGE_SERVER = 'http://nutimages.hello.new/'
-MEDIA_ROOT='/media/upload/'
-AVATAR_HOST = 'http://imgcdn.guoku.com/'
+# LOCAL_IMG_DEBUG=True
+# IMAGE_HOST = 'http://127.0.0.1:9766/'
+# INTRANET_IMAGE_SERVER = 'http://nutimages.hello.new/'
+# MEDIA_ROOT='/media/upload/'
+# AVATAR_HOST = 'http://imgcdn.guoku.com/'
 
 
 IMG_COUNTER_HOST = 'http://127.0.0.1:9766'
@@ -96,7 +96,6 @@ Current_Dbhost = 'localhost'
 # Current_Dbhost = '10.0.1.110'
 # Current_Dbhost = '10.0.2.90'
 
-# DATABASES = PRODUCTION_DATABASES
 #
 #
 DATABASES = {
