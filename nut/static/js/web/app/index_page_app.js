@@ -5,7 +5,8 @@ require([
         'subapp/index/banner',
          'subapp/discover/category_slick',
         'subapp/discover/recommend_user_slick',
-        'subapp/entitylike'
+        'subapp/entitylike',
+        'subapp/gotop'
 
     ],
 
@@ -15,7 +16,8 @@ require([
               Banner,
               CategorySlick,
               RecommendUserSlick,
-              AppEntityLike
+              AppEntityLike,
+              GoTop
               ) {
 // TODO : check if csrf work --
 // TODO : make sure bind is usable
@@ -24,4 +26,5 @@ require([
         var category_slick = new CategorySlick();
         var recommend_user_slick = new RecommendUserSlick();
         var app_like = new  AppEntityLike();
+        var goto = new GoTop();
     });
