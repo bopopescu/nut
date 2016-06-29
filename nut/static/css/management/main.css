@@ -1196,6 +1196,13 @@ p.boolean-false {
 .gk-slide-current .article-intro-wrapper {
   bottom: 0;
 }
+a.new-blue-link {
+  color: #5976c1;
+  text-decoration: none;
+}
+a.new-blue-link:hover {
+  color: #4057A7;
+}
 @-moz-document url-prefix() {
   fieldset {
     display: table-cell;

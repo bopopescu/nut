@@ -1131,6 +1131,13 @@ p.boolean-false {
 .gk-slide-current .article-intro-wrapper {
   bottom: 0;
 }
+a.new-blue-link {
+  color: #5976c1;
+  text-decoration: none;
+}
+a.new-blue-link:hover {
+  color: #4057A7;
+}
 @media (max-width: 768px) {
   #category-container #category-item-container .slick-prev:before,
   .new-index-body #index-banners .slick-prev:before,
