@@ -419,9 +419,20 @@
                     <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}">
                         <a href="{{ banner.link }}" target="_blank">
                             <div class="banner-image-wrapper" style="background-image: url('{{ banner.img }}')">
-                                 <div class="banner-image-cell-scrim">
+                                <div class="banner-image-cell-scrim">
 
-                                 </div>
+                                </div>
+                            </div>
+                            <div class="article-intro-wrapper">
+                                <div class="article-title-wrapper">
+                                    <a class="article-title" href="{{ banner.link }}" target="_blank">
+                                        {{ banner.banner_title }}
+                                    </a>
+                                    <div class="article-desc">
+                                        {{ banner.banner_desc }}
+                                    </div>
+                                </div>
+
                             </div>
                         </a>
                     </div>
