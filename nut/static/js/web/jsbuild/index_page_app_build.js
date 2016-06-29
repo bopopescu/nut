@@ -4238,13 +4238,13 @@ define('subapp/topmenu',['bootstrap',
 define('subapp/index/banner',['jquery', 'libs/Class','libs/slick','fastdom'], function(
     $, Class, slick , fastdom
 ){
-            var StoreBanner= Class.extend({
+            var IndexBanner= Class.extend({
                 init: function () {
                     this.init_slick();
                     console.log('subapp index banner  start !');
                 },
                 init_slick:function(){
-                    $('#index-banners,#middle-page-banner').slick({
+                    $('#index-banners').slick({
                         centerMode: true,
                         arrows: true,
                         slidesToShow: 1,
@@ -4280,14 +4280,72 @@ define('subapp/index/banner',['jquery', 'libs/Class','libs/slick','fastdom'], fu
                 },
 
                 doRenderSlide:function(){
-                        $('.banner-image-cell').removeClass('gk-slide-current');
-                        var selector = '.gk-slide-'+  this.nextSlide ;
+                        $('#index-banners .banner-image-cell').removeClass('gk-slide-current');
+                        var selector = '#index-banners .gk-slide-'+  this.nextSlide ;
                         $(selector).addClass('gk-slide-current');
                         console.log('done');
                 }
 
             });
-    return StoreBanner;
+    return IndexBanner;
+});
+
+
+
+
+
+define('subapp/index/middle_page_banner',['jquery', 'libs/Class','libs/slick','fastdom'], function(
+    $, Class, slick , fastdom
+){
+            var MiddlePageBanner= Class.extend({
+                init: function () {
+                    this.init_slick();
+                },
+                init_slick:function(){
+                    $('#middle-page-banner').slick({
+                        centerMode: true,
+                        arrows: true,
+                        slidesToShow: 1,
+                        centerPadding:'18%',
+                        dots:false,
+                        autoplay: true,
+                        autoplaySpeed: 3000,
+
+                        //centerPadding: '60px',
+                        //slidesToShow: 3,
+                        responsive: [
+                            {
+                                breakpoint: 768,
+                                settings: {
+                                    centerMode:false,
+                                    slidesToShow:1,
+                                    slidesToScroll:1,
+                                    infinite: true
+                                }
+                            }
+                        ]
+                    }).on('beforeChange', this.beforeSlide.bind(this));
+                },
+
+                beforeSlide: function(event,slick,currentSlide,nextSlide){
+                            console.log('before change,currentSlide:');
+                            console.log(currentSlide);
+                            console.log('before change,nextSlide:');
+                            console.log(nextSlide);
+                            this.nextSlide = nextSlide;
+                            fastdom.write(this.doRenderSlide.bind(this));
+
+                },
+
+                doRenderSlide:function(){
+                        $('#middle-page-banner .banner-image-cell').removeClass('gk-slide-current');
+                        var selector = '#middle-page-banner .gk-slide-'+  this.nextSlide ;
+                        $(selector).addClass('gk-slide-current');
+                        console.log('done');
+                }
+
+            });
+    return MiddlePageBanner;
 });
 
 
@@ -4572,6 +4630,7 @@ require([
         'jquery',
         'subapp/topmenu',
         'subapp/index/banner',
+        'subapp/index/middle_page_banner',
          'subapp/discover/category_slick',
         'subapp/discover/recommend_user_slick',
         'subapp/entitylike',
@@ -4583,6 +4642,7 @@ require([
               jQuery,
               Menu,
               Banner,
+              MiddlePageBanner,
               CategorySlick,
               RecommendUserSlick,
               AppEntityLike,
@@ -4592,6 +4652,7 @@ require([
 // TODO : make sure bind is usable
         var menu = new Menu();
         var banner = new Banner();
+        var middle_page_banner = new MiddlePageBanner();
         var category_slick = new CategorySlick();
         var recommend_user_slick = new RecommendUserSlick();
         var app_like = new  AppEntityLike();

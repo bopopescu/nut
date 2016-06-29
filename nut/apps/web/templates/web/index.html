@@ -33,10 +33,13 @@
         <div class="col-sm-12">
             <div class="banner-wrapper new-banner-wrapper" id="index-banners">
                 {% for banner in banners %}
-                    <div class="banner-image-cell banner-image-cell-control">
-                        <div class="banner-image-wrapper" style="background-image: url('{{ banner.img }}')">
-                            {#              <img class="img-responsive" src="{{ banner.img }}"/>#}
-                        </div>
+                    <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}">
+                        <a href="{{ banner.link }}" target="_blank">
+                            <div class="banner-image-wrapper" style="background-image: url('{{ banner.img }}')">
+                                 <div class="banner-image-cell-scrim">
+                                 </div>
+                            </div>
+                        </a>
                     </div>
                 {% endfor %}
             </div>
@@ -413,10 +416,14 @@
         <div class="col-sm-12">
             <div class="banner-wrapper new-banner-wrapper" id="middle-page-banner">
                 {% for banner in banners %}
-                    <div class="banner-image-cell banner-image-cell-control">
-                        <div class="banner-image-wrapper" style="background-image: url('{{ banner.img }}')">
-                            {#              <img class="img-responsive" src="{{ banner.img }}"/>#}
-                        </div>
+                    <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}">
+                        <a href="{{ banner.link }}" target="_blank">
+                            <div class="banner-image-wrapper" style="background-image: url('{{ banner.img }}')">
+                                 <div class="banner-image-cell-scrim">
+
+                                 </div>
+                            </div>
+                        </a>
                     </div>
                 {% endfor %}
             </div>
