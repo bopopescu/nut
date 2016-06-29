@@ -70,7 +70,61 @@ body > .container{
 body.compact-body{
   padding-top:51px;
 }
-#index-banners{
+body.new-index-body{
+  padding-top:91px;
+  .slick-slider{
+      margin-bottom:0;
+  }
+  .new-banner-wrapper{
+    .slick-prev{
+      left:12%;
+    }
+    .slick-next{
+      right:12%;
+    }
+  }
+  .guoku-content.new-index-page{
+    margin-top:0px;
+  }
+  #index-banners,#middle-page-banner{
+    .banner-image-cell{
+      max-height:360px;
+    }
+  }
+  .new-section-title-wrapper{
+    margin-top:40px;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+  .category-list-wrapper{
+    margin-top:16px;
+    margin-bottom: 16px;
+    .category-list{
+      margin-bottom: 0;
+      overflow:hidden;
+      width:100%;
+      height:20px;
+      line-height: 1.4;
+      .category-list-item{
+      float: left;
+      margin-right:28px;
+      font-size:@smaller-primary;
+      color:@new-text-gray;
+    }
+
+    }
+  }
+  #selection_article_list{
+    margin-bottom: -25px;
+  }
+  .latest-entity-wrapper{
+    margin-bottom:-18px;
+  }
+  .recommend-user-wrapper{
+    margin-bottom: -30px;
+  }
+}
+#index-banners,.new-banner-wrapper{
   width: 100%;
   margin: 0 auto;
   max-width: 1170px;
@@ -89,23 +143,20 @@ body.compact-body{
     max-height:420px;
     &.banner-image-cell-control{
       display: inline-block;
-      padding:0 5px;
+      padding:0 2px;
       position:relative;
-      //border-top-left-radius: 4px;
-      //border-top-right-radius: 4px;
-      //overflow: hidden;
     }
     .banner-image-wrapper{
       height: 0;
       width: 100%;
-      padding-bottom: 55.56%;
+      padding-bottom: 45.91%;
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
     }
   }
-
 }
+
 
 #guoku_main_nav{
   .acc-layer;

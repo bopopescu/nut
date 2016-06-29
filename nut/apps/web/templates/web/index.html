@@ -21,118 +21,559 @@
    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick-theme.css' %}"/>
  {% endblock %}
 {#set body class here to disable body padding-top#}
-{% block body_class %} gray-body compact-body {% endblock %}
+{% block body_class %} compact-body new-index-body{% endblock %}
 
 
 {% block content %}
 
 
-<div class="banner-wrapper" id="index-banners">
-    {% for banner in banners %}
-    <div class="banner-image-cell">
-          <div class="banner-image-wrapper" style="background-image: url('{{ banner.img }}')">
-{#              <img class="img-responsive" src="{{ banner.img }}"/>#}
-          </div>
-    </div>
-    {% endfor %}
-</div>
-<div class="guoku-content index-page container">
 
+<div class="guoku-content index-page new-index-page container">
     <div class="row">
-        <div class="container-fluid content-panel">
-            <div class="row panel-header">
-                <div class="panel-name">
-                    {% trans 'Trending Entities' %}
-                </div>
-                <div class="more-link">
-                    <a href="{% url 'web_selection' %}">{% trans 'more' %}<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
-                </div>
+        <div class="col-sm-12">
+            <div class="banner-wrapper new-banner-wrapper" id="index-banners">
+                {% for banner in banners %}
+                    <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}">
+                        <a href="{{ banner.link }}" target="_blank">
+                            <div class="banner-image-wrapper" style="background-image: url('{{ banner.img }}')">
+                                 <div class="banner-image-cell-scrim">
+                                 </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
             </div>
-            <div class="row panel-content-wrapper">
-                {% for sle in selection_entities %}
-                    <a href="{{ sle.entity.absolute_url  }}" class="hover-light">
-                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2 cell entity-cell cell">
-                        <div class="guoku-bg-image-wrapper" style="background-image:url('{{ sle.entity.chief_image|resize:'310' }}')">
+        </div>
+    </div>
+    <div class="row new-section-title-wrapper">
+        <div class="col-sm-12">
+            <div class="section-title">
+                最新精选
+                   <span class="pull-right">
+                       <a href="" target="_blank">
+                           查看更多&nbsp;
+                           <i class="fa fa-caret-right"></i>
+                       </a>
+                   </span>
+            </div>
+        </div>
 
+    </div>
+    <div class="row category-list-wrapper">
+        <div class="col-sm-12">
+            <ul class="category-list">
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        居家
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        男装
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        女装
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        科技
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        玩乐
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        母婴
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        美容
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        户外
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        文化
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        保健
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        厨具
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        美食
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row latest-entity-wrapper">
+          {% for sle in selection_entities %}
+                    <a href="{{ sle.entity.absolute_url }}" target="_blank" class="hover-light">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2 guoku-middle-col">
+                        <div class="guoku-bg-image-wrapper" style="background-image:url('{{ sle.entity.chief_image|resize:'180' }}')">
                         </div>
                     </div>
                     </a>
                 {% endfor %}
-            </div>
+      </div>
+    <div class="row new-section-title-wrapper">
+          <div class="col-sm-12">
+              <div class="section-title">
+                  最新图文
+                   <span class="pull-right">
+                       <a href="" target="_blank">
+                           查看更多&nbsp;
+                           <i class="fa fa-caret-right"></i>
+                       </a>
+                   </span>
+              </div>
+          </div>
+      </div>
+    <div class="row category-list-wrapper">
+        <div class="col-sm-12">
+            <ul class="category-list">
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        专访
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        设计
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        文具
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        护肤
+                    </a>
+                </li>
+                <li class="category-list-item">
+                    <a href="" target="_blank">
+                        饮食
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
-
-    <div class="row">
-        <div class="container-fluid content-panel">
-            <div class="row panel-header">
-                <div class="panel-name">
-                    {% trans 'Trending Article' %}
-                </div>
-                 <div class="more-link">
-                    <a href="{% url 'web_selection_articles' %}">{% trans 'more' %}<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
+    <div class="row" id="selection_article_list">
+        {% for sla in selection_articles %}
+            {% with sla.article as article %}
+                {% include 'web/article/partial/article_item_new.html' %}
+            {% endwith %}
+        {% endfor %}
+    </div>
+    <div class="row new-section-title-wrapper">
+            <div class="col-sm-12">
+                <div class="section-title">
+                    推荐品类
                 </div>
             </div>
-            <div class="row panel-content-wrapper">
-                {% for sla in selection_articles %}
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 cell article-cell cell">
-                        <div class="article-intro">
-                            <div class="article-title">
-                                 <a href="{{ sla.article.url }}">{{ sla.article.title }}</a>
-                            </div>
-                            <div class="article-digest">
-                                 {{ sla.article.digest|striptags|truncatechars:60 }}<a href="sla.article.url">阅读全文</a>
-                            </div>
-
-                        </div>
-                        <div class="article-cover">
-                            <a href="{{ sla.article.url }}" >
-                            <div class="guoku-bg-image-wrapper hover-light" style="background-image:url('{{ sla.article.cover_url|resize:'450' }}')">
-
-                            </div>
+    </div>
+    <div class="row dark-section-wrapper" id="category-container">
+            <div class="col-sm-12">
+                <ul id="category-item-container">
+{#                    {% for category in categories %}#}
+{#                        <li class="category-item dark-section-item">#}
+{#                            <a href="{% url 'web_category_group' category.id %}" target="_blank">#}
+{#                                <div class="section-panel">#}
+{#                                    <div class="category-item-pic" style="background-image: url('{{ category.cover_url|resize:'200' }}')">#}
+{#                                    </div>#}
+{#                                    <div class="section-name category-name">#}
+{#                                        <p>{{ category.title_cn }}</p>#}
+{#                                        <span>{{ category.title_en }}</span>#}
+{#                                    </div>#}
+{#                                    <div class="bg-layer"></div>#}
+{#                                </div>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    {% endfor %}#}
+                       <li class="category-item dark-section-item">
+                            <a href="" target="_blank">
+                                <div class="section-panel">
+                                    <div class="category-item-pic" style="background-image: url(http://imgcdn.guoku.com/images/200/94387fa12219740820551df0468f6353.jpeg)">
+                                    </div>
+                                    <div class="section-name category-name">
+                                        <p>户外</p>
+                                        <span>OUTDOORS</span>
+                                    </div>
+                                    <div class="bg-layer"></div>
+                                </div>
                             </a>
-                        </div>
-                    </div>
-                {% endfor %}
+                        </li>
+                     <li class="category-item dark-section-item">
+                            <a href="" target="_blank">
+                                <div class="section-panel">
+                                    <div class="category-item-pic" style="background-image: url(http://imgcdn.guoku.com/images/200/94387fa12219740820551df0468f6353.jpeg)">
+                                    </div>
+                                    <div class="section-name category-name">
+                                        <p>户外</p>
+                                        <span>OUTDOORS</span>
+                                    </div>
+                                    <div class="bg-layer"></div>
+                                </div>
+                            </a>
+                        </li>
+                     <li class="category-item dark-section-item">
+                            <a href="" target="_blank">
+                                <div class="section-panel">
+                                    <div class="category-item-pic" style="background-image: url(http://imgcdn.guoku.com/images/200/94387fa12219740820551df0468f6353.jpeg)">
+                                    </div>
+                                    <div class="section-name category-name">
+                                        <p>户外</p>
+                                        <span>OUTDOORS</span>
+                                    </div>
+                                    <div class="bg-layer"></div>
+                                </div>
+                            </a>
+                        </li>
+                     <li class="category-item dark-section-item">
+                            <a href="" target="_blank">
+                                <div class="section-panel">
+                                    <div class="category-item-pic" style="background-image: url(http://imgcdn.guoku.com/images/200/94387fa12219740820551df0468f6353.jpeg)">
+                                    </div>
+                                    <div class="section-name category-name">
+                                        <p>户外</p>
+                                        <span>OUTDOORS</span>
+                                    </div>
+                                    <div class="bg-layer"></div>
+                                </div>
+                            </a>
+                        </li>
+                     <li class="category-item dark-section-item">
+                            <a href="" target="_blank">
+                                <div class="section-panel">
+                                    <div class="category-item-pic" style="background-image: url(http://imgcdn.guoku.com/images/200/94387fa12219740820551df0468f6353.jpeg)">
+                                    </div>
+                                    <div class="section-name category-name">
+                                        <p>户外</p>
+                                        <span>OUTDOORS</span>
+                                    </div>
+                                    <div class="bg-layer"></div>
+                                </div>
+                            </a>
+                        </li>
+                     <li class="category-item dark-section-item">
+                            <a href="" target="_blank">
+                                <div class="section-panel">
+                                    <div class="category-item-pic" style="background-image: url(http://imgcdn.guoku.com/images/200/94387fa12219740820551df0468f6353.jpeg)">
+                                    </div>
+                                    <div class="section-name category-name">
+                                        <p>户外</p>
+                                        <span>OUTDOORS</span>
+                                    </div>
+                                    <div class="bg-layer"></div>
+                                </div>
+                            </a>
+                        </li>
+                     <li class="category-item dark-section-item">
+                            <a href="" target="_blank">
+                                <div class="section-panel">
+                                    <div class="category-item-pic" style="background-image: url(http://imgcdn.guoku.com/images/200/94387fa12219740820551df0468f6353.jpeg)">
+                                    </div>
+                                    <div class="section-name category-name">
+                                        <p>户外</p>
+                                        <span>OUTDOORS</span>
+                                    </div>
+                                    <div class="bg-layer"></div>
+                                </div>
+                            </a>
+                        </li>
+                     <li class="category-item dark-section-item">
+                            <a href="" target="_blank">
+                                <div class="section-panel">
+                                    <div class="category-item-pic" style="background-image: url(http://imgcdn.guoku.com/images/200/94387fa12219740820551df0468f6353.jpeg)">
+                                    </div>
+                                    <div class="section-name category-name">
+                                        <p>户外</p>
+                                        <span>OUTDOORS</span>
+                                    </div>
+                                    <div class="bg-layer"></div>
+                                </div>
+                            </a>
+                        </li>
+                </ul>
             </div>
         </div>
+    <div class="row new-section-title-wrapper">
+            <div class="col-sm-12">
+                <div class="section-title">
+                    推荐用户
+                </div>
+            </div>
+    </div>
+    <div class="row recommend-user-wrapper">
+        <div class="col-sm-12">
+                <ul class="user-icon-list recommend-user-list">
+{#                    {% for user in recommended_user %}#}
+{#                        <li>#}
+{#                            <a href="{{ user.absolute_url }}" target="_blank">#}
+{#                                <img class="img-responsive img-frame" style="background-image: url({{ user.avatar_url|resize:'128' }})" />#}
+{#                                <span class="user-name">{{ user.nickname }}</span>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    {% endfor %}#}
+                    <li>
+                        <a href="" target="_blank">
+                            <img class="img-responsive img-frame" style="background-image: url(http://imgcdn.guoku.com/avatar/128/c467029814e64c8fdbc44df937590482.jpg)" />
+                            <span class="user-name">玛黑家居生活志</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <img class="img-responsive img-frame" style="background-image: url(http://imgcdn.guoku.com/avatar/128/c467029814e64c8fdbc44df937590482.jpg)" />
+                            <span class="user-name">玛黑家居生活志</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <img class="img-responsive img-frame" style="background-image: url(http://imgcdn.guoku.com/avatar/128/c467029814e64c8fdbc44df937590482.jpg)" />
+                            <span class="user-name">玛黑家居生活志</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <img class="img-responsive img-frame" style="background-image: url(http://imgcdn.guoku.com/avatar/128/c467029814e64c8fdbc44df937590482.jpg)" />
+                            <span class="user-name">玛黑家居生活志</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <img class="img-responsive img-frame" style="background-image: url(http://imgcdn.guoku.com/avatar/128/c467029814e64c8fdbc44df937590482.jpg)" />
+                            <span class="user-name">玛黑家居生活志</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <img class="img-responsive img-frame" style="background-image: url(http://imgcdn.guoku.com/avatar/128/c467029814e64c8fdbc44df937590482.jpg)" />
+                            <span class="user-name">玛黑家居生活志</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <img class="img-responsive img-frame" style="background-image: url(http://imgcdn.guoku.com/avatar/128/c467029814e64c8fdbc44df937590482.jpg)" />
+                            <span class="user-name">玛黑家居生活志</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <img class="img-responsive img-frame" style="background-image: url(http://imgcdn.guoku.com/avatar/128/c467029814e64c8fdbc44df937590482.jpg)" />
+                            <span class="user-name">玛黑家居生活志</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <img class="img-responsive img-frame" style="background-image: url(http://imgcdn.guoku.com/avatar/128/c467029814e64c8fdbc44df937590482.jpg)" />
+                            <span class="user-name">玛黑家居生活志</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <img class="img-responsive img-frame" style="background-image: url(http://imgcdn.guoku.com/avatar/128/c467029814e64c8fdbc44df937590482.jpg)" />
+                            <span class="user-name">玛黑家居生活志</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <img class="img-responsive img-frame" style="background-image: url(http://imgcdn.guoku.com/avatar/128/c467029814e64c8fdbc44df937590482.jpg)" />
+                            <span class="user-name">玛黑家居生活志</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <img class="img-responsive img-frame" style="background-image: url(http://imgcdn.guoku.com/avatar/128/c467029814e64c8fdbc44df937590482.jpg)" />
+                            <span class="user-name">玛黑家居生活志</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
     </div>
 
     <div class="row">
-        <div class="container-fluid content-panel">
-            <div class="row panel-header">
-                <div class="panel-name">
-                    {% trans 'Trending Sub Category' %}
-                </div>
-                 <div class="more-link">
-                    <a>{% trans 'more' %}<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>
-                </div>
-            </div>
-            <div class="row panel-content-wrapper">
-                {% for cate in categories  %}
-                    <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 cell category-cell  {% if forloop.counter > 11 %}late-category{% endif %} hover-light">
-                        <a href="{% url 'web_category_detail' cate.id %}">
-                        <div class="cate-wrapper">
-                            <img  class="img-responsive cate-icon" src="{{ cate.icon_large_url }}">
-                            <div class="category-title">
-                                {{ cate.title }}
+        <div class="col-sm-12">
+            <div class="banner-wrapper new-banner-wrapper" id="middle-page-banner">
+                {% for banner in banners %}
+                    <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}">
+                        <a href="{{ banner.link }}" target="_blank">
+                            <div class="banner-image-wrapper" style="background-image: url('{{ banner.img }}')">
+                                 <div class="banner-image-cell-scrim">
+
+                                 </div>
                             </div>
-                        </div>
                         </a>
                     </div>
                 {% endfor %}
-                     <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 cell category-cell hover-light">
-                         <a href="{% url 'web_category_list' %}" >
-                         <div class="cate-wrapper">
-                             <img  class="img-responsive cate-icon" src="{% static 'images/more.png' %}">
-                            <div class="category-title">
-                               查看全部
-                            </div>
-                         </div>
-                         </a>
-                     </div>
             </div>
         </div>
     </div>
+
+    <div class="row new-section-title-wrapper">
+        <div class="col-sm-12">
+            <div class="section-title">
+                热门商品
+            </div>
+        </div>
+    </div>
+    <div class="row " id="hot-entity-list">
+            {% for entity in hot_entities %}
+                {% include 'web/main/partial/entity.html' with entity=entity%}
+            {% endfor %}
+    </div>
+     <div class="row hidden-xs">
+            <div class="col-sm-offset-12">
+                <div class="gotop-wrapper">
+                    <ul>
+                        <li>
+                            <a class="new-btn-top" href="javascript:;"  title="回到顶部" target="_self">
+                                <i class="fa fa-angle-up fa-lg"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="gk-download">
+                                <i class="fa fa-download"></i>
+                                <div class="qrcode-wrapper download-qrcode-wrapper display-toggle">
+                                    <img src="{%  static 'images/article/DL_guoku.jpg' %}" class="qrcode-img">
+                                    <div class="qr-text">下载应用</div>
+                                    <span class="bottom-bot"></span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="gk-wechat-share">
+                                <i class="fa fa-wechat"></i>
+                                <div class="qrcode-wrapper wechat-qrcode-wrapper display-toggle">
+                                    <img src="{%  static 'images/footer/QR-code.jpg' %}" class="qrcode-img">
+                                    <div class="qr-text">微信公众平台</div>
+                                    <span class="bottom-bot"></span>
+                                </div>
+                            </a>
+
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+
+{#    <div class="row">#}
+{#        <div class="container-fluid content-panel">#}
+{#            <div class="row panel-header">#}
+{#                <div class="panel-name">#}
+{#                    {% trans 'Trending Entities' %}#}
+{#                </div>#}
+{#                <div class="more-link">#}
+{#                    <a href="{% url 'web_selection' %}">{% trans 'more' %}<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="row panel-content-wrapper">#}
+{#                {% for sle in selection_entities %}#}
+{#                    <a href="{{ sle.entity.absolute_url  }}" class="hover-light">#}
+{#                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2 cell entity-cell cell">#}
+{#                        <div class="guoku-bg-image-wrapper" style="background-image:url('{{ sle.entity.chief_image|resize:'310' }}')">#}
+{##}
+{#                        </div>#}
+{#                    </div>#}
+{#                    </a>#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <div class="row">#}
+{#        <div class="container-fluid content-panel">#}
+{#            <div class="row panel-header">#}
+{#                <div class="panel-name">#}
+{#                    {% trans 'Trending Article' %}#}
+{#                </div>#}
+{#                 <div class="more-link">#}
+{#                    <a href="{% url 'web_selection_articles' %}">{% trans 'more' %}<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="row panel-content-wrapper">#}
+{#                {% for sla in selection_articles %}#}
+{#                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 cell article-cell cell">#}
+{#                        <div class="article-intro">#}
+{#                            <div class="article-title">#}
+{#                                 <a href="{{ sla.article.url }}">{{ sla.article.title }}</a>#}
+{#                            </div>#}
+{#                            <div class="article-digest">#}
+{#                                 {{ sla.article.digest|striptags|truncatechars:60 }}<a href="sla.article.url">阅读全文</a>#}
+{#                            </div>#}
+{##}
+{#                        </div>#}
+{#                        <div class="article-cover">#}
+{#                            <a href="{{ sla.article.url }}" >#}
+{#                            <div class="guoku-bg-image-wrapper hover-light" style="background-image:url('{{ sla.article.cover_url|resize:'450' }}')">#}
+{##}
+{#                            </div>#}
+{#                            </a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <div class="row">#}
+{#        <div class="container-fluid content-panel">#}
+{#            <div class="row panel-header">#}
+{#                <div class="panel-name">#}
+{#                    {% trans 'Trending Sub Category' %}#}
+{#                </div>#}
+{#                 <div class="more-link">#}
+{#                    <a>{% trans 'more' %}<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="row panel-content-wrapper">#}
+{#                {% for cate in categories  %}#}
+{#                    <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 cell category-cell  {% if forloop.counter > 11 %}late-category{% endif %} hover-light">#}
+{#                        <a href="{% url 'web_category_detail' cate.id %}">#}
+{#                        <div class="cate-wrapper">#}
+{#                            <img  class="img-responsive cate-icon" src="{{ cate.icon_large_url }}">#}
+{#                            <div class="category-title">#}
+{#                                {{ cate.title }}#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        </a>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#                     <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 cell category-cell hover-light">#}
+{#                         <a href="{% url 'web_category_list' %}" >#}
+{#                         <div class="cate-wrapper">#}
+{#                             <img  class="img-responsive cate-icon" src="{% static 'images/more.png' %}">#}
+{#                            <div class="category-title">#}
+{#                               查看全部#}
+{#                            </div>#}
+{#                         </div>#}
+{#                         </a>#}
+{#                     </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
 
 </div>
 {% endblock %}
