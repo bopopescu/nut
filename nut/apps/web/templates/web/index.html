@@ -45,15 +45,15 @@
     </div>
     <div class="row new-section-title-wrapper">
         <div class="col-sm-12">
-            <div class="section-title">
+            <div class="section-title pull-left">
                 最新精选
-                   <span class="pull-right">
-                       <a class="new-blue-link" href="{{ web_selection_url }}" target="_blank">
-                           查看更多&nbsp;
-                           <i class="fa fa-caret-right"></i>
-                       </a>
-                   </span>
             </div>
+             <span class="pull-right">
+                 <a class="more-link new-blue-link" href="{{ web_selection_url }}" target="_blank">
+                     查看更多&nbsp;
+                     <i class="fa fa-caret-right"></i>
+                 </a>
+             </span>
         </div>
 
     </div>
@@ -83,18 +83,18 @@
       </div>
     {% url 'web_selection_articles' as web_article_list_url %}
     <div class="row new-section-title-wrapper">
-          <div class="col-sm-12">
-              <div class="section-title">
-                  最新图文
-                   <span class="pull-right">
-                       <a class="new-blue-link" href="{{ web_article_list_url }}" target="_blank">
-                           查看更多&nbsp;
-                           <i class="fa fa-caret-right"></i>
-                       </a>
-                   </span>
-              </div>
-          </div>
-      </div>
+        <div class="col-sm-12">
+            <div class="section-title pull-left">
+                最新图文
+            </div>
+              <span class="pull-right">
+                  <a class="more-link new-blue-link" href="{{ web_article_list_url }}" target="_blank">
+                      查看更多&nbsp;
+                      <i class="fa fa-caret-right"></i>
+                  </a>
+              </span>
+        </div>
+    </div>
     <div class="row category-list-wrapper">
         <div class="col-sm-12">
             <ul class="category-list">
@@ -117,7 +117,7 @@
     </div>
     <div class="row new-section-title-wrapper">
             <div class="col-sm-12">
-                <div class="section-title">
+                <div class="section-title pull-left">
                     推荐品类
                 </div>
             </div>
@@ -145,7 +145,7 @@
         </div>
     <div class="row new-section-title-wrapper">
             <div class="col-sm-12">
-                <div class="section-title">
+                <div class="section-title pull-left">
                     推荐用户
                 </div>
             </div>
@@ -197,7 +197,7 @@
 
     <div class="row new-section-title-wrapper">
         <div class="col-sm-12">
-            <div class="section-title">
+            <div class="section-title pull-left">
                 热门商品
             </div>
         </div>

@@ -2857,8 +2857,9 @@ body.new-index-body .new-section-title-wrapper {
 body.new-index-body .new-section-title-wrapper .section-title {
   font-size: 20px;
   line-height: 22px;
+  font-weight: bold;
 }
-body.new-index-body .new-section-title-wrapper .section-title a {
+body.new-index-body .new-section-title-wrapper a.more-link {
   font-size: 14px;
   line-height: 20px;
 }
