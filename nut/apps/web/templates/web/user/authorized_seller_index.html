@@ -38,10 +38,11 @@
                             {% else %}
                                 <a class="follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
                             {% endif %}
-
-                          <a class="guoku-button new-guoku-button button-blue newest-button-blue" href="{{ current_user.main_shop_link }}" target="_blank">
-                              去店铺
-                          </a>
+                          {% if current_user.main_shop_link %}
+                                <a class="guoku-button new-guoku-button button-blue newest-button-blue" href="{{ current_user.main_shop_link }}" target="_blank">
+                                去店铺
+                                </a>
+                          {% endif %}
                     </div>
                     <div class="user-bio-wrapper">
                         <span class="user-bio">
