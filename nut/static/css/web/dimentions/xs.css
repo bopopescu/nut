@@ -515,7 +515,7 @@ p .b_day {
   height: 120px;
   position: fixed;
   bottom: 65px;
-  right: 40px;
+  right: 16px;
   background-color: #fff;
   border: 1px solid #ebebeb;
   -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
@@ -1412,6 +1412,26 @@ a.new-blue-link:hover {
   }
   .more-article-wrapper .title-wrapper .article-digest {
     display: none;
+  }
+  .new-index-page .more-article-wrapper .title-wrapper {
+    padding-top: 0;
+  }
+  .new-index-page .more-article-wrapper .title-wrapper .title {
+    padding: 0px 0px 0px 13px;
+    font-size: 16px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .new-index-page .more-article-wrapper .title-wrapper .article-digest {
+    padding: 0px 0px 0px 13px;
+    font-size: 12px;
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   .article-share-wx-dialog .modal-dialog {
     margin: 150px auto;

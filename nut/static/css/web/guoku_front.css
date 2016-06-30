@@ -875,7 +875,7 @@ p .b_day {
   height: 120px;
   position: fixed;
   bottom: 65px;
-  right: 40px;
+  right: 16px;
   background-color: #fff;
   border: 1px solid #ebebeb;
   -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
@@ -2857,8 +2857,9 @@ body.new-index-body .new-section-title-wrapper {
 body.new-index-body .new-section-title-wrapper .section-title {
   font-size: 20px;
   line-height: 22px;
+  font-weight: 600;
 }
-body.new-index-body .new-section-title-wrapper .section-title a {
+body.new-index-body .new-section-title-wrapper a.more-link {
   font-size: 14px;
   line-height: 20px;
 }
@@ -2890,6 +2891,16 @@ body.new-index-body #selection_article_list {
 }
 body.new-index-body .latest-entity-wrapper {
   margin-bottom: -18px;
+}
+body.new-index-body #selection_article_list .selection-article-item.article-compact .article-title {
+  font-size: 24px;
+  margin: 16px 24px 8px 24px;
+}
+body.new-index-body #selection_article_list .selection-article-item .article-panel .article-intro {
+  margin: 8px 24px 32px 24px;
+}
+body.new-index-body #selection_article_list .xs-selection-article-item .more-article-wrapper .title-wrapper a {
+  color: #424242;
 }
 #index-banners {
   width: 100%;
@@ -2966,12 +2977,13 @@ body.new-index-body .latest-entity-wrapper {
   bottom: 0;
   width: 100%;
   height: auto;
-  padding: 32px;
+  padding: 0 32px 16px 32px;
   margin-left: 5px;
   margin-right: 5px;
 }
 .new-banner-wrapper .article-intro-wrapper .article-title-wrapper .article-desc {
   font-size: 12px;
+  line-height: 1.9;
   color: #ffffff;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -2980,6 +2992,8 @@ body.new-index-body .latest-entity-wrapper {
 .new-banner-wrapper .article-intro-wrapper .article-title-wrapper a.article-title {
   font-size: 24px;
   color: #ffffff;
+  font-weight: 600;
+  line-height: 1.3;
 }
 .new-banner-wrapper .article-intro-wrapper .article-title-wrapper a:hover {
   cursor: pointer;
@@ -5425,6 +5439,26 @@ body.new-index-body .latest-entity-wrapper {
   }
   .more-article-wrapper .title-wrapper .article-digest {
     display: none;
+  }
+  .new-index-page .more-article-wrapper .title-wrapper {
+    padding-top: 0;
+  }
+  .new-index-page .more-article-wrapper .title-wrapper .title {
+    padding: 0px 0px 0px 13px;
+    font-size: 16px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .new-index-page .more-article-wrapper .title-wrapper .article-digest {
+    padding: 0px 0px 0px 13px;
+    font-size: 12px;
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   .article-share-wx-dialog .modal-dialog {
     margin: 150px auto;
