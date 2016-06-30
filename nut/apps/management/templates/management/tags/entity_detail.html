@@ -27,7 +27,7 @@
                                     <thead>
                                         <tr>
                                             <th>{% trans '链接' %}</th>
-                                            <th>{% trans 'entity' %} <span class="info"></span></th>
+                                            <th style="width:300px">{% trans 'entity' %} <span class="info"></span></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -35,7 +35,7 @@
                                             <tr>
                                                 <td>
 {#                                                    <a href="{% url 'web_entity_detail' obj.target.entity.entity_hash %}" target="_blank">#}
-                                                        {{ host }}{{ obj.target.entity.absolute_url }}
+                                                        {{ obj.target.entity.default_buy_link.link }}
 {#                                                    </a>#}
                                                 </td>
 

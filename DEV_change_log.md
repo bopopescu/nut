@@ -1,3 +1,19 @@
+
+3. mng  tag page search function 
+2. fix message page refresh bug 
+1. add article enter selection time  for solr index 
+
+=======================
+# merged to master 2016 6-24
+=======================
+
+3. tag page raw list link , show buy link
+2. tag page add raw list link , only for staff user 
+1. fix web user add entity bug 
+=======================
+# merged to master 2016 6-24
+=======================
+
 6.  other add new index field for article enter selection time 
 5.  mng - article list seperate rss author
           article author list sort bug fix 
@@ -8,9 +24,10 @@
 
 action: 
 
+ALTER TABLE `core`.`tag_tags` 
 ADD COLUMN `isPubishedEntityTag` TINYINT(1) NOT NULL DEFAULT 0;
-ALTER TABLE `core`.`tag_tags` ADD COLUMN `description` varchar(1024) COLLATE utf8mb4_unicode_ci DEFAULT NULL;
 
+ALTER TABLE `core`.`tag_tags` ADD COLUMN `description` varchar(1024) COLLATE utf8mb4_unicode_ci DEFAULT NULL;
 =======================
 # merged to master 2016 6-16
 =======================
