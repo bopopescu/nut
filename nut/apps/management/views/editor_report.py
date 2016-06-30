@@ -7,13 +7,18 @@ from django.utils.log import getLogger
 from django.views.generic import ListView
 from django.db.models import Sum, Count
 from datetime import datetime, timedelta
-
+from braces.views import UserPassesTestMixin
 
 log = getLogger('django')
 
 TIME_FORMAT = '%Y-%m-%d 8:00:00'
 
-class EditorReportListView(ListView):
+
+class EditorReportListView(UserPassesTestMixin,  ListView):
+
+    def test_func(self, user):
+        return user.is_admin
+
     template_name = 'management/editor_report/list.html'
     model = GKUser
     paginate_by = 40
