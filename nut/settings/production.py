@@ -5,7 +5,7 @@ from settings import *
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-STATIC_URL = 'http://static.guoku.com/static/v4/63bb41554a56e78193ef2fcaa4a5af6d5e8b2154/'
+STATIC_URL = 'http://static.guoku.com/static/v4/c0fa129f83cd60ced925a7715db28be462198c41/'
 
 LANGUAGE_CODE = 'zh-cn'
 
@@ -82,6 +82,15 @@ LOGGING = {
         },
     }
 }
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://10.0.2.110:8983/solr/',
+        'INCLUDE_SPELLING': True,
+    }
+}
+
 
 SINA_APP_KEY = '1459383851'
 SINA_APP_SECRET = 'bfb2e43c3fa636f102b304c485fa2110'

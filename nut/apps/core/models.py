@@ -1006,7 +1006,6 @@ class Entity(BaseModel):
             _tm = self.selection_entity.pub_time
         except Exception:
             _tm = self.created_time
-
         return _tm
 
     @property
@@ -1444,6 +1443,12 @@ class Article(BaseModel):
     def __unicode__(self):
         return self.title
 
+    def get_related_articles(self, page=1):
+        return Selection_Article.objects.article_related(self, page)
+
+    def get_absolute_url(self):
+        return "/articles/%s/" % self.pk
+
     def get_dig_key(self):
         return 'article:dig:%d' % self.pk
 
@@ -1462,7 +1467,7 @@ class Article(BaseModel):
             return res
         else:
             res = self.digs.count()
-            cache.set(key, res, timeout=3600*24)
+            cache.set(key, res, timeout = 86400)
             return res
 
     def incr_dig(self):
@@ -1575,14 +1580,25 @@ class Article(BaseModel):
             return _('Not Set Selection Pub Time')
 
     @property
+    def enter_selection_time(self):
+        '''used for solr index'''
+        try:
+            enter_selection_time = self.selections.filter(is_published=True) \
+                                       .order_by('-pub_time') \
+                                       .first().pub_time or \
+                                   self.selections.filter(is_published=True) \
+                                       .order_by('-create_time') \
+                                       .first().create_time
+            return enter_selection_time
+        except AttributeError:
+            return self.created_datetime
+        except Exception as e:
+            log.error('get enter_selection_time failed, %s' % e.message)
+            return self.created_datetime
+
+    @property
     def related_articles(self):
         return Selection_Article.objects.article_related(self)
-
-    def get_related_articles(self, page=1):
-        return Selection_Article.objects.article_related(self, page)
-
-    def get_absolute_url(self):
-        return "/articles/%s/" % self.pk
 
     @property
     def url(self):
@@ -1614,6 +1630,22 @@ class Article(BaseModel):
         #         tag_list.append(row.name)
         #     tag_string = ",".join(tag_list)
         #     return tag_string
+
+
+class Article_Remark(models.Model):
+    (remove, normal) = (-1, 0)
+    STATUS_CHOICE = [
+        (normal, _("normal")),
+        (remove, _("remove")),
+    ]
+
+    user = models.ForeignKey(GKUser)
+    article = models.ForeignKey(Article)
+    content = models.TextField(null=False, blank=False)
+    reply_to = models.ForeignKey('self', null=True, blank=True)
+    create_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+    update_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+    status = models.IntegerField(choices=STATUS_CHOICE, default=normal)
 
 
 # use ForeignKey instead of  oneToOne for selection entity ,
@@ -2150,6 +2182,20 @@ post_save.connect(user_follow_notification, sender=User_Follow,
 #         print(instance.content)
 #
 # post_save.connect(article_related_entity_update, sender=Article, dispatch_uid="article_related_product_update")
+
+
+def article_remark_notification(sender, instance, created, **kwargs):
+    if issubclass(sender, Article_Remark) and created:
+        log.info(instance)
+        notify.send(instance.user, recipient=instance.article.creator, verb=u'has remark on article', action_object=instance, target=instance.article)
+
+post_save.connect(article_remark_notification, sender=Article_Remark, dispatch_uid="article_remark_notification")
+
+
+
+
+
+
 
 
 __author__ = 'edison7500'

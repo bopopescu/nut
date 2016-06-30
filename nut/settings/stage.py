@@ -23,7 +23,9 @@ DATABASES = TESTING_DATABASE
 # CELERY #################################
 BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-CELERYD_CONCURRENCY = 2
+CELERYD_CONCURRENCY = 1
+CELERY_ALWAYS_EAGER = True
+
 CELERY_DISABLE_RATE_LIMITS = False
 #celery end  #############################
 import djcelery

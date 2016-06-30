@@ -1,3 +1,52 @@
+
+3. mng  tag page search function 
+2. fix message page refresh bug 
+1. add article enter selection time  for solr index 
+
+=======================
+# merged to master 2016 6-24
+=======================
+
+3. tag page raw list link , show buy link
+2. tag page add raw list link , only for staff user 
+1. fix web user add entity bug 
+=======================
+# merged to master 2016 6-24
+=======================
+
+6.  other add new index field for article enter selection time 
+5.  mng - article list seperate rss author
+          article author list sort bug fix 
+4.  mng - tag mng , publish , raw data page 
+3.  web - notification  loading pic 
+2.  web - article  detail page  update, limit new remark rate , in view. 
+1.  web - 发现页－推荐用户 - 滚动 - LQ
+
+action: 
+
+ALTER TABLE `core`.`tag_tags` 
+ADD COLUMN `isPubishedEntityTag` TINYINT(1) NOT NULL DEFAULT 0;
+
+ALTER TABLE `core`.`tag_tags` ADD COLUMN `description` varchar(1024) COLLATE utf8mb4_unicode_ci DEFAULT NULL;
+=======================
+# merged to master 2016 6-16
+=======================
+
+5. mng - like entity report 
+4. web - new article detail page 
+3. web - top menu notification 
+2. web - in removed entity's detail page , add search button
+1. web - sub category sort buy like (bug fix )
+
+action : 
+  ALTER TABLE `core`.`shop_shop` 
+ADD COLUMN `tb_shop_id` VARCHAR(64) NULL DEFAULT NULL AFTER `shop_type`;
+
+
+=======================
+# merged to master 2016 6-2
+=======================
+
 4.  good store update 
 3.  broadcast  push management , test send
 2.  jpush notification , add android push 
@@ -15,9 +64,7 @@ Action :
         ALTER T
         ABLE `core`.`notifications_dailypush` 
 CHANGE COLUMN `push_text` `push_text` VARCHAR(64) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ;
-
-   
-   
+     
 ####  for  entity buylink update use 
 
 ALTER TABLE `core`.`core_buy_link` 
@@ -39,7 +86,7 @@ ADD COLUMN `last_update` DATETIME NOT NULL DEFAULT '2013-12-01T00:00:00.000' AFT
 
 
 
-=======================
+git =======================
 # merged to master 2016 5-23
 =======================
 

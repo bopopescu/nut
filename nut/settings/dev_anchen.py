@@ -27,15 +27,15 @@ IMG_COUNTER_HOST = 'http://127.0.0.1:9766'
 
 #for local solr search
 
-# HAYSTACK_CONNECTIONS = {
-#     'default': {
-#         # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-#         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-#         'URL': 'http://10.0.2.115:8983/solr/',
-#         'INCLUDE_SPELLING': True,
-#         # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
-#     }
-# }
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://10.0.2.115:8983/solr/',
+        'INCLUDE_SPELLING': True,
+        # 'PATH': os.path.join(os.path.dirname(__file__), '../whoosh_index'),
+    }
+}
 # # HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 # HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
@@ -47,7 +47,7 @@ SESSION_CACHE_ALIAS = "default"
 
 # CELERY #################################
 CELERY_ALWAYS_EAGER = True
-BROKER_URL = 'redis://localhost:6379/0'
+BROKER_URL = 'redis://localhost:6ev379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 #celery end  #############################
 import djcelery
@@ -95,42 +95,6 @@ LOCAL_TEST_DB = True
 Current_Dbhost = 'localhost'
 # Current_Dbhost = '10.0.1.110'
 # Current_Dbhost = '10.0.2.90'
-
-
-
-#
-#
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'core',
-#         'USER': 'guoku',
-#         'PASSWORD': 'guoku!@#',
-#         'HOST': '10.0.2.90',
-#         'PORT': '',
-#         'OPTIONS': {
-#             # 'use_unicode':'utf-8',
-#             'charset': 'utf8mb4',
-#             'init_command':'SET storage_engine=INNODB',
-#         }
-#     },
-#
-#     'slave': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'core',
-#         'USER': 'guoku',
-#         'PASSWORD': 'guoku!@#',
-#         'HOST': '10.0.2.95',
-#         'PORT': '',
-#         'OPTIONS': {
-#             # 'use_unicode':'utf-8',
-#             'charset': 'utf8mb4',
-#             'init_command':'SET storage_engine=INNODB',
-#         }
-#     },
-# }
-#
-#
 
 # DATABASES = PRODUCTION_DATABASES
 #

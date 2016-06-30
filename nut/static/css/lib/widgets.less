@@ -498,10 +498,89 @@ p .b_day{
       }
   }
    }
-
 }
 
+.gotop-wrapper{
+  display: none;
+  width:40px;
+  height:120px;
+  position:fixed;
+  bottom:65px;
+  right:40px;
+  background-color: @panel-background-color;
+  border:1px solid @divider-color;
+  .drop-shadow();
+  ul{
+    width:100%;
+    height:100%;
+    li{
+      width:100%;
+      height:40px;
+      line-height: 40px;
+      text-align: center;
+      border-bottom:1px solid @divider-color;
+      &:last-child{
+        border-bottom: none;
+      }
+      a{
+        display: inline-block;
+        width:100%;
+        height:100%;
+        color:@new-text-gray;
+        font-size:@primary-size;
+      }
+      a.gk-download{
+        position:relative;
+        &:hover{
+          color:@btn-blue-dark;
+          .download-qrcode-wrapper{
+            display: block;
+          }
+        }
+      }
+      a.gk-wechat-share{
+         position:relative;
+        &:hover{
+          cursor: pointer;
+          color:@wechat-hover-color;
+        .wechat-qrcode-wrapper{
+          display:block;
+        }
+      }
+      }
+      .qrcode-wrapper{
+              position:absolute;
+              bottom:-56px;
+              left:-116px;
+              padding:10px 9px;
+              background-color: #fff;
+              box-shadow: @panel-shaddow;
+              display: none;
+              .qrcode-img{
+                width:80px;
+              }
+              .qr-text{
+                font-size:@mini-size;
+                color:#414243;
+                width:100%;
+                text-align: center;
+                margin-top:10px;
+              }
+              .bottom-bot{
+                position:absolute;
+                bottom:50%;
+                left:100%;
+                width:0;
+                height:0;
+                border-width:5px;
+                border-style:solid;
+                border-color:transparent transparent transparent #ffffff;
+              }
+            }
 
+    }
+  }
+}
 .btn-top {
   .acc-layer;
 
@@ -914,10 +993,7 @@ p.boolean-false{
             position:absolute;
             top:50%;
             left:50%;
-            -webkit-transform: translate(-50%,-50%);
-            -ms-transform: translate(-50%,-50%);
-            transform: translate(-50%,-50%);
-            text-align: center;
+            .transform(translate(-50%,-50%));
             p{
               margin-bottom:0;
             }
