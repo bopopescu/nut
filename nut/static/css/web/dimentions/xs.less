@@ -5,7 +5,7 @@
 
 @media (max-width:768px){
    //for category in discover page
-  #category-container #category-item-container {
+  #category-container #category-item-container,.new-index-body #index-banners{
     .slick-prev:before, .slick-next:before {
         display: none;
     }
@@ -42,6 +42,16 @@
 }
 }
 @media(max-width: 767px){
+  body.new-index-body{
+    padding-top:51px;
+    .new-banner-container{
+      padding-left:0;
+      padding-right:0;
+    }
+    .new-banner-wrapper .article-intro-wrapper .article-title-wrapper a.article-title{
+      font-size: @subtitle-size;
+    }
+  }
   .round-link{
     display: none!important;
   }
@@ -365,6 +375,24 @@
          }
          .article-digest{
             display:none;
+         }
+     }
+  }
+   .new-index-page .more-article-wrapper{
+     .title-wrapper{
+         padding-top:0;
+         .title{
+            padding: 0px 0px 0px 13px;
+            font-size: @primary-size;
+            font-weight: 500;
+           .single-text-overflow;
+         }
+         .article-digest{
+           padding: 5px 0px 0px 13px;
+           font-size: @more-mini-size;
+           color:@new-text-gray;
+           display: block;
+           .multiple-text-overflow(2);
          }
      }
   }

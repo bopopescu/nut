@@ -10,6 +10,7 @@ import time
 import re
 
 
+
 register = template.Library()
 
 log = getLogger('django')
@@ -146,6 +147,14 @@ def mobile_link(value):
        raise Exception('can not find link')
 register.filter(mobile_link)
 
+def at_digest(value):
+    '''
+    for article digest
+    :param value:
+    :return:
+    '''
+    return re.sub('[\r|\n| ]', '', value)
+register.filter(at_digest)
 
 
 
