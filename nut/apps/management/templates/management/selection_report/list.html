@@ -90,4 +90,25 @@ margin:auto">确定</button>
     <script src="{% static 'js/management/util.js' %}"></script>
     <script src="{% static 'js/management/moment.js' %}"></script>
     <script src="{% static 'js/management/selection_report.js' %}"></script>
+    <script>
+        $(function () {
+        $('#datetimepicker1').datetimepicker({
+        language: 'zh-CN',
+        format: "yyyy-mm-dd 8:00:00",
+            disabledHours: "true",
+        autoclose: true,
+        pickerPosition: "bottom-left",
+            minView: '2'
+    });
+        $('#datetimepicker2').datetimepicker({
+            useCurrent: false, //Important! See issue #1075
+            language: 'zh-CN',
+            format: "yyyy-mm-dd 8:00:00",
+            disabledHours: "true",
+            autoclose: true,
+            pickerPosition: "bottom-left",
+            minView: '2'
+        });
+    });
+    </script>
 {% endblock %}
