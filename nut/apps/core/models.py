@@ -1593,7 +1593,7 @@ class Article(BaseModel):
         except AttributeError:
             return self.created_datetime
         except Exception as e:
-            log.warning('get enter_selection_time failed, %s' % e.message)
+            log.error('get enter_selection_time failed, %s' % e.message)
             return self.created_datetime
 
     @property
