@@ -81,6 +81,34 @@
                     </a>
                 {% endfor %}
       </div>
+    <div class="row new-section-title-wrapper">
+            <div class="col-sm-12">
+                <div class="section-title pull-left">
+                    推荐品类
+                </div>
+            </div>
+    </div>
+    <div class="row dark-section-wrapper" id="category-container">
+            <div class="col-sm-12">
+                <ul id="category-item-container">
+                    {% for category in categories %}
+                        <li class="category-item dark-section-item">
+                            <a href="{% url 'web_category_group' category.id %}" target="_blank">
+                                <div class="section-panel">
+                                    <div class="category-item-pic" style="background-image: url('{{ category.cover_url|resize:'200' }}')">
+                                    </div>
+                                    <div class="section-name category-name">
+                                        <p>{{ category.title_cn }}</p>
+                                        <span>{{ category.title_en }}</span>
+                                    </div>
+                                    <div class="bg-layer"></div>
+                                </div>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     {% url 'web_selection_articles' as web_article_list_url %}
     <div class="row new-section-title-wrapper">
         <div class="col-sm-12">
@@ -118,34 +146,6 @@
     <div class="row new-section-title-wrapper">
             <div class="col-sm-12">
                 <div class="section-title pull-left">
-                    推荐品类
-                </div>
-            </div>
-    </div>
-    <div class="row dark-section-wrapper" id="category-container">
-            <div class="col-sm-12">
-                <ul id="category-item-container">
-                    {% for category in categories %}
-                        <li class="category-item dark-section-item">
-                            <a href="{% url 'web_category_group' category.id %}" target="_blank">
-                                <div class="section-panel">
-                                    <div class="category-item-pic" style="background-image: url('{{ category.cover_url|resize:'200' }}')">
-                                    </div>
-                                    <div class="section-name category-name">
-                                        <p>{{ category.title_cn }}</p>
-                                        <span>{{ category.title_en }}</span>
-                                    </div>
-                                    <div class="bg-layer"></div>
-                                </div>
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    <div class="row new-section-title-wrapper">
-            <div class="col-sm-12">
-                <div class="section-title pull-left">
                     推荐用户
                 </div>
             </div>
@@ -164,7 +164,6 @@
             </ul>
             </div>
     </div>
-
     <div class="row">
         <div class="col-sm-12 new-banner-container">
             <div class="banner-wrapper new-banner-wrapper" id="middle-page-banner">
@@ -194,7 +193,6 @@
             </div>
         </div>
     </div>
-
     <div class="row new-section-title-wrapper">
         <div class="col-sm-12">
             <div class="section-title pull-left">
