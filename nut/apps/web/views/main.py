@@ -77,6 +77,7 @@ class IndexView(TemplateView):
         # context['top_entities'] = self.get_top_entities()
         # context['brands'] = []
 
+
         context['banners'] = SiteBanner.objects.get_mainpage_banner()  # 顶部banner (link, image)
         context['categories'] = Category.objects.filter(status=True)  # 品类
         popular_list = Entity_Like.objects.popular_random()
@@ -88,6 +89,15 @@ class IndexView(TemplateView):
         context['recommand_users'] = GKUser.objects.recommended_user()[:20]  # 推荐用户
         context['middle_banners'] = StorePageBanners.objects.filter(status=StorePageBanners.enabled)  # 中间banner
         context['selection_entity'] = Selection_Entity.objects.select_related('entity')[:6]
+
+        _entities = context['entities']
+        el = list()
+        if self.request.user.is_authenticated():
+            el = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=list(_entities))
+
+        context['user_entity_likes'] = el
+
+
         return context
 
 
