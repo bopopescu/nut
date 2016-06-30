@@ -1443,6 +1443,12 @@ class Article(BaseModel):
     def __unicode__(self):
         return self.title
 
+    def get_related_articles(self, page=1):
+        return Selection_Article.objects.article_related(self, page)
+
+    def get_absolute_url(self):
+        return "/articles/%s/" % self.pk
+
     def get_dig_key(self):
         return 'article:dig:%d' % self.pk
 
@@ -1461,7 +1467,7 @@ class Article(BaseModel):
             return res
         else:
             res = self.digs.count()
-            cache.set(key, res, timeout=3600*24)
+            cache.set(key, res, timeout = 86400)
             return res
 
     def incr_dig(self):
@@ -1587,18 +1593,12 @@ class Article(BaseModel):
         except AttributeError:
             return self.created_datetime
         except Exception as e:
-            log.warning('get enter_selection_time failed, %s' % e.message)
+            log.error('get enter_selection_time failed, %s' % e.message)
             return self.created_datetime
 
     @property
     def related_articles(self):
         return Selection_Article.objects.article_related(self)
-
-    def get_related_articles(self, page=1):
-        return Selection_Article.objects.article_related(self, page)
-
-    def get_absolute_url(self):
-        return "/articles/%s/" % self.pk
 
     @property
     def url(self):
