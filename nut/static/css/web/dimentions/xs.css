@@ -510,12 +510,17 @@ p .b_day {
   font-size: 14px;
 }
 .gotop-wrapper {
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
   display: none;
   width: 40px;
   height: 120px;
   position: fixed;
   bottom: 65px;
-  right: 40px;
+  right: 16px;
   background-color: #fff;
   border: 1px solid #ebebeb;
   -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
@@ -710,7 +715,7 @@ p .b_day {
   padding-bottom: 100%;
   background-size: cover;
   background-position: center center;
-  border: 1px solid #e6e6e6;
+  border: 1px solid #F2F2F2;
 }
 p.boolean-true {
   background: forestgreen;
@@ -1095,9 +1100,54 @@ p.boolean-false {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.banner-image-cell-scrim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -ms-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+}
+.article-intro-wrapper {
+  position: absolute;
+  left: 0;
+  bottom: -50%;
+  width: 100%;
+  height: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-color: transparent;
+  background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.5)));
+  background: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.5));
+  background: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.5));
+  background: -ms-linear-gradient(top, transparent, rgba(0, 0, 0, 0.5));
+  background: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.5));
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -ms-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+}
+.gk-slide-current .banner-image-cell-scrim {
+  background-color: transparent;
+}
+.gk-slide-current .article-intro-wrapper {
+  bottom: 0;
+}
+a.new-blue-link {
+  color: #5976c1;
+  text-decoration: none;
+}
+a.new-blue-link:hover {
+  color: #4057A7;
+}
 @media (max-width: 768px) {
   #category-container #category-item-container .slick-prev:before,
-  #category-container #category-item-container .slick-next:before {
+  .new-index-body #index-banners .slick-prev:before,
+  #category-container #category-item-container .slick-next:before,
+  .new-index-body #index-banners .slick-next:before {
     display: none;
   }
   .tag-intro-wrapper {
@@ -1119,6 +1169,16 @@ p.boolean-false {
   }
 }
 @media (max-width: 767px) {
+  body.new-index-body {
+    padding-top: 51px;
+  }
+  body.new-index-body .new-banner-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  body.new-index-body .new-banner-wrapper .article-intro-wrapper .article-title-wrapper a.article-title {
+    font-size: 18px;
+  }
   .round-link {
     display: none!important;
   }
@@ -1357,6 +1417,27 @@ p.boolean-false {
   }
   .more-article-wrapper .title-wrapper .article-digest {
     display: none;
+  }
+  .new-index-page .more-article-wrapper .title-wrapper {
+    padding-top: 0;
+  }
+  .new-index-page .more-article-wrapper .title-wrapper .title {
+    padding: 0px 0px 0px 13px;
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .new-index-page .more-article-wrapper .title-wrapper .article-digest {
+    padding: 5px 0px 0px 13px;
+    font-size: 12px;
+    color: #757575;
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   .article-share-wx-dialog .modal-dialog {
     margin: 150px auto;
