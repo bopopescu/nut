@@ -10,7 +10,7 @@ from apps.web.views.flink import FriendlyLinkListView
 urlpatterns = patterns(
     'apps.web.views',
     # url(r'^$', 'main.index', name='web_index'),
-    url(r'^$', RedirectView.as_view(url='/selected/'), name='web_home'),
+    url(r'^$', RedirectView.as_view(url='/index/'), name='web_home'),
     url(r'^index/$', IndexView.as_view(), name='web_index'),
     url(r'^selection/$', RedirectView.as_view(url='/selected/')),
     url(r'^m/selection/$', RedirectView.as_view(url='/selected/')),
