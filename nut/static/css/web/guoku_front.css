@@ -2892,6 +2892,16 @@ body.new-index-body #selection_article_list {
 body.new-index-body .latest-entity-wrapper {
   margin-bottom: -18px;
 }
+body.new-index-body #selection_article_list .selection-article-item.article-compact .article-title {
+  font-size: 24px;
+  margin: 16px 24px 8px 24px;
+}
+body.new-index-body #selection_article_list .selection-article-item .article-panel .article-intro {
+  margin: 8px 24px 32px 24px;
+}
+body.new-index-body #selection_article_list .xs-selection-article-item .more-article-wrapper .title-wrapper a {
+  color: #424242;
+}
 #index-banners {
   width: 100%;
   margin: 0 auto;
@@ -5429,6 +5439,26 @@ body.new-index-body .latest-entity-wrapper {
   }
   .more-article-wrapper .title-wrapper .article-digest {
     display: none;
+  }
+  .new-index-page .more-article-wrapper .title-wrapper {
+    padding-top: 0;
+  }
+  .new-index-page .more-article-wrapper .title-wrapper .title {
+    padding: 0px 0px 0px 13px;
+    font-size: 16px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .new-index-page .more-article-wrapper .title-wrapper .article-digest {
+    padding: 0px 0px 0px 13px;
+    font-size: 12px;
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   .article-share-wx-dialog .modal-dialog {
     margin: 150px auto;
