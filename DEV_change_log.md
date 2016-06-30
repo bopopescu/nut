@@ -12,7 +12,8 @@ Action :
         add DailyPush model    
         
     3. fix field encoding , if needed 
-        ALTER TABLE `core`.`notifications_dailypush` 
+        ALTER T
+        ABLE `core`.`notifications_dailypush` 
 CHANGE COLUMN `push_text` `push_text` VARCHAR(64) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ;
 
    
