@@ -14,7 +14,7 @@
             </div>
             <div class="article-intro">
                 {% autoescape off %}
-                {{ article.content|striptags|truncatechars:60 }}
+                {{ article.content|at_digest|striptags|truncatechars:60 }}
                 {% endautoescape %}
             </div>
             <div class="article-info">
