@@ -1,10 +1,18 @@
 
+
+1. add note to tag entity list  
+
+=======================
+# merged to master 2016 6-27
+=======================
+
+
 3. mng  tag page search function 
 2. fix message page refresh bug 
 1. add article enter selection time  for solr index 
 
 =======================
-# merged to master 2016 6-24
+# merged to master 2016 6-25
 =======================
 
 3. tag page raw list link , show buy link
