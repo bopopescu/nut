@@ -44,11 +44,11 @@ class IndexView(TemplateView):
         return banners
 
     def get_selection_entities(self):
-        selections = Selection_Entity.objects.published_until_now()[:12]
+        selections = Selection_Entity.objects.published_until_now()
         return selections
 
     def get_selection_articles(self):
-        articles = Selection_Article.objects.published_until()[:6]
+        articles = Selection_Article.objects.published_until()
         return articles
 
     def get_hot_categories(self):
