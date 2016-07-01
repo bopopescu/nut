@@ -70,8 +70,12 @@ define([
             var datas = {
                 objects:ajaxDatas.data,
                 notification_length:ajaxDatas.data.length
-
             };
+            for(var i=0;i<datas.notification_length;i++){
+                console.log('before url :'+datas.objects[i].actor.avatar);
+                datas.objects[i].actor.avatar = datas.objects[i].actor.avatar.replace('/avatar/','/avatar/52/');
+                console.log('after url :'+datas.objects[i].actor.avatar);
+            }
             $('.notification-drop-list').append(notificationItems(datas));
         },
         showFail:function($ele){
