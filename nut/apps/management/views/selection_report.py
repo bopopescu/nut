@@ -112,7 +112,7 @@ class EntityLikeView():
     content = {'post':post}
     #entity_id = self.request.GET.get("entity_id")
     #use_id = self.request.GET.get("user_id")
-    return render_to_response('entity_like.html', content)
+    #return render_to_response('entity_like.html', content)
 
 
 
