@@ -101,7 +101,7 @@ class SelectionReportListView(ListView):
         context = self.get_context_data()
         return self.render_to_response(context)
 
-def EntityLikeView(request):
+class EntityLikeView():
     template_name = 'management/selection_report/entity_like.html'
     model = Entity_Like
     # paginate_by = 40
