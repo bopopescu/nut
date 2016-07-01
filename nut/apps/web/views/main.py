@@ -83,12 +83,14 @@ class IndexView(TemplateView):
         popular_list = Entity_Like.objects.popular_random()
         context['entities'] = Entity.objects.filter(id__in=popular_list)  # 热门商品
         context['article_tags'] = Tags.objects.top_article_tags()  # 图文标签
-        context['articles'] = Selection_Article.objects.select_related('article').all()[:3]  # 最新精选图文
-        test = Selection_Article.objects\
-                              .select_related('article').using('slave')
+        # context['articles'] = Selection_Article.objects.select_related('article').all()[:3]  # 最新精选图文
+        context['articles'] = self.get_selection_articles()[:3]  # 最新精选图文
+        # test = Selection_Article.objects\
+        #                       .select_related('article').using('slave')
         context['recommand_users'] = GKUser.objects.recommended_user()[:20]  # 推荐用户
         context['middle_banners'] = StorePageBanners.objects.filter(status=StorePageBanners.enabled)  # 中间banner
-        context['selection_entity'] = Selection_Entity.objects.select_related('entity')[:6]
+        # context['selection_entity'] = Selection_Entity.objects.select_related('entity')[:6]
+        context['selection_entity'] = self.get_selection_entities()[:6]
 
         _entities = context['entities']
         el = list()
@@ -96,7 +98,6 @@ class IndexView(TemplateView):
             el = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=list(_entities))
 
         context['user_entity_likes'] = el
-
 
         return context
 
