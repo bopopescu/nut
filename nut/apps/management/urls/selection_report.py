@@ -6,6 +6,6 @@ urlpatterns = patterns(
     'apps.management.views.selection_report',
 
     url(r'$', SelectionReportListView.as_view(), name='management_selection_report'),
-    url(r'entitylike', 'EntityLikeView')
+    url(r'entitylike', 'EntityLikeView.as_view()')
 )
 

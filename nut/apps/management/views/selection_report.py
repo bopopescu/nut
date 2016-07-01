@@ -106,7 +106,8 @@ class EntityLikeView():
     model = Entity_Like
     # paginate_by = 40
     context_object_name = 'Entity_Like'
-    def get(requst):
+
+    def get_entity_like(requst):
         # paginator_class = ExtentPaginator
         post = Entity_Like.objects.all()
         #self.id = self.request.GET.get('id')
