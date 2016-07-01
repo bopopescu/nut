@@ -1,3 +1,9 @@
+
+1. fix index bug 
+=======================
+# merged to master 2016 6-30 
+=======================
+
 3. editor work report (alpha)
 2. index page 
 1. add note to tag entity list  
