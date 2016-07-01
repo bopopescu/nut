@@ -2,7 +2,7 @@ from django import template
 from django.utils.log import getLogger
 from django.conf import settings
 
-import hashlib
+# import hashlib
 import time
 import qrcode
 import StringIO
@@ -94,7 +94,9 @@ register.filter(entity_qr)
 
 
 
-
+def tbsearch_url(word):
+    return 'https://s.taobao.com/search?q=%s'%word
+register.filter(tbsearch_url)
 
 
 

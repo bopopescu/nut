@@ -67,6 +67,7 @@ INSTALLED_APPS = (
     'apps.tag',
     'apps.seller',
     'apps.shop',
+    'apps.site_banner',
     'captcha',
 )
 
@@ -81,6 +82,8 @@ HAYSTACK_CONNECTIONS = {
 }
 # HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
+
+HAYSTACK_CUSTOM_HIGHLIGHTER = 'apps.web.highlighter.MyHighlighter'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -116,7 +119,7 @@ CACHES = {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": [
             "redis://10.0.2.46:6379/1",
-            "redis://10.0.2.47:6379/1",
+            "redis://10.0.2.120:6379/1",
             "redis://10.0.2.115:6379/1",
         ],
         "OPTIONS": {

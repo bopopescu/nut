@@ -297,6 +297,13 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return ''
 
     @property
+    def nick(self):
+        if hasattr(self, 'profile'):
+            if self.profile.nick:
+                return self.profile.nick
+        return ''
+
+    @property
     def entity_liked_categories(self):
         # _entity_ids =  Entity_Like.objects.user_likes_id_list(user=self)
         # _category_id_list = Entity.objects.using('slave').filter(id__in=_entity_ids)\
@@ -420,6 +427,15 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         seller_group = self.get_seller_group()
         return seller_group in self.groups.all()
 
+    # for active user 积极用户
+    def get_active_user_group(self):
+        active_user_group, created = Group.objects.get_or_create(name="ActiveUser")
+        return active_user_group
+
+    def has_active_user_group(self):
+        active_user_group = self.get_active_user_group()
+        return active_user_group in self.groups.all()
+
 
     def refresh_user_permission(self):
         # TODO:  refresh user permission cache here
@@ -432,6 +448,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     @property
     def is_authorized_seller(self):
         return self.has_seller_group()
+
+    @property
+    def is_active_user(self):
+        return self.has_active_user_group()
 
     @property
     def main_shop_link(self):
@@ -457,11 +477,22 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         else:
             self.groups.remove(author_group)
         self.refresh_user_permission()
+
+    def setActiveUser(self, isActiveUser):
+        active_user_group = self.get_active_user_group()
+        if isActiveUser:
+            self.groups.add(active_user_group)
+        else:
+            self.groups.remove(active_user_group)
+        self.refresh_user_permission()
     @property
     def is_authorized_user(self):
         return self.is_authorized_author or self.is_authorized_seller
 
 
+    @property
+    def jpush_rids(self):
+        return self.jpush_token.all().values_list('rid', flat=True)
 
     def save(self, *args, **kwargs):
         #TODO  @huanghuang refactor following email related lines into a subroutine
@@ -852,19 +883,11 @@ class Entity(BaseModel):
                 return self.images[0]
             else:
                 return "%s%s" % (image_host, self.images[0])
-                # return "%s%s" % ('http://image.guoku.com/', self.images[0])
 
     @property
     def detail_images(self):
         if len(self.images) > 1:
             return self.images[1:]
-            # res = list()
-            # for row in self.images[1:]:
-            # if image_host in row:
-            # res.append(row.replace('imgcdn', 'image'))
-            #     else:
-            #         res.append(row)
-            # return res
         return []
 
     @property
@@ -912,6 +935,7 @@ class Entity(BaseModel):
 
     def get_top_note_cache_key(self):
         return 'entity:%s:topnote' % self.pk
+
     @property
     def top_note(self):
         # try:
@@ -923,7 +947,6 @@ class Entity(BaseModel):
                 _tn =  notes[0]
                 cache.set(cache_key, _tn , 24*3600)
         return _tn
-
 
     @property
     def top_note_string(self):
@@ -970,13 +993,19 @@ class Entity(BaseModel):
         return self.status == Entity.selection
 
     @property
+    def is_pubed_selection(self):
+        # a better way to judge if a entity is in published selection
+        return self.status == Entity.selection \
+               and self.selection \
+               and self.selection.is_published
+
+    @property
     def enter_selection_time(self):
         # _tm = None
         try:
             _tm = self.selection_entity.pub_time
         except Exception:
             _tm = self.created_time
-
         return _tm
 
     @property
@@ -1108,6 +1137,8 @@ class Buy_Link(BaseModel):
     seller = models.CharField(max_length=255, null=True)
     status = models.PositiveIntegerField(default=sale,
                                          choices=Buy_Link_STATUS_CHOICES)
+
+    last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['-default']
@@ -1267,6 +1298,12 @@ class Note_Comment(BaseModel):
     def __unicode__(self):
         return self.content
 
+    @property
+    def replied_user_nick(self):
+        profile = User_Profile.objects.get(user_id = self.replied_user_id)
+        return profile.nickname
+
+
     def v3_toDict(self):
         res = self.toDict()
         res.pop('user_id', None)
@@ -1403,9 +1440,11 @@ class Article(BaseModel):
     class Meta:
         ordering = ["-updated_datetime"]
 
+    def __unicode__(self):
+        return self.title
+
     def get_dig_key(self):
         return 'article:dig:%d' % self.pk
-
 
     def caculate_identity_code(self):
         title = self.title
@@ -1413,7 +1452,6 @@ class Article(BaseModel):
         user_id = self.creator.id
         title_hash =  hashlib.sha1(title.encode('utf-8')).hexdigest()
         return '%s_%s_%s ' % (user_id,title_hash,created_datetime)
-
 
     @property
     def dig_count(self):
@@ -1439,9 +1477,6 @@ class Article(BaseModel):
             cache.decr(key)
         except Exception:
             cache.set(key, self.digs.count())
-
-    def __unicode__(self):
-        return self.title
 
     def save(self, *args, **kwargs):
         if not kwargs.pop('skip_updatetime', False):
@@ -1539,6 +1574,23 @@ class Article(BaseModel):
             return _('Not Set Selection Pub Time')
 
     @property
+    def enter_selection_time(self):
+        '''used for solr index'''
+        try:
+            enter_selection_time = self.selections.filter(is_published=True) \
+                                       .order_by('-pub_time') \
+                                       .first().pub_time or \
+                                   self.selections.filter(is_published=True) \
+                                       .order_by('-create_time') \
+                                       .first().create_time
+            return enter_selection_time
+        except AttributeError:
+            return self.created_datetime
+        except Exception as e:
+            log.warning('get enter_selection_time failed, %s' % e.message)
+            return self.created_datetime
+
+    @property
     def related_articles(self):
         return Selection_Article.objects.article_related(self)
 
@@ -1578,6 +1630,22 @@ class Article(BaseModel):
         #         tag_list.append(row.name)
         #     tag_string = ",".join(tag_list)
         #     return tag_string
+
+
+class Article_Remark(models.Model):
+    (remove, normal) = (-1, 0)
+    STATUS_CHOICE = [
+        (normal, _("normal")),
+        (remove, _("remove")),
+    ]
+
+    user = models.ForeignKey(GKUser)
+    article = models.ForeignKey(Article)
+    content = models.TextField(null=False, blank=False)
+    reply_to = models.ForeignKey('self', null=True, blank=True)
+    create_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+    update_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+    status = models.IntegerField(choices=STATUS_CHOICE, default=normal)
 
 
 # use ForeignKey instead of  oneToOne for selection entity ,
@@ -2114,6 +2182,20 @@ post_save.connect(user_follow_notification, sender=User_Follow,
 #         print(instance.content)
 #
 # post_save.connect(article_related_entity_update, sender=Article, dispatch_uid="article_related_product_update")
+
+
+def article_remark_notification(sender, instance, created, **kwargs):
+    if issubclass(sender, Article_Remark) and created:
+        log.info(instance)
+        notify.send(instance.user, recipient=instance.article.creator, verb=u'has remark on article', action_object=instance, target=instance.article)
+
+post_save.connect(article_remark_notification, sender=Article_Remark, dispatch_uid="article_remark_notification")
+
+
+
+
+
+
 
 
 __author__ = 'edison7500'

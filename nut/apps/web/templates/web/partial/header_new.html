@@ -14,7 +14,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{% url 'web_selection' %}">
+                <a class="navbar-brand" href="{{ web_index_url }}">
 {#                    <img alt="{% trans 'guoku' %}" class="visible-xs"  src="{% static 'images/logo2.png' %}" width="46"  style="margin-top: 2px">#}
 {#                    <img alt="{% trans 'guoku' %}" class="guoku-logo" src="{% static 'images/xmas_logo.png' %}" width="52" >#}
                       <img alt="{% trans 'guoku' %}" class="" src="{% static 'images/gklogo2015.png' %}" width="42" >
@@ -23,6 +23,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav main-list left-list">
+                    {% url 'web_index' as web_index_url %}
+{#                    <li {% if web_index_url in request.path %}class="active"{% endif %}>#}
+                    <li >
+                        <a href="{{ web_index_url }}">首页</a>
+                    </li>
+
 {#                    {% url 'web_selection' as web_selection_url %}#}
                      <li {% if web_selection_url in request.path %}class="active"{% endif %}>
 {#                        <a href="{{ web_selection_url }}">{% trans 'Selected' %}</a>#}
@@ -34,10 +40,10 @@
                         <a href="{{ web_article_list_url }}">{% trans 'Articles' %}</a>
                     </li>
 
-                    {% url 'web_discover' as web_discover_url %}
-                    <li {% if web_discover_url in request.path %}class="active"{% endif %}>
-                        <a href="{{ web_discover_url }}">{% trans 'Discover' %}</a>
-                    </li>
+{#                    {% url 'web_discover' as web_discover_url %}#}
+{#                    <li {% if web_discover_url in request.path %}class="active"{% endif %}>#}
+{#                        <a href="{{ web_discover_url }}">{% trans 'Discover' %}</a>#}
+{#                    </li>#}
                     {% url 'web_event_home' as web_event_home_url %}
                     <li {% if web_event_home_url in request.path %}class="active" {% endif %}>
                         <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="round"></span></a>
@@ -63,6 +69,40 @@
                         {% endif %}
                     </ul>
                 {% endif %}
+{#                 notification droplist begin#}
+                 {% if request.user.is_authenticated  %}
+                     <ul class="nav navbar-nav nav-notification-wrapper pull-right hidden-xs">
+                         <li>
+                             <a href="javascript:void(0);" alt="「消息」" title="「消息」" class="notification-icon">
+                                 <i class="fa fa-bell" style="color: #9D9E9F;font-size:18px;"></i>
+                                 {#                                 need add if statements here #}
+                                 <span class="round notification-round"></span>
+                             </a>
+                             <div class="notification-drop-list-wrapper">
+                                 <span class="tip"></span>
+                                 <ul class="notification-drop-list">
+                                     <li class="notification-loading-icon">
+                                         <img src="{% static 'images/widgets/loading.gif' %}" height="32px" width="32px">
+                                     </li>
+                                     {% include "web/account/partial/ajax_notification_droplist.html" %}
+                                 </ul>
+                             </div>
+                         </li>
+                     </ul>
+                 {% endif %}
+{#                 notification droplist end#}
+                {% if web_login_url not in request.path and web_register_url not in request.path %}
+
+                    <ul class="nav navbar-nav nav-add-product navbar-right hidden-sm hidden-xs">
+                        <li>
+                            <a href="{% url 'web_entity_create' %}" class="add_icon">
+                                <i class="fa fa-plus" style="color: #9D9E9F;font-size:18px;"></i>
+                                <p class="add_goods"><span class="tip"></span>{% trans "Add Product"  %}</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                {% endif %}
 
                 <form class="navbar-form navbar-right search-form" action="{% url 'web_search' %}" method="get" role="form" style="margin-top: 11px;">
                     <div class="input-group search">
@@ -71,17 +111,6 @@
                     </div>
                 </form>
 
-                {% if web_login_url not in request.path and web_register_url not in request.path %}
-                <ul class="nav navbar-nav nav-add-product navbar-right hidden-sm hidden-xs">
-                    <li>
-                        <a href="{% url 'web_entity_create' %}" class="add_icon">
-                            <i class="fa fa-plus" style="color: #9D9E9F; padding-right:40px;font-size:18px;"></i>
-                        <p class="add_goods"><span class="tip"></span>{% trans "Add Product"  %}</p>
-                        </a>
-                    </li>
-
-                </ul>
-                {% endif %}
             </div>
         </div>
     </header>

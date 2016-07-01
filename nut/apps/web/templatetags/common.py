@@ -4,10 +4,11 @@ from django import template
 # from django.conf import settings
 from django.utils.log import getLogger
 from datetime import datetime
-from apps.tag.models import Tags, Content_Tags
+# from apps.tag.models import Tags, Content_Tags
 from apps.core.models import Entity
 import time
 import re
+
 
 
 register = template.Library()
@@ -130,7 +131,6 @@ def get_mobile_link_by_hash(theHash):
         return entity.mobile_url
     except Exception as e:
         return None
-    return
 
 def mobile_link(value):
    _value = value.decode('utf-8')
@@ -147,6 +147,14 @@ def mobile_link(value):
        raise Exception('can not find link')
 register.filter(mobile_link)
 
+def at_digest(value):
+    '''
+    for article digest
+    :param value:
+    :return:
+    '''
+    return re.sub('[\r|\n| ]', '', value)
+register.filter(at_digest)
 
 
 

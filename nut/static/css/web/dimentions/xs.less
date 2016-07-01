@@ -5,9 +5,16 @@
 
 @media (max-width:768px){
    //for category in discover page
-  #category-container #category-item-container {
+  #category-container #category-item-container,.new-index-body #index-banners{
     .slick-prev:before, .slick-next:before {
         display: none;
+    }
+  }
+
+  .tag-intro-wrapper{
+    height:240px;
+    .tag-desc{
+      display: none;
     }
   }
 }
@@ -35,6 +42,16 @@
 }
 }
 @media(max-width: 767px){
+  body.new-index-body{
+    padding-top:51px;
+    .new-banner-container{
+      padding-left:0;
+      padding-right:0;
+    }
+    .new-banner-wrapper .article-intro-wrapper .article-title-wrapper a.article-title{
+      font-size: @subtitle-size;
+    }
+  }
   .round-link{
     display: none!important;
   }
@@ -98,6 +115,13 @@
             padding-bottom: 0px!important;
         }
 
+  }
+
+  //for recommend entities in good store page
+  #recommend-entity-container #recommend-entity-wrapper{
+     .slick-prev:before, .slick-next:before {
+        display: none;
+    }
   }
 }
 
@@ -293,15 +317,18 @@
        }
     }
 // for mobile article
-
+  #detail_content{
+    overflow: hidden;
+  }
   #main_article{
     .article-wrapper{
       .content-wrapper img{
-        max-width:110%;
-        width:110%;
         position: relative;
-        left : -5%;
         display: block;
+        width:110%;
+        max-width:110%;
+        left:-5%;
+        .box-sizing(border-box)
 
       }
       .guoku-card img{
@@ -350,6 +377,27 @@
             display:none;
          }
      }
+  }
+   .new-index-page .more-article-wrapper{
+     .title-wrapper{
+         padding-top:0;
+         .title{
+            padding: 0px 0px 0px 13px;
+            font-size: @primary-size;
+            font-weight: 500;
+           .single-text-overflow;
+         }
+         .article-digest{
+           padding: 5px 0px 0px 13px;
+           font-size: @more-mini-size;
+           color:@new-text-gray;
+           display: block;
+           .multiple-text-overflow(2);
+         }
+     }
+  }
+  .article-share-wx-dialog .modal-dialog{
+    margin:150px auto;
   }
 }
 
@@ -429,6 +477,8 @@
 
   #detail_content_right{
     max-width:  330px;
+    //opacity: 1;
+    //.transition(all 2000ms);
   }
 
   .more-article-wrapper{

@@ -1,6 +1,6 @@
-{% load i18n %}
-{% load guoku %}
-{% load common %}
+{% load i18n highlight %}
+{% load guoku common %}
+
 
 <div class="col-xs-6 col-sm-3 search-entity-item">
     <div class="entity-four new-thumbnail">
@@ -19,7 +19,7 @@
                 <div class="title">
                     {% if entity.entity_hash %}
                     <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
-                        {{ entity.title|truncatechars:12 }}
+                        {{ entity.title|truncatechars:20 }}
                     </a>
                     {% endif %}
                 </div>

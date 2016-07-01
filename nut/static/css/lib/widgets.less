@@ -210,6 +210,7 @@
   overflow: hidden;
 }
 
+
 // img box
 
 .img-box{
@@ -226,7 +227,6 @@
 
     img{
       background-color: #f6f6f6;
-      width: 100%;
       max-height: 100%;
       max-width: 100%;
     }
@@ -246,10 +246,11 @@
   .img-box{
     a{
        padding: 8px;
+      width: 100%;
     }
   }
   .section-info{
-     height: 97px;
+     //height: 97px;
      div {
        font-size:@smaller-primary;
        margin-left: 30px;
@@ -260,10 +261,15 @@
      }
      .entity-brand{
         margin-top: 15px;
+       .single-text-overflow;
+
      }
     .entity-title{
        margin-bottom:0px;
        margin-top: 0px;
+      .multiple-text-overflow(2);
+      min-height:40px;
+      max-height:40px;
     }
     .entity-price{
         .price-tag-widget;
@@ -462,7 +468,7 @@ p .b_day{
     margin-top:16px;
     overflow: hidden;
     .caption {
-      width:60%;
+      width:75%;
       height:80px;
       float:left;
       margin:0;
@@ -492,10 +498,90 @@ p .b_day{
       }
   }
    }
-
 }
 
+.gotop-wrapper{
+  .acc-layer;
+  display: none;
+  width:40px;
+  height:120px;
+  position:fixed;
+  bottom:65px;
+  right:16px;
+  background-color: @panel-background-color;
+  border:1px solid @divider-color;
+  .drop-shadow();
+  ul{
+    width:100%;
+    height:100%;
+    li{
+      width:100%;
+      height:40px;
+      line-height: 40px;
+      text-align: center;
+      border-bottom:1px solid @divider-color;
+      &:last-child{
+        border-bottom: none;
+      }
+      a{
+        display: inline-block;
+        width:100%;
+        height:100%;
+        color:@new-text-gray;
+        font-size:@primary-size;
+      }
+      a.gk-download{
+        position:relative;
+        &:hover{
+          color:@btn-blue-dark;
+          .download-qrcode-wrapper{
+            display: block;
+          }
+        }
+      }
+      a.gk-wechat-share{
+         position:relative;
+        &:hover{
+          cursor: pointer;
+          color:@wechat-hover-color;
+        .wechat-qrcode-wrapper{
+          display:block;
+        }
+      }
+      }
+      .qrcode-wrapper{
+              position:absolute;
+              bottom:-56px;
+              left:-116px;
+              padding:10px 9px;
+              background-color: #fff;
+              box-shadow: @panel-shaddow;
+              display: none;
+              .qrcode-img{
+                width:80px;
+              }
+              .qr-text{
+                font-size:@mini-size;
+                color:#414243;
+                width:100%;
+                text-align: center;
+                margin-top:10px;
+              }
+              .bottom-bot{
+                position:absolute;
+                bottom:50%;
+                left:100%;
+                width:0;
+                height:0;
+                border-width:5px;
+                border-style:solid;
+                border-color:transparent transparent transparent #ffffff;
+              }
+            }
 
+    }
+  }
+}
 .btn-top {
   .acc-layer;
 
@@ -609,7 +695,7 @@ p .b_day{
    padding-bottom: 100%;
    background-size: cover;
    background-position: center center;
-   border: 1px solid @border-gray;
+   border: 1px solid @new-border-gray;
 }
 
 p.boolean-true{
@@ -698,6 +784,7 @@ p.boolean-false{
   }
 }
 
+
 .user-icon-middle{
   img{
             display: block;
@@ -716,6 +803,10 @@ p.boolean-false{
             margin-right:12px;
 }
 
+.guoku-small-col{
+  padding:0 2px;
+  margin-bottom:4px;
+}
 .guoku-normal-col {
   padding: 0 5px;
   margin-bottom: 10px;
@@ -879,6 +970,7 @@ p.boolean-false{
 //dark section item widget,but I don't delete the hot section style in good store page.
 //it is complex
 .dark-section-wrapper{
+  margin-bottom: 10px;
     .dark-section-item{
       a{
         color:#ffffff;
@@ -902,10 +994,7 @@ p.boolean-false{
             position:absolute;
             top:50%;
             left:50%;
-            -webkit-transform: translate(-50%,-50%);
-            -ms-transform: translate(-50%,-50%);
-            transform: translate(-50%,-50%);
-            text-align: center;
+            .transform(translate(-50%,-50%));
             p{
               margin-bottom:0;
             }
@@ -948,4 +1037,51 @@ p.boolean-false{
   background-position:center;
   background-size: cover;
   background-repeat:no-repeat;
+}
+
+.single-text-overflow{
+//  width:100%;
+  //height:auto;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+// banner common
+  .banner-image-cell-scrim{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:rgba(0,0,0,0.2);
+    .transition(all 1s ease-in-out);
+  }
+
+  .article-intro-wrapper{
+    position:absolute;
+    left:0;
+    bottom:-50%;
+    width:100%;
+    height:50%;
+    background-color:rgba(0,0,0,0.5);
+    .gradient(transparent,rgba(0,0,0,0.5));
+    .transition(all 1s ease-in-out);
+  }
+    .gk-slide-current{
+    .banner-image-cell-scrim{
+      background-color:transparent;
+    }
+      .article-intro-wrapper{
+        bottom:0;
+      }
+  }
+
+//link
+a.new-blue-link{
+  color:@new-blue-link;
+   text-decoration: none;
+  &:hover{
+    color:@new-dark-blue-link;
+  }
 }

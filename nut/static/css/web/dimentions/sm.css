@@ -1,3 +1,4 @@
+/*(node) util.print is deprecated. Use console.log instead.*/
 @media (max-width: 991px) {
   .guoku-content.user-page .user-info .user-nick-block {
     margin: 0 auto ;
@@ -13,5 +14,13 @@
   .social-list .social-cell .entity-list .entity-item {
     height: 80px!important;
     width: 80px!important;
+  }
+}
+@media (max-width: 992px) {
+  #discover_container .slick-prev:before,
+  .new-index-page .slick-prev:before,
+  #discover_container .slick-next:before,
+  .new-index-page .slick-next:before {
+    display: none;
   }
 }

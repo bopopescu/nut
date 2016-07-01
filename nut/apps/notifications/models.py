@@ -5,6 +5,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.db import models
 from django.db.models.signals import post_save
+from django.utils.translation import ugettext_lazy as _
+from apps.notifications.push import JPushMessage
+from apps.core.models import GKUser
 # from django.utils.timezone import utc
 
 import jpush
@@ -138,6 +141,83 @@ def notify_handler(verb, **kwargs):
 notify.connect(notify_handler, dispatch_uid='notifications.models.notification')
 
 
+class DailyPushQuerySet(models.query.QuerySet):
+    def pending(self):
+        return self.filter(status=DailyPush.pending)
+
+    def sent(self):
+        return self.filter(status=DailyPush.sent)
+
+    def disabled(self):
+        return self.filter(status=DailyPush.disabled)
+
+class DailyPushManager(models.Manager):
+    def get_queryset(self):
+        return DailyPushQuerySet(self.model, using=self._db)
+
+    def pending(self):
+        return self.get_queryset().pending()
+
+    def sent(self):
+        return self.get_queryset().sent()
+
+    def disabled(self):
+        return self.get_queryset().disabled()
+
+
+class DailyPush(models.Model):
+    ( pending, sending, sent) = range(3)
+    PUSH_STATUS_CHOICES = [
+        (pending, _(u"未发送")),
+        (sending, _(u"发送中")),
+        (sent,_(u"发送完毕"))
+    ]
+
+    (user, entity, link) = range(3)
+    CONTENT_TYPE_CHOICES = [
+        (user, _(u"用户")),
+        (entity, _(u"商品")),
+        (link,_(u"链接"))
+    ]
+
+
+    push_text = models.CharField(max_length=64)
+    push_type = models.IntegerField(choices=CONTENT_TYPE_CHOICES, default=user)
+    push_url  = models.CharField(max_length=256)
+    send_time = models.DateTimeField(db_index=True)
+    status = models.IntegerField(choices=PUSH_STATUS_CHOICES, default=pending, db_index=True)
+
+    object =  DailyPushManager()
+
+    @property
+    def message_url(self):
+        if self.push_type == self.user :
+            return 'guoku://user/%s'%self.push_url
+        elif self.push_type == self.entity:
+            return 'guoku://entity/%s'%self.push_url
+        else:
+            return self.push_url
+
+    def __unicode__(self):
+        return '%s:%s'%(self.push_text, self.message_url() )
+
+    def send(self):
+        pass
+
+    def send_jpush_to_user(self, user):
+        rids = user.jpush_rids
+        for rid in rids:
+            jpush_msg = JPushMessage(rid, self.push_text, self.message_url)
+            jpush_msg.send_message()
+
+    def send_jpush_by_user_id(self, user_id):
+        user = GKUser.objects.get(pk=user_id)
+        if user:
+            self.send_jpush_to_user(user)
+
+
+
+
 # jpush
 class JpushToken(models.Model):
     rid = models.CharField(max_length=128)
@@ -150,66 +230,10 @@ class JpushToken(models.Model):
         return self.rid
 
 
-def push_notification(sender, instance, created, **kwargs):
-    if issubclass(sender, Notification):
-        # log.info(instance.action_object_content_type.model)
-        _jpush = jpush.JPush(app_key, app_secret)
-        push = _jpush.create_push()
-        _platform = 'ios'
-        _production = True
-        # if instance.action_object_content_type.model == "entity_like":
-        #     verb = instance.actor.profile.nick + u' 喜爱了你添加的商品'
-        #     for reg in instance.recipient.jpush_token.all():
-        #         log.info(reg.model)
-        #         # if reg.model == 'iPhones':
-        #         push.platform = jpush.platform(_platform)
-        #         push.audience = jpush.registration_id(reg.rid)
-        #         # log.info("%d" % instance.recipient.notifications.unread().count())
-        #         ios_msg = jpush.ios(alert=verb.encode('utf8'), badge=instance.recipient.notifications.unread().count(), extras={'url':'guoku://entity/%s' % instance.target.pk})
-        #         push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
-        #         push.options = {"time_to_live":86400, "apns_production":_production}
-        #         push.send()
-        if instance.action_object_content_type.model == 'user_follow':
-            verb = instance.actor.profile.nick + u' 开始关注你'
-            for reg in instance.recipient.jpush_token.all():
-                # log.info("model %s" % reg.model)
-                # if reg.model == 'iPhones':
-                push.platform = jpush.platform(_platform)
-                push.audience = jpush.registration_id(reg.rid)
-                # log.info("%d" % instance.recipient.notifications.unread().count())
-                ios_msg = jpush.ios(alert=verb.encode('utf8'), badge=instance.recipient.notifications.unread().count(), extras={'url':'guoku://user/%s' % instance.actor.pk})
-                push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
-                push.options = {"time_to_live":86400, "apns_production":_production}
-                push.send()
-        elif instance.action_object_content_type.model == 'selection_entity':
-            verb = u' 你添加的商品被收入精选'
-            for reg in instance.recipient.jpush_token.all():
-                push.platform = jpush.platform(_platform)
-                push.audience = jpush.registration_id(reg.rid)
-                ios_msg = jpush.ios(alert=verb.encode('utf8'), badge=instance.recipient.notifications.unread().count(), extras={'url':'guoku://entity/%s' % instance.target.pk})
-                push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
-                push.options = {"time_to_live":86400, "apns_production":_production}
-                push.send()
-        elif instance.action_object_content_type.model == 'note':
-            verb = instance.actor.profile.nick + u' 点评了你推荐的商品'
-            for reg in instance.recipient.jpush_token.all():
-                push.platform = jpush.platform(_platform)
-                push.audience = jpush.registration_id(reg.rid)
-                ios_msg = jpush.ios(alert=verb.encode('utf8'), badge=instance.recipient.notifications.unread().count(), extras={'url':'guoku://entity/%s' % instance.target.pk})
-                push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
-                push.options = {"time_to_live":86400, "apns_production":_production}
-                push.send()
+from apps.notifications.push import MessageFactroy
+def new_push_notification(sender, instance, created, **kwargs):
+    MessageFactroy().create_notify_message(sender=sender, instance=instance, created=created, **kwargs)
 
-        elif instance.action_object_content_type.model == 'note_poke':
-            verb = instance.actor.profile.nick + u' 赞了你撰写的点评'
-            for reg in instance.recipient.jpush_token.all():
-                push.platform = jpush.platform(_platform)
-                push.audience = jpush.registration_id(reg.rid)
-                ios_msg = jpush.ios(alert=verb.encode('utf8'), badge=instance.recipient.notifications.unread().count(), extras={'url':'guoku://entity/%s' % instance.target.pk})
-                push.notification = jpush.notification(alert=verb.encode('utf8'), ios=ios_msg)
-                push.options = {"time_to_live":86400, "apns_production":_production}
-                push.send()
-
-post_save.connect(push_notification, sender=Notification, dispatch_uid='push.notification')
+post_save.connect(new_push_notification, sender=Notification, dispatch_uid='push.notification')
 
 __author__ = 'edison7500'
