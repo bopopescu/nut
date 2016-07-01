@@ -1,5 +1,11 @@
 
+1. fix index bug 
+=======================
+# merged to master 2016 6-30 
+=======================
 
+3. editor work report (alpha)
+2. index page 
 1. add note to tag entity list  
 
 =======================
@@ -69,7 +75,8 @@ Action :
         add DailyPush model    
         
     3. fix field encoding , if needed 
-        ALTER TABLE `core`.`notifications_dailypush` 
+        ALTER T
+        ABLE `core`.`notifications_dailypush` 
 CHANGE COLUMN `push_text` `push_text` VARCHAR(64) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ;
      
 ####  for  entity buylink update use 
