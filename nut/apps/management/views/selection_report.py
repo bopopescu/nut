@@ -101,20 +101,18 @@ class SelectionReportListView(ListView):
         context = self.get_context_data()
         return self.render_to_response(context)
 
-class EntityLikeView():
+def EntityLikeView(request):
     template_name = 'management/selection_report/entity_like.html'
     model = Entity_Like
     # paginate_by = 40
     context_object_name = 'Entity_Like'
-
-    def get_entity_like(requst):
-        # paginator_class = ExtentPaginator
-        post = Entity_Like.objects.all()
-        #self.id = self.request.GET.get('id')
-        content = {'post':post}
-        #entity_id = self.request.GET.get("entity_id")
-        #use_id = self.request.GET.get("user_id")
-        return render_to_response('entity_like.html', content)
+    # paginator_class = ExtentPaginator
+    post = Entity_Like.objects.all()
+    #self.id = self.request.GET.get('id')
+    content = {'post':post}
+    #entity_id = self.request.GET.get("entity_id")
+    #use_id = self.request.GET.get("user_id")
+    return render_to_response('entity_like.html', content)
 
 
 
