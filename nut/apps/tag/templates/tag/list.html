@@ -3,6 +3,21 @@
 {% block content %}
     <div class="container">
         <div class="row">
+            <div class="col-sm-12">
+                <div class="section-title">
+                    已经发布的商品标签
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="section-title">
+                    已经发布的图文标签
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             {% for tag in object_list %}
                 <a href="{% url 'tag_entities_url' tag.hash %}"><span class="label label-info">{{ tag }}</span></a>
             {% endfor %}
