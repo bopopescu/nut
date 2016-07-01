@@ -1,4 +1,8 @@
+#encoding: utf-8
 from datetime import datetime
+
+from apps.shop.models import StorePageBanners
+from apps.site_banner.models import SiteBanner
 from braces.views import AjaxResponseMixin
 from braces.views import JSONResponseMixin
 from django.views.generic import ListView
@@ -11,7 +15,7 @@ from haystack.generic_views import SearchView
 from apps.core.tasks.recorder import record_search
 from apps.core.utils.commons import get_client_ip, get_user_agent
 from apps.tag.models import Tags
-from apps.core.models import Entity, Entity_Like
+from apps.core.models import Entity, Entity_Like, Category
 from apps.core.models import Selection_Entity
 from apps.core.models import GKUser
 from apps.core.models import Show_Banner
@@ -57,15 +61,43 @@ class IndexView(TemplateView):
     def get_top_entities(self):
         return []
 
+    def get_hot_entities(self):
+        popular_list = Entity_Like.objects.popular_random()
+        _hot_entities = Entity.objects.filter(id__in=popular_list)
+        return _hot_entities
+
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs);
-        context['banners'] = self.get_banners()
-        context['selection_entities'] = self.get_selection_entities()
-        context['selection_articles'] = self.get_selection_articles()
-        context['categories'] = self.get_hot_categories()
-        context['top_articles'] = self.get_top_articles()
-        context['top_entities'] = self.get_top_entities()
-        context['brands'] = []
+        # context['banners'] = self.get_banners()
+        # context['selection_entities'] = self.get_selection_entities()
+        # context['hot_entities'] = self.get_hot_entities()
+        # context['selection_articles'] = self.get_selection_articles()
+        # context['categories'] = self.get_hot_categories()
+        # context['top_articles'] = self.get_top_articles()
+        # context['top_entities'] = self.get_top_entities()
+        # context['brands'] = []
+
+
+        context['banners'] = SiteBanner.objects.get_mainpage_banner()  # 顶部banner (link, image)
+        context['categories'] = Category.objects.filter(status=True)  # 品类
+        popular_list = Entity_Like.objects.popular_random()
+        context['entities'] = Entity.objects.filter(id__in=popular_list)  # 热门商品
+        context['article_tags'] = Tags.objects.top_article_tags()  # 图文标签
+        context['articles'] = Selection_Article.objects.select_related('article').all()[:3]  # 最新精选图文
+        test = Selection_Article.objects\
+                              .select_related('article').using('slave')
+        context['recommand_users'] = GKUser.objects.recommended_user()[:20]  # 推荐用户
+        context['middle_banners'] = StorePageBanners.objects.filter(status=StorePageBanners.enabled)  # 中间banner
+        context['selection_entity'] = Selection_Entity.objects.select_related('entity')[:6]
+
+        _entities = context['entities']
+        el = list()
+        if self.request.user.is_authenticated():
+            el = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=list(_entities))
+
+        context['user_entity_likes'] = el
+
+
         return context
 
 
@@ -104,7 +136,15 @@ class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin, ListView):
                                                             flat=True))
                                                     ).using('slave')
         context['user_entity_likes'] = el
-        context['selections'] = selections
+        context['selections'] = selections                           #精选商品
+        # context['banners'] = SiteBanner.objects.get_mainpage_banner()    #顶部banner (link, image)
+        # context['categories'] = Category.objects.filter(status=True)     #品类
+        # popular_list = Entity_Like.objects.popular_random()
+        # context['entities'] = Entity.objects.filter(id__in=popular_list) #热门商品
+        # context['article_tags'] = Tags.objects.top_article_tags()        #图文标签
+        # context['articles'] = Selection_Article.objects.all()[:3]        #最新精选图文
+        # context['recommand_users'] = GKUser.objects.recommended_user()[:20]    #推荐用户
+        # context['middle_banners'] = StorePageBanners.objects.filter(status=StorePageBanners.enabled)    #中间banner
         return context
 
     def get_like_list(self, entities):
