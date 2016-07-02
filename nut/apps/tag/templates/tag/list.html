@@ -11,21 +11,24 @@
         </div>
 
         <div class="row dark-section-wrapper">
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <div class="dark-section-item">
-                    <a href="" target="_blank">
-                        <div class="section-panel">
-                            <div class="bg-pic" style="background-image: url(http://imgcdn.guoku.com/images/450/2b311b954cca50bf151545c717959ff5.jpeg)">
+            {% for entity_tag in published_entity_tags %}
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="dark-section-item">
+                        <a href="{% url 'tag_entities_url' entity_tag.hash %}" target="_blank">
+                            <div class="section-panel">
+                                <div class="bg-pic" style="background-image: url({{ image_host }}{{ entity_tag.image }})">
+
+                                </div>
+                                <div class="bg-layer show"></div>
+                                <div class="section-name">
+                                    <p>{{ entity_tag.name }}</p>
+                                    <span>{{ entity_tag.description }}</span>
+                                </div>
                             </div>
-                             <div class="bg-layer show"></div>
-                            <div class="section-name">
-                                <p>label name</p>
-                                <span>label desc</span>
-                            </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
 
 
