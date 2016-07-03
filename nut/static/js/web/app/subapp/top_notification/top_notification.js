@@ -74,7 +74,8 @@ define([
             for(var i=0;i<datas.notification_length;i++){
                 datas.objects[i].actor.avatar = datas.objects[i].actor.avatar.replace('/avatar/','/avatar/52/');
                 if( datas.objects[i].type == 'article_dig'){
-                    datas.objects[i].target.article_cover = datas.objects[i].target.article_cover.replace('/images/','/images/52/');
+                    var cover_url = datas.objects[i].target.article_cover;
+                    datas.objects[i].target.article_cover = cover_url.replace('/images/','/images/52/');
                     console.log('article after url :'+datas.objects[i].target.article_cover);
                 }
                 if(datas.objects[i].type != 'user_follow' && datas.objects[i].type != 'article_dig' ){
