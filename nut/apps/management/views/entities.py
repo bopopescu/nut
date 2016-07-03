@@ -26,6 +26,7 @@ from django.views.generic import TemplateView, View
 from apps.core.mixins.views import SortMixin, FilterMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
+from apps.management.mixins.auth import EditorRequiredMixin
 import requests
 
 # from django.utils import timezone
@@ -182,6 +183,8 @@ def edit(request, entity_id, template='management/entities/edit.html'):
         },
         context_instance=RequestContext(request)
     )
+
+
 
 
 @login_required
@@ -447,5 +450,15 @@ def delete_image(request, entity_id):
 
     return HttpResponseNotAllowed
 
+from apps.core.models import SKU
+
+class EntitySKUListView(EditorRequiredMixin,ListView):
+    template_name = 'skus'
+    def get_queryset(self):
+
+        return SKU.objects.
+        pass
+
+    pass
 
 __author__ = 'edison7500'

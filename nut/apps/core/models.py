@@ -1099,14 +1099,19 @@ class Entity(BaseModel):
             pass
 
 
+from apps.core.manager.sku import SKUManager
+
 class SKU(BaseModel):
     (disable, enable) =  (0, 1)
     SKU_STATUS_CHOICE = [(disable, _('disable')), (enable, _('enable'))]
     entity = models.ForeignKey(Entity, related_name='skus')
+    attribute = ListObjectField()
     stock = models.IntegerField(default=0,db_index=True)#库存
     origin_price = models.FloatField(default=0, db_index=True)
     promo_price = models.FloatField(default=0, db_index=True)
     status =  models.IntegerField(choices=SKU_STATUS_CHOICE)
+
+    object =  SKUManager()
 
 
 

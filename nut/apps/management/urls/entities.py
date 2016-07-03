@@ -22,6 +22,9 @@ urlpatterns = patterns(
     url(r'^image/(?P<entity_id>\d+)/$', 'image', name='management_entity_image'),
 
 
+    url(r'^(?P<entity_id>\d+)/skus/$', 'image', name='management_entity_image'),
+
+
 )
 
 __author__ = 'edison7500'
