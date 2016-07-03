@@ -871,6 +871,8 @@ class Entity(BaseModel):
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
     status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=new, db_index=True)
 
+    sku_attributes = ListObjectField()
+
     objects = EntityManager()
 
     class Meta:
@@ -1095,6 +1097,12 @@ class Entity(BaseModel):
             self.save()
         except Entity.DoesNotExist, e:
             pass
+
+
+class SKU(BaseModel):
+    entity = models.ForeignKey(Entity, related_name='skus')
+    stock = models.IntegerField(default=0,db_index=True)#库存
+    origin_price = models.FloatField(default=0, db_index=True)
 
 
 class Selection_Entity(BaseModel):
