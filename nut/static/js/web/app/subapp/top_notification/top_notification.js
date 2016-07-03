@@ -72,13 +72,11 @@ define([
                 notification_length:ajaxDatas.data.length
             };
             for(var i=0;i<datas.notification_length;i++){
-                console.log('before url :'+datas.objects[i].actor.avatar);
                 datas.objects[i].actor.avatar = datas.objects[i].actor.avatar.replace('/avatar/','/avatar/52/');
-                if( typeof(datas.objects[i].target.article_cover) !== undefined){
+                if( datas.objects[i].type == 'article_dig'){
                     datas.objects[i].target.article_cover = datas.objects[i].target.article_cover.replace('/images/','/images/52/');
-                    console.log('after url :'+datas.objects[i].target.article_cover);
+                    console.log('article after url :'+datas.objects[i].target.article_cover);
                 }
-                console.log('after url :'+datas.objects[i].actor.avatar);
             }
             $('.notification-drop-list').append(notificationItems(datas));
         },
