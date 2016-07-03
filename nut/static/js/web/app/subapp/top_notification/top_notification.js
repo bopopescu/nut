@@ -71,6 +71,10 @@ define([
                 objects:ajaxDatas.data,
                 notification_length:ajaxDatas.data.length
             };
+            this.processImagesSize(datas);
+            $('.notification-drop-list').append(notificationItems(datas));
+        },
+        processImagesSize:function(datas){
             for(var i=0;i<datas.notification_length;i++){
                 datas.objects[i].actor.avatar = datas.objects[i].actor.avatar.replace('/avatar/','/avatar/52/');
                 if( datas.objects[i].type == 'article_dig'){
@@ -86,7 +90,6 @@ define([
 
                 }
             }
-            $('.notification-drop-list').append(notificationItems(datas));
         },
         showFail:function($ele){
             console.log('ajax data failed.');
