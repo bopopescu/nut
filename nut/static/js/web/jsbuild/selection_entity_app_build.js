@@ -1493,6 +1493,13 @@ define('subapp/top_notification/top_notification',[
                     datas.objects[i].target.article_cover = datas.objects[i].target.article_cover.replace('/images/','/images/52/');
                     console.log('article after url :'+datas.objects[i].target.article_cover);
                 }
+                if(datas.objects[i].type == 'note_comment'){
+                    var entity_url = datas.objects[i].target.entity_image;
+                    var replaceStr = entity_url.substring(entity_url.lastIndexOf('/'));
+                    datas.objects[i].target.entity_image = entity_url.replace(replaceStr,'/52'+replaceStr);
+                    console.log('article after url :'+datas.objects[i].target.entity_image);
+
+                }
             }
             $('.notification-drop-list').append(notificationItems(datas));
         },
