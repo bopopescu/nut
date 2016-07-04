@@ -1486,9 +1486,26 @@ define('subapp/top_notification/top_notification',[
             var datas = {
                 objects:ajaxDatas.data,
                 notification_length:ajaxDatas.data.length
-
             };
+            this.processImagesSize(datas);
             $('.notification-drop-list').append(notificationItems(datas));
+        },
+        processImagesSize:function(datas){
+            for(var i=0;i<datas.notification_length;i++){
+                datas.objects[i].actor.avatar = datas.objects[i].actor.avatar.replace('/avatar/','/avatar/52/');
+                if( datas.objects[i].type == 'article_dig'){
+                    var cover_url = datas.objects[i].target.article_cover;
+                    datas.objects[i].target.article_cover = cover_url.replace('/images/','/images/52/');
+                    console.log('article after url :'+datas.objects[i].target.article_cover);
+                }
+                if(datas.objects[i].type != 'user_follow' && datas.objects[i].type != 'article_dig' ){
+                    var entity_url = datas.objects[i].target.entity_image;
+                    var replaceStr = entity_url.substring(entity_url.lastIndexOf('/'));
+                    datas.objects[i].target.entity_image = entity_url.replace(replaceStr,'/52'+replaceStr);
+                    console.log('article after url :'+datas.objects[i].target.entity_image);
+
+                }
+            }
         },
         showFail:function($ele){
             console.log('ajax data failed.');
