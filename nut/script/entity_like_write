@@ -1,0 +1,24 @@
+# coding=utf-8
+import os, sys
+sys.path.append('/Applications/nut/nut')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_dhh'
+
+import random
+from apps.core.models import Entity_Like,Entity,GKUser
+from apps.report.models import Selection
+from datetime import datetime, timedelta
+
+entitys = Entity.objects.all()[100:1000]
+#随机选取
+entitys_choice = random.sample(entitys, 100)
+
+gkusers = GKUser.objects.all()[1000:10000]
+gkusers_choice = random.sample(gkusers,100)
+for entity in entitys_choice:
+    for gkuser in gkusers_choice:
+        Entity_Like.objects.create(entity=entity, user=gkuser, created_time='2016-07-04 10:04:37')
+
+print (Entity_Like.objects.count())
+
+
+__author__ = 'dhh'

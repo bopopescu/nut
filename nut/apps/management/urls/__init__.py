@@ -7,6 +7,7 @@ urlpatterns = patterns(
 
     url(r'^restful/', include('apps.management.urls.restful')),
 
+    url(r'^entitylike/$','views.entitylike'),
 
     url(r'^dashboard/$', 'views.dashboard', name='management_dashboard'),
     url(r'^selection/', include('apps.management.urls.selection')),
