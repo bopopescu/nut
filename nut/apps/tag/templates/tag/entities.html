@@ -23,13 +23,9 @@
 {% endif %}
     <div class="container">
         {% if request.user.is_staff %}
-
             <div class="row user-admin-link-wrapper">
-                <a class="pull-right" href="{% url 'management_tag_entities_detail' tag.id %}" target="_blank">商品列表<i class="fa fa-edit"></i></a>
-            </div>
-
-            <div class="row user-admin-link-wrapper">
-                <a class="pull-right" href="{% url 'management_tag_edit' tag.id %}" target="_blank"> 编辑标签<i class="fa fa-edit"></i></a>
+                <a class="pull-right" href="{% url 'management_tag_edit' tag.id %}" target="_blank" alt="编辑标签" title="编辑标签"><i class="fa fa-edit"></i></a>
+                <a class="pull-right" href="{% url 'management_tag_entities_detail' tag.id %}" target="_blank" alt="商品列表" title="商品列表" style="margin-right:15px;"><i class="fa fa-user"></i></a>
             </div>
         {% endif %}
         <div class="row" id="tag-entity-list" data-refresh="{{ refresh_time }}">
