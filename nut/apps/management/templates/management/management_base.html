@@ -165,6 +165,13 @@
                         </a>
                     </li>
 
+                    {% url 'management_operation_report' as management_operation_report %}
+                    <li {% if management_operation_report in request.path %}class="active"{% endif %}>
+                        <a href="{{ management_operation_report }}">
+                            <i class="fa fa-file-text"></i>&nbsp;<span>{% trans '运营报告' %}</span>
+                        </a>
+                    </li>
+
 
 {#                     {% url 'management_banner_list' as management_banner_list_url %}#}
 {#                    <li {% if management_banner_list_url in request.path %}class="active"{% endif %}>#}
