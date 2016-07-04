@@ -109,11 +109,8 @@ define(['jquery','libs/Class','libs/fastdom'],
         },
         loadFail:function(data){
             console.log(data);
-            console.log('load fail');
             this.loading_icon.hide();
-            console.log('hide loading icon success');
-
-
+            console.log('hide loading icon');
         },
         attachNewSelections: function(elemList, status){
             var that = this;
