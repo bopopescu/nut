@@ -1,6 +1,6 @@
 from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect, \
     HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 # from django.views.generic.list import ListView
@@ -10,6 +10,8 @@ from django.utils.log import getLogger
 from django.views.decorators.csrf import csrf_exempt
 from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
+
 from apps.management.decorators import staff_only, staff_and_editor
 
 from apps.core.models import Entity, Buy_Link, GKUser
@@ -453,12 +455,13 @@ def delete_image(request, entity_id):
 from apps.core.models import SKU
 
 class EntitySKUListView(EditorRequiredMixin,ListView):
-    template_name = 'skus'
+    template_name = 'management/entities/entity_sku_list.html'
     def get_queryset(self):
+        entity = self.get_entity()
+        return entity.skus.all()
 
-        return SKU.objects.
-        pass
+    def get_entity(self):
+        return get_object_or_404(Entity, id=self.kwargs.pop('entity_id', None))
 
-    pass
 
 __author__ = 'edison7500'
