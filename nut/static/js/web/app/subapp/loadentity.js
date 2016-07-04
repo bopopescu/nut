@@ -13,7 +13,7 @@ define(['jquery','libs/Class','libs/fastdom'],
             this.read = null;
             this.write = null;
             this.loading = false;
-            this.shouldLoad = true;
+            this.shouldLoad = false;
 
             this.setupLoadWatcher();
         },
@@ -54,6 +54,7 @@ define(['jquery','libs/Class','libs/fastdom'],
                 this.loading = true
             }
             this.shouldLoad = this.isOverScrolled && (this.counter%3 !== 0) && (!this.loading);
+            console.log('counter:'+this.counter+'shoudLoad:'+this.shouldLoad);
 
             if(!this.shouldLoad){
                 this.doClear();
@@ -104,9 +105,14 @@ define(['jquery','libs/Class','libs/fastdom'],
 
         loadSuccess: function(res){
             this.attachNewSelections($(res.data), res.status);
+            console.log('load success');
         },
         loadFail:function(data){
-            console.log(data)
+            console.log(data);
+            console.log('load fail');
+            this.loading_icon.hide();
+            console.log('hide loading icon success');
+
 
         },
         attachNewSelections: function(elemList, status){
