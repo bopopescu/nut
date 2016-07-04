@@ -118,21 +118,7 @@ def dashboard(request, template='management/dashboard.html'):
 
 
 def entitylike(request, template='management/selection_report/entity_like.html'):
-    #ange_date = days_ago(1)
-    #s = Selection_Entity.objects.published()
-    a  = []
-    #entitys = Entity.objects.all()[:10]
-    #entity = Entity.objects.all()[:1000]
     entity_count = Entity.objects.annotate(num_likes = Count('likes')).filter(num_likes__gt = 100)
-    # for item in r:
-    #     if item.like_count >100:
-    #         print (type(item))
-    #         a.append(item)
-    #entity_like = entity.likes.all()
-    # for item in entity_like:
-    #     print item.user
-    #print (entitys)
-    #print (entity_like)
     print (entity_count)
     return render_to_response(template,{
         'entities':entity_count,

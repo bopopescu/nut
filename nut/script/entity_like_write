@@ -5,12 +5,10 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_dhh'
 
 import random
 from apps.core.models import Entity_Like,Entity,GKUser
-from apps.report.models import Selection
-from datetime import datetime, timedelta
 
 entitys = Entity.objects.all()[100:1000]
 #随机选取
-entitys_choice = random.sample(entitys, 100)
+entitys_choice = random.sample(entitys,100)
 
 gkusers = GKUser.objects.all()[1000:10000]
 gkusers_choice = random.sample(gkusers,100)
