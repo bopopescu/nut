@@ -871,7 +871,7 @@ class Entity(BaseModel):
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
     status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=new, db_index=True)
 
-    sku_attributes = ListObjectField()
+    # sku_attributes = ListObjectField()
 
     objects = EntityManager()
 
@@ -1098,48 +1098,6 @@ class Entity(BaseModel):
         except Entity.DoesNotExist, e:
             pass
 
-    def _generate_simple_sku(self):
-        new_sku, created = SKU.object.get_or_create(entity_id=self.pk, defaults={})
-        if created:
-            new_sku.status = SKU.enable
-            new_sku.entity = self
-            new_sku.is_simple = True
-            new_sku.save()
-
-
-
-    def _generate_attr_skus(self):
-        attribute_value_lists = []
-        for attribute in self.sku_attributes:
-            for key , value_list in attribute.iteritems():
-                attribute_value_lists.append(value_list)
-        pprint(attribute_value_lists)
-
-        def Cartesian(arr1, arr2):
-            res = []
-            for a in arr1:
-                for b in arr2:
-                    res.append('{a}_{b}'.format(a=a,b=b))
-            return res
-
-        cartesian_result = reduce(Cartesian, attribute_value_lists)
-        # pprint(cartesian_result)
-        for att_str_list in cartesian_result:
-            new_sku , created = SKU.object.get_or_create(entity=self, attribute=att_str_list, defaults={})
-            if created:
-                new_sku.attribute = att_str_list
-                new_sku.is_simple = False
-                new_sku.save()
-
-
-
-    def generate_sku_list(self):
-        if self.sku_attributes is None:
-            self._generate_simple_sku()
-        else :
-            self._generate_attr_skus()
-        pass
-
 
 from apps.core.manager.sku import SKUManager
 
@@ -1147,12 +1105,11 @@ class SKU(BaseModel):
     (disable, enable) =  (0, 1)
     SKU_STATUS_CHOICE = [(disable, _('disable')), (enable, _('enable'))]
     entity = models.ForeignKey(Entity, related_name='skus')
-    attribute = models.TextField()
+    attribute = ListObjectField()
     stock = models.IntegerField(default=0,db_index=True)#库存
     origin_price = models.FloatField(default=0, db_index=True)
     promo_price = models.FloatField(default=0, db_index=True)
     status =  models.IntegerField(choices=SKU_STATUS_CHOICE, default=enable)
-    is_simple = models.BooleanField(default=True)  #是否是简单sku(没有属性组合)
 
     object =  SKUManager()
 
