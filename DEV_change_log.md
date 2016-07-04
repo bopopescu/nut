@@ -1,4 +1,25 @@
 
+1. fix index bug 
+=======================
+# merged to master 2016 6-30 
+=======================
+
+3. editor work report (alpha)
+2. index page 
+1. add note to tag entity list  
+
+=======================
+# merged to master 2016 6-27
+=======================
+
+
+3. mng  tag page search function 
+2. fix message page refresh bug 
+1. add article enter selection time  for solr index 
+
+=======================
+# merged to master 2016 6-25
+=======================
 
 3. tag page raw list link , show buy link
 2. tag page add raw list link , only for staff user 
@@ -54,7 +75,8 @@ Action :
         add DailyPush model    
         
     3. fix field encoding , if needed 
-        ALTER TABLE `core`.`notifications_dailypush` 
+        ALTER T
+        ABLE `core`.`notifications_dailypush` 
 CHANGE COLUMN `push_text` `push_text` VARCHAR(64) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ;
      
 ####  for  entity buylink update use 

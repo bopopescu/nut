@@ -18,14 +18,14 @@ from apps.core.views import LoginRequiredMixin
 from apps.tag.models import Tags, Content_Tags
 
 
-from apps.core.mixins.views import SortMixin
+from apps.core.mixins.views import SortMixin, FilterMixin
 from braces.views import AjaxResponseMixin,JSONResponseMixin
 
 from urllib import  unquote
 
 image_host = getattr(settings, 'IMAGE_HOST', None)
 
-class TagListView(LoginRequiredMixin,SortMixin, ListView ):
+class TagListView(LoginRequiredMixin,SortMixin,FilterMixin,  ListView ):
     default_sort_params = ('id', 'desc')
     template_name = 'management/tags/list.html'
     queryset = Tags.objects.all()
@@ -51,6 +51,16 @@ class TagListView(LoginRequiredMixin,SortMixin, ListView ):
         else :
             pass
         return qs
+
+    def filter_queryset(self, qs, filter_param):
+        filter_field, filter_value = filter_param
+        if filter_field == 'tag_name':
+            qs = qs.filter(name__icontains=filter_value.strip())
+        return qs
+
+    # def get_queryset(self):
+    #     qs = super(TagListView, self).get_queryset()
+    #     return qs
 
 class TagEntitiesView(LoginRequiredMixin, ListView):
 
@@ -211,8 +221,10 @@ def tag_entity_detail(request, tag_id):
     except Tags.DoesNotExist:
         raise Http404
     queryset = Content_Tags.objects.filter(tag=tag, target_content_type_id=24)
-    host = request.get_host()
-    return render_to_response('management/tags/entity_detail.html', {'queryset': queryset, 'tag': tag, 'host': host,
+    # for item in queryset:
+    #     item.buy_link = item.target.entity.buy_links.first()
+
+    return render_to_response('management/tags/entity_detail.html', {'queryset': queryset, 'tag': tag,
                                                                      'request': request})
 
 

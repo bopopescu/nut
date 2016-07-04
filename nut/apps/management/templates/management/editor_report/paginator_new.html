@@ -1,0 +1,14 @@
+        <ul class="pagination pagination-lg">
+                {% if page_obj.has_previous %}
+                    <li><a href="{{ url }}?status={{ status }}&page={{ page_obj.previous_page_number }}&start_date={{ start_date }}&end_date={{ end_date }}">&laquo;</a></li>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range_ext %}
+                    <li {% ifequal num page_obj.number %}class="active"{% endifequal %}>
+                        <a href="{{ url }}?status={{ status }}&page={{ num }}&start_date={{ start_date }}&end_date={{ end_date }}">{{ num }} <span class="sr-only">(current)</span></a>
+                    </li>
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li><a href="{{ url }}?status={{ status }}&page={{ page_obj.next_page_number }}&start_date={{ start_date }}&end_date={{ end_date }}">&raquo;</a></li>
+                {% endif %}
+
+        </ul>

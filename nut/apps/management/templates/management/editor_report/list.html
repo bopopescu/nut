@@ -4,7 +4,7 @@
 {% block content %}
     <section class="content-header">
         <h1>
-            {% trans '精选商品' %}
+            {% trans '编辑绩效报告' %}
         </h1>
 
         <ol class="breadcrumb">
@@ -18,18 +18,13 @@
             <div class="col-xs-12">
                 <div class="box box-info">
                     <div class="box-header">
-                        <ul class="nav nav-pills" role="tablist">
-                            <li {% if status == None or status == 'None'  %}class="active"{% endif %}><a href="{% url 'management_selection_report' %}">{% trans '最多喜爱' %}</a></li>
-{#                            <li {% ifequal status '1' %}class="active"{% endifequal %}><a href="{% url 'management_selection_report' %}?status=1">{% trans '最多点击' %}</a></li>#}
-{#                            <li {% ifequal status '2' %}class="active"{% endifequal %}><a href="{% url 'management_selection_report' %}?status=2">{% trans '已售出' %}</a></li>#}
 
-                        </ul>
                     </div>
                     <div class="box-header">
                         <ul class="nav nav-pills" role="tablist">
-                            <li {% if start_time == 'yesterday' %}class="active"{% endif %}><a href="{% url 'management_selection_report' %}?status={{ status }}">{% trans '昨天' %}</a></li>
-                            <li {% if start_time == 'lastweek'  %}class="active"{% endif %}><a href="{% url 'management_selection_report' %}?status={{ status }}&start_date=lastweek">{% trans '上周' %}</a></li>
-                            <li {% if start_time == 'lastmonth'  %}class="active"{% endif %}><a href="{% url 'management_selection_report' %}?status={{ status }}&start_date=lastmonth">{% trans '上月' %}</a></li>
+{#                            <li {% if start_time == 'yesterday' %}class="active"{% endif %}><a href="{% url 'management_editor_report' %}?status={{ status }}">{% trans '昨天' %}</a></li>#}
+                            <li {% if start_time == 'lastweek'  %}class="active"{% endif %}><a href="{% url 'management_editor_report' %}?status={{ status }}&start_date=lastweek">{% trans '上周' %}</a></li>
+                            <li {% if start_time == 'lastmonth'  %}class="active"{% endif %}><a href="{% url 'management_editor_report' %}?status={{ status }}&start_date=lastmonth">{% trans '上月' %}</a></li>
                             <li><a>日期选择:</a></li>
 
                         <table style="width:300px;">
@@ -72,10 +67,10 @@ margin:auto">确定</button>
                     </div>
 
                     <div class="box-body table-responsive">
-                        {% include "management/selection_report/table.html" with selections=selections %}
+                        {% include "management/editor_report/table.html" with editors=editors %}
                     </div>
                     <div class="box-footer">
-                        {% include "management/selection_report/paginator_new.html" with objects=selections url=request.path %}
+                        {% include "management/editor_report/paginator_new.html" with objects=selections url=request.path %}
                     </div>
                 </div>
             </div>
@@ -90,25 +85,4 @@ margin:auto">确定</button>
     <script src="{% static 'js/management/util.js' %}"></script>
     <script src="{% static 'js/management/moment.js' %}"></script>
     <script src="{% static 'js/management/selection_report.js' %}"></script>
-    <script>
-        $(function () {
-        $('#datetimepicker1').datetimepicker({
-        language: 'zh-CN',
-        format: "yyyy-mm-dd 8:00:00",
-            disabledHours: "true",
-        autoclose: true,
-        pickerPosition: "bottom-left",
-            minView: '2'
-    });
-        $('#datetimepicker2').datetimepicker({
-            useCurrent: false, //Important! See issue #1075
-            language: 'zh-CN',
-            format: "yyyy-mm-dd 8:00:00",
-            disabledHours: "true",
-            autoclose: true,
-            pickerPosition: "bottom-left",
-            minView: '2'
-        });
-    });
-    </script>
 {% endblock %}

@@ -27,11 +27,12 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
     created_time = indexes.DateTimeField(model_attr='created_time')
     price = indexes.FloatField(model_attr='price')
     like_count = indexes.IntegerField(model_attr='like_count')
+
+    # selection index
     is_in_selection = indexes.BooleanField(model_attr='is_in_selection')
+    enter_selection_time = indexes.DateTimeField(model_attr='enter_selection_time')
 
     # category_name = indexes.CharField(model_attr='category_name',boost=1.50, faceted=True)
-
-    # images = indexes.CharField(model_attr='chief_image')
 
     title_auto = indexes.EdgeNgramField(model_attr='title')
 
@@ -77,15 +78,16 @@ class TagIndex(indexes.SearchIndex, indexes.Indexable):
 #
 #
 class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
-    text            = indexes.CharField(document=True, use_template=True)
-    article_id      = indexes.IntegerField(model_attr='id')
-    author          = indexes.CharField(model_attr='creator')
-    title           = indexes.CharField(model_attr='title', boost=1.125)
-    tags            = indexes.CharField(model_attr='tags_string', boost=1.25)
-    read_count      = indexes.IntegerField(model_attr='read_count')
-    is_selection    = indexes.BooleanField(model_attr='is_selection')
-
-    title_auto      = indexes.EdgeNgramField(model_attr='title')
+    text                    = indexes.CharField(document=True, use_template=True)
+    article_id              = indexes.IntegerField(model_attr='id')
+    author                  = indexes.CharField(model_attr='creator')
+    title                   = indexes.CharField(model_attr='title', boost=1.125)
+    tags                    = indexes.CharField(model_attr='tags_string', boost=1.25)
+    read_count              = indexes.IntegerField(model_attr='read_count')
+    dig_count               = indexes.IntegerField(model_attr='dig_count')
+    is_selection            = indexes.BooleanField(model_attr='is_selection')
+    enter_selection_time    = indexes.DateTimeField(model_attr='enter_selection_time')
+    title_auto              = indexes.EdgeNgramField(model_attr='title')
 
     def get_model(self):
         return Article
