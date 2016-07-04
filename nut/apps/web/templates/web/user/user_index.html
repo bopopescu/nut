@@ -133,6 +133,34 @@
                         </div>
                 </div>
                 {% endif %}
+                <div class="container-fluid content-panel" id="user-add-panel">
+                        <div class="row panel-header">
+                            <div class="panel-name">{{ pronoun }}添加的商品</div>
+                            <div class="more-link">
+                                {% if recent_likes %}
+                                <a href="{% url 'web_user_entity_like' current_user.pk %}">
+                                    {% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row panel-content-wrapper ">
+                                {% for entity in seller_entities %}
+                                <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3 entity-cell cell">
+                                   <div class="img-box">
+                                       <a href="{{ entity.absolute_url }}">
+                                           <img class="img-responsive" title="{{ entity.title }}" src="{{ entity.chief_image|resize:'310'}}" />
+                                       </a>
+                                   </div>
+                                </div>
+                                {% empty %}
+                                    <div class="empty-panel-content">
+                                        <span>暂无添加的商品</span>
+                                    </div>
+                                {% endfor %}
+                        </div>
+                </div>
+
             </div>
             <div class="content-right hidden-xs col-sm-4 col-md-4 col-lg-4" id="detail_content_right" >
                  {% include "web/user/partial/user_index_sidebar.html" %}
