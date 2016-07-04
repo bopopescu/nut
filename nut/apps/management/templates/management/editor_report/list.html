@@ -66,6 +66,38 @@ margin:auto">确定</button>
                         </ul>
                     </div>
 
+                    <div class="row sorting-wrapper">
+                         <div class="col-md-12">
+                            <div class="category-header category-header-control">
+                                <span class="dropdown-toggle category-action pull-right">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                       aria-haspopup="false" role="button" aria-expanded="false">
+                                        {% if order_by == None %}
+                                            排序
+                                         {% elif order_by == "entitys" %}
+                                        按商品数
+                                        {% elif order_by == "like_count" %}
+                                        按喜爱数
+                                         {% elif order_by == "articles" %}
+                                        按文章数
+                                        {% elif order_by == "articles" %}
+                                        按文章数
+                                        {% endif %}
+
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul  id="sort_dropdown" class="dropdown-menu dropdown-menu-control" role="menu"  >
+                                        <li ><a href="{{ current_path }}&order_by=entitys">按商品数</a></li>
+                                        <li  class="divider"></li>
+                                        <li ><a href="{{ current_path }}&order_by=like_count">按喜爱数</a></li>
+                                        <li  class="divider"></li>
+                                        <li ><a href="{{ current_path }}&order_by=articles">按文章数</a></li>
+                                    </ul>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="box-body table-responsive">
                         {% include "management/editor_report/table.html" with editors=editors %}
                     </div>
@@ -85,4 +117,25 @@ margin:auto">确定</button>
     <script src="{% static 'js/management/util.js' %}"></script>
     <script src="{% static 'js/management/moment.js' %}"></script>
     <script src="{% static 'js/management/selection_report.js' %}"></script>
+    <script>
+        $(function () {
+        $('#datetimepicker1').datetimepicker({
+        language: 'zh-CN',
+        format: "yyyy-mm-dd 8:00:00",
+            disabledHours: "true",
+        autoclose: true,
+        pickerPosition: "bottom-left",
+            minView: '2'
+    });
+        $('#datetimepicker2').datetimepicker({
+            useCurrent: false, //Important! See issue #1075
+            language: 'zh-CN',
+            format: "yyyy-mm-dd 8:00:00",
+            disabledHours: "true",
+            autoclose: true,
+            pickerPosition: "bottom-left",
+            minView: '2'
+        });
+    });
+    </script>
 {% endblock %}
