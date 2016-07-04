@@ -31,6 +31,7 @@ class TagListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(TagListView, self).get_context_data(**kwargs)
         context['published_entity_tags'] = self.get_published_entity_tag()
+        context['image_host'] = image_host
         return context
 
 
