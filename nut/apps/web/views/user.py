@@ -612,6 +612,7 @@ class UserIndex(UserPageMixin, DetailView):
         # get current seller's the first eight published selection entities
 
         _entity_list = Entity.objects.get_user_added_entities(current_user)[:8]
+        _add_entity_list = Entity.objects.get_user_added_entities(current_user)[:12]
 
         context_data['author_articles'] = self.get_author_articles(current_user)
 
@@ -635,6 +636,7 @@ class UserIndex(UserPageMixin, DetailView):
 
         context_data['articles'] = _article_list
         context_data['seller_entities'] = _entity_list
+        context_data['add_entities'] = _add_entity_list
         context_data['user_entity_likes']  = self.get_user_entity_likes(_entity_list)
 
         context_data['followings'] = current_user.followings.filter(followee__is_active__gte=0)[:7]

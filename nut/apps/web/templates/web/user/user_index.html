@@ -137,7 +137,7 @@
                         <div class="row panel-header">
                             <div class="panel-name">添加的商品</div>
                             <div class="more-link">
-                                {% if seller_entities %}
+                                {% if add_entities %}
                                     <a href="{% url 'web_user_entity_like' current_user.pk %}">
                                         {% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
                                     </a>
@@ -145,7 +145,7 @@
                             </div>
                         </div>
                         <div class="row panel-content-wrapper ">
-                                {% for entity in seller_entities %}
+                                {% for entity in add_entities %}
                                 <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3 entity-cell cell">
                                    <div class="img-box">
                                        <a href="{{ entity.absolute_url }}">
