@@ -43,6 +43,30 @@
                                     </div>
 
                             {% endfor %}
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label">SKU 属性编辑</label>
+                                    <div class="col-sm-10">
+                                         <div class="row">
+                                             <div class="col-xs-4">
+                                                  <div class="input-group">
+                                                      <div class="input-group-btn">属性名</div>
+                                                      <input type="text" class="form-control">
+                                                  </div>
+                                             </div>
+                                             <div class="col-xs-4">
+                                                  <div class="input-group">
+                                                      <div class="input-group-btn">属性值</div>
+                                                      <input type="text" class="form-control">
+                                                  </div>
+                                             </div>
+                                         </div>
+                                         <ul id="sku_attr_list">
+                                             <li><span class="col-sm-3">属性名<input type="text" maxlength="30"></span><span class="col-sm-3">属性值<input type="text" maxlength="30"></span></li>
+                                             <li><span class="col-sm-3">属性名</span><input type="text" maxlength="30"></li>
+                                             <li><span class="col-sm-3">属性名</span><input type="text" maxlength="30"></li>
+                                         </ul>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="box-footer">
@@ -60,6 +84,9 @@
 {% endblock %}
 
 {% block user_script %}
+    <script type="text/html" id="sku_attr_template">
+
+    </script>
 
     <script src="{% static 'js/management/sku/sku_manage.js' %}"></script>
 {% endblock %}
