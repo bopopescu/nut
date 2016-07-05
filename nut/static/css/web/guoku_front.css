@@ -5541,6 +5541,9 @@ body.new-index-body #selection_article_list .xs-selection-article-item .more-art
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  .new-index-page .new-banner-wrapper .banner-image-cell.banner-image-cell-control {
+    padding: 0;
+  }
   .new-index-page #hot-entity-list .search-entity-item {
     padding: 0;
   }
