@@ -5544,17 +5544,13 @@ body.new-index-body #selection_article_list .xs-selection-article-item .more-art
   .new-index-page .new-banner-wrapper .banner-image-cell.banner-image-cell-control {
     padding: 0;
   }
-  .new-index-page #hot-entity-list .search-entity-item {
+  .new-index-page .new-entity-item {
     padding: 0;
+    margin: 0;
   }
-  .new-index-page #hot-entity-list .search-entity-item .entity-four.new-thumbnail {
-    margin-bottom: 0;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    border-radius: 0;
-    -moz-background-clip: padding;
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
+  .new-index-page .new-entity-six {
+    box-shadow: 0 0 2px #ddd;
+    padding: 6px;
   }
   .article-share-wx-dialog .modal-dialog {
     margin: 150px auto;
