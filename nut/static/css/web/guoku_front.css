@@ -5467,6 +5467,18 @@ body.new-index-body #selection_article_list .xs-selection-article-item .more-art
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  .new-index-page #hot-entity-list .search-entity-item {
+    padding: 0;
+  }
+  .new-index-page #hot-entity-list .search-entity-item .entity-four.new-thumbnail {
+    margin-bottom: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+  }
   .article-share-wx-dialog .modal-dialog {
     margin: 150px auto;
   }
