@@ -52,6 +52,7 @@
                         {% if entity.selection_entity %}
                              <a href="{% url 'management_selection_edit_publish' entity.selection_entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans '编辑精选时间' %}</a>
                         {% endif %}
+                        <a href="{% url 'management_entity_skus' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans '管理SKU' %}</a>
                     </div>
 
                     <div class="box-body table-responsive">

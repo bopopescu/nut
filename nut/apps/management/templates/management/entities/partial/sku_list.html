@@ -1,0 +1,49 @@
+{% load i18n static %}
+<table class="table table-small-font table-bordered" >
+
+    <thead>
+        <tr>
+            <td>
+                 <a class="btn btn-success" href="{% url 'management_entity_sku_create' entity.id %}">添加</a>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                {% trans '#' %}
+            </th>
+            <th>
+                {% trans 'stock' %}
+            </th>
+             <th>
+                {% trans 'origin price' %}
+            </th>
+             <th>
+                {% trans 'promotion price' %}
+            </th>
+            <th>
+                {% trans 'Attributes' %}
+            </th>
+            <th>
+                {% trans 'Action' %}
+            </th>
+        </tr>
+    </thead>
+    {% for sku in skus %}
+        <tr>
+            <td>{{ sku.id }}</td>
+            <td>{{ sku.stock }}</td>
+            <td>{{ sku.origin_price }}</td>
+            <td>{{ sku.promo_price }}</td>
+            <td>{{ sku.status }}</td>
+            <td>{{ sku.attributes }}</td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-success">更新</a>
+                    <a class="btn btn-warning">编辑SKU属性</a>
+                    <a class="btn btn-danger">删除SKU</a>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+
+</table>

@@ -1,6 +1,6 @@
 from django.conf.urls import url, patterns
 # from apps.management.views.entities import EntityListView
-from apps.management.views.entities import EntityListView, CheckBuyLinkView
+from apps.management.views.entities import EntityListView, CheckBuyLinkView, EntitySKUListView,EntitySKUCreateView, EntitySKUDeleteView
 from django.contrib.auth.decorators import login_required
 
 
@@ -21,9 +21,9 @@ urlpatterns = patterns(
     url(r'^image/(?P<entity_id>\d+)/fetch/$', 'refetch_image', name='management_entity_fetch_image'),
     url(r'^image/(?P<entity_id>\d+)/$', 'image', name='management_entity_image'),
 
-
-    url(r'^(?P<entity_id>\d+)/skus/$', 'image', name='management_entity_image'),
-
+    url(r'^(?P<entity_id>\d+)/skus/$', EntitySKUListView.as_view(), name='management_entity_skus'),
+    url(r'^(?P<entity_id>\d+)/skus/new/$', EntitySKUCreateView.as_view(), name='management_entity_sku_create'),
+    url(r'^(?P<entity_id>\d+)/skus/delete/$', EntitySKUDeleteView.as_view(), name='management_entity_sku_delete'),
 
 )
 

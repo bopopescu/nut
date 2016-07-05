@@ -1098,6 +1098,15 @@ class Entity(BaseModel):
         except Entity.DoesNotExist, e:
             pass
 
+    def add_sku(self, attributes=None):
+        if attributes is None:
+            attributes = {}
+        sku , created = SKU.object.get_or_create(entity=self,attributes=attributes)
+        if created :
+            sku.entity = self
+            sku.attributes = attributes
+            sku.save()
+
 
 from apps.core.manager.sku import SKUManager
 
@@ -1105,7 +1114,7 @@ class SKU(BaseModel):
     (disable, enable) =  (0, 1)
     SKU_STATUS_CHOICE = [(disable, _('disable')), (enable, _('enable'))]
     entity = models.ForeignKey(Entity, related_name='skus')
-    attribute = ListObjectField()
+    attributes = ListObjectField()
     stock = models.IntegerField(default=0,db_index=True)#库存
     origin_price = models.FloatField(default=0, db_index=True)
     promo_price = models.FloatField(default=0, db_index=True)

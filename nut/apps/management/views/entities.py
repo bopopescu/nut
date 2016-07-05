@@ -3,7 +3,6 @@ from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect, \
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
-# from django.views.generic.list import ListView
 # from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.utils.log import getLogger
 # from django.core.files.storage import default_storage
@@ -11,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.generic import ListView,DeleteView, CreateView, View
 
 from apps.management.decorators import staff_only, staff_and_editor
 
@@ -23,12 +23,12 @@ from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.tasks.entity import fetch_image
 
 # for entity list view class
-from django.views.generic.list import ListView
-from django.views.generic import TemplateView, View
 from apps.core.mixins.views import SortMixin, FilterMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
 from apps.management.mixins.auth import EditorRequiredMixin
+from apps.management.forms.sku import SKUForm
+
 import requests
 
 # from django.utils import timezone
@@ -461,7 +461,37 @@ class EntitySKUListView(EditorRequiredMixin,ListView):
         return entity.skus.all()
 
     def get_entity(self):
-        return get_object_or_404(Entity, id=self.kwargs.pop('entity_id', None))
+        return get_object_or_404(Entity, id=self.kwargs.get('entity_id', None))
+
+    def get_context_data(self, **kwargs):
+        context = super(EntitySKUListView, self).get_context_data(**kwargs)
+        context['entity']= self.get_entity()
+        return context
+
+
+
+class EntitySKUCreateView(EditorRequiredMixin, CreateView):
+    model = SKU
+    form_class = SKUForm
+    template_name = 'management/entities/create_sku.html'
+
+    def get_initial(self):
+        entity = self.get_entity()
+        return {
+            'entity':entity.id
+        }
+
+    def get_entity(self):
+        entity_id =  self.kwargs.get('entity_id')
+        entity = get_object_or_404(Entity, id=entity_id)
+        return entity
+
+
+class EntitySKUDeleteView(EditorRequiredMixin, DeleteView):
+    model = SKU
+    template_name = 'management/entities/delete_sku.html'
+
+
 
 
 __author__ = 'edison7500'
