@@ -4,6 +4,7 @@ import time
 import requests
 import HTMLParser
 import hashlib
+import json
 
 from hashlib import md5
 from datetime import datetime
@@ -31,6 +32,7 @@ from apps.core.manager import *
 from apps.core.manager.account import  AuthorizedUserManager
 from haystack.query import SearchQuerySet
 from pprint import  pprint
+from apps.core.manager.sku import SKUManager
 
 
 log = getLogger('django')
@@ -1108,13 +1110,12 @@ class Entity(BaseModel):
             sku.save()
 
 
-from apps.core.manager.sku import SKUManager
 
 class SKU(BaseModel):
     (disable, enable) =  (0, 1)
     SKU_STATUS_CHOICE = [(disable, _('disable')), (enable, _('enable'))]
     entity = models.ForeignKey(Entity, related_name='skus')
-    attributes = ListObjectField()
+    attrs = ListObjectField()
     stock = models.IntegerField(default=0,db_index=True)#库存
     origin_price = models.FloatField(default=0, db_index=True)
     promo_price = models.FloatField(default=0, db_index=True)
@@ -1122,6 +1123,16 @@ class SKU(BaseModel):
 
     object =  SKUManager()
 
+    @property
+    def attrs_json_str(self):
+        return json.dumps(self.attrs)
+
+    @property
+    def attrs_display(self):
+        attr_str_list = list()
+        for key , value in self.attrs.iteritems():
+            attr_str_list.append('%s_%s'%(key,value))
+        return ';'.join(attr_str_list)
 
 
 class Selection_Entity(BaseModel):

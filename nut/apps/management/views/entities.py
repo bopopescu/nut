@@ -2,7 +2,7 @@ from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect, \
     HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 # from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.utils.log import getLogger
 # from django.core.files.storage import default_storage
@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.views.generic import ListView,DeleteView, CreateView, View
+from django.views.generic import ListView,DeleteView, CreateView, UpdateView,View
 
 from apps.management.decorators import staff_only, staff_and_editor
 
@@ -474,6 +474,8 @@ class EntitySKUCreateView(EditorRequiredMixin, CreateView):
     model = SKU
     form_class = SKUForm
     template_name = 'management/entities/create_sku.html'
+    def get_success_url(self):
+        return reverse('management_entity_skus', args=[self.get_entity().id])
 
     def get_initial(self):
         entity = self.get_entity()
@@ -487,9 +489,31 @@ class EntitySKUCreateView(EditorRequiredMixin, CreateView):
         return entity
 
 
+class EntitySKUUpdateView(EditorRequiredMixin,UpdateView):
+    model = SKU
+    form_class = SKUForm
+    template_name = 'management/entities/update_sku.html'
+
+    def get_entity(self):
+        entity_id =  self.kwargs.get('entity_id')
+        entity = get_object_or_404(Entity, id=entity_id)
+        return entity
+
+    def get_success_url(self):
+        return reverse('management_entity_skus', args=[self.get_entity().id])
+
+
 class EntitySKUDeleteView(EditorRequiredMixin, DeleteView):
     model = SKU
     template_name = 'management/entities/delete_sku.html'
+
+    def get_entity(self):
+        entity_id =  self.kwargs.get('entity_id')
+        entity = get_object_or_404(Entity, id=entity_id)
+        return entity
+
+    def get_success_url(self):
+        return reverse('management_entity_skus', args=[self.get_entity().id])
 
 
 

@@ -24,23 +24,25 @@
                 {% trans 'Attributes' %}
             </th>
             <th>
+                {% trans 'status' %}
+            </th>
+            <th>
                 {% trans 'Action' %}
             </th>
         </tr>
     </thead>
-    {% for sku in skus %}
+    {% for sku in entity.skus.all %}
         <tr>
             <td>{{ sku.id }}</td>
             <td>{{ sku.stock }}</td>
             <td>{{ sku.origin_price }}</td>
             <td>{{ sku.promo_price }}</td>
-            <td>{{ sku.status }}</td>
-            <td>{{ sku.attributes }}</td>
+            <td>{{ sku.attrs_display }}</td>
+            <td>{{ sku.get_status_display }}</td>
             <td>
                 <div class="btn-group">
-                    <a class="btn btn-success">更新</a>
-                    <a class="btn btn-warning">编辑SKU属性</a>
-                    <a class="btn btn-danger">删除SKU</a>
+                    <a class="btn btn-warning" href="{% url 'management_entity_sku_update' entity.pk sku.pk %}" >编辑SKU属性</a>
+                    <a class="btn btn-danger" href="{% url 'management_entity_sku_delete' entity.pk sku.pk %}">删除SKU</a>
                 </div>
             </td>
         </tr>
