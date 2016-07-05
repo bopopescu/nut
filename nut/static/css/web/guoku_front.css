@@ -875,6 +875,7 @@ p .b_day {
 .new-entity-six .img-box {
   position: relative;
   cursor: pointer;
+  border: none;
 }
 .new-entity-six .img-box a img {
   max-height: 100%;

@@ -58,15 +58,55 @@
 
     </div>
     <div class="row latest-entity-wrapper">
-          {% for sle in selection_entity %}
-                    <a href="{{ sle.entity.absolute_url }}" target="_blank" class="hover-light">
-                    <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col">
-                        <div class="guoku-bg-image-wrapper" style="background-image:url('{{ sle.entity.chief_image|resize:'180' }}')">
+{#        {% for sle in selection_entity %}#}
+{#            <a href="{{ sle.entity.absolute_url }}" target="_blank" class="hover-light">#}
+{#                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col">#}
+{#                    <div class="guoku-bg-image-wrapper" style="background-image:url('{{ sle.entity.chief_image|resize:'180' }}')">#}
+{#                    </div>#}
+{#                </div>#}
+{#            </a>#}
+{#        {% endfor %}#}
+        {% for sle in selection_entity %}
+            <div class="col-xs-4 col-sm-2 guoku-middle-col new-entity-item">
+                <div class="new-entity-six">
+                    <div class="img-box">
+                        {% if sle.entity.entity_hash %}
+                            <a href="{{ sle.entity.absolute_url }}" target="_blank">
+                                <img class="img-responsive" alt="{{ sle.entity.title }}" title="{{ sle.entity.title }}" src="{{ sle.entity.chief_image|resize:'310' }}">
+                                <div class="bg-layer">
+                                </div>
+                            </a>
+                        {% endif %}
+                        {% if sle.entity.id in user_entity_likes %}
+                            <a class="new-btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ sle.entity.title }}']);">
+                            <i class="fa fa-heart"></i>
+                        {% else %}
+                            <a class="new-btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ sle.entity.title }}']);">
+                            <i class="fa fa-heart-o"></i>
+                        {% endif %}
+                        </a>
+                    </div>
+                    <div class="new-entity-six-info">
+                        <div class="caption">
+                            <div class="brand">
+                                {{ sle.entity.brand|truncatechars:12 }}
+                            </div>
+                            <div class="title">
+                                {% if sle.entity.entity_hash %}
+                                    <a href="{{ sle.entity.absolute_url }}" target="_blank">
+                                        {{ sle.entity.title|truncatechars:20 }}
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <div class="price">
+                                &#65509;{{ sle.entity.price }}
+                            </div>
                         </div>
                     </div>
-                    </a>
-                {% endfor %}
-      </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
     <div class="row new-section-title-wrapper">
             <div class="col-sm-12">
                 <div class="section-title pull-left">
