@@ -4547,13 +4547,16 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
         handleHoverCategory:function(event){
             var dataValue = $(event.target).attr('data-value');
             console.log('data value:'+dataValue+' send ajax request');
+            var data = {
+                    'dataValue': dataValue
+            };
+
               $.when(
                     $.ajax({
                         cache:true,
                         type:"get",
                         url: '',
-                        data: data,
-                        dataType:'json'
+                        data: data
                     })
                 ).then(
                   this.postSuccess.bind(this),
@@ -4561,6 +4564,7 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
                 );
         },
         postSuccess:function(result){
+            console.log('post request success.');
             var status = parseInt(result.status);
             if(status == 1){
                  this.showContent($(result.data));
@@ -4568,8 +4572,11 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
                 this.showFail(result);
             }
         },
+        postFail:function(result){
+            console.log('post fail');
+        },
         showFail:function(result){
-            console.log('post failed');
+            console.log('ajax data failed');
         },
         showContent: function(elemList){
             var that = this;
