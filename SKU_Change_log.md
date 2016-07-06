@@ -1,5 +1,3 @@
 
-2. add sku table (model)
-1. add sku_attributes field (ListObjectField)
-ALTER TABLE `core`.`core_entity` 
-ADD COLUMN `sku_attributes` LONGTEXT NULL AFTER `status`;
+2.  need sync db , for new sku table 
+1.  need drop core_sku table
