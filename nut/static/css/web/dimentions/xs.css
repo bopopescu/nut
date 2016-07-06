@@ -1525,6 +1525,10 @@ a.new-blue-link:hover {
     box-shadow: 0 0 2px #ddd;
     padding: 6px;
   }
+  .new-index-page .new-entity-six .img-box:hover .bg-layer,
+  .new-index-page .new-entity-six .img-box:hover .new-btn-like {
+    display: none;
+  }
   .article-share-wx-dialog .modal-dialog {
     margin: 150px auto;
   }
