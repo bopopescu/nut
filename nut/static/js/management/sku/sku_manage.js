@@ -53,7 +53,15 @@ _.extend(SKU_MNG_APP.prototype, {
         $('.attr-add-tr').parent().prepend(this.get_property_dom());
     },
     render_attributes:function(){
-
+        var attrs = JSON.parse($('#sku_attr_json'));
+        if(attrs){
+            for (key in attrs){
+                if(attrs.hasOwnProperty[key]){
+                    //this.add_attr()
+                //    TODO : implement
+                }
+            }
+        }
     }
 });
 
