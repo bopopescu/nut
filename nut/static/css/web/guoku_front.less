@@ -105,27 +105,25 @@ body.new-index-body{
         line-height: 20px;
       }
   }
-  .category-list-wrapper{
-    margin-top:16px;
-    margin-bottom: 16px;
-    .category-list{
-      margin-bottom: 0;
-      overflow:hidden;
-      width:100%;
-      height:20px;
-      line-height: 1.4;
-      .category-list-item{
+  .category-list{
+    margin-bottom: 0;
+    margin-left:18px;
+    overflow:hidden;
+    .category-list-item{
       float: left;
-      margin-right:28px;
+      margin-right:18px;
+      width:auto;
+      height:22px;
+      line-height: 22px;
+      padding:0 8px;
       font-size:@smaller-primary;
-        a{
-          text-align:center;
-          color:@new-text-gray;
-          &:hover{
-            color:#212121;
-          }
+      color:@new-text-gray;
+      .border-radius(10px);
+        &:hover{
+          cursor: pointer;
+          background-color: @hover-dark-gray;
+          color:#212121;
         }
-    }
     }
   }
   #selection_article_list{

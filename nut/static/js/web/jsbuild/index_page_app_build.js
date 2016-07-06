@@ -4530,6 +4530,30 @@ define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
     });
     return AppEntityLike;
 });
+
+define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
+    $, Class
+){
+    var CategoryTabView= Class.extend({
+        init: function () {
+            this.initHoverCategory();
+            console.log('category tab view begin');
+        },
+        initHoverCategory:function(){
+            $('.category-list-item').mouseenter(this.handleHoverCategory.bind(this));
+
+        },
+        handleHoverCategory:function(event){
+            var dataValue = $(event.target).attr('data-value');
+            console.log(dataValue);
+        }
+    });
+    return CategoryTabView;
+});
+
+
+
+
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -4635,6 +4659,7 @@ require([
          'subapp/discover/category_slick',
         'subapp/discover/recommend_user_slick',
         'subapp/entitylike',
+        'subapp/index/category_tab_view',
         'subapp/gotop'
 
     ],
@@ -4647,6 +4672,7 @@ require([
               CategorySlick,
               RecommendUserSlick,
               AppEntityLike,
+              CategoryTabView,
               GoTop
               ) {
 // TODO : check if csrf work --
@@ -4657,6 +4683,7 @@ require([
         var category_slick = new CategorySlick();
         var recommend_user_slick = new RecommendUserSlick();
         var app_like = new  AppEntityLike();
+        var category_tab_view = new CategoryTabView();
         var goto = new GoTop();
     });
 

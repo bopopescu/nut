@@ -141,6 +141,16 @@
             <div class="section-title pull-left">
                 最新图文
             </div>
+             <ul class="category-list pull-left">
+                <li class="category-list-item" data-value="all">
+                    全部
+                </li>
+                {% for top_tag in article_tags %}
+                    <li class="category-list-item" data-value="{{ top_tag.quoted_tag_name }}">
+                        {{ top_tag.name }}
+                    </li>
+                {% endfor %}
+            </ul>
               <span class="pull-right">
                   <a class="more-link new-blue-link" href="{{ web_article_list_url }}" target="_blank">
                       查看更多&nbsp;
@@ -149,19 +159,7 @@
               </span>
         </div>
     </div>
-    <div class="row category-list-wrapper">
-        <div class="col-sm-12">
-            <ul class="category-list">
-                {% for top_tag in article_tags %}
-                    <li class="category-list-item">
-                        <a href="{% url 'tag_articles_url' top_tag.quoted_tag_name %}" target="_blank">
-                            {{ top_tag.name }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
+
     <div class="row" id="selection_article_list">
         {% for article_item in articles %}
             {% with article_item.article as article %}
