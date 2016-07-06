@@ -27,6 +27,7 @@
                             <li {% if start_time == 'lastmonth'  %}class="active"{% endif %}><a href="{% url 'management_editor_report' %}?status={{ status }}&start_date=lastmonth">{% trans '上月' %}</a></li>
                             <li><a>日期选择:</a></li>
 
+                        <li>
                         <table style="width:300px;">
                         <tr>
                         <td>
@@ -63,13 +64,11 @@ margin:auto">确定</button>
                             </td>
                         </tr>
                         </table>
-                        </ul>
-                    </div>
+                        </li>
 
-                    <div class="row sorting-wrapper">
-                         <div class="col-md-12">
-                            <div class="category-header category-header-control">
-                                <span class="dropdown-toggle category-action pull-right">
+{#                         <div class="col-sm-3">#}
+                        <li>
+                                <span class="dropdown-toggle category-action">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                                        aria-haspopup="false" role="button" aria-expanded="false">
                                         {% if order_by == None %}
@@ -94,9 +93,13 @@ margin:auto">确定</button>
                                         <li ><a href="{{ current_path }}&order_by=articles">按文章数</a></li>
                                     </ul>
                                 </span>
-                            </div>
-                        </div>
+                        </li>
+{#                            </div>#}
+
+                        </ul>
                     </div>
+
+
 
                     <div class="box-body table-responsive">
                         {% include "management/editor_report/table.html" with editors=editors %}
