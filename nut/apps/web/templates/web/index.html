@@ -48,7 +48,7 @@
             <div class="section-title pull-left">
                 精选商品
             </div>
-            <ul class="category-list pull-left">
+            <ul class="hidden-xs category-list pull-left">
                 <li class="category-list-item" data-value="all">
                     全部
                 </li>
@@ -109,14 +109,14 @@
             </div>
         {% endfor %}
     </div>
-    <div class="row new-section-title-wrapper">
+    <div class="hidden-sm hidden-md hidden-lg row new-section-title-wrapper">
             <div class="col-sm-12">
                 <div class="section-title pull-left">
                     推荐品类
                 </div>
             </div>
     </div>
-    <div class="row dark-section-wrapper" id="category-container">
+    <div class="hidden-sm hidden-md hidden-lg row dark-section-wrapper" id="category-container">
             <div class="col-sm-12">
                 <ul id="category-item-container">
                     {% for category in categories %}
