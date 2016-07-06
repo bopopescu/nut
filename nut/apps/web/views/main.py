@@ -95,7 +95,9 @@ class IndexView(TemplateView):
         _entities = context['entities']
         el = list()
         if self.request.user.is_authenticated():
-            el = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=list(_entities))
+            el = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=
+                list(_entities.values_list('id', flat=True))+(list(context['selection_entity'].values_list('entity_id',flat=True))))
+
 
         context['user_entity_likes'] = el
 
