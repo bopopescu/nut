@@ -99,12 +99,16 @@ class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
     def get_ajax(self, request, *args, **kwargs):
         context = {}
         tag_id = request.GET.get('dataValue')
-        tag = Tags.objects.get(id=tag_id)
-        article_ids = Content_Tags.objects.filter(tag=tag,
-                                                  target_content_type_id=31).values_list(
-            'target_object_id', flat=True)
+        if tag_id == 'all':
+            context['articles'] = Article.objects.filter(selections__is_published=True,
+                                  selections__pub_time__lte=datetime.now())[:3]
+        else:
+            tag = Tags.objects.get(id=tag_id)
+            article_ids = Content_Tags.objects.filter(tag=tag,
+                                                 target_content_type_id=31).values_list(
+                                                'target_object_id', flat=True)
 
-        context['articles'] = Article.objects.filter(pk__in=article_ids,
+            context['articles'] = Article.objects.filter(pk__in=article_ids,
                                   selections__is_published=True,
                                   selections__pub_time__lte=datetime.now())[:3]
         template = 'web/events/partial/new_event_article_item_ajax.html'
