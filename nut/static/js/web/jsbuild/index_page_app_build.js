@@ -4545,25 +4545,31 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
 
         },
         handleHoverCategory:function(event){
+            var that = this;
             var dataValue = $(event.target).attr('data-value');
             console.log('data value:'+dataValue+' send ajax request');
-            var data = {
+            that.postAjaxRequest(dataValue);
+        },
+        postAjaxRequest:function(dataValue){
+            console.log('data value:'+dataValue+' send ajax request');
+             var data = {
                     'dataValue': dataValue
             };
-
-              $.when(
-                    $.ajax({
-                        cache:true,
-                        type:"get",
-                        url: '/index_article_tag/',
-                        data: data
-                    })
-                ).then(
-                  this.postSuccess.bind(this),
-                 this.postFail.bind(this)
-                );
+            $.when(
+                $.ajax({
+                    cache:true,
+                    type:"get",
+                    url: '/index_article_tag/',
+                    data: data,
+                    dataType:"json"
+                })
+            ).then(
+                this.postSuccess.bind(this),
+                this.postFail.bind(this)
+            );
         },
         postSuccess:function(result){
+            console.log('type of ajax result:'+typeof(result));
             console.log('post request success.');
             console.log('ajax result data content:'+result.data);
             console.log('result status: '+result.status);
