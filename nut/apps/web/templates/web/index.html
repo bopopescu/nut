@@ -146,7 +146,7 @@
                     全部
                 </li>
                 {% for top_tag in article_tags %}
-                    <li class="category-list-item" data-value="{{ top_tag.quoted_tag_name }}">
+                    <li class="category-list-item" data-value="{{ top_tag.id }}">
                         {{ top_tag.name }}
                     </li>
                 {% endfor %}
