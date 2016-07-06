@@ -33,6 +33,8 @@ define(['jquery', 'libs/Class'], function(
         },
         postSuccess:function(result){
             console.log('post request success.');
+            console.log('ajax result data content:'+result.data);
+            console.log('result status: '+result.status);
             var status = parseInt(result.status);
             if(status == 1){
                  this.showContent($(result.data));
@@ -47,6 +49,8 @@ define(['jquery', 'libs/Class'], function(
             console.log('ajax data failed');
         },
         showContent: function(elemList){
+            console.log('ajax data success');
+            console.log('append html content:'+elemList);
             var that = this;
             that.$article_container.empty();
             that.$article_container.append(elemList);

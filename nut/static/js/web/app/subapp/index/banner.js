@@ -34,10 +34,10 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                 },
 
                 beforeSlide: function(event,slick,currentSlide,nextSlide){
-                            console.log('before change,currentSlide:');
-                            console.log(currentSlide);
-                            console.log('before change,nextSlide:');
-                            console.log(nextSlide);
+                            //console.log('before change,currentSlide:');
+                            //console.log(currentSlide);
+                            //console.log('before change,nextSlide:');
+                            //console.log(nextSlide);
                             this.nextSlide = nextSlide;
                             fastdom.write(this.doRenderSlide.bind(this));
 
