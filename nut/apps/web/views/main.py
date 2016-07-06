@@ -14,7 +14,7 @@ from haystack.generic_views import SearchView
 
 from apps.core.tasks.recorder import record_search
 from apps.core.utils.commons import get_client_ip, get_user_agent
-from apps.tag.models import Tags
+from apps.tag.models import Tags, Content_Tags
 from apps.core.models import Entity, Entity_Like, Category
 from apps.core.models import Selection_Entity
 from apps.core.models import GKUser
@@ -30,7 +30,7 @@ from apps.core.models import Sub_Category
 log = getLogger('django')
 
 
-class IndexView(TemplateView):
+class IndexView(JSONResponseMixin, AjaxResponseMixin,TemplateView):
     template_name = 'web/index.html'
 
     def get_banners(self):
@@ -68,16 +68,6 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs);
-        # context['banners'] = self.get_banners()
-        # context['selection_entities'] = self.get_selection_entities()
-        # context['hot_entities'] = self.get_hot_entities()
-        # context['selection_articles'] = self.get_selection_articles()
-        # context['categories'] = self.get_hot_categories()
-        # context['top_articles'] = self.get_top_articles()
-        # context['top_entities'] = self.get_top_entities()
-        # context['brands'] = []
-
-
         context['banners'] = SiteBanner.objects.get_mainpage_banner()  # 顶部banner (link, image)
         context['categories'] = Category.objects.filter(status=True)  # 品类
         popular_list = Entity_Like.objects.popular_random()
@@ -102,6 +92,36 @@ class IndexView(TemplateView):
         context['user_entity_likes'] = el
 
         return context
+
+
+
+class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
+    def get_ajax(self, request, *args, **kwargs):
+        context = {}
+        tag_id = request.GET.get('dataValue')
+        tag = Tags.objects.get(id=tag_id)
+        article_ids = Content_Tags.objects.filter(tag=tag,
+                                                  target_content_type_id=31).values_list(
+            'target_object_id', flat=True)
+
+        context['articles'] = Article.objects.filter(pk__in=article_ids,
+                                  selections__is_published=True,
+                                  selections__pub_time__lte=datetime.now())[:3]
+        template = 'web/events/partial/new_event_article_item_ajax.html'
+        _t = loader.get_template(template)
+        _c = RequestContext(
+            request,
+            context
+        )
+        _data = _t.render(_c)
+        return JSONResponse(
+            data={
+                'data': _data,
+                'status': 1
+            },
+            content_type='text/html; charset=utf-8',
+        )
+
 
 
 class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin, ListView):
