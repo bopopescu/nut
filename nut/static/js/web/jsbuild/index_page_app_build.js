@@ -4555,7 +4555,7 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
                     $.ajax({
                         cache:true,
                         type:"get",
-                        url: '',
+                        url: '/index_article_tag/',
                         data: data
                     })
                 ).then(

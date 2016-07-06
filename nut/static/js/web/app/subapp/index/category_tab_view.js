@@ -23,7 +23,7 @@ define(['jquery', 'libs/Class'], function(
                     $.ajax({
                         cache:true,
                         type:"get",
-                        url: '',
+                        url: '/index_article_tag/',
                         data: data
                     })
                 ).then(
