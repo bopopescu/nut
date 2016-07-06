@@ -59,7 +59,7 @@
                                 {% for sla in selection_article_list %}
                                     <tr>
                                         <td>{{ sla.article.pk }}</td>
-                                        <td><a href="{% url 'web_article_page' sla.article.pk %}" target="_blank"><img class="img-thumbnail img-responsive" src="{{ sla.article.cover_url|resize:'90' }}"></a></td>
+                                        <td><a href="{% url 'web_article_page' sla.article.pk %}" target="_blank"><img class="img-thumbnail img-responsive" src="{{ sla.article.cover_url|resize:'90'}}"></a></td>
                                         <td>{{ sla.article.title }}</td>
                                         <td>
                                             <a href="{% url 'management_user_edit' sla.article.creator_id %}" target="_blank">

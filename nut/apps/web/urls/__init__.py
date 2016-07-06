@@ -6,6 +6,7 @@ from apps.web.views.main import SelectionEntityList, SiteMapView
 from apps.web.views.entity import EntityCard, EntityLikersView
 from apps.web.views.main import GKSearchView, PopularView,IndexView
 from apps.web.views.flink import FriendlyLinkListView
+from apps.web.views.ui import UIView
 
 urlpatterns = patterns(
     'apps.web.views',
@@ -106,6 +107,9 @@ urlpatterns += patterns(
     url(r'^articles/',include('apps.web.urls.article')),
     url(r'^brand/',include('apps.web.urls.brand')),
     url(r'^store/', include('apps.shop.urls.web')),
+
+    # todo change this before merge
+    url(r'^ui/', UIView.as_view(), name='web_ui_test')
 
 
 )

@@ -103,8 +103,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'core',
-        'USER': 'guoku',
-        'PASSWORD': 'guoku!@#',
+        'USER': 'root',
+        'PASSWORD': 'ma123',
         'HOST': Current_Dbhost,
         'PORT': '',
         'OPTIONS': {
@@ -115,8 +115,8 @@ DATABASES = {
     'slave': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'core',
-        'USER': 'guoku',
-        'PASSWORD': 'guoku!@#',
+        'USER': 'root',
+        'PASSWORD': 'ma123',
         'HOST': Current_Dbhost,
         'PORT': '',
         'OPTIONS': {

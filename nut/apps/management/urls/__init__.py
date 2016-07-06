@@ -11,6 +11,7 @@ urlpatterns = patterns(
     url(r'^dashboard/$', 'views.dashboard', name='management_dashboard'),
     url(r'^selection/', include('apps.management.urls.selection')),
     url(r'^selection_report/', include('apps.management.urls.selection_report')),
+    url(r'^reading_report/',include('apps.management.urls.reading_report')),
     url(r'^entity/', include('apps.management.urls.entities')),
     url(r'^buy-link/', include('apps.management.urls.buy_link')),
     url(r'^user/', include('apps.management.urls.users')),
