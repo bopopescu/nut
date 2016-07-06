@@ -99,14 +99,42 @@ class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
     def get_ajax(self, request, *args, **kwargs):
         context = {}
         tag_id = request.GET.get('dataValue')
-        tag = Tags.objects.get(id=tag_id)
-        article_ids = Content_Tags.objects.filter(tag=tag,
-                                                  target_content_type_id=31).values_list(
-            'target_object_id', flat=True)
+        if tag_id == 'all':
+            context['articles'] = Article.objects.filter(selections__is_published=True,
+                                  selections__pub_time__lte=datetime.now())[:3]
+        else:
+            tag = Tags.objects.get(id=tag_id)
+            article_ids = Content_Tags.objects.filter(tag=tag,
+                                                 target_content_type_id=31).values_list(
+                                                'target_object_id', flat=True)
 
-        context['articles'] = Article.objects.filter(pk__in=article_ids,
+            context['articles'] = Article.objects.filter(pk__in=article_ids,
                                   selections__is_published=True,
                                   selections__pub_time__lte=datetime.now())[:3]
+        template = 'web/events/partial/new_event_article_item_ajax.html'
+        _t = loader.get_template(template)
+        _c = RequestContext(
+            request,
+            context
+        )
+        _data = _t.render(_c)
+        return JSONResponse(
+            data={
+                'data': _data,
+                'status': 1
+            },
+            content_type='text/html; charset=utf-8',
+        )
+
+class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
+    def get_ajax(self, request, *args, **kwargs):
+        context = {}
+        category_id = request.GET.get('dataValue')
+        sub_categories_ids = list(Sub_Category.objects.filter(group=category_id) \
+                                  .values_list('id', flat=True))
+        context['entities'] = Entity.objects.sort_group(category_id, category_ids=list(sub_categories_ids),
+                                  ).filter(buy_links__status=2)
+
         template = 'web/events/partial/new_event_article_item_ajax.html'
         _t = loader.get_template(template)
         _c = RequestContext(
