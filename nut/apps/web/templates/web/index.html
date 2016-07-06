@@ -48,6 +48,16 @@
             <div class="section-title pull-left">
                 精选商品
             </div>
+            <ul class="category-list pull-left">
+                <li class="category-list-item" data-value="all">
+                    全部
+                </li>
+                {% for category in categories %}
+                    <li class="category-list-item" data-value="{{ category.id }}">
+                        {{ category.title_cn }}
+                    </li>
+                {% endfor %}
+            </ul>
              <span class="pull-right">
                  <a class="more-link new-blue-link" href="{{ web_selection_url }}" target="_blank">
                      查看更多&nbsp;
@@ -58,14 +68,6 @@
 
     </div>
     <div class="row latest-entity-wrapper">
-{#        {% for sle in selection_entity %}#}
-{#            <a href="{{ sle.entity.absolute_url }}" target="_blank" class="hover-light">#}
-{#                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col">#}
-{#                    <div class="guoku-bg-image-wrapper" style="background-image:url('{{ sle.entity.chief_image|resize:'180' }}')">#}
-{#                    </div>#}
-{#                </div>#}
-{#            </a>#}
-{#        {% endfor %}#}
         {% for sle in selection_entity %}
             <div class="col-xs-4 col-sm-2 guoku-middle-col new-entity-item">
                 <div class="new-entity-six">
@@ -159,7 +161,6 @@
               </span>
         </div>
     </div>
-
     <div class="row" id="selection_article_list">
         {% for article_item in articles %}
             {% with article_item.article as article %}
@@ -229,7 +230,7 @@
                 {% include 'web/main/partial/new_entity.html' with entity=entity%}
             {% endfor %}
     </div>
-     <div class="row hidden-xs">
+    <div class="row hidden-xs">
             <div class="col-sm-offset-12">
                 <div class="gotop-wrapper">
                     <ul>
