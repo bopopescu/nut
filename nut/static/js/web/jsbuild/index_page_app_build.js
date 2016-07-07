@@ -4261,7 +4261,7 @@ define('subapp/index/banner',['jquery', 'libs/Class','libs/slick','fastdom'], fu
             var IndexBanner= Class.extend({
                 init: function () {
                     this.init_slick();
-                    console.log('subapp index banner  start !');
+                    //console.log('subapp index banner  start !');
                 },
                 init_slick:function(){
                     $('#index-banners').slick({
@@ -4303,7 +4303,7 @@ define('subapp/index/banner',['jquery', 'libs/Class','libs/slick','fastdom'], fu
                         $('#index-banners .banner-image-cell').removeClass('gk-slide-current');
                         var selector = '#index-banners .gk-slide-'+  this.nextSlide ;
                         $(selector).addClass('gk-slide-current');
-                        console.log('done');
+                        //console.log('done');
                 }
 
             });

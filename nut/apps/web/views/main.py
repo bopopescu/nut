@@ -10,6 +10,7 @@ from django.utils.log import getLogger
 from django.template import loader
 from django.template import RequestContext
 from django.core import exceptions
+from django.core.cache import cache
 
 
 
@@ -98,6 +99,19 @@ class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
     def get_ajax(self, request, *args, **kwargs):
         context = {}
         tag_id = request.GET.get('dataValue')
+        key = "index:article:tag:%s"%tag_id
+        _data = cache.get(key)
+        if not _data is None:
+            return JSONResponse(
+            data={
+                'data': _data,
+                'status': 1
+            },
+            content_type='text/html; charset=utf-8',
+            )
+
+
+
         if tag_id == 'all':
             context['articles'] = Article.objects.filter(selections__is_published=True,
                                   selections__pub_time__lte=datetime.now())[:3]
@@ -117,6 +131,9 @@ class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
             context
         )
         _data = _t.render(_c)
+
+        cache.set(key , _data , timeout=3600*1)
+
         return JSONResponse(
             data={
                 'data': _data,
@@ -129,6 +146,18 @@ class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView
     def get_ajax(self, request, *args, **kwargs):
         context = {}
         category_id = request.GET.get('dataValue')
+        key = 'index:selection:entity:category:%s'%category_id
+        _data = cache.get(key)
+        if not _data is None:
+            return JSONResponse(
+            data={
+                'data': _data,
+                'status': 1
+            },
+            content_type='text/html; charset=utf-8',
+            )
+
+
         if category_id == 'all':
             context['selection_entity'] = Selection_Entity.objects.published_until_now()[:20]
         else:
@@ -149,6 +178,7 @@ class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView
             context
         )
         _data = _t.render(_c)
+        cache.set(key, _data, timeout=15*60)
         return JSONResponse(
             data={
                 'data': _data,
