@@ -1,5 +1,11 @@
 
-1. fix index bug 
+1. fix selection list page , time para cause 500 error 
+=======================
+# merged to master 2016 7-1 
+=======================
+
+1. fix index page bug 
+
 =======================
 # merged to master 2016 6-30 
 =======================
