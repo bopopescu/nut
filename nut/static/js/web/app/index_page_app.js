@@ -8,6 +8,7 @@ require([
         'subapp/discover/category_slick',
         'subapp/discover/recommend_user_slick',
         'subapp/entitylike',
+        'subapp/index/entity_category_tab',
         'subapp/index/category_tab_view',
         'subapp/gotop'
 
@@ -22,6 +23,7 @@ require([
               CategorySlick,
               RecommendUserSlick,
               AppEntityLike,
+              EntityCategoryTab,
               CategoryTabView,
               GoTop
               ) {
@@ -34,6 +36,7 @@ require([
         var category_slick = new CategorySlick();
         var recommend_user_slick = new RecommendUserSlick();
         var app_like = new  AppEntityLike();
+        var entity_category_tab = new EntityCategoryTab();
         var category_tab_view = new CategoryTabView();
         var goto = new GoTop();
     });
