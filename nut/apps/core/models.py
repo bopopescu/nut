@@ -877,6 +877,27 @@ class Entity(BaseModel):
         ordering = ['-created_time']
 
     @property
+    def brand_id(self):
+        key = 'entity:brand_id:%d' % self.pk
+        res = cache.get(key)
+        if res:
+            return res
+        else:
+            try:
+                res = Brand.objects.get(name__iexact=self.brand, status__gt=0).id or \
+                    Brand.objects.get(alias__iexact=self.brand, status__gt=0).id
+            except Brand.DoesNotExist:
+                res = 'NOT_FOUND'
+                cache.set(key, res, timeout=86400)
+                return res
+                # for no brand
+                # save not_found for 1 day , until search again
+            cache.set(key, res, timeout=86400*14)
+            # for found brand , cache 2 week
+            return res
+
+
+    @property
     def chief_image(self):
         if len(self.images) > 0:
             if 'http' in self.images[0]:
@@ -1443,6 +1464,12 @@ class Article(BaseModel):
     def __unicode__(self):
         return self.title
 
+    def get_related_articles(self, page=1):
+        return Selection_Article.objects.article_related(self, page)
+
+    def get_absolute_url(self):
+        return "/articles/%s/" % self.pk
+
     def get_dig_key(self):
         return 'article:dig:%d' % self.pk
 
@@ -1461,7 +1488,7 @@ class Article(BaseModel):
             return res
         else:
             res = self.digs.count()
-            cache.set(key, res, timeout=3600*24)
+            cache.set(key, res, timeout = 86400)
             return res
 
     def incr_dig(self):
@@ -1587,18 +1614,12 @@ class Article(BaseModel):
         except AttributeError:
             return self.created_datetime
         except Exception as e:
-            log.warning('get enter_selection_time failed, %s' % e.message)
+            log.error('get enter_selection_time failed, %s' % e.message)
             return self.created_datetime
 
     @property
     def related_articles(self):
         return Selection_Article.objects.article_related(self)
-
-    def get_related_articles(self, page=1):
-        return Selection_Article.objects.article_related(self, page)
-
-    def get_absolute_url(self):
-        return "/articles/%s/" % self.pk
 
     @property
     def url(self):

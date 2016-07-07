@@ -153,7 +153,9 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
 
     _guess_entities = Entity.objects.guess(category_id=_entity.category_id,
                                            count=9, exclude_id=_entity.pk)
-
+    brand = None
+    if _entity.brand_id and _entity.brand_id != 'NOT_FOUND':
+        brand = Brand.objects.get(id=_entity.brand_id)
     context = {
         'entity': _entity,
         'like_status': like_status,
@@ -165,6 +167,7 @@ def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
         # 'likers': _entity.likes.all()[:13],
         'is_entity_detail': True,
         'tags': tags,
+        'entity_brand': brand,
         # 'entity_brand': get_entity_brand(_entity),
         # 'pop_tags' : _pop_tags
     }
