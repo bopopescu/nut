@@ -4,6 +4,8 @@
 3. fix tag page entity display bug 
 2. display entity's brand link in detail page , if its published 
 1. fix selection list page , time para cause 500 error 
+
+
 =======================
 # merged to master 2016 7-1 
 =======================
