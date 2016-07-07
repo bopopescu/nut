@@ -626,9 +626,10 @@ p .b_day {
   display: block;
 }
 .new-entity-six .new-entity-six-info {
-  min-height: 75px;
-  max-height: 75px;
+  min-height: 70px;
+  max-height: 70px;
   margin-top: 6px;
+  font-size: 14px;
 }
 .new-entity-six .new-entity-six-info .caption .brand,
 .new-entity-six .new-entity-six-info .caption .title {
