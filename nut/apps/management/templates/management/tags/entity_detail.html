@@ -26,7 +26,7 @@
                                 <table class="table table-small-font table-hover table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>{% trans '链接' %}</th>
+                                            <th style="width:500px;max-width:500px!important">{% trans '链接' %}</th>
                                             <th style="width:300px">{% trans '点评' %}</th>
                                             <th style="width:300px">{% trans 'entity' %} <span class="info"></span></th>
                                         </tr>
@@ -34,7 +34,7 @@
                                     <tbody>
                                         {% for obj in queryset %}
                                             <tr>
-                                                <td>
+                                                <td style="width:500px;max-width:500px!important">
 {#                                                    <a href="{% url 'web_entity_detail' obj.target.entity.entity_hash %}" target="_blank">#}
                                                         {{ obj.target.entity.default_buy_link.link }}
 {#                                                    </a>#}

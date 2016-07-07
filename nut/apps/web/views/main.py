@@ -1,4 +1,7 @@
+#encoding: utf-8
 from datetime import datetime
+
+from haystack.generic_views import SearchView
 from braces.views import AjaxResponseMixin
 from braces.views import JSONResponseMixin
 from django.views.generic import ListView
@@ -6,12 +9,14 @@ from django.views.generic import TemplateView
 from django.utils.log import getLogger
 from django.template import loader
 from django.template import RequestContext
-from haystack.generic_views import SearchView
+from django.core import exceptions
+
+
 
 from apps.core.tasks.recorder import record_search
 from apps.core.utils.commons import get_client_ip, get_user_agent
 from apps.tag.models import Tags
-from apps.core.models import Entity, Entity_Like
+from apps.core.models import Entity, Entity_Like, Category
 from apps.core.models import Selection_Entity
 from apps.core.models import GKUser
 from apps.core.models import Show_Banner
@@ -21,7 +26,8 @@ from apps.core.forms.search import GKSearchForm
 from apps.core.utils.http import JSONResponse
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 from apps.core.models import Sub_Category
-
+from apps.shop.models import StorePageBanners
+from apps.site_banner.models import SiteBanner
 
 log = getLogger('django')
 
@@ -40,11 +46,11 @@ class IndexView(TemplateView):
         return banners
 
     def get_selection_entities(self):
-        selections = Selection_Entity.objects.published_until_now()[:12]
+        selections = Selection_Entity.objects.published_until_now()
         return selections
 
     def get_selection_articles(self):
-        articles = Selection_Article.objects.published_until()[:6]
+        articles = Selection_Article.objects.published_until()
         return articles
 
     def get_hot_categories(self):
@@ -57,15 +63,44 @@ class IndexView(TemplateView):
     def get_top_entities(self):
         return []
 
+    def get_hot_entities(self):
+        popular_list = Entity_Like.objects.popular_random()
+        _hot_entities = Entity.objects.filter(id__in=popular_list)
+        return _hot_entities
+
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs);
-        context['banners'] = self.get_banners()
-        context['selection_entities'] = self.get_selection_entities()
-        context['selection_articles'] = self.get_selection_articles()
-        context['categories'] = self.get_hot_categories()
-        context['top_articles'] = self.get_top_articles()
-        context['top_entities'] = self.get_top_entities()
-        context['brands'] = []
+        # context['banners'] = self.get_banners()
+        # context['selection_entities'] = self.get_selection_entities()
+        # context['hot_entities'] = self.get_hot_entities()
+        # context['selection_articles'] = self.get_selection_articles()
+        # context['categories'] = self.get_hot_categories()
+        # context['top_articles'] = self.get_top_articles()
+        # context['top_entities'] = self.get_top_entities()
+        # context['brands'] = []
+
+
+        context['banners'] = SiteBanner.objects.get_mainpage_banner()  # 顶部banner (link, image)
+        context['categories'] = Category.objects.filter(status=True)  # 品类
+        popular_list = Entity_Like.objects.popular_random()
+        context['entities'] = Entity.objects.filter(id__in=popular_list)  # 热门商品
+        context['article_tags'] = Tags.objects.top_article_tags()  # 图文标签
+        # context['articles'] = Selection_Article.objects.select_related('article').all()[:3]  # 最新精选图文
+        context['articles'] = self.get_selection_articles()[:3]  # 最新精选图文
+        # test = Selection_Article.objects\
+        #                       .select_related('article').using('slave')
+        context['recommand_users'] = GKUser.objects.recommended_user()[:20]  # 推荐用户
+        context['middle_banners'] = StorePageBanners.objects.filter(status=StorePageBanners.enabled)  # 中间banner
+        # context['selection_entity'] = Selection_Entity.objects.select_related('entity')[:6]
+        context['selection_entity'] = self.get_selection_entities()[:6]
+
+        _entities = context['entities']
+        el = list()
+        if self.request.user.is_authenticated():
+            el = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=list(_entities))
+
+        context['user_entity_likes'] = el
+
         return context
 
 
@@ -104,7 +139,15 @@ class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin, ListView):
                                                             flat=True))
                                                     ).using('slave')
         context['user_entity_likes'] = el
-        context['selections'] = selections
+        context['selections'] = selections                           #精选商品
+        # context['banners'] = SiteBanner.objects.get_mainpage_banner()    #顶部banner (link, image)
+        # context['categories'] = Category.objects.filter(status=True)     #品类
+        # popular_list = Entity_Like.objects.popular_random()
+        # context['entities'] = Entity.objects.filter(id__in=popular_list) #热门商品
+        # context['article_tags'] = Tags.objects.top_article_tags()        #图文标签
+        # context['articles'] = Selection_Article.objects.all()[:3]        #最新精选图文
+        # context['recommand_users'] = GKUser.objects.recommended_user()[:20]    #推荐用户
+        # context['middle_banners'] = StorePageBanners.objects.filter(status=StorePageBanners.enabled)    #中间banner
         return context
 
     def get_like_list(self, entities):
@@ -116,9 +159,15 @@ class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin, ListView):
             return like_list
 
     def get_queryset(self):
-        qs = Selection_Entity.objects.published_until(self.get_refresh_time()) \
-            .select_related('entity') \
-            .prefetch_related('entity__likes')
+        try :
+            qs = Selection_Entity.objects.published_until(self.get_refresh_time()) \
+                .select_related('entity') \
+                .prefetch_related('entity__likes')
+        except exceptions.ValidationError as e :
+            qs = Selection_Entity.objects.published_until() \
+                .select_related('entity') \
+                .prefetch_related('entity__likes')
+
         # prefetch notes will be a performance hit,
         # because top_note will use a filter , which will hit database again.
 

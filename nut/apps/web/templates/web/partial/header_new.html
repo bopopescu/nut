@@ -14,7 +14,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{% url 'web_selection' %}">
+                <a class="navbar-brand" href="{{ web_index_url }}">
 {#                    <img alt="{% trans 'guoku' %}" class="visible-xs"  src="{% static 'images/logo2.png' %}" width="46"  style="margin-top: 2px">#}
 {#                    <img alt="{% trans 'guoku' %}" class="guoku-logo" src="{% static 'images/xmas_logo.png' %}" width="52" >#}
                       <img alt="{% trans 'guoku' %}" class="" src="{% static 'images/gklogo2015.png' %}" width="42" >
@@ -23,6 +23,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav main-list left-list">
+                    {% url 'web_index' as web_index_url %}
+{#                    <li {% if web_index_url in request.path %}class="active"{% endif %}>#}
+                    <li >
+                        <a href="{{ web_index_url }}">首页</a>
+                    </li>
+
 {#                    {% url 'web_selection' as web_selection_url %}#}
                      <li {% if web_selection_url in request.path %}class="active"{% endif %}>
 {#                        <a href="{{ web_selection_url }}">{% trans 'Selected' %}</a>#}
@@ -34,10 +40,10 @@
                         <a href="{{ web_article_list_url }}">{% trans 'Articles' %}</a>
                     </li>
 
-                    {% url 'web_discover' as web_discover_url %}
-                    <li {% if web_discover_url in request.path %}class="active"{% endif %}>
-                        <a href="{{ web_discover_url }}">{% trans 'Discover' %}</a>
-                    </li>
+{#                    {% url 'web_discover' as web_discover_url %}#}
+{#                    <li {% if web_discover_url in request.path %}class="active"{% endif %}>#}
+{#                        <a href="{{ web_discover_url }}">{% trans 'Discover' %}</a>#}
+{#                    </li>#}
                     {% url 'web_event_home' as web_event_home_url %}
                     <li {% if web_event_home_url in request.path %}class="active" {% endif %}>
                         <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="round"></span></a>
