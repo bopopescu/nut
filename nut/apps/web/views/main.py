@@ -1,8 +1,7 @@
 #encoding: utf-8
 from datetime import datetime
 
-from apps.shop.models import StorePageBanners
-from apps.site_banner.models import SiteBanner
+from haystack.generic_views import SearchView
 from braces.views import AjaxResponseMixin
 from braces.views import JSONResponseMixin
 from django.views.generic import ListView
@@ -10,7 +9,9 @@ from django.views.generic import TemplateView
 from django.utils.log import getLogger
 from django.template import loader
 from django.template import RequestContext
-from haystack.generic_views import SearchView
+from django.core import exceptions
+
+
 
 from apps.core.tasks.recorder import record_search
 from apps.core.utils.commons import get_client_ip, get_user_agent
@@ -25,7 +26,8 @@ from apps.core.forms.search import GKSearchForm
 from apps.core.utils.http import JSONResponse
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 from apps.core.models import Sub_Category
-
+from apps.shop.models import StorePageBanners
+from apps.site_banner.models import SiteBanner
 
 log = getLogger('django')
 
@@ -212,9 +214,15 @@ class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin, ListView):
             return like_list
 
     def get_queryset(self):
-        qs = Selection_Entity.objects.published_until(self.get_refresh_time()) \
-            .select_related('entity') \
-            .prefetch_related('entity__likes')
+        try :
+            qs = Selection_Entity.objects.published_until(self.get_refresh_time()) \
+                .select_related('entity') \
+                .prefetch_related('entity__likes')
+        except exceptions.ValidationError as e :
+            qs = Selection_Entity.objects.published_until() \
+                .select_related('entity') \
+                .prefetch_related('entity__likes')
+
         # prefetch notes will be a performance hit,
         # because top_note will use a filter , which will hit database again.
 

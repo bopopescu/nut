@@ -96,35 +96,35 @@ Current_Dbhost = 'localhost'
 # Current_Dbhost = '10.0.1.110'
 # Current_Dbhost = '10.0.2.90'
 
-# DATABASES = PRODUCTION_DATABASES
+DATABASES = PRODUCTION_DATABASES
 #
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'core',
-        'USER': 'guoku',
-        'PASSWORD': 'guoku!@#',
-        'HOST': Current_Dbhost,
-        'PORT': '',
-        'OPTIONS': {
-            'use_unicode':'utf8mb4',
-            'init_command':'SET storage_engine=INNODB',
-        }
-    },
-    'slave': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'core',
-        'USER': 'guoku',
-        'PASSWORD': 'guoku!@#',
-        'HOST': Current_Dbhost,
-        'PORT': '',
-        'OPTIONS': {
-            'use_unicode':'utf8mb4',
-            'init_command':'SET storage_engine=INNODB',
-        }
-    },
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'core',
+#         'USER': 'guoku',
+#         'PASSWORD': 'guoku!@#',
+#         'HOST': Current_Dbhost,
+#         'PORT': '',
+#         'OPTIONS': {
+#             'use_unicode':'utf8mb4',
+#             'init_command':'SET storage_engine=INNODB',
+#         }
+#     },
+#     'slave': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'core',
+#         'USER': 'guoku',
+#         'PASSWORD': 'guoku!@#',
+#         'HOST': Current_Dbhost,
+#         'PORT': '',
+#         'OPTIONS': {
+#             'use_unicode':'utf8mb4',
+#             'init_command':'SET storage_engine=INNODB',
+#         }
+#     },
+# }
 
 
 # need this for popular category like back trace time
