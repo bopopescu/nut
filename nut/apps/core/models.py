@@ -887,8 +887,13 @@ class Entity(BaseModel):
                 res = Brand.objects.get(name__iexact=self.brand, status__gt=0).id or \
                     Brand.objects.get(alias__iexact=self.brand, status__gt=0).id
             except Brand.DoesNotExist:
-                res = None
+                res = 'NOT_FOUND'
+                cache.set(key, res, timeout=86400)
+                return res
+                # for no brand
+                # save not_found for 1 day , until search again
             cache.set(key, res, timeout=86400*14)
+            # for found brand , cache 2 week
             return res
 
 
