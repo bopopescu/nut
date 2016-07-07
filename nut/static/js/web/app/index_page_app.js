@@ -4,7 +4,8 @@ require([
         'subapp/topmenu',
         'subapp/index/banner',
         'subapp/index/middle_page_banner',
-         'subapp/discover/category_slick',
+        'subapp/index/selection_entity_slick',
+        'subapp/discover/category_slick',
         'subapp/discover/recommend_user_slick',
         'subapp/entitylike',
         'subapp/index/category_tab_view',
@@ -17,6 +18,7 @@ require([
               Menu,
               Banner,
               MiddlePageBanner,
+              SelectionEntitySlick,
               CategorySlick,
               RecommendUserSlick,
               AppEntityLike,
@@ -28,6 +30,7 @@ require([
         var menu = new Menu();
         var banner = new Banner();
         var middle_page_banner = new MiddlePageBanner();
+        var selection_entity_slick = new SelectionEntitySlick();
         var category_slick = new CategorySlick();
         var recommend_user_slick = new RecommendUserSlick();
         var app_like = new  AppEntityLike();

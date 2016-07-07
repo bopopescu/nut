@@ -877,6 +877,9 @@ p .b_day {
   cursor: pointer;
   border: none;
 }
+.new-entity-six .img-box a {
+  outline: 0;
+}
 .new-entity-six .img-box a img {
   max-height: 100%;
 }
@@ -1567,6 +1570,13 @@ a.new-blue-link {
 }
 a.new-blue-link:hover {
   color: #4057A7;
+}
+a.new-black-link {
+  color: #757575;
+  text-decoration: none;
+}
+a.new-black-link:hover {
+  color: #212121;
 }
 .common-bg-layer {
   display: none;
@@ -2915,6 +2925,9 @@ body.new-index-body {
 }
 body.new-index-body .slick-slider {
   margin-bottom: 0;
+}
+body.new-index-body .latest-entity-wrapper .new-entity-item {
+  outline: 0;
 }
 body.new-index-body .new-banner-wrapper .slick-prev {
   left: 12%;
@@ -5662,7 +5675,8 @@ body.new-index-body #selection_article_list .xs-selection-article-item .more-art
   .new-index-page .slick-next:before {
     display: none;
   }
-  .new-index-page #category-item-container .slick-list {
+  .new-index-page #category-item-container .slick-list,
+  .new-index-page .latest-entity-wrapper .slick-list {
     padding-right: 60px;
   }
   .new-index-page .recommend-user-wrapper .slick-list {

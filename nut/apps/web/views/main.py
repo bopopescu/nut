@@ -80,7 +80,7 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin,TemplateView):
         context['recommand_users'] = GKUser.objects.recommended_user()[:20]  # 推荐用户
         context['middle_banners'] = StorePageBanners.objects.filter(status=StorePageBanners.enabled)  # 中间banner
         # context['selection_entity'] = Selection_Entity.objects.select_related('entity')[:6]
-        context['selection_entity'] = self.get_selection_entities()[:6]
+        context['selection_entity'] = self.get_selection_entities()[:20]
 
         _entities = context['entities']
         el = list()

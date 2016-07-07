@@ -4352,6 +4352,43 @@ define('subapp/index/middle_page_banner',['jquery', 'libs/Class','libs/slick','f
 
 
 
+define('subapp/index/selection_entity_slick',['jquery', 'libs/Class','libs/slick','fastdom'], function(
+    $, Class, slick , fastdom
+){
+            var SelectionEntitySlick= Class.extend({
+                init: function () {
+                    this.init_slick();
+                    console.log('selection entity horizontal scrolling starts !');
+                },
+                init_slick:function(){
+                    $('.latest-entity-wrapper').slick({
+                        arrows: true,
+                        slidesToShow: 6,
+                        slidesToScroll:4,
+                        autoplay:false,
+                        dots:false,
+
+                        responsive: [
+                            {
+                                breakpoint: 768,
+                                settings: {
+                                    slidesToShow:3,
+                                    slidesToScroll:3,
+                                    autoplay:false,
+                                    dots:false
+                                }
+                            }
+                        ]
+                    });
+                }
+            });
+    return SelectionEntitySlick;
+});
+
+
+
+
+
 define('subapp/discover/category_slick',['jquery', 'libs/Class','libs/slick','fastdom'], function(
     $, Class, slick , fastdom
 ){
@@ -4702,7 +4739,8 @@ require([
         'subapp/topmenu',
         'subapp/index/banner',
         'subapp/index/middle_page_banner',
-         'subapp/discover/category_slick',
+        'subapp/index/selection_entity_slick',
+        'subapp/discover/category_slick',
         'subapp/discover/recommend_user_slick',
         'subapp/entitylike',
         'subapp/index/category_tab_view',
@@ -4715,6 +4753,7 @@ require([
               Menu,
               Banner,
               MiddlePageBanner,
+              SelectionEntitySlick,
               CategorySlick,
               RecommendUserSlick,
               AppEntityLike,
@@ -4726,6 +4765,7 @@ require([
         var menu = new Menu();
         var banner = new Banner();
         var middle_page_banner = new MiddlePageBanner();
+        var selection_entity_slick = new SelectionEntitySlick();
         var category_slick = new CategorySlick();
         var recommend_user_slick = new RecommendUserSlick();
         var app_like = new  AppEntityLike();

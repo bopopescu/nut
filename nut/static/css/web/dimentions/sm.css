@@ -22,7 +22,8 @@
   .new-index-page .slick-next:before {
     display: none;
   }
-  .new-index-page #category-item-container .slick-list {
+  .new-index-page #category-item-container .slick-list,
+  .new-index-page .latest-entity-wrapper .slick-list {
     padding-right: 60px;
   }
   .new-index-page .recommend-user-wrapper .slick-list {

@@ -582,6 +582,9 @@ p .b_day {
   cursor: pointer;
   border: none;
 }
+.new-entity-six .img-box a {
+  outline: 0;
+}
 .new-entity-six .img-box a img {
   max-height: 100%;
 }
@@ -1272,6 +1275,13 @@ a.new-blue-link {
 }
 a.new-blue-link:hover {
   color: #4057A7;
+}
+a.new-black-link {
+  color: #757575;
+  text-decoration: none;
+}
+a.new-black-link:hover {
+  color: #212121;
 }
 .common-bg-layer {
   display: none;
