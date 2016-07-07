@@ -4578,7 +4578,7 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
             console.log('category tab view begin');
         },
         initHoverCategory:function(){
-            $('.category-list-item').mouseenter(this.handleHoverCategory.bind(this));
+            $('#article_category_wrapper .category-list-item').mouseenter(this.handleHoverCategory.bind(this));
 
         },
         handleHoverCategory:function(event){
