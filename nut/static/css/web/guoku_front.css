@@ -2985,6 +2985,11 @@ body.new-index-body .category-list .category-list-item {
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
+body.new-index-body .category-list .category-list-item a,
+body.new-index-body .category-list .category-list-item a:hover {
+  color: #424242;
+  text-decoration: none;
+}
 body.new-index-body .category-list .category-list-item:hover {
   cursor: pointer;
   background-color: #f1f1f1;
