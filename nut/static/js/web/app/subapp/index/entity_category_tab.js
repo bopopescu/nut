@@ -20,7 +20,6 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
             that.postAjaxRequest(dataValue);
         },
         postAjaxRequest:function(dataValue){
-            console.log('data value:'+dataValue+' send ajax request');
              var data = {
                     'dataValue': dataValue
             };
@@ -38,10 +37,7 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
             );
         },
         postSuccess:function(result){
-            console.log('type of ajax result:'+typeof(result));
             console.log('post request success.');
-            console.log('ajax result data content:'+result.data);
-            console.log('result status: '+result.status);
             var status = parseInt(result.status);
             if(status == 1){
                  this.showContent($(result.data));
@@ -57,7 +53,6 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
         },
         showContent: function(elemList){
             console.log('ajax data success');
-            console.log('append html content:'+elemList);
             var that = this;
             that.$entity_container.empty();
             that.$entity_container.append(elemList);

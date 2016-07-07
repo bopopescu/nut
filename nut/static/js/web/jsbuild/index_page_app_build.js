@@ -4589,7 +4589,6 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
             that.postAjaxRequest(dataValue);
         },
         postAjaxRequest:function(dataValue){
-            console.log('data value:'+dataValue+' send ajax request');
              var data = {
                     'dataValue': dataValue
             };
@@ -4607,10 +4606,7 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
             );
         },
         postSuccess:function(result){
-            console.log('type of ajax result:'+typeof(result));
             console.log('post request success.');
-            console.log('ajax result data content:'+result.data);
-            console.log('result status: '+result.status);
             var status = parseInt(result.status);
             if(status == 1){
                  this.showContent($(result.data));
@@ -4626,7 +4622,6 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
         },
         showContent: function(elemList){
             console.log('ajax data success');
-            console.log('append html content:'+elemList);
             var that = this;
             that.$entity_container.empty();
             that.$entity_container.append(elemList);
@@ -4660,7 +4655,6 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
             that.postAjaxRequest(dataValue);
         },
         postAjaxRequest:function(dataValue){
-            console.log('data value:'+dataValue+' send ajax request');
              var data = {
                     'dataValue': dataValue
             };
@@ -4678,10 +4672,7 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
             );
         },
         postSuccess:function(result){
-            console.log('type of ajax result:'+typeof(result));
             console.log('post request success.');
-            console.log('ajax result data content:'+result.data);
-            console.log('result status: '+result.status);
             var status = parseInt(result.status);
             if(status == 1){
                  this.showContent($(result.data));
@@ -4697,7 +4688,6 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
         },
         showContent: function(elemList){
             console.log('ajax data success');
-            console.log('append html content:'+elemList);
             var that = this;
             that.$article_container.empty();
             that.$article_container.append(elemList);
