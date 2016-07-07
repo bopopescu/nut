@@ -67,7 +67,7 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin,TemplateView):
         return _hot_entities
 
     def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs);
+        context = super(IndexView, self).get_context_data(**kwargs)
         context['banners'] = SiteBanner.objects.get_mainpage_banner()  # 顶部banner (link, image)
         context['categories'] = Category.objects.filter(status=True)  # 品类
         popular_list = Entity_Like.objects.popular_random()
@@ -130,12 +130,23 @@ class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView
     def get_ajax(self, request, *args, **kwargs):
         context = {}
         category_id = request.GET.get('dataValue')
-        sub_categories_ids = list(Sub_Category.objects.filter(group=category_id) \
-                                  .values_list('id', flat=True))
-        context['entities'] = Entity.objects.sort_group(category_id, category_ids=list(sub_categories_ids),
-                                  ).filter(buy_links__status=2)
+        if category_id == 'all':
+            context['selection_entity'] = Selection_Entity.objects.published_until_now()[:20]
+        else:
+            sub_categories_ids = list(Sub_Category.objects.filter(group=category_id) \
+                                      .values_list('id', flat=True))
+            # context['selection_entity'] = Entity.objects.sort_group(category_id, category_ids=list(sub_categories_ids),
+            #                           ).filter(buy_links__status=2)[:20]
+            context['selection_entity'] = Selection_Entity.objects.category_sort_like(list(sub_categories_ids))[:20]
+        # el = list()
+        # if self.request.user.is_authenticated():
+        #     el = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=
+        #     (
+        #     list(context['selection_entity'].values_list('entity_id', flat=True))))
+        #
+        # context['user_entity_likes'] = el
 
-        template = 'web/events/partial/new_event_article_item_ajax.html'
+        template = 'web/main/partial/new_selection_ajax.html'
         _t = loader.get_template(template)
         _c = RequestContext(
             request,

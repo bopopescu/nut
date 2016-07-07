@@ -28,7 +28,7 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
                 $.ajax({
                     cache:true,
                     type:"get",
-                    url: '',
+                    url: '/index_selection_entity_tag/',
                     data: data,
                     dataType:"json"
                 })
