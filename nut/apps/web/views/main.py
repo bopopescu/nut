@@ -83,13 +83,10 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin,TemplateView):
         context['selection_entity'] = self.get_selection_entities()[:20]
 
         _entities = context['entities']
-        el = list()
         if self.request.user.is_authenticated():
-            el = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=
+            context['user_entity_likes'] = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=
                 list(_entities.values_list('id', flat=True))+(list(context['selection_entity'].values_list('entity_id',flat=True))))
 
-
-        context['user_entity_likes'] = el
 
         return context
 
@@ -135,16 +132,13 @@ class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView
         else:
             sub_categories_ids = list(Sub_Category.objects.filter(group=category_id) \
                                       .values_list('id', flat=True))
-            # context['selection_entity'] = Entity.objects.sort_group(category_id, category_ids=list(sub_categories_ids),
-            #                           ).filter(buy_links__status=2)[:20]
-            context['selection_entity'] = Selection_Entity.objects.category_sort_like(list(sub_categories_ids))[:20]
-        # el = list()
-        # if self.request.user.is_authenticated():
-        #     el = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=
-        #     (
-        #     list(context['selection_entity'].values_list('entity_id', flat=True))))
-        #
-        # context['user_entity_likes'] = el
+            context['selection_entity'] = Selection_Entity.objects.published().filter(
+                entity__category__in=sub_categories_ids)[:20]
+        if self.request.user.is_authenticated():
+            popular_list = Entity_Like.objects.popular_random()
+            context['user_entity_likes'] = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=
+                list(Entity.objects.filter(id__in=popular_list).values_list('id', flat=True)) +
+                list(context['selection_entity'].values_list('entity_id', flat=True)))
 
         template = 'web/main/partial/new_selection_ajax.html'
         _t = loader.get_template(template)
