@@ -2953,6 +2953,14 @@ body.new-index-body .new-section-title-wrapper .section-title {
   line-height: 22px;
   font-weight: 500;
 }
+body.new-index-body .new-section-title-wrapper .section-title a {
+  color: #424242;
+  text-decoration: none;
+}
+body.new-index-body .new-section-title-wrapper .section-title a:hover {
+  color: #424242;
+  text-decoration: none;
+}
 body.new-index-body .new-section-title-wrapper a.more-link {
   font-size: 14px;
   line-height: 20px;
