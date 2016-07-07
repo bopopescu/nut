@@ -5565,9 +5565,16 @@ body.new-index-body #selection_article_list .xs-selection-article-item .more-art
     padding: 0;
     margin: 0;
   }
+  .new-index-page .new-entity-item.new-entity-item-control {
+    padding: 0 9px;
+  }
   .new-index-page .new-entity-six {
     box-shadow: 0 0 2px #ddd;
     padding: 6px;
+  }
+  .new-index-page .new-entity-six.new-entity-six-control {
+    box-shadow: none;
+    padding: 0;
   }
   .new-index-page .new-entity-six .img-box:hover .bg-layer,
   .new-index-page .new-entity-six .img-box:hover .new-btn-like {

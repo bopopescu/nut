@@ -69,8 +69,8 @@
     </div>
     <div class="row latest-entity-wrapper">
         {% for sle in selection_entity %}
-            <div class="col-xs-4 col-sm-2 guoku-middle-col new-entity-item">
-                <div class="new-entity-six">
+            <div class="col-xs-4 col-sm-2 guoku-middle-col new-entity-item new-entity-item-control">
+                <div class="new-entity-six new-entity-six-control">
                     <div class="img-box">
                         {% if sle.entity.entity_hash %}
                             <a href="{{ sle.entity.absolute_url }}" target="_blank">
