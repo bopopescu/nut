@@ -53,10 +53,9 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
         },
         showContent: function(elemList){
             console.log('ajax data success');
-            var that = this;
-            that.$entity_container.empty();
-            that.$entity_container.append(elemList);
-            that.init_slick();
+            this.$entity_container.empty();
+            this.$entity_container.append(elemList);
+            this.init_slick();
         }
     });
     return EntityCategoryTab;

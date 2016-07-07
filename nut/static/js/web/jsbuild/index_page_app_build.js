@@ -4560,7 +4560,10 @@ define('subapp/index/selection_entity_slick',['jquery', 'libs/Class','libs/slick
                     console.log('selection entity horizontal scrolling starts !');
                 },
                 init_slick:function(){
-                    $('.latest-entity-wrapper').slick({
+                    $('.latest-entity-wrapper')
+                        .removeClass('slick-slider')
+                        .removeClass('slick-initialized')
+                        .slick({
                         arrows: true,
                         slidesToShow: 6,
                         slidesToScroll:4,
@@ -4642,10 +4645,9 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
         },
         showContent: function(elemList){
             console.log('ajax data success');
-            var that = this;
-            that.$entity_container.empty();
-            that.$entity_container.append(elemList);
-            that.init_slick();
+            this.$entity_container.empty();
+            this.$entity_container.append(elemList);
+            this.init_slick();
         }
     });
     return EntityCategoryTab;

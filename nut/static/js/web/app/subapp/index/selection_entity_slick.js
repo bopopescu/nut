@@ -8,7 +8,10 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                     console.log('selection entity horizontal scrolling starts !');
                 },
                 init_slick:function(){
-                    $('.latest-entity-wrapper').slick({
+                    $('.latest-entity-wrapper')
+                        .removeClass('slick-slider')
+                        .removeClass('slick-initialized')
+                        .slick({
                         arrows: true,
                         slidesToShow: 6,
                         slidesToScroll:4,
