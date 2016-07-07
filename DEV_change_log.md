@@ -1,4 +1,7 @@
-3. 
+6. 
+5. editor work report update,sorting 
+4. fix notification pic size bug 
+3. fix tag page entity display bug 
 2. display entity's brand link in detail page , if its published 
 1. fix selection list page , time para cause 500 error 
 =======================
