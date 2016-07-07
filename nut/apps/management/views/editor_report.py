@@ -53,6 +53,16 @@ class EditorReportListView(UserPassesTestMixin,  ListView):
             editor.report['article_read_count'] = articles.aggregate(Sum('read_count')).get('read_count__sum', 0) or 0
             editor.report['article_dig_count'] = articles.aggregate(Count('digs')).get('digs__count') or 0
 
+        self.order_by = self.request.GET.get('order_by', None)
+        if not self.order_by:
+            pass
+        elif self.order_by == 'entitys':
+            editors = sorted(editors, key=lambda x: x.report['entity_count'], reverse=True)
+        elif self.order_by == 'like_count':
+            editors = sorted(editors, key=lambda x: x.report['entity_like_count'], reverse=True)
+        else:
+            editors = sorted(editors, key=lambda x: x.report['article_count'], reverse=True)
+
         return editors
 
     def get_context_data(self, *args, **kwargs):
@@ -62,6 +72,11 @@ class EditorReportListView(UserPassesTestMixin,  ListView):
         context['start_date'] = self.start_date
         context['end_date'] = self.end_date
         context['start_time'] = self.start_time
+        current_path = self.request.get_full_path()
+        if '&order_by' in current_path:
+            current_path = current_path.split('&order_by')[0]
+        context['current_path'] = current_path
+        context['order_by'] = self.order_by
         return context
 
     def get(self, request, *args, **kwargs):
