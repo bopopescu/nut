@@ -1,0 +1,41 @@
+{% load i18n staticfiles %}
+{% load common guoku %}
+
+<div class="col-xs-4 col-sm-2 guoku-middle-col new-entity-item new-entity-item-control">
+    <div class="new-entity-six new-entity-six-control">
+        <div class="img-box">
+            {% if sle.entity.entity_hash %}
+                <a href="{{ sle.entity.absolute_url }}" target="_blank">
+                    <img class="img-responsive" alt="{{ sle.entity.title }}" title="{{ sle.entity.title }}" src="{{ sle.entity.chief_image|resize:'310' }}">
+                    <div class="bg-layer">
+                    </div>
+                </a>
+            {% endif %}
+{#            {% if sle.entity.id in user_entity_likes %}#}
+{#                <a class="new-btn-like" href="javascript:;" rel="nofollow" data-entity="{{ sle.entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ sle.entity.title }}']);">#}
+{#                <i class="fa fa-heart"></i>#}
+{#            {% else %}#}
+{#                <a class="new-btn-like" href="javascript:;" rel="nofollow" data-entity="{{ sle.entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ sle.entity.title }}']);">#}
+{#                <i class="fa fa-heart-o"></i>#}
+{#            {% endif %}#}
+{#            </a>#}
+        </div>
+        <div class="new-entity-six-info">
+            <div class="caption">
+                <div class="brand">
+                    {{ sle.entity.brand|truncatechars:12 }}
+                </div>
+                <div class="title">
+                    {% if sle.entity.entity_hash %}
+                        <a href="{{ sle.entity.absolute_url }}" target="_blank">
+                            {{ sle.entity.title|truncatechars:20 }}
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="price">
+                    &#65509;{{ sle.entity.price }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

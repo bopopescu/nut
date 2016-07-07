@@ -5,7 +5,7 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
             var IndexBanner= Class.extend({
                 init: function () {
                     this.init_slick();
-                    console.log('subapp index banner  start !');
+                    //console.log('subapp index banner  start !');
                 },
                 init_slick:function(){
                     $('#index-banners').slick({
@@ -34,10 +34,10 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                 },
 
                 beforeSlide: function(event,slick,currentSlide,nextSlide){
-                            console.log('before change,currentSlide:');
-                            console.log(currentSlide);
-                            console.log('before change,nextSlide:');
-                            console.log(nextSlide);
+                            //console.log('before change,currentSlide:');
+                            //console.log(currentSlide);
+                            //console.log('before change,nextSlide:');
+                            //console.log(nextSlide);
                             this.nextSlide = nextSlide;
                             fastdom.write(this.doRenderSlide.bind(this));
 
@@ -47,7 +47,7 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                         $('#index-banners .banner-image-cell').removeClass('gk-slide-current');
                         var selector = '#index-banners .gk-slide-'+  this.nextSlide ;
                         $(selector).addClass('gk-slide-current');
-                        console.log('done');
+                        //console.log('done');
                 }
 
             });
