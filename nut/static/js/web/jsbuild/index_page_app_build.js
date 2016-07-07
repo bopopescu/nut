@@ -4352,43 +4352,6 @@ define('subapp/index/middle_page_banner',['jquery', 'libs/Class','libs/slick','f
 
 
 
-define('subapp/index/selection_entity_slick',['jquery', 'libs/Class','libs/slick','fastdom'], function(
-    $, Class, slick , fastdom
-){
-            var SelectionEntitySlick= Class.extend({
-                init: function () {
-                    this.init_slick();
-                    console.log('selection entity horizontal scrolling starts !');
-                },
-                init_slick:function(){
-                    $('.latest-entity-wrapper').slick({
-                        arrows: true,
-                        slidesToShow: 6,
-                        slidesToScroll:4,
-                        autoplay:false,
-                        dots:false,
-
-                        responsive: [
-                            {
-                                breakpoint: 768,
-                                settings: {
-                                    slidesToShow:3,
-                                    slidesToScroll:3,
-                                    autoplay:false,
-                                    dots:false
-                                }
-                            }
-                        ]
-                    });
-                }
-            });
-    return SelectionEntitySlick;
-});
-
-
-
-
-
 define('subapp/discover/category_slick',['jquery', 'libs/Class','libs/slick','fastdom'], function(
     $, Class, slick , fastdom
 ){
@@ -4568,12 +4531,50 @@ define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
     return AppEntityLike;
 });
 
-define('subapp/index/entity_category_tab',['jquery', 'libs/Class'], function(
-    $, Class
+define('subapp/index/selection_entity_slick',['jquery', 'libs/Class','libs/slick','fastdom'], function(
+    $, Class, slick , fastdom
 ){
-    var EntityCategoryTab= Class.extend({
+            var SelectionEntitySlick= Class.extend({
+                init: function () {
+                    this.init_slick();
+                    console.log('selection entity horizontal scrolling starts !');
+                },
+                init_slick:function(){
+                    $('.latest-entity-wrapper').slick({
+                        arrows: true,
+                        slidesToShow: 6,
+                        slidesToScroll:4,
+                        autoplay:false,
+                        dots:false,
+
+                        responsive: [
+                            {
+                                breakpoint: 768,
+                                settings: {
+                                    slidesToShow:3,
+                                    slidesToScroll:3,
+                                    autoplay:false,
+                                    dots:false
+                                }
+                            }
+                        ]
+                    });
+                }
+            });
+    return SelectionEntitySlick;
+});
+
+
+
+
+
+define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_entity_slick'], function(
+    $,SelectionEntitySlick
+){
+    var EntityCategoryTab= SelectionEntitySlick.extend({
         init: function () {
             this.$entity_container = $('.latest-entity-wrapper');
+            this.init_slick();
             this.initHoverCategory();
             console.log('selection entity tab view begin');
         },
@@ -4629,6 +4630,7 @@ define('subapp/index/entity_category_tab',['jquery', 'libs/Class'], function(
             var that = this;
             that.$entity_container.empty();
             that.$entity_container.append(elemList);
+            that.init_slick();
         }
     });
     return EntityCategoryTab;
@@ -4809,7 +4811,7 @@ require([
         'subapp/topmenu',
         'subapp/index/banner',
         'subapp/index/middle_page_banner',
-        'subapp/index/selection_entity_slick',
+
         'subapp/discover/category_slick',
         'subapp/discover/recommend_user_slick',
         'subapp/entitylike',
@@ -4824,7 +4826,7 @@ require([
               Menu,
               Banner,
               MiddlePageBanner,
-              SelectionEntitySlick,
+
               CategorySlick,
               RecommendUserSlick,
               AppEntityLike,
@@ -4837,7 +4839,7 @@ require([
         var menu = new Menu();
         var banner = new Banner();
         var middle_page_banner = new MiddlePageBanner();
-        var selection_entity_slick = new SelectionEntitySlick();
+
         var category_slick = new CategorySlick();
         var recommend_user_slick = new RecommendUserSlick();
         var app_like = new  AppEntityLike();

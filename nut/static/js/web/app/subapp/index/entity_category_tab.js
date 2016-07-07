@@ -1,10 +1,11 @@
 
-define(['jquery', 'libs/Class'], function(
-    $, Class
+define(['jquery', 'subapp/index/selection_entity_slick'], function(
+    $,SelectionEntitySlick
 ){
-    var EntityCategoryTab= Class.extend({
+    var EntityCategoryTab= SelectionEntitySlick.extend({
         init: function () {
             this.$entity_container = $('.latest-entity-wrapper');
+            this.init_slick();
             this.initHoverCategory();
             console.log('selection entity tab view begin');
         },
@@ -60,6 +61,7 @@ define(['jquery', 'libs/Class'], function(
             var that = this;
             that.$entity_container.empty();
             that.$entity_container.append(elemList);
+            that.init_slick();
         }
     });
     return EntityCategoryTab;
