@@ -2,7 +2,7 @@ from django.conf.urls import url, include, patterns
 from django.views.generic import RedirectView
 from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView, CooperateView
 from apps.web.views.discover import DiscoverView, RecommendUserView
-from apps.web.views.main import SelectionEntityList, SiteMapView
+from apps.web.views.main import SelectionEntityList, SiteMapView, IndexArticleTagView, IndexSelectionEntityTagView
 from apps.web.views.entity import EntityCard, EntityLikersView
 from apps.web.views.main import GKSearchView, PopularView,IndexView
 from apps.web.views.flink import FriendlyLinkListView
@@ -11,6 +11,8 @@ urlpatterns = patterns(
     'apps.web.views',
     # url(r'^$', 'main.index', name='web_index'),
     url(r'^$', IndexView.as_view(), name='web_index'),
+    url(r'^index_article_tag', IndexArticleTagView.as_view(), name='web_index_article_tag'),
+    url(r'^index_selection_entity_tag', IndexSelectionEntityTagView.as_view(), name='web_index_selection_entity_tag'),
     # url(r'^index/$', IndexView.as_view(), name='web_index'),
     url(r'^selection/$', RedirectView.as_view(url='/selected/')),
     url(r'^m/selection/$', RedirectView.as_view(url='/selected/')),
@@ -25,6 +27,7 @@ urlpatterns = patterns(
     url(r'^search/?$', GKSearchView.as_view(), name='web_search'),
 
     url(r'^sitemap/$', SiteMapView.as_view(), name='web_sitemap_url'),
+
 )
 
 urlpatterns += patterns(

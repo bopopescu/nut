@@ -4,7 +4,7 @@
 {% block content %}
     <section class="content-header">
         <h1>
-            {% trans '编辑绩效报告' %}
+            {% trans '运营数据报告' %}
         </h1>
 
         <ol class="breadcrumb">
@@ -23,11 +23,10 @@
                     <div class="box-header">
                         <ul class="nav nav-pills" role="tablist">
 {#                            <li {% if start_time == 'yesterday' %}class="active"{% endif %}><a href="{% url 'management_editor_report' %}?status={{ status }}">{% trans '昨天' %}</a></li>#}
-                            <li {% if start_time == 'lastweek'  %}class="active"{% endif %}><a href="{% url 'management_editor_report' %}?status={{ status }}&start_date=lastweek">{% trans '上周' %}</a></li>
-                            <li {% if start_time == 'lastmonth'  %}class="active"{% endif %}><a href="{% url 'management_editor_report' %}?status={{ status }}&start_date=lastmonth">{% trans '上月' %}</a></li>
+                            <li {% if start_time == 'lastweek'  %}class="active"{% endif %}><a href="{% url 'management_operation_report' %}?status={{ status }}&start_date=lastweek">{% trans '上周' %}</a></li>
+                            <li {% if start_time == 'lastmonth'  %}class="active"{% endif %}><a href="{% url 'management_operation_report' %}?status={{ status }}&start_date=lastmonth">{% trans '上月' %}</a></li>
                             <li><a>日期选择:</a></li>
 
-                        <li>
                         <table style="width:300px;">
                         <tr>
                         <td>
@@ -64,49 +63,13 @@ margin:auto">确定</button>
                             </td>
                         </tr>
                         </table>
-                        </li>
-
-{#                         <div class="col-sm-3">#}
-                        <li>
-                                <span class="dropdown-toggle category-action">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                       aria-haspopup="false" role="button" aria-expanded="false">
-                                        {% if order_by == None %}
-                                            排序
-                                         {% elif order_by == "entitys" %}
-                                        按商品数
-                                        {% elif order_by == "like_count" %}
-                                        按喜爱数
-                                         {% elif order_by == "articles" %}
-                                        按文章数
-                                        {% elif order_by == "articles" %}
-                                        按文章数
-                                        {% endif %}
-
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul  id="sort_dropdown" class="dropdown-menu dropdown-menu-control" role="menu"  >
-                                        <li ><a href="{{ current_path }}&order_by=entitys">按商品数</a></li>
-                                        <li  class="divider"></li>
-                                        <li ><a href="{{ current_path }}&order_by=like_count">按喜爱数</a></li>
-                                        <li  class="divider"></li>
-                                        <li ><a href="{{ current_path }}&order_by=articles">按文章数</a></li>
-                                    </ul>
-                                </span>
-                        </li>
-{#                            </div>#}
-
                         </ul>
                     </div>
 
-
-
                     <div class="box-body table-responsive">
-                        {% include "management/editor_report/table.html" with editors=editors %}
+                        {% include "management/operation_report/table.html" with editors=editors %}
                     </div>
-                    <div class="box-footer">
-                        {% include "management/editor_report/paginator_new.html" with objects=selections url=request.path %}
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -124,7 +87,7 @@ margin:auto">确定</button>
         $(function () {
         $('#datetimepicker1').datetimepicker({
         language: 'zh-CN',
-        format: "yyyy-mm-dd 8:00:00",
+        format: "yyyy-mm-dd 00:00:00",
             disabledHours: "true",
         autoclose: true,
         pickerPosition: "bottom-left",
@@ -133,7 +96,7 @@ margin:auto">确定</button>
         $('#datetimepicker2').datetimepicker({
             useCurrent: false, //Important! See issue #1075
             language: 'zh-CN',
-            format: "yyyy-mm-dd 8:00:00",
+            format: "yyyy-mm-dd 00:00:00",
             disabledHours: "true",
             autoclose: true,
             pickerPosition: "bottom-left",

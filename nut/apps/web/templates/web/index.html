@@ -46,10 +46,22 @@
     <div class="row new-section-title-wrapper">
         <div class="col-sm-12">
             <div class="section-title pull-left">
-                最新精选
+                <a href="{{ web_selection_url }}" target="_blank">
+                    精选商品
+                </a>
             </div>
+            <ul class="hidden-xs pull-left category-list" id="entity_category_container">
+                <li class="category-list-item" data-value="all">
+                    全部
+                </li>
+                {% for category in categories %}
+                    <li class="category-list-item" data-value="{{ category.id }}">
+                       <a href="{% url 'web_category_group' category.id %}" target="_blank"> {{ category.title_cn }} </a>
+                    </li>
+                {% endfor %}
+            </ul>
              <span class="pull-right">
-                 <a class="more-link new-blue-link" href="{{ web_selection_url }}" target="_blank">
+                 <a class="more-link new-black-link" href="{{ web_selection_url }}" target="_blank">
                      查看更多&nbsp;
                      <i class="fa fa-caret-right"></i>
                  </a>
@@ -58,23 +70,18 @@
 
     </div>
     <div class="row latest-entity-wrapper">
-          {% for sle in selection_entity %}
-                    <a href="{{ sle.entity.absolute_url }}" target="_blank" class="hover-light">
-                    <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 guoku-middle-col">
-                        <div class="guoku-bg-image-wrapper" style="background-image:url('{{ sle.entity.chief_image|resize:'180' }}')">
-                        </div>
-                    </div>
-                    </a>
-                {% endfor %}
-      </div>
-    <div class="row new-section-title-wrapper">
+        {% for sle in selection_entity %}
+            {% include 'web/main/partial/new_selection_item_list.html' %}
+        {% endfor %}
+    </div>
+    <div class="hidden-sm hidden-md hidden-lg row new-section-title-wrapper">
             <div class="col-sm-12">
                 <div class="section-title pull-left">
                     推荐品类
                 </div>
             </div>
     </div>
-    <div class="row dark-section-wrapper" id="category-container">
+    <div class="hidden-sm hidden-md hidden-lg row dark-section-wrapper" id="category-container">
             <div class="col-sm-12">
                 <ul id="category-item-container">
                     {% for category in categories %}
@@ -99,27 +106,26 @@
     <div class="row new-section-title-wrapper">
         <div class="col-sm-12">
             <div class="section-title pull-left">
-                最新图文
+                <a href="{{ web_article_list_url }}" target="_blank">
+                    最新图文
+                </a>
             </div>
+             <ul class="hidden-xs pull-left category-list" id="article_category_wrapper">
+                <li class="category-list-item" data-value="all">
+                    全部
+                </li>
+                {% for top_tag in article_tags %}
+                    <li class="category-list-item" data-value="{{ top_tag.id }}">
+                        {{ top_tag.name }}
+                    </li>
+                {% endfor %}
+            </ul>
               <span class="pull-right">
-                  <a class="more-link new-blue-link" href="{{ web_article_list_url }}" target="_blank">
+                  <a class="more-link new-black-link" href="{{ web_article_list_url }}" target="_blank">
                       查看更多&nbsp;
                       <i class="fa fa-caret-right"></i>
                   </a>
               </span>
-        </div>
-    </div>
-    <div class="row category-list-wrapper">
-        <div class="col-sm-12">
-            <ul class="category-list">
-                {% for top_tag in article_tags %}
-                    <li class="category-list-item">
-                        <a href="{% url 'tag_articles_url' top_tag.quoted_tag_name %}" target="_blank">
-                            {{ top_tag.name }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
         </div>
     </div>
     <div class="row" id="selection_article_list">
@@ -186,12 +192,12 @@
             </div>
         </div>
     </div>
-    <div class="row " id="hot-entity-list">
+    <div class="row" id="hot-entity-list">
             {% for entity in entities %}
-                {% include 'web/main/partial/entity.html' with entity=entity%}
+                {% include 'web/main/partial/new_entity.html' with entity=entity%}
             {% endfor %}
     </div>
-     <div class="row hidden-xs">
+    <div class="row hidden-xs">
             <div class="col-sm-offset-12">
                 <div class="gotop-wrapper">
                     <ul>
