@@ -8,7 +8,7 @@ from django.forms import ModelForm ,BooleanField, HiddenInput
 
 from braces.views import AjaxResponseMixin,JSONResponseMixin, UserPassesTestMixin
 
-from apps.core.models import GKUser, Media , User_Profile , Authorized_User_Profile
+from apps.core.models import GKUser, Media , User_Profile , Authorized_User_Profile,Entity
 from apps.core.forms.user import UserForm, GuokuSetPasswordForm, AvatarForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 from apps.management.decorators import admin_only
@@ -126,6 +126,16 @@ class SellerContextMixin(object):
 
 # Start seller shop manangement
 
+class SellerEntityListView(SellerContextMixin,ListView):
+    model=Entity
+    template_name = 'management/users/entity/seller_eneity_list.html'
+    context_object_name='entities'
+    paginate_by = 20
+    paginator_class = Jpaginator
+
+    def get_queryset(self):
+        return self.get_user().entities.all()
+
 class SellerShopListView(SellerContextMixin,ListView):
     model = GKUser
     template_name = 'management/users/shop/seller_shop_list.html'
@@ -240,7 +250,6 @@ class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListVie
     def get_context_data(self, *args, **kwargs):
         context = super(UserManagementListView, self).get_context_data()
         context['active'] = self.getActiveStatus()
-
         return context
 
     def test_func(self, user):

@@ -100,6 +100,8 @@
                                   <td>
                                       {% if user.is_authorized_seller %}
                                           <a href="{% url 'management_user_shop_list' user.pk %}"  class="btn btn-success">  管理卖家店铺  </a>
+                                          &nbsp;&nbsp;&nbsp;&nbsp;
+                                          <a href="{% url 'management_user_entity_list' user.pk %}" class="btn btn-success"> 显示所有商品 </a>
                                       {% endif %}
                                   </td>
                               </tr>

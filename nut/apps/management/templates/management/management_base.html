@@ -150,6 +150,13 @@
                         </a>
                     </li>
 
+                    {% url 'management_reading_report' as management_readingreport_url %}
+                    <li {% if management_readingreport_url in request.path %}class="active"{% endif %}>
+                        <a href="{{ management_readingreport_url }}">
+                            <i class="fa fa-star"></i>&nbsp;<span>{% trans 'User Reading Report' %}</span>
+                        </a>
+                    </li>
+
                     {% url 'management_selection_list' as management_selection_url %}
                     <li {% if management_selection_url in request.path %}class="active"{% endif %}>
                         <a href="{{ management_selection_url }}">

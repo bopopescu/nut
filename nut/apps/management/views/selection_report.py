@@ -97,7 +97,6 @@ class SelectionReportListView(ListView):
         return context
 
     def get(self, request, *args, **kwargs):
-
         selections = self.get_queryset()
         self.object_list = selections
         context = self.get_context_data()

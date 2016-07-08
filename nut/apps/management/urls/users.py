@@ -7,7 +7,8 @@ from apps.management.views.users import MediaListView, \
                                         SellerShopListView,\
                                         SellerShopCreateView,\
                                         SellerShopUpdateView,\
-                                        SellerShopDeleteView, UserActiveUserSetView
+                                        SellerShopDeleteView, UserActiveUserSetView,\
+                                        SellerEntityListView
 
 urlpatterns = patterns(
     'apps.management.views.users',
@@ -26,7 +27,7 @@ urlpatterns = patterns(
     url(r'^(?P<user_id>\d+)/setActiveUser/$', UserActiveUserSetView.as_view(), name='management_user_setActiveUser'),
 
     url(r'^(?P<user_id>\d+)/editAuthorInfo/$', UserAuthorInfoEditView.as_view(), name='management_user_editAuthor'),
-
+    url(r'^(?P<user_id>\d+)/entities/$',SellerEntityListView.as_view(),name='management_user_entity_list'),
     # for seller shop management
     url(r'^(?P<user_id>\d+)/shops/$', SellerShopListView.as_view(), name='management_user_shop_list'),
     url(r'^(?P<user_id>\d+)/shops/new/$', SellerShopCreateView.as_view(), name='management_user_shop_create'),

@@ -4,6 +4,6 @@ from django.conf.urls import url, patterns
 
 urlpatterns = patterns(
     'apps.management.views.reading_report',
-    url(r'$', 'readingreport', name='management_reading_report'),
+    url(r'$', ReadingReportListView.as_view(), name='management_reading_report'),
 )
 
