@@ -56,7 +56,7 @@
                 </li>
                 {% for category in categories %}
                     <li class="category-list-item" data-value="{{ category.id }}">
-                        {{ category.title_cn }}
+                       <a href="{% url 'web_category_group' category.id %}" target="_blank"> {{ category.title_cn }} </a>
                     </li>
                 {% endfor %}
             </ul>

@@ -113,8 +113,8 @@ class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
 
 
         if tag_id == 'all':
-            context['articles'] = Article.objects.filter(selections__is_published=True,
-                                  selections__pub_time__lte=datetime.now())[:3]
+            articles = Selection_Article.objects.published_until()[:3]
+            context['articles'] = [item.article for item in articles]
         else:
             tag = Tags.objects.get(id=tag_id)
             article_ids = Content_Tags.objects.filter(tag=tag,

@@ -1,9 +1,10 @@
-6. 
-5. editor work report update,sorting 
-4. fix notification pic size bug 
-3. fix tag page entity display bug 
-2. display entity's brand link in detail page , if its published 
-1. fix selection list page , time para cause 500 error 
+7. mng - operation report 
+6. web - index page refactor 
+5. mng - editor work report update,sorting 
+4. web -fix notification pic size bug 
+3. web -fix tag page entity display bug 
+2. web - display entity's brand link in detail page , if its published 
+1. web -fix selection list page , time para cause 500 error 
 
 
 =======================
