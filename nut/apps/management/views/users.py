@@ -128,7 +128,7 @@ class SellerContextMixin(object):
 
 class SellerEntityListView(SellerContextMixin,ListView):
     model=Entity
-    template_name = 'management/users/entity/seller_eneity_list.html'
+    template_name = 'management/users/entity/seller_entity_list.html'
     context_object_name='entities'
     paginate_by = 20
     paginator_class = Jpaginator
