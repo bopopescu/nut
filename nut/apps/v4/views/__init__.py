@@ -12,15 +12,16 @@ from apps.core.models import Show_Banner, \
     Entity_Like, Sub_Category
 
 from apps.v4.forms.pushtoken import PushForm
+from apps.v4.forms.search import APISearchForm
+
 from apps.v4.models import APIUser, APISelection_Entity, APIEntity,\
                             APICategory, APISeletion_Articles, \
                             APIArticle, APIArticle_Dig
 
-from datetime import datetime, timedelta
-from apps.core.views import BaseJsonView
+from apps.core.views import BaseJsonView, JSONResponseMixin
 
 from haystack.generic_views import SearchView
-
+from datetime import datetime, timedelta
 
 
 from django.utils.log import getLogger
@@ -56,7 +57,7 @@ def decorate_taobao_url(url, ttid=None, sid=None, outer_code=None, sche=None):
 
     return url
 
-
+# base api view
 class APIJsonView(BaseJsonView):
 
     @csrf_exempt
@@ -456,10 +457,35 @@ def selection(request):
 #
 #     return SuccessJsonResponse(res)
 
+# TODO: Search API
+class APISearchView(SearchView, JSONResponseMixin):
+    http_method_names = ['get']
+    form_class = APISearchForm
+
+    def get_data(self, context):
+        # print context
+        res = context.copy()
+        return res
+
+    def get(self, request, *args, **kwargs):
+        return super(APISearchView, self).get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        self.queryset = form.search()
+        return self.render_to_json_response(self.queryset)
+
+    def form_invalid(self, form):
+        return ErrorJsonResponse(status=400, data=form.errors)
+    # @check_sign
+    # def dispatch(self, request, *args, **kwargs):
+        # return super(APISearchView, self).dispatch(request, *args, **kwargs)
+
+
 class PopularView(APIJsonView):
     '''
         Get Popular Entity API
     '''
+    http_method_names = ['get']
 
     def get_data(self, context):
         popular_list = Entity_Like.objects.popular_random(self.scale)
@@ -495,7 +521,7 @@ class TopPopularView(APIJsonView):
     '''
         IOS TODAY API
     '''
-
+    http_method_names = ['get']
     def __init__(self):
         self._count = 0
         super(TopPopularView, self).__init__()

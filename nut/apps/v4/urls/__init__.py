@@ -1,5 +1,7 @@
 from django.conf.urls import url, patterns, include
-from apps.v4.views import DiscoverView, HomeView, AuthorizedUser, UnreadView, TopPopularView, PopularView
+from apps.v4.views import DiscoverView, HomeView, \
+    AuthorizedUser, UnreadView, \
+    TopPopularView, PopularView, APISearchView
 from apps.v4.views.marketing import LaunchBoardView
 
 
@@ -12,7 +14,11 @@ urlpatterns = patterns(
     url(r'^selection/$', 'selection', name='v4_selection'),
     # url(r'^popular/$', 'popular', name='v4_popular'),
     url(r'^popular/$', PopularView.as_view(), name='v4_popular'),
+    # TODO: discover API
     url(r'^discover/$', DiscoverView.as_view(), name='v4_discover'),
+
+    url(r'^search/$', APISearchView.as_view(), name='v4_search'),
+
     url(r'^authorized/users/', AuthorizedUser.as_view(), name='v4_authorized_user'),
 
     # url(r'^toppopular/$', 'toppopular', name='v4_toppopular'),
