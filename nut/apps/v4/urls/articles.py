@@ -8,6 +8,9 @@ urlpatterns = patterns(
     url(r'^(?P<article_id>\d+)/$', ArticleView.as_view(), name='v4_article'),
     url(r'^search/?$', ArticleSearchView.as_view(), name='v4_articles_search'),
     url(r'^tags/(?P<tag_name>\w+)/?', ArticleTagView.as_view(), name='v4_articles_tags'),
+
+    # url(r'^comments/$', )
+
     url(r'^dig/$', ArticleDigView.as_view(), name='v4_article_dig'),
     url(r'^undig/$', ArticleUnDigView.as_view(), name='v4_article_undig'),
 )

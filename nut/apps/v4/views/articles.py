@@ -197,7 +197,6 @@ class ArticleDigView(APIJsonView):
     # def get(self, request, *args, **kwargs):
 
 
-
 class ArticleUnDigView(APIJsonView):
     http_method_names = ['post']
 
@@ -216,6 +215,26 @@ class ArticleUnDigView(APIJsonView):
         return super(ArticleUnDigView, self).post(request, *args, **kwargs)
     # def get(self, request, *args, **kwargs):
     #     return super(ArticleUnDigView, self).get(request, *args, **kwargs)
+
+
+class ArticlePostComment(APIJsonView):
+    http_method_names = ['post']
+
+    def get_data(self, context):
+        pass
+
+    def post(self, request, *args, **kwargs):
+        _key = request.POST.get('session', None)
+        self.article_id = request.POST.get('aid', None)
+        assert self.article_id is not None
+
+        try:
+            self.session = Session_Key.objects.get(session_key=_key)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
+        return super(ArticlePostComment, self).post(request, *args, **kwargs)
+
+
 
 
 __author__ = 'xiejiaxin'

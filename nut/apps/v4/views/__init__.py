@@ -66,6 +66,25 @@ class APIJsonView(BaseJsonView):
         return super(APIJsonView, self).dispatch(request, *args, **kwargs)
 
 
+class APIJsonSessionView(APIJsonView):
+
+    def check_session(self, request):
+        _key = request.REQUEST.get('session', None)
+        try:
+            self.session = Session_Key.objects.get(session_key=_key)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
+
+    def get(self, request, *args, **kwargs):
+        # self.request = request
+        self.check_session(request)
+        return super(APIJsonSessionView, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.check_session(request)
+        return super(APIJsonSessionView, self).post(request, *args, **kwargs)
+
+
 class HomeView(APIJsonView):
     http_method_names = ['get']
 
@@ -653,7 +672,7 @@ def apns_token(request):
         except Session_Key.DoesNotExist:
             pass
             # return ErrorJsonResponse(status=403)
-        log.info(request.POST)
+        # log.info(request.POST)
         form = PushForm(user=_user, data=request.POST)
         if form.is_valid():
             form.save()
@@ -669,5 +688,6 @@ def apns_token(request):
 
         return ErrorJsonResponse(status=403, data={'message':'error'})
 
+# class ApnsTokenView():
 
 __author__ = 'edison7500'
