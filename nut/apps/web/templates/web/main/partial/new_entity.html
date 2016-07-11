@@ -8,9 +8,9 @@
             {% if entity.entity_hash %}
                 <a class="img-link" href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
                     <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|resize:'310' }}">
-                    <div class="bg-layer">
-                    </div>
                 </a>
+                <div class="bg-layer">
+                </div>
             {% endif %}
             {% if entity.id in user_entity_likes %}
                 <a class="new-btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
