@@ -16,7 +16,6 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
         handleHoverCategory:function(event){
             var that = this;
             var dataValue = $(event.target).attr('data-value');
-            console.log('data value:'+dataValue+' send ajax request');
             that.postAjaxRequest(dataValue);
         },
         postAjaxRequest:function(dataValue){

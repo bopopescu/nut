@@ -15,7 +15,6 @@ define(['jquery', 'libs/Class'], function(
         handleHoverCategory:function(event){
             var that = this;
             var dataValue = $(event.target).attr('data-value');
-            console.log('data value:'+dataValue+' send ajax request');
             that.postAjaxRequest(dataValue);
         },
         postAjaxRequest:function(dataValue){
