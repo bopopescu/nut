@@ -2934,6 +2934,9 @@ body.new-index-body .slick-slider {
 body.new-index-body .latest-entity-wrapper .new-entity-item {
   outline: 0;
 }
+body.new-index-body #hot-entity-list .new-entity-item {
+  margin-bottom: 40px;
+}
 body.new-index-body .new-banner-wrapper .slick-prev {
   left: 12%;
 }
