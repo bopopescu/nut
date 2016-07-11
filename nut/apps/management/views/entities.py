@@ -1,3 +1,4 @@
+from apps.core.views import BaseFormView
 from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect, \
     HttpResponse
 from django.shortcuts import render_to_response
@@ -14,13 +15,14 @@ from apps.management.decorators import staff_only, staff_and_editor
 
 from apps.core.models import Entity, Buy_Link, GKUser
 from apps.core.forms.entity import EditEntityForm, EntityImageForm, \
-    CreateEntityForm, load_entity_info, BuyLinkForm, EditBuyLinkForm
+    CreateEntityForm, load_entity_info, BuyLinkForm, EditBuyLinkForm, AddEntityForm
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, \
     PageNotAnInteger
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.tasks.entity import fetch_image
 
 # for entity list view class
+from django.conf import settings
 from django.views.generic.list import ListView
 from django.views.generic import TemplateView, View
 from apps.core.mixins.views import SortMixin, FilterMixin
@@ -31,6 +33,7 @@ import requests
 # from django.utils import timezone
 from hashlib import md5
 log = getLogger('django')
+image_host = getattr(settings, 'IMAGE_HOST', None)
 
 
 
@@ -234,6 +237,24 @@ def create(request, template='management/entities/new.html'):
         },
         context_instance=RequestContext(request)
     )
+
+
+def add_local(request):
+        template = 'management/entities/add.html'
+
+        if request.method == 'POST':
+            form = AddEntityForm(request, data=request.POST, files=request.FILES)
+            if form.is_valid():
+                form.save()
+            return HttpResponseRedirect(reverse('management_entity_list'))
+        form = AddEntityForm(request)
+        return render_to_response(
+            template,
+            {'forms': form,
+             # 'image_host': image_host,
+             },
+            context_instance=RequestContext(request),
+        )
 
 
 # TODO:

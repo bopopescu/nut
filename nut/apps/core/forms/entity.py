@@ -24,9 +24,7 @@ from apps.core.utils.fetch.amazon import Amazon
 from apps.core.utils.fetch.six_pm import SixPM
 from apps.core.utils.fetch import parse_taobao_id_from_url, \
     parse_jd_id_from_url, parse_kaola_id_from_url
-from apps.core.models import Entity, Sub_Category, Category, Buy_Link, Note
-
-
+from apps.core.models import Entity, Sub_Category, Category, Buy_Link, Note, GKUser
 
 log = getLogger('django')
 # image_sizes = getattr(settings, 'IMAGE_SIZE', None)
@@ -241,6 +239,8 @@ def cal_entity_hash(hash_string):
         except Entity.DoesNotExist:
             break
     return _hash
+
+
 
 
 # TODO:
@@ -575,6 +575,177 @@ class CreateEntityForm(forms.Form):
                 price=_price,
                 default=True,
             )
+        return entity
+
+class AddEntityForm(forms.Form):
+    title = forms.CharField(
+        label=_('title'),
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        help_text=_(''),
+    )
+
+    brand = forms.CharField(
+        label=_('brand'),
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        required=False,
+    )
+
+    price = forms.FloatField(
+        label=_('price'),
+        widget=forms.NumberInput(attrs={'class': 'form-control'}),
+        help_text=_(''),
+    )
+
+    intro = forms.CharField(
+        label=_('简介'),
+        widget=forms.Textarea(attrs={'class': 'form-control', 'id':'summernote'}),
+        required=False,
+    )
+
+    buy_link = forms.URLField(
+        label=('购买链接'),
+        widget=forms.URLInput(attrs={'class': 'form-control'}),
+        show_hidden_initial=True,
+        required=False,
+    )
+
+    # image_1 = forms.ImageField(
+    #     label=_('上传图片1'),
+    #     widget=forms.FileInput(),
+    #     help_text=_('max. 2 megabytes'),
+    #     required=False,
+    # )
+    #
+    #
+    # image_2 = forms.ImageField(
+    #     label=_('上传图片2'),
+    #     help_text=_('max. 2 megabytes'),
+    #     required=False,
+    # )
+    #
+    # image_3 = forms.ImageField(
+    #     label=_('上传图片3'),
+    #     help_text=_('max. 2 megabytes'),
+    #     required=False,
+    # )
+
+    cate_choices = get_category_choices()
+    sub_cate_choices = get_sub_category_choices(cate_choices[0][0]) or []
+
+    category = forms.ChoiceField(label=_('category'),
+                                                widget=forms.Select(attrs={
+                                                    'class': 'form-control',
+                                                    'id': 'category'}),
+                                                choices=cate_choices,
+                                                initial=cate_choices[0][0],
+                                                help_text=_(''),
+                                                )
+    sub_category = SubCategoryField(label=_('sub_category'),
+                                                   widget=forms.Select(
+                                                       attrs={
+                                                           'class': 'form-control',
+                                                           'id': 'sub-category',
+                                                       }),
+                                                   choices=sub_cate_choices,
+                                                   initial=sub_cate_choices[0][0],
+                                                   help_text=_(''),
+                                                   )
+
+    content = forms.CharField(
+        label=_('note'),
+        widget=forms.Textarea(attrs={'class': 'form-control'}),
+        help_text=_(''),
+        required=False,
+    )
+
+    status = forms.ChoiceField(label=_('note status'),
+                                              choices=Note.NOTE_STATUS_CHOICES,
+                                              widget=forms.Select(attrs={
+                                                  'class': 'form-control'}),
+                                              initial=Note.normal,
+                                              )
+    auth_sellers = GKUser.objects.authorized_seller()
+    user_choices = [(seller.pk, seller.nickname) for seller in auth_sellers]
+
+    user = forms.ChoiceField(
+        label=_('user'),
+        choices=user_choices,
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        help_text=_(''),
+    )
+
+    def __init__(self, request, *args, **kwargs):
+        super(AddEntityForm, self).__init__(*args, **kwargs)
+        self.request = request
+
+
+    def save(self):
+        _title = self.cleaned_data.get('title')
+        _brand = self.cleaned_data.get('brand')
+        _price = self.cleaned_data.get('price')
+        _sub_category = self.cleaned_data.get('sub_category')
+        _note_text = self.cleaned_data.get('content')
+        _status = self.cleaned_data.get('status')
+        _user_id = self.cleaned_data.get('user')
+        _entity_hash = cal_entity_hash(_title + _user_id)
+        _intro = self.cleaned_data.get('intro')
+        _buy_link = self.cleaned_data.get('buy_link')
+        images = []
+        # image_1 = self.cleaned_data.get('image_1')
+        # image_2 = self.cleaned_data.get('image_2')
+        # if image_1:
+        #     image_1 = HandleImage(image_1)
+        #     filename_1 = '%s%s' % (image_host, image_1.save())
+        #     images.append(filename_1)
+        # if image_2:
+        #     image_2 = HandleImage(image_2)
+        #     filename_2 = '%s%s' % (image_host, image_2.save())
+        #     images.append(filename_2)
+
+        entity = Entity(
+            entity_hash=_entity_hash,
+            user_id= _user_id,
+            brand=_brand,
+            title=_title,
+            price=_price,
+            category_id=_sub_category,
+            images=images,
+            intro=_intro,
+
+        )
+        entity.save()
+        log.info(entity.images)
+        if not settings.DEBUG:
+            fetch_image.delay(entity.images, entity.id)
+
+        if _note_text:
+            Note.objects.create(
+                user_id=_user_id,
+                entity=entity,
+                note=_note_text,
+                status=_status,
+            )
+        if not _buy_link:
+            Buy_Link.objects.create(
+                entity=entity,
+                origin_id=entity.id,
+                # cid=,
+                origin_source='guoku.com',
+                link= self.request.get_host() + entity.absolute_url,
+                price=_price,
+                default=True,
+            )
+        # else:
+        #     Buy_Link.objects.create(
+        #         entity=entity,
+        #         origin_id=entity.id,
+        #         # cid=,
+        #         origin_source='guoku.com',
+        #         link=self.request.get_host() + entity.absolute_url,
+        #         price=_price,
+        #         default=True,
+        #     )
+
         return entity
 
 
