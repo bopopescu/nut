@@ -513,11 +513,14 @@ p .b_day{
         max-height: 100%;
       }
     }
+    .bg-layer,.new-btn-like{
+       opacity: 0;
+      .transition(opacity 1s ease-in-out);
+    }
     .bg-layer{
       .common-bg-layer;
     }
     .new-btn-like{
-      display: none;
       position:absolute;
       top:10px;
       right:10px;
@@ -536,7 +539,7 @@ p .b_day{
     }
     &:hover{
       .bg-layer,.new-btn-like{
-        display: block;
+        opacity:1;
       }
     }
   }
@@ -1146,7 +1149,6 @@ a.new-black-link{
 }
 
 .common-bg-layer{
-  display: none;
   width:100%;
   height:0;
   padding-bottom: 100%;
