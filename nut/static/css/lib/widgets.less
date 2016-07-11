@@ -507,8 +507,11 @@ p .b_day{
     position:relative;
     cursor: pointer;
     border:none;
-    a{
+    a.img-link{
       outline:0;
+      position:absolute;
+      top:50%;
+      .transform(translateY(-50%));
       img{
         max-height: 100%;
       }

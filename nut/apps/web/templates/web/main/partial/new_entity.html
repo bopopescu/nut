@@ -6,7 +6,7 @@
     <div class="new-entity-six">
         <div class="img-box">
             {% if entity.entity_hash %}
-                <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
+                <a class="img-link" href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
                     <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|resize:'310' }}">
                     <div class="bg-layer">
                     </div>

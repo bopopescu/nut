@@ -877,10 +877,16 @@ p .b_day {
   cursor: pointer;
   border: none;
 }
-.new-entity-six .img-box a {
+.new-entity-six .img-box a.img-link {
   outline: 0;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
 }
-.new-entity-six .img-box a img {
+.new-entity-six .img-box a.img-link img {
   max-height: 100%;
 }
 .new-entity-six .img-box .bg-layer,
