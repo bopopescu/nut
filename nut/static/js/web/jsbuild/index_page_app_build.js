@@ -4599,6 +4599,8 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
             this.$entity_container = $('.latest-entity-wrapper');
             this.init_slick();
             this.initHoverCategory();
+            this.categoryName = '';
+            this.entityCache = window.localStorage;
             console.log('selection entity tab view begin');
         },
         initHoverCategory:function(){
@@ -4608,7 +4610,15 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
         handleHoverCategory:function(event){
             var that = this;
             var dataValue = $(event.target).attr('data-value');
-            that.postAjaxRequest(dataValue);
+            var entityCache = this.entityCache.getItem(dataValue);
+            this.categoryName = dataValue;
+            if(entityCache){
+                console.log('has entity cache.');
+                that.showContent($(entityCache));
+            }else{
+                console.log('has no entity cache');
+                that.postAjaxRequest(dataValue);
+            }
         },
         postAjaxRequest:function(dataValue){
              var data = {
@@ -4632,6 +4642,7 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
             var status = parseInt(result.status);
             if(status == 1){
                  this.showContent($(result.data));
+                 this.setCache(result);
             }else{
                 this.showFail(result);
             }
@@ -4647,6 +4658,14 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
             this.$entity_container.empty();
             this.$entity_container.append(elemList);
             this.init_slick();
+        },
+        setCache:function(result){
+            var category = this.categoryName;
+            if(this.entityCache.getItem(category)){
+                console.log('no need to set cache');
+            }else{
+                this.entityCache.setItem(category,result.data);
+            }
         }
     });
     return EntityCategoryTab;
