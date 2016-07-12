@@ -2993,7 +2993,7 @@ body.new-index-body .recommend-user-panel .user-info-wrapper .user-intro {
   overflow: hidden;
 }
 body.new-index-body .recommend-user-panel .user-info-wrapper .action-wrapper .new-guoku-button {
-  min-width: 80px;
+  min-width: 75px;
   width: 100%;
 }
 body.new-index-body .slick-slider {
@@ -3003,7 +3003,8 @@ body.new-index-body .latest-entity-wrapper .new-entity-item,
 body.new-index-body .recommend-user-item {
   outline: 0;
 }
-body.new-index-body #hot-entity-list .new-entity-item {
+body.new-index-body #hot-entity-list .new-entity-item,
+body.new-index-body .user-panel-container {
   margin-bottom: 40px;
 }
 body.new-index-body .new-banner-wrapper .slick-prev {
