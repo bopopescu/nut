@@ -4663,6 +4663,8 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
         init: function () {
             this.$article_container = $('#selection_article_list');
             this.initHoverCategory();
+            this.categoryName = '';
+            this.articleCache = window.localStorage;
             console.log('category tab view begin');
         },
         initHoverCategory:function(){
@@ -4672,7 +4674,15 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
         handleHoverCategory:function(event){
             var that = this;
             var dataValue = $(event.target).attr('data-value');
-            that.postAjaxRequest(dataValue);
+            var articleCache = this.articleCache.getItem(dataValue);
+            this.categoryName = dataValue;
+            if(articleCache){
+                console.log('has article cache.');
+                that.showContent($(articleCache));
+            }else{
+                console.log('has no article cache');
+                that.postAjaxRequest(dataValue);
+            }
         },
         postAjaxRequest:function(dataValue){
              var data = {
@@ -4696,6 +4706,7 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
             var status = parseInt(result.status);
             if(status == 1){
                  this.showContent($(result.data));
+                 this.setCache(result);
             }else{
                 this.showFail(result);
             }
@@ -4708,9 +4719,16 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
         },
         showContent: function(elemList){
             console.log('ajax data success');
-            var that = this;
-            that.$article_container.empty();
-            that.$article_container.append(elemList);
+            this.$article_container.empty();
+            this.$article_container.append(elemList);
+        },
+        setCache:function(result){
+            var category = this.categoryName;
+            if(this.articleCache.getItem(category)){
+                console.log('no need to set cache');
+            }else{
+                this.articleCache.setItem(category,result.data);
+            }
         }
     });
     return CategoryTabView;
