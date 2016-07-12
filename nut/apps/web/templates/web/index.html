@@ -142,8 +142,8 @@
                 </div>
             </div>
     </div>
-    <div class="row recommend-user-wrapper">
-        <div class="hidden-sm hidden-md hidden-lg col-sm-12">
+    <div class="hidden-sm hidden-md hidden-lg  row recommend-user-wrapper">
+        <div class="col-sm-12">
             <ul class="user-icon-list recommend-user-list">
                 {% for user in recommand_users %}
                     <li>
@@ -155,9 +155,10 @@
                 {% endfor %}
             </ul>
         </div>
-
-        {% for user in recommand_users %}
-            <div class="hidden-xs col-sm-2">
+    </div>
+    <div class="hidden-xs row recommend-user-wrapper user-panel-container">
+         {% for user in recommand_users %}
+            <div class="col-sm-2">
               <div class="recommend-user-panel">
                   <div class="user-icon-wrapper">
                       <a href="{{ user.absolute_url }}" target="_blank">
@@ -184,9 +185,38 @@
                   </div>
               </div>
             </div>
-
+        {% endfor %}
+         {% for user in recommand_users %}
+            <div class="col-sm-2">
+              <div class="recommend-user-panel">
+                  <div class="user-icon-wrapper">
+                      <a href="{{ user.absolute_url }}" target="_blank">
+                          <img class="img-responsive img-circle" style="background-image: url({{ user.avatar_url|resize:'128' }})" />
+                      </a>
+                  </div>
+                  <div class="user-info-wrapper">
+                      <span class="user-name">{{ user.nickname }}</span>
+                      <p class="user-intro">{{ user.profile.bio|truncatechars:'50' }}</p>
+                      <div class="action-wrapper">
+                          {% if user.is_blocked %}
+                          <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
+                          {% elif current_user == request.user %}
+                          <a class="guoku-button new-guoku-button button-blue newest-button-blue" href="{% url 'web_user_settings' %}">
+                              <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
+                          {% elif request.user.id in current_user.concren %}
+                          <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                          {% elif request.user.id in current_user.fans_list %}
+                          <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                      {% else %}
+                          <a class="follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+                      {% endif %}
+                      </div>
+                  </div>
+              </div>
+            </div>
         {% endfor %}
     </div>
+
     <div class="row">
         <div class="col-sm-12 new-banner-container">
             <div class="banner-wrapper new-banner-wrapper" id="middle-page-banner">
