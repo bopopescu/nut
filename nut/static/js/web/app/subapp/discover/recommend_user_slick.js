@@ -10,7 +10,7 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                 init_slick:function(){
                     $('.recommend-user-list').slick({
                         arrows: true,
-                        slidesToShow: 11,
+                        slidesToShow: 6,
                         slidesToScroll:4,
                         autoplay:false,
                         dots:false,

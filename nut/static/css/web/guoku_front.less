@@ -72,6 +72,45 @@ body.compact-body{
 }
 body.new-index-body{
   padding-top:91px;
+  .recommend-user-panel{
+    //below code is amazing,so strange but magic,cannot remove it
+     border:1px solid transparent;
+
+     position:relative;
+    .user-icon-wrapper{
+      z-index:10;
+      position:absolute;
+      top:0;
+      left:50%;
+      .transform(translateX(-50%));
+      width:72px;
+      height:72px;
+      img{
+        .guoku-bg-image-wrapper;
+      }
+    }
+    .user-info-wrapper{
+      text-align: center;
+      margin-bottom:0;
+      margin-top:36px;
+      padding:36px 10px 16px 10px;
+      .box-shadow(@panel-shaddow);
+      .user-name{
+        font-size:20px;
+        line-height:24px;
+        .single-text-overflow;
+      }
+      .user-intro{
+        width:100%;
+        min-height:36px;
+        max-height:36px;
+        color:@new-text-gray;
+        font-size:@more-mini-size;
+        line-height:18px;
+        .multiple-text-overflow(2);
+      }
+    }
+  }
   .slick-slider{
       margin-bottom:0;
   }
