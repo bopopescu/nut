@@ -2995,6 +2995,25 @@ body.new-index-body .recommend-user-panel .user-info-wrapper .user-intro {
 body.new-index-body .recommend-user-panel .user-info-wrapper .action-wrapper .new-guoku-button {
   min-width: 75px;
   width: 100%;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 20px;
+}
+body.new-index-body .recommend-user-panel .user-info-wrapper .action-wrapper .new-guoku-button.newest-button-blue {
+  background-color: #fff;
+  background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#F8F8F8));
+  background: -webkit-linear-gradient(top, #fff, #F8F8F8);
+  background: -moz-linear-gradient(top, #fff, #F8F8F8);
+  background: -ms-linear-gradient(top, #fff, #F8F8F8);
+  background: -o-linear-gradient(top, #fff, #F8F8F8);
+}
+body.new-index-body .recommend-user-panel .user-info-wrapper .action-wrapper .new-guoku-button.new-btn-cancel {
+  background-color: #6192FF;
+  background: -webkit-gradient(linear, left top, left bottom, from(#6192FF), to(#3F6FF0));
+  background: -webkit-linear-gradient(top, #6192FF, #3F6FF0);
+  background: -moz-linear-gradient(top, #6192FF, #3F6FF0);
+  background: -ms-linear-gradient(top, #6192FF, #3F6FF0);
+  background: -o-linear-gradient(top, #6192FF, #3F6FF0);
 }
 body.new-index-body .slick-slider {
   margin-bottom: 0;
