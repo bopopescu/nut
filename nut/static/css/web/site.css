@@ -1342,29 +1342,35 @@ a.new-black-link:hover {
 #category-item-container .slick-prev:before,
 .recommend-user-list .slick-prev:before,
 .new-index-page .latest-entity-wrapper .slick-prev:before,
+.new-index-page .user-panel-container .slick-prev:before,
 #category-item-container .slick-next:before,
 .recommend-user-list .slick-next:before,
-.new-index-page .latest-entity-wrapper .slick-next:before {
+.new-index-page .latest-entity-wrapper .slick-next:before,
+.new-index-page .user-panel-container .slick-next:before {
   font-family: "FontAwesome";
   font-size: 16px;
   color: #424242;
 }
 #category-item-container .slick-prev:before,
 .recommend-user-list .slick-prev:before,
-.new-index-page .latest-entity-wrapper .slick-prev:before {
+.new-index-page .latest-entity-wrapper .slick-prev:before,
+.new-index-page .user-panel-container .slick-prev:before {
   content: "\f053";
 }
 #category-item-container .slick-next:before,
 .recommend-user-list .slick-next:before,
-.new-index-page .latest-entity-wrapper .slick-next:before {
+.new-index-page .latest-entity-wrapper .slick-next:before,
+.new-index-page .user-panel-container .slick-next:before {
   content: "\f054";
 }
 #category-item-container .slick-prev,
-.new-index-page .latest-entity-wrapper .slick-prev {
+.new-index-page .latest-entity-wrapper .slick-prev,
+.new-index-page .user-panel-container .slick-prev {
   left: -11px;
 }
 #category-item-container .slick-next,
-.new-index-page .latest-entity-wrapper .slick-next {
+.new-index-page .latest-entity-wrapper .slick-next,
+.new-index-page .user-panel-container .slick-next {
   right: -11px;
 }
 .new-index-page .latest-entity-wrapper .slick-prev,
