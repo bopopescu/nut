@@ -5,6 +5,8 @@ import requests
 import HTMLParser
 import hashlib
 import json
+from pprint import  pprint
+
 
 from hashlib import md5
 from datetime import datetime
@@ -22,6 +24,7 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, Group
+from django.shortcuts import  get_object_or_404
 
 from apps.notifications import notify
 from apps.core.utils.image import HandleImage
@@ -31,9 +34,9 @@ from apps.web.utils.datatools import get_entity_list_from_article_content
 from apps.core.manager import *
 from apps.core.manager.account import  AuthorizedUserManager
 from haystack.query import SearchQuerySet
-from pprint import  pprint
 from apps.core.manager.sku import SKUManager
-
+from apps.order.models import CartItem, Order, OrderItem
+from apps.order.exceptions import CartException, OrderException, PaymentException
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -495,6 +498,83 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     @property
     def jpush_rids(self):
         return self.jpush_token.all().values_list('rid', flat=True)
+
+    @property
+    def cart_item_count(self):
+        return CartItem.objects.filter(user=self).count()
+
+    def add_sku_to_cart(self, sku):
+        if sku.status == SKU.disable or sku.stock <= 0:
+            raise CartException('sku can not be added to cart')
+
+        cart_item, created =  CartItem.objects.get_or_create(sku=sku, user=self)
+        if created:
+            cart_item.volume = 1
+            cart_item.save()
+        else :
+            cart_item.volume += 1
+            cart_item.save()
+        return cart_item
+
+    def decr_sku_in_cart(self,sku):
+        try:
+            cart_item = CartItem.objects.get(user=self, sku=sku)
+            cart_item.volume -= 1
+            if cart_item.volume <= 0 :
+                self.remove_sku_from_cart(sku)
+            else :
+                cart_item.save()
+                return cart_item
+
+        except CartItem.DoesNotExist as e :
+            return None
+
+        except CartItem.MultipleObjectsReturned as e :
+            cart_items = CartItem.objects.filter(user=self, sku=sku)
+            cart_items[0].volume -= 1
+            cart_items[0].save()
+            for citem in cart_items[1:]:
+                citem.delete()
+            return cart_items[0]
+
+
+    def remove_sku_from_cart(self, sku):
+        try:
+            cart_item = CartItem.objects.get(user=self,sku=sku)
+            cart_item.delete()
+        except CartItem.DoesNotExist as e :
+            return
+        except CartItem.MultipleObjectsReturned as e :
+            CartItem.objects.filter(user=self, sku=sku).delete()
+            return
+
+    def checkout(self):
+        if self.cart_item_count <= 0 :
+            raise CartException('cart is empty')
+        else :
+            try :
+                new_order = Order.objects.create(**{
+                    'buyer': self,
+                    'number': Order.objects.gerate_order_number()
+                })
+                for cart_item in self.cart_items:
+                    try :
+                        order_item = cart_item.generate_order_item(new_order)
+                    except Exception as e:
+                        if order_item:
+                            order_item.delete()
+                        raise OrderException('error when create order item')
+                self.clear_cart()
+
+            except Exception as e :
+                # if exception happens
+                if new_order:
+                    new_order.delete()
+                raise OrderException('error create order')
+
+    def clear_cart(self):
+        CartItem.objects.filter(user=self).delete()
+
 
     def save(self, *args, **kwargs):
         #TODO  @huanghuang refactor following email related lines into a subroutine
@@ -1108,8 +1188,11 @@ class Entity(BaseModel):
             sku.entity = self
             sku.attributes = attributes
             sku.save()
+        return sku
 
-
+    @property
+    def sku_count(self):
+        return self.skus.filter(status=SKU.enable).count()
 
 class SKU(BaseModel):
     (disable, enable) =  (0, 1)

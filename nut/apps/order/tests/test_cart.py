@@ -1,4 +1,6 @@
 # coding=utf-8
+from pprint import  pprint
+
 from django.test import TestCase
 
 
@@ -7,7 +9,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 from apps.core.models import SKU,Entity,GKUser, Category, Sub_Category
 from apps.order.models import CartItem
-
+from apps.order.exceptions import  CartException, OrderException,PaymentException
 
 
 # checkout if in test env
@@ -47,7 +49,16 @@ class CartForUserTest(TestCase):
         })
 
 
-
+    def test_entity_sku_add_return_sku_instance(self):
+        entity  = self.entity
+        sku = entity.add_sku({
+            'size':188
+        })
+        self.assertIsInstance(sku, SKU)
+        self.assertEqual(sku.attrs, {'size':188})
+        self.assertNotEqual(sku.attrs, {'size':199})
+        self.assertEqual(entity.skus.all().count(), 1)
+        self.assertNotEqual(entity.skus.all().count(),2)
 
     def test_sku_count(self):
         entity = self.entity
@@ -67,11 +78,62 @@ class CartForUserTest(TestCase):
         self.assertEqual(entity.skus.all().count(), 3)
 
 
+    def test_add_zero_stock_sku_to_cart_raise_cart_exception(self):
+        user = self.the_user
+        sku = self.entity.add_sku()
+        with self.assertRaises(CartException):
+            user.add_sku_to_cart(sku)
+        self.assertEqual(0, user.cart_item_count)
+
 
     def test_sku_can_be_added_to_cart(self):
+        # sku =  self.entity.add_sku({'size':165})
+        # self.user.add_sku_to_cart(sku)
+        user = self.the_user
+        #at start there is no sku for entity
+        self.assertEqual(self.entity.sku_count, 0)
 
 
-        pass
+        sku = self.entity.add_sku()
+        sku.stock = 5 #make sure the stock is greater than 0
+        self.the_user.add_sku_to_cart(sku)
+        self.assertEqual(user.cart_item_count , 1)
+
+        #add same sku to user's cart , still , item_count is 1
+        self.the_user.add_sku_to_cart(sku)
+        self.assertEqual(user.cart_item_count, 1)
+
+
+        self.assertEqual(self.the_user.cart_items.all()[0].volume, 2)
+
+        self.the_user.add_sku_to_cart(sku)
+        self.assertEqual(self.the_user.cart_items.all()[0].volume, 3)
+
+        #add an other sku for entity
+        #set stock greater than 0
+        sku2 = self.entity.add_sku({
+            'color':'green'
+        })
+
+        sku2.stock=5
+        sku2.save()
+        self.the_user.add_sku_to_cart(sku2)
+
+        self.assertEqual(self.the_user.cart_item_count , 2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
