@@ -158,7 +158,7 @@
     </div>
     <div class="hidden-xs row recommend-user-wrapper user-panel-container">
          {% for user in recommand_users %}
-            <div class="col-sm-2 recommend-user-item">
+            <div class="col-sm-4 col-md-2 recommend-user-item">
               <div class="recommend-user-panel">
                   <div class="user-icon-wrapper">
                       <a href="{{ user.absolute_url }}" target="_blank">
@@ -189,7 +189,7 @@
             </div>
         {% endfor %}
          {% for user in recommand_users %}
-            <div class="col-sm-2 recommend-user-item">
+            <div class="col-sm-4 col-md-2 recommend-user-item">
               <div class="recommend-user-panel">
                   <div class="user-icon-wrapper">
                       <a href="{{ user.absolute_url }}" target="_blank">
@@ -218,7 +218,6 @@
             </div>
         {% endfor %}
     </div>
-
     <div class="row">
         <div class="col-sm-12 new-banner-container">
             <div class="banner-wrapper new-banner-wrapper" id="middle-page-banner">
@@ -248,19 +247,19 @@
             </div>
         </div>
         </div>
-        <div class="row new-section-title-wrapper">
+    <div class="row new-section-title-wrapper">
             <div class="col-sm-12">
                 <div class="section-title pull-left">
                     热门商品
                 </div>
             </div>
         </div>
-        <div class="row" id="hot-entity-list">
+    <div class="row" id="hot-entity-list">
             {% for entity in entities %}
                 {% include 'web/main/partial/new_entity.html' with entity=entity%}
             {% endfor %}
         </div>
-        <div class="row hidden-xs">
+    <div class="row hidden-xs">
             <div class="col-sm-offset-12">
                 <div class="gotop-wrapper">
                     <ul>
@@ -296,9 +295,7 @@
 
             </div>
         </div>
-
-        </div>
-    </div>
+</div>
 {% endblock %}
 
 {% block basic_script %}

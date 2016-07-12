@@ -16,6 +16,15 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                         dots:false,
 
                         responsive: [
+                             {
+                                breakpoint: 992,
+                                settings: {
+                                    slidesToShow:3,
+                                    slidesToScroll:3,
+                                    autoplay:false,
+                                    dots:false
+                                }
+                            },
                             {
                                 breakpoint: 768,
                                 settings: {

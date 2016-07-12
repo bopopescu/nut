@@ -4427,6 +4427,15 @@ define('subapp/discover/recommend_user_slick',['jquery', 'libs/Class','libs/slic
                         dots:false,
 
                         responsive: [
+                             {
+                                breakpoint: 992,
+                                settings: {
+                                    slidesToShow:3,
+                                    slidesToScroll:3,
+                                    autoplay:false,
+                                    dots:false
+                                }
+                            },
                             {
                                 breakpoint: 768,
                                 settings: {
