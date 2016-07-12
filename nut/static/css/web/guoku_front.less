@@ -75,8 +75,10 @@ body.new-index-body{
   .recommend-user-panel{
     //below code is amazing,so strange but magic,cannot remove it
      border:1px solid transparent;
-
      position:relative;
+    a{
+       outline: 0;
+    }
     .user-icon-wrapper{
       z-index:10;
       position:absolute;
@@ -99,6 +101,8 @@ body.new-index-body{
         display: block;
         font-size:20px;
         line-height:24px;
+        color:@common-text-color;
+        text-decoration: none;
         .single-text-overflow;
       }
       .user-intro{
@@ -121,7 +125,7 @@ body.new-index-body{
   .slick-slider{
       margin-bottom:0;
   }
-  .latest-entity-wrapper .new-entity-item{
+  .latest-entity-wrapper .new-entity-item,.recommend-user-item{
     outline:0;
   }
   #hot-entity-list .new-entity-item{
