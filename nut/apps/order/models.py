@@ -124,9 +124,9 @@ class Order(models.Model):
     def order_total_value(self):
         return self.promo_total_price + self.shipping_fee
 
-class Payment(models.Model):
+class PaymentLog(models.Model):
     '''
-        user can use multiple method to pay
+        a log for payment route
     '''
     (waiting_for_payment,
             paid, refund) = range(3)
@@ -136,12 +136,10 @@ class Payment(models.Model):
         (paid, _('paid')),
         (refund, _('refund')),
         ]
-    #TODO(anchen) : one to one or many to one ?
     order = models.ForeignKey(Order, related_name='payments')
     payment_status = models.IntegerField(choices=PAYMENT_STATUS_CHOICES)
     created_datetime =  models.DateTimeField(auto_now_add=True)
     updated_datetime =  models.DateTimeField(auto_now=True)
-
 
     @property
     def total_price(self):
