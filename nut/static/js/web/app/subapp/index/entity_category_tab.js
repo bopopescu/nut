@@ -16,16 +16,13 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
 
         },
         handleHoverCategory:function(event){
-            var that = this;
             var dataValue = $(event.target).attr('data-value');
             var entityCache = this.entityCache.getItem(dataValue);
             this.categoryName = dataValue;
             if(entityCache){
-                console.log('has entity cache.');
-                that.showContent($(entityCache));
+                this.showContent($(entityCache));
             }else{
-                console.log('has no entity cache');
-                that.postAjaxRequest(dataValue);
+                this.postAjaxRequest(dataValue);
             }
         },
         postAjaxRequest:function(dataValue){
@@ -69,9 +66,7 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
         },
         setCache:function(result){
             var category = this.categoryName;
-            if(this.entityCache.getItem(category)){
-                console.log('no need to set cache');
-            }else{
+            if(!this.entityCache.getItem(category)){
                 this.entityCache.setItem(category,result.data);
             }
         }

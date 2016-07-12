@@ -15,16 +15,13 @@ define(['jquery', 'libs/Class'], function(
 
         },
         handleHoverCategory:function(event){
-            var that = this;
             var dataValue = $(event.target).attr('data-value');
             var articleCache = this.articleCache.getItem(dataValue);
             this.categoryName = dataValue;
             if(articleCache){
-                console.log('has article cache.');
-                that.showContent($(articleCache));
+                this.showContent($(articleCache));
             }else{
-                console.log('has no article cache');
-                that.postAjaxRequest(dataValue);
+                this.postAjaxRequest(dataValue);
             }
         },
         postAjaxRequest:function(dataValue){
@@ -67,9 +64,7 @@ define(['jquery', 'libs/Class'], function(
         },
         setCache:function(result){
             var category = this.categoryName;
-            if(this.articleCache.getItem(category)){
-                console.log('no need to set cache');
-            }else{
+            if(!this.articleCache.getItem(category)){
                 this.articleCache.setItem(category,result.data);
             }
         }

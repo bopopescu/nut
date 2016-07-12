@@ -4608,16 +4608,13 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
 
         },
         handleHoverCategory:function(event){
-            var that = this;
             var dataValue = $(event.target).attr('data-value');
             var entityCache = this.entityCache.getItem(dataValue);
             this.categoryName = dataValue;
             if(entityCache){
-                console.log('has entity cache.');
-                that.showContent($(entityCache));
+                this.showContent($(entityCache));
             }else{
-                console.log('has no entity cache');
-                that.postAjaxRequest(dataValue);
+                this.postAjaxRequest(dataValue);
             }
         },
         postAjaxRequest:function(dataValue){
@@ -4661,9 +4658,7 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
         },
         setCache:function(result){
             var category = this.categoryName;
-            if(this.entityCache.getItem(category)){
-                console.log('no need to set cache');
-            }else{
+            if(!this.entityCache.getItem(category)){
                 this.entityCache.setItem(category,result.data);
             }
         }
@@ -4691,16 +4686,13 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
 
         },
         handleHoverCategory:function(event){
-            var that = this;
             var dataValue = $(event.target).attr('data-value');
             var articleCache = this.articleCache.getItem(dataValue);
             this.categoryName = dataValue;
             if(articleCache){
-                console.log('has article cache.');
-                that.showContent($(articleCache));
+                this.showContent($(articleCache));
             }else{
-                console.log('has no article cache');
-                that.postAjaxRequest(dataValue);
+                this.postAjaxRequest(dataValue);
             }
         },
         postAjaxRequest:function(dataValue){
@@ -4743,9 +4735,7 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
         },
         setCache:function(result){
             var category = this.categoryName;
-            if(this.articleCache.getItem(category)){
-                console.log('no need to set cache');
-            }else{
+            if(!this.articleCache.getItem(category)){
                 this.articleCache.setItem(category,result.data);
             }
         }
