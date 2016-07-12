@@ -14,17 +14,25 @@ class CartItem(models.Model):
         ordering = ['-add_time']
 
     def generate_order_item(self, order):
-        order_item, created = OrderItem.objects.get_or_create(order=order, sku=self.sku)
+        order_item, created = OrderItem.objects.get_or_create(
+            order=order, sku=self.sku , customer=order.customer,
+            defaults={
+                'grand_total_price': self.grand_total_price,
+                'promo_total_price' : self.promo_total_price
+            }
+        )
         if created:
             order_item.volume = self.volume
 
+        return  order_item
+
 
     @property
-    def grand_price(self):
+    def grand_total_price(self):
         return self.sku.origin_price * self.volume
 
     @property
-    def discount_price(self):
+    def promo_total_price(self):
         return self.sku.promo_price * self.volume
 
     @property
@@ -41,14 +49,14 @@ class ShippingAddress(models.Model):
         (special,_('special address'))
     )
     user = models.ForeignKey('core.GKUser', related_name='shipping_addresses')
-    country = models.CharField()
-    province = models.CharField()
-    city = models.CharField()
-    street = models.CharField()
-    detail = models.CharField()
-    post_code = models.CharField()
+    country = models.CharField(max_length=32)
+    province = models.CharField(max_length=32)
+    city = models.CharField(max_length=32)
+    street = models.CharField(max_length=128)
+    detail = models.CharField(max_length=128)
+    post_code = models.CharField(max_length=32)
     type = models.IntegerField(choices=SHIPPINGADDRESS_TYPE_CHOICE, default=normal)
-    contact_phone = models.CharField()
+    contact_phone = models.CharField(max_length=64)
 
 
     def _cal_shipping_fee(self):
@@ -85,11 +93,12 @@ class Order(models.Model):
         (refund_done,_('refund down')),
     ]
 
-    buyer = models.ForeignKey('core.GKUser', related_name='orders')
+    customer = models.ForeignKey('core.GKUser', related_name='orders')
     number = models.CharField(max_length=128, db_index=True, unique=True)
     status = models.IntegerField(choices=ORDER_STATUS_CHOICE, default=address_unbind)
-    shipping_to  = models.ForeignKey(ShippingAddress)
-    object = OrderManager()
+    shipping_to  = models.ForeignKey(ShippingAddress, null=True, blank=True)
+
+    objects = OrderManager()
 
 
     @property
@@ -140,7 +149,7 @@ class Payment(models.Model):
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,related_name='items')
-    user = models.ForeignKey('core.GKUser', related_name='orders',db_index=True)
+    customer = models.ForeignKey('core.GKUser', related_name='order_items',db_index=True)
     sku  = models.ForeignKey('core.SKU', db_index=True)
     volume = models.IntegerField(default=1)
     add_time = models.DateTimeField(auto_now_add=True, auto_now=True,db_index=True)

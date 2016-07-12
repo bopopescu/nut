@@ -501,22 +501,28 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def cart_item_count(self):
+        #TODO : move logic to CartItem manager
         return CartItem.objects.filter(user=self).count()
 
-    def add_sku_to_cart(self, sku):
+    def add_sku_to_cart(self, sku, volume=1):
+        #TODO : move logic to CartItem manager
         if sku.status == SKU.disable or sku.stock <= 0:
             raise CartException('sku can not be added to cart')
 
+        if sku.stock < volume:
+            raise CartException('sku stock less than required')
+
         cart_item, created =  CartItem.objects.get_or_create(sku=sku, user=self)
         if created:
-            cart_item.volume = 1
+            cart_item.volume = volume
             cart_item.save()
         else :
-            cart_item.volume += 1
+            cart_item.volume += volume
             cart_item.save()
         return cart_item
 
     def decr_sku_in_cart(self,sku):
+        #TODO: move logic to CartItem manager
         try:
             cart_item = CartItem.objects.get(user=self, sku=sku)
             cart_item.volume -= 1
@@ -549,31 +555,44 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             return
 
     def checkout(self):
+        new_order = None
         if self.cart_item_count <= 0 :
             raise CartException('cart is empty')
         else :
             try :
                 new_order = Order.objects.create(**{
-                    'buyer': self,
-                    'number': Order.objects.gerate_order_number()
+                    'customer': self,
+                    'number': Order.objects.generate_order_number()
+
                 })
-                for cart_item in self.cart_items:
+                for cart_item in self.cart_items.all():
+                    order_item = None
                     try :
                         order_item = cart_item.generate_order_item(new_order)
                     except Exception as e:
+                        log.error('create_order item error :%s'%e)
                         if order_item:
                             order_item.delete()
                         raise OrderException('error when create order item')
                 self.clear_cart()
+                return new_order
 
             except Exception as e :
                 # if exception happens
+                pprint(e)
+                log.error(e)
                 if new_order:
                     new_order.delete()
-                raise OrderException('error create order')
+                # raise OrderException('error create order')
+                return None
 
     def clear_cart(self):
         CartItem.objects.filter(user=self).delete()
+
+    @property
+    def order_count(self):
+        return self.orders.count()
+
 
 
     def save(self, *args, **kwargs):

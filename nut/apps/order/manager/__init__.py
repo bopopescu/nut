@@ -1,6 +1,15 @@
+import datetime
 from django.db import models
+from django.core.cache import cache
 
 class OrderManager(models.Manager):
     def generate_order_number(self):
-        raise NotImplemented()
+
+        key  = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M")
+        if cache.get(key) is None:
+            cache.set(key, 1, timeout=61)
+            count = 1
+        else:
+            count = cache.incr(key)
+        return "%s_%s"%(key,count)
 
