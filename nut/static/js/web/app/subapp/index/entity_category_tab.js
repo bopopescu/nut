@@ -8,7 +8,7 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
             this.init_slick();
             this.initHoverCategory();
             this.categoryName = '';
-            this.entityCache = window.localStorage;
+            this.entityCache = window.sessionStorage;
             console.log('selection entity tab view begin');
         },
         initHoverCategory:function(){

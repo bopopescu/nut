@@ -7,7 +7,7 @@ define(['jquery', 'libs/Class'], function(
             this.$article_container = $('#selection_article_list');
             this.initHoverCategory();
             this.categoryName = '';
-            this.articleCache = window.localStorage;
+            this.articleCache = window.sessionStorage;
             console.log('category tab view begin');
         },
         initHoverCategory:function(){

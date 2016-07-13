@@ -4609,7 +4609,7 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
             this.init_slick();
             this.initHoverCategory();
             this.categoryName = '';
-            this.entityCache = window.localStorage;
+            this.entityCache = window.sessionStorage;
             console.log('selection entity tab view begin');
         },
         initHoverCategory:function(){
@@ -4687,7 +4687,7 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
             this.$article_container = $('#selection_article_list');
             this.initHoverCategory();
             this.categoryName = '';
-            this.articleCache = window.localStorage;
+            this.articleCache = window.sessionStorage;
             console.log('category tab view begin');
         },
         initHoverCategory:function(){

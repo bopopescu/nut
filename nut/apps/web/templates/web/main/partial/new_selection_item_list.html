@@ -7,9 +7,9 @@
             {% if sle.entity.entity_hash %}
                 <a class="img-link" href="{{ sle.entity.absolute_url }}" target="_blank">
                     <img class="img-responsive" alt="{{ sle.entity.title }}" title="{{ sle.entity.title }}" src="{{ sle.entity.chief_image|resize:'310' }}">
+                    <div class="bg-layer">
+                    </div>
                 </a>
-                <div class="bg-layer">
-                </div>
             {% endif %}
 {#            {% if sle.entity.id in user_entity_likes %}#}
 {#                <a class="new-btn-like" href="javascript:;" rel="nofollow" data-entity="{{ sle.entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ sle.entity.title }}']);">#}
