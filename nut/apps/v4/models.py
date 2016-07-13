@@ -360,8 +360,11 @@ class APIArticle_Remark(Article_Remark):
         res.pop('id', None)
         res.pop('user_id', None)
         res['comment_id'] = self.id
+        res['create_time'] = time.mktime(self.create_time.timetuple())
+        res['update_time'] = time.mktime(self.update_time.timetuple())
         res['article'] = self.article.v4_toDict()
         res['user'] = self.user.v3_toDict()
+
         return res
 
 
