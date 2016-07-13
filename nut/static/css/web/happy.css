@@ -876,8 +876,15 @@ p .b_day {
   position: relative;
   cursor: pointer;
   border: none;
+  width: 100%;
 }
 .new-entity-six .img-box a.img-link {
+  display: block;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+}
+.new-entity-six .img-box .img-wrapper {
   outline: 0;
   position: absolute;
   top: 50%;
@@ -886,7 +893,7 @@ p .b_day {
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
 }
-.new-entity-six .img-box a.img-link img {
+.new-entity-six .img-box .img-wrapper img {
   max-height: 100%;
 }
 .new-entity-six .img-box .bg-layer,
