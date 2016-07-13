@@ -1,6 +1,7 @@
 from django.conf.urls import url, patterns
 from apps.v4.views.articles import ArticlesListView, ArticleSearchView, \
-    ArticleTagView, ArticleDigView, ArticleUnDigView, ArticleView
+                                    ArticleTagView, ArticleDigView, \
+                                    ArticleUnDigView, ArticleView, ArticleComment
 
 urlpatterns = patterns(
     'apps.v4.views.articles',
@@ -9,7 +10,7 @@ urlpatterns = patterns(
     url(r'^search/?$', ArticleSearchView.as_view(), name='v4_articles_search'),
     url(r'^tags/(?P<tag_name>\w+)/?', ArticleTagView.as_view(), name='v4_articles_tags'),
 
-    # url(r'^comments/$', )
+    url(r'^(?P<article_id>\d+)/comments/$', ArticleComment.as_view(), name='v4_article_comments'),
 
     url(r'^dig/$', ArticleDigView.as_view(), name='v4_article_dig'),
     url(r'^undig/$', ArticleUnDigView.as_view(), name='v4_article_undig'),

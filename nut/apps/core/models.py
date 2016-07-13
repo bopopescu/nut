@@ -1653,7 +1653,7 @@ class Article(BaseModel):
         #     return tag_string
 
 
-class Article_Remark(models.Model):
+class Article_Remark(BaseModel):
     (remove, normal) = (-1, 0)
     STATUS_CHOICE = [
         (normal, _("normal")),
@@ -1665,7 +1665,7 @@ class Article_Remark(models.Model):
     content = models.TextField(null=False, blank=False)
     reply_to = models.ForeignKey('self', null=True, blank=True)
     create_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
-    update_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+    update_time = models.DateTimeField(auto_now=True, editable=False, db_index=True)
     status = models.IntegerField(choices=STATUS_CHOICE, default=normal)
 
 

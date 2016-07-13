@@ -4,11 +4,15 @@ from apps.tag.models import Content_Tags, Tags
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 from apps.v4.models import APISeletion_Articles, APIArticle, APIArticle_Dig
+
 from apps.v4.forms.search import APIArticleSearchForm
-from apps.v4.views import APIJsonView
+from apps.v4.forms.article import APIArticleRemarkForm, APIArticle_Remark
+
+from apps.v4.views import APIJsonView, APIJsonSessionView
 from apps.core.tasks.article import dig_task, undig_task
 
 from haystack.generic_views import SearchView
+from django.views.generic.edit import BaseFormView
 from django.core.paginator import Paginator
 from datetime import datetime
 import time
@@ -177,7 +181,7 @@ class ArticleTagView(APIJsonView):
         return super(ArticleTagView, self).get(request, *args, **kwargs)
 
 
-class ArticleDigView(APIJsonView):
+class ArticleDigView(APIJsonSessionView):
 
     http_method_names = ['post']
 
@@ -186,18 +190,18 @@ class ArticleDigView(APIJsonView):
         return {'status': 1, 'article_id': self.article_id}
 
     def post(self, request, *args, **kwargs):
-        _key = request.POST.get('session', None)
+        # _key = request.POST.get('session', None)
         self.article_id = request.POST.get('aid', None)
         assert self.article_id is not None
-        try:
-            self.session = Session_Key.objects.get(session_key=_key)
-        except Session_Key.DoesNotExist:
-            return ErrorJsonResponse(status=403)
+        # try:
+        #     self.session = Session_Key.objects.get(session_key=_key)
+        # except Session_Key.DoesNotExist:
+        #     return ErrorJsonResponse(status=403)
         return super(ArticleDigView, self).post(request, *args, **kwargs)
     # def get(self, request, *args, **kwargs):
 
 
-class ArticleUnDigView(APIJsonView):
+class ArticleUnDigView(APIJsonSessionView):
     http_method_names = ['post']
 
     def get_data(self, context):
@@ -205,34 +209,67 @@ class ArticleUnDigView(APIJsonView):
         return {'status': 0, 'article_id':self.article_id}
 
     def post(self, request, *args, **kwargs):
-        _key = request.POST.get('session', None)
+        # _key = request.POST.get('session', None)
         self.article_id = request.POST.get('aid', None)
         assert self.article_id is not None
-        try:
-            self.session = Session_Key.objects.get(session_key=_key)
-        except Session_Key.DoesNotExist:
-            return ErrorJsonResponse(status=403)
+        # try:
+        #     self.session = Session_Key.objects.get(session_key=_key)
+        # except Session_Key.DoesNotExist:
+        #     return ErrorJsonResponse(status=403)
         return super(ArticleUnDigView, self).post(request, *args, **kwargs)
     # def get(self, request, *args, **kwargs):
     #     return super(ArticleUnDigView, self).get(request, *args, **kwargs)
 
 
-class ArticlePostComment(APIJsonView):
-    http_method_names = ['post']
+class ArticleComment(APIJsonSessionView, BaseFormView):
 
-    def get_data(self, context):
-        pass
+    http_method_names = ['post']
+    form_class = APIArticleRemarkForm
+
+
+    def get_article(self):
+        try:
+            article = APIArticle.objects.get(pk = self.article_id)
+        except APIArticle.DoesNotExist, e:
+            return ErrorJsonResponse(status=404)
+        return article
+    #
+    # def get_data(self, context):
+    #     print context
+    #
+    #     return context
+
+    def get_form_kwargs(self):
+        kwargs = super(ArticleComment, self).get_form_kwargs()
+        # print type(self.get_article())
+        ar = APIArticle_Remark(user=self.session.user, article=self.get_article())
+        kwargs.update(
+            {
+                'instance': ar,
+            }
+        )
+        return kwargs
+
+    def form_valid(self, form):
+        # self
+        # print form
+        self.object = form.save()
+        # print self.object.toDict()
+        return self.render_to_json_response(self.object.v4_toDict())
 
     def post(self, request, *args, **kwargs):
-        _key = request.POST.get('session', None)
-        self.article_id = request.POST.get('aid', None)
+        self.article_id = kwargs.pop('article_id')
         assert self.article_id is not None
 
-        try:
-            self.session = Session_Key.objects.get(session_key=_key)
-        except Session_Key.DoesNotExist:
-            return ErrorJsonResponse(status=403)
-        return super(ArticlePostComment, self).post(request, *args, **kwargs)
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            print form.errors
+            return self.form_invalid(form)
+
+        # return super(ArticleComment, self).post(request, *args, **kwargs)
 
 
 
