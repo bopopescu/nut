@@ -1103,14 +1103,14 @@ function getQueryStrings() {
                     console.log('success');
                     console.log(data);
                         if (data.status == 1) {
-                            $this.html('<i class="fa fa-check fa-lg"></i>&nbsp; 取消关注');
+                            $this.html('<i class="fa fa-check fa-lg"></i>&nbsp; 已关注');
                             $this.attr('data-status', '1');
                             $this.removeClass("button-blue").addClass("btn-cancel");
                              $this.removeClass("newest-button-blue").addClass("new-btn-cancel");
 
                         }else if (data.status == 2){
                             console.log('mutual !!!');
-                             $this.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关柱');
+                             $this.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 已关注');
                              $this.removeClass('button-blue').addClass('btn-cancel');
                              $this.removeClass("newest-button-blue").addClass("new-btn-cancel");
                              $this.attr('data-status','1');
