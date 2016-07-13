@@ -16,7 +16,7 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
 
         },
         handleHoverCategory:function(event){
-            var dataValue = $(event.target).attr('data-value');
+            var dataValue = $(event.currentTarget).attr('data-value');
             var entityCache = this.entityCache.getItem(dataValue);
             this.categoryName = dataValue;
             if(entityCache){

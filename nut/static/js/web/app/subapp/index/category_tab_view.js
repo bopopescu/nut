@@ -15,7 +15,7 @@ define(['jquery', 'libs/Class'], function(
 
         },
         handleHoverCategory:function(event){
-            var dataValue = $(event.target).attr('data-value');
+            var dataValue = $(event.currentTarget).attr('data-value');
             var articleCache = this.articleCache.getItem(dataValue);
             this.categoryName = dataValue;
             if(articleCache){

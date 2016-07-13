@@ -4617,7 +4617,7 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
 
         },
         handleHoverCategory:function(event){
-            var dataValue = $(event.target).attr('data-value');
+            var dataValue = $(event.currentTarget).attr('data-value');
             var entityCache = this.entityCache.getItem(dataValue);
             this.categoryName = dataValue;
             if(entityCache){
@@ -4695,7 +4695,7 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
 
         },
         handleHoverCategory:function(event){
-            var dataValue = $(event.target).attr('data-value');
+            var dataValue = $(event.currentTarget).attr('data-value');
             var articleCache = this.articleCache.getItem(dataValue);
             this.categoryName = dataValue;
             if(articleCache){
