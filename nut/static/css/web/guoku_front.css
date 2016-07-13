@@ -877,8 +877,10 @@ p .b_day {
   cursor: pointer;
   border: none;
 }
-.new-entity-six .img-box a.img-link {
+.new-entity-six .img-box a {
   outline: 0;
+}
+.new-entity-six .img-box a.img-link {
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
