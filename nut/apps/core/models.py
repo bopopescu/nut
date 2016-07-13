@@ -980,6 +980,27 @@ class Entity(BaseModel):
         ordering = ['-created_time']
 
     @property
+    def brand_id(self):
+        key = 'entity:brand_id:%d' % self.pk
+        res = cache.get(key)
+        if res:
+            return res
+        else:
+            try:
+                res = Brand.objects.get(name__iexact=self.brand, status__gt=0).id or \
+                    Brand.objects.get(alias__iexact=self.brand, status__gt=0).id
+            except Brand.DoesNotExist:
+                res = 'NOT_FOUND'
+                cache.set(key, res, timeout=86400)
+                return res
+                # for no brand
+                # save not_found for 1 day , until search again
+            cache.set(key, res, timeout=86400*14)
+            # for found brand , cache 2 week
+            return res
+
+
+    @property
     def chief_image(self):
         if len(self.images) > 0:
             if 'http' in self.images[0]:

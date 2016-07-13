@@ -25,6 +25,15 @@ class TagListView(ListView):
     queryset = Tags.objects.all()
     http_method_names = ['get']
     template_name = 'tag/list.html'
+    def get_published_entity_tag(self):
+        published_entity_tags = Tags.objects.filter(isPubishedEntityTag=1)
+        return published_entity_tags
+    def get_context_data(self, **kwargs):
+        context = super(TagListView, self).get_context_data(**kwargs)
+        context['published_entity_tags'] = self.get_published_entity_tag()
+        context['image_host'] = image_host
+        return context
+
 
 
 class TagEntitiesByHashView(AjaxResponseMixin, JSONResponseMixin, ListView):
