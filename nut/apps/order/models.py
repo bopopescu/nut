@@ -1,11 +1,37 @@
 #encoding=utf-8
+import json
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from apps.order.manager import OrderManager
+from apps.order.manager.sku import SKUManager
+from apps.core.extend.fields.listfield import ListObjectField
+
+class SKU(models.Model):
+    (disable, enable) =  (0, 1)
+    SKU_STATUS_CHOICE = [(disable, _('disable')), (enable, _('enable'))]
+    entity = models.ForeignKey('core.Entity', related_name='skus')
+    attrs = ListObjectField()
+    stock = models.IntegerField(default=0,db_index=True)#库存
+    origin_price = models.FloatField(default=0, db_index=True)
+    promo_price = models.FloatField(default=0, db_index=True)
+    status =  models.IntegerField(choices=SKU_STATUS_CHOICE, default=enable)
+
+    object =  SKUManager()
+
+    @property
+    def attrs_json_str(self):
+        return json.dumps(self.attrs)
+
+    @property
+    def attrs_display(self):
+        attr_str_list = list()
+        for key , value in self.attrs.iteritems():
+            attr_str_list.append('%s_%s'%(key,value))
+        return ';'.join(attr_str_list)
 
 class CartItem(models.Model):
     user = models.ForeignKey('core.GKUser', related_name='cart_items',db_index=True)
-    sku  = models.ForeignKey('core.SKU', db_index=True)
+    sku  = models.ForeignKey(SKU, db_index=True)
     volume = models.IntegerField(default=1)
     add_time = models.DateTimeField(auto_now_add=True, auto_now=True,db_index=True)
 
@@ -148,7 +174,7 @@ class PaymentLog(models.Model):
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,related_name='items')
     customer = models.ForeignKey('core.GKUser', related_name='order_items',db_index=True)
-    sku  = models.ForeignKey('core.SKU', db_index=True)
+    sku  = models.ForeignKey(SKU, db_index=True)
     volume = models.IntegerField(default=1)
     add_time = models.DateTimeField(auto_now_add=True, auto_now=True,db_index=True)
     grand_total_price = models.FloatField(null=False) # 当订单生成的时候计算

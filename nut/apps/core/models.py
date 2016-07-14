@@ -34,8 +34,7 @@ from apps.web.utils.datatools import get_entity_list_from_article_content
 from apps.core.manager import *
 from apps.core.manager.account import  AuthorizedUserManager
 from haystack.query import SearchQuerySet
-from apps.core.manager.sku import SKUManager
-from apps.order.models import CartItem, Order, OrderItem
+from apps.order.models import CartItem, Order, OrderItem , SKU
 from apps.order.exceptions import CartException, OrderException, PaymentException
 
 log = getLogger('django')
@@ -1234,30 +1233,6 @@ class Entity(BaseModel):
     def sku_count(self):
         return self.skus.filter(status=SKU.enable).count()
 
-class SKU(BaseModel):
-    (disable, enable) =  (0, 1)
-    SKU_STATUS_CHOICE = [(disable, _('disable')), (enable, _('enable'))]
-    entity = models.ForeignKey(Entity, related_name='skus')
-    attrs = ListObjectField()
-    stock = models.IntegerField(default=0,db_index=True)#库存
-    origin_price = models.FloatField(default=0, db_index=True)
-    promo_price = models.FloatField(default=0, db_index=True)
-    status =  models.IntegerField(choices=SKU_STATUS_CHOICE, default=enable)
-
-    object =  SKUManager()
-
-    @property
-    def attrs_json_str(self):
-        return json.dumps(self.attrs)
-
-    @property
-    def attrs_display(self):
-        attr_str_list = list()
-        for key , value in self.attrs.iteritems():
-            attr_str_list.append('%s_%s'%(key,value))
-        return ';'.join(attr_str_list)
-
-
 class Selection_Entity(BaseModel):
     entity = models.OneToOneField(Entity, unique=True)
     is_published = models.BooleanField(default=False)
@@ -2351,12 +2326,6 @@ def article_remark_notification(sender, instance, created, **kwargs):
         notify.send(instance.user, recipient=instance.article.creator, verb=u'has remark on article', action_object=instance, target=instance.article)
 
 post_save.connect(article_remark_notification, sender=Article_Remark, dispatch_uid="article_remark_notification")
-
-
-
-
-
-
 
 
 __author__ = 'edison7500'
