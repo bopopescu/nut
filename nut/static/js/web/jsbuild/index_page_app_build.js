@@ -4419,14 +4419,23 @@ define('subapp/discover/recommend_user_slick',['jquery', 'libs/Class','libs/slic
                     console.log('recommend user slick in discover page begin');
                 },
                 init_slick:function(){
-                    $('.recommend-user-list').slick({
+                    $('.recommend-user-list,.user-panel-container').slick({
                         arrows: true,
-                        slidesToShow: 11,
+                        slidesToShow: 6,
                         slidesToScroll:4,
                         autoplay:false,
                         dots:false,
 
                         responsive: [
+                             {
+                                breakpoint: 992,
+                                settings: {
+                                    slidesToShow:3,
+                                    slidesToScroll:3,
+                                    autoplay:false,
+                                    dots:false
+                                }
+                            },
                             {
                                 breakpoint: 768,
                                 settings: {
@@ -4599,6 +4608,8 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
             this.$entity_container = $('.latest-entity-wrapper');
             this.init_slick();
             this.initHoverCategory();
+            this.categoryName = '';
+            this.entityCache = window.sessionStorage;
             console.log('selection entity tab view begin');
         },
         initHoverCategory:function(){
@@ -4606,10 +4617,14 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
 
         },
         handleHoverCategory:function(event){
-            var that = this;
-            var dataValue = $(event.target).attr('data-value');
-            console.log('data value:'+dataValue+' send ajax request');
-            that.postAjaxRequest(dataValue);
+            var dataValue = $(event.currentTarget).attr('data-value');
+            var entityCache = this.entityCache.getItem(dataValue);
+            this.categoryName = dataValue;
+            if(entityCache){
+                this.showContent($(entityCache));
+            }else{
+                this.postAjaxRequest(dataValue);
+            }
         },
         postAjaxRequest:function(dataValue){
              var data = {
@@ -4633,6 +4648,7 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
             var status = parseInt(result.status);
             if(status == 1){
                  this.showContent($(result.data));
+                 this.setCache(result);
             }else{
                 this.showFail(result);
             }
@@ -4648,6 +4664,12 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
             this.$entity_container.empty();
             this.$entity_container.append(elemList);
             this.init_slick();
+        },
+        setCache:function(result){
+            var category = this.categoryName;
+            if(!this.entityCache.getItem(category)){
+                this.entityCache.setItem(category,result.data);
+            }
         }
     });
     return EntityCategoryTab;
@@ -4664,6 +4686,8 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
         init: function () {
             this.$article_container = $('#selection_article_list');
             this.initHoverCategory();
+            this.categoryName = '';
+            this.articleCache = window.sessionStorage;
             console.log('category tab view begin');
         },
         initHoverCategory:function(){
@@ -4671,10 +4695,14 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
 
         },
         handleHoverCategory:function(event){
-            var that = this;
-            var dataValue = $(event.target).attr('data-value');
-            console.log('data value:'+dataValue+' send ajax request');
-            that.postAjaxRequest(dataValue);
+            var dataValue = $(event.currentTarget).attr('data-value');
+            var articleCache = this.articleCache.getItem(dataValue);
+            this.categoryName = dataValue;
+            if(articleCache){
+                this.showContent($(articleCache));
+            }else{
+                this.postAjaxRequest(dataValue);
+            }
         },
         postAjaxRequest:function(dataValue){
              var data = {
@@ -4698,6 +4726,7 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
             var status = parseInt(result.status);
             if(status == 1){
                  this.showContent($(result.data));
+                 this.setCache(result);
             }else{
                 this.showFail(result);
             }
@@ -4710,9 +4739,14 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
         },
         showContent: function(elemList){
             console.log('ajax data success');
-            var that = this;
-            that.$article_container.empty();
-            that.$article_container.append(elemList);
+            this.$article_container.empty();
+            this.$article_container.append(elemList);
+        },
+        setCache:function(result){
+            var category = this.categoryName;
+            if(!this.articleCache.getItem(category)){
+                this.articleCache.setItem(category,result.data);
+            }
         }
     });
     return CategoryTabView;
@@ -4720,6 +4754,70 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
 
 
 
+
+define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(Class,$,AccountApp){
+    var UserFollow = Class.extend({
+        init: function () {
+            this.$follow = $(".follow");
+            this.$follow.on('click', this.handleFollow.bind(this));
+        },
+
+        getAccountApp:function(){
+            this.AccountApp = this.AccountApp || new AccountApp();
+            return this.AccountApp;
+        },
+
+        handleFollow: function (e) {
+            var that = this;
+            var $followButton = $(e.currentTarget);
+            var uid = $followButton.attr('data-user-id');
+            var status = $followButton.attr('data-status');
+            var action_url = "/u/" + uid;
+
+            if (status == 1) {
+                action_url += "/unfollow/";
+
+            } else {
+                action_url += "/follow/";
+            }
+
+            $.when($.ajax({
+                url: action_url,
+                dataType: 'json',
+                method: 'POST'
+            })).then(function success(data) {
+                console.log('success');
+                console.log(data);
+                if (data.status == 1) {
+                    $followButton.html('<i class="fa fa-check fa-lg"></i>&nbsp; 已关注');
+                    $followButton.attr('data-status', '1');
+                    $followButton.removeClass("button-blue").addClass("btn-cancel");
+                    $followButton.removeClass("newest-button-blue").addClass("new-btn-cancel");
+
+                } else if (data.status == 2) {
+                    console.log('mutual !!!');
+                    $followButton.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 已关注');
+                    $followButton.removeClass('button-blue').addClass('btn-cancel');
+                    $followButton.removeClass("newest-button-blue").addClass("new-btn-cancel");
+                    $followButton.attr('data-status', '1');
+
+                } else if (data.status == 0) {
+                    $followButton.html('<i class="fa fa-plus"></i>&nbsp; 关注');
+                    $followButton.removeClass("btn-cancel").addClass("button-blue");
+                    $followButton.removeClass("new-btn-cancel").addClass("newest-button-blue");
+                    $followButton.attr('data-status', '0');
+                } else {
+                    console.log('did not response with valid data');
+                }
+            }, function fail(error) {
+                console.log('failed' + error);
+                var html = $(error.responseText);
+                that.getAccountApp().modalSignIn(html);
+            });
+        }
+    });
+    return UserFollow;
+});
 
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
@@ -4829,6 +4927,7 @@ require([
         'subapp/entitylike',
         'subapp/index/entity_category_tab',
         'subapp/index/category_tab_view',
+        'subapp/user_follow',
         'subapp/gotop'
 
     ],
@@ -4844,6 +4943,7 @@ require([
               AppEntityLike,
               EntityCategoryTab,
               CategoryTabView,
+              UserFollow,
               GoTop
               ) {
 // TODO : check if csrf work --
@@ -4857,6 +4957,7 @@ require([
         var app_like = new  AppEntityLike();
         var entity_category_tab = new EntityCategoryTab();
         var category_tab_view = new CategoryTabView();
+        var user_follow = new UserFollow();
         var goto = new GoTop();
     });
 

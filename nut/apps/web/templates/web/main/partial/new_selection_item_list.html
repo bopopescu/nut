@@ -5,10 +5,11 @@
     <div class="new-entity-six new-entity-six-control">
         <div class="img-box">
             {% if sle.entity.entity_hash %}
-                <a href="{{ sle.entity.absolute_url }}" target="_blank">
+                <a class="img-link" href="{{ sle.entity.absolute_url }}" target="_blank">
                     <img class="img-responsive" alt="{{ sle.entity.title }}" title="{{ sle.entity.title }}" src="{{ sle.entity.chief_image|resize:'310' }}">
-                    <div class="bg-layer">
-                    </div>
+                </a>
+                <a href="{{ sle.entity.absolute_url }}" target="_blank">
+                     <div class="bg-layer"></div>
                 </a>
             {% endif %}
 {#            {% if sle.entity.id in user_entity_likes %}#}
