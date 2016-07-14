@@ -1,3 +1,12 @@
+5. 
+4. bran page bug fix 
+3. tag page bug fix 
+2. optimize index query count , reduce 40 query 
+1. fix index banner size , to 750 px 
+
+=======================
+# merged to master 2016 7-7
+=======================
 7. mng - operation report 
 6. web - index page refactor 
 5. mng - editor work report update,sorting 
