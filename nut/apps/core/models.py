@@ -500,60 +500,24 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def cart_item_count(self):
-        #TODO : move logic to CartItem manager
-        return CartItem.objects.filter(user=self).count()
+        return CartItem.objects.cart_item_count_by_user(self)
 
     def add_sku_to_cart(self, sku, volume=1):
-        #TODO : move logic to CartItem manager
-        if sku.status == SKU.disable or sku.stock <= 0:
-            raise CartException('sku can not be added to cart')
-
-        if sku.stock < volume:
-            raise CartException('sku stock less than required')
-
-        cart_item, created =  CartItem.objects.get_or_create(sku=sku, user=self)
-        if created:
-            cart_item.volume = volume
-            cart_item.save()
-        else :
-            cart_item.volume += volume
-            cart_item.save()
-        return cart_item
+        return CartItem.objects.add_sku_to_user_cart(self, sku, volume)
 
     def decr_sku_in_cart(self,sku):
-        #TODO: move logic to CartItem manager
-        try:
-            cart_item = CartItem.objects.get(user=self, sku=sku)
-            cart_item.volume -= 1
-            if cart_item.volume <= 0 :
-                self.remove_sku_from_cart(sku)
-            else :
-                cart_item.save()
-                return cart_item
-
-        except CartItem.DoesNotExist as e :
-            return None
-
-        except CartItem.MultipleObjectsReturned as e :
-            cart_items = CartItem.objects.filter(user=self, sku=sku)
-            cart_items[0].volume -= 1
-            cart_items[0].save()
-            for citem in cart_items[1:]:
-                citem.delete()
-            return cart_items[0]
-
+        return CartItem.objects.decr_sku_in_user_cart(self, sku)
 
     def remove_sku_from_cart(self, sku):
-        try:
-            cart_item = CartItem.objects.get(user=self,sku=sku)
-            cart_item.delete()
-        except CartItem.DoesNotExist as e :
-            return
-        except CartItem.MultipleObjectsReturned as e :
-            CartItem.objects.filter(user=self, sku=sku).delete()
-            return
+        return CartItem.objects.remove_sku_from_user_cart(self,sku)
+
 
     def checkout(self):
+        '''
+        this method can not be moved into cartitem manager
+        because of circular reference problem
+        :return:
+        '''
         new_order = None
         if self.cart_item_count <= 0 :
             raise CartException('cart is empty')
@@ -586,7 +550,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                 return None
 
     def clear_cart(self):
-        CartItem.objects.filter(user=self).delete()
+        CartItem.objects.clear_user_cart(self)
 
     @property
     def order_count(self):

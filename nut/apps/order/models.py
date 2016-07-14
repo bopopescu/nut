@@ -4,7 +4,9 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from apps.order.manager import OrderManager
 from apps.order.manager.sku import SKUManager
+from apps.order.manager.cart import CartItemManager
 from apps.core.extend.fields.listfield import ListObjectField
+
 
 class SKU(models.Model):
     (disable, enable) =  (0, 1)
@@ -29,9 +31,9 @@ class SKU(models.Model):
             attr_str_list.append('%s_%s'%(key,value))
         return ';'.join(attr_str_list)
 
-    class Meta:
-        #TODO : unique together didn't work
-        unique_together = ('entity' ,'attrs')
+    # class Meta:
+    #     #TODO : unique together didn't work
+    #     unique_together = ('entity' ,'attrs')
 
 
 class CartItem(models.Model):
@@ -40,6 +42,7 @@ class CartItem(models.Model):
     volume = models.IntegerField(default=1)
     add_time = models.DateTimeField(auto_now_add=True, auto_now=True,db_index=True)
 
+    objects =CartItemManager()
 
     class Meta:
         ordering = ['-add_time']
