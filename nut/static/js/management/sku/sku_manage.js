@@ -50,15 +50,22 @@ _.extend(SKU_MNG_APP.prototype, {
         $(e.currentTarget).parent().parent().remove();
     },
     add_attr: function(){
-        $('.attr-add-tr').parent().prepend(this.get_property_dom());
+        $dom = this.get_property_dom();
+        $('.attr-add-tr').parent().prepend($dom);
+        return $dom;
     },
     render_attributes:function(){
-        var attrs = JSON.parse($('#sku_attr_json'));
+        if ($('#sku_attr_json').length <= 0 ){
+            return ;
+        }
+
+        var attrs = JSON.parse($('#sku_attr_json').val());
         if(attrs){
             for (key in attrs){
-                if(attrs.hasOwnProperty[key]){
-                    //this.add_attr()
-                //    TODO : implement
+                if(attrs.hasOwnProperty(key)){
+                    var new_input = this.add_attr();
+                    new_input.find('.attr-name-input').val(key);
+                    new_input.find('.attr-value-input').val(attrs[key])
                 }
             }
         }

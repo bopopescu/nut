@@ -29,6 +29,11 @@ class SKU(models.Model):
             attr_str_list.append('%s_%s'%(key,value))
         return ';'.join(attr_str_list)
 
+    class Meta:
+        #TODO : unique together didn't work
+        unique_together = ('entity' ,'attrs')
+
+
 class CartItem(models.Model):
     user = models.ForeignKey('core.GKUser', related_name='cart_items',db_index=True)
     sku  = models.ForeignKey(SKU, db_index=True)
