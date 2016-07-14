@@ -1,4 +1,5 @@
-2. 
+3. tag page bug fix 
+2. optimize index query count , reduce 40 query 
 1. fix index banner size , to 750 px 
 
 =======================
