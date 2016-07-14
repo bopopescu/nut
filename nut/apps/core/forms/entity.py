@@ -609,25 +609,6 @@ class AddEntityForm(forms.Form):
         required=False,
     )
 
-    # image_1 = forms.ImageField(
-    #     label=_('上传图片1'),
-    #     widget=forms.FileInput(),
-    #     help_text=_('max. 2 megabytes'),
-    #     required=False,
-    # )
-    #
-    #
-    # image_2 = forms.ImageField(
-    #     label=_('上传图片2'),
-    #     help_text=_('max. 2 megabytes'),
-    #     required=False,
-    # )
-    #
-    # image_3 = forms.ImageField(
-    #     label=_('上传图片3'),
-    #     help_text=_('max. 2 megabytes'),
-    #     required=False,
-    # )
 
     cate_choices = get_category_choices()
     sub_cate_choices = get_sub_category_choices(cate_choices[0][0]) or []
@@ -668,7 +649,7 @@ class AddEntityForm(forms.Form):
     user_choices = [(seller.pk, seller.nickname) for seller in auth_sellers]
 
     user = forms.ChoiceField(
-        label=_('user'),
+        label=_('创建者'),
         choices=user_choices,
         widget=forms.Select(attrs={'class': 'form-control'}),
         help_text=_(''),
@@ -691,16 +672,6 @@ class AddEntityForm(forms.Form):
         _intro = self.cleaned_data.get('intro')
         _buy_link = self.cleaned_data.get('buy_link')
         images = []
-        # image_1 = self.cleaned_data.get('image_1')
-        # image_2 = self.cleaned_data.get('image_2')
-        # if image_1:
-        #     image_1 = HandleImage(image_1)
-        #     filename_1 = '%s%s' % (image_host, image_1.save())
-        #     images.append(filename_1)
-        # if image_2:
-        #     image_2 = HandleImage(image_2)
-        #     filename_2 = '%s%s' % (image_host, image_2.save())
-        #     images.append(filename_2)
 
         entity = Entity(
             entity_hash=_entity_hash,
@@ -714,10 +685,6 @@ class AddEntityForm(forms.Form):
 
         )
         entity.save()
-        log.info(entity.images)
-        if not settings.DEBUG:
-            fetch_image.delay(entity.images, entity.id)
-
         if _note_text:
             Note.objects.create(
                 user_id=_user_id,
@@ -735,17 +702,6 @@ class AddEntityForm(forms.Form):
                 price=_price,
                 default=True,
             )
-        # else:
-        #     Buy_Link.objects.create(
-        #         entity=entity,
-        #         origin_id=entity.id,
-        #         # cid=,
-        #         origin_source='guoku.com',
-        #         link=self.request.get_host() + entity.absolute_url,
-        #         price=_price,
-        #         default=True,
-        #     )
-
         return entity
 
 
