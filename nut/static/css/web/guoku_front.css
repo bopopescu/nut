@@ -3029,7 +3029,7 @@ body.new-index-body #hot-entity-list .new-entity-item,
 body.new-index-body .user-panel-container {
   margin-bottom: 40px;
 }
-body.new-index-body #hot-entity-list .new-entity-item.new-entity-item-control {
+body.new-index-body #hot-entity-list .new-entity-item.hot-entity-item {
   margin-bottom: 0;
 }
 body.new-index-body .new-banner-wrapper .slick-prev {
