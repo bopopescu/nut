@@ -1,3 +1,11 @@
+2.
+1. translation update 
+
+action : need restart server 
+
+=======================
+# merged to master 2016 7-14
+=======================
 
 5. index page update 
 4. bran page bug fix 
