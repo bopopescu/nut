@@ -238,10 +238,10 @@ def create(request, template='management/entities/new.html'):
         context_instance=RequestContext(request)
     )
 
-
+@login_required
+@staff_and_editor
 def add_local(request):
         template = 'management/entities/add.html'
-
         if request.method == 'POST':
             form = AddEntityForm(request, data=request.POST, files=request.FILES)
             if form.is_valid():
@@ -251,7 +251,6 @@ def add_local(request):
         return render_to_response(
             template,
             {'forms': form,
-             # 'image_host': image_host,
              },
             context_instance=RequestContext(request),
         )
