@@ -11,8 +11,20 @@
                         <ul class="list-group list-group-unbordered">
 
                             <li class="list-group-item">
-                                <b>{% trans '商品数' %}</b>
+                                <b>{% trans '商品总数' %}</b>
                                 <a class="pull-right">{{ user.report.entity_count }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>{% trans '新品数' %}</b>
+                                <a class="pull-right">{{ user.report.entity_count_new }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>{% trans '精选商品数' %}</b>
+                                <a class="pull-right">{{ user.report.entity_count_selection }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>{% trans '冻结商品数' %}</b>
+                                <a class="pull-right">{{ user.report.entity_count_freeze }}</a>
                             </li>
                             <li class="list-group-item">
                                 <b>{% trans '喜爱数' %}</b>

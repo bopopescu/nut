@@ -46,6 +46,10 @@ class EditorReportListView(UserPassesTestMixin,  ListView):
             entities = editor.entities.filter(created_time__range=(datetime.strptime(self.start_date, '%Y-%m-%d %H:%M:%S'),
                                               datetime.strptime(self.end_date, '%Y-%m-%d %H:%M:%S')))
             editor.report['entity_count'] = entities.count()
+            editor.report['entity_count_new'] = entities.filter(status=0).count()
+            editor.report['entity_count_selection'] = entities.filter(status=1).count()
+            editor.report['entity_count_freeze'] = entities.filter(status=-1).count()
+
             editor.report['entity_like_count'] = entities.aggregate(Count('likes')).get('likes__count') or 0
             articles = editor.articles.filter(created_datetime__range=(datetime.strptime(self.start_date, '%Y-%m-%d %H:%M:%S'),
                                               datetime.strptime(self.end_date, '%Y-%m-%d %H:%M:%S')))
