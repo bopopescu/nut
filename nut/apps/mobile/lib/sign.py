@@ -73,7 +73,7 @@ def check_sign(func):
                     'type' : 'miss_param',
                     'message' : e.message,
                 },
-                status = 400
+                status = 403
             )
         except ApiKeyError, e:
             return ErrorJsonResponse(
@@ -81,7 +81,7 @@ def check_sign(func):
                     'type' : 'api_key',
                     'message' : e.message,
                 },
-                status = 400
+                status = 403
             )
         except SignError, e:
             return ErrorJsonResponse(
@@ -89,7 +89,7 @@ def check_sign(func):
                     'type' : 'sign',
                     'message' : e.message,
                 },
-                status = 400
+                status = 403
             )
 
         return func(*args, **kwargs)
