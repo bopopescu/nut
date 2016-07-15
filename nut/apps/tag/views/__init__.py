@@ -216,7 +216,7 @@ class ArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
         self.tag = get_object_or_404(Tags, name=self.get_tag_name())
 
         # haystack query for article
-        sqs = SearchQuerySet().models(Article).filter(tags=self.tag, is_selection=True).\
+        sqs = SearchQuerySet().models(Article).filter(tags=self.tag, is_selection=True).best_match().\
                                                 order_by("-enter_selection_time")
         # log.info(sqs)
         # TODO: Don't use this Method
