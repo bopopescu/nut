@@ -455,8 +455,8 @@ class UserEntitiesView(UserDetailBase):
 
 
     def get_queryset(self):
-        _seller = self.get_showing_user()
-        _user_entities = Entity.objects.get_user_added_entities(_seller)
+        _user = self.get_showing_user()
+        _user_entities = Entity.objects.get_user_added_entities(_user)
         return _user_entities
 
     def get_user_entity_likes(self, entities):
