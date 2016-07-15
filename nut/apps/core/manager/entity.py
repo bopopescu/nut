@@ -95,7 +95,7 @@ class EntityManager(models.Manager):
         return self.get_query_set().using('slave').filter(status=1, user=seller).order_by('-created_time')
 
     def get_user_added_entities(self, user):
-        return self.get_read_queryset().filter(status__gte=-1, user=user).order_by('-created_time')
+        return self.get_read_queryset().using('slave').filter(status__gte=-1, user=user).order_by('-created_time')
 
     def get_read_queryset(self):
         return EntityQuerySet(self.model).using('slave')
