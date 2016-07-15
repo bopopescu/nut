@@ -1,4 +1,5 @@
-2.
+3. 
+2. add short_digest to Article model ,and handle cache
 1. translation update 
 
 action : need restart server 
