@@ -448,6 +448,12 @@ class UserEntitiesView(UserDetailBase):
         else:
             return 'web/user/user_entity.html'
 
+    def get(self, *args, **kwargs):
+         self.template_name = self.setup_template_name()
+
+         return super(UserEntitiesView, self).get(*args, **kwargs)
+
+
     def get_queryset(self):
         _seller = self.get_showing_user()
         _user_entities = Entity.objects.get_user_added_entities(_seller)
