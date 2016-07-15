@@ -440,7 +440,13 @@ class UserEntitiesView(UserDetailBase):
     paginate_by = 36
     context_object_name = 'entities'
     pk_url_kwarg = 'user_id'
-    template_name = 'web/user/authorized_seller_entities.html'
+    # template_name = 'web/user/authorized_seller_entities.html'
+
+    def setup_template_name(self):
+        if self.get_showing_user().is_authorized_seller:
+            return 'web/user/authorized_seller_entities.html'
+        else:
+            return 'web/user/user_entity.html'
 
     def get_queryset(self):
         _seller = self.get_showing_user()
