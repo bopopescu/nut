@@ -24,7 +24,6 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, Group
 from django.utils.html import _strip_once
 
-
 from apps.notifications import notify
 from apps.core.utils.image import HandleImage
 from apps.core.utils.articlecontent import contentBleacher
@@ -34,10 +33,6 @@ from apps.core.manager import *
 from apps.core.utils.text import truncate
 from apps.core.manager.account import  AuthorizedUserManager
 from haystack.query import SearchQuerySet
-
-
-
-
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
