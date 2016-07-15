@@ -1,3 +1,4 @@
+# encoding: utf-8
 from apps.management.forms.tag import  SwitchTopArticleTagForm, SwitchPublishedEntityTagForm
 from django.conf import settings
 from django.shortcuts import  get_object_or_404, render_to_response
@@ -89,7 +90,10 @@ class TagEntitiesView(LoginRequiredMixin, ListView):
 
     def get(self, request, *args, **kwargs):
         self.tag_name = kwargs.pop('tag_name', None)
-        self.tag_name = unquote(str(self.tag_name)).decode('utf-8')
+        try:
+            assert unquote(self.tag_name) == self.tag_name
+        except:
+            self.tag_name = unquote(str(self.tag_name)).decode('utf-8')
         assert self.tag_name is not None
         return super(TagEntitiesView, self).get(request, *args, **kwargs)
 

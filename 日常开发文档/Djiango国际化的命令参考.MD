@@ -22,8 +22,7 @@
 
 
 1.  登录到测试服务器 (注意命令大小写）
-    sudo /data/www/nut/manage.py compilemessages
-    sudo /opt/script/gunicorn reload 
+    翻译有更新的情况下,需要重新启动服务器.
     
     
     

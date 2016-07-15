@@ -7,6 +7,8 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
             this.$entity_container = $('.latest-entity-wrapper');
             this.init_slick();
             this.initHoverCategory();
+            this.categoryName = '';
+            this.entityCache = window.sessionStorage;
             console.log('selection entity tab view begin');
         },
         initHoverCategory:function(){
@@ -14,10 +16,14 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
 
         },
         handleHoverCategory:function(event){
-            var that = this;
-            var dataValue = $(event.target).attr('data-value');
-            console.log('data value:'+dataValue+' send ajax request');
-            that.postAjaxRequest(dataValue);
+            var dataValue = $(event.currentTarget).attr('data-value');
+            var entityCache = this.entityCache.getItem(dataValue);
+            this.categoryName = dataValue;
+            if(entityCache){
+                this.showContent($(entityCache));
+            }else{
+                this.postAjaxRequest(dataValue);
+            }
         },
         postAjaxRequest:function(dataValue){
              var data = {
@@ -41,6 +47,7 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
             var status = parseInt(result.status);
             if(status == 1){
                  this.showContent($(result.data));
+                 this.setCache(result);
             }else{
                 this.showFail(result);
             }
@@ -56,6 +63,12 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
             this.$entity_container.empty();
             this.$entity_container.append(elemList);
             this.init_slick();
+        },
+        setCache:function(result){
+            var category = this.categoryName;
+            if(!this.entityCache.getItem(category)){
+                this.entityCache.setItem(category,result.data);
+            }
         }
     });
     return EntityCategoryTab;
