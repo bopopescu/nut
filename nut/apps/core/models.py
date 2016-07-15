@@ -1532,7 +1532,7 @@ class Article(BaseModel):
         return HTMLParser.HTMLParser().unescape(self.content)
 
     @property
-    def short_digest(self, length=50):
+    def short_digest(self, length=60):
         key = 'Article:digest:cache:%s'%self.pk
         length = int(length)
         digest = cache.get(key)
