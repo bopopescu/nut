@@ -138,7 +138,7 @@
                             <div class="panel-name">添加的商品</div>
                             <div class="more-link">
                                 {% if add_entities %}
-                                    <a href="{% url 'web_user_entity_like' current_user.pk %}">
+                                    <a href="{% url 'web_user_entities' current_user.pk %}">
                                         {% trans 'All' %}&nbsp;<i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
                                     </a>
                                 {% endif %}
