@@ -1405,9 +1405,29 @@ define('subapp/top_notification/top_notification',[
             var datas = {
                 objects:ajaxDatas.data,
                 notification_length:ajaxDatas.data.length
-
             };
+            this.processImagesSize(datas);
             $('.notification-drop-list').append(notificationItems(datas));
+        },
+        processImagesSize:function(datas){
+            for(var i=0;i<datas.notification_length;i++){
+                var avatar_url = datas.objects[i].actor.avatar;
+                if ( avatar_url && avatar_url.indexOf('static') < 0 ){
+                    datas.objects[i].actor.avatar = datas.objects[i].actor.avatar.replace('/avatar/','/avatar/128/');
+                }
+                if( datas.objects[i].type == 'article_dig'){
+                    var cover_url = datas.objects[i].target.article_cover;
+                    datas.objects[i].target.article_cover = cover_url.replace('/images/','/images/200/');
+                    console.log('article after url :'+datas.objects[i].target.article_cover);
+                }
+                if(datas.objects[i].type != 'user_follow' && datas.objects[i].type != 'article_dig' ){
+                    var entity_url = datas.objects[i].target.entity_image;
+                    var replaceStr = entity_url.substring(entity_url.lastIndexOf('/'));
+                    datas.objects[i].target.entity_image = entity_url.replace(replaceStr,'/128'+replaceStr);
+                    console.log('article after url :'+datas.objects[i].target.entity_image);
+
+                }
+            }
         },
         showFail:function($ele){
             console.log('ajax data failed.');
@@ -6217,14 +6237,14 @@ define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(
                 console.log('success');
                 console.log(data);
                 if (data.status == 1) {
-                    $followButton.html('<i class="fa fa-check fa-lg"></i>&nbsp; 取消关注');
+                    $followButton.html('<i class="fa fa-check fa-lg"></i>&nbsp; 已关注');
                     $followButton.attr('data-status', '1');
                     $followButton.removeClass("button-blue").addClass("btn-cancel");
                     $followButton.removeClass("newest-button-blue").addClass("new-btn-cancel");
 
                 } else if (data.status == 2) {
                     console.log('mutual !!!');
-                    $followButton.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 取消关注');
+                    $followButton.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 已关注');
                     $followButton.removeClass('button-blue').addClass('btn-cancel');
                     $followButton.removeClass("newest-button-blue").addClass("new-btn-cancel");
                     $followButton.attr('data-status', '1');

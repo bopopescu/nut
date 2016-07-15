@@ -8,14 +8,23 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                     console.log('recommend user slick in discover page begin');
                 },
                 init_slick:function(){
-                    $('.recommend-user-list').slick({
+                    $('.recommend-user-list,.user-panel-container').slick({
                         arrows: true,
-                        slidesToShow: 11,
+                        slidesToShow: 6,
                         slidesToScroll:4,
                         autoplay:false,
                         dots:false,
 
                         responsive: [
+                             {
+                                breakpoint: 992,
+                                settings: {
+                                    slidesToShow:3,
+                                    slidesToScroll:3,
+                                    autoplay:false,
+                                    dots:false
+                                }
+                            },
                             {
                                 breakpoint: 768,
                                 settings: {

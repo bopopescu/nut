@@ -1,7 +1,11 @@
 {% load i18n staticfiles %}
 {% load common guoku %}
 {# 如果品牌已经发布，CLASS="brand published"#}
+{% if entity_brand %}
+<div class="brand" itemprop="brand"><a href="{% url 'web_brand_detail' entity_brand.id %}" >{{ entity.brand }}</a></div>
+{% else %}
 <div class="brand" itemprop="brand">{{ entity.brand }}</div>
+{% endif %}
 <div class="entity-title" itemprop="name">{{ entity.title }}</div>
 <div class="price-tag"><span itemprop="price">&#65509;{{ entity.price }}</span></div>
 <div class="entity-status">

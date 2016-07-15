@@ -73,10 +73,10 @@ CACHES = {
 #
 
 # ----------------------- debug -----------------------
-def removeDebugToolBar(theList):
-    return [x  for x in theList if x!='debug_toolbar']
-
-INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
+# def removeDebugToolBar(theList):
+#     return [x  for x in theList if x!='debug_toolbar']
+#
+# INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
 
 
 INSTALLED_APPS +=(
@@ -90,15 +90,17 @@ INSTALLED_APPS +=(
 # TEMPLATE_CONTEXT_PROCESSORS += (
 #     # 'apps.web.contextprocessors.global.lastslug',
 # )
-LOCAL_TEST_DB = True
+
 
 Current_Dbhost = 'localhost'
 # Current_Dbhost = '10.0.1.110'
 # Current_Dbhost = '10.0.2.90'
+LOCAL_TEST_DB = False
 
 # DATABASES = PRODUCTION_DATABASES
-#
-#
+
+
+LOCAL_TEST_DB = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',

@@ -1,0 +1,107 @@
+{% extends "management/management_base.html" %}
+{% load staticfiles i18n %}
+
+{% block content %}
+    <section class="content-header">
+        <h1>
+            {% trans '运营数据报告' %}
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+            <li class="active">{% trans 'entity' %}</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header">
+
+                    </div>
+                    <div class="box-header">
+                        <ul class="nav nav-pills" role="tablist">
+{#                            <li {% if start_time == 'yesterday' %}class="active"{% endif %}><a href="{% url 'management_editor_report' %}?status={{ status }}">{% trans '昨天' %}</a></li>#}
+                            <li {% if start_time == 'lastweek'  %}class="active"{% endif %}><a href="{% url 'management_operation_report' %}?status={{ status }}&start_date=lastweek">{% trans '上周' %}</a></li>
+                            <li {% if start_time == 'lastmonth'  %}class="active"{% endif %}><a href="{% url 'management_operation_report' %}?status={{ status }}&start_date=lastmonth">{% trans '上月' %}</a></li>
+                            <li><a>日期选择:</a></li>
+
+                        <table style="width:300px;">
+                        <tr>
+                        <td>
+                        <div class='col-sm-3'  style="width: 100%">
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <input type='text' id="start_date" {% if start_date != None %} value="{{ start_date }}"{% endif %} class="form-control" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td>
+                        <div class='col-sm-3' style="width: 100%">
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker2'>
+                                        <input type='text' id="end_date" {% if end_date != None %} value="{{ end_date }}"{% endif %} class="form-control" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>
+                        <button type="submit" id="submit" class="btn btn-primary btn-lg" style="display: block;
+margin:auto">确定</button>
+                            </td>
+                        </tr>
+                        </table>
+                        </ul>
+                    </div>
+
+                    <div class="box-body table-responsive">
+                        {% include "management/operation_report/table.html" with editors=editors %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
+
+{% block user_script %}
+    <script src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/management/util.js' %}"></script>
+    <script src="{% static 'js/management/moment.js' %}"></script>
+    <script src="{% static 'js/management/selection_report.js' %}"></script>
+    <script>
+        $(function () {
+        $('#datetimepicker1').datetimepicker({
+        language: 'zh-CN',
+        format: "yyyy-mm-dd 00:00:00",
+            disabledHours: "true",
+        autoclose: true,
+        pickerPosition: "bottom-left",
+            minView: '2'
+    });
+        $('#datetimepicker2').datetimepicker({
+            useCurrent: false, //Important! See issue #1075
+            language: 'zh-CN',
+            format: "yyyy-mm-dd 00:00:00",
+            disabledHours: "true",
+            autoclose: true,
+            pickerPosition: "bottom-left",
+            minView: '2'
+        });
+    });
+    </script>
+{% endblock %}
