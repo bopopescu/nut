@@ -96,6 +96,7 @@ Current_Dbhost = 'localhost'
 # Current_Dbhost = '10.0.1.110'
 # Current_Dbhost = '10.0.2.90'
 LOCAL_TEST_DB = False
+
 # DATABASES = PRODUCTION_DATABASES
 
 

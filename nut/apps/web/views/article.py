@@ -427,7 +427,7 @@ class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMix
                 }
 
             except Exception as e:
-                log(e)
+                log.error(e.message)
                 res = {
                     'error': 1
                 }

@@ -1,5 +1,23 @@
-2. 
+3. 
+2. add short_digest to Article model ,and handle cache
+1. translation update 
+
+action : need restart server 
+
+=======================
+# merged to master 2016 7-14
+=======================
+
+5. index page update 
+4. bran page bug fix 
+3. tag page bug fix 
+2. optimize index query count , reduce 40 query 
 1. fix index banner size , to 750 px 
+
+action: 
+
+  need restart server , translation update
+  
 
 =======================
 # merged to master 2016 7-7
