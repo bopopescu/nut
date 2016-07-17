@@ -69,6 +69,7 @@ INSTALLED_APPS = (
     'apps.shop',
     'apps.site_banner',
     'apps.order',
+    'apps.payment',
     'captcha',
 )
 

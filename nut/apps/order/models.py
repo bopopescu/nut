@@ -158,27 +158,6 @@ class Order(models.Model):
     def order_total_value(self):
         return self.promo_total_price + self.shipping_fee
 
-class PaymentLog(models.Model):
-    '''
-        a log for payment route
-    '''
-    (waiting_for_payment,
-            paid, refund) = range(3)
-
-    PAYMENT_STATUS_CHOICES = [
-        (waiting_for_payment, _('waiting for payment')),
-        (paid, _('paid')),
-        (refund, _('refund')),
-        ]
-    order = models.ForeignKey(Order, related_name='payments')
-    payment_status = models.IntegerField(choices=PAYMENT_STATUS_CHOICES)
-    created_datetime =  models.DateTimeField(auto_now_add=True)
-    updated_datetime =  models.DateTimeField(auto_now=True)
-
-    @property
-    def total_price(self):
-        return self.order.order_total_value
-
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,related_name='items')
     customer = models.ForeignKey('core.GKUser', related_name='order_items',db_index=True)

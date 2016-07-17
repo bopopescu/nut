@@ -106,6 +106,7 @@ urlpatterns += patterns(
     url(r'^articles/',include('apps.web.urls.article')),
     url(r'^brand/',include('apps.web.urls.brand')),
     url(r'^store/', include('apps.shop.urls.web')),
+    url(r'^payment/', include('apps.payment.urls.web')),
 
 
 )
