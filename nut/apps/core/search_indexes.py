@@ -82,6 +82,7 @@ class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
     article_id              = indexes.IntegerField(model_attr='id')
     author                  = indexes.CharField(model_attr='creator')
     title                   = indexes.CharField(model_attr='title', boost=1.125)
+    # short_digest            = indexes.CharField(model_attr='short_digest')
     tags                    = indexes.CharField(model_attr='tags_string', boost=1.25)
     read_count              = indexes.IntegerField(model_attr='read_count')
     dig_count               = indexes.IntegerField(model_attr='dig_count')

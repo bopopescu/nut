@@ -1506,7 +1506,6 @@ class Article(BaseModel):
         except Exception:
             cache.set(key, self.digs.count())
 
-
     @property
     def tag_list(self):
         _tag_list = Content_Tags.objects.article_tags(self.id)
