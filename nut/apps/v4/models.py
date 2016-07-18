@@ -1,4 +1,3 @@
-from apps.core.models import Selection_Article, Article, Article_Dig
 from apps.notifications.models import JpushToken
 from apps.notifications import notify
 from django.core.urlresolvers import reverse
@@ -10,8 +9,10 @@ from hashlib import md5
 
 from apps.mobile.models import Session_Key
 from apps.core.models import Entity, Buy_Link, Note, \
-    GKUser, Authorized_User_Profile, Selection_Entity, Sina_Token, \
-    Taobao_Token, WeChat_Token, User_Follow, Category
+                            GKUser, Authorized_User_Profile, \
+                            Selection_Entity, Sina_Token, \
+                            Taobao_Token, WeChat_Token, User_Follow, Category
+from apps.core.models import Selection_Article, Article, Article_Dig, Article_Remark
 
 from django.conf import settings
 imghost = getattr(settings, 'IMAGE_HOST')
@@ -302,7 +303,7 @@ class APISeletion_Articles(Selection_Article):
 import HTMLParser
 h_parser = HTMLParser.HTMLParser()
 
-
+# API Article Model
 class APIArticle(Article):
 
     class Meta:
@@ -334,25 +335,9 @@ class APIArticle(Article):
 
     def v4_toDict(self, articles_list=list()):
         res = super(APIArticle, self).v4_toDict(articles_list=articles_list)
-        # res = self.v4_toDict(articles_list=articles_list)
-        # res.pop('id', None)
-        # res.pop('creator_id')
-        # res.pop('created_datetime', None)
-        # res.pop('updated_datetime', None)
-        # res['article_id'] = self.id
-        # res['tags'] = self.tag_list
         res['content'] = self.strip_tags_content
         res['digest'] = self.digest
-        # res['url'] = self.get_absolute_url()
-        # res['creator'] = self.creator.v3_toDict()
-        # res['dig_count'] = self.dig_count
-        # res['is_dig'] = False
-        # if self.id in articles_list:
-        #     res['is_dig'] = True
         return res
-
-
-
 
 
 class APIArticle_Dig(Article_Dig):
@@ -363,6 +348,25 @@ class APIArticle_Dig(Article_Dig):
     @property
     def article(self):
         return APIArticle.objects.get(pk=self.article_id)
+
+
+class APIArticle_Remark(Article_Remark):
+
+    class Meta:
+        proxy = True
+
+    def v4_toDict(self):
+        res = self.toDict()
+        res.pop('id', None)
+        res.pop('user_id', None)
+        res['comment_id'] = self.id
+        res['create_time'] = time.mktime(self.create_time.timetuple())
+        res['update_time'] = time.mktime(self.update_time.timetuple())
+        res['article'] = self.article.v4_toDict()
+        res['user'] = self.user.v3_toDict()
+
+        return res
+
 
 # TODO: API JPUSH
 class APIJpush(JpushToken):

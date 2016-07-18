@@ -59,11 +59,40 @@ def decorate_taobao_url(url, ttid=None, sid=None, outer_code=None, sche=None):
 
 # base api view
 class APIJsonView(BaseJsonView):
-
+    #
     @csrf_exempt
     @check_sign
     def dispatch(self, request, *args, **kwargs):
         return super(APIJsonView, self).dispatch(request, *args, **kwargs)
+
+
+class APIJsonSessionView(APIJsonView):
+
+    def check_session(self, request):
+        _key = request.REQUEST.get('session', None)
+        Session_Key.objects.get(session_key=_key)
+        try:
+            self.session = Session_Key.objects.get(session_key=_key)
+        except Session_Key.DoesNotExist:
+            raise
+
+    def get(self, request, *args, **kwargs):
+        # self.request = request
+        self.check_session(request)
+        return super(APIJsonSessionView, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.check_session(request)
+        return super(APIJsonSessionView, self).post(request, *args, **kwargs)
+
+    @csrf_exempt
+    @check_sign
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            self.check_session(request)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
+        return super(APIJsonSessionView, self).dispatch(request, *args, **kwargs)
 
 
 class HomeView(APIJsonView):
@@ -591,24 +620,26 @@ class TopPopularView(APIJsonView):
 #     return SuccessJsonResponse(res)
 
 
-class UnreadView(APIJsonView):
+class UnreadView(APIJsonSessionView):
+
+    http_method_names = ['get', 'post']
 
     def get_data(self, context):
-        try:
-            _session = Session_Key.objects.get(session_key = self.key)
-        except Session_Key.DoesNotExist:
-            return ErrorJsonResponse(status=403)
+        # try:
+        #     _session = Session_Key.objects.get(session_key = self.key)
+        # except Session_Key.DoesNotExist:
+        #     return ErrorJsonResponse(status=403)
         res = {
-            'unread_message_count': _session.user.notifications.read().count(),
-            'unread_selection_count': Selection_Entity.objects.get_user_unread(session=_session.session_key),
+            'unread_message_count': self.session.user.notifications.read().count(),
+            'unread_selection_count': Selection_Entity.objects.get_user_unread(session=self.session.session_key),
         }
         return res
 
-    def get(self, request, *args, **kwargs):
-        self.key = request.GET.get('session', None)
-        if self.key is None:
-          return ErrorJsonResponse(status=403)
-        return super(UnreadView, self).get(request, *args, **kwargs)
+    # def get(self, request, *args, **kwargs):
+        # self.key = request.GET.get('session', None)
+        # if self.key is None:
+        #   return ErrorJsonResponse(status=403)
+        # return super(UnreadView, self).get(request, *args, **kwargs)
 
 
 def visit_item(request, item_id):
@@ -653,7 +684,7 @@ def apns_token(request):
         except Session_Key.DoesNotExist:
             pass
             # return ErrorJsonResponse(status=403)
-        log.info(request.POST)
+        # log.info(request.POST)
         form = PushForm(user=_user, data=request.POST)
         if form.is_valid():
             form.save()
@@ -669,5 +700,6 @@ def apns_token(request):
 
         return ErrorJsonResponse(status=403, data={'message':'error'})
 
+# class ApnsTokenView():
 
 __author__ = 'edison7500'
