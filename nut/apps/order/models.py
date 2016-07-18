@@ -7,6 +7,7 @@ from apps.order.manager.sku import SKUManager
 from apps.order.manager.cart import CartItemManager
 from apps.core.extend.fields.listfield import ListObjectField
 
+from apps.payment.alipay import AliPayPayment
 
 class SKU(models.Model):
     (disable, enable) =  (0, 1)
@@ -134,6 +135,20 @@ class Order(models.Model):
 
     objects = OrderManager()
 
+    def generate_alipay_payment_url(self):
+        return AliPayPayment(order=self).payment_url
+
+    @property
+    def payment_subject(self):
+        #TODO : need define more prise subject
+        return 'GUOKU Order :%s' %self.number
+        # raise  NotImplemented()
+
+    @property
+    def payment_body(self):
+        items = map(lambda item:item.title , self.items.all())
+        return '\r\n'.join(items)
+
 
     @property
     def shipping_fee(self):
@@ -167,11 +182,9 @@ class OrderItem(models.Model):
     grand_total_price = models.FloatField(null=False) # 当订单生成的时候计算
     promo_total_price = models.FloatField(null=False) # 当订单生成的时候计算
 
-    def calculate_price(self):
-        return self.sku.origin_price * self.volume
-
-    def calculate_promo_price(self):
-        return self.sku.promo_price * self.volume
+    @property
+    def title(self):
+        return self.sku.entity.title
 
 
 class OrderMessage(models.Model):

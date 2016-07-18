@@ -1,3 +1,4 @@
+from apps.payment.exceptions import PaymentException
 
 class CartException(Exception):
     pass
@@ -5,5 +6,4 @@ class CartException(Exception):
 class OrderException(Exception):
     pass
 
-class PaymentException(Exception):
-    pass
+

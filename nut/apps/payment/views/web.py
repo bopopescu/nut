@@ -6,3 +6,6 @@ class AlipayReturnView(FormView):
 
 class AlipayNotifyView(FormView):
     pass
+
+class AlipayRefoundNotify(FormView):
+    pass

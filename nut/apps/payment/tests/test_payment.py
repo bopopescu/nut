@@ -2,12 +2,13 @@
 
 from apps.order.tests import DBTestBase
 from apps.order.models import Order
-from apps.order.exceptions import OrderException, PaymentException
+from apps.order.exceptions import OrderException
+from apps.payment.exceptions import  PaymentException
 
 class OrderPaymentTest(DBTestBase):
 
     def setUp(self):
-        super(OrderPaymentTest, self).settings()
+        super(OrderPaymentTest, self).setUp()
         self.sku1 = self.entity.add_sku({
             'color': 'red',
             'size':165
@@ -35,6 +36,6 @@ class OrderPaymentTest(DBTestBase):
         pass
 
     def test_tb_payment_url_generate(self):
-        url = self.order.generate_tb_payment_url()
-        self.assertContains(url, )
+        url = self.order.generate_alipay_payment_url()
+        self.assertContains(url, 'https://mapi.alipay.com/gateway.do?')
 
