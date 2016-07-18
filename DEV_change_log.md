@@ -1,8 +1,10 @@
-3. 
+
+3. update tag article template 
 2. add short_digest to Article model ,and handle cache
 1. translation update 
 
 action : need restart server 
+         translation update 
 
 =======================
 # merged to master 2016 7-14

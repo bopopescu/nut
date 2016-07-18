@@ -111,8 +111,6 @@ class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
             content_type='text/html; charset=utf-8',
             )
 
-
-
         if tag_id == 'all':
             articles = Selection_Article.objects.published_until()[:3]
             context['articles'] = [item.article for item in articles]
