@@ -220,8 +220,8 @@ class ArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
                                                 order_by("-enter_selection_time")
         # log.info(sqs)
         # TODO: Don't use this Method
-        queryset = map(lambda x: x.object, sqs)
-        return queryset
+        # queryset = map(lambda x: x.object, sqs)
+        return sqs
 
     def get_ajax(self, request, *args, **kwargs):
         # TODO : add error handling here
