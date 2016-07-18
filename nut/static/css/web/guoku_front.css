@@ -3063,6 +3063,17 @@ body.new-index-body .new-section-title-wrapper a.more-link {
   font-size: 14px;
   line-height: 20px;
 }
+body.new-index-body #category-container {
+  margin-top: 24px;
+  margin-bottom: 40px;
+}
+body.new-index-body #category-container a {
+  outline: 0;
+}
+body.new-index-body #category-container a .category-name {
+  color: #424242;
+  font-size: 14px;
+}
 body.new-index-body .category-list {
   margin-bottom: 0;
   margin-left: 18px;
