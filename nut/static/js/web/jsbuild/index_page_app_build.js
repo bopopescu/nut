@@ -4372,53 +4372,6 @@ define('subapp/index/middle_page_banner',['jquery', 'libs/Class','libs/slick','f
 
 
 
-define('subapp/discover/category_slick',['jquery', 'libs/Class','libs/slick','fastdom'], function(
-    $, Class, slick , fastdom
-){
-            var CategorySlick= Class.extend({
-                init: function () {
-                    this.init_slick();
-                    console.log('category horizontal scrolling starts !');
-                },
-                init_slick:function(){
-                    $('#category-item-container').slick({
-                        arrows: true,
-                        //on mobile,set slidesToshow and slidesToScroll like android
-                        slidesToShow: 12,
-                        slidesToScroll:4,
-                        autoplay:false,
-                        dots:false,
-
-                        responsive: [
-                             {
-                                breakpoint: 768,
-                                settings: {
-                                    slidesToShow:8,
-                                    slidesToScroll:3,
-                                    autoplay:false,
-                                    dots:false
-                                }
-                            },
-                             {
-                                breakpoint: 580,
-                                settings: {
-                                    slidesToShow:5,
-                                    slidesToScroll:2,
-                                    autoplay:false,
-                                    dots:false
-                                }
-                            }
-                        ]
-                    });
-                }
-            });
-    return CategorySlick;
-});
-
-
-
-
-
 define('subapp/discover/recommend_user_slick',['jquery', 'libs/Class','libs/slick','fastdom'], function(
     $, Class, slick , fastdom
 ){
@@ -4931,7 +4884,6 @@ require([
         'subapp/index/banner',
         'subapp/index/middle_page_banner',
 
-        'subapp/discover/category_slick',
         'subapp/discover/recommend_user_slick',
         'subapp/entitylike',
         'subapp/index/entity_category_tab',
@@ -4947,7 +4899,6 @@ require([
               Banner,
               MiddlePageBanner,
 
-              CategorySlick,
               RecommendUserSlick,
               AppEntityLike,
               EntityCategoryTab,
@@ -4961,7 +4912,6 @@ require([
         var banner = new Banner();
         var middle_page_banner = new MiddlePageBanner();
 
-        var category_slick = new CategorySlick();
         var recommend_user_slick = new RecommendUserSlick();
         var app_like = new  AppEntityLike();
         var entity_category_tab = new EntityCategoryTab();

@@ -179,15 +179,26 @@ body.new-index-body{
         line-height: 20px;
       }
   }
+  .selection-title-wrapper{
+    margin-top:22px;
+  }
   #category-container{
     margin-top:24px;
-    margin-bottom:40px;
-    a{
-      outline: 0;
-      .category-name{
-        color:@common-text-color;
-        font-size: @smaller-primary;
+    margin-bottom:22px;
+    .category-item-wrapper{
+      a{
+        outline: 0;
+        text-decoration: none;
+        .category-item-pic{
+          .square-scale-bg;
+        }
+        .category-name{
+          color:@common-text-color;
+          font-size: @smaller-primary;
+          text-align:center;
+        }
       }
+
     }
   }
   .category-list{

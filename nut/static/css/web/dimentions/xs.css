@@ -1265,6 +1265,9 @@ a.new-black-link:hover {
   .authorized-seller-body .more-nav-wrapper .more-nav .nav-list-item {
     margin-right: 3px;
   }
+  body.new-index-body #category-container .category-item-wrapper a .category-name {
+    font-size: 12px;
+  }
 }
 @media (max-width: 767px) {
   body.new-index-body {
