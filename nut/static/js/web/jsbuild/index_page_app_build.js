@@ -4384,17 +4384,26 @@ define('subapp/discover/category_slick',['jquery', 'libs/Class','libs/slick','fa
                     $('#category-item-container').slick({
                         arrows: true,
                         //on mobile,set slidesToshow and slidesToScroll like android
-                        slidesToShow: 6,
+                        slidesToShow: 12,
                         slidesToScroll:4,
                         autoplay:false,
                         dots:false,
 
                         responsive: [
-                            {
+                             {
                                 breakpoint: 768,
                                 settings: {
-                                    slidesToShow:3,
+                                    slidesToShow:8,
                                     slidesToScroll:3,
+                                    autoplay:false,
+                                    dots:false
+                                }
+                            },
+                             {
+                                breakpoint: 580,
+                                settings: {
+                                    slidesToShow:5,
+                                    slidesToScroll:2,
                                     autoplay:false,
                                     dots:false
                                 }
