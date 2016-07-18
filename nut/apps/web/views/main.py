@@ -29,6 +29,7 @@ from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 from apps.core.models import Sub_Category
 from apps.shop.models import StorePageBanners
 from apps.site_banner.models import SiteBanner
+from haystack.query import SearchQuerySet
 
 log = getLogger('django')
 
@@ -90,16 +91,31 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin,TemplateView):
             context['user_entity_likes'] = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=
                 list(_entities.values_list('id', flat=True))+(list(context['selection_entity'].values_list('entity_id',flat=True))))
 
-
         return context
 
 
 
 class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
+    def get_context_data(self, **kwargs):
+        context = super(IndexArticleTagView, self).get_context_data(**kwargs)
+        return context
+
+    def get_queryset(self):
+        if self.tag_id == 'all':
+            articles = Selection_Article.objects.published_until()[:3]
+            for selection in articles:
+                selection.object = selection.article
+            sqs = articles
+        else:
+            tag = Tags.objects.get(id = self.tag_id)
+            sqs = SearchQuerySet().models(Article).filter(tags=tag, is_selection=True). \
+                order_by("-enter_selection_time")[:3]
+        return sqs
+
     def get_ajax(self, request, *args, **kwargs):
-        context = {}
-        tag_id = request.GET.get('dataValue')
-        key = "index:article:tag:%s"%tag_id
+        self.tag_id = request.GET.get('dataValue')
+        self.object_list = getattr(self, 'object_list', self.get_queryset())
+        key = "index:article:tag:%s" % self.tag_id
         _data = cache.get(key)
         if not _data is None:
             return JSONResponse(
@@ -110,20 +126,8 @@ class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
             content_type='text/html; charset=utf-8',
             )
 
+        context = self.get_context_data()
 
-
-        if tag_id == 'all':
-            articles = Selection_Article.objects.published_until()[:3]
-            context['articles'] = [item.article for item in articles]
-        else:
-            tag = Tags.objects.get(id=tag_id)
-            article_ids = Content_Tags.objects.filter(tag=tag,
-                                                 target_content_type_id=31).values_list(
-                                                'target_object_id', flat=True)
-
-            context['articles'] = Article.objects.filter(pk__in=article_ids,
-                                  selections__is_published=True,
-                                  selections__pub_time__lte=datetime.now())[:3]
         template = 'web/events/partial/new_event_article_item_ajax.html'
         _t = loader.get_template(template)
         _c = RequestContext(
@@ -143,10 +147,32 @@ class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
         )
 
 class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
+    def get_queryset(self):
+        if self.category_id == 'all':
+            qs = Selection_Entity.objects.published_until_now()[:20]
+        else:
+            sub_categories_ids = list(Sub_Category.objects.filter(group=self.category_id) \
+                                      .values_list('id', flat=True))
+            qs = Selection_Entity.objects.published().filter(
+                entity__category__in=sub_categories_ids)[:20]
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexSelectionEntityTagView, self).get_context_data(**kwargs)
+        if self.request.user.is_authenticated():
+            popular_list = Entity_Like.objects.popular_random()
+            context['user_entity_likes'] = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=
+                list(Entity.objects.filter(id__in=popular_list).values_list('id', flat=True)) +
+                list(context['object_list'].values_list('entity_id', flat=True)))
+        return context
+
     def get_ajax(self, request, *args, **kwargs):
-        context = {}
-        category_id = request.GET.get('dataValue')
-        key = 'index:selection:entity:category:%s'%category_id
+        self.category_id = request.GET.get('dataValue')
+        self.object_list = getattr(self, 'object_list', self.get_queryset())
+        self.request = request
+        context = self.get_context_data()
+
+        key = 'index:selection:entity:category:%s' % self.category_id
         _data = cache.get(key)
         if not _data is None:
             return JSONResponse(
@@ -156,20 +182,6 @@ class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView
             },
             content_type='text/html; charset=utf-8',
             )
-
-
-        if category_id == 'all':
-            context['selection_entity'] = Selection_Entity.objects.published_until_now()[:20]
-        else:
-            sub_categories_ids = list(Sub_Category.objects.filter(group=category_id) \
-                                      .values_list('id', flat=True))
-            context['selection_entity'] = Selection_Entity.objects.published().filter(
-                entity__category__in=sub_categories_ids)[:20]
-        if self.request.user.is_authenticated():
-            popular_list = Entity_Like.objects.popular_random()
-            context['user_entity_likes'] = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=
-                list(Entity.objects.filter(id__in=popular_list).values_list('id', flat=True)) +
-                list(context['selection_entity'].values_list('entity_id', flat=True)))
 
         template = 'web/main/partial/new_selection_ajax.html'
         _t = loader.get_template(template)
