@@ -102,7 +102,7 @@ class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
         return context
 
     def get_queryset(self):
-        if self.tag_id == 'all':
+        if self.tag_id == 'all_article':
             articles = Selection_Article.objects.published_until()[:3]
             for selection in articles:
                 selection.object = selection.article
@@ -117,15 +117,15 @@ class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
         self.tag_id = request.GET.get('dataValue')
         self.object_list = getattr(self, 'object_list', self.get_queryset())
         key = "index:article:tag:%s" % self.tag_id
-        _data = cache.get(key)
-        if not _data is None:
-            return JSONResponse(
-            data={
-                'data': _data,
-                'status': 1
-            },
-            content_type='text/html; charset=utf-8',
-            )
+        # _data = cache.get(key)
+        # if not _data is None:
+        #     return JSONResponse(
+        #     data={
+        #         'data': _data,
+        #         'status': 1
+        #     },
+        #     content_type='text/html; charset=utf-8',
+        #     )
 
         context = self.get_context_data()
 
@@ -149,7 +149,7 @@ class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
 
 class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
     def get_queryset(self):
-        if self.category_id == 'all':
+        if self.category_id == 'all_entity':
             qs = Selection_Entity.objects.published_until_now()[:20]
         else:
             sub_categories_ids = list(Sub_Category.objects.filter(group=self.category_id) \

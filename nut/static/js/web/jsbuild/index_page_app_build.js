@@ -4661,8 +4661,10 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
             var articleCache = this.articleCache.getItem(dataValue);
             this.categoryName = dataValue;
             if(articleCache){
+                console.log('articleCache:'+articleCache);
                 this.showContent($(articleCache));
             }else{
+                console.log('no article cache.post ajaxing');
                 this.postAjaxRequest(dataValue);
             }
         },
@@ -4697,14 +4699,15 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
             console.log('post fail');
         },
         showFail:function(result){
-            console.log('ajax data failed');
+            console.log('get ajax data failed');
         },
         showContent: function(elemList){
-            console.log('ajax data success');
+            console.log('get ajax data success');
             this.$article_container.empty();
             this.$article_container.append(elemList);
         },
         setCache:function(result){
+            console.log('set cache.');
             var category = this.categoryName;
             if(!this.articleCache.getItem(category)){
                 this.articleCache.setItem(category,result.data);
