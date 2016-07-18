@@ -67,11 +67,13 @@ class TagEntitiesByHashView(AjaxResponseMixin, JSONResponseMixin, ListView):
         _t = loader.get_template(_template)
         _c = RequestContext(request, context)
         _html = _t.render(_c)
+        has_next_page = context['page_obj'].has_next()
 
         return self.render_json_response({
             'data': _html,
             'status': 1,
             'errors': 0,
+            'has_next_page': has_next_page
         })
 
     def get_context_data(self, **kwargs):

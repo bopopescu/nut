@@ -44,7 +44,7 @@ class BrandDetailView(ListView):
         el = list()
         # sqs = self.get_queryset()
         # e_ids = [e.entity_id for e in self.object_list]
-        e_ids = [e.id for e in self.object_list]
+        e_ids = [e.entity.id for e in self.object_list]
         if self.request.user.is_authenticated():
              el = Entity_Like.objects.user_like_list(user=self.request.user,
                                                     entity_list=e_ids

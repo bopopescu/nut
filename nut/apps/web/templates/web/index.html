@@ -33,7 +33,7 @@
                 {% for banner in banners %}
                     <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}">
                         <a href="{{ banner.link }}" target="_blank">
-                            <div class="banner-image-wrapper" style="background-image: url('{{ banner.image_url }}')">
+                            <div class="banner-image-wrapper" style="background-image: url('{{ banner.image_url|resize:'750' }}')">
                                  <div class="banner-image-cell-scrim">
                                  </div>
                             </div>
@@ -41,6 +41,23 @@
                     </div>
                 {% endfor %}
             </div>
+        </div>
+    </div>
+    <div class="row" id="category-container">
+        <div class="col-sm-12">
+            <ul id="category-item-container">
+                {% for category in categories %}
+                    <li class="category-item">
+                        <a href="{% url 'web_category_group' category.id %}" target="_blank">
+                            <div class="category-item-pic" style="background-image: url(/static/images/category-icon/{{ category.id }}.png)">
+                            </div>
+                            <div class="category-name">
+                                {{ category.title_cn }}
+                            </div>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
     <div class="row new-section-title-wrapper">
@@ -74,34 +91,6 @@
             {% include 'web/main/partial/new_selection_item_list.html' %}
         {% endfor %}
     </div>
-    <div class="hidden-sm hidden-md hidden-lg row new-section-title-wrapper">
-            <div class="col-sm-12">
-                <div class="section-title pull-left">
-                    推荐品类
-                </div>
-            </div>
-    </div>
-    <div class="hidden-sm hidden-md hidden-lg row dark-section-wrapper" id="category-container">
-            <div class="col-sm-12">
-                <ul id="category-item-container">
-                    {% for category in categories %}
-                        <li class="category-item dark-section-item">
-                            <a href="{% url 'web_category_group' category.id %}" target="_blank">
-                                <div class="section-panel">
-                                    <div class="category-item-pic" style="background-image: url('{{ category.cover_url|resize:'200' }}')">
-                                    </div>
-                                    <div class="section-name category-name">
-                                        <p>{{ category.title_cn }}</p>
-                                        <span>{{ category.title_en }}</span>
-                                    </div>
-                                    <div class="bg-layer"></div>
-                                </div>
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
     {% url 'web_selection_articles' as web_article_list_url %}
     <div class="row new-section-title-wrapper">
         <div class="col-sm-12">
@@ -177,11 +166,11 @@
                           <a class="guoku-button new-guoku-button button-blue newest-button-blue" href="{% url 'web_user_settings' %}">
                               <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
                           {% elif request.user.id in user.concren %}
-                          <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                          <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" rel="nofollow" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
                           {% elif request.user.id in user.fans_list %}
-                          <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                          <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" rel="nofollow" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
                       {% else %}
-                          <a class="follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+                          <a class="follow guoku-button new-guoku-button button-blue newest-button-blue" rel="nofollow" data-status="0" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
                       {% endif %}
                       </div>
                   </div>
@@ -224,7 +213,7 @@
                 {% for banner in middle_banners %}
                     <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}">
                         <a href="{{ banner.link }}" target="_blank">
-                            <div class="banner-image-wrapper" style="background-image: url('{{ banner.image_url }}')">
+                            <div class="banner-image-wrapper" style="background-image: url('{{ banner.image_url|resize:'750' }}')">
                                 <div class="banner-image-cell-scrim">
 
                                 </div>
