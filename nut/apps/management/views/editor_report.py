@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-from apps.core.models import  GKUser
+from apps.core.models import  GKUser, Selection_Entity
 from apps.core.extend.paginator import ExtentPaginator
 from django.utils.log import getLogger
 from django.views.generic import ListView
@@ -41,18 +41,24 @@ class EditorReportListView(UserPassesTestMixin,  ListView):
             self.start_date, self.end_date = ((datetime.now() - timedelta(days=7)).strftime(TIME_FORMAT)), (
                 datetime.now() + timedelta(days=1)).strftime(TIME_FORMAT)
         editors = GKUser.objects.editor()
+        start_datetime = datetime.strptime(self.start_date, '%Y-%m-%d %H:%M:%S')
+        end_datetime = datetime.strptime(self.end_date, '%Y-%m-%d %H:%M:%S')
         for editor in editors:
             editor.report = {}
-            entities = editor.entities.filter(created_time__range=(datetime.strptime(self.start_date, '%Y-%m-%d %H:%M:%S'),
-                                              datetime.strptime(self.end_date, '%Y-%m-%d %H:%M:%S')))
+            entities = editor.entities.filter(created_time__range=(start_datetime, end_datetime))
             editor.report['entity_count'] = entities.count()
             editor.report['entity_count_new'] = entities.filter(status=0).count()
             editor.report['entity_count_selection'] = entities.filter(status=1).count()
             editor.report['entity_count_freeze'] = entities.filter(status=-1).count()
 
             editor.report['entity_like_count'] = entities.aggregate(Count('likes')).get('likes__count') or 0
-            articles = editor.articles.filter(created_datetime__range=(datetime.strptime(self.start_date, '%Y-%m-%d %H:%M:%S'),
-                                              datetime.strptime(self.end_date, '%Y-%m-%d %H:%M:%S')))
+            articles = editor.articles.filter(created_datetime__range=(start_datetime, end_datetime))
+            selection_entities = Selection_Entity.objects.published().filter(pub_time__range=
+                                                                    (start_datetime, end_datetime),
+                                                                    entity__user=editor)
+            editor.report['selection_entity_count'] = selection_entities.count()    #已发布的精选商品按发布时间进行的筛选
+            editor.report['selection_entity_like_count'] = selection_entities.aggregate(Count('entity__likes')).\
+                                                               get('entity__likes__count') or 0
             editor.report['article_count'] = articles.count()
             editor.report['article_read_count'] = articles.aggregate(Sum('read_count')).get('read_count__sum', 0) or 0
             editor.report['article_dig_count'] = articles.aggregate(Count('digs')).get('digs__count') or 0

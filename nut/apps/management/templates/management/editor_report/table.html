@@ -31,6 +31,14 @@
                                 <a class="pull-right">{{ user.report.entity_like_count }}</a>
                             </li>
                             <li class="list-group-item">
+                                <b>{% trans '精选商品数(按发布时间' %}</b>
+                                <a class="pull-right">{{ user.report.selection_entity_count }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>{% trans '精选商品喜爱数' %}</b>
+                                <a class="pull-right">{{ user.report.selection_entity_like_count }}</a>
+                            </li>
+                            <li class="list-group-item">
                                 <b>{% trans '图文数' %}</b>
                                 <a class="pull-right">{{ user.report.article_count }}</a>
                             </li>
