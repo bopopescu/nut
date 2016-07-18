@@ -4,7 +4,7 @@ from apps.payment.views.web import AlipayNotifyView , AlipayReturnView, AlipayRe
 
 urlpatterns = patterns(
     'apps.payment.views.web',
-    url(r'^return/$', AlipayReturnView.as_view() , name="alipay_return"),
-    url(r'^notify/$', AlipayNotifyView.as_view() , name="alipay_notify"),
-    url(r'^refound_notify/$', AlipayRefoundNotify.as_view() , name="alipay_refund_notify"),
+    url(r'^alipay/return/$', AlipayReturnView.as_view() , name="alipay_return"),
+    url(r'^alipay/notify/$', AlipayNotifyView.as_view() , name="alipay_notify"),
+    url(r'^alipay/refound_notify/$', AlipayRefoundNotify.as_view() , name="alipay_refund_notify"),
 )

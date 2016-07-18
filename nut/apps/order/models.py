@@ -135,8 +135,8 @@ class Order(models.Model):
 
     objects = OrderManager()
 
-    def generate_alipay_payment_url(self):
-        return AliPayPayment(order=self).payment_url
+    def generate_alipay_payment_url(self, host='http://www.guoku.com'):
+        return AliPayPayment(order=self,host=host).payment_url
 
     @property
     def payment_subject(self):

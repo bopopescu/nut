@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 
 from apps.payment.basepay import BasePayment
 
-class alipay_settings:
+class alipay_settings(object):
     # ALIPAY_KEY = "ys06dn6fa1hrlgl37d3i8hbo14d6ody4"
     ALIPAY_KEY = "sij86zv335q7fb2k54iznoxg6s2z19g2"
     ALIPAY_INPUT_CHARSET = 'utf-8'
@@ -26,15 +26,15 @@ class alipay_settings:
 
     @property
     def ALIPAY_NOTIFY_URL(self):
-        return reverse_lazy('alipay_notify')
+        return reverse('alipay_notify')
 
     @property
     def ALIPAY_RETURN_URL(self):
-        return reverse_lazy('alipay_return')
+        return reverse('alipay_return')
 
     @property
     def ALIPAY_REFUND_NOTIFY_URL(self):
-        return reverse_lazy('alipay_refund_notify')
+        return reverse('alipay_refund_notify')
 
 class AliPayPayment(BasePayment):
     _GATEWAY = 'https://mapi.alipay.com/gateway.do?'
@@ -50,8 +50,10 @@ class AliPayPayment(BasePayment):
         # 获取配置文件
         params['partner']           = alipay_settings.ALIPAY_PARTNER
         params['seller_email']      = alipay_settings.ALIPAY_SELLER_EMAIL
-        params['return_url']        = alipay_settings.ALIPAY_RETURN_URL
-        params['notify_url']        = alipay_settings.ALIPAY_NOTIFY_URL
+
+        #urls
+        params['return_url']        = self._host + reverse('alipay_return')
+        params['notify_url']        = self._host + reverse('alipay_notify')
         params['_input_charset']    = alipay_settings.ALIPAY_INPUT_CHARSET
         params['show_url']          = alipay_settings.ALIPAY_SHOW_URL
 

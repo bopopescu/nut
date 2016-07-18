@@ -37,5 +37,12 @@ class OrderPaymentTest(DBTestBase):
 
     def test_tb_payment_url_generate(self):
         url = self.order.generate_alipay_payment_url()
-        self.assertContains(url, 'https://mapi.alipay.com/gateway.do?')
+        print(url)
+        self.assertEqual('https://mapi.alipay.com/gateway.do?' in url , True)
+
+    def test_tb_payment_notify_url_host(self):
+        url = self.order.generate_alipay_payment_url(host="http://test.guoku.com")
+        print(url)
+        self.assertEqual('https://mapi.alipay.com/gateway.do?' in url , True)
+        self.assertEqual('test.guoku.com' in url , True)
 
