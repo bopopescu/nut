@@ -23,6 +23,9 @@
 {#set body class here to disable body padding-top#}
 {% block body_class %} compact-body new-index-body{% endblock %}
 
+{% block header %}
+    {% include "web/partial/index_header_new.html" %}
+{% endblock %}
 
 {% block content %}
 
