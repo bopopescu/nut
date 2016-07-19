@@ -82,7 +82,7 @@ class OrderForUserTest(DBTestBase):
         self.assertEqual(self.the_user.cart_item_count , 0)
 
         #
-        self.assertEqual(self.the)
+        self.assertEqual(self.the_user.order_items.all()[1].volume , 2)
 
 
 
