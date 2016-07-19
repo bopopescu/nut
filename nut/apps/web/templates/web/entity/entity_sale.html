@@ -1,0 +1,60 @@
+{% load i18n staticfiles %}
+{% load common guoku %}
+<html>
+<ul>
+    {% for sku in entity.skus.all %}
+        <li>
+            {{ entity.title }} <br>
+            {{ sku.origin_price }} <br>
+            {{ sku.promo_price }} <br>
+            {{ sku.stock }} <br>
+            {{ sku.attrs }} <br>
+            {% if user.is_authenticated %}
+                <button data-sku="{{ sku.id }}" class="add-cart-btn"> add to cart</button>
+            {% else %}
+                <button> login</button>
+            {% endif %}
+        </li>
+    {% endfor %}
+
+</ul>
+<script language="javascript" src="{% static 'js/web/app/libs/jquery-1.11.1.min.js' %}"></script>
+<script language="javascript">
+    var AddCartApp = function(){
+        this.init();
+    }
+    AddCartApp.prototype = {
+        init: function(){
+            this.init_add_button();
+        },
+        init_add_button: function(){
+            $('.add-cart-btn').click(this.add_cart.bind(this));
+        },
+        add_cart: function(event){
+            var ele = event.currentTarget;
+            var skuid = $(ele).attr('data-sku');
+            var url = this.get_request_url()
+            $.when($.ajax(url,{
+                method: 'POST',
+                data: {'sku_id':skuid},
+            })).then(
+                    this.add_cart_success.bind(this),
+                    this.add_cart_fail.bind(this)
+            )
+{#            use post method #}
+        },
+
+        add_cart_success:function(data){
+            console.log('add cart success');
+        },
+        add_cart_fail:function(data){
+            console.log('add cart fail');
+        },
+        get_request_url: function(){
+            return '/cart/add/'
+        }
+
+    }
+
+</script>
+</html>

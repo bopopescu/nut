@@ -21,6 +21,7 @@ class SKU(models.Model):
 
     object =  SKUManager()
 
+
     @property
     def attrs_json_str(self):
         return json.dumps(self.attrs)

@@ -11,12 +11,16 @@ class CartItemQueryset(models.query.QuerySet):
     pass
 
 class CartItemManager(models.Manager):
+
     def cart_item_count_by_user(self, user):
         return self.get_queryset().filter(user=user).count()
 
     def add_sku_to_user_cart(self, user, sku, volume=1):
+        if self.cart_item_count_by_user(user) > 1000 :
+            raise CartException('too many item in cart ')
+
         if sku.status == 0 or sku.stock <= 0:
-            raise CartException('sku can not be added to cart')
+            raise CartException('sku out of stock , can not be added to cart')
 
         if sku.stock < volume:
             raise CartException('sku stock less than required')

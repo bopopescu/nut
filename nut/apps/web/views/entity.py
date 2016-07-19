@@ -41,8 +41,9 @@ class EntityDetailMixin(object):
         _entity_hash = self.kwargs.get('entity_hash', None)
         if _entity_hash is None:
             raise Exception('can not find hash')
-        _entity = Entity.objects.get(entity_hash=_entity_hash,
-                                     status__gte=Entity.freeze)
+        _entity = get_object_or_404(Entity, entity_hash=_entity_hash,status__gte=Entity.freeze)
+        # _entity = Entity.objects.get(entity_hash=_entity_hash,
+        #                              status__gte=Entity.freeze)
         return _entity
 
 class EntityLikersView(EntityDetailMixin,ListView):
@@ -58,6 +59,14 @@ class EntityLikersView(EntityDetailMixin,ListView):
         context = super(EntityLikersView, self).get_context_data()
         context['entity'] = self.get_object()
         context = add_side_bar_context_data(context)
+        return context
+
+
+class EntitySaleView(EntityDetailMixin, DetailView):
+    context_object_name = 'entity'
+    template_name = 'web/entity/entity_sale.html'
+    def get_context_data(self, **kwargs):
+        context = super(EntitySaleView, self).get_context_data(**kwargs)
         return context
 
 
