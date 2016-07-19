@@ -1,0 +1,34 @@
+{% load i18n %}
+{% load static %}
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+
+                        <th>{% trans 'name' %}
+                        <th>{% trans 'price' %}</th>
+                        <th>{% trans 'skus' %}</th>
+                        <th>
+                            <a href="{% url 'management_tag_list' %}?sort_by=topArticleTag">
+                            {% trans '#' %}{%  if sort_by == 'topArticleTag' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in object_list %}
+                        <tr>
+                            <td>{{ entity.title }}</td>
+                            <td>{{ entity.price }}</td>
+                            <td>{% for sku in entity.sku_list %} {{ sku.attrs_display }}<br>{% endfor %}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary" href="" target="_blank">{% trans '管理' %}</a>
+
+                                </div>
+                            </td>
+
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
