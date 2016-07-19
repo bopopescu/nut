@@ -1,0 +1,50 @@
+{% extends 'management/users/seller_management_base.html' %}
+{% load i18n %}
+{% load staticfiles i18n %}
+
+{% block content %}
+    <section class="content-header">
+        <h1>
+            {{ entity.title }}
+{#            <small>{{ entity }}</small>#}
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+            <li><a href="#">{% trans 'entity' %}</a></li>
+            <li><a href="#">{% trans 'skus' %}</a></li>
+        </ol>
+
+
+    <section class="content">
+        <div class="row">
+             <div class="col-xs-12">
+                <div class="box box-default">
+                    <div class="box-header" id="images">
+                        {% include "management/users/partial/entity_images.html" with images=entity.images %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-default">
+                    {% include 'management/users/partial/skus_list.html' %}
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+
+
+    </section>
+
+
+
+{% endblock %}
+
+
+{% block user_script %}
+{% endblock %}

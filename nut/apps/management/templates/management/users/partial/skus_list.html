@@ -4,7 +4,7 @@
     <thead>
         <tr>
             <td>
-                 <a class="btn btn-success" href="{% url 'management_entity_sku_create' entity.id %}">添加</a>
+                 <a class="btn btn-success" href="{% url 'add_sku_management' entity.id %}">添加</a>
             </td>
         </tr>
         <tr>
@@ -41,8 +41,8 @@
             <td>{{ sku.get_status_display }}</td>
             <td>
                 <div class="btn-group">
-                    <a class="btn btn-warning" href="{% url 'management_entity_sku_update' entity.pk sku.pk %}" >编辑SKU属性</a>
-                    <a class="btn btn-danger" href="{% url 'management_entity_sku_delete' entity.pk sku.pk %}">删除SKU</a>
+                    <a class="btn btn-warning" href="{% url 'sku_update_management' entity.pk sku.pk %}" >编辑SKU属性</a>
+                    <a class="btn btn-danger" href="{% url 'sku_delete_management' entity.pk sku.pk %}">删除SKU</a>
                 </div>
             </td>
         </tr>

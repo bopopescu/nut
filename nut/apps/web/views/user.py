@@ -9,6 +9,10 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext as _
+from apps.management.mixins.auth import EditorRequiredMixin
+from django.views.generic import ListView,DeleteView, CreateView, UpdateView,View
+from apps.management.forms.sku import SKUForm
+from apps.core.models import SKU
 
 from apps.core.tasks import send_activation_mail
 from apps.web.forms.user import UserSettingsForm, UserChangePasswordForm
@@ -793,6 +797,64 @@ class SellerManagementAddEntity(Add_local):
             return HttpResponseRedirect(reverse('web_seller_management'))
         return render(request, self.template_name, {'forms': form})
 
+class SKUListView(EditorRequiredMixin,ListView):
+    template_name = 'management/users/sku_list.html'
+    def get_queryset(self):
+        entity = self.get_entity()
+        return entity.skus.all()
 
+    def get_entity(self):
+        return get_object_or_404(Entity, id=self.kwargs.get('entity_id', None))
+
+    def get_context_data(self, **kwargs):
+        context = super(SKUListView, self).get_context_data(**kwargs)
+        context['entity']= self.get_entity()
+        return context
+
+
+
+class SKUCreateView(EditorRequiredMixin, CreateView):
+    model = SKU
+    form_class = SKUForm
+    template_name = 'management/users/add_sku.html'
+    def get_success_url(self):
+        return reverse('sku_list_management', args=[self.get_entity().id])
+
+    def get_initial(self):
+        entity = self.get_entity()
+        return {
+            'entity':entity.id
+        }
+
+    def get_entity(self):
+        entity_id =  self.kwargs.get('entity_id')
+        entity = get_object_or_404(Entity, id=entity_id)
+        return entity
+
+class SKUUpdateView(EditorRequiredMixin,UpdateView):
+    model = SKU
+    form_class = SKUForm
+    template_name = 'management/user/update_sku.html'
+
+    def get_entity(self):
+        entity_id =  self.kwargs.get('entity_id')
+        entity = get_object_or_404(Entity, id=entity_id)
+        return entity
+
+    def get_success_url(self):
+        return reverse('sku_list_management', args=[self.get_entity().id])
+
+
+class SKUDeleteView(EditorRequiredMixin, DeleteView):
+    model = SKU
+    template_name = 'management/user/delete_sku.html'
+
+    def get_entity(self):
+        entity_id =  self.kwargs.get('entity_id')
+        entity = get_object_or_404(Entity, id=entity_id)
+        return entity
+
+    def get_success_url(self):
+        return reverse('sku_list_management', args=[self.get_entity().id])
 
 __author__ = 'edison'

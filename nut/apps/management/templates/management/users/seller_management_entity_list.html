@@ -4,7 +4,7 @@
                 <thead>
                     <tr>
 
-                        <th>{% trans 'name' %}
+                        <th>{% trans 'name' %}</th>
                         <th>{% trans 'price' %}</th>
                         <th>{% trans 'skus' %}</th>
                         <th>
@@ -22,8 +22,7 @@
                             <td>{% for sku in entity.sku_list %} {{ sku.attrs_display }}<br>{% endfor %}</td>
                             <td>
                                 <div class="btn-group">
-                                    <a class="btn btn-primary" href="" target="_blank">{% trans '管理' %}</a>
-
+                                    <a class="btn btn-primary" href="{% url 'sku_list_management' entity.id %}" target="_blank">{% trans '管理' %}</a>
                                 </div>
                             </td>
 
