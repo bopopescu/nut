@@ -3589,6 +3589,9 @@ body.new-index-body #selection_article_list .xs-selection-article-item .more-art
 #guoku_main_nav .top-search-wrapper .search-form .fa.fa-search-control {
   top: 11px;
 }
+.new-index-navbar .navbar-brand {
+  display: none;
+}
 #guoku_footer {
   min-height: 200px;
   margin-top: 40px;
@@ -5545,6 +5548,12 @@ body.new-index-body #selection_article_list .xs-selection-article-item .more-art
   #guoku_main_nav {
     background-color: #fff;
   }
+  #guoku_main_nav .top-search-wrapper {
+    display: none;
+  }
+  #guoku_main_nav .navbar-brand {
+    display: block;
+  }
   #guoku_main_nav .navbar-form {
     padding: 0px 0px;
   }
@@ -5565,6 +5574,9 @@ body.new-index-body #selection_article_list .xs-selection-article-item .more-art
   #guoku_main_nav .main-list li a:hover,
   #guoku_main_nav .main-list li a:focus {
     color: #212121;
+  }
+  .new-index-navbar .navbar-brand {
+    display: block;
   }
   #guoku_footer .footer-line,
   #guoku_footer .qr-container,
