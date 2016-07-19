@@ -3560,6 +3560,35 @@ body.new-index-body #selection_article_list .xs-selection-article-item .more-art
   right: 10px;
   top: 7px;
 }
+#guoku_main_nav .top-search-wrapper {
+  width: 100%;
+  height: auto;
+  padding: 20px 0;
+  text-align: center;
+}
+#guoku_main_nav .top-search-wrapper .search-form {
+  display: inline-block;
+  padding-left: 24px;
+}
+#guoku_main_nav .top-search-wrapper .search-form .top-search-input {
+  width: 340px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #f4f4f4;
+  padding: 0 4px;
+  font-size: 14px;
+  color: #757575;
+  border: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+#guoku_main_nav .top-search-wrapper .search-form .fa.fa-search-control {
+  top: 11px;
+}
 #guoku_footer {
   min-height: 200px;
   margin-top: 40px;

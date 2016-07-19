@@ -5,8 +5,16 @@
 <header id="guoku_main_nav" class="navbar navbar-fixed-top" role="navigation">
 
        {% include 'web/partial/top_ad.html' %}
-
         <div class="container">
+            <div class="top-search-wrapper">
+                <img src="{% static 'images/top_search_logo.png' %}" alt="{% trans 'guoku' %}" title="{% trans 'guoku' %}" style="width:64px;height:40px;">
+                 <form class="navbar-form search-form" action="{% url 'web_search' %}" method="get" role="form">
+                    <div class="input-group search">
+                        <input class="form-control top-search-input" name="q" type="search" placeholder="&nbsp;{% trans 'Search' %}" value="{{ keyword }}" >
+                        <i class="fa fa-search fa-search-control"></i>
+                    </div>
+                </form>
+            </div>
             <div class="nav-header">
                 <button  id="guoku-nav-trigger" class="navbar-toggle collapsed" data-target=".collapse" data-toggle="collapse" type="button">
                     <span class="sr-only">导航条</span>
