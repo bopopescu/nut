@@ -107,6 +107,7 @@ urlpatterns += patterns(
     url(r'^store/', include('apps.shop.urls.web')),
     url(r'^payment/', include('apps.payment.urls.web')),
     url(r'^cart/', include('apps.order.urls.cart_web')),
+    url(r'^orders/', include('apps.order.urls.order_web')),
 
 
 

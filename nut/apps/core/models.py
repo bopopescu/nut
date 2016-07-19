@@ -540,7 +540,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                         log.error('create_order item error :%s'%e)
                         if order_item:
                             order_item.delete()
-                        raise OrderException('error when create order item')
+                        raise OrderException('error when create order item: %s' %e)
                 self.clear_cart()
                 return new_order
 
@@ -550,7 +550,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                 log.error(e)
                 if new_order:
                     new_order.delete()
-                # raise OrderException('error create order')
+                raise OrderException('error create order:  %s: ' %e)
                 return None
 
     def clear_cart(self):
