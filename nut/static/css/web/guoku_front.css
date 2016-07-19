@@ -5558,6 +5558,9 @@ body.new-index-body #selection_article_list .xs-selection-article-item .more-art
     padding: 0px 0px;
     display: none;
   }
+  #guoku_main_nav .navbar-form.search-form {
+    display: block;
+  }
   #guoku_main_nav .navbar-form input {
     padding-left: 10px;
   }

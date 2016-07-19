@@ -1367,6 +1367,9 @@ a.new-black-link:hover {
     padding: 0px 0px;
     display: none;
   }
+  #guoku_main_nav .navbar-form.search-form {
+    display: block;
+  }
   #guoku_main_nav .navbar-form input {
     padding-left: 10px;
   }
