@@ -18,4 +18,4 @@ class UserOrderView(LoginRequiredMixin, DetailView):
 
     def get_object(self, queryset=None):
         pk = self.kwargs.get('pk', None)
-        return  get_object_or_404(Order, user=self.request.user, pk=pk)
+        return  get_object_or_404(Order, customer=self.request.user, pk=pk)

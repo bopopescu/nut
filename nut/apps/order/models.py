@@ -59,7 +59,7 @@ class CartItem(models.Model):
         )
         if created:
             order_item.volume = self.volume
-
+            order_item.save()
         return  order_item
 
 

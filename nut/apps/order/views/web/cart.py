@@ -46,7 +46,7 @@ class UserCheckoutView(LoginRequiredMixin,TemplateView):
         context =  self.get_context_data()
         order = context.get('order', None)
         if order:
-            return redirect('')
+            return redirect('web_user_order', pk=order.id)
         else:
             context['message'] = '不明错误'
         return super(UserCheckoutView,self).get(*args, **kwargs)
