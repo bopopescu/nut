@@ -5556,6 +5556,7 @@ body.new-index-body #selection_article_list .xs-selection-article-item .more-art
   }
   #guoku_main_nav .navbar-form {
     padding: 0px 0px;
+    display: none;
   }
   #guoku_main_nav .navbar-form input {
     padding-left: 10px;
