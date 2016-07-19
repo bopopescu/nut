@@ -3536,7 +3536,8 @@ body.new-index-body #selection_article_list .xs-selection-article-item .more-art
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   line-height: 28px;
-  font-size: 16px;
+  font-size: 14px;
+  color: #757575;
   height: 28px;
   background: none;
   padding: 0px 8px;
@@ -3546,13 +3547,13 @@ body.new-index-body #selection_article_list .xs-selection-article-item .more-art
   line-height: 32px;
   padding: 0 10px 0 12px;
   border: none;
-  background-color: #F0F0F0;
+  background-color: #f4f4f4;
 }
 #guoku_main_nav .search .fa {
   position: absolute;
   right: 5px;
   top: 5px;
-  color: #9D9E9F;
+  color: #757575;
 }
 #guoku_main_nav .search .fa.fa-search-control {
   z-index: 1000;
