@@ -1,7 +1,7 @@
 from apps.core.views import BaseFormView
 from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect, \
     HttpResponse
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, render
 from django.template import RequestContext
 from django.core.urlresolvers import reverse, reverse_lazy
 # from django.core.paginator import Paginator, EmptyPage, InvalidPage
@@ -243,22 +243,18 @@ def create(request, template='management/entities/new.html'):
         context_instance=RequestContext(request)
     )
 
-@login_required
-@staff_and_editor
-def add_local(request):
-        template = 'management/entities/add.html'
-        if request.method == 'POST':
-            form = AddEntityForm(request, data=request.POST, files=request.FILES)
+class Add_local(View):
+        template_name = 'management/entities/add.html'
+        form_class = AddEntityForm
+        def get(self, request, *args, **kwargs):
+            form = self.form_class(request)
+            return render(request, self.template_name, {'forms': form})
+        def post(self, request, *args, **kwargs):
+            form = self.form_class(request, data=request.POST, files=request.FILES)
             if form.is_valid():
                 form.save()
-            return HttpResponseRedirect(reverse('management_entity_list'))
-        form = AddEntityForm(request)
-        return render_to_response(
-            template,
-            {'forms': form,
-             },
-            context_instance=RequestContext(request),
-        )
+                return HttpResponseRedirect(reverse('management_entity_list'))
+            return render(request, self.template_name, {'forms': form})
 
 
 # TODO:

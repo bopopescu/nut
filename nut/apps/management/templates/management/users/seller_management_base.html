@@ -1,0 +1,189 @@
+{% load staticfiles i18n %}
+{% load guoku %}
+{% load notifications_tags %}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" maximum-scale=1, user-scalable=no">
+
+    <title>{% block  title %}管理后台{% endblock %}</title>
+
+{#    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">#}
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+{#    <link href="{% static 'thirdparty/animate/animate.min.css' %}" rel="stylesheet">#}
+    <link href="{% static 'thirdparty/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+    <link href="{% static 'css/management/AdminLTE.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/management/skins/_all-skins.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/management/switchery.min.css' %}">
+    <link href="{% static 'css/management/bootstrap-datetimepicker.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/management/basic_management.css' %}" rel="stylesheet">
+
+    {% block css %}{% endblock %}
+{#    <script src="{% static 'js/management/restful/sentinel.js' %}" id="hero" ></script>#}
+{#    <script data-main="{% static 'js/management/restful/app.js' %}" src="{% static 'js/management/restful/require.js' %}" ></script>#}
+
+
+</head>
+<body class="guoku-management hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    {% block navbar %}
+        <header class="main-header">
+            <a href="#" class="logo">
+                <span class="logo-lg"><b>G</b>uoku</span>
+            </a>
+            <nav class="navbar navbar-static-top" role="navigation">
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    {% notifications_unread as unread_count %}
+                     <ul class="nav navbar-nav">
+                         <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell-o"></i>
+                                <span class="label label-warning">{{ unread_count }}</span>
+                            </a>
+                             <ul class="dropdown-menu" id="notify">
+                                 <li class="header">You have {{ unread_count }} notifications</li>
+                                 <li>
+                                     <ul class="menu">
+                                         <li>
+                                            <a href="#">
+                                                <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                            </a>
+                                         </li>
+                                     </ul>
+                                 </li>
+                             </ul>
+                         </li>
+
+                         <li class="dropdown user user-menu">
+                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="{{ request.user.profile.avatar_url|resize:'50' }}" class="user-image" alt="{{ request.user.profile.nick }}">
+                                <span class="hidden-xs">{{ request.user.profile.nick }}</span>
+                             </a>
+                             <ul class="dropdown-menu">
+                                 <li class="user-header">
+                                     <img src="{{ request.user.profile.avatar_url|resize:'180' }}" class="img-circle" alt="User Image">
+                                     <p>
+                                        {{ request.user.profile.nick }}
+                                        <small>{{ request.user.profile.bio }}</small>
+                                     </p>
+                                 </li>
+
+                                 <li class="user-body">
+                                    <div class="col-xs-6 text-center">
+                                        <a href="#">Followers</a>
+                                    </div>
+                                    <div class="col-xs-6 text-center">
+                                        <a href="#">Friends</a>
+                                    </div>
+                                </li>
+                                                   <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="{% url 'management_user_edit' request.user.pk %}" class="btn btn-default btn-flat">Profile</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                    </div>
+                                </li>
+                             </ul>
+                         </li>
+
+{#                         <li>#}
+{#                             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>#}
+{#                         </li>#}
+                     </ul>
+                </div>
+            </nav>
+        </header>
+    {% endblock %}
+
+{% block main %}
+{#    <div class="wrapper row-offcanvas row-offcanvas-left">#}
+        <aside class="main-sidebar">
+            <section class="sidebar">
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="{{ request.user.profile.avatar_url }}" class="img-circle" alt="User Image" />
+                    </div>
+                    <div class="pull-left info">
+                        <p>Hello, {{ request.user.profile.nick }}</p>
+                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    </div>
+                </div>
+{#                <form action="{% url 'management_search' %}" method="get" class="sidebar-form">#}
+{#                        <div class="input-group">#}
+{#                            <input type="text" name="q" class="form-control" placeholder="{% trans 'search' %}..."/>#}
+{#                            <span class="input-group-btn">#}
+{#                                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>#}
+{#                            </span>#}
+{#                        </div>#}
+{#                </form>#}
+
+                <ul class="sidebar-menu">
+                    <li class="header">{% trans '主导航栏' %}</li>
+
+
+                    {% url 'web_seller_management' as web_seller_management %}
+                    <li {% if web_seller_management in request.path %}class="active"{% endif %}>
+                        <a href="{{ web_seller_management }}">
+                            <i class="fa fa-tag"></i>&nbsp;<span>{% trans 'entity' %}</span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </aside>
+
+        <div class="content-wrapper">
+             {% block content %}{% endblock %}
+        </div>
+{#    </div>#}
+{#    </div>#}
+{% endblock %}
+{% block footer %}
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 4.1
+        </div>
+        <strong>Copyright &copy; 2011-2015 <a href="http://www.guoku.com">guoku</a>.</strong> All rights reserved.
+    </footer>
+{% endblock %}
+
+</div>
+
+</body>
+{% block manage_script %}
+    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script charset="UTF-8" src="{% static 'js/web/bootbox.js' %}" type="text/javascript"></script>
+{#    <script src="{% static 'thirdparty/chart/chart.min.js' %}"></script>#}
+    <script src="{% static 'js/management/main.js' %}"></script>
+    <script charset="UTF-8" src="{% static 'js/management/bootstrap-datetimepicker.min.js' %}" type="text/javascript"></script>
+    <script charset="UTF-8" src="{% static 'js/management/locales/bootstrap-datetimepicker.zh-CN.js' %}"></script>
+
+    <script src="{% static 'js/management/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'js/management/plugins/datatables/dataTables.bootstrap.min.js' %}"></script>
+
+    <script src="{% static 'js/underscore-min.js' %}" type="application/javascript"></script>
+    <script src="{% static 'js/backbone-min.js' %}" type="application/javascript"></script>
+{#    <script src="{% static 'js/management/category.js' %}"></script>#}
+{#    {% block js %}{% endblock %}#}
+<script type="text/javascript">
+    $(".form_datetime").datetimepicker({
+        language: 'zh-CN',
+        format: "yyyy-mm-dd hh:ii",
+        autoclose: true,
+        pickerPosition: "bottom-left"
+    });
+</script>
+{% endblock %}
+{% block user_script %}
+
+{% endblock %}
+</html>
