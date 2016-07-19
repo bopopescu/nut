@@ -41,7 +41,7 @@ class AliPayPayment(BasePayment):
 
     @property
     def payment_url(self):
-        pprint(self.get_request_param())
+        # pprint(self.get_request_param())
         return self._GATEWAY + urlencode(self.get_request_param())
 
     def get_request_param(self):
