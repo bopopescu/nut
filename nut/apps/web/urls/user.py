@@ -1,4 +1,5 @@
-from apps.management.views.entities import Add_local
+from apps.management.views.entities import Add_local, EntitySKUCreateView
+from apps.web.views.seller_management import SellerManagement, SellerManagementAddEntity
 from django.conf.urls import url, patterns
 
 from apps.web.views.user import UserIndex,\
@@ -8,7 +9,7 @@ from apps.web.views.user import UserIndex,\
                                 UserPublishedArticleView,UserPublishedSelectionArticleView,\
                                 UserLikeArticleView,\
                                 UserSendVerifyMail,\
-                                UserEntitiesView, SellerManagement, SellerManagementAddEntity
+                                UserEntitiesView
 
 from apps.web.views.user import ChangePasswdFormView
 
@@ -19,9 +20,10 @@ urlpatterns = patterns(
     url(r'^bind/sns/$', 'bind_sns', name='web_user_bind_sns'),
     url(r'^upload/avatar/$', 'upload_avatar', name='web_user_upload_avatar'),
     url(r'^sendverifymail/$', UserSendVerifyMail.as_view() , name='web_user_mail_verify'),
-    url(r'^seller_management/$', SellerManagement.as_view() , name='web_seller_management'),
-    url(r'^seller_management/entity_list/$', SellerManagement.as_view()),
-    url(r'^seller_management/add_entity/$', SellerManagementAddEntity.as_view() , name='web_seller_management_entity_add'),
+    # url(r'^seller_management/$', SellerManagement.as_view() , name='web_seller_management'),
+    # url(r'^seller_management/entity_list/$', SellerManagement.as_view()),
+    # url(r'^seller_management/add_entity/$', SellerManagementAddEntity.as_view() , name='web_seller_management_entity_add'),
+    # url(r'^seller_management/(?P<entity_id>\d+)/new/$', EntitySKUCreateView.as_view(), name='management_entity_sku_create'),
 
 
     # tmpl user page
