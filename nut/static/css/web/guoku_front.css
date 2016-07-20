@@ -3240,9 +3240,9 @@ body.new-index-body #selection_article_list .xs-selection-article-item .more-art
   background-color: #fff;
   opacity: 1;
   border-bottom: 0;
-  -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 1px 0 0 #e6e6e6;
+  -moz-box-shadow: 0 1px 0 0 #e6e6e6;
+  box-shadow: 0 1px 0 0 #e6e6e6;
 }
 #guoku_main_nav.hidden-header {
   -webkit-transition: all 0.4s ease-in;
@@ -3275,7 +3275,9 @@ body.new-index-body #selection_article_list .xs-selection-article-item .more-art
   font-size: 16px;
 }
 #guoku_main_nav .main-list li.active {
-  border-bottom: 2px solid #212121;
+  -webkit-box-shadow: 0 1px 0 0 #212121;
+  -moz-box-shadow: 0 1px 0 0 #212121;
+  box-shadow: 0 1px 0 0 #212121;
 }
 #guoku_main_nav .main-list li.active a {
   color: #212121;
