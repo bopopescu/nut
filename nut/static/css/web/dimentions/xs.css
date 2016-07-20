@@ -1612,6 +1612,9 @@ a.new-black-link:hover {
   }
 }
 @media (min-width: 768px) {
+  .navbar-collapse.collapse.search-collapse {
+    display: none!important;
+  }
   #settings .edit_info .input-title {
     max-width: 80px;
   }
