@@ -1374,11 +1374,11 @@ a.new-black-link:hover {
     padding-left: 10px;
   }
   #guoku_main_nav .navbar-toggle .icon-bar {
-    background-color: #757575;
+    background-color: #212121;
   }
   #guoku_main_nav .navbar-toggle .fa-search {
     position: absolute;
-    color: #757575;
+    color: #212121;
   }
   #guoku_main_nav .search .search-input {
     color: #F8F8F8;
