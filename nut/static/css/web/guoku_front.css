@@ -3589,6 +3589,27 @@ body.new-index-body #selection_article_list .xs-selection-article-item .more-art
 #guoku_main_nav .top-search-wrapper .search-form .fa.fa-search-control {
   top: 11px;
 }
+#guoku_main_nav .search-collapse {
+  width: 100%;
+  margin: 0 auto;
+}
+#guoku_main_nav .search-collapse .search-form {
+  margin: 8px auto;
+}
+#guoku_main_nav .search-collapse .search-form .input-group.search {
+  width: 100%;
+}
+#guoku_main_nav .search-collapse .search-form .input-group.search .top-search-input {
+  width: 100%;
+  background-color: #f4f4f4;
+  padding: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
 .new-index-navbar .navbar-brand {
   display: none;
 }
