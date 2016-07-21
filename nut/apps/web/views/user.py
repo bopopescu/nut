@@ -440,11 +440,23 @@ class UserEntitiesView(UserDetailBase):
     paginate_by = 36
     context_object_name = 'entities'
     pk_url_kwarg = 'user_id'
-    template_name = 'web/user/authorized_seller_entities.html'
+    # template_name = 'web/user/authorized_seller_entities.html'
+
+    def setup_template_name(self):
+        if self.get_showing_user().is_authorized_seller:
+            return 'web/user/authorized_seller_entities.html'
+        else:
+            return 'web/user/user_entity.html'
+
+    def get(self, *args, **kwargs):
+         self.template_name = self.setup_template_name()
+
+         return super(UserEntitiesView, self).get(*args, **kwargs)
+
 
     def get_queryset(self):
-        _seller = self.get_showing_user()
-        _user_entities = Entity.objects.get_user_added_entities(_seller)
+        _user = self.get_showing_user()
+        _user_entities = Entity.objects.get_user_added_entities(_user)
         return _user_entities
 
     def get_user_entity_likes(self, entities):
@@ -612,6 +624,7 @@ class UserIndex(UserPageMixin, DetailView):
         # get current seller's the first eight published selection entities
 
         _entity_list = Entity.objects.get_user_added_entities(current_user)[:8]
+        _add_entity_list = Entity.objects.get_user_added_entities(current_user)[:12]
 
         context_data['author_articles'] = self.get_author_articles(current_user)
 
@@ -635,6 +648,7 @@ class UserIndex(UserPageMixin, DetailView):
 
         context_data['articles'] = _article_list
         context_data['seller_entities'] = _entity_list
+        context_data['add_entities'] = _add_entity_list
         context_data['user_entity_likes']  = self.get_user_entity_likes(_entity_list)
 
         context_data['followings'] = current_user.followings.filter(followee__is_active__gte=0)[:7]
