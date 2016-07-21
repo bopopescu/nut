@@ -26,6 +26,9 @@ class BaseModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    def close(self):
+        db.session.remove()
+
     # def to_dict(self):
     #     return {c.name: "%s" % getattr(self, c.name) for c in self.__table__.columns}
 

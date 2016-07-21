@@ -34,17 +34,7 @@ def _record_search(gk_user, key_words, ip_address, user_agent):
             }
         )
     url = "{0}/keywords/".format(record_host)
-    # log.error(url)
     r = requests.post(url, data=payload)
-    # if not key_words:
-    #     return
-    # footprint = Search_History(user=gk_user,
-    #                            key_words=key_words,
-    #                            search_time=datetime.now(),
-    #                            ip=ip_address,
-    #                            agent=user_agent)
-    # footprint.save()
-    # log.error(r.text)
     if r.status_code == 201:
         return r.json()
     r.close()

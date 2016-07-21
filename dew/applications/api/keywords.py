@@ -54,6 +54,7 @@ class SearchHistoryView(Resource):
         sh = SearchHistory(user_id=args['user_id'], keyword=args['keyword'],
                            ip=args['ip'], user_agent=args['user_agent'])
         sh.save()
+        sh.close()
         return search_history_schema.dump(sh).data, 201
 
 
