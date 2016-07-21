@@ -1,6 +1,6 @@
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.models import Selection_Entity, Entity_Like, User_Follow, Note, \
-    Note_Comment, Note_Poke, Article_Dig
+    Note_Comment, Note_Poke, Article_Dig, Article_Remark
 # from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
 from apps.v4.views import APIJsonView
@@ -21,6 +21,7 @@ class MessageView(APIJsonView):
             actor_object_id__in=remove_user_list)
 
         da = Article_Dig.objects.filter(user=self.user).values_list('article_id', flat=True)
+        ra = Article_Remark.objects.filter(user=self.user).values_list('article_id', flat=True)
         res = []
         for row in _messages[:self.count]:
             if isinstance(row.action_object, User_Follow):
@@ -92,6 +93,17 @@ class MessageView(APIJsonView):
                     'content': {
                         'digger': row.actor.v3_toDict(),
                         'article': row.target.v4_toDict(articles_list=da),
+                    }
+                }
+                res.append(_context)
+
+            elif isinstance(row.action_object, Article_Remark):
+                _context = {
+                    'type': 'remark_article_message',
+                    'created_time': time.mktime(row.timestamp.timetuple()),
+                    'content': {
+                        'remark_user': row.actor.v3_toDict(),
+                        'article': row.target.v4_toDict(articles_list=ra),
                     }
                 }
                 res.append(_context)

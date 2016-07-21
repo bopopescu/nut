@@ -3,6 +3,12 @@ from settings import *
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+STATICFILES_DIRS = (
+    os.path.join(os.getcwd(), 'static'),
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
 
 # STATIC_URL = 'http://static.guoku.com/static/v4/d6d8bc3600a44816fbf1ebcfacd2de45c32cc359/'
 
@@ -12,12 +18,14 @@ TIME_ZONE = 'Asia/Shanghai'
 
 USE_TZ = False
 
-DATABASES = TESTING_DATABASE
+DATABASES = PRODUCTION_DATABASES
 
 # CELERY #################################
 BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-CELERYD_CONCURRENCY = 2
+CELERYD_CONCURRENCY = 1
+CELERY_ALWAYS_EAGER = True
+
 CELERY_DISABLE_RATE_LIMITS = False
 #celery end  #############################
 import djcelery

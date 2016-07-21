@@ -1,7 +1,158 @@
 
+
+1. add note to tag entity list  
+
+=======================
+# merged to master 2016 6-27
+=======================
+
+
+3. mng  tag page search function 
+2. fix message page refresh bug 
+1. add article enter selection time  for solr index 
+
+=======================
+# merged to master 2016 6-25
+=======================
+
+3. tag page raw list link , show buy link
+2. tag page add raw list link , only for staff user 
+1. fix web user add entity bug 
+=======================
+# merged to master 2016 6-24
+=======================
+
+6.  other add new index field for article enter selection time 
+5.  mng - article list seperate rss author
+          article author list sort bug fix 
+4.  mng - tag mng , publish , raw data page 
+3.  web - notification  loading pic 
+2.  web - article  detail page  update, limit new remark rate , in view. 
+1.  web - 发现页－推荐用户 - 滚动 - LQ
+
+action: 
+
+ALTER TABLE `core`.`tag_tags` 
+ADD COLUMN `isPubishedEntityTag` TINYINT(1) NOT NULL DEFAULT 0;
+
+ALTER TABLE `core`.`tag_tags` ADD COLUMN `description` varchar(1024) COLLATE utf8mb4_unicode_ci DEFAULT NULL;
+=======================
+# merged to master 2016 6-16
+=======================
+
+5. mng - like entity report 
+4. web - new article detail page 
+3. web - top menu notification 
+2. web - in removed entity's detail page , add search button
+1. web - sub category sort buy like (bug fix )
+
+action : 
+  ALTER TABLE `core`.`shop_shop` 
+ADD COLUMN `tb_shop_id` VARCHAR(64) NULL DEFAULT NULL AFTER `shop_type`;
+
+
+=======================
+# merged to master 2016 6-2
+=======================
+
+4.  good store update 
+3.  broadcast  push management , test send
+2.  jpush notification , add android push 
+1.  add a Entity property :  is_pubed_selection 
+
+Action : 
+    1. add solr/haystack Entity index field (property) 
+         1.  is_pubed_selection
+         2.  enter_selection_time  
+       
+    2. need sync db 
+        add DailyPush model    
+        
+    3. fix field encoding , if needed 
+        ALTER TABLE `core`.`notifications_dailypush` 
+CHANGE COLUMN `push_text` `push_text` VARCHAR(64) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ;
+     
+####  for  entity buylink update use 
+
+ALTER TABLE `core`.`core_buy_link` 
+ADD COLUMN `last_update` DATETIME NOT NULL DEFAULT '2013-12-01T00:00:00.000' AFTER `foreign_price`;
+
+=======================
+# merged to master 2016 5-26
+=======================
+
+
+8.  web - brand page update --along
+7.  web - user add entity tmall price fix --along 
+6.  web - fix event page bug  -- lq
+5.  mng - selection entity batch new/freeze/remove --lq
+4.  api - app banner api switch    -- anchen 
+3.  web  -good-store optimize  -- lq
+2.  web  -update recommend user discover page display count to 10 -an 
+1.  other - price qr code update  -- anchen
+
+
+
+git =======================
+# merged to master 2016 5-23
+=======================
+
+5. update google analysis code 
+4. web -pop up store top banner -- lq
+3. api - article.digest filter blank characters  
+2. other - price tag html 
+1. mng - editor can  access brand list page and manage brand entity
+
+=======================
+# merged to master 2016 5-19
+=======================
+
+8. web - new article feed for editor selection article 
+7. web - good store page update  -- lq , ac
+6. web - entity detail , sold out entity add "去店铺" button
+5. web - recommended user name and all recommended user  page    -- lq
+4. mng - tmall price    -- along 
+3. mng - add '积极用户' manage    --  along
+2. backend - limit guoku generated email address , verify mail and change pass mail sending
+1. web - hide baichuan title when load fail 
+
+=======================
+# merged to master 2016 5-12
+=======================
+
+5.  search result highlight -- jiaxin 
+4.  site banner management (api will update at next monday, MNG first )  -- shuailong
+3.  wechat robot  -- anchen 
+2.  article page can not be zoom by user, mobile (bug fix) -- anchen
+1.  limit manage entity create editor choice to 8 and self  -- anchen
+
+#action need sync db 
+    add  RobotDic model for wechat robot 
+    
+    
+ may have been some text problem-   
+after  syncdb on test server , on mng page 
+following error appears 
+
+ (1267, "Illegal mix of collations (latin1_swedish_ci,IMPLICIT) and (utf8mb4_general_ci,COERCIBLE) for operation '='")
+ 
+
+ALTER TABLE `core`.`wechat_robotdic` 
+CHANGE COLUMN `keyword` `keyword` VARCHAR(128) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ,
+CHANGE COLUMN `resp` `resp` VARCHAR(1024) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL ;
+
+
+ 
+=======================
+# merged to master 2016 5-9
+=======================
+
+5.  mng -  guoku editor/writer article list  -- anchen 
+4.  article page not found to 404 page , for searching engine consideration -- anchen
 3.  selection entity long pic css adjust , event entity pic vertical align  -- 罗倩
-2.  editor user can use management , except user edit 
+2.  editor user can use management , except user edit --anchen 
 1.  add nick to core/model  -- 赵旭
+
 =======================
 # merged to master 2016 5-5
 =======================

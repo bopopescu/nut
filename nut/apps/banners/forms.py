@@ -8,6 +8,10 @@ class BaseBannerForm(ModelForm):
 
     default_banner_fields = ['link', 'applink','position' \
                             ,'status', 'img_file']
+    # Never modify a base class !!
+
+    #sitebanner use active_status instead of status
+    sitebanner_default_fields = ['link', 'applink','position', 'img_file']
 
     img_file = ImageField(label='upload banner image')
 

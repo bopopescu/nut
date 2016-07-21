@@ -380,7 +380,8 @@ class UserNoteView(UserDetailBase):
     context_object_name = 'current_user_notes'
     def get_queryset(self):
         _user = self.get_showing_user()
-        _note_list = Note.objects.filter(user=_user, status__gte=0 ,entity__status__gt=Entity.remove).order_by("-post_time")
+        _note_list = Note.objects.filter(user=_user, status__gte=0,
+                                         entity__status__gt=Entity.remove).order_by("-post_time")
         return _note_list
 
 
@@ -403,6 +404,7 @@ class UserPublishedArticleView(UserDetailBase):
         _article_list = Article.objects.get_published_by_user(_user)
         return _article_list
 
+
 class UserPublishedSelectionArticleView(UserDetailBase):
     template_name =  'web/user/user_article.html'
     paginate_by = 12
@@ -410,8 +412,11 @@ class UserPublishedSelectionArticleView(UserDetailBase):
     def get_queryset(self):
         _user = self.get_showing_user()
         _selection_article_ids = Selection_Article.objects.published_by_user(_user).values_list("article__id", flat=True)
-        _article_list = Article.objects.get_published_by_user(_user).filter(selections__isnull = False).filter(pk__in=list(_selection_article_ids))
+        _article_list = Article.objects.get_published_by_user(_user).\
+            filter(selections__isnull = False).\
+            filter(pk__in=list(_selection_article_ids))
         return _article_list
+
 
 class UserLikeArticleView(UserDetailBase):
     model = Article
@@ -421,7 +426,8 @@ class UserLikeArticleView(UserDetailBase):
 
     def get_queryset(self):
         user = self.get_showing_user()
-        current_user_like_articles = Article_Dig.objects.get_queryset().user_dig_list(user=user, article_list=Article.objects.published()).order_by("-created_time")
+        current_user_like_articles = Article_Dig.objects.get_queryset().\
+            user_dig_list(user=user, article_list=Article.objects.published()).order_by("-created_time")
         articles = list()
         for id in current_user_like_articles:
             articles.append(Article.objects.get(pk=id))
@@ -554,8 +560,6 @@ class UserIndex(UserPageMixin, DetailView):
 
         return profile.user
 
-
-
     def get_showing_user(self):
         user_domain = self.kwargs.get('user_domain', None)
         if user_domain is not None:
@@ -577,8 +581,6 @@ class UserIndex(UserPageMixin, DetailView):
 
             return _author_articles
 
-
-
     def get_user_entity_likes(self, entities):
         like_list = list()
         if not self.request.user.is_authenticated():
@@ -590,6 +592,10 @@ class UserIndex(UserPageMixin, DetailView):
                                     .values_list('entity_id', flat=True)
             return el
 
+    def get_authorized_user_info(self):
+        if self._current_user.is_authorized_author:
+            authorized_user_info = Authorized_User_Profile.objects.get(user_id=self._current_user.pk)
+            return authorized_user_info
 
     def get_context_data(self,**kwargs):
         context_data = super(UserIndex, self).get_context_data(**kwargs)
@@ -638,6 +644,8 @@ class UserIndex(UserPageMixin, DetailView):
 
         context_data['user_like_top_categories']= self.get_user_like_categories()
         context_data['current_category'] =  self.get_current_category()
+
+        context_data['authorized_user_info'] = self.get_authorized_user_info()
 
         return context_data
 
@@ -750,8 +758,6 @@ def following(request, user_id, templates="web/user/following.html"):
         },
         context_instance = RequestContext(request),
     )
-
-
 
 
 

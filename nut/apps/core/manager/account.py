@@ -48,6 +48,9 @@ class GKUserQuerySet(models.query.QuerySet):
     def admin(self):
         return self.filter(is_admin=True)
 
+    def active_user(self):
+        return Group.objects.get(name='ActiveUser').user_set.all()
+
     def authorized_author(self):
         return Group.objects.get(name='Author').user_set.all()
 
@@ -78,6 +81,9 @@ class GKUserManager(BaseUserManager):
 
     def editor(self):
         return self.get_query_set().editor()
+
+    def active_user(self):
+        return self.get_query_set().active_user()
 
     def active(self):
         return self.get_query_set().active()

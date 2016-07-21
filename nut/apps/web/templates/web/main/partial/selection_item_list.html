@@ -22,10 +22,13 @@
         <div class="info">
             <a class="btn btn-like pull-left" href="javascript:;"
                data-entity="{{ entity.id }}" data-entity-title="{{ entity.title }}" rel="nofollow"
+
                     {% if entity.id in user_entity_likes %}
+                        onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);"
                         >
                         <i class="fa fa-heart"></i>
                     {% else %}
+                        onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);"
                         >
                         <i class="fa fa-heart-o"></i>
                     {% endif %}

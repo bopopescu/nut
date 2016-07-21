@@ -10,6 +10,7 @@ urlpatterns = patterns(
 
     url(r'^dashboard/$', 'views.dashboard', name='management_dashboard'),
     url(r'^selection/', include('apps.management.urls.selection')),
+    url(r'^selection_report/', include('apps.management.urls.selection_report')),
     url(r'^entity/', include('apps.management.urls.entities')),
     url(r'^buy-link/', include('apps.management.urls.buy_link')),
     url(r'^user/', include('apps.management.urls.users')),
@@ -41,8 +42,13 @@ urlpatterns = patterns(
     url(r'^report/', include('apps.management.urls.report')),
 
     url(r'^shop/', include('apps.shop.urls.management')),
+    url(r'^wechat/', include('apps.wechat.urls.management')),
 
-    # url(r'^wechat/', include('apps.management.urls.wechat')),
+
+    url(r'^sitebanner/', include('apps.site_banner.urls.management')),
+    url(r'^push/', include('apps.notifications.urls.management')),
+    url(r'^editor_report/', include('apps.management.urls.editor_report')),
+
 
 
 

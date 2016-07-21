@@ -1,0 +1,31 @@
+{% load i18n %}
+{% load guoku %}
+<table class="table table-bordered table-hover table-condensed" id="sellers-table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>关键词 </th>
+        <th>回复</th>
+        <th>创建时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {#            the first line datas#}
+
+    {% for kw in keyword_list %}
+
+        <tr>
+            <td>{{ kw.id }}</td>
+            <td>{{ kw.keyword }}</td>
+            <td>{{ kw.resp }}</td>
+            <td>
+               {{ kw.created_datetime|date:"D d M Y" }}
+            </td>
+            <td>
+                <a class="btn btn-danger" href="{% url 'management_wechat_keyword_delete' kw.pk %}">删除</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

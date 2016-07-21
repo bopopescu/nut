@@ -115,6 +115,28 @@
                     </div>
                 </div>
 
+                <div class="box box-info">
+                    <div class="box-body">
+
+                          <table class="table table-responsive">
+                              <tr>
+                                  <td>积极用户:</td>
+                                  <td>
+                                      <input type="checkbox"
+                                    data-id="{{ user.pk }}"
+                                    data-group="ActiveUser"
+                                    class="js-switch"
+                                   {% if user.has_active_user_group %}checked{% endif %} />
+                                  </td>
+
+                              </tr>
+
+                          </table>
+
+
+                    </div>
+                </div>
+
                 <div class="box box-primary">
                     <div class="box-header">
                         <ul class="nav nav-pills" role="tablist">
