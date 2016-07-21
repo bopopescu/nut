@@ -5,23 +5,35 @@
 <header id="guoku_main_nav" class="navbar navbar-fixed-top" role="navigation">
 
        {% include 'web/partial/top_ad.html' %}
-
         <div class="container">
             <div class="nav-header">
-                <button  id="guoku-nav-trigger" class="navbar-toggle collapsed" data-target=".collapse" data-toggle="collapse" type="button">
+                <button  id="guoku-nav-trigger" class="navbar-toggle collapsed" data-target=".top-nav-collapse" data-toggle="collapse" type="button">
                     <span class="sr-only">导航条</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+
+                <button class="navbar-toggle collapsed" data-target=".search-collapse" data-toggle="collapse" type="button">
+                    <i class="fa fa-search"></i>
+                </button>
+
                 <a class="navbar-brand" href="{% url 'web_index' %}">
 {#                    <img alt="{% trans 'guoku' %}" class="visible-xs"  src="{% static 'images/logo2.png' %}" width="46"  style="margin-top: 2px">#}
 {#                    <img alt="{% trans 'guoku' %}" class="guoku-logo" src="{% static 'images/xmas_logo.png' %}" width="52" >#}
-                      <img alt="{% trans 'guoku' %}" class="" src="{% static 'images/gklogo2015.png' %}" width="42" >
+                      <img alt="{% trans 'guoku' %}" class="" src="{% static 'images/top_search_logo.png' %}" width="42" >
 {#                    <img src="{% static 'images/wap_logo.png' %}" style="height:30px;padding-left:5px;">#}
                 </a>
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse search-collapse">
+                <form class="navbar-form search-form" action="{% url 'web_search' %}" method="get" role="form">
+                    <div class="input-group search">
+                        <input class="form-control top-search-input" name="q" type="search" placeholder="&nbsp;{% trans 'Search' %}" value="{{ keyword }}" >
+                        <i class="fa fa-search fa-search-control"></i>
+                    </div>
+                </form>
+            </div>
+            <div class="navbar-collapse collapse top-nav-collapse">
                 <ul class="nav navbar-nav main-list left-list">
                     {% url 'web_index' as web_index_url %}
                     <li {% if web_index_url == request.path %}class="active"{% endif %}>
@@ -73,7 +85,7 @@
                      <ul class="nav navbar-nav nav-notification-wrapper pull-right hidden-xs">
                          <li>
                              <a href="javascript:void(0);" alt="「消息」" title="「消息」" class="notification-icon">
-                                 <i class="fa fa-bell" style="color: #9D9E9F;font-size:18px;"></i>
+                                 <i class="fa fa-bell" style="color: #212121;font-size:16px;"></i>
                                  {#                                 need add if statements here #}
                                  <span class="round notification-round"></span>
                              </a>
@@ -95,7 +107,7 @@
                     <ul class="nav navbar-nav nav-add-product navbar-right hidden-sm hidden-xs">
                         <li>
                             <a href="{% url 'web_entity_create' %}" class="add_icon">
-                                <i class="fa fa-plus" style="color: #9D9E9F;font-size:18px;"></i>
+                                <i class="fa fa-plus" style="color: #212121;font-size:16px;"></i>
                                 <p class="add_goods"><span class="tip"></span>{% trans "Add Product"  %}</p>
                             </a>
                         </li>
@@ -103,7 +115,7 @@
                     </ul>
                 {% endif %}
 
-                <form class="navbar-form navbar-right search-form" action="{% url 'web_search' %}" method="get" role="form" style="margin-top: 11px;">
+                <form class="navbar-form navbar-right search-form hidden-xs" action="{% url 'web_search' %}" method="get" role="form" style="margin-top: 10px;">
                     <div class="input-group search">
                         <input class="form-control search-input search-input-control" name="q" type="search" placeholder="&nbsp;{% trans 'Search' %}" value="{{ keyword }}" >
                         <i class="fa fa-search fa-search-control"></i>
