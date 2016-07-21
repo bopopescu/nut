@@ -1,4 +1,8 @@
-2. 
+
+5.  management editor workload data report 
+4.  management add entity - update
+3.  index page category icon
+2.  index page search header 
 1.  mobile article page image display bug fix 
 
 =======================
