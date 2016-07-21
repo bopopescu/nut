@@ -11,6 +11,7 @@ from django.template import loader
 from django.template import RequestContext
 from django.core import exceptions
 from django.core.cache import cache
+from django.conf import settings
 
 
 
@@ -86,6 +87,7 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin,TemplateView):
         context['middle_banners'] = StorePageBanners.objects.filter(status=StorePageBanners.enabled)  # 中间banner
         # context['selection_entity'] = Selection_Entity.objects.select_related('entity')[:6]
         context['selection_entity'] = self.get_selection_entities()[:20]
+        context['static_url'] = settings.STATIC_URL
 
         _entities = context['entities']
         if self.request.user.is_authenticated():

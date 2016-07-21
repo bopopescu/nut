@@ -65,7 +65,7 @@
         {% for category in categories %}
             <div class="col-xs-2 col-sm-1 guoku-middle-col category-item-wrapper">
                 <a href="{% url 'web_category_group' category.id %}" target="_blank">
-                    <div class="category-item-pic" style="background-image: url(/static/images/category-icon/{{ category.id }}.png)">
+                    <div class="category-item-pic" style="background-image: url('{{ static_url }}images/category-icon/{{ category.id }}.png')">
                     </div>
                     <div class="category-name">
                         {{ category.title_cn }}

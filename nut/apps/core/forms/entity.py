@@ -604,7 +604,7 @@ class AddEntityForm(forms.Form):
 
     buy_link = forms.URLField(
         label=('购买链接'),
-        widget=forms.URLInput(attrs={'class': 'form-control'}),
+        widget=forms.HiddenInput(attrs={'class': 'form-control'}),
         show_hidden_initial=True,
         required=False,
     )
