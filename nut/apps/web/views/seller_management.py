@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404
 from apps.management.forms.sku import SKUForm
 from apps.core.models import SKU,Entity
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from django.http import Http404
 
 class SKUUserPassesTestMixin(UserPassesTestMixin):
     def test_func(self, user):
@@ -18,6 +19,16 @@ class SKUUserPassesTestMixin(UserPassesTestMixin):
         entity = Entity.objects.get(id = self.entity_id)
         sku = SKU.objects.get(pk=self.sku_id)
         return entity in user.entities.all() and sku in entity.skus.all()
+    def no_permissions_fail(self, request=None):
+        raise Http404
+
+class EntityUserPassesTestMixin(UserPassesTestMixin):
+    def test_func(self, user):
+        self.entity_id = self.kwargs.get('entity_id')
+        entity = Entity.objects.get(id=self.entity_id)
+        return entity in user.entities.all()
+    def no_permissions_fail(self, request=None):
+        raise Http404
 
 class SellerManagement(LoginRequiredMixin, ListView):
     http_method_names = ['get']
@@ -51,16 +62,10 @@ class SellerManagementAddEntity(Add_local):
         return render(request, self.template_name, {'forms': form})
 
 
-class SellerEntitySKUCreateView(UserPassesTestMixin, CreateView):
+class SellerEntitySKUCreateView(EntityUserPassesTestMixin, CreateView):
     model = SKU
     form_class = SKUForm
     template_name = 'web/seller_management/create_sku.html'
-
-    def test_func(self, user):
-        self.entity_id = self.kwargs.get('entity_id')
-        entity = Entity.objects.get(id = self.entity_id)
-        return entity in user.entities.all()
-
     def get_success_url(self):
         return reverse('management_entity_skus', args=[self.entity_id])    #Todo need change
 
@@ -71,13 +76,8 @@ class SellerEntitySKUCreateView(UserPassesTestMixin, CreateView):
         }
 
 
-class SKUListView(UserPassesTestMixin,ListView):
+class SKUListView(EntityUserPassesTestMixin,ListView):
     template_name = 'web/seller_management/sku_list.html'
-    def test_func(self, user):
-        self.entity_id = self.kwargs.get('entity_id')
-        entity = Entity.objects.get(id = self.entity_id)
-        return entity in user.entities.all()
-
     def get_queryset(self):
         entity = self.get_entity()
         return entity.skus.all()
@@ -90,16 +90,12 @@ class SKUListView(UserPassesTestMixin,ListView):
         context['entity']= self.get_entity()
         return context
 
-class SKUCreateView(UserPassesTestMixin, CreateView):
+class SKUCreateView(EntityUserPassesTestMixin, CreateView):
     model = SKU
     form_class = SKUForm
     template_name = 'web/seller_management/add_sku.html'
     def get_success_url(self):
         return reverse('sku_list_management', args=[self.get_entity().id])
-    def test_func(self, user):
-        self.entity_id = self.kwargs.get('entity_id')
-        entity = Entity.objects.get(id = self.entity_id)
-        return entity in user.entities.all()
 
     def get_initial(self):
         entity = self.get_entity()
@@ -116,12 +112,6 @@ class SKUUpdateView(SKUUserPassesTestMixin,UpdateView):
     model = SKU
     form_class = SKUForm
     template_name = 'web/seller_management/update_sku.html'
-    def test_func(self, user):
-        self.entity_id = self.kwargs.get('entity_id')
-        self.sku_id = self.kwargs.get('pk')
-        entity = Entity.objects.get(id = self.entity_id)
-        sku = SKU.objects.get(pk=self.sku_id)
-        return entity in user.entities.all() and sku in entity.skus.all()
 
     def get_entity(self):
         entity_id =  self.kwargs.get('entity_id')
@@ -135,13 +125,6 @@ class SKUUpdateView(SKUUserPassesTestMixin,UpdateView):
 class SKUDeleteView(SKUUserPassesTestMixin, DeleteView):
     model = SKU
     template_name = 'web/seller_management/delete_sku.html'
-    def test_func(self, user):
-        self.entity_id = self.kwargs.get('entity_id')
-        self.sku_id = self.kwargs.get('pk')
-        entity = Entity.objects.get(id = self.entity_id)
-        sku = SKU.objects.get(pk=self.sku_id)
-        return entity in user.entities.all() and sku in entity.skus.all()
-
     def get_entity(self):
         entity_id =  self.kwargs.get('entity_id')
         entity = get_object_or_404(Entity, id=entity_id)
@@ -150,16 +133,10 @@ class SKUDeleteView(SKUUserPassesTestMixin, DeleteView):
     def get_success_url(self):
         return reverse('sku_list_management', args=[self.get_entity().id])
 
-class SellerEntitySKUCreateView(UserPassesTestMixin, CreateView):
+class SellerEntitySKUCreateView(EntityUserPassesTestMixin, CreateView):
     model = SKU
     form_class = SKUForm
     template_name = 'web/seller_management/create_sku.html'
-
-    def test_func(self, user):
-        self.entity_id = self.kwargs.get('entity_id')
-        entity = Entity.objects.get(id = self.entity_id)
-        return entity in user.entities.all()
-
     def get_success_url(self):
         return reverse('management_entity_skus', args=[self.entity_id])    #Todo need change
 
