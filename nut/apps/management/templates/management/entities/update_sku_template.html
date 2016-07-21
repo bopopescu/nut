@@ -1,17 +1,16 @@
 {% load i18n static %}
 {% load guoku %}
-{#{% block content %}#}
- <section class="content-header">
+<section class="content-header">
         <h1>
-            添加SKU
+            编辑SKU
             <small></small>
         </h1>
 
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
-            <li class="active">添加SKU</li>
+            <li class="active">编辑SKU</li>
         </ol>
-    </section>
+</section>
 
     <section class="content" id="create-seller">
         <div class="row">
@@ -42,6 +41,7 @@
                                     </div>
 
                             {% endfor %}
+                                <input type="hidden" id="sku_attr_json" value="{{ form.instance.attrs_json_str }}">
                                 <div class="form-group">
                                     <label  class="col-sm-2 control-label">SKU 属性编辑</label>
                                     <div class="col-sm-6">
@@ -73,5 +73,3 @@
             </div>
         </div>
     </section>
-{#{% endblock %}#}
-
