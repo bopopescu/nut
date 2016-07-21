@@ -1492,7 +1492,7 @@ define('subapp/topmenu',['bootstrap',
                     that.scrollTop = $(window).scrollTop();
                     that.screenHeight = window.screen.height;
                     that.fixMenuCondition = $('#guoku_main_nav')[0].getBoundingClientRect().height - 50;
-                    console.log(that.fixMenuCondition);
+                    //console.log(that.fixMenuCondition);
                     if($('#main_article').length){
                           that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
                     }

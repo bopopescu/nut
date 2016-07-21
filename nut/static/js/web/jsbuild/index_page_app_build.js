@@ -1517,7 +1517,7 @@ define('subapp/topmenu',['bootstrap',
                     that.scrollTop = $(window).scrollTop();
                     that.screenHeight = window.screen.height;
                     that.fixMenuCondition = $('#guoku_main_nav')[0].getBoundingClientRect().height - 50;
-                    console.log(that.fixMenuCondition);
+                    //console.log(that.fixMenuCondition);
                     if($('#main_article').length){
                           that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
                     }
@@ -4384,7 +4384,7 @@ define('subapp/index/middle_page_banner',['jquery', 'libs/Class','libs/slick','f
                         $('#middle-page-banner .banner-image-cell').removeClass('gk-slide-current');
                         var selector = '#middle-page-banner .gk-slide-'+  this.nextSlide ;
                         $(selector).addClass('gk-slide-current');
-                        console.log('done');
+                        //console.log('done');
                 }
 
             });
