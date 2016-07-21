@@ -6,7 +6,7 @@ from applications.models.searchhistory import SearchHistory
 from applications.schema.searchhistory import SearchHistorySchema
 
 search_history_schema = SearchHistorySchema()
-
+search_history_schema_list = SearchHistorySchema(many=True)
 #
 # get_parser  = reqparse.RequestParser()
 # get_parser.add_argument(
@@ -43,9 +43,10 @@ post_parser.add_argument(
 
 class SearchHistoryView(Resource):
 
-    # def get(self):
-
-        # return
+    def get(self):
+        sh = SearchHistory.query.all()
+        # print sh
+        return search_history_schema_list.dump(sh).data, 200
 
     def post(self):
 
