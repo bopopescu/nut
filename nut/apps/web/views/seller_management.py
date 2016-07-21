@@ -112,8 +112,10 @@ class SKUUpdateView(UserPassesTestMixin,UpdateView):
     template_name = 'web/seller_management/update_sku.html'
     def test_func(self, user):
         self.entity_id = self.kwargs.get('entity_id')
+        self.sku_id = self.kwargs.get('pk')
         entity = Entity.objects.get(id = self.entity_id)
-        return entity in user.entities.all()
+        sku = SKU.objects.get(pk=self.sku_id)
+        return entity in user.entities.all() and sku in entity.skus.all()
 
     def get_entity(self):
         entity_id =  self.kwargs.get('entity_id')
@@ -129,8 +131,10 @@ class SKUDeleteView(UserPassesTestMixin, DeleteView):
     template_name = 'web/seller_management/delete_sku.html'
     def test_func(self, user):
         self.entity_id = self.kwargs.get('entity_id')
+        self.sku_id = self.kwargs.get('pk')
         entity = Entity.objects.get(id = self.entity_id)
-        return entity in user.entities.all()
+        sku = SKU.objects.get(pk=self.sku_id)
+        return entity in user.entities.all() and sku in entity.skus.all()
 
     def get_entity(self):
         entity_id =  self.kwargs.get('entity_id')
