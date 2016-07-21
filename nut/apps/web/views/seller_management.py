@@ -39,7 +39,6 @@ class SellerManagement(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return self.request.user.entities.all()
 
-
     def get_context_data(self, **kwargs):
         context = super(SellerManagement, self).get_context_data(**kwargs)
         for entity in context['object_list']:
@@ -61,8 +60,6 @@ class SellerManagementAddEntity(Add_local):
             return HttpResponseRedirect(reverse('web_seller_management'))
         return render(request, self.template_name, {'forms': form})
 
-
-
 class SellerEntitySKUCreateView(EntityUserPassesTestMixin, CreateView):
     model = SKU
     form_class = SKUForm
@@ -71,18 +68,15 @@ class SellerEntitySKUCreateView(EntityUserPassesTestMixin, CreateView):
         return reverse('management_entity_skus', args=[self.entity_id])    #Todo need change
 
     def get_initial(self):
-
         return {
             'entity':self.entity_id
         }
-
 
 class SKUListView(EntityUserPassesTestMixin,ListView):
     template_name = 'web/seller_management/sku_list.html'
     def get_queryset(self):
         entity = get_object_or_404(Entity, id=self.entity_id)
         return entity.skus.all()
-
     def get_context_data(self, **kwargs):
         context = super(SKUListView, self).get_context_data(**kwargs)
         context['entity']= get_object_or_404(Entity, id=self.entity_id)
@@ -99,7 +93,6 @@ class SKUCreateView(EntityUserPassesTestMixin, CreateView):
         return {
             'entity':self.entity_id
         }
-
 
 class SKUUpdateView(SKUUserPassesTestMixin,UpdateView):
     model = SKU
