@@ -1571,7 +1571,7 @@ define('subapp/topmenu',['bootstrap',
             this.$menu = $('#guoku_main_nav');
             this.fixMenuCondition = null;
             this.scrollTop = null;
-            //this.lastScrollTop = null;
+            this.lastScrollTop = null;
             this.read = this.write = null;
             this.initHiddenBottomAd();
             this.setupScrollMenu();
@@ -1652,10 +1652,10 @@ define('subapp/topmenu',['bootstrap',
                 this.removeFixMenu();
             }
 
-            //if (_.isNull(this.lastScrollTop)){
-            //    this.lastScrollTop = this.scrollTop;
-            //    return ;
-            //}
+            if (_.isNull(this.lastScrollTop)){
+                this.lastScrollTop = this.scrollTop;
+                return ;
+            }
 
             if(this.lastScrollTop > this.scrollTop){
                 this.showHeader();
@@ -1677,7 +1677,7 @@ define('subapp/topmenu',['bootstrap',
 
             this.read = null;
             this.write= null;
-            //this.lastScrollTop = this.scrollTop;
+            this.lastScrollTop = this.scrollTop;
         },
 
 
