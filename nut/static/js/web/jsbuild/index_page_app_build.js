@@ -1430,7 +1430,7 @@ define('subapp/top_notification/top_notification',[
 
     return TopNotification;
 });
-define('subapp/new_topmenu',['bootstrap',
+define('subapp/topmenu',['bootstrap',
         'libs/Class',
         'underscore',
         'jquery',
@@ -4906,7 +4906,7 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 require([
         'libs/polyfills',
         'jquery',
-        'subapp/new_topmenu',
+        'subapp/topmenu',
         'subapp/index/banner',
         'subapp/index/middle_page_banner',
 

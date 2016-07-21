@@ -1,7 +1,7 @@
 require([
         'libs/polyfills',
         'jquery',
-        'subapp/new_topmenu',
+        'subapp/topmenu',
         'subapp/index/banner',
         'subapp/index/middle_page_banner',
 
