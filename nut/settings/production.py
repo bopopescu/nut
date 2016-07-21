@@ -101,4 +101,7 @@ CONFIG_REDIS_HOST = '10.0.2.95'
 CONFIG_REDIS_PORT = 6379
 CONFIG_REDIS_DB = 10
 
+
+SITE_HOST = 'http://www.guoku.com'
+
 __author__ = 'edison7500'
