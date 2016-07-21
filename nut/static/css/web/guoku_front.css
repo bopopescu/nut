@@ -476,7 +476,7 @@ ul li {
   margin-top: 10px;
 }
 .gray-button {
-  background-color: #9d9d9d;
+  background-color: #BDBDBD;
   color: #fff;
 }
 .btn-cancel,
@@ -5742,6 +5742,7 @@ body.new-index-body #selection_article_list .xs-selection-article-item .more-art
     display: block;
     width: 110%;
     max-width: 110%;
+    height: auto;
     left: -5%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -6020,5 +6021,5 @@ body .for-mobile {
   color: #357ebd;
 }
 .gk_test {
-  color: black;
+  color: red;
 }

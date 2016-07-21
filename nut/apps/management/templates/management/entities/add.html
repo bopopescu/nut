@@ -3,7 +3,7 @@
 {% block css %}
     <link href="{% static 'summernote/summernote.css' %}" rel="stylesheet">
     {{ block.super }}
-    <link href="{% static 'chosen/chosen.min.css' %}" rel="stylesheet">
+    <link href="{% static 'chosen/chosen.min.css' %}" rel="stylesheet"> 
 {% endblock %}
 
 {% block content %}
@@ -82,7 +82,7 @@
                     </div>
                     <div class="box-footer">
                         <div class="col-sm-offset-2 col-sm-5">
-                            <button type="submit" class="btn btn-primary btn-lg">{% trans 'update' %}</button>
+                            <button type="submit" class="btn btn-primary btn-lg">{% trans 'add' %}</button>
                         </div>
                     </div>
                 </form>
