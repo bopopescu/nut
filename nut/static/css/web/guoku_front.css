@@ -2943,6 +2943,10 @@ body.new-index-body #guoku_main_nav.new-index-navbar.fix-new-index-navbar {
   position: fixed;
   top: 0;
   left: 0;
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -ms-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
   background-color: rgba(255, 255, 255, 0.96);
 }
 body.new-index-body .recommend-user-panel {
