@@ -1,3 +1,5 @@
+# coding=utf-8
+
 import urllib
 
 from datetime import datetime
@@ -16,6 +18,7 @@ from apps.core.extend.paginator import ExtentPaginator
 from apps.tag.models import Tags, Content_Tags
 from apps.counter.utils.data import RedisCounterMachine
 
+from haystack.generic_views import SearchView
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -25,6 +28,15 @@ class TagListView(ListView):
     queryset = Tags.objects.all()
     http_method_names = ['get']
     template_name = 'tag/list.html'
+    def get_published_entity_tag(self):
+        published_entity_tags = Tags.objects.filter(isPubishedEntityTag=1)
+        return published_entity_tags
+    def get_context_data(self, **kwargs):
+        context = super(TagListView, self).get_context_data(**kwargs)
+        context['published_entity_tags'] = self.get_published_entity_tag()
+        context['image_host'] = image_host
+        return context
+
 
 
 class TagEntitiesByHashView(AjaxResponseMixin, JSONResponseMixin, ListView):
@@ -58,11 +70,13 @@ class TagEntitiesByHashView(AjaxResponseMixin, JSONResponseMixin, ListView):
         _t = loader.get_template(_template)
         _c = RequestContext(request, context)
         _html = _t.render(_c)
+        has_next_page = context['page_obj'].has_next()
 
         return self.render_json_response({
             'data': _html,
             'status': 1,
             'errors': 0,
+            'has_next_page': has_next_page
         })
 
     def get_context_data(self, **kwargs):
@@ -155,7 +169,7 @@ class TagArticleView(JSONResponseMixin, AjaxResponseMixin, ListView):
         context = super(TagArticleView, self).get_context_data(**kwargs)
         context['refresh_time'] = self.get_refresh_time()
         context['has_next_page'] = context['page_obj'].has_next()
-        context['top_article_tags'] = Tags.objects.top_article_tags()
+        # context['top_article_tags'] = Tags.objects.top_article_tags()
         context['tag'] = self.tag
         context['top_article_tags'] = Tags.objects.top_article_tags()
 
@@ -172,3 +186,73 @@ class TagArticleView(JSONResponseMixin, AjaxResponseMixin, ListView):
             log.info(e.message)
 
         return context
+
+
+# from apps.tag.forms import ArticleTagSearchForm
+from haystack.query import SearchQuerySet
+class ArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
+
+    http_method_names = ['get']
+
+    template_name = 'tag/tag_articles.html'
+    ajax_template_name = 'tag/partial/ajax_article_item_list_new.html'
+    paginate_by = 12
+    paginator_class = ExtentPaginator
+    context_object_name = 'articles'
+
+    def get_tag_name(self):
+        tag_name = self.kwargs.pop('tag_name', None)
+        # return urllib.unquote(str(tag_name))
+        return urllib.unquote(str(tag_name)).decode('utf-8')
+
+    def get_refresh_time(self):
+        refresh_time = self.request.GET \
+            .get('t', datetime.now() \
+                 .strftime('%Y-%m-%d %H:%M:%S'))
+        return refresh_time
+
+    def get_queryset(self):
+        # tag_name = self.get_tag_name()
+        self.tag = get_object_or_404(Tags, name=self.get_tag_name())
+
+        # haystack query for article
+        sqs = SearchQuerySet().models(Article).filter(tags=self.tag, is_selection=True).\
+                                                order_by("-enter_selection_time")
+        # log.info(sqs)
+        # TODO: Don't use this Method
+        # queryset = map(lambda x: x.object, sqs)
+        return sqs
+
+    def get_ajax(self, request, *args, **kwargs):
+        # TODO : add error handling here
+        self.object_list = getattr(self, 'object_list', self.get_queryset())
+        context = self.get_context_data()
+        _template = self.ajax_template_name
+        _t = loader.get_template(_template)
+        _c = RequestContext(request, context)
+        _html = _t.render(_c)
+
+        return self.render_json_response({
+            'html': _html,
+            'errors': 0,
+            'has_next_page': context['has_next_page']
+        }, status=200)
+
+    def get_context_data(self, **kwargs):
+        context = super(ArticleTagView, self).get_context_data(**kwargs)
+        context['refresh_time'] = self.get_refresh_time()
+        context['has_next_page'] = context['page_obj'].has_next()
+        context['top_article_tags'] = Tags.objects.top_article_tags()
+        context['tag'] = self.tag
+
+        articles = context['articles']
+
+        # log.info(context)
+        return context
+
+
+
+
+
+
+

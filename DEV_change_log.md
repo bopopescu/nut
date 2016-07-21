@@ -1,5 +1,50 @@
 
+3. update tag article template 
+2. add short_digest to Article model ,and handle cache
+1. translation update 
 
+action : need restart server 
+         translation update 
+
+=======================
+# merged to master 2016 7-14
+=======================
+
+5. index page update 
+4. bran page bug fix 
+3. tag page bug fix 
+2. optimize index query count , reduce 40 query 
+1. fix index banner size , to 750 px 
+
+action: 
+
+  need restart server , translation update
+  
+
+=======================
+# merged to master 2016 7-7
+=======================
+7. mng - operation report 
+6. web - index page refactor 
+5. mng - editor work report update,sorting 
+4. web -fix notification pic size bug 
+3. web -fix tag page entity display bug 
+2. web - display entity's brand link in detail page , if its published 
+1. web -fix selection list page , time para cause 500 error 
+
+
+=======================
+# merged to master 2016 7-1 
+=======================
+
+1. fix index page bug 
+
+=======================
+# merged to master 2016 6-30 
+=======================
+
+3. editor work report (alpha)
+2. index page 
 1. add note to tag entity list  
 
 =======================
@@ -69,7 +114,8 @@ Action :
         add DailyPush model    
         
     3. fix field encoding , if needed 
-        ALTER TABLE `core`.`notifications_dailypush` 
+        ALTER T
+        ABLE `core`.`notifications_dailypush` 
 CHANGE COLUMN `push_text` `push_text` VARCHAR(64) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ;
      
 ####  for  entity buylink update use 

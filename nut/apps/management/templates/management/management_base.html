@@ -314,8 +314,15 @@
                     </li>
                     {% url 'management_editor_report' as management_editor_report %}
                     <li {% if management_editor_report in request.path %}class="active"{% endif %}>
-                        <a href="{{ management_editor_report }}">
+                        <a href="{{ management_editor_report }}?status=None&start_date=lastweek">
                             <i class="fa fa-pencil"></i>&nbsp;<span>{% trans '编辑绩效报告' %}</span>
+                        </a>
+                    </li>
+
+                    {% url 'management_operation_report' as management_operation_report %}
+                    <li {% if management_operation_report in request.path %}class="active"{% endif %}>
+                        <a href="{{ management_operation_report }}">
+                            <i class="fa fa-file-text"></i>&nbsp;<span>{% trans '运营报告' %}</span>
                         </a>
                     </li>
 

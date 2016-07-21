@@ -8,6 +8,8 @@ from django.views.generic import ListView,\
                                 TemplateView,\
                                 DetailView,\
                                 CreateView
+
+from django.core import exceptions
 from django.shortcuts import redirect, get_object_or_404,render
 from django.http import Http404
 from django.template import RequestContext, loader,Context
@@ -88,11 +90,18 @@ class NewSelectionArticleList(JSONResponseMixin, AjaxResponseMixin,ListView):
         return refresh_time
 
     def get_queryset(self):
-        qs = Selection_Article.objects\
-                              .published_until(until_time=self.get_refresh_time())\
-                              .order_by('-pub_time')\
-                              .select_related('article').using('slave')
-                              # .defer('article__content')
+        try :
+            qs = Selection_Article.objects\
+                                  .published_until(until_time=self.get_refresh_time())\
+                                  .order_by('-pub_time')\
+                                  .select_related('article').using('slave')
+                                  # .defer('article__content')
+        except exceptions.ValidationError as e:
+            qs = Selection_Article.objects\
+                                  .published_until()\
+                                  .order_by('-pub_time')\
+                                  .select_related('article').using('slave')
+
 
         return qs
 
@@ -416,7 +425,7 @@ class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMix
                 }
 
             except Exception as e:
-                log(e)
+                log.error(e.message)
                 res = {
                     'error': 1
                 }

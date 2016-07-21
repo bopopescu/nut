@@ -1392,9 +1392,29 @@ define('subapp/top_notification/top_notification',[
             var datas = {
                 objects:ajaxDatas.data,
                 notification_length:ajaxDatas.data.length
-
             };
+            this.processImagesSize(datas);
             $('.notification-drop-list').append(notificationItems(datas));
+        },
+        processImagesSize:function(datas){
+            for(var i=0;i<datas.notification_length;i++){
+                var avatar_url = datas.objects[i].actor.avatar;
+                if ( avatar_url && avatar_url.indexOf('static') < 0 ){
+                    datas.objects[i].actor.avatar = datas.objects[i].actor.avatar.replace('/avatar/','/avatar/128/');
+                }
+                if( datas.objects[i].type == 'article_dig'){
+                    var cover_url = datas.objects[i].target.article_cover;
+                    datas.objects[i].target.article_cover = cover_url.replace('/images/','/images/200/');
+                    console.log('article after url :'+datas.objects[i].target.article_cover);
+                }
+                if(datas.objects[i].type != 'user_follow' && datas.objects[i].type != 'article_dig' ){
+                    var entity_url = datas.objects[i].target.entity_image;
+                    var replaceStr = entity_url.substring(entity_url.lastIndexOf('/'));
+                    datas.objects[i].target.entity_image = entity_url.replace(replaceStr,'/128'+replaceStr);
+                    console.log('article after url :'+datas.objects[i].target.entity_image);
+
+                }
+            }
         },
         showFail:function($ele){
             console.log('ajax data failed.');
@@ -4241,7 +4261,7 @@ define('subapp/index/banner',['jquery', 'libs/Class','libs/slick','fastdom'], fu
             var IndexBanner= Class.extend({
                 init: function () {
                     this.init_slick();
-                    console.log('subapp index banner  start !');
+                    //console.log('subapp index banner  start !');
                 },
                 init_slick:function(){
                     $('#index-banners').slick({
@@ -4270,10 +4290,10 @@ define('subapp/index/banner',['jquery', 'libs/Class','libs/slick','fastdom'], fu
                 },
 
                 beforeSlide: function(event,slick,currentSlide,nextSlide){
-                            console.log('before change,currentSlide:');
-                            console.log(currentSlide);
-                            console.log('before change,nextSlide:');
-                            console.log(nextSlide);
+                            //console.log('before change,currentSlide:');
+                            //console.log(currentSlide);
+                            //console.log('before change,nextSlide:');
+                            //console.log(nextSlide);
                             this.nextSlide = nextSlide;
                             fastdom.write(this.doRenderSlide.bind(this));
 
@@ -4283,7 +4303,7 @@ define('subapp/index/banner',['jquery', 'libs/Class','libs/slick','fastdom'], fu
                         $('#index-banners .banner-image-cell').removeClass('gk-slide-current');
                         var selector = '#index-banners .gk-slide-'+  this.nextSlide ;
                         $(selector).addClass('gk-slide-current');
-                        console.log('done');
+                        //console.log('done');
                 }
 
             });
@@ -4328,10 +4348,10 @@ define('subapp/index/middle_page_banner',['jquery', 'libs/Class','libs/slick','f
                 },
 
                 beforeSlide: function(event,slick,currentSlide,nextSlide){
-                            console.log('before change,currentSlide:');
-                            console.log(currentSlide);
-                            console.log('before change,nextSlide:');
-                            console.log(nextSlide);
+                            //console.log('before change,currentSlide:');
+                            //console.log(currentSlide);
+                            //console.log('before change,nextSlide:');
+                            //console.log(nextSlide);
                             this.nextSlide = nextSlide;
                             fastdom.write(this.doRenderSlide.bind(this));
 
@@ -4399,14 +4419,23 @@ define('subapp/discover/recommend_user_slick',['jquery', 'libs/Class','libs/slic
                     console.log('recommend user slick in discover page begin');
                 },
                 init_slick:function(){
-                    $('.recommend-user-list').slick({
+                    $('.recommend-user-list,.user-panel-container').slick({
                         arrows: true,
-                        slidesToShow: 11,
+                        slidesToShow: 6,
                         slidesToScroll:4,
                         autoplay:false,
                         dots:false,
 
                         responsive: [
+                             {
+                                breakpoint: 992,
+                                settings: {
+                                    slidesToShow:3,
+                                    slidesToScroll:3,
+                                    autoplay:false,
+                                    dots:false
+                                }
+                            },
                             {
                                 breakpoint: 768,
                                 settings: {
@@ -4461,6 +4490,7 @@ define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
         init: function(){
             $('#selection, #discover_entity_list, #category-entity-list, #tag-entity-list ,.search-result-list,.authorized-seller-body,.search-entity-item,#hot-entity-list').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
             $('.guoku-button .like-action').on('click', this.handleLike.bind(this));
+            $('.new-index-page .new-btn-like').on('click',this.handleLike.bind(this));
 
             console.log('app entity like functions');
             console.log(fastdom);
@@ -4529,6 +4559,266 @@ define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
     });
     return AppEntityLike;
 });
+
+define('subapp/index/selection_entity_slick',['jquery', 'libs/Class','libs/slick','fastdom'], function(
+    $, Class, slick , fastdom
+){
+            var SelectionEntitySlick= Class.extend({
+                init: function () {
+                    this.init_slick();
+                    console.log('selection entity horizontal scrolling starts !');
+                },
+                init_slick:function(){
+                    $('.latest-entity-wrapper')
+                        .removeClass('slick-slider')
+                        .removeClass('slick-initialized')
+                        .slick({
+                        arrows: true,
+                        slidesToShow: 6,
+                        slidesToScroll:4,
+                        autoplay:false,
+                        dots:false,
+
+                        responsive: [
+                            {
+                                breakpoint: 768,
+                                settings: {
+                                    slidesToShow:3,
+                                    slidesToScroll:3,
+                                    autoplay:false,
+                                    dots:false
+                                }
+                            }
+                        ]
+                    });
+                }
+            });
+    return SelectionEntitySlick;
+});
+
+
+
+
+
+define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_entity_slick'], function(
+    $,SelectionEntitySlick
+){
+    var EntityCategoryTab= SelectionEntitySlick.extend({
+        init: function () {
+            this.$entity_container = $('.latest-entity-wrapper');
+            this.init_slick();
+            this.initHoverCategory();
+            this.categoryName = '';
+            this.entityCache = window.sessionStorage;
+            console.log('selection entity tab view begin');
+        },
+        initHoverCategory:function(){
+            $('#entity_category_container .category-list-item').mouseenter(this.handleHoverCategory.bind(this));
+
+        },
+        handleHoverCategory:function(event){
+            var dataValue = $(event.currentTarget).attr('data-value');
+            var entityCache = this.entityCache.getItem(dataValue);
+            this.categoryName = dataValue;
+            if(entityCache){
+                this.showContent($(entityCache));
+            }else{
+                this.postAjaxRequest(dataValue);
+            }
+        },
+        postAjaxRequest:function(dataValue){
+             var data = {
+                    'dataValue': dataValue
+            };
+            $.when(
+                $.ajax({
+                    cache:true,
+                    type:"get",
+                    url: '/index_selection_entity_tag/',
+                    data: data,
+                    dataType:"json"
+                })
+            ).then(
+                this.postSuccess.bind(this),
+                this.postFail.bind(this)
+            );
+        },
+        postSuccess:function(result){
+            console.log('post request success.');
+            var status = parseInt(result.status);
+            if(status == 1){
+                 this.showContent($(result.data));
+                 this.setCache(result);
+            }else{
+                this.showFail(result);
+            }
+        },
+        postFail:function(result){
+            console.log('post fail');
+        },
+        showFail:function(result){
+            console.log('ajax data failed');
+        },
+        showContent: function(elemList){
+            console.log('ajax data success');
+            this.$entity_container.empty();
+            this.$entity_container.append(elemList);
+            this.init_slick();
+        },
+        setCache:function(result){
+            var category = this.categoryName;
+            if(!this.entityCache.getItem(category)){
+                this.entityCache.setItem(category,result.data);
+            }
+        }
+    });
+    return EntityCategoryTab;
+});
+
+
+
+
+
+define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
+    $, Class
+){
+    var CategoryTabView= Class.extend({
+        init: function () {
+            this.$article_container = $('#selection_article_list');
+            this.initHoverCategory();
+            this.categoryName = '';
+            this.articleCache = window.sessionStorage;
+            console.log('category tab view begin');
+        },
+        initHoverCategory:function(){
+            $('#article_category_wrapper .category-list-item').mouseenter(this.handleHoverCategory.bind(this));
+
+        },
+        handleHoverCategory:function(event){
+            var dataValue = $(event.currentTarget).attr('data-value');
+            var articleCache = this.articleCache.getItem(dataValue);
+            this.categoryName = dataValue;
+            if(articleCache){
+                this.showContent($(articleCache));
+            }else{
+                this.postAjaxRequest(dataValue);
+            }
+        },
+        postAjaxRequest:function(dataValue){
+             var data = {
+                    'dataValue': dataValue
+            };
+            $.when(
+                $.ajax({
+                    cache:true,
+                    type:"get",
+                    url: '/index_article_tag/',
+                    data: data,
+                    dataType:"json"
+                })
+            ).then(
+                this.postSuccess.bind(this),
+                this.postFail.bind(this)
+            );
+        },
+        postSuccess:function(result){
+            console.log('post request success.');
+            var status = parseInt(result.status);
+            if(status == 1){
+                 this.showContent($(result.data));
+                 this.setCache(result);
+            }else{
+                this.showFail(result);
+            }
+        },
+        postFail:function(result){
+            console.log('post fail');
+        },
+        showFail:function(result){
+            console.log('ajax data failed');
+        },
+        showContent: function(elemList){
+            console.log('ajax data success');
+            this.$article_container.empty();
+            this.$article_container.append(elemList);
+        },
+        setCache:function(result){
+            var category = this.categoryName;
+            if(!this.articleCache.getItem(category)){
+                this.articleCache.setItem(category,result.data);
+            }
+        }
+    });
+    return CategoryTabView;
+});
+
+
+
+
+define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(Class,$,AccountApp){
+    var UserFollow = Class.extend({
+        init: function () {
+            this.$follow = $(".follow");
+            this.$follow.on('click', this.handleFollow.bind(this));
+        },
+
+        getAccountApp:function(){
+            this.AccountApp = this.AccountApp || new AccountApp();
+            return this.AccountApp;
+        },
+
+        handleFollow: function (e) {
+            var that = this;
+            var $followButton = $(e.currentTarget);
+            var uid = $followButton.attr('data-user-id');
+            var status = $followButton.attr('data-status');
+            var action_url = "/u/" + uid;
+
+            if (status == 1) {
+                action_url += "/unfollow/";
+
+            } else {
+                action_url += "/follow/";
+            }
+
+            $.when($.ajax({
+                url: action_url,
+                dataType: 'json',
+                method: 'POST'
+            })).then(function success(data) {
+                console.log('success');
+                console.log(data);
+                if (data.status == 1) {
+                    $followButton.html('<i class="fa fa-check fa-lg"></i>&nbsp; 已关注');
+                    $followButton.attr('data-status', '1');
+                    $followButton.removeClass("button-blue").addClass("btn-cancel");
+                    $followButton.removeClass("newest-button-blue").addClass("new-btn-cancel");
+
+                } else if (data.status == 2) {
+                    console.log('mutual !!!');
+                    $followButton.html('<i class="fa fa-exchange fa-lg"></i>&nbsp; 已关注');
+                    $followButton.removeClass('button-blue').addClass('btn-cancel');
+                    $followButton.removeClass("newest-button-blue").addClass("new-btn-cancel");
+                    $followButton.attr('data-status', '1');
+
+                } else if (data.status == 0) {
+                    $followButton.html('<i class="fa fa-plus"></i>&nbsp; 关注');
+                    $followButton.removeClass("btn-cancel").addClass("button-blue");
+                    $followButton.removeClass("new-btn-cancel").addClass("newest-button-blue");
+                    $followButton.attr('data-status', '0');
+                } else {
+                    console.log('did not response with valid data');
+                }
+            }, function fail(error) {
+                console.log('failed' + error);
+                var html = $(error.responseText);
+                that.getAccountApp().modalSignIn(html);
+            });
+        }
+    });
+    return UserFollow;
+});
+
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -4631,9 +4921,13 @@ require([
         'subapp/topmenu',
         'subapp/index/banner',
         'subapp/index/middle_page_banner',
-         'subapp/discover/category_slick',
+
+        'subapp/discover/category_slick',
         'subapp/discover/recommend_user_slick',
         'subapp/entitylike',
+        'subapp/index/entity_category_tab',
+        'subapp/index/category_tab_view',
+        'subapp/user_follow',
         'subapp/gotop'
 
     ],
@@ -4643,9 +4937,13 @@ require([
               Menu,
               Banner,
               MiddlePageBanner,
+
               CategorySlick,
               RecommendUserSlick,
               AppEntityLike,
+              EntityCategoryTab,
+              CategoryTabView,
+              UserFollow,
               GoTop
               ) {
 // TODO : check if csrf work --
@@ -4653,9 +4951,13 @@ require([
         var menu = new Menu();
         var banner = new Banner();
         var middle_page_banner = new MiddlePageBanner();
+
         var category_slick = new CategorySlick();
         var recommend_user_slick = new RecommendUserSlick();
         var app_like = new  AppEntityLike();
+        var entity_category_tab = new EntityCategoryTab();
+        var category_tab_view = new CategoryTabView();
+        var user_follow = new UserFollow();
         var goto = new GoTop();
     });
 
