@@ -21,8 +21,7 @@ class SearchHistory(TimestampMixin, BaseModel):
 
     def __init__(self, *args, **kwargs):
         self.user_id    = kwargs.pop('user_id', None)
-        assert self.user_id is not None
-
+        # assert self.user_id is not None
         self.keyword    = kwargs.pop('keyword', None)
         self.ip         = kwargs.pop('ip', None)
         self.user_agent    = kwargs.pop('user_agent', None)

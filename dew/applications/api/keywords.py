@@ -18,7 +18,7 @@ search_history_schema = SearchHistorySchema()
 post_parser = reqparse.RequestParser()
 post_parser.add_argument(
     'uid', dest='user_id',
-    location='form', type=int, required=True,
+    location='form', type=int,
     help='The user\'s user id',
 )
 
@@ -50,11 +50,9 @@ class SearchHistoryView(Resource):
     def post(self):
 
         args = post_parser.parse_args()
-        print args
         sh = SearchHistory(user_id=args['user_id'], keyword=args['keyword'],
                            ip=args['ip'], user_agent=args['user_agent'])
         sh.save()
-        # print sh
         return search_history_schema.dump(sh).data, 201
 
 
