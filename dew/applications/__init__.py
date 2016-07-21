@@ -9,12 +9,16 @@ res_api = Api(app)
 app.config.from_pyfile('../config/default.py')
 
 
-
+from applications.models.base import db
 from applications.api.keywords import SearchHistoryView
 
 
 
 res_api.add_resource(SearchHistoryView, '/keywords/')
+
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db.session.remove()
 
 
 if __name__ == '__main__':

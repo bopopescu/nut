@@ -45,7 +45,8 @@ class SearchHistoryView(Resource):
 
     def get(self):
         sh = SearchHistory.query.all()
-        # print sh
+        # print dir(sh)
+        # print sh.paginate(1, 30, False)
         return search_history_schema_list.dump(sh).data, 200
 
     def post(self):
@@ -54,7 +55,7 @@ class SearchHistoryView(Resource):
         sh = SearchHistory(user_id=args['user_id'], keyword=args['keyword'],
                            ip=args['ip'], user_agent=args['user_agent'])
         sh.save()
-        sh.close()
+        # sh.close()
         return search_history_schema.dump(sh).data, 201
 
 
