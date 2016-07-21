@@ -1970,7 +1970,7 @@ define('subapp/article/article_link_scroll',['jquery','libs/Class','jqueryeasing
         init: function(selector){
             console.log('article remark link scroll');
             $(selector).click(function(event){
-                $('html,body').animate({scrollTop: $(this.hash).offset().top - 40}, 1000, 'easeInOutExpo');
+                $('html,body').animate({scrollTop: $(this.hash).offset().top - 50}, 1000, 'easeInOutExpo');
                 event.preventDefault();
                 event.stopPropagation();
                 return false;
