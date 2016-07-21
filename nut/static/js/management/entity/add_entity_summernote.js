@@ -6985,9 +6985,11 @@
 
       //031. create codable
       $('<textarea class="note-codable"></textarea>').prependTo($editor);
+      if ("/management/entity/add/" !== window.location.pathname) {
         // done Title input here : by An .
         var titleInput = $('<div class=""><input class="title-input" name="article-title" placeholder="标题" maxlength="64"></div>')
             .prependTo($editor);
+      }
 
       //04. create Toolbar
       var $toolbar = $('<div class="note-toolbar btn-toolbar" />');
