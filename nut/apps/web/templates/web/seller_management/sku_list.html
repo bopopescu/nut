@@ -1,6 +1,6 @@
-{% extends 'management/management_base.html' %}
-{% load i18n static %}
-
+{% extends 'web/seller_management/seller_management_base.html' %}
+{% load i18n %}
+{% load staticfiles i18n %}
 
 {% block content %}
     <section class="content-header">
@@ -20,7 +20,7 @@
              <div class="col-xs-12">
                 <div class="box box-default">
                     <div class="box-header" id="images">
-                        {% include "management/entities/partial/entity_images.html" with images=entity.images %}
+                        {% include "web/seller_management/partial/entity_images.html" with images=entity.images %}
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="box box-default">
-                    {% include 'management/entities/partial/sku_list.html' %}
+                    {% include 'web/seller_management/partial/skus_list.html' %}
                 </div>
 
             </div>

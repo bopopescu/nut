@@ -1,0 +1,111 @@
+{% extends 'web/seller_management/seller_management_base.html' %}
+{% load i18n %}
+{% load staticfiles i18n %}
+{% block content %}
+ <section class="content-header">
+        <h1>
+            编辑SKU
+            <small></small>
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+            <li class="active">编辑SKU</li>
+        </ol>
+    </section>
+
+    <section class="content" id="create-seller">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">SKU信息</h3>
+                    </div>
+
+                        <form class="form-horizontal" id="sku_form" enctype="multipart/form-data" action="" method="post">
+                            {% csrf_token %}
+                            <div class="box-body">
+                            {% for field in form %}
+
+                                    <div class="form-group">
+                                        <label for="{{ field.id_for_label }}" class="col-sm-2 control-label">{{ field.label }}</label>
+                                        <div class="col-sm-10">
+                                            {{ field }}<span class="field-errors">{{ field.errors }}</span>
+                                        </div>
+{#                                        {{ field.errors }}#}
+{#                                        {{ field.label_tag }} {{ field }}#}
+{#                                        {% if field.help_text %}#}
+{#                                            <p class="help">{{ field.help_text|safe }}</p>#}
+{#                                        {% endif %}#}
+                                    </div>
+                                    <div class="form-error">
+
+                                    </div>
+
+                            {% endfor %}
+                                <input type="hidden" id="sku_attr_json" value="{{ form.instance.attrs_json_str }}">
+                                <div class="form-group">
+                                    <label  class="col-sm-2 control-label">SKU 属性编辑</label>
+                                    <div class="col-sm-6">
+                                        <table class="table table-striped attr-table">
+
+                                            <tr class="attr-add-tr">
+                                                <td COLSPAN="2">
+                                                    <button type="button" class="btn btn-success attr-add">
+                                                        添加属性
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box-footer">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-md-offset-2 col-sm-offset-2 col-xs-offset-2">
+                                    <button type="submit" class="btn btn-primary btn-lg save-sku"> 保存 SKU</button>
+                                </div>
+                            </div>
+
+                         </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block user_script %}
+
+    <script type="text/html" id="sku_attr_template">
+        <tr class="attr-group">
+            <td>
+                <div class="input-group ">
+                  <div class="input-group-btn">
+                      <button type="button" class="btn btn-warning" >
+                          属性名
+                      </button>
+                      </div>
+                  <input type="text" class="form-control attr-name-input" >
+                </div>
+            </td>
+            <td>
+                <div class="input-group">
+                  <div class="input-group-btn">
+                      <button type="button" class="btn btn-warning">
+                          属性值
+                      </button>
+                      </div>
+                  <input type="text" class="form-control attr-value-input">
+                </div>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger attr-remove">删除</button>
+            </td>
+        </tr>
+    </script>
+
+    <script src="{% static 'js/management/sku/sku_manage.js' %}"></script>
+{% endblock %}

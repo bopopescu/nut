@@ -33,6 +33,7 @@ urlpatterns = patterns(
     url(r'^(?P<user_id>\d+)/shops/(?P<shop_id>\d+)/update/$', SellerShopUpdateView.as_view(), name='management_user_shop_update'),
     url(r'^(?P<user_id>\d+)/shops/(?P<shop_id>\d+)/delete/$', SellerShopDeleteView.as_view(), name='management_user_shop_delete'),
 
+
 )
 
 __author__ = 'edison'
