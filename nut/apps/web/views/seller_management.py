@@ -62,6 +62,7 @@ class SellerManagementAddEntity(Add_local):
         return render(request, self.template_name, {'forms': form})
 
 
+
 class SellerEntitySKUCreateView(EntityUserPassesTestMixin, CreateView):
     model = SKU
     form_class = SKUForm
@@ -113,6 +114,7 @@ class SKUUpdateView(SKUUserPassesTestMixin,UpdateView):
     form_class = SKUForm
     template_name = 'web/seller_management/update_sku.html'
 
+
     def get_entity(self):
         entity_id =  self.kwargs.get('entity_id')
         entity = get_object_or_404(Entity, id=entity_id)
@@ -125,6 +127,7 @@ class SKUUpdateView(SKUUserPassesTestMixin,UpdateView):
 class SKUDeleteView(SKUUserPassesTestMixin, DeleteView):
     model = SKU
     template_name = 'web/seller_management/delete_sku.html'
+
     def get_entity(self):
         entity_id =  self.kwargs.get('entity_id')
         entity = get_object_or_404(Entity, id=entity_id)
@@ -145,5 +148,6 @@ class SellerEntitySKUCreateView(EntityUserPassesTestMixin, CreateView):
         return {
             'entity':self.entity_id
         }
+
 
 

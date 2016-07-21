@@ -1,7 +1,7 @@
 
 from apps.web.views.seller_management import SKUListView,SKUCreateView,SKUDeleteView,SKUUpdateView
 
-from apps.web.views.seller_management import SellerManagement, SellerManagementAddEntity, SellerEntitySKUCreateView
+from apps.web.views.seller_management import SellerManagement, SellerManagementAddEntity
 
 from django.conf.urls import url, patterns
 
