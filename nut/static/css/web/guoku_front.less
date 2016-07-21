@@ -72,6 +72,16 @@ body.compact-body{
 }
 body.new-index-body{
   padding-top:158px;
+  #guoku_main_nav.new-index-navbar{
+    position:absolute;
+    &.fix-new-index-navbar{
+      position: fixed;
+      top:0;
+      left:0;
+      .transition(all 1s ease-in-out);
+      background-color: rgba(255,255,255,0.96);
+    }
+  }
   .recommend-user-panel{
     //below code is amazing,so strange but magic,cannot remove it
      border:1px solid transparent;
@@ -365,6 +375,14 @@ body.new-index-body{
 
 #guoku_main_nav{
   .acc-layer;
+   position:absolute;
+    &.fix-new-index-navbar{
+      position: fixed;
+      top:0;
+      left:0;
+      .transition(all 1s ease-in-out);
+      background-color: rgba(255,255,255,0.96);
+    }
 
   &.hidden-header{
     .animate-header;
@@ -2487,11 +2505,8 @@ body{
         font-size:@smaller-primary;
         text-align:left;
       }
-
     }
-
   }
-
 }
 
 .highlighted{
@@ -2499,7 +2514,7 @@ body{
 }
 
 .gk_test{
-  color:black;
+  color:red;
 }
 
 
