@@ -2936,6 +2936,14 @@ body.compact-body {
 body.new-index-body {
   padding-top: 158px;
 }
+body.new-index-body .new-index-navbar {
+  position: absolute;
+}
+body.new-index-body .new-index-navbar.fix-new-index-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
 body.new-index-body .recommend-user-panel {
   border: 1px solid transparent;
   position: relative;
