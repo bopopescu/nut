@@ -4,6 +4,7 @@ import time
 import requests
 import HTMLParser
 import hashlib
+import re
 
 from hashlib import md5
 from datetime import datetime
@@ -21,6 +22,7 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, Group
+from django.utils.html import _strip_once
 
 from apps.notifications import notify
 from apps.core.utils.image import HandleImage
@@ -28,10 +30,9 @@ from apps.core.utils.articlecontent import contentBleacher
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.web.utils.datatools import get_entity_list_from_article_content
 from apps.core.manager import *
+from apps.core.utils.text import truncate
 from apps.core.manager.account import  AuthorizedUserManager
 from haystack.query import SearchQuerySet
-
-
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -1505,18 +1506,6 @@ class Article(BaseModel):
         except Exception:
             cache.set(key, self.digs.count())
 
-    def save(self, *args, **kwargs):
-        if not kwargs.pop('skip_updatetime', False):
-            self.updated_datetime = datetime.now()
-        res = super(Article, self).save(*args, **kwargs)
-        # add article related entities,
-        hash_list = get_entity_list_from_article_content(self.content)
-        entity_list = list(Entity.objects.filter(entity_hash__in=hash_list))
-        if entity_list:
-            self.related_entities = entity_list
-        else:
-            self.related_entities = []
-        return res
 
     @property
     def tag_list(self):
@@ -1541,6 +1530,19 @@ class Article(BaseModel):
     @property
     def digest(self):
         return HTMLParser.HTMLParser().unescape(self.content)
+
+    @property
+    def short_digest(self, length=60):
+        key = 'Article:digest:cache:%s'%self.pk
+        length = int(length)
+        digest = cache.get(key)
+        if digest is not None:
+            return digest
+        else :
+            digest =  truncate(re.sub('[\r|\n| ]','',_strip_once(self.content)),length)
+            cache.set(key , digest, 3600*24)
+            return digest
+
 
     @property
     def status(self):
@@ -1625,6 +1627,28 @@ class Article(BaseModel):
     def url(self):
         return self.get_absolute_url()
 
+    def invalid_digest_cache(self):
+        key = 'Article:digest:cache:%s'%self.pk
+        cache.delete(key)
+
+    def invalid_all_cache(self):
+        self.invalid_digest_cache()
+
+
+    def save(self, *args, **kwargs):
+        self.invalid_all_cache()
+        if not kwargs.pop('skip_updatetime', False):
+            self.updated_datetime = datetime.now()
+        res = super(Article, self).save(*args, **kwargs)
+        # add article related entities,
+        hash_list = get_entity_list_from_article_content(self.content)
+        entity_list = list(Entity.objects.filter(entity_hash__in=hash_list))
+        if entity_list:
+            self.related_entities = entity_list
+        else:
+            self.related_entities = []
+        return res
+
 # TODO: model to dict
     def v4_toDict(self, articles_list=list()):
         res = self.toDict()
@@ -1653,7 +1677,7 @@ class Article(BaseModel):
         #     return tag_string
 
 
-class Article_Remark(models.Model):
+class Article_Remark(BaseModel):
     (remove, normal) = (-1, 0)
     STATUS_CHOICE = [
         (normal, _("normal")),
@@ -1665,7 +1689,7 @@ class Article_Remark(models.Model):
     content = models.TextField(null=False, blank=False)
     reply_to = models.ForeignKey('self', null=True, blank=True)
     create_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
-    update_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+    update_time = models.DateTimeField(auto_now=True, editable=False, db_index=True)
     status = models.IntegerField(choices=STATUS_CHOICE, default=normal)
 
 
