@@ -2,6 +2,7 @@
 from apps.site_banner.models import SiteBanner
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
+from django.views.decorators.csrf import csrf_exempt
 
 from apps.mobile.lib.sign import check_sign
 from apps.mobile.models import Session_Key
@@ -10,14 +11,17 @@ from apps.core.models import Show_Banner, \
     Buy_Link, Selection_Entity, Entity, \
     Entity_Like, Sub_Category
 
+from apps.v4.forms.pushtoken import PushForm
+from apps.v4.forms.search import APISearchForm
+
 from apps.v4.models import APIUser, APISelection_Entity, APIEntity,\
                             APICategory, APISeletion_Articles, \
                             APIArticle, APIArticle_Dig
-from apps.v4.forms.pushtoken import PushForm
-from datetime import datetime, timedelta
-from django.views.decorators.csrf import csrf_exempt
-from apps.core.views import BaseJsonView
 
+from apps.core.views import BaseJsonView, JSONResponseMixin
+
+from haystack.generic_views import SearchView
+from datetime import datetime, timedelta
 
 
 from django.utils.log import getLogger
@@ -53,13 +57,42 @@ def decorate_taobao_url(url, ttid=None, sid=None, outer_code=None, sche=None):
 
     return url
 
-
+# base api view
 class APIJsonView(BaseJsonView):
-
+    #
     @csrf_exempt
     @check_sign
     def dispatch(self, request, *args, **kwargs):
         return super(APIJsonView, self).dispatch(request, *args, **kwargs)
+
+
+class APIJsonSessionView(APIJsonView):
+
+    def check_session(self, request):
+        _key = request.REQUEST.get('session', None)
+        Session_Key.objects.get(session_key=_key)
+        try:
+            self.session = Session_Key.objects.get(session_key=_key)
+        except Session_Key.DoesNotExist:
+            raise
+
+    def get(self, request, *args, **kwargs):
+        # self.request = request
+        self.check_session(request)
+        return super(APIJsonSessionView, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.check_session(request)
+        return super(APIJsonSessionView, self).post(request, *args, **kwargs)
+
+    @csrf_exempt
+    @check_sign
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            self.check_session(request)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
+        return super(APIJsonSessionView, self).dispatch(request, *args, **kwargs)
 
 
 class HomeView(APIJsonView):
@@ -425,94 +458,188 @@ def selection(request):
     return SuccessJsonResponse(res)
 
 
-@check_sign
-def popular(request):
-
-    _scale = request.GET.get('scale', 'daily')
-    _key = request.GET.get('session')
-    log.info(_scale)
-    popular_list = Entity_Like.objects.popular_random(_scale)
-    _entities = APIEntity.objects.filter(id__in=popular_list, status=Entity.selection)
-
-    try:
-        _session = Session_Key.objects.get(session_key=_key)
-        # log.info("session %s" % _session)
-        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=_entities)
-    except Session_Key.DoesNotExist, e:
-        log.info(e.message)
-        el = None
-
-    res = dict()
-    res['content'] = list()
-    res['scale'] = _scale
-    for e in _entities:
-        r = {
-            'entity': e.v4_toDict(user_like_list=el)
-        }
-        res['content'].append(r)
-
-    return SuccessJsonResponse(res)
-
-
-@check_sign
-def toppopular(request):
-
-    days = timedelta(days=1)
-    now_string = datetime.now().strftime("%Y-%m-%d")
-    dt = datetime.now() - days
-    _count = request.GET.get('count')
-    _count = int(_count)
-
-    query = "select id, entity_id, count(*) as lcount from core_entity_like where created_time between '%s' and '%s' group by entity_id order by lcount desc" % (dt.strftime("%Y-%m-%d"), now_string)
-    _entity_list = Entity_Like.objects.raw(query).using('slave')
-
-    res = []
-    for entity_like in _entity_list[:_count]:
-        r = {
-            'entity': entity_like.entity.v3_toDict(),
-            'note': entity_like.entity.top_note.v3_toDict()
-        }
-        res.append({
-            'content': r,
-            'type': "top_popular",
-        })
-
-    return SuccessJsonResponse(res)
-
 # @check_sign
-# def unread(request):
+# def popular(request):
 #
+#     _scale = request.GET.get('scale', 'daily')
 #     _key = request.GET.get('session')
+#     log.info(_scale)
+#     popular_list = Entity_Like.objects.popular_random(_scale)
+#     _entities = APIEntity.objects.filter(id__in=popular_list, status=Entity.selection)
 #
 #     try:
-#         _session = Session_Key.objects.get(session_key = _key)
-#     except Session_Key.DoesNotExist:
-#         return ErrorJsonResponse(status=403)
+#         _session = Session_Key.objects.get(session_key=_key)
+#         # log.info("session %s" % _session)
+#         el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=_entities)
+#     except Session_Key.DoesNotExist, e:
+#         log.info(e.message)
+#         el = None
 #
-#     res = {
-#         'unread_message_count': _session.user.notifications.read().count(),
-#         'unread_selection_count': Selection_Entity.objects.get_user_unread(session=_session.session_key),
-#     }
+#     res = dict()
+#     res['content'] = list()
+#     res['scale'] = _scale
+#     for e in _entities:
+#         r = {
+#             'entity': e.v4_toDict(user_like_list=el)
+#         }
+#         res['content'].append(r)
+#
 #     return SuccessJsonResponse(res)
 
-class UnreadView(APIJsonView):
+# TODO: Search API
+class APISearchView(SearchView, JSONResponseMixin):
+    http_method_names = ['get']
+    form_class = APISearchForm
 
     def get_data(self, context):
-        try:
-            _session = Session_Key.objects.get(session_key = self.key)
-        except Session_Key.DoesNotExist:
-            return ErrorJsonResponse(status=403)
-        res = {
-            'unread_message_count': _session.user.notifications.read().count(),
-            'unread_selection_count': Selection_Entity.objects.get_user_unread(session=_session.session_key),
-        }
+        # print context
+        res = context.copy()
         return res
 
     def get(self, request, *args, **kwargs):
-        self.key = request.GET.get('session', None)
-        if self.key is None:
-          return ErrorJsonResponse(status=403)
-        return super(UnreadView, self).get(request, *args, **kwargs)
+        return super(APISearchView, self).get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        self.queryset = form.search()
+        return self.render_to_json_response(self.queryset)
+
+    def form_invalid(self, form):
+        return ErrorJsonResponse(status=400, data=form.errors)
+    # @check_sign
+    # def dispatch(self, request, *args, **kwargs):
+        # return super(APISearchView, self).dispatch(request, *args, **kwargs)
+
+
+class PopularView(APIJsonView):
+    '''
+        Get Popular Entity API
+    '''
+    http_method_names = ['get']
+
+    def get_data(self, context):
+        popular_list = Entity_Like.objects.popular_random(self.scale)
+        _entities = APIEntity.objects.filter(id__in=popular_list, status=Entity.selection)
+
+        try:
+            _session = Session_Key.objects.get(session_key=self.key)
+            # log.info("session %s" % _session)
+            el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=_entities)
+        except Session_Key.DoesNotExist, e:
+            log.info(e.message)
+            el = None
+
+        res = dict()
+        res['content'] = list()
+        res['scale'] = self.scale
+        for e in _entities:
+            r = {
+                'entity': e.v4_toDict(user_like_list=el)
+            }
+            res['content'].append(r)
+        return res
+
+    def get(self, request, *args, **kwargs):
+        self.scale = request.GET.get('scale', 'daily')
+        self.key = request.GET.get('session')
+        log.info(self.scale)
+        return super(PopularView, self).get(request, *args, **kwargs)
+
+
+
+class TopPopularView(APIJsonView):
+    '''
+        IOS TODAY API
+    '''
+    http_method_names = ['get']
+    def __init__(self):
+        self._count = 0
+        super(TopPopularView, self).__init__()
+
+    @property
+    def count(self):
+        if not isinstance(self._count, int):
+            self._count = int(self._count)
+        return self._count
+
+    @count.setter
+    def count(self, value):
+        self._count = value
+
+    def get_data(self, context):
+        days = timedelta(days=1)
+        now_string = datetime.now().strftime("%Y-%m-%d")
+        dt = datetime.now() - days
+        # _count = request.GET.get('count')
+        # _count = int(_count)
+
+        query = "select id, entity_id, count(*) as lcount from core_entity_like " \
+                "where created_time between '%s' and '%s' group by entity_id order by lcount desc" \
+                % ( dt.strftime("%Y-%m-%d"), now_string)
+        _entity_list = Entity_Like.objects.raw(query).using('slave')
+
+        res = []
+        # log.info(type(self.count))
+        for entity_like in _entity_list[:self.count]:
+            r = {
+                'entity': entity_like.entity.v3_toDict(),
+                'note': entity_like.entity.top_note.v3_toDict()
+            }
+            res.append({
+                'content': r,
+                'type': "top_popular",
+            })
+        return res
+
+    def get(self, request,  *args, **kwargs):
+        self.count = request.GET.get('count', 30)
+        return super(TopPopularView, self).get(request, *args, **kwargs)
+
+# @check_sign
+# def toppopular(request):
+#
+#     days = timedelta(days=1)
+#     now_string = datetime.now().strftime("%Y-%m-%d")
+#     dt = datetime.now() - days
+#     _count = request.GET.get('count')
+#     _count = int(_count)
+#
+#     query = "select id, entity_id, count(*) as lcount from core_entity_like where created_time between '%s' and '%s' group by entity_id order by lcount desc" % (dt.strftime("%Y-%m-%d"), now_string)
+#     _entity_list = Entity_Like.objects.raw(query).using('slave')
+#
+#     res = []
+#     for entity_like in _entity_list[:_count]:
+#         r = {
+#             'entity': entity_like.entity.v3_toDict(),
+#             'note': entity_like.entity.top_note.v3_toDict()
+#         }
+#         res.append({
+#             'content': r,
+#             'type': "top_popular",
+#         })
+#
+#     return SuccessJsonResponse(res)
+
+
+class UnreadView(APIJsonSessionView):
+
+    http_method_names = ['get', 'post']
+
+    def get_data(self, context):
+        # try:
+        #     _session = Session_Key.objects.get(session_key = self.key)
+        # except Session_Key.DoesNotExist:
+        #     return ErrorJsonResponse(status=403)
+        res = {
+            'unread_message_count': self.session.user.notifications.read().count(),
+            'unread_selection_count': Selection_Entity.objects.get_user_unread(session=self.session.session_key),
+        }
+        return res
+
+    # def get(self, request, *args, **kwargs):
+        # self.key = request.GET.get('session', None)
+        # if self.key is None:
+        #   return ErrorJsonResponse(status=403)
+        # return super(UnreadView, self).get(request, *args, **kwargs)
 
 
 def visit_item(request, item_id):
@@ -557,7 +684,7 @@ def apns_token(request):
         except Session_Key.DoesNotExist:
             pass
             # return ErrorJsonResponse(status=403)
-        log.info(request.POST)
+        # log.info(request.POST)
         form = PushForm(user=_user, data=request.POST)
         if form.is_valid():
             form.save()
@@ -573,5 +700,6 @@ def apns_token(request):
 
         return ErrorJsonResponse(status=403, data={'message':'error'})
 
+# class ApnsTokenView():
 
 __author__ = 'edison7500'

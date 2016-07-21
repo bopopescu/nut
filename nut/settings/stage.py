@@ -18,7 +18,7 @@ TIME_ZONE = 'Asia/Shanghai'
 
 USE_TZ = False
 
-DATABASES = TESTING_DATABASE
+DATABASES = PRODUCTION_DATABASES
 
 # CELERY #################################
 BROKER_URL = 'redis://localhost:6379/0'

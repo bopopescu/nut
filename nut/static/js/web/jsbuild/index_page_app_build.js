@@ -4372,44 +4372,6 @@ define('subapp/index/middle_page_banner',['jquery', 'libs/Class','libs/slick','f
 
 
 
-define('subapp/discover/category_slick',['jquery', 'libs/Class','libs/slick','fastdom'], function(
-    $, Class, slick , fastdom
-){
-            var CategorySlick= Class.extend({
-                init: function () {
-                    this.init_slick();
-                    console.log('category horizontal scrolling starts !');
-                },
-                init_slick:function(){
-                    $('#category-item-container').slick({
-                        arrows: true,
-                        //on mobile,set slidesToshow and slidesToScroll like android
-                        slidesToShow: 6,
-                        slidesToScroll:4,
-                        autoplay:false,
-                        dots:false,
-
-                        responsive: [
-                            {
-                                breakpoint: 768,
-                                settings: {
-                                    slidesToShow:3,
-                                    slidesToScroll:3,
-                                    autoplay:false,
-                                    dots:false
-                                }
-                            }
-                        ]
-                    });
-                }
-            });
-    return CategorySlick;
-});
-
-
-
-
-
 define('subapp/discover/recommend_user_slick',['jquery', 'libs/Class','libs/slick','fastdom'], function(
     $, Class, slick , fastdom
 ){
@@ -4699,8 +4661,10 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
             var articleCache = this.articleCache.getItem(dataValue);
             this.categoryName = dataValue;
             if(articleCache){
+                console.log('articleCache:'+articleCache);
                 this.showContent($(articleCache));
             }else{
+                console.log('no article cache.post ajaxing');
                 this.postAjaxRequest(dataValue);
             }
         },
@@ -4735,14 +4699,15 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
             console.log('post fail');
         },
         showFail:function(result){
-            console.log('ajax data failed');
+            console.log('get ajax data failed');
         },
         showContent: function(elemList){
-            console.log('ajax data success');
+            console.log('get ajax data success');
             this.$article_container.empty();
             this.$article_container.append(elemList);
         },
         setCache:function(result){
+            console.log('set cache.');
             var category = this.categoryName;
             if(!this.articleCache.getItem(category)){
                 this.articleCache.setItem(category,result.data);
@@ -4922,7 +4887,6 @@ require([
         'subapp/index/banner',
         'subapp/index/middle_page_banner',
 
-        'subapp/discover/category_slick',
         'subapp/discover/recommend_user_slick',
         'subapp/entitylike',
         'subapp/index/entity_category_tab',
@@ -4938,7 +4902,6 @@ require([
               Banner,
               MiddlePageBanner,
 
-              CategorySlick,
               RecommendUserSlick,
               AppEntityLike,
               EntityCategoryTab,
@@ -4952,7 +4915,6 @@ require([
         var banner = new Banner();
         var middle_page_banner = new MiddlePageBanner();
 
-        var category_slick = new CategorySlick();
         var recommend_user_slick = new RecommendUserSlick();
         var app_like = new  AppEntityLike();
         var entity_category_tab = new EntityCategoryTab();
