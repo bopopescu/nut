@@ -11,7 +11,13 @@ from apps.management.forms.sku import SKUForm
 from apps.core.models import SKU,Entity
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 
-
+class SKUUserPassesTestMixin(UserPassesTestMixin):
+    def test_func(self, user):
+        self.entity_id = self.kwargs.get('entity_id')
+        self.sku_id = self.kwargs.get('pk')
+        entity = Entity.objects.get(id = self.entity_id)
+        sku = SKU.objects.get(pk=self.sku_id)
+        return entity in user.entities.all() and sku in entity.skus.all()
 
 class SellerManagement(LoginRequiredMixin, ListView):
     http_method_names = ['get']
@@ -106,7 +112,7 @@ class SKUCreateView(UserPassesTestMixin, CreateView):
         entity = get_object_or_404(Entity, id=entity_id)
         return entity
 
-class SKUUpdateView(UserPassesTestMixin,UpdateView):
+class SKUUpdateView(SKUUserPassesTestMixin,UpdateView):
     model = SKU
     form_class = SKUForm
     template_name = 'web/seller_management/update_sku.html'
@@ -126,7 +132,7 @@ class SKUUpdateView(UserPassesTestMixin,UpdateView):
         return reverse('sku_list_management', args=[self.get_entity().id])
 
 
-class SKUDeleteView(UserPassesTestMixin, DeleteView):
+class SKUDeleteView(SKUUserPassesTestMixin, DeleteView):
     model = SKU
     template_name = 'web/seller_management/delete_sku.html'
     def test_func(self, user):
@@ -162,6 +168,5 @@ class SellerEntitySKUCreateView(UserPassesTestMixin, CreateView):
         return {
             'entity':self.entity_id
         }
-
 
 
