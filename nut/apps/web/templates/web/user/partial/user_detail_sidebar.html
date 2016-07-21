@@ -37,9 +37,14 @@
                     </li>
                 {% endif %}
 
+                 {% if not current_user.is_authorized_author and not current_user.is_authorized_seller %}
+                     <li>
+                       <a href="{% url 'web_user_entities' current_user.pk %}">添加的商品&nbsp;<i class="fa fa-caret-right"></i></a>
+                     </li>
+                 {% endif %}
+
                 <li>
                     <a href="{% url 'web_user_article_like' current_user.pk %}">{% trans 'Article Digged' %}&nbsp;<i class="fa fa-caret-right"></i></a>
-
                 </li>
             </ul>
         </div>

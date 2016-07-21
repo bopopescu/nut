@@ -181,7 +181,7 @@
   margin-top: 10px;
 }
 .gray-button {
-  background-color: #9d9d9d;
+  background-color: #BDBDBD;
   color: #fff;
 }
 .btn-cancel,
@@ -376,12 +376,12 @@
   display: inline-block;
   text-align: center;
   border: 1px solid #e6e6e6;
-  color: #424242;
+  color: #212121;
   font-size: 13px;
   margin: 4px 4px 0 0;
 }
 .little-round-tag a {
-  color: #424242;
+  color: #212121;
 }
 .little-round-tag:hover {
   background-color: #F0F0F0;
@@ -399,12 +399,12 @@
   display: inline-block;
   text-align: center;
   border: 1px solid #e6e6e6;
-  color: #424242;
+  color: #212121;
   font-size: 14px;
   margin: 4px 4px 0 0;
 }
 .normal-round-tag a {
-  color: #424242;
+  color: #212121;
 }
 .normal-round-tag:hover,
 .normal-round-tag.current {
@@ -427,7 +427,7 @@
   border-radius: 3px;
   /*text-align:center;*/
   /*color:#ff1f77;*/
-  background-color: #FF1F77;
+  background-color: #3F6FF0;
   text-decoration: none;
 }
 .b_day {
@@ -560,7 +560,7 @@ p .b_day {
   color: #9D9E9F;
 }
 .entity-four.new-thumbnail .entity-four-info .caption .title a {
-  color: #424242;
+  color: #212121;
 }
 .entity-four.new-thumbnail .entity-four-info .caption .price {
   color: #357ebd;
@@ -573,6 +573,89 @@ p .b_day {
   color: #9D9E9F;
   text-align: center;
   font-size: 14px;
+}
+.new-entity-six {
+  background-color: #fff;
+}
+.new-entity-six .img-box {
+  position: relative;
+  cursor: pointer;
+  border: none;
+}
+.new-entity-six .img-box a {
+  outline: 0;
+}
+.new-entity-six .img-box a.img-link {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+}
+.new-entity-six .img-box a.img-link img {
+  max-height: 100%;
+}
+.new-entity-six .img-box .bg-layer,
+.new-entity-six .img-box .new-btn-like {
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.3s ease-in-out;
+  -ms-transition: opacity 0.3s ease-in-out;
+  -o-transition: opacity 0.3s ease-in-out;
+}
+.new-entity-six .img-box .bg-layer {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.new-entity-six .img-box .new-btn-like {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  background-color: #ffffff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.new-entity-six .img-box .new-btn-like .fa-heart-o {
+  color: #757575;
+}
+.new-entity-six .img-box .new-btn-like .fa-heart {
+  color: #FF1F77;
+}
+.new-entity-six .img-box:hover .bg-layer,
+.new-entity-six .img-box:hover .new-btn-like {
+  opacity: 1;
+}
+.new-entity-six .new-entity-six-info {
+  min-height: 70px;
+  max-height: 70px;
+  margin-top: 6px;
+  font-size: 14px;
+}
+.new-entity-six .new-entity-six-info .caption .brand,
+.new-entity-six .new-entity-six-info .caption .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.new-entity-six .new-entity-six-info .caption .title a {
+  color: #212121;
+}
+.new-entity-six .new-entity-six-info .caption .price {
+  color: #5976c1;
 }
 .gotop-wrapper {
   backface-visibility: hidden;
@@ -1135,14 +1218,13 @@ p.boolean-false {
   font-size: 11px;
 }
 .dark-section-wrapper .dark-section-item a .section-panel .bg-layer {
-  display: none;
   width: 100%;
   height: 0;
   padding-bottom: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.18);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 .normal-scale-bg {
   width: 100%;
@@ -1207,6 +1289,22 @@ a.new-blue-link {
 }
 a.new-blue-link:hover {
   color: #4057A7;
+}
+a.new-black-link {
+  color: #757575;
+  text-decoration: none;
+}
+a.new-black-link:hover {
+  color: #212121;
+}
+.common-bg-layer {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 @-moz-document url-prefix() {
   fieldset {

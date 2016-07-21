@@ -1,0 +1,126 @@
+{% load i18n %}
+{% load guoku %}
+
+
+<table class="table table-small-font table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        {% trans '类别' %}
+                    </th>
+                    <th>
+                        {% trans '数量' %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td class="product-brand">
+                             认证作者数
+                        </td>
+                        <td class="product-title">
+                            {{ auth_author_count }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="product-brand">
+                             认证卖家数
+                        </td>
+                        <td class="product-title">
+                            {{ auth_seller_count }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="product-brand">
+                             积极用户数
+                        </td>
+                        <td class="product-title">
+                            {{ active_user_count }}
+                        </td>
+                    </tr>
+                     <tr>
+                        <td class="product-brand">
+                             新增认证作者数
+                        </td>
+                        <td class="product-title">
+                            {{ new_auth_seller_count }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="product-brand">
+                             新增认证卖家数
+                        </td>
+                        <td class="product-title">
+                            {{ new_auth_seller_count }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="product-brand">
+                             新增积极用户数
+                        </td>
+                        <td class="product-title">
+                            {{ auth_seller_count }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="product-brand">
+                             新增商品数
+                        </td>
+                        <td class="product-title">
+                            {{ entity_count }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="product-brand">
+                             新增商品点评数
+                        </td>
+                        <td class="product-title">
+                            {{ note_count }}
+                        </td>
+                    </tr><tr>
+                        <td class="product-brand">
+                             喜爱数过 100 商品
+                        </td>
+                        <td class="product-title">
+                            {{ entity_count_100 }}
+                        </td>
+                    </tr><tr>
+                        <td class="product-brand">
+                             喜爱数过 50 商品
+                        </td>
+                        <td class="product-title">
+                            {{ entity_count_50 }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="product-brand">
+                             新增图文数
+                        </td>
+                        <td class="product-title">
+                            {{ article_count }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="product-brand">
+                             阅读数过 1000 图文
+                        </td>
+                        <td class="product-title">
+                            {{ article_read }}
+                        </td>
+                    </tr><tr>
+                        <td class="product-brand">
+                             赞数过 10 图文
+                        </td>
+                        <td class="product-title">
+                            {{ article_dig }}
+                        </td>
+                    </tr><tr>
+                        <td class="product-brand">
+                             新增评论数
+                        </td>
+                        <td class="product-title">
+                            {{ article_remark_count }}
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
