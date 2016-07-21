@@ -184,11 +184,15 @@ define(['bootstrap',
         },
         fixMenu:function(){
             this.$menu.addClass('fix-new-index-navbar');
-            $('.top-search-wrapper').addClass('hidden');
+            if($('.top-search-wrapper').length){
+                $('.top-search-wrapper').addClass('hidden');
+            }
         },
         removeFixMenu:function(){
             if(this.$menu.hasClass('fix-new-index-navbar')){
-                  $('.top-search-wrapper').removeClass('hidden');
+                 if($('.top-search-wrapper').length) {
+                     $('.top-search-wrapper').removeClass('hidden');
+                 }
                  this.$menu.removeClass('fix-new-index-navbar');
             }
         }
