@@ -2446,7 +2446,7 @@ msgstr "禁言用户"
 #: apps/web/templates/web/user/user_followings.html:64
 #: apps/web/templates/web/user/user_followings.html:67
 msgid "Unfollow"
-msgstr "取消关注"
+msgstr "已经关注"
 
 #: apps/web/templates/web/article/onepage.html:223
 #: apps/web/templates/web/entity/entity_likers_list.html:81

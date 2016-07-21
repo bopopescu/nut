@@ -23,6 +23,9 @@
 {#set body class here to disable body padding-top#}
 {% block body_class %} compact-body new-index-body{% endblock %}
 
+{% block header %}
+    {% include "web/partial/index_header_new.html" %}
+{% endblock %}
 
 {% block content %}
 
@@ -43,7 +46,35 @@
             </div>
         </div>
     </div>
-    <div class="row new-section-title-wrapper">
+    <div class="row" id="category-container">
+{#        <div class="col-sm-12">#}
+{#            <ul id="category-item-container">#}
+{#                {% for category in categories %}#}
+{#                    <li class="category-item">#}
+{#                        <a href="{% url 'web_category_group' category.id %}" target="_blank">#}
+{#                            <div class="category-item-pic" style="background-image: url(/static/images/category-icon/{{ category.id }}.png)">#}
+{#                            </div>#}
+{#                            <div class="category-name">#}
+{#                                {{ category.title_cn }}#}
+{#                            </div>#}
+{#                        </a>#}
+{#                    </li>#}
+{#                {% endfor %}#}
+{#            </ul>#}
+{#        </div>#}
+        {% for category in categories %}
+            <div class="col-xs-2 col-sm-1 guoku-middle-col category-item-wrapper">
+                <a href="{% url 'web_category_group' category.id %}" target="_blank">
+                    <div class="category-item-pic" style="background-image: url(/static/images/category-icon/{{ category.id }}.png)">
+                    </div>
+                    <div class="category-name">
+                        {{ category.title_cn }}
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="row new-section-title-wrapper selection-title-wrapper">
         <div class="col-sm-12">
             <div class="section-title pull-left">
                 <a href="{{ web_selection_url }}" target="_blank">
@@ -51,7 +82,7 @@
                 </a>
             </div>
             <ul class="hidden-xs pull-left category-list" id="entity_category_container">
-                <li class="category-list-item" data-value="all">
+                <li class="category-list-item" data-value="all_entity">
                     全部
                 </li>
                 {% for category in categories %}
@@ -74,34 +105,6 @@
             {% include 'web/main/partial/new_selection_item_list.html' %}
         {% endfor %}
     </div>
-    <div class="hidden-sm hidden-md hidden-lg row new-section-title-wrapper">
-            <div class="col-sm-12">
-                <div class="section-title pull-left">
-                    推荐品类
-                </div>
-            </div>
-    </div>
-    <div class="hidden-sm hidden-md hidden-lg row dark-section-wrapper" id="category-container">
-            <div class="col-sm-12">
-                <ul id="category-item-container">
-                    {% for category in categories %}
-                        <li class="category-item dark-section-item">
-                            <a href="{% url 'web_category_group' category.id %}" target="_blank">
-                                <div class="section-panel">
-                                    <div class="category-item-pic" style="background-image: url('{{ category.cover_url|resize:'200' }}')">
-                                    </div>
-                                    <div class="section-name category-name">
-                                        <p>{{ category.title_cn }}</p>
-                                        <span>{{ category.title_en }}</span>
-                                    </div>
-                                    <div class="bg-layer"></div>
-                                </div>
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
     {% url 'web_selection_articles' as web_article_list_url %}
     <div class="row new-section-title-wrapper">
         <div class="col-sm-12">
@@ -111,7 +114,7 @@
                 </a>
             </div>
              <ul class="hidden-xs pull-left category-list" id="article_category_wrapper">
-                <li class="category-list-item" data-value="all">
+                <li class="category-list-item" data-value="all_article">
                     全部
                 </li>
                 {% for top_tag in article_tags %}
@@ -177,11 +180,11 @@
                           <a class="guoku-button new-guoku-button button-blue newest-button-blue" href="{% url 'web_user_settings' %}">
                               <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
                           {% elif request.user.id in user.concren %}
-                          <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                          <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" rel="nofollow" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
                           {% elif request.user.id in user.fans_list %}
-                          <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                          <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" rel="nofollow" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
                       {% else %}
-                          <a class="follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+                          <a class="follow guoku-button new-guoku-button button-blue newest-button-blue" rel="nofollow" data-status="0" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
                       {% endif %}
                       </div>
                   </div>
