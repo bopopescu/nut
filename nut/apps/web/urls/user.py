@@ -21,15 +21,6 @@ urlpatterns = patterns(
     url(r'^bind/sns/$', 'bind_sns', name='web_user_bind_sns'),
     url(r'^upload/avatar/$', 'upload_avatar', name='web_user_upload_avatar'),
     url(r'^sendverifymail/$', UserSendVerifyMail.as_view() , name='web_user_mail_verify'),
-    # url(r'^seller_management/$', SellerManagement.as_view() , name='web_seller_management'),
-    # url(r'^seller_management/entity_list/$', SellerManagement.as_view()),
-    # url(r'^seller_management/add_entity/$', SellerManagementAddEntity.as_view() , name='web_seller_management_entity_add'),
-    # url(r'^seller_management/(?P<entity_id>\d+)/new/$', EntitySKUCreateView.as_view(), name='management_entity_sku_create'),
-
-    #url(r'^(?P<entity_id>\d+)/skus/$', SKUListView.as_view() , name='sku_list_management'),
-    #url(r'^(?P<entity_id>\d+)/skus/new/$', SKUCreateView.as_view() , name='add_sku_management'),
-    #url(r'^(?P<entity_id>\d+)/skus/(?P<pk>\d+)/delete/$', SKUDeleteView.as_view(), name='sku_delete_management'),
-    #url(r'^(?P<entity_id>\d+)/skus/(?P<pk>\d+)/update/$', SKUUpdateView.as_view(), name='sku_update_management'),
 
 
     # tmpl user page
