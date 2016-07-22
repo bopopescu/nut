@@ -5,7 +5,7 @@ from settings import *
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-STATIC_URL = 'http://static.guoku.com/static/v4/f7083f81077094ce343719fb3a511a27ead32c85/'
+STATIC_URL = 'http://static.guoku.com/static/v4/b5c7825a85357477a19ac2c293ee13faf97c1b90/'
 
 LANGUAGE_CODE = 'zh-cn'
 
@@ -100,5 +100,8 @@ SINA_BACK_URL = APP_HOST + '/sina/auth'
 CONFIG_REDIS_HOST = '10.0.2.95'
 CONFIG_REDIS_PORT = 6379
 CONFIG_REDIS_DB = 10
+
+
+SITE_HOST = 'http://www.guoku.com'
 
 __author__ = 'edison7500'

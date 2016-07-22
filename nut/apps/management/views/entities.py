@@ -430,6 +430,8 @@ def image(request, entity_id,
                                  files=request.FILES)
         if _forms.is_valid():
             _forms.save()
+            return HttpResponseRedirect(reverse('management_entity_edit', args=[_entity.id]))
+
     else:
         _forms = EntityImageForm(entity=_entity)
 

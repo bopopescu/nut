@@ -6,17 +6,37 @@
             <div class="col-md-3">
             <div class="box box-primary">
                     <div class="box-body box-profile">
-                        <img class="profile-user-img img-responsive img-circle" alt="100x100" src="{{ user.profile.avatar_url }}" style="max-height:100px;max-width:100px;">
+                        <img class="profile-user-img img-responsive img-circle" alt="100x100" src="{{ user.profile.avatar_url }}" style="height:100px;width:100px;">
                         <h3 class="profile-username text-center">{{ user.profile.nick }}</h3>
                         <ul class="list-group list-group-unbordered">
 
                             <li class="list-group-item">
-                                <b>{% trans '商品数' %}</b>
+                                <b>{% trans '商品总数' %}</b>
                                 <a class="pull-right">{{ user.report.entity_count }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>{% trans '新品数' %}</b>
+                                <a class="pull-right">{{ user.report.entity_count_new }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>{% trans '精选商品数' %}</b>
+                                <a class="pull-right">{{ user.report.entity_count_selection }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>{% trans '冻结商品数' %}</b>
+                                <a class="pull-right">{{ user.report.entity_count_freeze }}</a>
                             </li>
                             <li class="list-group-item">
                                 <b>{% trans '喜爱数' %}</b>
                                 <a class="pull-right">{{ user.report.entity_like_count }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>{% trans '精选商品数(按发布时间' %}</b>
+                                <a class="pull-right">{{ user.report.selection_entity_count }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>{% trans '精选商品喜爱数' %}</b>
+                                <a class="pull-right">{{ user.report.selection_entity_like_count }}</a>
                             </li>
                             <li class="list-group-item">
                                 <b>{% trans '图文数' %}</b>

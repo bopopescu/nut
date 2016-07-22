@@ -540,7 +540,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                         log.error('create_order item error :%s'%e)
                         if order_item:
                             order_item.delete()
-                        raise OrderException('error when create order item')
+                        raise OrderException('error when create order item: %s' %e)
                 self.clear_cart()
                 return new_order
 
@@ -550,7 +550,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                 log.error(e)
                 if new_order:
                     new_order.delete()
-                # raise OrderException('error create order')
+                raise OrderException('error create order:  %s: ' %e)
                 return None
 
     def clear_cart(self):
@@ -1588,7 +1588,6 @@ class Article(BaseModel):
         except Exception:
             cache.set(key, self.digs.count())
 
-
     @property
     def tag_list(self):
         _tag_list = Content_Tags.objects.article_tags(self.id)
@@ -1974,7 +1973,6 @@ class Show_Event_Banner(models.Model):
 
 
 # editor recommendation
-
 class Editor_Recommendation(models.Model):
     image = models.CharField(max_length=255, null=False)
     link = models.CharField(max_length=255, null=False)
