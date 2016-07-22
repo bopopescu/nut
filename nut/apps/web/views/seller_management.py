@@ -88,7 +88,10 @@ class SKUCreateView(EntityUserPassesTestMixin, CreateView):
     template_name = 'web/seller_management/add_sku.html'
     def get_success_url(self):
         return reverse('sku_list_management', args=[self.entity_id])
-
+    def get_context_data(self, **kwargs):
+        context = super(CreateView,self).get_context_data(**kwargs)
+        context['entity_id']=self.entity_id
+        return context
     def get_initial(self):
         return {
             'entity':self.entity_id
@@ -98,7 +101,10 @@ class SKUUpdateView(SKUUserPassesTestMixin,UpdateView):
     model = SKU
     form_class = SKUForm
     template_name = 'web/seller_management/update_sku.html'
-
+    def get_context_data(self, **kwargs):
+        context = super(SKUUpdateView,self).get_context_data(**kwargs)
+        context['entity_id']=self.entity_id
+        return context
     def get_success_url(self):
         return reverse('sku_list_management', args=[self.entity_id])
 
