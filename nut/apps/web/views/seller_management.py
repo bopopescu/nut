@@ -38,7 +38,7 @@ class SellerManagement(LoginRequiredMixin, FilterMixin, ListView):
     http_method_names = ['get']
     paginator_class = ExtentPaginator
     model = Entity
-    paginate_by = 30
+    paginate_by = 10
     template_name = 'web/seller_management/seller_management.html'
 
     def get_queryset(self):
