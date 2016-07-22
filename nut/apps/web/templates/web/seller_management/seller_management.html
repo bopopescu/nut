@@ -36,6 +36,11 @@
 {% endblock %}
 
 {% block user_script %}
+    <script src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/management/util.js' %}"></script>
+    <script src="{% static 'js/management/moment.js' %}"></script>
+
      <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/manage_search.js' %}" type="application/javascript"></script>
+    <script src="{% static 'js/management/seller_management/entity_save.js' %}" type="application/javascript"></script>
 {% endblock %}

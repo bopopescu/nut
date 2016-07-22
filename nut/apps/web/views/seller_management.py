@@ -1,10 +1,12 @@
 # encoding: utf-8
+import json
+
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.forms.entity import EditEntityForm
 from apps.core.mixins.views import FilterMixin, SortMixin
-from apps.core.views import LoginRequiredMixin
+from apps.core.views import LoginRequiredMixin, JSONResponseMixin
 from apps.management.views.entities import Add_local
-from braces.views import UserPassesTestMixin
+from braces.views import JSONRequestResponseMixin,AjaxResponseMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db.models import Sum
@@ -14,7 +16,7 @@ from django.shortcuts import get_object_or_404
 from apps.management.forms.sku import SKUForm
 from apps.core.models import SKU,Entity
 from django.template import RequestContext
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView, View
 from django.http import Http404
 
 class SKUUserPassesTestMixin(UserPassesTestMixin):
@@ -131,6 +133,22 @@ def seller_management_entity_edit(request, entity_id, template='web/seller_manag
         context_instance=RequestContext(request)
     )
 
+class SellerManagementEntitySave(AjaxResponseMixin, JSONResponseMixin, View):
+    model = Entity
+    def save_update(self, price):
+        entity = Entity.objects.get(id=self.kwargs.get('entity_id'))
+        entity.price = price
+        entity.save()
+        return
+
+    def post_ajax(self, request, *args, **kwargs):
+        price = request.POST.get('price', None)
+        price = json.loads(price)
+        try:
+            self.save_update(price)
+        except:
+            pass
+        return HttpResponseRedirect(reverse('web_seller_management'))
 
 class SellerEntitySKUCreateView(EntityUserPassesTestMixin, CreateView):
     model = SKU
