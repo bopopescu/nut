@@ -2780,6 +2780,11 @@ a:hover {
   width: auto;
   float: none;
 }
+.main-article .writer-wrapper.writer-wrapper-control .article-user-follow.mobile-follow {
+  min-width: 32px;
+  max-width: 32px;
+  height: 32px;
+}
 .main-article .writer-wrapper.writer-wrapper-control .write-pre {
   margin-bottom: 10px;
 }
