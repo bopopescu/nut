@@ -1686,6 +1686,37 @@ a:hover{text-decoration:underline;}
       }
     }
   }
+  .mobile-remark-list{
+    .remark-list-item-wrapper{
+      padding: 10px 15px;
+      //&:hover{
+      //  cursor:pointer;
+      //  .remark-item .remark-detail .remark-operate{
+      //    .remark-reply,.remark-delete{
+      //      display: block;
+      //    }
+      //  }
+      //}
+      .remark-item{
+        overflow: hidden;
+        .remark-detail{
+          margin-left:80px;
+          .remark-content{
+            margin-top:6px;
+          }
+          .remark-operate{
+            overflow: hidden;
+            font-size:@more-mini-size;
+            color:@common-gray;
+            //.remark-reply,.remark-delete{
+            //  display: none;
+            //  margin-left:15px;
+            //}
+          }
+        }
+      }
+    }
+  }
   #login_user_remark{
     padding:0 15px;
   }

@@ -2891,6 +2891,23 @@ a:hover {
   display: none;
   margin-left: 15px;
 }
+.mobile-remark-list .remark-list-item-wrapper {
+  padding: 10px 15px;
+}
+.mobile-remark-list .remark-list-item-wrapper .remark-item {
+  overflow: hidden;
+}
+.mobile-remark-list .remark-list-item-wrapper .remark-item .remark-detail {
+  margin-left: 80px;
+}
+.mobile-remark-list .remark-list-item-wrapper .remark-item .remark-detail .remark-content {
+  margin-top: 6px;
+}
+.mobile-remark-list .remark-list-item-wrapper .remark-item .remark-detail .remark-operate {
+  overflow: hidden;
+  font-size: 12px;
+  color: #9D9E9F;
+}
 #login_user_remark {
   padding: 0 15px;
 }
