@@ -1,1 +1,50 @@
-hello
+{% load i18n static %}
+<table class="table table-small-font table-bordered" >
+    <thead>
+        <tr>
+            <td>
+                {{ '订单号:%s'% order.number }}
+            </td>
+            <td>
+                {{ '订单状态:%s'% order.status }}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                {% trans '商品名称' %}
+            </th>
+            <th>
+                {% trans '商品图' %}
+
+            </th>
+            <th>
+                {% trans '价格' %}
+            </th>
+            <th>
+                {% trans '数量' %}
+            </th>
+        </tr>
+    </thead>
+    {% for sku in order_item%}
+        <tr>
+            <td>{{ sku.id }}</td>
+            <td>{{ sku.stock }}</td>
+            <td>{{ sku.origin_price }}</td>
+            <td>{{ sku.promo_price }}</td>
+            <td>{{ sku.attrs_display }}</td>
+            <td>{{ sku.get_status_display }}</td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-warning" href="{% url 'sku_update_management' entity.pk sku.pk %}" >编辑SKU属性</a>
+                    <a class="btn btn-danger" href="{% url 'sku_delete_management' entity.pk sku.pk %}">删除SKU</a>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+        <tr>
+            <td>
+            <a class="btn btn-success" href="{% url 'web_seller_management' %}">返回</a>
+            </td>
+        </tr>
+
+</table>

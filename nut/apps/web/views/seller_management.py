@@ -202,7 +202,7 @@ class SKUDeleteView(SKUUserPassesTestMixin, DeleteView):
     def get_success_url(self):
         return reverse('sku_list_management', args=[self.entity_id])
 
-class OrderDetail(UserPassesTestMixin,DetailView):
+class OrderDetailView(UserPassesTestMixin,DetailView):
     pk_url_kwarg = 'order_number'
     context_object_name = 'order'
     model = Order
@@ -214,5 +214,9 @@ class OrderDetail(UserPassesTestMixin,DetailView):
     def no_permissions_fail(self, request=None):
         raise Http404
 
+    def get_context_data(self, **kwargs):
+        context = super(OrderDetailView, self).get_context_data(**kwargs)
+        context['order_item'] = context['order'].items.all()
+        return context
 
 
