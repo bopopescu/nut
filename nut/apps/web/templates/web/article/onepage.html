@@ -243,11 +243,16 @@
                                 {% elif article.creator == request.user %}
 
                             {% elif request.user.id in article.creator.concren %}
-                                <a class="follow article-user-follow guoku-button new-guoku-button btn-cancel new-btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                                <a class="hidden-xs follow article-user-follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                                <a class="hidden-sm hidden-md hidden-lg mobile-follow article-user-follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i></a>
+
                             {% elif request.user.id in article.creator.fans_list %}
-                                <a class="follow article-user-follow guoku-button new-guoku-button btn-cancel new-btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                                <a class="hidden-xs follow article-user-follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                                 <a class="hidden-sm hidden-md hidden-lg mobile-follow article-user-follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i></a>
+
                             {% else %}
-                                <a class="follow article-user-follow guoku-button new-guoku-button button-blue newest-button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+                                <a class="hidden-xs follow article-user-follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+                                <a class="hidden-sm hidden-md hidden-lg mobile-follow article-user-follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i></a>
                             {% endif %}
 {#                            {% endif %}#}
 
@@ -266,10 +271,21 @@
                     </div>  
                 {% endif %}
 
-                {#article remark end#}
+                {# mobile remark list begin #}
+                {% if isFromMobile %}
+                    {% if remarks %}
+                        <div class="divider article-divider divider-control"></div>
+                        <div class="article-section-title" id="article-remark-title">
+                            <div class="info-text">文章评论</div>
+                        </div>
+                        <div class="remarks-wrapper"> 
+                            {% include 'web/article/mobile_remark.html' %} 
+                        </div>  
+                    {% endif %}
+                {% endif %}
+                {# mobile remark list end #}
 
-                {% if not isFromMobile %}
-                    <div class="article-section-title for-browser">
+                    <div class="article-section-title">
                         <div class="info-text">相关推荐</div>
                     </div>
                     {#                    {% for sla in article.related_articles %}#}
@@ -284,7 +300,7 @@
                     {#                        </div>#}
                     {##}
                     {#                    </div>#}
-                    <div class="row dark-section-wrapper related-article-wrapper">
+                    <div class="row new-dark-section-wrapper related-article-wrapper">
                         <div class="col-sm-12">
                             <ul id="related-article-container">
                                 {% for sla in article.related_articles %}
@@ -296,8 +312,9 @@
                                                 </div>
                                                 <div class="bg-layer related-article-bg-layer"></div>
                                                 <div class="section-name article-title">
-                                                    <p>{{ r_article.title|truncatechars:22 }}</p>
+                                                    <p>{{ r_article.title|truncatechars:22 }}
 {#                                                    <span>{{ category.title_en }}</span>#}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </a>
@@ -307,8 +324,6 @@
                             </ul>
                         </div>
                     </div>
-
-                {% endif %}
 
             </div>
             {% if not isFromMobile %}
