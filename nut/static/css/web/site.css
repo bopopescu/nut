@@ -2892,7 +2892,7 @@ a:hover {
   margin-left: 15px;
 }
 .mobile-remark-list .remark-list-item-wrapper {
-  padding: 10px 15px;
+  padding: 10px 0px;
 }
 .mobile-remark-list .remark-list-item-wrapper .remark-item {
   overflow: hidden;
