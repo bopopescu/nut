@@ -18,7 +18,7 @@ TIME_ZONE = 'Asia/Shanghai'
 
 USE_TZ = False
 
-DATABASES = TESTING_DATABASE
+DATABASES = PRODUCTION_DATABASES
 
 # CELERY #################################
 BROKER_URL = 'redis://localhost:6379/0'
@@ -175,5 +175,6 @@ HAYSTACK_CONNECTIONS = {
 }
 # HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
+SITE_HOST = 'http://test.guoku.com'
 
 __author__ = 'edison7500'
