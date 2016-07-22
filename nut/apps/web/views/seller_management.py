@@ -154,7 +154,6 @@ class SKUListView(EntityUserPassesTestMixin, SortMixin, ListView):
         context['sort_by'] = self.get_sort_params()[0]
         context['extra_query'] = 'sort_by=' + context['sort_by']
         return context
-
     def sort_queryset(self, qs, sort_by, order):
         if sort_by == 'stock':
             qs = qs.order_by('-stock')
@@ -167,6 +166,7 @@ class SKUListView(EntityUserPassesTestMixin, SortMixin, ListView):
         else:
             pass
         return qs
+
 
 class SKUCreateView(EntityUserPassesTestMixin, CreateView):
     model = SKU
