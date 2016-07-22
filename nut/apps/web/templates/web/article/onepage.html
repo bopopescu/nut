@@ -280,8 +280,7 @@
                 {% endif %}
                 {# mobile remark list end #}
 
-                {% if not isFromMobile %}
-                    <div class="article-section-title for-browser">
+                    <div class="article-section-title">
                         <div class="info-text">相关推荐</div>
                     </div>
                     {#                    {% for sla in article.related_articles %}#}
@@ -319,8 +318,6 @@
                             </ul>
                         </div>
                     </div>
-
-                {% endif %}
 
             </div>
             {% if not isFromMobile %}
