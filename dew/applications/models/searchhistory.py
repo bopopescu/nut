@@ -5,12 +5,12 @@ from base import BaseModel, TimestampMixin
 # from sqlalchemy_utils import IPAddressType
 
 
-class SearchHistory(TimestampMixin, BaseModel):
+class SearchHistory(BaseModel, TimestampMixin):
 
     __tablename__               =   'search_history'
 
     id                          =   db.Column(db.Integer(), primary_key=True)
-    user_id                     =   db.Column(db.Integer())
+    user_id                     =   db.Column(db.Integer(), index=True)
     keyword                     =   db.Column(db.VARCHAR(255))
     ip                          =   db.Column(db.CHAR(45))
     user_agent                  =   db.Column(db.VARCHAR(255))

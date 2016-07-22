@@ -10,11 +10,13 @@ app.config.from_pyfile('../config/default.py')
 
 
 from applications.models.base import db
-from applications.api.keywords import SearchHistoryView
+from applications.api.keywords import SearchHistoryView, UserSearchHistoryView
 
 
 
 res_api.add_resource(SearchHistoryView, '/keywords/')
+res_api.add_resource(UserSearchHistoryView, '/keywords/<user_id>/')
+
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
