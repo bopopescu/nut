@@ -18,7 +18,7 @@
                 <tbody>
                     {% for entity in object_list %}
                         <tr>
-                            <td><a href="{% url 'management_entity_edit' entity.pk %}">{{ entity.title }}</a></td>
+                            <td>{{ entity.title }}</td>
                             <td>{{ entity.price }}</td>
                             <td>{% for sku in entity.sku_list %} {{ sku.attrs_display }}<br>{% endfor %}</td>
                             <td>
