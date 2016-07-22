@@ -43,7 +43,7 @@ class SellerManagement(LoginRequiredMixin, ListView):
         context = super(SellerManagement, self).get_context_data(**kwargs)
         for entity in context['object_list']:
             entity.sku_list = entity.skus.all()
-
+            entity.title=entity.title[:15]
         return context
 
     def get(self, request, *args, **kwargs):
