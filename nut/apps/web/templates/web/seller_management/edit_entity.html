@@ -42,59 +42,59 @@
                 <div class="box box-info">
                     <div class="box-header">
                         <a href="{% url 'web_entity_detail' entity.entity_hash %}" class="btn btn-success btn-lg" target="_blank">{% trans 'go to' %}</a>
-                        <a href="{% url 'management_note_create' entity.pk %}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#EntityNoteModal">{% trans 'add note' %}</a>
-                        <a href="{% url 'management_entity_image' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'upload image' %}</a>
-                        <a href="{% url 'management_entity_buy_link' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'add buy link' %}</a>
-                        <a href="{% url 'management_entity_fetch_image' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'fetch image' %}</a>
-                        {% if entity.brand %}
-                            <a href="{% url 'management_brand_name_edit' entity.brand %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'goto brand' %}</a>
-                        {% endif %}
-                        {% if entity.selection_entity %}
-                             <a href="{% url 'management_selection_edit_publish' entity.selection_entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans '编辑精选时间' %}</a>
-                        {% endif %}
-                        <a href="{% url 'management_entity_skus' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans '管理SKU' %}</a>
+{#                        <a href="{% url 'management_note_create' entity.pk %}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#EntityNoteModal">{% trans 'add note' %}</a>#}
+{#                        <a href="{% url 'management_entity_image' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'upload image' %}</a>#}
+{#                        <a href="{% url 'management_entity_buy_link' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'add buy link' %}</a>#}
+{#                        <a href="{% url 'management_entity_fetch_image' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'fetch image' %}</a>#}
+{#                        {% if entity.brand %}#}
+{#                            <a href="{% url 'management_brand_name_edit' entity.brand %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'goto brand' %}</a>#}
+{#                        {% endif %}#}
+{#                        {% if entity.selection_entity %}#}
+{#                             <a href="{% url 'management_selection_edit_publish' entity.selection_entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans '编辑精选时间' %}</a>#}
+{#                        {% endif %}#}
+{#                        <a href="{% url 'management_entity_skus' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans '管理SKU' %}</a>#}
                     </div>
 
-                    <div class="box-body table-responsive">
-                        <table class="table table-small-font table-hover table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>{% trans 'link' %}</th>
-                                    <th>{% trans 'price' %}</th>
-                                    <th>{% trans 'source' %}</th>
-                                    <th>{% trans 'shop link' %}</th>
-                                    <th>{% trans 'is default' %}</th>
-                                    <th>{% trans 'status' %}</th>
-                                    <th>{% trans 'operation' %}</th>
-                                </tr>
-                            </thead>
-                            <tbody id="buylinks">
-                                {% for buy_link in entity.buy_links.all %}
-                                    <tr>
-                                        <td><a href="{{ buy_link }}" target="_blank">{{ buy_link }}</a></td>
-                                        <td><span class="label label-info">{{ buy_link.price }}</span></td>
-                                        <td>{{ buy_link.origin_source }}</td>
-                                        <td>
-                                            {% if buy_link.shop_link %}
-                                                <a href="{{ buy_link.shop_link }}" target="_blank">去店铺</a>
-                                            {% endif %}
-                                        </td>
-                                        <td><span class="label label-primary">{{ buy_link.default }}</span></td>
-                                        <td><span class="label {% if buy_link.status == 2 %}label-info{% else %}label-danger{% endif %}">{{ buy_link.get_status_display }}</span></td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-success" href="{% url 'management_check_buy_link' buy_link.pk %}" target="_blank">{% trans 'check status' %}</a>
-                                                <a class="btn btn-default" href="{% url 'management_edit_entity_buy_link' buy_link.pk %}" target="_blank">{% trans 'edit' %}</a>
-                                                {% if not buy_link.default %}
-                                                    <a class="btn btn-danger buy-link" data-index="{{ buy_link.pk }}" href="javascript:;">&nbsp;{% trans 'remove' %}</a>
-                                                {% endif %}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+{#                    <div class="box-body table-responsive">#}
+{#                        <table class="table table-small-font table-hover table-bordered">#}
+{#                            <thead>#}
+{#                                <tr>#}
+{#                                    <th>{% trans 'link' %}</th>#}
+{#                                    <th>{% trans 'price' %}</th>#}
+{#                                    <th>{% trans 'source' %}</th>#}
+{#                                    <th>{% trans 'shop link' %}</th>#}
+{#                                    <th>{% trans 'is default' %}</th>#}
+{#                                    <th>{% trans 'status' %}</th>#}
+{#                                    <th>{% trans 'operation' %}</th>#}
+{#                                </tr>#}
+{#                            </thead>#}
+{#                            <tbody id="buylinks">#}
+{#                                {% for buy_link in entity.buy_links.all %}#}
+{#                                    <tr>#}
+{#                                        <td><a href="{{ buy_link }}" target="_blank">{{ buy_link }}</a></td>#}
+{#                                        <td><span class="label label-info">{{ buy_link.price }}</span></td>#}
+{#                                        <td>{{ buy_link.origin_source }}</td>#}
+{#                                        <td>#}
+{#                                            {% if buy_link.shop_link %}#}
+{#                                                <a href="{{ buy_link.shop_link }}" target="_blank">去店铺</a>#}
+{#                                            {% endif %}#}
+{#                                        </td>#}
+{#                                        <td><span class="label label-primary">{{ buy_link.default }}</span></td>#}
+{#                                        <td><span class="label {% if buy_link.status == 2 %}label-info{% else %}label-danger{% endif %}">{{ buy_link.get_status_display }}</span></td>#}
+{#                                        <td>#}
+{#                                            <div class="btn-group">#}
+{#                                                <a class="btn btn-success" href="{% url 'management_check_buy_link' buy_link.pk %}" target="_blank">{% trans 'check status' %}</a>#}
+{#                                                <a class="btn btn-default" href="{% url 'management_edit_entity_buy_link' buy_link.pk %}" target="_blank">{% trans 'edit' %}</a>#}
+{#                                                {% if not buy_link.default %}#}
+{#                                                    <a class="btn btn-danger buy-link" data-index="{{ buy_link.pk }}" href="javascript:;">&nbsp;{% trans 'remove' %}</a>#}
+{#                                                {% endif %}#}
+{#                                            </div>#}
+{#                                        </td>#}
+{#                                    </tr>#}
+{#                                {% endfor %}#}
+{#                            </tbody>#}
+{#                        </table>#}
+{#                    </div>#}
                 </div>
             </div>
 
