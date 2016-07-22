@@ -7,6 +7,7 @@ from apps.management.views.entities import Add_local
 from braces.views import UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.shortcuts import get_object_or_404
@@ -50,6 +51,7 @@ class SellerManagement(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
         context = super(SellerManagement, self).get_context_data(**kwargs)
         for entity in context['object_list']:
             entity.sku_list = entity.skus.all()
+            entity.stock = entity.sku_list.aggregate(Sum('stock')).get('stock__sum', 0) or 0
             entity.title=entity.title[:15]
         context['sort_by'] = self.get_sort_params()[0]
         context['extra_query'] = 'sort_by=' + context['sort_by']
