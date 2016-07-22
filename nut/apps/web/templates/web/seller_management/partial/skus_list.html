@@ -6,9 +6,7 @@
             <td>
                  <a class="btn btn-success" href="{% url 'add_sku_management' entity.id %}">添加</a>
             </td>
-            <td>
-            <a class="btn btn-success" href="{% url 'web_seller_management' %}">返回</a>
-            </td>
+
         </tr>
         <tr>
             <th>
@@ -43,8 +41,6 @@
                 {% trans 'Action' %}
             </th>
         </tr>
-
-        </tr>
     </thead>
     {% for sku in object_list %}
         <tr>
@@ -62,6 +58,10 @@
             </td>
         </tr>
     {% endfor %}
-                <tr>
+        <tr>
+            <td>
+            <a class="btn btn-success" href="{% url 'web_seller_management' %}">返回</a>
+            </td>
+        </tr>
 
 </table>

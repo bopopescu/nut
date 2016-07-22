@@ -16,10 +16,14 @@ define([
             this.flag = 0;
             console.log('top notification begin');
             this.initClickBell();
+            this.initClickUser();
             this.checkBadge();
         },
         initClickBell: function(){
             $('.navbar-collapse .notification-icon').click(this.handleClickBell.bind(this));
+        },
+        initClickUser:function(){
+            $('.navbar-collapse .nav-user-actions').click(this.handleClickUser.bind(this));
         },
         checkBadge:function(){
             if($('.nav-user-actions .badge').length > 0){
@@ -38,6 +42,13 @@ define([
                console.log('no request');
             }else{
                 this.postAjaxNotification();
+            }
+        },
+        handleClickUser:function(){
+            var notification = $('.navbar-collapse .notification-drop-list-wrapper');
+            if(notification.css('display') == 'block'){
+                notification.css('display','none');
+                this.flag ++;
             }
         },
         postAjaxNotification:function(){

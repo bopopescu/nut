@@ -63,6 +63,7 @@ class OrderForUserTest(DBTestBase):
     def test_user_checkout_create_order(self):
         self.the_user.add_sku_to_cart(self.sku1)
         self.the_user.add_sku_to_cart(self.sku2)
+        self.the_user.add_sku_to_cart(self.sku2)
 
         self.assertEqual(self.the_user.cart_item_count, 2)
 
@@ -79,6 +80,9 @@ class OrderForUserTest(DBTestBase):
 
         #cart is cleared
         self.assertEqual(self.the_user.cart_item_count , 0)
+
+        #
+        self.assertEqual(self.the_user.order_items.all()[1].volume , 2)
 
 
 

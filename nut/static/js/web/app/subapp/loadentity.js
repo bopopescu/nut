@@ -54,7 +54,7 @@ define(['jquery','libs/Class','libs/fastdom'],
                 this.loading = true
             }
             this.shouldLoad = this.isOverScrolled && (this.counter%3 !== 0) && (!this.loading);
-            console.log('counter:'+this.counter+'shoudLoad:'+this.shouldLoad);
+            //console.log('counter:'+this.counter+'shoudLoad:'+this.shouldLoad);
 
             if(!this.shouldLoad){
                 this.doClear();

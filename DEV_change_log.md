@@ -1,4 +1,13 @@
 
+5.  management editor workload data report 
+4.  management add entity - update
+3.  index page category icon
+2.  index page search header 
+1.  mobile article page image display bug fix 
+
+=======================
+# merged to master 2016 7-18
+=======================
 3. update tag article template 
 2. add short_digest to Article model ,and handle cache
 1. translation update 
