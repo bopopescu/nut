@@ -1,4 +1,3 @@
-(node) util.print is deprecated. Use console.log instead.
 /*---------------------------------------------------
     LESS Elements 0.9
   ---------------------------------------------------
@@ -29,8 +28,8 @@
   position: absolute;
   display: none;
   z-index: 100;
-  border: 2px dashed #87cefa;
-  color: #87cefa;
+  border: 2px dashed lightskyblue;
+  color: lightskyblue;
   background-color: white;
   opacity: 0.95;
   pointer-event: none;
@@ -50,7 +49,7 @@
   display: table;
 }
 .note-editor .note-toolbar {
-  background-color: #ffffff;
+  background-color: #fff;
   border: 1px solid #f1f2f3;
 }
 .note-editor.fullscreen {
@@ -74,7 +73,7 @@
   display: block;
 }
 .note-editor .note-statusbar {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .note-editor .note-statusbar .note-resizebar {
   height: 8px;
@@ -373,7 +372,7 @@
 }
 .note-dialog .note-help-dialog .modal-close {
   font-size: 14px;
-  color: #dddd00;
+  color: #dd0;
   cursor: pointer;
 }
 .note-dialog .note-help-dialog .text-center {
@@ -394,11 +393,11 @@
 .note-dialog .note-help-dialog .note-shortcut-title {
   font-size: 13px;
   font-weight: bold;
-  color: #dddd00;
+  color: #dd0;
 }
 .note-dialog .note-help-dialog .note-shortcut-key {
   font-family: "Courier New";
-  color: #dddd00;
+  color: #dd0;
   text-align: right;
 }
 /* Handle
@@ -489,7 +488,7 @@
   border-radius: 1px;
 }
 .btn-default {
-  color: #888888;
+  color: #888;
   background-color: #fff;
   border: none;
 }
@@ -588,7 +587,7 @@
   cursor: pointer;
   padding-left: 10px;
   display: block;
-  background-color: #f8f8f8;
+  background-color: #F8F8F8;
   font-size: 22px;
   color: #dddddd;
 }
@@ -601,4 +600,3 @@
 .test {
   color: red;
 }
-/*# sourceMappingURL=summernote.less.css.map */
