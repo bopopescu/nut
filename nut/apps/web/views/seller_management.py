@@ -1,14 +1,18 @@
 # encoding: utf-8
 from apps.core.extend.paginator import ExtentPaginator
+from apps.core.forms.entity import EditEntityForm
+from apps.core.mixins.views import FilterMixin
 from apps.core.views import LoginRequiredMixin
 from apps.management.views.entities import Add_local
 from braces.views import UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.shortcuts import get_object_or_404
 from apps.management.forms.sku import SKUForm
 from apps.core.models import SKU,Entity
+from django.template import RequestContext
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.http import Http404
 
@@ -30,14 +34,16 @@ class EntityUserPassesTestMixin(UserPassesTestMixin):
     def no_permissions_fail(self, request=None):
         raise Http404
 
-class SellerManagement(LoginRequiredMixin, ListView):
+class SellerManagement(LoginRequiredMixin, FilterMixin, ListView):
     http_method_names = ['get']
     paginator_class = ExtentPaginator
+    model = Entity
     paginate_by = 30
     template_name = 'web/seller_management/seller_management.html'
 
     def get_queryset(self):
-        return self.request.user.entities.all()
+        qs = self.request.user.entities.all()
+        return self.filter_queryset(qs,self.get_filter_param())
 
     def get_context_data(self, **kwargs):
         context = super(SellerManagement, self).get_context_data(**kwargs)
@@ -46,9 +52,17 @@ class SellerManagement(LoginRequiredMixin, ListView):
             entity.title=entity.title[:15]
         return context
 
-    def get(self, request, *args, **kwargs):
+    def filter_queryset(self, qs, filter_param):
+        filter_field, filter_value = filter_param
+        if filter_field == 'title':
+            qs = qs.filter(title__icontains=filter_value.strip())
+        # elif filter_field == 'title':
+        #     qs = qs.filter(title__icontains=filter_value.strip())
+        else:
+            pass
+        return qs
 
-        return super(SellerManagement, self).get(request, *args, **kwargs)
+
 
 class SellerManagementAddEntity(Add_local):
     template_name = 'web/seller_management/add_entity.html'
@@ -59,6 +73,54 @@ class SellerManagementAddEntity(Add_local):
             form.save()
             return HttpResponseRedirect(reverse('web_seller_management'))
         return render(request, self.template_name, {'forms': form})
+
+@login_required
+def seller_management_entity_edit(request, entity_id, template='web/seller_management/edit_entity.html'):
+    #Todo 拆分模版, 重写view
+    _update = None
+    try:
+        entity = Entity.objects.get(pk=entity_id)
+    except Entity.DoesNotExist:
+        raise Http404
+    data = {
+        # 'id':entity.pk,
+        'creator': entity.user.profile.nickname,
+        'brand': entity.brand,
+        'title': entity.title,
+        'price': entity.price,
+        'status': entity.status,
+        'category': entity.category.group_id,
+        'sub_category': entity.category_id,
+    }
+
+    if request.method == "POST":
+        _forms = EditEntityForm(
+            entity,
+            request.POST,
+            initial=data
+        )
+        _update = 1
+
+        if _forms.is_valid():
+            _forms.save()
+            _update = 0
+
+    else:
+        _forms = EditEntityForm(
+            entity=entity,
+            initial=data
+        )
+
+    return render_to_response(
+        template,
+        {
+            'entity': entity,
+            'forms': _forms,
+            'update': _update,
+        },
+        context_instance=RequestContext(request)
+    )
+
 
 class SellerEntitySKUCreateView(EntityUserPassesTestMixin, CreateView):
     model = SKU

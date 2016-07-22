@@ -4,7 +4,8 @@
                 <thead>
                     <tr>
 
-                        <th>{% trans 'name' %}</th>
+                        <th>{% trans 'name' %}
+                        <input class="guoku_search_input" data-search-field="title" type="text" ></th>
                         <th>{% trans 'price' %}</th>
                         <th>{% trans 'skus' %}</th>
                         <th>
@@ -19,7 +20,8 @@
                             <td>{% for sku in entity.sku_list %} {{ sku.attrs_display }}<br>{% endfor %}</td>
                             <td>
                                 <div class="btn-group">
-                                    <a class="btn btn-primary" href="{% url 'sku_list_management' entity.id %}" target="_blank">{% trans '管理' %}</a>
+                                    <a class="btn btn-primary" href="{% url 'sku_list_management' entity.id %}" target="_blank">{% trans 'SKU管理' %}</a>
+                                    <a class="btn btn-default" href="{% url 'web_seller_management_entity_edit' entity.pk %}" target="_blank">{% trans 'edit' %}</a>
                                 </div>
                             </td>
                         </tr>
