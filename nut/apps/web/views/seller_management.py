@@ -11,9 +11,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.shortcuts import get_object_or_404
 from apps.management.forms.sku import SKUForm
-from apps.core.models import SKU,Entity
+from apps.core.models import SKU,Entity,Order
 from django.template import RequestContext
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView,DetailView
 from django.http import Http404
 
 class SKUUserPassesTestMixin(UserPassesTestMixin):
@@ -202,6 +202,17 @@ class SKUDeleteView(SKUUserPassesTestMixin, DeleteView):
     def get_success_url(self):
         return reverse('sku_list_management', args=[self.entity_id])
 
+class OrderDetail(UserPassesTestMixin,DetailView):
+    pk_url_kwarg = 'order_number'
+    context_object_name = 'order'
+    model = Order
+    template_name = 'web/seller_management/order_detail.html'
+    def test_func(self, user):
+        self.order_number = self.kwargs.get('order_number')
+        order = Order.objects.get(pk=self.order_number)
+        return order in user.orders.all()
+    def no_permissions_fail(self, request=None):
+        raise Http404
 
 
 
