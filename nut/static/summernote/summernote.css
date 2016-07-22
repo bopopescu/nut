@@ -508,9 +508,9 @@
 .btn.active {
   box-shadow: none;
 }
-.fixed-toolbar {
+#editor-container .fixed-toolbar {
   position: fixed;
-  top: 50px;
+  top: 0px;
 }
 .note-toolbar > .btn-group {
   margin: 0px;
@@ -598,5 +598,5 @@
   display: none;
 }
 .test {
-  color: red;
+  color: black;
 }
