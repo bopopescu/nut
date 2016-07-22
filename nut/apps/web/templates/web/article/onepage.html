@@ -295,7 +295,7 @@
                     {#                        </div>#}
                     {##}
                     {#                    </div>#}
-                    <div class="row dark-section-wrapper related-article-wrapper">
+                    <div class="row new-dark-section-wrapper related-article-wrapper">
                         <div class="col-sm-12">
                             <ul id="related-article-container">
                                 {% for sla in article.related_articles %}
@@ -307,8 +307,9 @@
                                                 </div>
                                                 <div class="bg-layer related-article-bg-layer"></div>
                                                 <div class="section-name article-title">
-                                                    <p>{{ r_article.title|truncatechars:22 }}</p>
+                                                    <p>{{ r_article.title|truncatechars:22 }}
 {#                                                    <span>{{ category.title_en }}</span>#}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </a>
