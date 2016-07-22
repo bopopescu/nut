@@ -14,20 +14,30 @@
             <th>
                 {% trans '#' %}
             </th>
-            <th>
-                {% trans 'stock' %}
+            <th><a href="{% url 'sku_list_management' entity.id %}?sort_by=stock">
+                {% trans 'stock' %}{%  if sort_by == 'stock' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}
+                </a>
             </th>
              <th>
-                {% trans 'origin price' %}
+                 <a href="{% url 'sku_list_management' entity.id %}?sort_by=origin_price">
+                {% trans 'origin price' %}{%  if sort_by == 'origin_price' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}
+                </a>
+
             </th>
              <th>
-                {% trans 'promotion price' %}
+                 <a href="{% url 'sku_list_management' entity.id %}?sort_by=promotion_price">
+                {% trans 'promotion price' %}{%  if sort_by == 'promotion_price' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}
+                </a>
+
             </th>
             <th>
                 {% trans 'Attributes' %}
             </th>
             <th>
-                {% trans 'status' %}
+                <a href="{% url 'sku_list_management' entity.id %}?sort_by=status">
+                {% trans 'status' %}{%  if sort_by == 'status' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}
+                </a>
+
             </th>
             <th>
                 {% trans 'Action' %}
@@ -36,7 +46,7 @@
 
         </tr>
     </thead>
-    {% for sku in entity.skus.all %}
+    {% for sku in object_list %}
         <tr>
             <td>{{ sku.id }}</td>
             <td>{{ sku.stock }}</td>

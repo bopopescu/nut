@@ -1,7 +1,7 @@
 # encoding: utf-8
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.forms.entity import EditEntityForm
-from apps.core.mixins.views import FilterMixin
+from apps.core.mixins.views import FilterMixin, SortMixin
 from apps.core.views import LoginRequiredMixin
 from apps.management.views.entities import Add_local
 from braces.views import UserPassesTestMixin
@@ -34,7 +34,8 @@ class EntityUserPassesTestMixin(UserPassesTestMixin):
     def no_permissions_fail(self, request=None):
         raise Http404
 
-class SellerManagement(LoginRequiredMixin, FilterMixin, ListView):
+class SellerManagement(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
+    default_sort_params = ('price', 'id')
     http_method_names = ['get']
     paginator_class = ExtentPaginator
     model = Entity
@@ -43,21 +44,28 @@ class SellerManagement(LoginRequiredMixin, FilterMixin, ListView):
 
     def get_queryset(self):
         qs = self.request.user.entities.all()
-        return self.filter_queryset(qs,self.get_filter_param())
+        return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
     def get_context_data(self, **kwargs):
         context = super(SellerManagement, self).get_context_data(**kwargs)
         for entity in context['object_list']:
             entity.sku_list = entity.skus.all()
             entity.title=entity.title[:15]
+        context['sort_by'] = self.get_sort_params()[0]
+        context['extra_query'] = 'sort_by=' + context['sort_by']
         return context
 
     def filter_queryset(self, qs, filter_param):
         filter_field, filter_value = filter_param
         if filter_field == 'title':
             qs = qs.filter(title__icontains=filter_value.strip())
-        # elif filter_field == 'title':
-        #     qs = qs.filter(title__icontains=filter_value.strip())
+        else:
+            pass
+        return qs
+
+    def sort_queryset(self, qs, sort_by, order):
+        if sort_by == 'price':
+            qs = qs.order_by('-price')
         else:
             pass
         return qs
@@ -134,15 +142,31 @@ class SellerEntitySKUCreateView(EntityUserPassesTestMixin, CreateView):
             'entity':self.entity_id
         }
 
-class SKUListView(EntityUserPassesTestMixin,ListView):
+class SKUListView(EntityUserPassesTestMixin, SortMixin, ListView):
+    default_sort_params = ('stock', 'origin_price')
     template_name = 'web/seller_management/sku_list.html'
     def get_queryset(self):
         entity = get_object_or_404(Entity, id=self.entity_id)
-        return entity.skus.all()
+        return self.sort_queryset(entity.skus.all(), *self.get_sort_params())
     def get_context_data(self, **kwargs):
         context = super(SKUListView, self).get_context_data(**kwargs)
         context['entity']= get_object_or_404(Entity, id=self.entity_id)
+        context['sort_by'] = self.get_sort_params()[0]
+        context['extra_query'] = 'sort_by=' + context['sort_by']
         return context
+
+    def sort_queryset(self, qs, sort_by, order):
+        if sort_by == 'stock':
+            qs = qs.order_by('-stock')
+        elif sort_by == 'origin_price':
+            qs = qs.order_by('-origin_price')
+        elif sort_by == 'promotion_price':
+            qs = qs.order_by('-promo_price')
+        elif sort_by == 'status':
+            qs = qs.order_by('-status')
+        else:
+            pass
+        return qs
 
 class SKUCreateView(EntityUserPassesTestMixin, CreateView):
     model = SKU
