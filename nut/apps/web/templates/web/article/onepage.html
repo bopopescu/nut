@@ -268,13 +268,15 @@
 
                 {# mobile remark list begin #}
                 {% if isFromMobile %}
-                    <div class="divider article-divider divider-control"></div>
-                    <div class="article-section-title" id="article-remark-title">
-                        <div class="info-text">文章评论</div>
-                    </div>
-                    <div class="remarks-wrapper"> 
-                        {% include 'web/article/mobile_remark.html' %} 
-                    </div>  
+                    {% if remarks %}
+                        <div class="divider article-divider divider-control"></div>
+                        <div class="article-section-title" id="article-remark-title">
+                            <div class="info-text">文章评论</div>
+                        </div>
+                        <div class="remarks-wrapper"> 
+                            {% include 'web/article/mobile_remark.html' %} 
+                        </div>  
+                    {% endif %}
                 {% endif %}
                 {# mobile remark list end #}
 
