@@ -6165,9 +6165,18 @@ define('subapp/article/article_related_slick',['jquery', 'libs/Class','libs/slic
 
                         responsive: [
                             {
-                                breakpoint: 768,
+                                breakpoint: 992,
                                 settings: {
                                     slidesToShow:2,
+                                    slidesToScroll:1,
+                                    autoplay:true,
+                                    dots:false
+                                }
+                            },
+                            {
+                                breakpoint: 580,
+                                settings: {
+                                    slidesToShow:1,
                                     slidesToScroll:1,
                                     autoplay:true,
                                     dots:false
