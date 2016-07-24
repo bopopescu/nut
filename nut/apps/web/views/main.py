@@ -35,7 +35,7 @@ from haystack.query import SearchQuerySet
 log = getLogger('django')
 
 
-class IndexView(JSONResponseMixin, AjaxResponseMixin,TemplateView):
+class IndexView(JSONResponseMixin, AjaxResponseMixin, TemplateView):
     template_name = 'web/index.html'
 
     def get_banners(self):
@@ -148,6 +148,7 @@ class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
             },
             content_type='text/html; charset=utf-8',
         )
+
 
 class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
     def get_queryset(self):

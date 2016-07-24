@@ -4,7 +4,7 @@ from flask_restful import reqparse, abort, Resource
 
 from applications.models.searchhistory import SearchHistory
 from applications.schema.searchhistory import SearchHistorySchema
-
+from sqlalchemy import desc
 search_history_schema = SearchHistorySchema()
 search_history_schema_list = SearchHistorySchema(many=True)
 #
@@ -46,12 +46,18 @@ post_parser.add_argument(
     help='user agent'
 )
 
+post_parser.add_argument(
+    'rc', dest='result_count',
+    location='form', default=0,
+)
+
 
 class SearchHistoryView(Resource):
 
     def get(self):
         args =  get_parser.parse_args()
-        paginator = SearchHistory.query.paginate(args['page'], args['size'], False)
+        paginator = SearchHistory.query.order_by(desc(SearchHistory.created_at)).\
+                                    paginate(args['page'], args['size'], False)
         # return search_history_schema_list.dump(paginator.items).data, 200
         res = {
             'page': args['page'],
@@ -64,7 +70,8 @@ class SearchHistoryView(Resource):
     def post(self):
         args = post_parser.parse_args()
         sh = SearchHistory(user_id=args['user_id'], keyword=args['keyword'],
-                           ip=args['ip'], user_agent=args['user_agent'])
+                           ip=args['ip'], user_agent=args['user_agent'],
+                           result_count=args['result_count'])
         sh.save()
         # sh.close()
         return search_history_schema.dump(sh).data, 201
@@ -85,3 +92,11 @@ class UserSearchHistoryView(Resource):
         }
         return res, 200
         # return search_history_schema_list.dump(paginator.items).data, 200
+
+
+class HostKeyWordsView(Resource):
+
+
+    def get(self):
+
+        return

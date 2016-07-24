@@ -11,6 +11,7 @@ class SearchHistory(BaseModel, TimestampMixin):
 
     id                          =   db.Column(db.Integer(), primary_key=True)
     user_id                     =   db.Column(db.Integer(), index=True)
+    result_count                =   db.Column(db.Integer(), default=0)
     keyword                     =   db.Column(db.VARCHAR(255))
     ip                          =   db.Column(db.CHAR(45))
     user_agent                  =   db.Column(db.VARCHAR(255))
@@ -20,8 +21,9 @@ class SearchHistory(BaseModel, TimestampMixin):
 
 
     def __init__(self, *args, **kwargs):
-        self.user_id    = kwargs.pop('user_id', None)
+        self.user_id        = kwargs.pop('user_id', None)
         # assert self.user_id is not None
-        self.keyword    = kwargs.pop('keyword', None)
-        self.ip         = kwargs.pop('ip', None)
-        self.user_agent    = kwargs.pop('user_agent', None)
+        self.keyword        = kwargs.pop('keyword', None)
+        self.ip             = kwargs.pop('ip', None)
+        self.user_agent     = kwargs.pop('user_agent', None)
+        self.result_count   = kwargs.pop('result_count', 0)
