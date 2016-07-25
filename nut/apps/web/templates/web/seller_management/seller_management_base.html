@@ -131,9 +131,16 @@
 
 
                     {% url 'web_seller_management' as web_seller_management %}
-                    <li {% if web_seller_management in request.path %}class="active"{% endif %}>
+                    <li {% if web_seller_management == request.path %}class="active"{% endif %}>
                         <a href="{{ web_seller_management }}">
                             <i class="fa fa-tag"></i>&nbsp;<span>{% trans 'entity' %}</span>
+                        </a>
+                    </li>
+
+                    {% url 'web_seller_management_order_list' as web_seller_management_order_list %}
+                    <li {% if web_seller_management_order_list == request.path %}class="active"{% endif %}>
+                        <a href="{{ web_seller_management_order_list }}">
+                            <i class="fa fa-tag"></i>&nbsp;<span>{% trans '订单' %}</span>
                         </a>
                     </li>
                 </ul>

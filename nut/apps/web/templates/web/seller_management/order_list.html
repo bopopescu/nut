@@ -1,6 +1,7 @@
 {% extends 'web/seller_management/seller_management_base.html' %}
 {% load i18n %}
 {% load staticfiles i18n %}
+
 {% block content %}
     <section class="content-header">
         <h1>
@@ -10,8 +11,8 @@
 
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard">{% trans "home" %}</i></a></li>
-            <li >{% trans 'order' %}</li></ol>
-
+            <li class="active">{% trans 'entity' %}</li>
+        </ol>
     </section>
 
     <section class="content">
@@ -21,16 +22,9 @@
                     <div class="box-header">
                     </div>
                     <div class="box-body table-responsive">
-                        {% include 'web/seller_management/order_detail_table.html' %}
+                        {% include 'web/seller_management/order_list_table.html' %}
                     </div>
 
-                    <div style="float:right">
-                        总价:{{ promo_total_price }} (原价: {{ origin_total_price }})
-                    </div>
-                    </br>
-                    <div style="float:right">
-                        <a class="btn btn-success" href="{% url 'web_seller_management_order_list' %}">返回</a>
-                    </div>
                     <div class="box-footer">
                         {% include "management/paginator.html" with objects=page_obj url=request.path %}
                     </div>
@@ -50,4 +44,3 @@
     <script src="{% static 'js/management/manage_search.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/seller_management/entity_save.js' %}" type="application/javascript"></script>
 {% endblock %}
-
