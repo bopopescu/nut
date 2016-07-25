@@ -9,6 +9,7 @@ class HotWords(BaseModel, TimestampMixin):
 
     __tablename__           = 'hot_words'
 
+    id                      = db.Column(db.Integer(), primary_key=True)
     word                    = db.Column(db.VARCHAR(255))
 
     def __init__(self, **kwargs):
