@@ -104,8 +104,8 @@ define(['libs/Class','jquery', 'subapp/account'], function(Class,$,AccountApp){
                 }
             }, function fail(error) {
                 console.log('failed' + error);
-                //var html = $(error.responseText);
-                //that.getAccountApp().modalSignIn(html);
+                var html = $(error.responseText);
+                that.getAccountApp().modalSignIn(html);
             });
         }
     });

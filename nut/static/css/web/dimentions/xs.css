@@ -1582,6 +1582,9 @@ a.new-black-link:hover {
   #main_article .writer-wrapper .writer-intro {
     padding-left: 28px;
   }
+  #main_article .writer-wrapper .writer-intro .writer-name {
+    font-size: 14px;
+  }
   #main_article .writer-wrapper .writer-intro .writer-bio {
     margin-top: 0px;
   }
