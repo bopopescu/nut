@@ -6353,8 +6353,8 @@ define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(
                 }
             }, function fail(error) {
                 console.log('failed' + error);
-                //var html = $(error.responseText);
-                //that.getAccountApp().modalSignIn(html);
+                var html = $(error.responseText);
+                that.getAccountApp().modalSignIn(html);
             });
         }
     });
