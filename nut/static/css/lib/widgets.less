@@ -1036,6 +1036,7 @@ p.boolean-false{
 
 //dark section item widget,but I don't delete the hot section style in good store page.
 //it is complex
+//section name middle
 .dark-section-wrapper{
   margin-bottom: 10px;
     .dark-section-item{
@@ -1078,6 +1079,48 @@ p.boolean-false{
 
     }
   }
+//section name bottom
+.new-dark-section-wrapper{
+ margin-bottom: 10px;
+    .dark-section-item{
+      a{
+        color:#ffffff;
+        &hover,&focus{
+          color:#ffffff;
+        }
+        .section-panel{
+        .panel-no-padding;
+
+        width:100%;
+        &:hover{
+          .bg-layer{
+            display: block;
+          }
+        }
+        position:relative;
+          .bg-pic{
+           .normal-scale-bg;
+          }
+          .section-name{
+            position:absolute;
+            left:0;
+            bottom:0;
+            p{
+              margin-bottom:0;
+            }
+            span{
+              font-size:@most-mini-size;
+            }
+          }
+        .bg-layer{
+          .common-bg-layer;
+        }
+
+      }
+      }
+
+    }
+}
 
 
 //common scale bg pic
