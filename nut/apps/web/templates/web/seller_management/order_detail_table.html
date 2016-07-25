@@ -20,6 +20,7 @@
                         <th>{% trans '原价' %}</th>
                         <th>{% trans '促销价' %}</th>
                         <th>{% trans '数量' %}</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -37,3 +38,9 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <div style="float:right">
+                结账时间 :           结账路径:      总价:{{ promo_total_price }} (原价: {{ origin_total_price }})
+            </div>
+
+
+
