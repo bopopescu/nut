@@ -6985,7 +6985,6 @@
 
       //031. create codable
       $('<textarea class="note-codable"></textarea>').prependTo($editor);
-
         // done Title input here : by An .
         var titleInput = $('<div class=""><input class="title-input" name="article-title" placeholder="标题" maxlength="64"></div>')
             .prependTo($editor);

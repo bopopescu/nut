@@ -1891,7 +1891,6 @@ class Show_Event_Banner(models.Model):
 
 
 # editor recommendation
-
 class Editor_Recommendation(models.Model):
     image = models.CharField(max_length=255, null=False)
     link = models.CharField(max_length=255, null=False)
