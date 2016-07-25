@@ -2923,6 +2923,9 @@ a:hover {
 .article-section-title {
   margin: 20px 0px;
 }
+.article-section-title.for-mobile {
+  font-size: 14px;
+}
 #remark-list .remark-list-item-wrapper {
   padding: 10px 15px;
 }

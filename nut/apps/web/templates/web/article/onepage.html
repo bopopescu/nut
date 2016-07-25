@@ -276,7 +276,7 @@
                 {% if isFromMobile %}
                     {% if remarks %}
                         <div class="divider article-divider divider-control"></div>
-                        <div class="article-section-title" id="article-remark-title">
+                        <div class="article-section-title for-mobile" id="article-remark-title">
                             <div class="info-text">文章评论</div>
                         </div>
                         <div class="remarks-wrapper"> 
@@ -285,10 +285,16 @@
                     {% endif %}
                 {% endif %}
                 {# mobile remark list end #}
-
+                {% if not isFromMobile %}
                     <div class="article-section-title">
                         <div class="info-text">相关推荐</div>
                     </div>
+                {% endif %}
+                {% if isFromMobile %}
+                    <div class="article-section-title for-mobile">
+                        <div class="info-text">相关推荐</div>
+                    </div>
+                {% endif %}
                     {#                    {% for sla in article.related_articles %}#}
                     {#                        {% with sla.article as r_article %}#}
                     {#                            {% include 'web/article/partial/article_recommend_item.html' %}#}
