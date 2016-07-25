@@ -16,11 +16,11 @@
                         <th>
                             {% trans '商品名称' %}
                         </th>
+                        <th>{% trans 'sku名称' %}</th>
                         <th>{% trans '商品图' %}</th>
                         <th>{% trans '原价' %}</th>
                         <th>{% trans '促销价' %}</th>
                         <th>{% trans '数量' %}</th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -28,7 +28,14 @@
                         <tr>
                             <td>
                                 {{ order.title }}</td>
-                            <td></td>
+                            <td>{{ order.sku.attrs }}</td>
+                            <td class="product-thumb-img">
+                                {# <div class="thumbnail">#}
+                                   <img class="img-responsive img-thumbnail" src = {{ order.sku.entity.images.0 }} width="80" height="80">
+                                 {#   <div class="caption">#}
+                                {#    </div>#}
+                              {#  </div> #}
+                            </td>
                             <td>{{ order.sku.origin_price }}</td>
                             <td>{{ order.sku.promo_price }}</td>
                             <td>

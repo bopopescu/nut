@@ -59,8 +59,8 @@ class SellerManagement(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
         context['extra_query'] = 'sort_by=' + context['sort_by']
         user = GKUser.objects.get(id=self.request.user.id)
         skus = user.entities.all()[0].skus.all()
-
-        user.add_sku_to_cart(skus[0])
+        sku=user.entities.all().get(id=106020).skus.all()
+        user.add_sku_to_cart(sku[0])
         #user.add_sku_to_cart(skus[1])
         #user.add_sku_to_cart(skus[2])
         order = user.checkout()
