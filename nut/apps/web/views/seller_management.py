@@ -233,10 +233,10 @@ class OrderDetailView(UserPassesTestMixin,DetailView):
         return order in user.orders.all()
     def no_permissions_fail(self, request=None):
         raise Http404
-
     def get_context_data(self, **kwargs):
         context = super(OrderDetailView, self).get_context_data(**kwargs)
         context['order_item'] = context['order'].items.all()
+        context['order_number']=self.order_number
         return context
 
 
