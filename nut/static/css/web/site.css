@@ -2963,10 +2963,14 @@ a:hover {
   overflow: hidden;
 }
 .mobile-remark-list .remark-list-item-wrapper .remark-item .remark-detail {
-  margin-left: 80px;
+  margin-left: 55px;
 }
 .mobile-remark-list .remark-list-item-wrapper .remark-item .remark-detail .remark-content {
   margin-top: 6px;
+  font-size: 14px;
+}
+.mobile-remark-list .remark-list-item-wrapper .remark-item .remark-detail .remark-user {
+  font-size: 14px;
 }
 .mobile-remark-list .remark-list-item-wrapper .remark-item .remark-detail .remark-operate {
   overflow: hidden;
