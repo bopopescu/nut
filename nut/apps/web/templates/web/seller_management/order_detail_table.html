@@ -24,16 +24,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for sku in order_item %}
+                    {% for order in order_item %}
                         <tr>
                             <td>
-                                {{ sku.attrs_display }}</td>
-                            <td>{{ sku.stock }}</td>
-                            <td>{{ sku.origin_price }}</td>
-                            <td>{{ sku.promo_proce }}</td>
+                                {{ order.title }}</td>
+                            <td></td>
+                            <td>{{ order.sku.origin_price }}</td>
+                            <td>{{ order.sku.promo_price }}</td>
                             <td>
-
+                                {{ order.volume }}
                             </td>
+
                         </tr>
                     {% endfor %}
                 </tbody>
