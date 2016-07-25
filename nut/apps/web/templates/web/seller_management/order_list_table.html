@@ -1,0 +1,37 @@
+{% load i18n %}
+{% load static %}
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            <a href="{% url  'web_seller_management_order_list' %}?sort_by=id">
+                            {% trans 'ID' %}
+                        {%  if sort_by == 'id' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}</a>
+                        <input class="guoku_search_input" data-search-field="id" type="text" ></th>
+                        <th>{% trans 'status' %}</th>
+                        <th><a href="{% url  'web_seller_management_order_list' %}?sort_by=price">
+                            {% trans 'price' %}
+                        {%  if sort_by == 'price' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}</a></th>
+                        <th>{% trans '商品概要' %}</th>
+                        <th>{% trans '订单详情' %}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in object_list %}
+                        <tr>
+                            <td>
+                                {{ order.id }}</td>
+                            <td>{{ order.status }}</td>
+                            <td>{{ order.promo_total_price }}</td>
+                            <td></td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary" href="" target="_blank">{% trans '订单详情' %}</a>
+
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>

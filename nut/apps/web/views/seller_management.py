@@ -14,7 +14,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.shortcuts import get_object_or_404
 from apps.management.forms.sku import SKUForm
-from apps.core.models import SKU,Entity,Order
+from apps.core.models import SKU,Entity,Order, GKUser
 from django.template import RequestContext
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView,DetailView, View
 from django.http import Http404
@@ -57,6 +57,14 @@ class SellerManagement(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
             entity.title=entity.title[:15]
         context['sort_by'] = self.get_sort_params()[0]
         context['extra_query'] = 'sort_by=' + context['sort_by']
+        user = GKUser.objects.get(id=self.request.user.id)
+        skus = user.entities.all()[0].skus.all()
+
+        # user.add_sku_to_cart(skus[0])
+        # user.add_sku_to_cart(skus[1])
+        # user.add_sku_to_cart(skus[2])
+        # order = user.checkout()
+
         return context
 
     def filter_queryset(self, qs, filter_param):
@@ -74,7 +82,29 @@ class SellerManagement(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
             pass
         return qs
 
+class SellerManagementOrders(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
+    default_sort_params = ('id', 'price')
+    http_method_names = ['get']
+    paginator_class = ExtentPaginator
+    model = Order
+    paginate_by = 10
+    template_name = 'web/seller_management/order_list.html'
 
+    def get_queryset(self):
+        qs = self.request.user.orders.all()
+        return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
+
+    def filter_queryset(self, qs, filter_param):
+        filter_field, filter_value = filter_param
+        if filter_field == 'id':
+            qs = qs.filter(id=filter_value.strip())
+        else:
+            pass
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super(SellerManagementOrders, self).get_context_data(**kwargs)
+        return context
 
 class SellerManagementAddEntity(Add_local):
     template_name = 'web/seller_management/add_entity.html'
