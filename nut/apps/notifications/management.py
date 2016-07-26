@@ -62,8 +62,25 @@ class DailyPushSendTestView(StaffuserRequiredMixin,\
 
 
 
-class DailyPushSendProductionView(StaffuserRequiredMixin, View):
-    pass
+class DailyPushSendProductionView(StaffuserRequiredMixin,
+                                  SingleObjectMixin,AjaxResponseMixin, \
+                                  JSONRequestResponseMixin, View):
+
+    model = DailyPush
+    def post_ajax(self, request, *args, **kwargs):
+        push_message  = self.get_object()
+        try:
+            push_message.send_to_all()
+            return self.render_json_response({
+                'error':0
+            }, 200)
+        except Exception as e :
+            log.error('send push message error : %s' %e)
+            return self.render_json_response({
+                'error':1,
+                'error_message': "exception: %s" %e
+            }, 500)
+
 
 class DailyPushListView(StaffuserRequiredMixin, ListView):
     context_object_name = 'push_list'

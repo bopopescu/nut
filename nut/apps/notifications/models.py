@@ -6,7 +6,7 @@ from django.contrib.contenttypes import generic
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
-from apps.notifications.push import JPushMessage
+from apps.notifications.push import JPushSingleMessage, JPushGroupMessage
 from apps.core.models import GKUser
 # from django.utils.timezone import utc
 
@@ -207,8 +207,14 @@ class DailyPush(models.Model):
     def send_jpush_to_user(self, user):
         rids = user.jpush_rids
         for rid in rids:
-            jpush_msg = JPushMessage(rid, self.push_text, self.message_url)
+            jpush_msg = JPushSingleMessage(rid, self.push_text, self.message_url)
             jpush_msg.send_message()
+
+    def send_to_all(self):
+        jpush_msg = JPushGroupMessage(self.push_text, self.message_url)
+        jpush_msg.send_message_to_all()
+
+
 
     def send_jpush_by_user_id(self, user_id):
         user = GKUser.objects.get(pk=user_id)
