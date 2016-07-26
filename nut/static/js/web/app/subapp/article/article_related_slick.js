@@ -17,9 +17,18 @@ define(['jquery', 'libs/Class','libs/slick'], function(
 
                         responsive: [
                             {
-                                breakpoint: 768,
+                                breakpoint: 992,
                                 settings: {
                                     slidesToShow:2,
+                                    slidesToScroll:1,
+                                    autoplay:true,
+                                    dots:false
+                                }
+                            },
+                            {
+                                breakpoint: 580,
+                                settings: {
+                                    slidesToShow:1,
                                     slidesToScroll:1,
                                     autoplay:true,
                                     dots:false
