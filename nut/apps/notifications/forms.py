@@ -8,9 +8,11 @@ from django.utils.translation import ugettext_lazy as _
 
 class BaseDailyPushForm(ModelForm):
     status = forms.IntegerField(widget=forms.HiddenInput(),initial=0)
+    push_url = forms.CharField(help_text=u'tuisong用户输入')
     def __init__(self, *args, **kwargs):
         super(BaseDailyPushForm,self).__init__(*args, **kwargs)
         for key , field in self.fields.items():
             field.widget.attrs.update({'class':'form-control'})
+
     class Meta:
         model =  DailyPush
