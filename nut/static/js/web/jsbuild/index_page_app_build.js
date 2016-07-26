@@ -4817,6 +4817,28 @@ define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(
     return UserFollow;
 });
 
+
+define('subapp/index/hot_entity',['jquery', 'libs/Class','fastdom'], function(
+    $, Class,fastdom
+){
+            var HotEntity= Class.extend({
+                init: function () {
+                    console.log('begin hot entity ajax js');
+                    this.setupScrollEntity();
+                },
+                setupScrollEntity:function(){
+                     $(window).scroll(this.scrollEntityHandler.bind(this));
+                },
+                scrollEntityHandler:function(){
+
+                }
+            });
+    return HotEntity;
+});
+
+
+
+
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -4925,6 +4947,7 @@ require([
         'subapp/index/entity_category_tab',
         'subapp/index/category_tab_view',
         'subapp/user_follow',
+        'subapp/index/hot_entity',
         'subapp/gotop'
 
     ],
@@ -4940,6 +4963,7 @@ require([
               EntityCategoryTab,
               CategoryTabView,
               UserFollow,
+              HotEntity,
               GoTop
               ) {
 // TODO : check if csrf work --
@@ -4953,6 +4977,7 @@ require([
         var entity_category_tab = new EntityCategoryTab();
         var category_tab_view = new CategoryTabView();
         var user_follow = new UserFollow();
+        var hot_entity = new HotEntity();
         var goto = new GoTop();
     });
 
