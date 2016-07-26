@@ -24,6 +24,7 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     {% for order in order_item %}
                         <tr>
                             <td>
@@ -36,6 +37,7 @@
                                 {#    </div>#}
                               {#  </div> #}
                             </td>
+
                             <td>{{ order.grand_total_price }}</td>
                             <td>{{ order.promo_total_price }}</td>
                             <td>

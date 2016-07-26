@@ -57,13 +57,13 @@ class SellerManagement(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
             entity.title=entity.title[:15]
         context['sort_by'] = self.get_sort_params()[0]
         context['extra_query'] = 'sort_by=' + context['sort_by']
-        user = GKUser.objects.get(id=self.request.user.id)
-        # skus = user.entities.all()[0].skus.all()
-        # sku=user.entities.all().get(id=106020).skus.all()
-        # user.add_sku_to_cart(sku[0])
-        #user.add_sku_to_cart(skus[1])
+        #user = GKUser.objects.get(id=self.request.user.id)
+        #skus = user.entities.all()[0].skus.all()
+        #sku=user.entities.all().get(id=106020).skus.all()
+        #user.add_sku_to_cart(sku[0],3)
+        #user.add_sku_to_cart(sku[1])
         #user.add_sku_to_cart(skus[2])
-        # order = user.checkout()
+        #user.checkout()
 
         return context
 
@@ -96,20 +96,8 @@ class SellerManagementOrders(LoginRequiredMixin, FilterMixin, SortMixin,  ListVi
 
     def filter_queryset(self, qs, filter_param):
         filter_field, filter_value = filter_param
-        if filter_field == 'number':
-            qs = qs.filter(number__icontains=filter_value.strip())
-        else:
-            pass
-        return qs
-
-    def sort_queryset(self, qs, sort_by, order):
-        if sort_by == 'price':        #Todo
-            # qs = qs.order_by('-price')
-            pass
-        elif sort_by == 'number':
-            qs = qs.order_by('-number')
-        elif sort_by == 'status':
-            qs = qs.order_by('-status')
+        if filter_field == 'id':
+            qs = qs.filter(id=filter_value.strip())
         else:
             pass
         return qs
@@ -284,6 +272,8 @@ class OrderDetailView(UserPassesTestMixin,DetailView):
         context['order_number']=self.order_number
         context['promo_total_price']=context['order'].promo_total_price
         context['origin_total_price']=context['order'].grand_total_price
+        for order_item in context['order_item']:
+            order_item.promo_total_price/=order_item.volume
         return context
 
 class SellerManagementSoldEntityList(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
