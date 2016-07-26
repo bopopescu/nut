@@ -98,12 +98,22 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin,TemplateView):
 
 
 class IndexHotEntityView(JSONResponseMixin, AjaxResponseMixin, ListView):
+    def get_selection_entities(self):
+        selections = Selection_Entity.objects.published_until_now()\
+                                     .select_related('entity').using('slave')
+        return selections
 
     def get_context_data(self, **kwargs):
         # context = super(IndexHotEntityView, self).get_context_data(**kwargs)
         context = {}
         popular_list = Entity_Like.objects.popular_random()
         context['entities'] = Entity.objects.filter(id__in=popular_list)
+        context['selection_entity'] = self.get_selection_entities()[:20]
+        _entities = context['entities']
+        if self.request.user.is_authenticated():
+            context['user_entity_likes'] = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=
+                list(_entities.values_list('id', flat=True))+(list(context['selection_entity'].values_list('entity_id',flat=True))))
+
         return context
 
     def get_ajax(self, request, *args, **kwargs):
