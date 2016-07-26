@@ -184,7 +184,7 @@ class DailyPush(models.Model):
     push_text = models.CharField(max_length=64)
     push_type = models.IntegerField(choices=CONTENT_TYPE_CHOICES, default=user)
     push_url  = models.CharField(max_length=256)
-    send_time = models.DateTimeField(db_index=True)
+    send_time = models.DateTimeField(db_index=True, blank=True, null=True)
     status = models.IntegerField(choices=PUSH_STATUS_CHOICES, default=pending, db_index=True)
 
     object =  DailyPushManager()

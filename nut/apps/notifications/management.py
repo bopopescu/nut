@@ -1,3 +1,5 @@
+from datetime import  datetime
+
 from django.views.generic import ListView, CreateView, UpdateView, \
                                  DeleteView, View, FormView
 from django.views.generic.detail import SingleObjectMixin
@@ -11,6 +13,7 @@ from apps.notifications.forms import BaseDailyPushForm
 from django.core.urlresolvers import reverse_lazy
 from apps.core.models import GKUser
 from django.utils.log import getLogger
+
 log = getLogger('django')
 
 
@@ -71,6 +74,9 @@ class DailyPushSendProductionView(StaffuserRequiredMixin,
         push_message  = self.get_object()
         try:
             push_message.send_to_all()
+            push_message.status = DailyPush.sent
+            push_message.send_time = datetime.now()
+            push_message.save()
             return self.render_json_response({
                 'error':0
             }, 200)
@@ -82,10 +88,16 @@ class DailyPushSendProductionView(StaffuserRequiredMixin,
             }, 500)
 
 
+class DailyPushSentListView(StaffuserRequiredMixin, ListView):
+    context_object_name = 'push_list'
+    template_name = 'management/notifications/daily_push_sent_list.html'
+    def get_queryset(self):
+        return DailyPush.object.filter(status=DailyPush.sent).order_by('-send_time')
+
 class DailyPushListView(StaffuserRequiredMixin, ListView):
     context_object_name = 'push_list'
     template_name = 'management/notifications/daily_push_list.html'
     def get_queryset(self):
-        return DailyPush.object.all().order_by('-id')
+        return DailyPush.object.filter(status=DailyPush.pending).order_by('-id')
 
 
