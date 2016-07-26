@@ -214,8 +214,6 @@ class DailyPush(models.Model):
         jpush_msg = JPushGroupMessage(self.push_text, self.message_url)
         jpush_msg.send_message_to_all()
 
-
-
     def send_jpush_by_user_id(self, user_id):
         user = GKUser.objects.get(pk=user_id)
         if user:

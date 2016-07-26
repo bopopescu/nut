@@ -127,9 +127,6 @@ class JPushMessageBase(object):
     def create_message(self):
         pass
 
-
-
-
 class JPushSingleMessage(JPushMessageBase):
     def __init__(self,rid, message, url):
         super(JPushSingleMessage, self).__init__()
@@ -170,14 +167,15 @@ class JPushSingleMessage(JPushMessageBase):
 
 class JPushGroupMessage(JPushSingleMessage):
     def __init__(self, message, url):
-        self._message = message
-        self._url = url
-        self.create_message()
+        super(JPushGroupMessage, self).__init__(rid=None,
+                                                message=message,
+                                                url=url)
 
     def send_message_to_all(self):
         self._push.audience = jpush.all_
         try:
             response=self._push.send()
+            pass
         except common.Unauthorized:
             raise common.Unauthorized("Unauthorized")
         except common.APIConnectionException:
