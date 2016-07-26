@@ -37,16 +37,18 @@
 {#                                <label></label>#}
 {#                                <input id="entity_stock" type="text" name="stock" value="{{ entity.stock }}">#}
 {#                            </form></td>#}
-                            <td><form>{% for sku in entity.sku_list %}
+                            <td>{% for sku in entity.sku_list %}
+
                                 {% if sku.attrs_display %}
                                     {{ sku.attrs_display }}
                                 {% else %} 缺省SKU
                                 {% endif %}
+                                <form>
                                 <input id="{{ sku.id }}_price" type="text" name="{{ sku.id }}" value="{{ sku.promo_price }}">
                                     <input id="{{ sku.id }}_stock" type="text" name="{{ sku.id }}" value="{{ sku.stock }}">
                                     <span class="btn newest-btn-primary"  id="{{ sku.id }}" target="_blank">{% trans 'update' %}</span>
-                                    <br>
-                            {% endfor %}</form></td>
+                                    <br></form>
+                            {% endfor %}</td>
                             <td>
                                 <div class="btn-group">
                                     <a class="btn btn-primary" href="{% url 'sku_list_management' entity.id %}" target="_blank">{% trans 'SKU管理' %}</a><br>
