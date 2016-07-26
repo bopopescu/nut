@@ -97,6 +97,33 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin,TemplateView):
         return context
 
 
+class IndexHotEntityView(JSONResponseMixin, AjaxResponseMixin, ListView):
+
+    def get_context_data(self, **kwargs):
+        # context = super(IndexHotEntityView, self).get_context_data(**kwargs)
+        context = []
+        popular_list = Entity_Like.objects.popular_random()
+        context['entities'] = Entity.objects.filter(id__in=popular_list)
+        return context
+
+    def get_ajax(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        template = 'web/main/partial/new_entity_ajax.html'
+        _t = loader.get_template(template)
+        _c = RequestContext(
+             request,
+             context
+         )
+        _data = _t.render(_c)
+
+        return JSONResponse(
+            data={
+                'data': _data,
+                'status': 1
+            },
+            content_type='text/html; charset=utf-8',
+        )
+
 
 class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
     def get_context_data(self, **kwargs):
@@ -148,6 +175,7 @@ class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
             },
             content_type='text/html; charset=utf-8',
         )
+
 
 class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
     def get_queryset(self):
@@ -201,9 +229,6 @@ class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView
             },
             content_type='text/html; charset=utf-8',
         )
-
-
-
 
 
 class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin, ListView):

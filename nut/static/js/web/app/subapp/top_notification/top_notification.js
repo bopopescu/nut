@@ -57,7 +57,7 @@ define([
                     $.ajax({
                         cache:true,
                         type:"get",
-                        url: '/message/newmessage/',
+                        url: '/message/message/',
                         data:''
                     })
                 ).then(
