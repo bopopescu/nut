@@ -2051,12 +2051,12 @@ class EDM(BaseModel):
             return "%s%s" % (image_host, cover_image)
 
 
-class Search_History(BaseModel):
-    user = models.ForeignKey(GKUser, null=True)
-    key_words = models.CharField(max_length=255, null=False, blank=False)
-    ip = models.CharField(max_length=45, null=False, blank=False)
-    agent = models.CharField(max_length=255, null=False, blank=False)
-    search_time = models.DateTimeField(null=True, blank=False)
+# class Search_History(BaseModel):
+#     user = models.ForeignKey(GKUser, null=True)
+#     key_words = models.CharField(max_length=255, null=False, blank=False)
+#     ip = models.CharField(max_length=45, null=False, blank=False)
+#     agent = models.CharField(max_length=255, null=False, blank=False)
+#     search_time = models.DateTimeField(null=True, blank=False)
 
 
 class SD_Address_List(BaseModel):

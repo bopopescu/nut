@@ -23,7 +23,6 @@ from applications.web.views.hotwords import HotWordsView
 app.add_url_rule('/hotword/', view_func=HotWordsView.as_view('hot_words'))
 
 
-
 from applications.models.base import db
 @app.teardown_appcontext
 def shutdown_session(exception=None):

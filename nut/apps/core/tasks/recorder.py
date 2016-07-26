@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import requests
 from celery.task import task
 from django.contrib.auth.models import AnonymousUser
-import requests
 
-# from apps.core.models import Search_History
 from apps.core.tasks import BaseTask
 
 from django.conf import settings
@@ -39,8 +38,6 @@ def _record_search(gk_user, key_words, ip_address, user_agent):
         return r.json()
     r.close()
 
-    # else:
-    #     return None
 
 def record_search(gk_user, **kwargs):
     """

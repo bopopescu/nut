@@ -5,6 +5,7 @@ from HTMLParser import HTMLParser
 
 class Article(db.Model):
     __tablename__       = "core_article"
+    __bind_key__        = 'article'
     # (remove, draft, published) = xrange(3)
     # ARTICLE_STATUS_CHOICES = [
     #     (published, _("published")),
