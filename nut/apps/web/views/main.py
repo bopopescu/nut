@@ -204,6 +204,8 @@ class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView
 
 
 
+
+
 class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin, ListView):
     template_name = 'web/main/selection_new.html'
     model = Entity

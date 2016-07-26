@@ -38,15 +38,53 @@ define(['jquery', 'libs/Class','fastdom'], function(
             var that = this ;
             if (!this.scrollTop){return ;}
             if (this.leftCondition > this.rightCondition){
-                fastdom.write(function(){
-                    that.$loading_icon.hide();
-                });
+                this.postAjaxRequest();
+
+                //fastdom.write(function(){
+                //    that.$loading_icon.hide();
+                //});
 
             }else{
-                fastdom.write(function(){
-                    that.$loading_icon.show();
-                });
+                //fastdom.write(function(){
+                //    that.$loading_icon.show();
+                //});
             }
+        },
+        postAjaxRequest:function(){
+            $.when(
+                $.ajax({
+                    cache:true,
+                    type:"get",
+                    url: '/index_article_tag/',
+                    data: '',
+                    dataType:"json"
+                })
+            ).then(
+                this.postSuccess.bind(this),
+                this.postFail.bind(this)
+            );
+        },
+        postSuccess:function(result){
+            console.log('post request success.');
+            var status = parseInt(result.status);
+            if(status == 1){
+                 this.$loading_icon.hide();
+                 this.showHotEntity($(result.data));
+            }else{
+                this.$loading_icon.hide();
+                this.showFail(result);
+            }
+        },
+        postFail:function(result){
+            console.log('post fail');
+        },
+        showFail:function(result){
+            console.log('get ajax data failed');
+        },
+        showHotEntity: function(elemList){
+            console.log('get ajax data success');
+            //this.$hot_entity_wrapper.empty();
+            this.$hot_entity_wrapper.append(elemList);
         }
     });
     return HotEntity;
