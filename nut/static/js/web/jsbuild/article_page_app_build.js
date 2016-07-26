@@ -1489,7 +1489,7 @@ define('subapp/topmenu',['bootstrap',
             this.$menu = $('#guoku_main_nav');
             this.fixMenuCondition = null;
             this.scrollTop = null;
-            //this.lastScrollTop = null;
+            this.lastScrollTop = null;
             this.read = this.write = null;
             this.initHiddenBottomAd();
             this.setupScrollMenu();
@@ -1572,10 +1572,10 @@ define('subapp/topmenu',['bootstrap',
                 this.removeFixMenu();
             }
 
-            //if (_.isNull(this.lastScrollTop)){
-            //    this.lastScrollTop = this.scrollTop;
-            //    return ;
-            //}
+            if (_.isNull(this.lastScrollTop)){
+                this.lastScrollTop = this.scrollTop;
+                return ;
+            }
 
             if(this.lastScrollTop > this.scrollTop){
                 this.showHeader();
@@ -1597,7 +1597,7 @@ define('subapp/topmenu',['bootstrap',
 
             this.read = null;
             this.write= null;
-            //this.lastScrollTop = this.scrollTop;
+            this.lastScrollTop = this.scrollTop;
         },
 
 
@@ -1972,7 +1972,7 @@ define('subapp/article/article_link_scroll',['jquery','libs/Class','jqueryeasing
         init: function(selector){
             console.log('article remark link scroll');
             $(selector).click(function(event){
-                $('html,body').animate({scrollTop: $(this.hash).offset().top - 40}, 1000, 'easeInOutExpo');
+                $('html,body').animate({scrollTop: $(this.hash).offset().top - 50}, 1000, 'easeInOutExpo');
                 event.preventDefault();
                 event.stopPropagation();
                 return false;
@@ -6353,8 +6353,8 @@ define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(
                 }
             }, function fail(error) {
                 console.log('failed' + error);
-                //var html = $(error.responseText);
-                //that.getAccountApp().modalSignIn(html);
+                var html = $(error.responseText);
+                that.getAccountApp().modalSignIn(html);
             });
         }
     });

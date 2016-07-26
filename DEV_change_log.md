@@ -1,4 +1,16 @@
+4. 
+3. push notification formal send 
+2. web scroll bug fix 
+1. article remark mobile 
 
+
+action : 
+
+ALTER TABLE `core`.`notifications_dailypush` 
+CHANGE COLUMN `send_time` `send_time` DATETIME NULL ;
+
+
+=====================
 5.  management editor workload data report 
 4.  management add entity - update
 3.  index page category icon
