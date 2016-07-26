@@ -77,10 +77,18 @@ Message_Sender.prototype = {
     },
 
     formal_send_success:function(){
-        console.log('formal send success');
+        bootbox.hideAll();
+        bootbox.alert('推送消息成功', function(){
+            window.location.reload();
+        });
+
+
+
     },
     formal_send_fail:function(){
-        console.log('formal send fail')
+        bootbox.hideAll();
+        bootbox.alert('推送消息失败')
+
     },
 
     handleRealClick: function(event){
