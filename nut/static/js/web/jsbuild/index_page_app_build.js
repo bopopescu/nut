@@ -4877,7 +4877,8 @@ define('subapp/index/hot_entity',['jquery', 'libs/Class','fastdom'], function(
                     cache:true,
                     type:"get",
                     url: '/index_hot_entity/',
-                    data: ''
+                    data: '',
+                    dataType:"json"
                 })
             ).then(
                 this.postSuccess.bind(this),

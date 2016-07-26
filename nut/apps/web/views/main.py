@@ -101,7 +101,7 @@ class IndexHotEntityView(JSONResponseMixin, AjaxResponseMixin, ListView):
 
     def get_context_data(self, **kwargs):
         # context = super(IndexHotEntityView, self).get_context_data(**kwargs)
-        context = []
+        context = {}
         popular_list = Entity_Like.objects.popular_random()
         context['entities'] = Entity.objects.filter(id__in=popular_list)
         return context
