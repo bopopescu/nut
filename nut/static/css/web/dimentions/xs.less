@@ -165,8 +165,18 @@
         }
     }
     #guoku_main_nav{
+      .top-search-wrapper{
+        display: none;
+      }
+      .navbar-brand{
+        display: block;
+      }
       .navbar-form{
         padding: 0px 0px;
+        display: none;
+        &.search-form{
+          display: block;
+        }
         input{
           padding-left: 10px;
         }
@@ -174,7 +184,11 @@
       background-color: @nav-xs-background-color;
       .navbar-toggle{
         .icon-bar{
-          background-color: @common-gray;
+          background-color: @common-text-color;
+        }
+        .fa-search{
+          position:absolute;
+          color:@common-text-color;
         }
       }
         .search{
@@ -203,6 +217,9 @@
         }
 
       }
+    }
+    .new-index-navbar .navbar-brand{
+      display: block;
     }
 
     #guoku_footer{
@@ -483,6 +500,9 @@
 }
 
 @media(min-width: 768px)  {
+  .navbar-collapse.search-collapse{
+    display: none!important;
+  }
 
 
 //  for setting page

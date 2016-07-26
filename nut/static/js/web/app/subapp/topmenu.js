@@ -31,6 +31,7 @@ define(['bootstrap',
             ////////////////////////////
 
             this.$menu = $('#guoku_main_nav');
+            this.fixMenuCondition = null;
             this.scrollTop = null;
             this.lastScrollTop = null;
             this.read = this.write = null;
@@ -83,6 +84,7 @@ define(['bootstrap',
                 this.read = fastdom.read(function(){
                     that.scrollTop = $(window).scrollTop();
                     that.screenHeight = window.screen.height;
+                    that.fixMenuCondition = $('#guoku_main_nav')[0].getBoundingClientRect().height - 50;
                     if($('#main_article').length){
                           that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
                     }
@@ -104,6 +106,12 @@ define(['bootstrap',
 
             if (_.isNull(this.scrollTop)) {
                 return ;
+            }
+
+            if(this.scrollTop > this.fixMenuCondition){
+                this.fixMenu();
+            }else{
+                this.removeFixMenu();
             }
 
             if (_.isNull(this.lastScrollTop)){
@@ -156,8 +164,8 @@ define(['bootstrap',
         },
         showHeader: function(){
             //console.log('show header');
-            this.$menu.removeClass('hidden-header');
-            this.$menu.addClass('shown-header');
+            //this.$menu.removeClass('hidden-header');
+            //this.$menu.addClass('shown-header');
             $('.round-link').show();
             $('.bottom-article-share-wrapper').removeClass('hidden-animation');
 
@@ -166,12 +174,26 @@ define(['bootstrap',
         },
         hideHeader: function(){
             //console.log('hideHeader');
-            this.$menu.removeClass('shown-header');
-            this.$menu.addClass('hidden-header');
+            //this.$menu.removeClass('shown-header');
+            //this.$menu.addClass('hidden-header');
             $('.round-link').hide();
             $('.bottom-article-share-wrapper').addClass('hidden-animation');
 
             //console.log((new Date()).getMilliseconds());
+        },
+        fixMenu:function(){
+            this.$menu.addClass('fix-new-index-navbar');
+            if($('.top-search-wrapper').length){
+                $('.top-search-wrapper').addClass('hidden');
+            }
+        },
+        removeFixMenu:function(){
+            if(this.$menu.hasClass('fix-new-index-navbar')){
+                 if($('.top-search-wrapper').length) {
+                     $('.top-search-wrapper').removeClass('hidden');
+                 }
+                 this.$menu.removeClass('fix-new-index-navbar');
+            }
         }
     });
 

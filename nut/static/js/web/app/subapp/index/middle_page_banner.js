@@ -46,7 +46,7 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                         $('#middle-page-banner .banner-image-cell').removeClass('gk-slide-current');
                         var selector = '#middle-page-banner .gk-slide-'+  this.nextSlide ;
                         $(selector).addClass('gk-slide-current');
-                        console.log('done');
+                        //console.log('done');
                 }
 
             });
