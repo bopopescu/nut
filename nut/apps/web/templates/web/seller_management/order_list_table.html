@@ -1,14 +1,18 @@
 {% load i18n %}
+{% load guoku %}
 {% load static %}
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>
-                            <a href="{% url  'web_seller_management_order_list' %}?sort_by=id">
-                            {% trans 'ID' %}
-                        {%  if sort_by == 'id' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}</a>
-                        <input class="guoku_search_input" data-search-field="id" type="text" ></th>
-                        <th>{% trans 'status' %}</th>
+                            <a href="{% url  'web_seller_management_order_list' %}?sort_by=number">
+                            {% trans '订单号' %}
+                        {%  if sort_by == 'number' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}</a>
+                        <input class="guoku_search_input" data-search-field="number" type="text" ></th>
+                        <th>
+                        <a href="{% url  'web_seller_management_order_list' %}?sort_by=status">
+                            {% trans 'status' %}
+                        {%  if sort_by == 'status' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}</a></th>
                         <th><a href="{% url  'web_seller_management_order_list' %}?sort_by=price">
                             {% trans 'price' %}
                         {%  if sort_by == 'price' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}</a></th>
@@ -21,7 +25,7 @@
                     {% for order in object_list %}
                         <tr>
                             <td>
-                                {{ order.id }}</td>
+                                {{ order.number }}</td>
                             <td>{{ order.status }}</td>
                             <td>{{ order.promo_total_price }}</td>
                             <td></td>

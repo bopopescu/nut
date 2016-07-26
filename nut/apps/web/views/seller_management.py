@@ -58,12 +58,12 @@ class SellerManagement(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
         context['sort_by'] = self.get_sort_params()[0]
         context['extra_query'] = 'sort_by=' + context['sort_by']
         user = GKUser.objects.get(id=self.request.user.id)
-        skus = user.entities.all()[0].skus.all()
-        sku=user.entities.all().get(id=106020).skus.all()
-        user.add_sku_to_cart(sku[0])
+        # skus = user.entities.all()[0].skus.all()
+        # sku=user.entities.all().get(id=106020).skus.all()
+        # user.add_sku_to_cart(sku[0])
         #user.add_sku_to_cart(skus[1])
         #user.add_sku_to_cart(skus[2])
-        order = user.checkout()
+        # order = user.checkout()
 
         return context
 
@@ -96,8 +96,20 @@ class SellerManagementOrders(LoginRequiredMixin, FilterMixin, SortMixin,  ListVi
 
     def filter_queryset(self, qs, filter_param):
         filter_field, filter_value = filter_param
-        if filter_field == 'id':
-            qs = qs.filter(id=filter_value.strip())
+        if filter_field == 'number':
+            qs = qs.filter(number__icontains=filter_value.strip())
+        else:
+            pass
+        return qs
+
+    def sort_queryset(self, qs, sort_by, order):
+        if sort_by == 'price':        #Todo
+            # qs = qs.order_by('-price')
+            pass
+        elif sort_by == 'number':
+            qs = qs.order_by('-number')
+        elif sort_by == 'status':
+            qs = qs.order_by('-status')
         else:
             pass
         return qs
@@ -273,5 +285,66 @@ class OrderDetailView(UserPassesTestMixin,DetailView):
         context['promo_total_price']=context['order'].promo_total_price
         context['origin_total_price']=context['order'].grand_total_price
         return context
+
+class SellerManagementSoldEntityList(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
+    default_sort_params = ('price', 'id')
+    http_method_names = ['get']
+    paginator_class = ExtentPaginator
+    model = Entity
+    paginate_by = 10
+    template_name = 'web/seller_management/sold_entity_list.html'
+
+    def get_queryset(self):
+        self.order_items = self.request.user.order_items.all()
+        qs = list(set([item.sku for item in self.order_items]))
+        return self.filter_queryset(qs,self.get_filter_param())
+
+    def get_context_data(self, **kwargs):
+        context = super(SellerManagementSoldEntityList, self).get_context_data(**kwargs)
+        for sku in context['object_list']:
+            sku.title=sku.entity.title[:15]
+
+        d = {}
+        for order in self.order_items:
+            if order.sku.id not in d.keys():
+                d[order.sku.id] = order.volume
+            else:
+                d[order.sku.id] += order.volume
+        for object in context['object_list']:
+            object.sold_count = d[object.id]
+        context['sort_by'] = self.get_sort_params()[0]
+        context['extra_query'] = 'sort_by=' + context['sort_by']
+        return context
+
+    def filter_queryset(self, qs, filter_param):
+        filter_field, filter_value = filter_param
+        if filter_field == 'title':
+            qs = qs.filter(title__icontains=filter_value.strip())
+        else:
+            pass
+        return qs
+
+class SellerManagementSkuSave(AjaxResponseMixin, JSONResponseMixin, View):
+    model = SKU
+    def save_update(self, id, price, stock):
+        sku = SKU.objects.get(id=id)
+        sku.promo_price = price
+        sku.stock = stock
+        sku.save()
+        return
+
+    def post_ajax(self, request, *args, **kwargs):
+        price = request.POST.get('price', None)
+        id = request.POST.get('id', None)
+        stock = request.POST.get('stock', None)
+        price = json.loads(price)
+        id = json.loads(id)
+        stock = json.loads(stock)
+        try:
+            self.save_update(id, price, stock)
+        except:
+            pass
+        return HttpResponseRedirect(reverse('web_seller_management'))
+
 
 
