@@ -2,7 +2,7 @@
 from apps.web.views.seller_management import SKUListView,SKUCreateView,SKUDeleteView,SKUUpdateView, \
                                              SellerManagementEntitySave,OrderDetailView,\
                                              SellerManagementOrders, SellerManagementSoldEntityList, \
-    SellerManagementSkuSave
+                                             SellerManagementSkuSave
 from apps.web.views.seller_management import SellerManagement, SellerManagementAddEntity
 from django.conf.urls import url, patterns
 
