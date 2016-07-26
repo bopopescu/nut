@@ -103,9 +103,8 @@ class SellerManagementOrders(LoginRequiredMixin, FilterMixin, SortMixin,  ListVi
         return qs
 
     def sort_queryset(self, qs, sort_by, order):
-        if sort_by == 'price':        #Todo
-            # qs = qs.order_by('-price')
-            pass
+        if sort_by == 'price':
+            qs = sorted(qs, key=lambda x: x.order_total_value, reverse=True)
         elif sort_by == 'number':
             qs = qs.order_by('-number')
         elif sort_by == 'status':
@@ -116,6 +115,11 @@ class SellerManagementOrders(LoginRequiredMixin, FilterMixin, SortMixin,  ListVi
 
     def get_context_data(self, **kwargs):
         context = super(SellerManagementOrders, self).get_context_data(**kwargs)
+        for order in context['object_list']:
+            order_items = order.items.all()
+            order.skus = [order_item.sku for order_item in order_items]
+
+
         return context
 
 class SellerManagementAddEntity(Add_local):

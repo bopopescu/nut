@@ -27,8 +27,8 @@
                             <td>
                                 {{ order.number }}</td>
                             <td>{{ order.status }}</td>
-                            <td>{{ order.promo_total_price }}</td>
-                            <td></td>
+                            <td>{{ order.order_total_value }}</td>
+                            <td>{% for sku in order.skus %}{{ sku.entity|truncatechars:12 }}  {{ sku.attrs_display }}<br>{% endfor %}</td>
                             <td>
                                 <div class="btn-group">
                                     <a class="btn btn-primary" href="{% url 'order_detail_management' order.id %}" target="_blank">{% trans '订单详情' %}</a>
