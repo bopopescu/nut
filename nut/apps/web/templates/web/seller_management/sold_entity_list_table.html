@@ -1,0 +1,38 @@
+{% load i18n %}
+{% load static %}
+{% load guoku %}
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            {% trans '名称' %}
+{#                        <input class="guoku_search_input" data-search-field="title" type="text" ></th>#}
+                        <th>
+                            {% trans 'image' %}
+                        </th>
+                        <th>SKU</th>
+                        <th>{% trans '售出数量' %}</th>
+                        <th>{% trans '库存数量' %}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sku in object_list %}
+                        <tr>
+                            <td>
+                                {{ sku.title }}</td>
+{#                            <td>{{ entity.chief_image }}</td>#}
+                            <td class="product-thumb-img">
+                            <a href="{% url 'web_entity_detail' sku.entity.entity_hash %}" target="_blank">
+                                <img class="img-thumbnail img-responsive" src="{{ sku.entity.chief_image|resize:'128' }}" width="128" height="128">
+                            </a>
+                        </td>
+                            <td> {% if sku.attrs_display %}{{ sku.attrs_display }}<br>{% else %}缺省SKU{% endif %}</td>
+                            <td>{{ sku.sold_count }}</td>
+                            <td>
+                                {{ sku.stock }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>

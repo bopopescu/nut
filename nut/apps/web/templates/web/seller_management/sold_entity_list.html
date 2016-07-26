@@ -1,11 +1,11 @@
 {% extends 'web/seller_management/seller_management_base.html' %}
-{% load i18n %}
+{#{% load i18n %}#}
 {% load staticfiles i18n %}
 
 {% block content %}
     <section class="content-header">
         <h1>
-            {% trans '订单' %}
+            {% trans '售出商品' %}
 {#            <a href="{% url 'web_seller_management_entity_add' %}"><i class="fa fa-plus" style="font-size:18px;"></i></a>#}
         </h1>
 
@@ -22,7 +22,7 @@
                     <div class="box-header">
                     </div>
                     <div class="box-body table-responsive">
-                        {% include 'web/seller_management/order_list_table.html' %}
+                        {% include 'web/seller_management/sold_entity_list_table.html' %}
                     </div>
 
                     <div class="box-footer">
@@ -39,7 +39,6 @@
     <script src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>
     <script src="{% static 'js/management/util.js' %}"></script>
     <script src="{% static 'js/management/moment.js' %}"></script>
-
      <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/manage_search.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/seller_management/entity_save.js' %}" type="application/javascript"></script>

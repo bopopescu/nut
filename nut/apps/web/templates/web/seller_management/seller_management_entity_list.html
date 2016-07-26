@@ -1,16 +1,24 @@
 {% load i18n %}
 {% load static %}
+
+{#<div class="box-header">#}
+{#                        <ul class="nav nav-pills" role="tablist">#}
+{#                            <li {% ifequal status None %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}">{% trans 'all' %}</a></li>#}
+{#                            <li {% ifequal status '1' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=1">{% trans '精选商品' %}</a></li>#}
+{#                            <li {% ifequal status '0' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=0">{% trans 'new' %}</a></li>#}
+{##}
+{#                        </ul>#}
+{#                    </div>#}
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>{% trans 'name' %}
                         <input class="guoku_search_input" data-search-field="title" type="text" ></th>
                         <th><a href="{% url  'web_seller_management' %}?sort_by=price">
                             {% trans 'price' %}
                         {%  if sort_by == 'price' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}</a></th>
 {#                        <th>{% trans '库存' %}</th>#}
-                        <th>{% trans 'skus' %}</th>
+                        <th>{% trans 'skus' %}(价格, 库存)</th>
                         <th>
 {#                            {% trans '商品<br>数量' %}{%  if sort_by == 'entity' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}#}
                         </th>
@@ -19,7 +27,6 @@
                 <tbody>
                     {% for entity in object_list %}
                         <tr>
-                            <td>{{ entity.id }}</td>
                             <td>
                                 {{ entity.title }}</td>
                             <td><form method="post">
@@ -30,11 +37,22 @@
 {#                                <label></label>#}
 {#                                <input id="entity_stock" type="text" name="stock" value="{{ entity.stock }}">#}
 {#                            </form></td>#}
-                            <td>{% for sku in entity.sku_list %} {{ sku.attrs_display }}<br>{% endfor %}</td>
+                            <td>{% for sku in entity.sku_list %}
+
+                                {% if sku.attrs_display %}
+                                    {{ sku.attrs_display }}
+                                {% else %} 缺省SKU
+                                {% endif %}
+                                <form>
+                                <input id="{{ sku.id }}_price" type="text" name="{{ sku.id }}" value="{{ sku.promo_price }}">
+                                    <input id="{{ sku.id }}_stock" type="text" name="{{ sku.id }}" value="{{ sku.stock }}">
+                                    <span class="btn newest-btn-primary"  id="{{ sku.id }}" target="_blank">{% trans 'update' %}</span>
+                                    <br></form>
+                            {% endfor %}</td>
                             <td>
                                 <div class="btn-group">
-                                    <a class="btn btn-primary" href="{% url 'sku_list_management' entity.id %}" target="_blank">{% trans 'SKU管理' %}</a>
-                                    <a class="btn btn-default" href="{% url 'web_seller_management_entity_edit' entity.pk %}" target="_blank">{% trans 'edit' %}</a>
+                                    <a class="btn btn-primary" href="{% url 'sku_list_management' entity.id %}" target="_blank">{% trans 'SKU管理' %}</a><br>
+                                    <a class="btn btn-default" href="{% url 'web_seller_management_entity_edit' entity.pk %}" target="_blank">{% trans 'edit' %}</a><br>
                                     <a class="btn btn-success" id="{{ entity.id }}" href="" batch_url="{% url 'web_seller_management_entity_save' entity.pk %}" target="_blank">{% trans 'save' %}</a>
                                 </div>
                             </td>
