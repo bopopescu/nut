@@ -9,8 +9,6 @@ res_api = Api(app)
 app.config.from_pyfile('../config/default.py')
 
 
-
-
 from applications.api.keywords import SearchHistoryView, UserSearchHistoryView
 
 # TODO: set record key word URI

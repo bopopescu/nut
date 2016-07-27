@@ -11,7 +11,7 @@ SQLAlchemy-Utils==0.32.9
 Werkzeug==0.11.10
 aniso8601==1.1.0
 argparse==1.2.1
-chardet==2.0.1
+chardet==2.1.1
 click==6.6
 colorama==0.2.5
 flask-marshmallow==0.7.0
