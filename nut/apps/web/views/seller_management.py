@@ -298,7 +298,8 @@ class OrderDetailView(UserPassesTestMixin,DetailView):
         raise Http404
     def get_context_data(self, **kwargs):
         context = super(OrderDetailView, self).get_context_data(**kwargs)
-        context['order_item'] = context['order'].items.all()
+        context['order_item'] = context['order'].items.all().filter(sku__entity__in = self.request.user.entities.all())
+        #context['order_item'] = context['order'].items.all()
         context['order_number']=self.order_number
         context['promo_total_price']=context['order'].promo_total_price
         context['origin_total_price']=context['order'].grand_total_price
