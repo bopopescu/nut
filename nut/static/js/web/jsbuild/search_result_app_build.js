@@ -1354,7 +1354,7 @@ define('subapp/top_notification/top_notification',[
                     $.ajax({
                         cache:true,
                         type:"get",
-                        url: '/message/message/',
+                        url: '/message/newmessage/',
                         data:''
                     })
                 ).then(
