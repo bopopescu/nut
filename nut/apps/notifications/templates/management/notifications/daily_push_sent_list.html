@@ -6,12 +6,12 @@
   <section class="content-header">
         <h1>
             {% trans '每日推送' %}
-            <small>{% trans '推送列表' %}</small>
+            <small>{% trans '已经发送 消息列表' %}</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{% url 'management_dashboard' %}"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
 {#            <li><a href="#">Tables</a></li>#}
-            <li class="active">{% trans '每日推送' %}</li>
+            <li class="active">{% trans '已经发送 消息列表' %}</li>
         </ol>
     </section>
 
@@ -20,6 +20,9 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="box box-info">
+                     <a class="pull-right" href="{% url 'management_push_list' %}">
+                               <button class="btn btn-primary">未发送推送</button>
+                     </a>
 {#                    <div class="box-header">#}
 {#                        <ul class="nav nav-pills" role="tablist">#}
 {#                            <li class="active"><a href="">所有</a></li>#}
@@ -27,18 +30,8 @@
 {#                        </ul>#}
 {#                    </div>#}
                     <div class="box-body table-responsive">
-                       <div class="">
-                           <hr>
-                           <a href="{% url 'management_push_create' %}">
-                             <button class="btn btn-primary">+ 新建推送</button>
-                           </a>
-                            <a class="pull-right" href="{% url 'management_sent_push_messages' %}">
-                               <button class="btn btn-primary">已经发送的消息</button>
-                           </a>
-                           <hr>
-                       </div>
 
-                        {% include "management/notifications/partial/table.html"%}
+                        {% include "management/notifications/partial/table_sent.html"%}
 
                     </div>
 

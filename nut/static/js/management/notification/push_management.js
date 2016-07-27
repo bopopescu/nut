@@ -31,7 +31,7 @@ $.ajaxSetup({
 });
 
 
-function Test_Send(){
+function Message_Sender(){
     this.init_test_send_button();
     this.init_real_send_button();
     this.init_boot_box();
@@ -39,7 +39,7 @@ function Test_Send(){
 
 }
 
-Test_Send.prototype = {
+Message_Sender.prototype = {
     init_boot_box: function(){
         bootbox.setDefaults({
                 className: 'no-class',
@@ -62,8 +62,47 @@ Test_Send.prototype = {
         return $(target).attr('data-request-url');
 
     },
+    get_formal_send_url:function(event){
+        return $(event.currentTarget).attr('data-request-url');
+    },
+
+
+    formal_send:function(){
+        $.when($.ajax(this.formal_send_url,{
+            method: 'POST'
+        })).then(
+            this.formal_send_success.bind(this),
+            this.formal_send_fail.bind(this)
+        )
+    },
+
+    formal_send_success:function(){
+        bootbox.hideAll();
+        bootbox.alert('推送消息成功', function(){
+            window.location.reload();
+        });
+
+
+
+    },
+    formal_send_fail:function(){
+        bootbox.hideAll();
+        bootbox.alert('推送消息失败')
+
+    },
+
     handleRealClick: function(event){
-        bootbox.alert('正式群发功能尚未开放');
+        this.formal_send_url = this.get_formal_send_url(event)
+        var that = this;
+        bootbox.hideAll();
+        bootbox.prompt('输入 "确认发送" ', function(result){
+            if(result == "确认发送"){
+                that.formal_send();
+            }else{
+                bootbox.hideAll();
+                bootbox.alert('输入错误, 放弃发送!');
+            }
+        });
     },
     handleTestClick:function(event){
         this.request_url = this.get_request_url(event);
@@ -130,4 +169,4 @@ Test_Send.prototype = {
 
 }
 
-var tsend = new Test_Send();
+var tsend = new Message_Sender();
