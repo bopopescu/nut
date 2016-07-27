@@ -5,13 +5,13 @@
     {% for remark in remarks %}
         <li class="remark-list-item-wrapper">
             <div class="remark-item">
-                <a class="pull-left" href="{% url 'web_user_index' remark.user.pk %}" target="_blank">
+                <a class="pull-left" href="{{ remark.user.mobile_url  }}" target="_blank">
                     <img class="media-object img-circle" src="{{ remark.user.avatar_url }}" alt="{{ remark.user.nickname }}" style="width:40px;height:40px;">
                 </a>
 
                 <div class="remark-detail">
                     <div class="remark-user" user_id="{{ remark.user.pk }}" user_name="{{ remark.user.nickname }}" remark_id="{{ remark.id }}">
-                        <a href="{% url 'web_user_index' remark.user.pk %}" target="_blank">
+                        <a href="{{ remark.user.mobile_url }}" target="_blank">
                             {{ remark.user.nickname }}
                         </a>
                         {% if remark.reply_to.user.nickname %}
