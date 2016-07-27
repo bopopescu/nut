@@ -21,6 +21,7 @@ res_api.add_resource(UserSearchHistoryView, '/keywords/<user_id>/')
 from applications.web.views.hotwords import HotWordsView
 
 app.add_url_rule('/hotword/', view_func=HotWordsView.as_view('hot_words'))
+# app.add_url_rule('/hotword/add/', )
 
 
 from applications.api.article import ArticleTextRank

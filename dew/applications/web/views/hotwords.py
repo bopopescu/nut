@@ -13,3 +13,7 @@ class HotWordsView(ListView):
     def get_objects(self):
         obj =  HotWords.query.all()
         return obj
+
+
+class CreateHotWordView():
+    pass
