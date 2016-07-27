@@ -207,7 +207,7 @@
 
                                 <div class="writer-intro col-xs-10 col-sm-10">
                                     <div class="writer-name for-browser">
-                                        <a href="{% url 'web_user_index' article.creator.pk %}">
+                                        <a class="new-blue-link" href="{% url 'web_user_index' article.creator.pk %}">
                                          {{ article.creator.profile.nickname }}
                                         </a>
                                         {#  认证图标:需要判断一下用户是不是认证用户,是就显示认证图标,不是就隐藏咯  #}
@@ -218,7 +218,7 @@
                                     </div>
 
                                     <div class="writer-name for-mobile">
-                                        <a href="{{ article.creator.mobile_url }}" class="mobile-user-link">
+                                        <a class="new-blue-link" href="{{ article.creator.mobile_url }}" class="mobile-user-link">
                                          {{ article.creator.profile.nickname }}
                                         </a>
                                     </div>
@@ -243,16 +243,16 @@
                                 {% elif article.creator == request.user %}
 
                             {% elif request.user.id in article.creator.concren %}
-                                <a class="hidden-xs follow article-user-follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                                <a class="hidden-sm hidden-md hidden-lg mobile-follow article-user-follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i></a>
+                                <a class="hidden-xs follow article-user-follow guoku-button new-guoku-button btn-cancel new-btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                                <a class="hidden-sm hidden-md hidden-lg mobile-follow article-user-follow guoku-button new-guoku-button btn-cancel new-btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i></a>
 
                             {% elif request.user.id in article.creator.fans_list %}
-                                <a class="hidden-xs follow article-user-follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                                 <a class="hidden-sm hidden-md hidden-lg mobile-follow article-user-follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i></a>
+                                <a class="hidden-xs follow article-user-follow guoku-button new-guoku-button btn-cancel new-btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                                <a class="hidden-sm hidden-md hidden-lg mobile-follow article-user-follow guoku-button new-guoku-button btn-cancel new-btn-cancel for-browser" data-status="1" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i></a>
 
                             {% else %}
-                                <a class="hidden-xs follow article-user-follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
-                                <a class="hidden-sm hidden-md hidden-lg mobile-follow article-user-follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i></a>
+                                <a class="hidden-xs follow article-user-follow guoku-button new-guoku-button button-blue newest-button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+                                <a class="hidden-sm hidden-md hidden-lg mobile-follow article-user-follow guoku-button new-guoku-button button-blue newest-button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i></a>
                             {% endif %}
 {#                            {% endif %}#}
 
@@ -491,13 +491,14 @@
             </a>
             <div class="remark-detail">
                 <div class="remark-user" user_id="<%=user_id%>" user_name="<%=user%>" remark_id="<%=remark_id%>">
-                    <a href="<%=user_url%>" target="_blank"><%=user%></a>
+                    <a class="new-blue-link" href="<%=user_url%>" target="_blank"><%=user%></a>
                         <% if(user_reply_to_url){ %>
                             <span>
-                                回复:
-                                <a href="<%=user_reply_to_url%>" target="_blank">
+                                回复
+                                <a class="new-blue-link" href="<%=user_reply_to_url%>" target="_blank">
                                     <%=user_reply_to%>
                                 </a>
+                                <span>:</span>
                             </span>
                         <% } %>
                 </div>
