@@ -1,4 +1,5 @@
-4. 
+5. web bug fix (top bar element margin, article remark mobile display , etc)
+4. index page hot entity use ajax 
 3. push notification formal send 
 2. web scroll bug fix 
 1. article remark mobile 
