@@ -30,8 +30,8 @@ class SKU(models.Model):
     def attrs_display(self):
         attr_str_list = list()
         for key , value in self.attrs.iteritems():
-            attr_str_list.append('%s_%s'%(key,value))
-        return ';'.join(attr_str_list)
+            attr_str_list.append('%s:%s'%(key,value))
+        return '/'.join(attr_str_list)
 
     # class Meta:
     #     #TODO : unique together didn't work
