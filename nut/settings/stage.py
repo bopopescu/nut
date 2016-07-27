@@ -181,6 +181,6 @@ HAYSTACK_DEFAULT_OPERATOR = 'OR'
 SITE_HOST = 'http://test.guoku.com'
 
 #add by anchen
-# ANT_SIMULATE_MOBILE = True
+ANT_SIMULATE_MOBILE = True
 
 __author__ = 'edison7500'
