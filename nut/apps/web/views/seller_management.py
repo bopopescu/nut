@@ -95,14 +95,10 @@ class SellerManagementOrders(LoginRequiredMixin, FilterMixin, SortMixin,  ListVi
     template_name = 'web/seller_management/order_list.html'
 
     def get_queryset(self):
-
         entities = self.request.user.entities.all()
-        sku_list = []
-        for entity in entities:
-            sku_list.extend(entity.skus.all())
         order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
-        qs = list(set([item.order for item in order_items]))
-
+        order_ids = order_items.values_list('order')
+        qs = Order.objects.filter(id__in=order_ids)
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
     def filter_queryset(self, qs, filter_param):
@@ -119,9 +115,9 @@ class SellerManagementOrders(LoginRequiredMixin, FilterMixin, SortMixin,  ListVi
         if sort_by == 'price':
             qs = sorted(qs, key=lambda x: x.order_total_value, reverse=True)
         elif sort_by == 'number':
-            qs = sorted(qs, key=lambda x: x.number, reverse=True)
+            qs = qs.order_by('-number')
         elif sort_by == 'status':
-            qs = sorted(qs, key=lambda x: x.status, reverse=True)
+            qs =  qs.order_by('-status')
         else:
             pass
         return qs
@@ -230,6 +226,11 @@ class SKUListView(EntityUserPassesTestMixin, SortMixin, ListView):
         context['entity']= get_object_or_404(Entity, id=self.entity_id)
         context['sort_by'] = self.get_sort_params()[0]
         context['extra_query'] = 'sort_by=' + context['sort_by']
+        # for sku in context['object_list']:
+        #     l = sku.attrs_display.split(';')
+        #     for item in l:
+        #         new = item.replace('_', ':')
+
         return context
     def sort_queryset(self, qs, sort_by, order):
         if sort_by == 'stock':
@@ -316,7 +317,9 @@ class SellerManagementSoldEntityList(LoginRequiredMixin, FilterMixin, SortMixin,
     def get_queryset(self):
         entities = self.request.user.entities.all()
         self.order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
-        qs = list(set([item.sku for item in self.order_items]))
+        sku_ids = self.order_items.values_list('sku')
+        qs = SKU.objects.filter(id__in=sku_ids)
+        # qs = list(set([item.sku for item in self.order_items]))
 
         return self.filter_queryset(qs,self.get_filter_param())
 
@@ -340,8 +343,7 @@ class SellerManagementSoldEntityList(LoginRequiredMixin, FilterMixin, SortMixin,
     def filter_queryset(self, qs, filter_param):
         filter_field, filter_value = filter_param
         if filter_field == 'title':
-            # qs = qs.filter(title__icontains=filter_value.strip())
-            pass #Todo
+            qs = qs.filter(entity__title__icontains=filter_value.strip())
         else:
             pass
         return qs
