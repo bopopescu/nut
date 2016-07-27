@@ -23,7 +23,7 @@ IMAGE_HOST = 'http://imgcdn.guoku.com/'
 
 
 #for mobile access simulation
-# ANT_SIMULATE_MOBILE = True
+ANT_SIMULATE_MOBILE = True
 
 #for local solr search
 
