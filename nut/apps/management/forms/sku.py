@@ -11,7 +11,7 @@ class SKUForm(ModelForm):
 
     def clean_entity(self):
         entity_id = self.cleaned_data['entity']
-        return get_object_or_404(Entity,id=entity_id)
+        return Entity.objects.get(id=entity_id)
 
     def clean_attrs(self):
         return json.loads(self.cleaned_data['attrs'])
@@ -24,9 +24,13 @@ class SKUForm(ModelForm):
         self.fields['entity'].widget.attrs['readonly'] = True
         self.fields['attrs'].widget = HiddenInput()
 
-    def save(self, commit=True):
+    def save(self, commit=False):
         instance = super(SKUForm, self).save(commit=commit)
+        entity = self.cleaned_data['entity']
+        attrs_list = [s.attrs for s in entity.skus.all()]
         instance.attrs = self.cleaned_data['attrs']
+        if instance.attrs in attrs_list:
+            return         #Todo
         instance.save()
 
     class Meta:
