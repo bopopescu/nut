@@ -1,6 +1,8 @@
+# encoding: utf-8
 import json
+
+from django.core.exceptions import ValidationError
 from django.forms import ModelForm, CharField, HiddenInput
-from django.shortcuts import  get_object_or_404
 from apps.core.models import SKU, Entity
 
 
@@ -14,7 +16,14 @@ class SKUForm(ModelForm):
         return Entity.objects.get(id=entity_id)
 
     def clean_attrs(self):
-        return json.loads(self.cleaned_data['attrs'])
+        attrs = json.loads(self.cleaned_data['attrs'])
+        entity = self.cleaned_data['entity']
+        attrs_list = [s.attrs for s in entity.skus.all()]
+        if attrs == {}:
+            attrs = u''
+        if attrs in attrs_list:
+            raise ValidationError("属性已存在")
+        return attrs
 
     def __init__(self, *args, **kwargs):
         super(SKUForm, self).__init__(*args, **kwargs)
@@ -26,11 +35,7 @@ class SKUForm(ModelForm):
 
     def save(self, commit=False):
         instance = super(SKUForm, self).save(commit=commit)
-        entity = self.cleaned_data['entity']
-        attrs_list = [s.attrs for s in entity.skus.all()]
         instance.attrs = self.cleaned_data['attrs']
-        if instance.attrs in attrs_list:
-            return         #Todo
         instance.save()
 
     class Meta:
