@@ -491,11 +491,11 @@
             </a>
             <div class="remark-detail">
                 <div class="remark-user" user_id="<%=user_id%>" user_name="<%=user%>" remark_id="<%=remark_id%>">
-                    <a href="<%=user_url%>" target="_blank"><%=user%></a>
+                    <a class="new-blue-link" href="<%=user_url%>" target="_blank"><%=user%></a>
                         <% if(user_reply_to_url){ %>
                             <span>
                                 回复
-                                <a href="<%=user_reply_to_url%>" target="_blank">
+                                <a class="new-blue-link" href="<%=user_reply_to_url%>" target="_blank">
                                     <%=user_reply_to%>
                                 </a>
                                 <span>:</span>

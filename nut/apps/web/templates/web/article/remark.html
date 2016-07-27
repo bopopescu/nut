@@ -54,13 +54,13 @@
 
                 <div class="remark-detail">
                     <div class="remark-user" user_id="{{ remark.user.pk }}" user_name="{{ remark.user.nickname }}" remark_id="{{ remark.id }}">
-                        <a href="{% url 'web_user_index' remark.user.pk %}" target="_blank">
+                        <a class="new-blue-link" href="{% url 'web_user_index' remark.user.pk %}" target="_blank">
                             {{ remark.user.nickname }}
                         </a>
                         {% if remark.reply_to.user.nickname %}
                             <span>
                                 回复
-                                <a href="{% url 'web_user_index' remark.reply_to.user.pk %}" target="_blank">
+                                <a class="new-blue-link" href="{% url 'web_user_index' remark.reply_to.user.pk %}" target="_blank">
                                     {{ remark.reply_to.user.nickname }}
                                 </a>
                                 <span>:</span>
