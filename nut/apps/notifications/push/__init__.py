@@ -3,7 +3,7 @@
 import jpush
 from django.conf import settings
 from django.utils.log import getLogger
-
+from jpush import common
 
 app_key = getattr(settings, 'JPUSH_KEY', None)
 app_secret = getattr(settings, 'JPUSH_SECRET', None)
@@ -127,10 +127,9 @@ class JPushMessageBase(object):
     def create_message(self):
         pass
 
-
-class JPushMessage(JPushMessageBase):
+class JPushSingleMessage(JPushMessageBase):
     def __init__(self,rid, message, url):
-        super(JPushMessage, self).__init__()
+        super(JPushSingleMessage, self).__init__()
         self._rid = rid
         self._message = message
         self._url = url
@@ -164,6 +163,29 @@ class JPushMessage(JPushMessageBase):
     def send_message(self):
         self._push.audience  = jpush.registration_id(self._rid)
         self._push.send()
+
+
+class JPushGroupMessage(JPushSingleMessage):
+    def __init__(self, message, url):
+        super(JPushGroupMessage, self).__init__(rid=None,
+                                                message=message,
+                                                url=url)
+
+    def send_message_to_all(self):
+        self._push.audience = jpush.all_
+        try:
+            response=self._push.send()
+            pass
+        except common.Unauthorized:
+            raise common.Unauthorized("Unauthorized")
+        except common.APIConnectionException:
+            raise common.APIConnectionException("conn")
+        except common.JPushFailure:
+            print ("JPushFailure")
+            raise Exception('JPush Failure')
+        except:
+            print ("Exception")
+            raise Exception('Exception when pushing message')
 
 
 

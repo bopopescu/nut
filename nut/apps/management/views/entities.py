@@ -506,6 +506,11 @@ class EntitySKUCreateView(EditorRequiredMixin, CreateView):
         entity = get_object_or_404(Entity, id=entity_id)
         return entity
 
+    def get_context_data(self, **kwargs):
+        context = super(EntitySKUCreateView, self).get_context_data(**kwargs)
+        context['entity'] = self.get_entity()
+        return context
+
 
 class EntitySKUUpdateView(EditorRequiredMixin,UpdateView):
     model = SKU

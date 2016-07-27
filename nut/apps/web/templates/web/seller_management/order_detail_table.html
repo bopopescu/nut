@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+{% load guoku %}
 <div>
     <span >
                     订单号:{{order.number }}
@@ -32,7 +33,7 @@
                             <td>{{ order.sku.attrs }}</td>
                             <td class="product-thumb-img">
                                 {# <div class="thumbnail">#}
-                                   <img class="img-responsive img-thumbnail" src = {{ order.sku.entity.images.0 }} width="80" height="80">
+                                   <img class="img-responsive img-thumbnail" src = {{ order.sku.entity.chief_image|resize:'128' }} width="80" height="80">
                                  {#   <div class="caption">#}
                                 {#    </div>#}
                               {#  </div> #}

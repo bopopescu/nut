@@ -673,7 +673,6 @@
   #related-article-container{
     margin-left:-12px;
     margin-right:-12px;
-
     li.article-item{
       overflow: hidden;
       float:left;
@@ -683,13 +682,18 @@
         .normal-scale-bg;
       }
       .article-title{
+        width:100%;
+        min-height:50px;
+        max-height:50px;
+        .multiple-text-overflow(2);
         line-height: 1.3;
+        font-weight:@new-font-weight;
         left:0;
         bottom:0;
         text-align: left;
         padding: 0 16px 16px 16px;
-        .transform(none);
       }
+
       a:hover{
         .related-article-bg-layer{
           display: none;
@@ -731,12 +735,9 @@
 @media screen and (max-width:992px){
   #related-article-container{
     overflow:hidden;
-  }
-}
-
-@media screen and (max-width: 580px){
-  #related-article-container li.article-item .article-title{
-    font-size:@more-mini-size;
+    .slick-list{
+      padding-right:100px;
+    }
   }
 }
 

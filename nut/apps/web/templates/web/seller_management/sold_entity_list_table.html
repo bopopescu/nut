@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+{% load guoku %}
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
@@ -21,9 +22,9 @@
                             <td>
                                 {{ sku.title }}</td>
 {#                            <td>{{ entity.chief_image }}</td>#}
-                            <td class="product-thumb-img">
+                        <td class="product-thumb-img">
                             <a href="{% url 'web_entity_detail' sku.entity.entity_hash %}" target="_blank">
-                                <img class="img-thumbnail img-responsive" src="{{ sku.entity.chief_image }}" width="128" height="128">
+                                <img class="img-thumbnail img-responsive" src="{{ sku.entity.chief_image|resize:'128' }}" width="128" height="128">
                             </a>
                         </td>
                             <td> {% if sku.attrs_display %}{{ sku.attrs_display }}<br>{% else %}缺省SKU{% endif %}</td>

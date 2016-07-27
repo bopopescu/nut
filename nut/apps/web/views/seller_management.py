@@ -38,7 +38,7 @@ class EntityUserPassesTestMixin(UserPassesTestMixin):
         raise Http404
 
 class SellerManagement(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
-    default_sort_params = ('price', 'id')
+    default_sort_params = ('updated_time', 'desc')
     http_method_names = ['get']
     paginator_class = ExtentPaginator
     model = Entity
@@ -78,6 +78,8 @@ class SellerManagement(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
     def sort_queryset(self, qs, sort_by, order):
         if sort_by == 'price':
             qs = qs.order_by('-price')
+        if sort_by == 'updated_time':
+            qs = qs.order_by('-updated_time')
         else:
             pass
         return qs
@@ -98,12 +100,27 @@ class SellerManagementOrders(LoginRequiredMixin, FilterMixin, SortMixin,  ListVi
         filter_field, filter_value = filter_param
         if filter_field == 'id':
             qs = qs.filter(id=filter_value.strip())
+        if filter_field == 'number':
+            qs = qs.filter(number__icontains=filter_value.strip())
+        else:
+            pass
+        return qs
+    def sort_queryset(self, qs, sort_by, order):
+        if sort_by == 'price':
+            qs = sorted(qs, key=lambda x: x.order_total_value, reverse=True)
+        elif sort_by == 'number':
+            qs = qs.order_by('-number')
+        elif sort_by == 'status':
+            qs = qs.order_by('-status')
         else:
             pass
         return qs
 
     def get_context_data(self, **kwargs):
         context = super(SellerManagementOrders, self).get_context_data(**kwargs)
+        for order in context['object_list']:
+            order_items = order.items.all()
+            order.skus = [order_item.sku for order_item in order_items]
         return context
 
 class SellerManagementAddEntity(Add_local):
@@ -272,8 +289,6 @@ class OrderDetailView(UserPassesTestMixin,DetailView):
         context['order_number']=self.order_number
         context['promo_total_price']=context['order'].promo_total_price
         context['origin_total_price']=context['order'].grand_total_price
-        for order_item in context['order_item']:
-            order_item.promo_total_price/=order_item.volume
         return context
 
 class SellerManagementSoldEntityList(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
