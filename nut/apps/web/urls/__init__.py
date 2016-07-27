@@ -2,7 +2,8 @@ from django.conf.urls import url, include, patterns
 from django.views.generic import RedirectView
 from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView, CooperateView
 from apps.web.views.discover import DiscoverView, RecommendUserView
-from apps.web.views.main import SelectionEntityList, SiteMapView, IndexArticleTagView, IndexSelectionEntityTagView
+from apps.web.views.main import SelectionEntityList, SiteMapView, IndexArticleTagView, IndexSelectionEntityTagView\
+                                ,IndexHotEntityView
 from apps.web.views.entity import EntityCard, EntityLikersView, EntitySaleView, NewEntityDetailView
 from apps.web.views.main import GKSearchView, PopularView,IndexView
 from apps.web.views.flink import FriendlyLinkListView
@@ -13,6 +14,7 @@ urlpatterns = patterns(
     url(r'^$', IndexView.as_view(), name='web_index'),
     url(r'^index_article_tag', IndexArticleTagView.as_view(), name='web_index_article_tag'),
     url(r'^index_selection_entity_tag', IndexSelectionEntityTagView.as_view(), name='web_index_selection_entity_tag'),
+    url(r'^index_hot_entity', IndexHotEntityView.as_view(), name='web_index_hot_entity'),
     # url(r'^index/$', IndexView.as_view(), name='web_index'),
     url(r'^selection/$', RedirectView.as_view(url='/selected/')),
     url(r'^m/selection/$', RedirectView.as_view(url='/selected/')),

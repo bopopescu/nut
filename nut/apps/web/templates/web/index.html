@@ -251,17 +251,24 @@
         </div>
         </div>
     <div class="row new-section-title-wrapper">
-            <div class="col-sm-12">
-                <div class="section-title pull-left">
-                    热门商品
-                </div>
+        <div class="col-sm-12">
+            <div class="section-title pull-left">
+                热门商品
             </div>
         </div>
-    <div class="row" id="hot-entity-list">
-            {% for entity in entities %}
-                {% include 'web/main/partial/new_entity.html' with entity=entity%}
-            {% endfor %}
+    </div>
+
+    <div class="row" >
+        <div class="col-xs-12 loading-icon">
+            <img src="{% static 'images/widgets/loading.gif' %}" height="32px" width="32px">
         </div>
+    </div>
+
+    <div class="row" id="hot-entity-list">
+{#        {% for entity in entities %}#}
+{#            {% include 'web/main/partial/new_entity.html' with entity=entity%}#}
+{#        {% endfor %}#}
+    </div>
     <div class="row hidden-xs">
             <div class="col-sm-offset-12">
                 <div class="gotop-wrapper">
