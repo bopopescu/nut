@@ -33,12 +33,12 @@
     {% for entity in object_list %}
         <tr>
             <td>{{ entity.title }}</td>
-            <td>{{ entity.category.title }}
+            <td>{{ entity.category.title }}</td>
             <td>
+                {{ entity.title }}<br>
             <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
                                 <img class="img-thumbnail img-responsive" src="{{ entity.chief_image|resize:'128' }}" width="128" height="128">
-                            </a>
-            </td>
+                            </a></td>
             <td><form method="post">
                 <label></label>
                 <input id="{{ entity.id }}" type="text" name="price" value="{{ entity.price }}">

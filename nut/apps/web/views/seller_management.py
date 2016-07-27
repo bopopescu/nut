@@ -6,6 +6,7 @@ from apps.core.forms.entity import EditEntityForm
 from apps.core.mixins.views import FilterMixin, SortMixin
 from apps.core.views import LoginRequiredMixin, JSONResponseMixin
 from apps.management.views.entities import Add_local
+from apps.order.models import OrderItem
 from braces.views import JSONRequestResponseMixin,AjaxResponseMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -38,6 +39,7 @@ class EntityUserPassesTestMixin(UserPassesTestMixin):
         raise Http404
 
 class SellerManagement(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
+
     default_sort_params = ('updated_time', 'desc')
     http_method_names = ['get']
     paginator_class = ExtentPaginator
@@ -93,7 +95,14 @@ class SellerManagementOrders(LoginRequiredMixin, FilterMixin, SortMixin,  ListVi
     template_name = 'web/seller_management/order_list.html'
 
     def get_queryset(self):
-        qs = self.request.user.orders.all()
+
+        entities = self.request.user.entities.all()
+        sku_list = []
+        for entity in entities:
+            sku_list.extend(entity.skus.all())
+        order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
+        qs = list(set([item.order for item in order_items]))
+
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
     def filter_queryset(self, qs, filter_param):
@@ -101,7 +110,8 @@ class SellerManagementOrders(LoginRequiredMixin, FilterMixin, SortMixin,  ListVi
         if filter_field == 'id':
             qs = qs.filter(id=filter_value.strip())
         if filter_field == 'number':
-            qs = qs.filter(number__icontains=filter_value.strip())
+            # qs = qs.filter(number__icontains=filter_value.strip())
+            pass  #Todo
         else:
             pass
         return qs
@@ -109,9 +119,9 @@ class SellerManagementOrders(LoginRequiredMixin, FilterMixin, SortMixin,  ListVi
         if sort_by == 'price':
             qs = sorted(qs, key=lambda x: x.order_total_value, reverse=True)
         elif sort_by == 'number':
-            qs = qs.order_by('-number')
+            qs = sorted(qs, key=lambda x: x.number, reverse=True)
         elif sort_by == 'status':
-            qs = qs.order_by('-status')
+            qs = sorted(qs, key=lambda x: x.status, reverse=True)
         else:
             pass
         return qs
@@ -280,7 +290,10 @@ class OrderDetailView(UserPassesTestMixin,DetailView):
     def test_func(self, user):
         self.order_number = self.kwargs.get('order_number')
         order = Order.objects.get(pk=self.order_number)
-        return order in user.orders.all()
+        for i in order.items.all():
+            if i.sku.entity in user.entities.all():
+                return True
+        return False
     def no_permissions_fail(self, request=None):
         raise Http404
     def get_context_data(self, **kwargs):
@@ -300,8 +313,10 @@ class SellerManagementSoldEntityList(LoginRequiredMixin, FilterMixin, SortMixin,
     template_name = 'web/seller_management/sold_entity_list.html'
 
     def get_queryset(self):
-        self.order_items = self.request.user.order_items.all()
+        entities = self.request.user.entities.all()
+        self.order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
         qs = list(set([item.sku for item in self.order_items]))
+
         return self.filter_queryset(qs,self.get_filter_param())
 
     def get_context_data(self, **kwargs):
@@ -324,7 +339,8 @@ class SellerManagementSoldEntityList(LoginRequiredMixin, FilterMixin, SortMixin,
     def filter_queryset(self, qs, filter_param):
         filter_field, filter_value = filter_param
         if filter_field == 'title':
-            qs = qs.filter(title__icontains=filter_value.strip())
+            # qs = qs.filter(title__icontains=filter_value.strip())
+            pass #Todo
         else:
             pass
         return qs
