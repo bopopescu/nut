@@ -59,10 +59,11 @@
                         </a>
                         {% if remark.reply_to.user.nickname %}
                             <span>
-                                回复:
+                                回复
                                 <a href="{% url 'web_user_index' remark.reply_to.user.pk %}" target="_blank">
                                     {{ remark.reply_to.user.nickname }}
                                 </a>
+                                <span>:</span>
                             </span>
                         {% endif %}
 
