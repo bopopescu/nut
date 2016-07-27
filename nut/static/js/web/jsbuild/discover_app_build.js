@@ -752,7 +752,7 @@ define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
         init: function(){
             $('#selection, #discover_entity_list, #category-entity-list, #tag-entity-list ,.search-result-list,.authorized-seller-body,.search-entity-item,#hot-entity-list').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
             $('.guoku-button .like-action').on('click', this.handleLike.bind(this));
-            $('.new-index-page .new-btn-like').on('click',this.handleLike.bind(this));
+            $('.new-index-page').on('click','.new-btn-like',this.handleLike.bind(this));
 
             console.log('app entity like functions');
             console.log(fastdom);
@@ -1571,7 +1571,7 @@ define('subapp/topmenu',['bootstrap',
             this.$menu = $('#guoku_main_nav');
             this.fixMenuCondition = null;
             this.scrollTop = null;
-            //this.lastScrollTop = null;
+            this.lastScrollTop = null;
             this.read = this.write = null;
             this.initHiddenBottomAd();
             this.setupScrollMenu();
@@ -1622,7 +1622,9 @@ define('subapp/topmenu',['bootstrap',
                 this.read = fastdom.read(function(){
                     that.scrollTop = $(window).scrollTop();
                     that.screenHeight = window.screen.height;
-                    that.fixMenuCondition = $('#guoku_main_nav')[0].getBoundingClientRect().height - 50;
+                    if($('#guoku_main_nav').length){
+                         that.fixMenuCondition = $('#guoku_main_nav')[0].getBoundingClientRect().height - 50;
+                    }
                     if($('#main_article').length){
                           that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
                     }
@@ -1652,10 +1654,10 @@ define('subapp/topmenu',['bootstrap',
                 this.removeFixMenu();
             }
 
-            //if (_.isNull(this.lastScrollTop)){
-            //    this.lastScrollTop = this.scrollTop;
-            //    return ;
-            //}
+            if (_.isNull(this.lastScrollTop)){
+                this.lastScrollTop = this.scrollTop;
+                return ;
+            }
 
             if(this.lastScrollTop > this.scrollTop){
                 this.showHeader();
@@ -1677,7 +1679,7 @@ define('subapp/topmenu',['bootstrap',
 
             this.read = null;
             this.write= null;
-            //this.lastScrollTop = this.scrollTop;
+            this.lastScrollTop = this.scrollTop;
         },
 
 

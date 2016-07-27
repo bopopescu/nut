@@ -1489,7 +1489,7 @@ define('subapp/topmenu',['bootstrap',
             this.$menu = $('#guoku_main_nav');
             this.fixMenuCondition = null;
             this.scrollTop = null;
-            //this.lastScrollTop = null;
+            this.lastScrollTop = null;
             this.read = this.write = null;
             this.initHiddenBottomAd();
             this.setupScrollMenu();
@@ -1540,7 +1540,9 @@ define('subapp/topmenu',['bootstrap',
                 this.read = fastdom.read(function(){
                     that.scrollTop = $(window).scrollTop();
                     that.screenHeight = window.screen.height;
-                    that.fixMenuCondition = $('#guoku_main_nav')[0].getBoundingClientRect().height - 50;
+                    if($('#guoku_main_nav').length){
+                         that.fixMenuCondition = $('#guoku_main_nav')[0].getBoundingClientRect().height - 50;
+                    }
                     if($('#main_article').length){
                           that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
                     }
@@ -1570,10 +1572,10 @@ define('subapp/topmenu',['bootstrap',
                 this.removeFixMenu();
             }
 
-            //if (_.isNull(this.lastScrollTop)){
-            //    this.lastScrollTop = this.scrollTop;
-            //    return ;
-            //}
+            if (_.isNull(this.lastScrollTop)){
+                this.lastScrollTop = this.scrollTop;
+                return ;
+            }
 
             if(this.lastScrollTop > this.scrollTop){
                 this.showHeader();
@@ -1595,7 +1597,7 @@ define('subapp/topmenu',['bootstrap',
 
             this.read = null;
             this.write= null;
-            //this.lastScrollTop = this.scrollTop;
+            this.lastScrollTop = this.scrollTop;
         },
 
 
@@ -1970,7 +1972,7 @@ define('subapp/article/article_link_scroll',['jquery','libs/Class','jqueryeasing
         init: function(selector){
             console.log('article remark link scroll');
             $(selector).click(function(event){
-                $('html,body').animate({scrollTop: $(this.hash).offset().top - 40}, 1000, 'easeInOutExpo');
+                $('html,body').animate({scrollTop: $(this.hash).offset().top - 50}, 1000, 'easeInOutExpo');
                 event.preventDefault();
                 event.stopPropagation();
                 return false;
@@ -6163,9 +6165,18 @@ define('subapp/article/article_related_slick',['jquery', 'libs/Class','libs/slic
 
                         responsive: [
                             {
-                                breakpoint: 768,
+                                breakpoint: 992,
                                 settings: {
                                     slidesToShow:2,
+                                    slidesToScroll:1,
+                                    autoplay:true,
+                                    dots:false
+                                }
+                            },
+                            {
+                                breakpoint: 580,
+                                settings: {
+                                    slidesToShow:1,
                                     slidesToScroll:1,
                                     autoplay:true,
                                     dots:false
@@ -6240,7 +6251,9 @@ define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(
     var UserFollow = Class.extend({
         init: function () {
             this.$follow = $(".follow");
+            this.$mobileFollow = $('.mobile-follow');
             this.$follow.on('click', this.handleFollow.bind(this));
+            this.$mobileFollow.on('click', this.handleMobileFollow.bind(this));
         },
 
         getAccountApp:function(){
@@ -6284,6 +6297,54 @@ define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(
 
                 } else if (data.status == 0) {
                     $followButton.html('<i class="fa fa-plus"></i>&nbsp; 关注');
+                    $followButton.removeClass("btn-cancel").addClass("button-blue");
+                    $followButton.removeClass("new-btn-cancel").addClass("newest-button-blue");
+                    $followButton.attr('data-status', '0');
+                } else {
+                    console.log('did not response with valid data');
+                }
+            }, function fail(error) {
+                console.log('failed' + error);
+                var html = $(error.responseText);
+                that.getAccountApp().modalSignIn(html);
+            });
+        },
+        handleMobileFollow: function (e) {
+            var that = this;
+            var $followButton = $(e.currentTarget);
+            var uid = $followButton.attr('data-user-id');
+            var status = $followButton.attr('data-status');
+            var action_url = "/u/" + uid;
+
+            if (status == 1) {
+                action_url += "/unfollow/";
+
+            } else {
+                action_url += "/follow/";
+            }
+
+            $.when($.ajax({
+                url: action_url,
+                dataType: 'json',
+                method: 'POST'
+            })).then(function success(data) {
+                console.log('success');
+                console.log(data);
+                if (data.status == 1) {
+                    $followButton.html('<i class="fa fa-check fa-lg"></i>');
+                    $followButton.attr('data-status', '1');
+                    $followButton.removeClass("button-blue").addClass("btn-cancel");
+                    $followButton.removeClass("newest-button-blue").addClass("new-btn-cancel");
+
+                } else if (data.status == 2) {
+                    console.log('mutual !!!');
+                    $followButton.html('<i class="fa fa-exchange fa-lg"></i>');
+                    $followButton.removeClass('button-blue').addClass('btn-cancel');
+                    $followButton.removeClass("newest-button-blue").addClass("new-btn-cancel");
+                    $followButton.attr('data-status', '1');
+
+                } else if (data.status == 0) {
+                    $followButton.html('<i class="fa fa-plus"></i>');
                     $followButton.removeClass("btn-cancel").addClass("button-blue");
                     $followButton.removeClass("new-btn-cancel").addClass("newest-button-blue");
                     $followButton.attr('data-status', '0');

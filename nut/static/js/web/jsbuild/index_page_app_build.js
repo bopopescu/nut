@@ -1476,7 +1476,7 @@ define('subapp/topmenu',['bootstrap',
             this.$menu = $('#guoku_main_nav');
             this.fixMenuCondition = null;
             this.scrollTop = null;
-            //this.lastScrollTop = null;
+            this.lastScrollTop = null;
             this.read = this.write = null;
             this.initHiddenBottomAd();
             this.setupScrollMenu();
@@ -1527,7 +1527,9 @@ define('subapp/topmenu',['bootstrap',
                 this.read = fastdom.read(function(){
                     that.scrollTop = $(window).scrollTop();
                     that.screenHeight = window.screen.height;
-                    that.fixMenuCondition = $('#guoku_main_nav')[0].getBoundingClientRect().height - 50;
+                    if($('#guoku_main_nav').length){
+                         that.fixMenuCondition = $('#guoku_main_nav')[0].getBoundingClientRect().height - 50;
+                    }
                     if($('#main_article').length){
                           that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
                     }
@@ -1557,10 +1559,10 @@ define('subapp/topmenu',['bootstrap',
                 this.removeFixMenu();
             }
 
-            //if (_.isNull(this.lastScrollTop)){
-            //    this.lastScrollTop = this.scrollTop;
-            //    return ;
-            //}
+            if (_.isNull(this.lastScrollTop)){
+                this.lastScrollTop = this.scrollTop;
+                return ;
+            }
 
             if(this.lastScrollTop > this.scrollTop){
                 this.showHeader();
@@ -1582,7 +1584,7 @@ define('subapp/topmenu',['bootstrap',
 
             this.read = null;
             this.write= null;
-            //this.lastScrollTop = this.scrollTop;
+            this.lastScrollTop = this.scrollTop;
         },
 
 
@@ -4485,7 +4487,7 @@ define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
         init: function(){
             $('#selection, #discover_entity_list, #category-entity-list, #tag-entity-list ,.search-result-list,.authorized-seller-body,.search-entity-item,#hot-entity-list').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
             $('.guoku-button .like-action').on('click', this.handleLike.bind(this));
-            $('.new-index-page .new-btn-like').on('click',this.handleLike.bind(this));
+            $('.new-index-page').on('click','.new-btn-like',this.handleLike.bind(this));
 
             console.log('app entity like functions');
             console.log(fastdom);
@@ -4757,7 +4759,9 @@ define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(
     var UserFollow = Class.extend({
         init: function () {
             this.$follow = $(".follow");
+            this.$mobileFollow = $('.mobile-follow');
             this.$follow.on('click', this.handleFollow.bind(this));
+            this.$mobileFollow.on('click', this.handleMobileFollow.bind(this));
         },
 
         getAccountApp:function(){
@@ -4812,10 +4816,155 @@ define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(
                 var html = $(error.responseText);
                 that.getAccountApp().modalSignIn(html);
             });
+        },
+        handleMobileFollow: function (e) {
+            var that = this;
+            var $followButton = $(e.currentTarget);
+            var uid = $followButton.attr('data-user-id');
+            var status = $followButton.attr('data-status');
+            var action_url = "/u/" + uid;
+
+            if (status == 1) {
+                action_url += "/unfollow/";
+
+            } else {
+                action_url += "/follow/";
+            }
+
+            $.when($.ajax({
+                url: action_url,
+                dataType: 'json',
+                method: 'POST'
+            })).then(function success(data) {
+                console.log('success');
+                console.log(data);
+                if (data.status == 1) {
+                    $followButton.html('<i class="fa fa-check fa-lg"></i>');
+                    $followButton.attr('data-status', '1');
+                    $followButton.removeClass("button-blue").addClass("btn-cancel");
+                    $followButton.removeClass("newest-button-blue").addClass("new-btn-cancel");
+
+                } else if (data.status == 2) {
+                    console.log('mutual !!!');
+                    $followButton.html('<i class="fa fa-exchange fa-lg"></i>');
+                    $followButton.removeClass('button-blue').addClass('btn-cancel');
+                    $followButton.removeClass("newest-button-blue").addClass("new-btn-cancel");
+                    $followButton.attr('data-status', '1');
+
+                } else if (data.status == 0) {
+                    $followButton.html('<i class="fa fa-plus"></i>');
+                    $followButton.removeClass("btn-cancel").addClass("button-blue");
+                    $followButton.removeClass("new-btn-cancel").addClass("newest-button-blue");
+                    $followButton.attr('data-status', '0');
+                } else {
+                    console.log('did not response with valid data');
+                }
+            }, function fail(error) {
+                console.log('failed' + error);
+                //var html = $(error.responseText);
+                //that.getAccountApp().modalSignIn(html);
+            });
         }
     });
     return UserFollow;
 });
+
+
+define('subapp/index/hot_entity',['jquery', 'libs/Class','fastdom'], function(
+    $, Class,fastdom
+){
+    var HotEntity= Class.extend({
+        init: function () {
+            this.$loading_icon = $('.loading-icon');
+            this.$hot_entity_wrapper = $('#hot-entity-list');
+            this.should_load_hot_entity = 0;
+            if(this.$hot_entity_wrapper.length > 0){
+                this.setupWatcher();
+            }else{
+                return;
+            }
+        },
+        setupWatcher:function(){
+            $(window).scroll(this.onScroll.bind(this));
+        },
+        onScroll:function(){
+            if(this.read){
+                fastdom.clear(this.read);
+            }
+            this.read = fastdom.read(this.doRead.bind(this));
+            if(this.write){
+                fastdom.clear(this.write);
+            }
+            this.write = fastdom.write(this.doWrite.bind(this));
+        },
+        doRead: function(){
+            this.scrollTop = $(window).scrollTop();
+            this.screenHeight = window.screen.height;
+            this.pageHeight = document.body.scrollHeight;
+            this.middleBannerBottom = document.getElementById('hot-entity-list').getBoundingClientRect().bottom;
+            this.pageScrollLength = this.screenHeight + this.scrollTop;
+            this.middleBannerPosition = this.pageHeight - this.screenHeight + this.middleBannerBottom;
+
+        },
+        doWrite: function(){
+            var that = this ;
+            if (!this.scrollTop){return ;}
+            if (this.pageScrollLength > this.middleBannerPosition && this.should_load_hot_entity == 0){
+                this.postAjaxRequest();
+
+                //fastdom.write(function(){
+                //    that.$loading_icon.hide();
+                //});
+
+            }else{
+                //fastdom.write(function(){
+                //    that.$loading_icon.show();
+                //});
+            }
+        },
+        postAjaxRequest:function(){
+            this.should_load_hot_entity=1;
+            $.when(
+                $.ajax({
+                    cache:true,
+                    type:"get",
+                    url: '/index_hot_entity/',
+                    data: '',
+                    dataType:"json"
+                })
+            ).then(
+                this.postSuccess.bind(this),
+                this.postFail.bind(this)
+            );
+        },
+        postSuccess:function(result){
+            console.log('post request success.');
+            var status = parseInt(result.status);
+            if(status == 1){
+                 this.$loading_icon.hide();
+                 this.showHotEntity($(result.data));
+            }else{
+                this.$loading_icon.hide();
+                this.showFail(result);
+            }
+        },
+        postFail:function(result){
+            console.log('post fail');
+        },
+        showFail:function(result){
+            console.log('get ajax data failed');
+        },
+        showHotEntity: function(elemList){
+            console.log('get ajax data success');
+            //this.$hot_entity_wrapper.empty();
+            this.$hot_entity_wrapper.append(elemList);
+        }
+    });
+    return HotEntity;
+});
+
+
+
 
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
@@ -4925,6 +5074,7 @@ require([
         'subapp/index/entity_category_tab',
         'subapp/index/category_tab_view',
         'subapp/user_follow',
+        'subapp/index/hot_entity',
         'subapp/gotop'
 
     ],
@@ -4940,6 +5090,7 @@ require([
               EntityCategoryTab,
               CategoryTabView,
               UserFollow,
+              HotEntity,
               GoTop
               ) {
 // TODO : check if csrf work --
@@ -4953,6 +5104,7 @@ require([
         var entity_category_tab = new EntityCategoryTab();
         var category_tab_view = new CategoryTabView();
         var user_follow = new UserFollow();
+        var hot_entity = new HotEntity();
         var goto = new GoTop();
     });
 
