@@ -3326,6 +3326,9 @@ body.new-index-body #selection_article_list .xs-selection-article-item .more-art
   position: relative;
   top: 5px;
 }
+#guoku_main_nav .nav-notification-wrapper {
+  margin: 0 2px;
+}
 #guoku_main_nav .nav-notification-wrapper .notification-icon:visited,
 #guoku_main_nav .nav-notification-wrapper .notification-icon:hover,
 #guoku_main_nav .nav-notification-wrapper .notification-icon:focus,
