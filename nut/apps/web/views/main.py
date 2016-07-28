@@ -76,8 +76,8 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin,TemplateView):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['banners'] = SiteBanner.objects.get_mainpage_banner()  # 顶部banner (link, image)
         context['categories'] = Category.objects.filter(status=True)  # 品类
-        popular_list = Entity_Like.objects.popular_random()
-        context['entities'] = Entity.objects.filter(id__in=popular_list)  # 热门商品
+        # popular_list = Entity_Like.objects.popular_random()
+        # context['entities'] = Entity.objects.filter(id__in=popular_list)  # 热门商品
         context['article_tags'] = Tags.objects.top_article_tags()  # 图文标签
         # context['articles'] = Selection_Article.objects.select_related('article').all()[:3]  # 最新精选图文
         context['articles'] = self.get_selection_articles()[:3]  # 最新精选图文
@@ -89,6 +89,26 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin,TemplateView):
         context['selection_entity'] = self.get_selection_entities()[:20]
         context['static_url'] = settings.STATIC_URL
 
+        # _entities = context['entities']
+        # if self.request.user.is_authenticated():
+        #     context['user_entity_likes'] = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=
+        #         list(_entities.values_list('id', flat=True))+(list(context['selection_entity'].values_list('entity_id',flat=True))))
+
+        return context
+
+
+class IndexHotEntityView(JSONResponseMixin, AjaxResponseMixin, ListView):
+    def get_selection_entities(self):
+        selections = Selection_Entity.objects.published_until_now()\
+                                     .select_related('entity').using('slave')
+        return selections
+
+    def get_context_data(self, **kwargs):
+        # context = super(IndexHotEntityView, self).get_context_data(**kwargs)
+        context = {}
+        popular_list = Entity_Like.objects.popular_random()
+        context['entities'] = Entity.objects.filter(id__in=popular_list)
+        context['selection_entity'] = self.get_selection_entities()[:20]
         _entities = context['entities']
         if self.request.user.is_authenticated():
             context['user_entity_likes'] = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=
@@ -96,6 +116,23 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin,TemplateView):
 
         return context
 
+    def get_ajax(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        template = 'web/main/partial/new_entity_ajax.html'
+        _t = loader.get_template(template)
+        _c = RequestContext(
+             request,
+             context
+         )
+        _data = _t.render(_c)
+
+        return JSONResponse(
+            data={
+                'data': _data,
+                'status': 1
+            },
+            content_type='text/html; charset=utf-8',
+        )
 
 
 class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
@@ -149,6 +186,7 @@ class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
             content_type='text/html; charset=utf-8',
         )
 
+
 class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
     def get_queryset(self):
         if self.category_id == 'all_entity':
@@ -201,7 +239,6 @@ class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView
             },
             content_type='text/html; charset=utf-8',
         )
-
 
 
 class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin, ListView):

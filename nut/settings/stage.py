@@ -176,4 +176,7 @@ HAYSTACK_CONNECTIONS = {
 # HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
+
+# ANT_SIMULATE_MOBILE = True
+
 __author__ = 'edison7500'
