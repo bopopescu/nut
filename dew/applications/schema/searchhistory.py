@@ -6,4 +6,4 @@ class SearchHistorySchema(ma.ModelSchema):
 
     class Meta:
         model           = SearchHistory
-        fields          = ['user_id', 'keyword', 'result_count','user_agent', 'created_at']
+        fields          = ['user_id', 'ip', 'keyword', 'result_count','user_agent', 'created_at']

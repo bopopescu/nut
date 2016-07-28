@@ -10,4 +10,4 @@ COPY        supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 VOLUME		["/data/www/dew", "/tmp/"]
 WORKDIR     /data/www/dew
 EXPOSE 		5000
-#CMD         ["/usr/bin/supervisord"]
+CMD         ["/usr/bin/supervisord"]
