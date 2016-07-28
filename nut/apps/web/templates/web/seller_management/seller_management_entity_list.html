@@ -9,7 +9,7 @@
 {##}
 {#                        </ul>#}
 {#                    </div>#}
-<table class="table table-bordered table-hover">
+<table class="table table-bordered table-hover" id="seller_management_entity_price">
     <thead>
     <tr>
         <th>{% trans 'name' %}
@@ -39,10 +39,11 @@
             <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
                                 <img class="img-thumbnail img-responsive" src="{{ entity.chief_image|resize:'128' }}" width="128" height="128">
                             </a></td>
-            <td><form method="post">
-                <label></label>
-                <input id="{{ entity.id }}" type="text" name="price" value="{{ entity.price }}">
-            </form></td>
+            <td class="price-wrapper">
+                <div class="entity_price" id="{{ entity.id }}">{{ entity.price }}
+                </div>
+{#                <button type="submit" class="btn btn-success price-update-btn">save</button>#}
+            </td>
             {#                            <td><form>#}
             {#                                <label></label>#}
             {#                                <input id="entity_stock" type="text" name="stock" value="{{ entity.stock }}">#}
@@ -64,7 +65,7 @@
                 <div class="btn-group">
                     <a class="btn btn-primary" href="{% url 'sku_list_management' entity.id %}" target="_blank">{% trans 'SKU管理' %}</a><br>
                     <a class="btn btn-default" href="{% url 'web_seller_management_entity_edit' entity.pk %}" target="_blank">{% trans 'edit' %}</a><br>
-                    <a class="btn btn-success" id="{{ entity.id }}" href="" batch_url="{% url 'web_seller_management_entity_save' entity.pk %}" target="_blank">{% trans 'save' %}</a>
+{#                    <a class="btn btn-success" id="{{ entity.id }}" href="" batch_url="{% url 'web_seller_management_entity_save' entity.pk %}" target="_blank">{% trans 'save' %}</a>#}
                 </div>
             </td>
         </tr>
