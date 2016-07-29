@@ -19,6 +19,10 @@ get_parser.add_argument(
     location='args', type = int,
     default = 30,
 )
+get_parser.add_argument(
+    'f', dest='filter',
+    location='args', default=None,
+)
 
 
 post_parser = reqparse.RequestParser()
@@ -56,7 +60,13 @@ class SearchHistoryView(Resource):
 
     def get(self):
         args =  get_parser.parse_args()
-        paginator = SearchHistory.query.order_by(desc(SearchHistory.created_at)).\
+        # print args
+        if args['filter'] == 'user':
+            paginator = SearchHistory.query.order_by(desc(SearchHistory.created_at)).\
+                            filter(SearchHistory.user_id.isnot(None)). \
+                            paginate(args['page'], args['size'], False)
+        else:
+            paginator = SearchHistory.query.order_by(desc(SearchHistory.created_at)).\
                                     paginate(args['page'], args['size'], False)
         # return search_history_schema_list.dump(paginator.items).data, 200
         res = {
