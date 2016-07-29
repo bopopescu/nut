@@ -225,7 +225,7 @@ class SellerEntitySKUCreateView(EntityUserPassesTestMixin, CreateView):
         }
 
 class SKUListView(EntityUserPassesTestMixin, SortMixin, ListView):
-    default_sort_params = ('stock', 'origin_price')
+    default_sort_params = ('dstock', 'desc')
     template_name = 'web/seller_management/sku_list.html'
     def get_queryset(self):
         entity = get_object_or_404(Entity, id=self.entity_id)
@@ -242,14 +242,22 @@ class SKUListView(EntityUserPassesTestMixin, SortMixin, ListView):
 
         return context
     def sort_queryset(self, qs, sort_by, order):
-        if sort_by == 'stock':
+        if sort_by == 'dstock':
             qs = qs.order_by('-stock')
-        elif sort_by == 'origin_price':
+        elif sort_by == 'ustock':
+            qs = qs.order_by('stock')
+        elif sort_by == 'dorigin_price':
             qs = qs.order_by('-origin_price')
-        elif sort_by == 'promotion_price':
+        elif sort_by == 'uorigin_price':
+            qs = qs.order_by('origin_price')
+        elif sort_by == 'dpromotion_price':
             qs = qs.order_by('-promo_price')
-        elif sort_by == 'status':
+        elif sort_by == 'upromotion_price':
+            qs = qs.order_by('promo_price')
+        elif sort_by == 'dstatus':
             qs = qs.order_by('-status')
+        elif sort_by == 'ustatus':
+            qs = qs.order_by('status')
         else:
             pass
         return qs
