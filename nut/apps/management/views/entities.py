@@ -524,7 +524,7 @@ class EntitySKUUpdateView(EditorRequiredMixin,UpdateView):
         return entity
 
     def get_context_data(self, **kwargs):
-        context = super(EntitySKUCreateView, self).get_context_data(**kwargs)
+        context = super(EntitySKUUpdateView, self).get_context_data(**kwargs)
         context['entity_id'] = self.get_entity().id
         return context
     def get_success_url(self):

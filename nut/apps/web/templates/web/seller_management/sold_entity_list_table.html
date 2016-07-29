@@ -11,8 +11,26 @@
                             {% trans 'image' %}
                         </th>
                         <th>SKU</th>
-                        <th>{% trans '售出数量' %}</th>
-                        <th>{% trans '库存数量' %}
+                        <th>
+                            {% if sort_by == 'dsold_count' %}
+                                <a href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=usold_count">
+                            {% else %}
+                                <a href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=dsold_count">
+                            {% endif %}
+                                {% trans '售出数量' %}
+                            {%  if sort_by == 'dsold_count' %}<i class="fa fa-arrow-circle-down"></i>
+                            {% elif sort_by == 'usold_count' %}<i class="fa fa-arrow-circle-up"></i>
+                            {% endif %}</a>
+                        </th>
+                        <th>{% if sort_by == 'dstock' %}
+                                <a href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=ustock">
+                            {% else %}
+                                <a href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=dstock">
+                            {% endif %}
+                                {% trans '库存数量' %}
+                            {%  if sort_by == 'dstock' %}<i class="fa fa-arrow-circle-down"></i>
+                            {% elif sort_by == 'ustock' %}<i class="fa fa-arrow-circle-up"></i>
+                            {% endif %}</a>
                         </th>
                     </tr>
                 </thead>

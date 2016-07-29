@@ -16,14 +16,26 @@
             <input class="guoku_search_input" data-search-field="title" type="text" ></th>
         <th>{% trans '商品类别' %}
         <th>{% trans '商品图' %}</th>
-        <th><a href="{% url  'web_seller_management' %}?sort_by=price">
-            {% trans 'price' %}
-            {%  if sort_by == 'price' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}</a></th>
-        {#                        <th>{% trans '库存' %}</th>#}
+        <th>{% if sort_by == 'dprice' %}
+            <a href="{% url  'web_seller_management' %}?sort_by=uprice">
+            {% else %}
+                <a href="{% url  'web_seller_management' %}?sort_by=dprice">
+            {% endif %}
+                {% trans 'price' %}
+            {%  if sort_by == 'dprice' %}<i class="fa fa-arrow-circle-down"></i>
+            {% elif sort_by == 'uprice' %}<i class="fa fa-arrow-circle-up"></i>
+            {% endif %}</a></th>
+
         <th>{% trans 'skus' %}(价格, 库存)</th>
-        <th><a href="{% url  'web_seller_management' %}?sort_by=updated_time">
-            {% trans '最后修改时间' %}
-            {%  if sort_by == 'updated_time' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}</a><th>
+        <th>{% if sort_by == 'dupdated_time' %}
+            <a href="{% url  'web_seller_management' %}?sort_by=uupdated_time">
+            {% else %}
+                <a href="{% url  'web_seller_management' %}?sort_by=dupdated_time">
+            {% endif %}
+                {% trans '最后修改时间' %}
+            {%  if sort_by == 'dupdated_time' %}<i class="fa fa-arrow-circle-down"></i>
+            {% elif sort_by == 'uupdated_time' %}<i class="fa fa-arrow-circle-up"></i>
+            {% endif %}</a></th>
         <th>
             {#                            {% trans '商品<br>数量' %}{%  if sort_by == 'entity' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}#}
         </th>
@@ -55,8 +67,8 @@
                 {% else %} 缺省SKU
                 {% endif %}
                 <form>
-                    <input id="{{ sku.id }}_price" type="text" name="{{ sku.id }}" value="{{ sku.promo_price }}">
-                    <input id="{{ sku.id }}_stock" type="text" name="{{ sku.id }}" value="{{ sku.stock }}">
+                    <input id="{{ sku.id }}_price" type="text" style="width:80px; height:30px" name="{{ sku.id }}" value="{{ sku.promo_price }}">
+                    <input id="{{ sku.id }}_stock" type="text" style="width:80px; height:30px" name="{{ sku.id }}" value="{{ sku.stock }}">
                     <span class="btn newest-btn-primary"  id="{{ sku.id }}" target="_blank">{% trans 'update' %}</span>
                     <br></form>
             {% endfor %}</td>
