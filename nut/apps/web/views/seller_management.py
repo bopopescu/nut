@@ -4,10 +4,10 @@ import json
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.forms.entity import EditEntityForm
 from apps.core.mixins.views import FilterMixin, SortMixin
-from apps.core.views import LoginRequiredMixin, JSONResponseMixin
+from apps.core.views import LoginRequiredMixin
 from apps.management.views.entities import Add_local
 from apps.order.models import OrderItem
-from braces.views import JSONRequestResponseMixin,AjaxResponseMixin, UserPassesTestMixin
+from braces.views import JSONResponseMixin,AjaxResponseMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db.models import Sum
@@ -186,22 +186,24 @@ def seller_management_entity_edit(request, entity_id, template='web/seller_manag
         context_instance=RequestContext(request)
     )
 
-class SellerManagementEntitySave(AjaxResponseMixin, JSONResponseMixin, View):
+class SellerManagementEntitySave(JSONResponseMixin, AjaxResponseMixin, View):
     model = Entity
-    def save_update(self, price):
-        entity = Entity.objects.get(id=self.kwargs.get('entity_id'))
+    def save_update(self,entity_id, price):
+        entity = Entity.objects.get(id=entity_id)
         entity.price = price
         entity.save()
         return
 
     def post_ajax(self, request, *args, **kwargs):
         price = request.POST.get('price', None)
-        price = json.loads(price)
+        entity_id = request.POST.get('entity_id', None)
+        price = float(json.loads(price))
+        entity_id = int(json.loads(entity_id))
         try:
-            self.save_update(price)
+            self.save_update(entity_id, price)
+            return self.render_json_response({'status': '1'}, 200)
         except:
-            pass
-        return HttpResponseRedirect(reverse('web_seller_management'))
+            return self.render_json_response({'status': '-1'}, 404)
 
 class SellerEntitySKUCreateView(EntityUserPassesTestMixin, CreateView):
     model = SKU
