@@ -523,6 +523,10 @@ class EntitySKUUpdateView(EditorRequiredMixin,UpdateView):
         entity = get_object_or_404(Entity, id=entity_id)
         return entity
 
+    def get_context_data(self, **kwargs):
+        context = super(EntitySKUCreateView, self).get_context_data(**kwargs)
+        context['entity_id'] = self.get_entity().id
+        return context
     def get_success_url(self):
         return reverse('management_entity_skus', args=[self.get_entity().id])
 
