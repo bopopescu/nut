@@ -106,8 +106,7 @@ class SellerManagementOrders(LoginRequiredMixin, FilterMixin, SortMixin,  ListVi
         if filter_field == 'id':
             qs = qs.filter(id=filter_value.strip())
         if filter_field == 'number':
-            # qs = qs.filter(number__icontains=filter_value.strip())
-            pass  #Todo
+            qs = qs.filter(number__icontains=filter_value.strip())
         else:
             pass
         return qs
