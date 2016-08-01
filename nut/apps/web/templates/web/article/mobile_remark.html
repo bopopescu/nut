@@ -17,7 +17,7 @@
                         {% if remark.reply_to.user.nickname %}
                             <span>
                                 回复
-                                <a class="new-blue-link" href="{{ remark.user.mobile_url }}" target="_blank">
+                                <a class="new-blue-link" href="{{ remark.reply_to.user.mobile_url }}" target="_blank">
                                     {{ remark.reply_to.user.nickname }}
                                 </a>
                                 <span>:</span>
