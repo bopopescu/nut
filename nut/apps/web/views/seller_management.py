@@ -24,9 +24,8 @@ class SKUUserPassesTestMixin(UserPassesTestMixin):
     def test_func(self, user):
         self.entity_id = self.kwargs.get('entity_id')
         self.sku_id = self.kwargs.get('pk')
-        entity = Entity.objects.get(id = self.entity_id)
         sku = SKU.objects.get(pk=self.sku_id)
-        return entity in user.entities.all() and sku in entity.skus.all()
+        return user.has_sku(sku)
     def no_permissions_fail(self, request=None):
         raise Http404
 
@@ -34,14 +33,13 @@ class EntityUserPassesTestMixin(UserPassesTestMixin):
     def test_func(self, user):
         self.entity_id = self.kwargs.get('entity_id')
         entity = Entity.objects.get(id=self.entity_id)
-        return entity in user.entities.all()
+        return user.has_entity(entity)
     def no_permissions_fail(self, request=None):
         raise Http404
 
 class IsAuthorizedSeller(UserPassesTestMixin):
     def test_func(self, user):
         return user.is_authorized_seller
-
     def no_permissions_fail(self, request=None):
         raise Http404
 

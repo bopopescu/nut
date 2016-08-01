@@ -111,6 +111,12 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def has_guoku_assigned_email(self):
         return ('@guoku.com' in self.email ) and (len(self.email) > 29)
 
+    def has_sku(self,sku):
+        return sku.entity.user.id == self.id
+
+    def has_entity(self,entity):
+        return entity.user.id == self.id
+
     @property
     def need_verify_mail(self):
         return (not self.profile.email_verified ) and (not self.need_change_mail)
