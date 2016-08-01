@@ -45,14 +45,12 @@ class IsAuthorizedSeller(UserPassesTestMixin):
 
 
 class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
-
     default_sort_params = ('dupdated_time', 'desc')
     http_method_names = ['get']
     paginator_class = ExtentPaginator
     model = Entity
     paginate_by = 10
     template_name = 'web/seller_management/seller_management.html'
-
 
     def get_queryset(self):
         qs = self.request.user.entities.all()
