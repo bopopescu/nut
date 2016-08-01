@@ -481,7 +481,7 @@ class SellerManagementSkuSave(AjaxResponseMixin, JSONResponseMixin, View):
 
 class SellerManagementImportEntity(Import_entity):
     def __init__(self):
-        return super(SellerManagementImportEntity, self).__init__(template='web/seller_management/import_entity.html',
+        super(SellerManagementImportEntity, self).__init__(template='web/seller_management/import_entity.html',
                                                                entity_edit_url='web_seller_management_entity_edit')
 
 

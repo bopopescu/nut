@@ -1,7 +1,7 @@
 from django.conf.urls import url, patterns
 # from apps.management.views.entities import EntityListView
 from apps.management.views.entities import EntityListView, CheckBuyLinkView, EntitySKUListView,EntitySKUCreateView, EntitySKUDeleteView,EntitySKUUpdateView, \
-    Add_local
+    Add_local, Import_entity
 from django.contrib.auth.decorators import login_required
 
 
@@ -10,7 +10,7 @@ urlpatterns = patterns(
     # url(r'^$', EntityListView.as_view(), name='management_entity_list'),
     url(r'^$', EntityListView.as_view(), name='management_entity_list'),
     # url(r'^list/$',EntityListView.as_view() , name='management_entity_list_new'),
-    url(r'^new/$', 'create', name='management_entity_create'),
+    url(r'^new/$', Import_entity.as_view(), name='management_entity_create'),
     url(r'^add/$', Add_local.as_view(), name='management_entity_add_local'),
     url(r'^(?P<entity_id>\d+)/edit/$', 'edit', name='management_entity_edit'),
 
