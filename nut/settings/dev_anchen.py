@@ -10,6 +10,8 @@ CELERY_ALWAYS_EAGER = False
 CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
 #
 IMAGE_HOST = 'http://imgcdn.guoku.com/'
+
+
 #
 
 # LOCAL_IMG_DEBUG=True
@@ -17,6 +19,14 @@ IMAGE_HOST = 'http://imgcdn.guoku.com/'
 # INTRANET_IMAGE_SERVER = 'http://nutimages.hello.new/'
 # MEDIA_ROOT='/media/upload/'
 # AVATAR_HOST = 'http://imgcdn.guoku.com/'
+
+
+# -------------------
+# IMAGE_HOST = 'http://imgcdn.guoku.com/'
+# MOGILEFS_DOMAIN = 'toast'
+# MOGILEFS_TRACKERS = ['10.0.0.188:7001']
+# MOGILEFS_MEDIA_URL = 'images/'
+# DEFAULT_FILE_STORAGE = 'storages.backends.mogile.MogileFSStorage'
 
 
 IMG_COUNTER_HOST = 'http://127.0.0.1:9766'
