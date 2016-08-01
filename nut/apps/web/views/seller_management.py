@@ -38,7 +38,15 @@ class EntityUserPassesTestMixin(UserPassesTestMixin):
     def no_permissions_fail(self, request=None):
         raise Http404
 
-class SellerManagement(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
+class IsAuthorizedSeller(UserPassesTestMixin):
+    def test_func(self, user):
+        return user.is_authorized_seller
+
+    def no_permissions_fail(self, request=None):
+        raise Http404
+
+
+class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
 
     default_sort_params = ('dupdated_time', 'desc')
     http_method_names = ['get']
@@ -46,6 +54,7 @@ class SellerManagement(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
     model = Entity
     paginate_by = 10
     template_name = 'web/seller_management/seller_management.html'
+
 
     def get_queryset(self):
         qs = self.request.user.entities.all()
@@ -90,7 +99,14 @@ class SellerManagement(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
             pass
         return qs
 
-class SellerManagementOrders(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
+class IsAuthorizedSeller(UserPassesTestMixin):
+    def test_func(self, user):
+        return user.is_authorized_seller
+
+    def no_permissions_fail(self, request=None):
+        raise Http404
+
+class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
     default_sort_params = ('dnumber','desc')
     http_method_names = ['get']
     paginator_class = ExtentPaginator
@@ -323,7 +339,8 @@ class OrderDetailView(UserPassesTestMixin,DetailView):
         context['origin_total_price']=context['order'].grand_total_price
         return context
 
-class SellerManagementOrders(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
+
+class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
     default_sort_params = ('dnumber','desc')
     http_method_names = ['get']
     paginator_class = ExtentPaginator
@@ -369,7 +386,7 @@ class SellerManagementOrders(LoginRequiredMixin, FilterMixin, SortMixin,  ListVi
             order.skus = [order_item.sku for order_item in order_items]
         return context
 
-class SellerManagementSoldEntityList(LoginRequiredMixin, FilterMixin, SortMixin,  ListView):
+class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
     default_sort_params = ('dsold_count', 'desc')
     http_method_names = ['get']
     paginator_class = ExtentPaginator
