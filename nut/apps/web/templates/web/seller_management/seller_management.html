@@ -21,6 +21,11 @@
                 <div class="box box-info">
                     <div class="box-header">
                     </div>
+                    {% if current_url == '/seller_management/' %}
+                        <a class="btn btn-success" href="{{ current_url }}?print=true" target="_blank">{% trans '打印二维码' %}</a>
+                    {% else %}
+                        <a class="btn btn-success" href="{{ current_url }}&print=true" target="_blank">{% trans '打印二维码' %}</a>
+                    {% endif %}
                     <div class="box-body table-responsive">
                         {% include 'web/seller_management/seller_management_entity_list.html' %}
                     </div>
@@ -39,7 +44,7 @@
     <script src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>
     <script src="{% static 'js/management/util.js' %}"></script>
     <script src="{% static 'js/management/moment.js' %}"></script>
-     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
+    <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/manage_search.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/seller_management/sku_save.js' %}" type="application/javascript"></script>
 

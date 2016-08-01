@@ -1,0 +1,80 @@
+<html>
+{% load staticfiles i18n %}
+<header>
+    <meta charset="utf-8">
+     <link rel="stylesheet" href="{% static 'html/pricetag/style.css' %}">
+</header>
+<body>
+<ul id="tag_list">
+
+</ul>
+
+<script type="text/html" id="item_template">
+    <li>
+        <div class="tag-container">
+            <div class="qr-code" data-url=<%=item[4]%>>
+                <!--<img src="link.png">-->
+            </div>
+            <div class="store">
+                <span class="store-name"><%=item[0]%></span>
+            </div>
+            <div class="info">
+                <p class="info-wrapper">
+                    <span class="title">
+                        <%=item[1]%>
+                    </span>
+
+                </p>
+                <p class="price-wrapper">
+                    <span class="price">
+                       <span class="dollar-sign">￥</span>
+                       <span class="price-number"><%=item[3].toFixed(2)%></span>
+                    </span>
+                    <span class="origin-price">
+
+                    </span>
+
+                </p>
+            </div>
+        </div>
+    </li>
+</script>
+<script src="{% static 'html/pricetag/jquery-2.2.3.min.js' %}" language="javascript"></script>
+<script src="{% static 'html/pricetag/underscore.js' %}" language="javascript"></script>
+<script src="{% static 'html/pricetag/qrcode.js' %}" type="application/javascript"></script>
+<script src="{% static 'html/pricetag/data.js' %}" language="javascript"></script>
+<script language="javascript">
+
+    function fixTagList(tag_list){
+       return  _.map(tag_list,function(tag){
+            return [tag[0],tag[1], parseInt(tag[2]), parseInt(tag[3]), tag[4]]
+        })
+    }
+
+    var tag_list = fixTagList(tag_list)
+
+
+    var template = _.template($('#item_template').html())
+
+    var list_wrapper = $('#tag_list');
+    tag_list.map(function(item, index){
+        console.log(item);
+        list_wrapper.append(template({item: item }));
+
+    });
+
+    $('.qr-code').map(function(index, ele){
+        var url = $(ele).attr('data-url')
+        new QRCode(ele,
+                {
+                    text: url,
+                    width:  128,
+                    height: 128,
+                    correctLevel :0,
+                }
+        );
+    });
+
+</script>
+</body>
+</html>

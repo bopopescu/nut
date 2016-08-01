@@ -4,8 +4,7 @@ import json
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.forms.entity import EditEntityForm
 from apps.core.mixins.views import FilterMixin, SortMixin
-from apps.core.views import LoginRequiredMixin
-from apps.management.views.entities import Add_local
+from apps.management.views.entities import Add_local, Import_entity
 from apps.order.models import OrderItem
 from braces.views import JSONResponseMixin,AjaxResponseMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
@@ -15,7 +14,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.shortcuts import get_object_or_404
 from apps.management.forms.sku import SKUForm
-from apps.core.models import SKU,Entity,Order, GKUser
+from apps.core.models import SKU,Entity,Order
 from django.template import RequestContext
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView,DetailView, View
 from django.http import Http404
@@ -52,6 +51,24 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
     paginate_by = 10
     template_name = 'web/seller_management/seller_management.html'
 
+    def get(self, request, *args, **kwargs):
+        if request.GET.get('print') == 'true':
+            return self.get_qrimage(request)
+        return super(SellerManagement, self).get(self, request, *args, **kwargs)
+
+    def get_qrimage(self, request):
+        self.object_list = self.get_queryset()
+        context = self.get_context_data()
+        for entity in context['object_list']:
+            try:
+                entity.buy_link = entity.buy_links.all()[0]
+            except:
+                entity.buy_link = ''
+            entity.qr_info = [entity.brand, entity.title, "", entity.price, entity.buy_link]
+        return render_to_response('web/seller_management/qr_image.html', {'entities': context['object_list']},
+                                  context_instance=RequestContext(request)
+                                  )
+
     def get_queryset(self):
         qs = self.request.user.entities.all()
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
@@ -64,14 +81,7 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
             entity.title=entity.title[:15]
         context['sort_by'] = self.get_sort_params()[0]
         context['extra_query'] = 'sort_by=' + context['sort_by']
-        #user = GKUser.objects.get(id=self.request.user.id)
-        #skus = user.entities.all()[0].skus.all()
-        #sku=user.entities.all().get(id=106020).skus.all()
-        #user.add_sku_to_cart(sku[0],3)
-        #user.add_sku_to_cart(sku[1])
-        #user.add_sku_to_cart(skus[2])
-        #user.checkout()
-
+        context['current_url'] = self.request.get_full_path()
         return context
 
     def filter_queryset(self, qs, filter_param):
@@ -229,7 +239,7 @@ class SellerEntitySKUCreateView(EntityUserPassesTestMixin, CreateView):
     form_class = SKUForm
     template_name = 'web/seller_management/create_sku.html'
     def get_success_url(self):
-        return reverse('management_entity_skus', args=[self.entity_id])    #Todo need change
+        return reverse('management_entity_skus', args=[self.entity_id])
 
     def get_initial(self):
         return {
@@ -466,5 +476,10 @@ class SellerManagementSkuSave(AjaxResponseMixin, JSONResponseMixin, View):
             pass
         return HttpResponseRedirect(reverse('web_seller_management'))
 
+
+class SellerManagementImportEntity(Import_entity):
+    def __init__(self):
+        super(SellerManagementImportEntity, self).__init__(template='web/seller_management/import_entity.html',
+                                                               entity_edit_url='web_seller_management_entity_edit')
 
 
