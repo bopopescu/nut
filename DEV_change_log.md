@@ -1,3 +1,15 @@
+2. 
+1. add auth_token function for rest-api
+
+action :
+   need sync db 
+   add  authtoken_token from rest-framework
+    
+
+=======================
+# merged to master 2016 7-29
+=======================
+
 5. web bug fix (top bar element margin, article remark mobile display , etc)
 4. index page hot entity use ajax 
 3. push notification formal send 
