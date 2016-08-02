@@ -21,6 +21,11 @@
                 <div class="box box-info">
                     <div class="box-header">
                     </div>
+                    {% if current_url == '/seller_management/' %}
+                        <a class="btn btn-success" href="{{ current_url }}?print=true" target="_blank">{% trans '打印二维码' %}</a>
+                    {% else %}
+                    <a class="btn btn-success" href="{{ current_url }}&print=true" target="_blank">{% trans '打印二维码' %}</a>
+                    {% endif %}
                     <div class="box-body table-responsive">
                         {% include 'web/seller_management/seller_management_entity_list.html' %}
                     </div>
@@ -41,6 +46,53 @@
     <script src="{% static 'js/management/moment.js' %}"></script>
      <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/manage_search.js' %}" type="application/javascript"></script>
-    <script src="{% static 'js/management/seller_management/entity_save.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/seller_management/sku_save.js' %}" type="application/javascript"></script>
+
+    <script>
+    $("div.entity_price").hover(function(){
+        if (!$(this).html().match("input")){
+            $(this).append("<div id='edit' onclick='changeContent()'><i class='fa fa-pencil'></i></div>");
+        }
+        }, function(){
+
+        $(this).children("div").remove();
+        })
+
+        function changeContent(){
+            var parent = document.getElementById("edit").parentNode;
+            var result = parent.innerHTML.split('<div')[0];
+            parent.innerHTML = "<input type='text'"  + "data-entity-id='"+ parent.id + "'value='" + result + "'/>" +
+                    '<button type="submit" id="test_button" class="btn btn-success" onclick="update_price(event)">save</button>';
+
+}
+
+    function update_price(event){
+        var button = event.currentTarget;
+        var input = button.previousSibling;
+        var entity_id = input.getAttribute('data-entity-id');
+        var price = input.value;
+        var url = '/seller_management/' + entity_id + '/save/';
+        $.when($.ajax({
+            url: url,
+            method: 'POST',
+            data:{
+                'entity_id':JSON.stringify(entity_id),
+                'price':JSON.stringify(price),
+            }
+            })).then(function (data) {
+            var status = parseInt(data.status);
+            if (status > 0) {
+                bootbox.alert('更新成功');
+            }
+            input.parentNode.innerHTML = price;
+
+        }, function () {
+            bootbox.alert('更新失败');
+
+        });
+    }
+
+    </script>
+
+
 {% endblock %}

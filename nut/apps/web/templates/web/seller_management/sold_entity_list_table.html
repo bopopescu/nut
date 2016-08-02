@@ -6,13 +6,31 @@
                     <tr>
                         <th>
                             {% trans '名称' %}
-{#                        <input class="guoku_search_input" data-search-field="title" type="text" ></th>#}
+                        <input class="guoku_search_input" data-search-field="title" type="text" ></th>
                         <th>
                             {% trans 'image' %}
                         </th>
                         <th>SKU</th>
-                        <th>{% trans '售出数量' %}</th>
-                        <th>{% trans '库存数量' %}
+                        <th>
+                            {% if sort_by == 'dsold_count' %}
+                                <a href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=usold_count">
+                            {% else %}
+                                <a href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=dsold_count">
+                            {% endif %}
+                                {% trans '售出数量' %}
+                            {%  if sort_by == 'dsold_count' %}<i class="fa fa-arrow-circle-down"></i>
+                            {% elif sort_by == 'usold_count' %}<i class="fa fa-arrow-circle-up"></i>
+                            {% endif %}</a>
+                        </th>
+                        <th>{% if sort_by == 'dstock' %}
+                                <a href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=ustock">
+                            {% else %}
+                                <a href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=dstock">
+                            {% endif %}
+                                {% trans '库存数量' %}
+                            {%  if sort_by == 'dstock' %}<i class="fa fa-arrow-circle-down"></i>
+                            {% elif sort_by == 'ustock' %}<i class="fa fa-arrow-circle-up"></i>
+                            {% endif %}</a>
                         </th>
                     </tr>
                 </thead>
@@ -22,7 +40,7 @@
                             <td>
                                 {{ sku.title }}</td>
 {#                            <td>{{ entity.chief_image }}</td>#}
-                            <td class="product-thumb-img">
+                        <td class="product-thumb-img">
                             <a href="{% url 'web_entity_detail' sku.entity.entity_hash %}" target="_blank">
                                 <img class="img-thumbnail img-responsive" src="{{ sku.entity.chief_image|resize:'128' }}" width="128" height="128">
                             </a>

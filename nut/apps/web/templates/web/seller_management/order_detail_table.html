@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+{% load guoku %}
 <div>
     <span >
                     订单号:{{order.number }}
@@ -24,18 +25,20 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     {% for order in order_item %}
                         <tr>
                             <td>
                                 {{ order.title }}</td>
-                            <td>{{ order.sku.attrs }}</td>
+                            <td>{{ order.sku.attrs_display }}<br></td>
                             <td class="product-thumb-img">
                                 {# <div class="thumbnail">#}
-                                   <img class="img-responsive img-thumbnail" src = {{ order.sku.entity.images.0 }} width="80" height="80">
+                                   <img class="img-responsive img-thumbnail" src = {{ order.sku.entity.chief_image|resize:'128' }} width="80" height="80">
                                  {#   <div class="caption">#}
                                 {#    </div>#}
                               {#  </div> #}
                             </td>
+
                             <td>{{ order.grand_total_price }}</td>
                             <td>{{ order.promo_total_price }}</td>
                             <td>
