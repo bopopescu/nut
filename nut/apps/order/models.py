@@ -147,6 +147,11 @@ class Order(models.Model):
         self.save()
         return self
 
+    def set_closed(self):
+        self.status = Order.closed
+        self.save()
+        return self
+
     @property
     def payment_subject(self):
         #TODO : need define more prise subject
