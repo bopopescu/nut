@@ -177,7 +177,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,related_name='items')
     customer = models.ForeignKey('core.GKUser', related_name='order_items',db_index=True)
-    sku  = models.ForeignKey(SKU, db_index=True)
+    sku = models.ForeignKey(SKU, db_index=True)
     volume = models.IntegerField(default=1)
     add_time = models.DateTimeField(auto_now_add=True, auto_now=True,db_index=True)
     grand_total_price = models.FloatField(null=False) # 当订单生成的时候计算

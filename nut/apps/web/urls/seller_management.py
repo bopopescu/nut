@@ -9,7 +9,6 @@ from django.conf.urls import url, patterns
 
 urlpatterns = patterns(
     'apps.web.views.seller_management',
-
     url(r'^$', SellerManagement.as_view(), name='web_seller_management'),
     url(r'^entity_list/$', SellerManagement.as_view()),
     url(r'^orders/$', SellerManagementOrders.as_view(), name='web_seller_management_order_list'),
