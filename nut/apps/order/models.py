@@ -142,6 +142,11 @@ class Order(models.Model):
     def generate_weixin_payment_url(self,host='http://www.guoku.com'):
         return
 
+    def set_paid(self):
+        self.status = Order.paid
+        self.save()
+        return self
+
     @property
     def payment_subject(self):
         #TODO : need define more prise subject
