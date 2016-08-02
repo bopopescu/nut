@@ -17,7 +17,7 @@ class WXPayment(BasePayment):
         params['mch_id'] = WX_MCH_ID
         params['nonce_str'] = self.ge_rd_string()
         params['body'] = self._order.payment_body
-        # params['detail'] = self._
+
 
 
         pass
