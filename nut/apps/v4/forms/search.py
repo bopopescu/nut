@@ -30,7 +30,7 @@ class APISearchForm(haystackSearchForm):
             )
 
         # TODO Users search result
-        user_list = sqs.models(GKUser).filter(content=self.cleaned_data['q']).order_by('-date_joined')
+        user_list = sqs.models(GKUser).filter(content=self.cleaned_data['q']).order_by('date_joined')
         users = list()
         for row in user_list[:20]:
             users.append(
