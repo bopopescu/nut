@@ -1190,7 +1190,7 @@ class Entity(BaseModel):
     def add_sku(self, attributes=None):
         if attributes is None:
             attributes = {}
-        sku , created = SKU.object.get_or_create(entity=self,attrs=attributes)
+        sku , created = SKU.objects.get_or_create(entity=self,attrs=attributes)
         if created :
             sku.entity = self
             sku.attributes = attributes
