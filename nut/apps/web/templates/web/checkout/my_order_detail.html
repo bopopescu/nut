@@ -31,7 +31,7 @@
                         <a class="btn btn-success" href="{% url 'web_my_order_list' %}">返回</a>
                     </div>
                     <div style="margin-left:1500px;">
-                        <a class="btn btn-success" href="{% url 'web_my_order_list' %}">付款</a>
+                        <a class="btn btn-success" href="{% url 'my_order_detail_management' order.id %}?paid=True">付款</a>
                     </div>
                     <div class="box-footer">
                         {% include "management/paginator.html" with objects=page_obj url=request.path %}

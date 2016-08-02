@@ -92,7 +92,18 @@ class MyOrderDetailView(UserPassesTestMixin,DetailView):
         return user.id in idlist
     def no_permissions_fail(self, request=None):
         raise Http404
+    def render_to_response(self, context, **response_kwargs):
+        response_kwargs.setdefault('content_type', self.content_type)
+        if self.request.GET.get('paid', False):
+            return HttpResponseRedirect(reverse('web_my_order_list'))
+        return self.response_class(
+            request = self.request,
+            template = self.get_template_names(),
+            context = context,
+            **response_kwargs
+        )
     def get_context_data(self, **kwargs):
+
         context = super(MyOrderDetailView, self).get_context_data(**kwargs)
         context['order_item'] = context['order'].items.all().filter(sku__entity__in = self.request.user.entities.all())
         #context['order_item'] = context['order'].items.all()
