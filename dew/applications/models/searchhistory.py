@@ -2,7 +2,7 @@
 
 from base import db
 from base import BaseModel, TimestampMixin
-# from sqlalchemy_utils import IPAddressType
+from sqlalchemy_utils import IPAddressType
 
 
 class SearchHistory(BaseModel, TimestampMixin):
@@ -13,7 +13,7 @@ class SearchHistory(BaseModel, TimestampMixin):
     user_id                     =   db.Column(db.Integer(), index=True)
     result_count                =   db.Column(db.Integer(), default=0)
     keyword                     =   db.Column(db.VARCHAR(255))
-    ip                          =   db.Column(db.CHAR(45))
+    ip                          =   db.Column(IPAddressType)
     user_agent                  =   db.Column(db.VARCHAR(255))
 
     # def __repr__(self):

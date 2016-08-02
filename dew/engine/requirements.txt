@@ -32,4 +32,5 @@ urllib3==1.7.1
 wheel==0.24.0
 wsgiref==0.1.2
 Flask-WTF==0.12
+ipaddr==2.1.11
 jieba==0.37
