@@ -44,7 +44,6 @@ class IsAuthorizedSeller(UserPassesTestMixin):
 
 
 class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
-
     default_sort_params = ('dupdated_time', 'desc')
     http_method_names = ['get']
     paginator_class = ExtentPaginator
@@ -69,7 +68,6 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
         return render_to_response('web/seller_management/qr_image.html', {'entities': context['object_list']},
                                   context_instance=RequestContext(request)
                                   )
-
 
     def get_queryset(self):
         qs = self.request.user.entities.all()
