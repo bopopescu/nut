@@ -20,8 +20,8 @@ from django.views.generic import ListView, CreateView, DeleteView, UpdateView,De
 from django.http import Http404
 
 class MyOrderUserPassesTestMixin:
-    def test_func(self,user):
-        idlist=[9020,]
+    def test_func(self, user):
+        idlist=[9020,1997153]
         return user.id in idlist
 
 class MyOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListView):
@@ -33,7 +33,7 @@ class MyOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListView
     template_name = 'web/checkout/orderlists.html'
 
     def test_func(self,user):
-        return user.id in [9020,]
+        return user.id in [9020,1997153]
     def get_queryset(self):
         qs = Order.objects.filter(customer_id = self.request.user.id)
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
@@ -88,13 +88,14 @@ class MyOrderDetailView(UserPassesTestMixin,DetailView):
     template_name = 'web/checkout/my_order_detail.html'
     def test_func(self, user):
         self.order_number = self.kwargs.get('order_number')
-        idlist = [9020, ]
+        idlist = [9020,1997153]
         return user.id in idlist
     def no_permissions_fail(self, request=None):
         raise Http404
     def render_to_response(self, context, **response_kwargs):
         response_kwargs.setdefault('content_type', self.content_type)
         if self.request.GET.get('paid', False):
+            context['order'].set_paid()
             return HttpResponseRedirect(reverse('web_my_order_list'))
         return self.response_class(
             request = self.request,
@@ -105,7 +106,7 @@ class MyOrderDetailView(UserPassesTestMixin,DetailView):
     def get_context_data(self, **kwargs):
 
         context = super(MyOrderDetailView, self).get_context_data(**kwargs)
-        context['order_item'] = context['order'].items.all().filter(sku__entity__in = self.request.user.entities.all())
+        context['order_item'] = context['order'].items.all()
         #context['order_item'] = context['order'].items.all()
         context['order_number'] = self.order_number
         context['promo_total_price']=context['order'].promo_total_price

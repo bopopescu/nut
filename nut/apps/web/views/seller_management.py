@@ -403,8 +403,19 @@ class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,
     def get_queryset(self):
         entities = self.request.user.entities.all()
         self.order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
-        sku_ids = self.order_items.values_list('sku')
-        qs = SKU.objects.filter(id__in=sku_ids)
+        order_ids = self.order_items.values_list('order')
+        self.orders = Order.objects.filter(id__in=order_ids).filter(status__in=[3,5])
+        if self.orders:
+            sku_ids=[]
+            for order in self.orders:
+                if sku_ids:
+                    sku_ids += list(order.items.values_list('sku'))
+                else:
+                    sku_ids = list(order.items.values_list('sku'))
+        for i in range(len(sku_ids)):
+            sku_ids[i]=sku_ids[i][0]
+        #sku_ids = self.order_items.values_list('sku')
+        qs = SKU.objects.filter(id__in=sku_ids).filter(entity_id__in=entities)
         # qs = list(set([item.sku for item in self.order_items]))
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
@@ -435,11 +446,12 @@ class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,
             sku.title=sku.entity.title[:15]
 
         d = {}
-        for order in self.order_items:
-            if order.sku.id not in d.keys():
-                d[order.sku.id] = order.volume
-            else:
-                d[order.sku.id] += order.volume
+        for ord in self.orders:
+            for order in ord.items.all():
+                if order.sku.id not in d.keys():
+                    d[order.sku.id] = order.volume
+                else:
+                    d[order.sku.id] += order.volume
         for object in context['object_list']:
             object.sold_count = d[object.id]
         context['sort_by'] = self.get_sort_params()[0]
