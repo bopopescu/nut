@@ -18,7 +18,7 @@ class SKUForm(ModelForm):
     def clean_attrs(self):
         attrs = json.loads(self.cleaned_data['attrs'])
         entity = self.cleaned_data['entity']
-        attrs_list = [s.attrs for s in entity.skus.all()]
+        attrs_list = [s.attrs for s in entity.skus.exclude(id=self.instance.id)]
         if attrs == {}:
             attrs = u''
         if attrs in attrs_list:
