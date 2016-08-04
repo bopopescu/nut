@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load guoku %}
 {% load static %}
+
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
@@ -30,6 +31,35 @@
                             {% elif sort_by == 'uprice' %}<i class="fa fa-arrow-circle-up"></i>
                             {% endif %}</a></th>
                         <th>{% trans '商品概要' %}</th>
+                        <th>
+                            <li>
+                                <span class="dropdown-toggle category-action">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                       aria-haspopup="false" role="button" aria-expanded="false">
+                                        {% if order_by == None %}
+                                            全部
+                                         {% elif order_by == "entitys" %}
+                                        按商品数
+                                        {% elif order_by == "like_count" %}
+                                        按喜爱数
+                                         {% elif order_by == "articles" %}
+                                        按文章数
+                                        {% elif order_by == "articles" %}
+                                        按文章数
+                                        {% endif %}
+
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul  id="sort_dropdown" class="dropdown-menu dropdown-menu-control" role="menu"  >
+                                        <li ><a href="{{ current_path }}&order_by=entitys">按商品数</a></li>
+                                        <li  class="divider"></li>
+                                        <li ><a href="{{ current_path }}&order_by=like_count">按喜爱数</a></li>
+                                        <li  class="divider"></li>
+                                        <li ><a href="{{ current_path }}&order_by=articles">按文章数</a></li>
+                                    </ul>
+                                </span>
+                            </li>
+                        </th>
                         <th>{% trans '订单详情' %}
                         </th>
                     </tr>
