@@ -1373,6 +1373,25 @@ a.new-black-link:hover {
   background-color: #fff;
   border-top: 3px solid #212121;
 }
+.new-table-bordered,
+.new-table-bordered tbody tr td {
+  border: 1px solid #e6e6e6;
+}
+.new-table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+.new-table thead tr th,
+.new-table tbody tr td {
+  min-height: 50px;
+  padding: 8px;
+}
+.new-table thead tr th,
+.new-table tbody tr td {
+  text-align: center;
+  vertical-align: middle;
+}
 body.seller-management {
   color: #212121;
 }
