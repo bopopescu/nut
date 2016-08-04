@@ -110,6 +110,7 @@ class MyOrderDetailView(UserPassesTestMixin,DetailView):
         context['order_item'] = context['order'].items.all()
         #context['order_item'] = context['order'].items.all()
         context['order_number'] = self.order_number
-        context['promo_total_price']=context['order'].promo_total_price
-        context['origin_total_price']=context['order'].grand_total_price
+        context['promo_total_price'] = context['order'].promo_total_price
+        context['origin_total_price'] = context['order'].grand_total_price
+        context['repetition'] = 0
         return context

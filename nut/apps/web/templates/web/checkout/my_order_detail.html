@@ -32,7 +32,7 @@
                     </div>
                     {% if order.status == 1 %}
                     <div style="margin-left:1500px;">
-                        <a class="btn btn-success" href="{% url 'my_order_detail_management' order.id %}?paid=True">付款</a>
+                        <a onclick="myFunction()" class="btn btn-success" href="{% url 'my_order_detail_management' order.id %}?paid=True">付款</a>
                     </div>
                         {% else %}
                         <div style="margin-left:1500px;">
@@ -51,6 +51,12 @@
 {% endblock %}
 
 {% block user_script %}
+    <script>
+        function myFunction(){
+            var r=confirm("付款成功");
+        }
+    </script>
+
     <script src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>
     <script src="{% static 'js/management/util.js' %}"></script>
     <script src="{% static 'js/management/moment.js' %}"></script>
