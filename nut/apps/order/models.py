@@ -18,7 +18,6 @@ class SKU(models.Model):
     origin_price = models.FloatField(default=0, db_index=True)
     promo_price = models.FloatField(default=0, db_index=True)
     status =  models.IntegerField(choices=SKU_STATUS_CHOICE, default=enable)
-
     objects =  SKUManager()
 
 
