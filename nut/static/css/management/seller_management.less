@@ -3,18 +3,47 @@
 @import '../lib/component.less';
 @import '../lib/widgets.less';
 
-.seller-management{
+body.seller-management{
+  color:@common-text-color;
   .main-header{
     a.logo{
+      background-color: @common-text-color;
       img{
         width:66px;
         height:23px;
         opacity: 0.54;
       }
       &:hover{
+        background-color:@common-text-color;
         img{
           opacity: 1;
         }
+      }
+    }
+    .navbar{
+      background-color: @common-text-color;
+    }
+  }
+  .main-sidebar{
+    background-color: @very-light-gray;
+    border-right:1px solid @border-gray;
+    .sidebar{
+      a{
+        color: @new-text-gray;
+        border:none;
+      }
+    }
+    .sidebar-menu li.active a,.sidebar-menu li:hover a{
+      background-color: @hover-dark-gray;
+      color:@common-text-color;
+      border:none;
+    }
+    .user-panel{
+      padding:16px;
+      border-bottom: 1px solid @border-gray;
+      .info{
+        color:@common-text-color;
+        white-space: normal;
       }
     }
   }

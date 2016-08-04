@@ -39,70 +39,70 @@
                 <img src="{% static 'images/management/return_guoku_logo.png' %}">
             </a>
             <nav class="navbar navbar-static-top" role="navigation">
-                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                </a>
-                <div class="navbar-custom-menu">
-                    {% notifications_unread as unread_count %}
-                     <ul class="nav navbar-nav">
-                         <li class="dropdown notifications-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-bell-o"></i>
-                                <span class="label label-warning">{{ unread_count }}</span>
-                            </a>
-                             <ul class="dropdown-menu" id="notify">
-                                 <li class="header">You have {{ unread_count }} notifications</li>
-                                 <li>
-                                     <ul class="menu">
-                                         <li>
-                                            <a href="#">
-                                                <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                            </a>
-                                         </li>
-                                     </ul>
-                                 </li>
-                             </ul>
-                         </li>
-
-                         <li class="dropdown user user-menu">
-                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="{{ request.user.profile.avatar_url|resize:'50' }}" class="user-image" alt="{{ request.user.profile.nick }}">
-                                <span class="hidden-xs">{{ request.user.profile.nick }}</span>
-                             </a>
-                             <ul class="dropdown-menu">
-                                 <li class="user-header">
-                                     <img src="{{ request.user.profile.avatar_url|resize:'180' }}" class="img-circle" alt="User Image">
-                                     <p>
-                                        {{ request.user.profile.nick }}
-                                        <small>{{ request.user.profile.bio }}</small>
-                                     </p>
-                                 </li>
-
-                                 <li class="user-body">
-                                    <div class="col-xs-6 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-6 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
-                                </li>
-                                                   <!-- Menu Footer-->
-                                <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="{% url 'management_user_edit' request.user.pk %}" class="btn btn-default btn-flat">Profile</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                                    </div>
-                                </li>
-                             </ul>
-                         </li>
-
+{#                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">#}
+{#                    <span class="sr-only">Toggle navigation</span>#}
+{#                </a>#}
+{#                <div class="navbar-custom-menu">#}
+{#                    {% notifications_unread as unread_count %}#}
+{#                     <ul class="nav navbar-nav">#}
+{#                         <li class="dropdown notifications-menu">#}
+{#                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">#}
+{#                                <i class="fa fa-bell-o"></i>#}
+{#                                <span class="label label-warning">{{ unread_count }}</span>#}
+{#                            </a>#}
+{#                             <ul class="dropdown-menu" id="notify">#}
+{#                                 <li class="header">You have {{ unread_count }} notifications</li>#}
+{#                                 <li>#}
+{#                                     <ul class="menu">#}
+{#                                         <li>#}
+{#                                            <a href="#">#}
+{#                                                <i class="fa fa-users text-aqua"></i> 5 new members joined today#}
+{#                                            </a>#}
+{#                                         </li>#}
+{#                                     </ul>#}
+{#                                 </li>#}
+{#                             </ul>#}
+{#                         </li>#}
+{##}
+{#                         <li class="dropdown user user-menu">#}
+{#                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">#}
+{#                                <img src="{{ request.user.profile.avatar_url|resize:'50' }}" class="user-image" alt="{{ request.user.profile.nick }}">#}
+{#                                <span class="hidden-xs">{{ request.user.profile.nick }}</span>#}
+{#                             </a>#}
+{#                             <ul class="dropdown-menu">#}
+{#                                 <li class="user-header">#}
+{#                                     <img src="{{ request.user.profile.avatar_url|resize:'180' }}" class="img-circle" alt="User Image">#}
+{#                                     <p>#}
+{#                                        {{ request.user.profile.nick }}#}
+{#                                        <small>{{ request.user.profile.bio }}</small>#}
+{#                                     </p>#}
+{#                                 </li>#}
+{##}
+{#                                 <li class="user-body">#}
+{#                                    <div class="col-xs-6 text-center">#}
+{#                                        <a href="#">Followers</a>#}
+{#                                    </div>#}
+{#                                    <div class="col-xs-6 text-center">#}
+{#                                        <a href="#">Friends</a>#}
+{#                                    </div>#}
+{#                                </li>#}
+{#                                                   <!-- Menu Footer-->#}
+{#                                <li class="user-footer">#}
+{#                                    <div class="pull-left">#}
+{#                                        <a href="{% url 'management_user_edit' request.user.pk %}" class="btn btn-default btn-flat">Profile</a>#}
+{#                                    </div>#}
+{#                                    <div class="pull-right">#}
+{#                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>#}
+{#                                    </div>#}
+{#                                </li>#}
+{#                             </ul>#}
+{#                         </li>#}
+{##}
 {#                         <li>#}
 {#                             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>#}
 {#                         </li>#}
-                     </ul>
-                </div>
+{#                     </ul>#}
+{#                </div>#}
             </nav>
         </header>
     {% endblock %}
@@ -116,8 +116,8 @@
                         <img src="{{ request.user.profile.avatar_url }}" class="img-circle" alt="User Image" />
                     </div>
                     <div class="pull-left info">
-                        <p>Hello, {{ request.user.profile.nick }}</p>
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        <p>{{ request.user.profile.nick }}</p>
+{#                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>#}
                     </div>
                 </div>
 {#                <form action="{% url 'management_search' %}" method="get" class="sidebar-form">#}
@@ -130,8 +130,6 @@
 {#                </form>#}
 
                 <ul class="sidebar-menu">
-                    <li class="header">{% trans '主导航栏' %}</li>
-
 
                     {% url 'web_seller_management' as web_seller_management %}
                     <li {% if web_seller_management == request.path %}class="active"{% endif %}>
@@ -143,14 +141,14 @@
                     {% url 'web_seller_management_order_list' as web_seller_management_order_list %}
                     <li {% if web_seller_management_order_list == request.path %}class="active"{% endif %}>
                         <a href="{{ web_seller_management_order_list }}">
-                            <i class="fa fa-tag"></i>&nbsp;<span>{% trans '订单' %}</span>
+                            <i class="fa fa-list-ul"></i>&nbsp;<span>{% trans '订单' %}</span>
                         </a>
                     </li>
 
                     {% url 'web_seller_management_sold_entity_list' as web_seller_management_sold_entity_list %}
                     <li {% if web_seller_management_sold_entity_list == request.path %}class="active"{% endif %}>
                         <a href="{{ web_seller_management_sold_entity_list }}">
-                            <i class="fa fa-tag"></i>&nbsp;<span>{% trans '售出商品' %}</span>
+                            <i class="fa fa-briefcase"></i>&nbsp;<span>{% trans '售出商品' %}</span>
                         </a>
                     </li>
                 </ul>

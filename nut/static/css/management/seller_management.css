@@ -1362,11 +1362,45 @@ a.new-black-link:hover {
   left: 0;
   background-color: rgba(0, 0, 0, 0.2);
 }
-.seller-management .main-header a.logo img {
+body.seller-management {
+  color: #212121;
+}
+body.seller-management .main-header a.logo {
+  background-color: #212121;
+}
+body.seller-management .main-header a.logo img {
   width: 66px;
   height: 23px;
   opacity: 0.54;
 }
-.seller-management .main-header a.logo:hover img {
+body.seller-management .main-header a.logo:hover {
+  background-color: #212121;
+}
+body.seller-management .main-header a.logo:hover img {
   opacity: 1;
+}
+body.seller-management .main-header .navbar {
+  background-color: #212121;
+}
+body.seller-management .main-sidebar {
+  background-color: #F8F8F8;
+  border-right: 1px solid #e6e6e6;
+}
+body.seller-management .main-sidebar .sidebar a {
+  color: #757575;
+  border: none;
+}
+body.seller-management .main-sidebar .sidebar-menu li.active a,
+body.seller-management .main-sidebar .sidebar-menu li:hover a {
+  background-color: #f1f1f1;
+  color: #212121;
+  border: none;
+}
+body.seller-management .main-sidebar .user-panel {
+  padding: 16px;
+  border-bottom: 1px solid #e6e6e6;
+}
+body.seller-management .main-sidebar .user-panel .info {
+  color: #212121;
+  white-space: normal;
 }
