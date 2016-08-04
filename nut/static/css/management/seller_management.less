@@ -3,10 +3,18 @@
 @import '../lib/component.less';
 @import '../lib/widgets.less';
 
+//btn
+.seller-mng-btn{
+  color:@common-text-color;
+  background-color: @default-background;
+  border:1px solid @border-gray;
+  padding:7px 14px;
+}
+
 body.seller-management{
   color:@common-text-color;
   .wrapper{
-    background-color: @very-light-gray;
+    background-color:@very-light-gray;
   }
   .main-header{
     a.logo{
@@ -49,5 +57,8 @@ body.seller-management{
         white-space: normal;
       }
     }
+  }
+  .content-wrapper{
+    background-color: @default-background;
   }
 }

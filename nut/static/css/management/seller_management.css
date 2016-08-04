@@ -1362,6 +1362,12 @@ a.new-black-link:hover {
   left: 0;
   background-color: rgba(0, 0, 0, 0.2);
 }
+.seller-mng-btn {
+  color: #212121;
+  background-color: #fff;
+  border: 1px solid #e6e6e6;
+  padding: 7px 14px;
+}
 body.seller-management {
   color: #212121;
 }
@@ -1406,4 +1412,7 @@ body.seller-management .main-sidebar .user-panel {
 body.seller-management .main-sidebar .user-panel .info {
   color: #212121;
   white-space: normal;
+}
+body.seller-management .content-wrapper {
+  background-color: #fff;
 }
