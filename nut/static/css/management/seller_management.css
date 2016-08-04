@@ -1365,6 +1365,9 @@ a.new-black-link:hover {
 body.seller-management {
   color: #212121;
 }
+body.seller-management .wrapper {
+  background-color: #F8F8F8;
+}
 body.seller-management .main-header a.logo {
   background-color: #212121;
 }
