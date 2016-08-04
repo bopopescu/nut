@@ -14,7 +14,6 @@
     <tr>
         <th>{% trans 'name' %}
             <input class="guoku_search_input" data-search-field="title" type="text" ></th>
-        <th>{% trans '商品类别' %}
         <th>{% trans '商品图' %}</th>
         <th>{% if sort_by == 'dprice' %}
             <a href="{% url  'web_seller_management' %}?sort_by=uprice">
@@ -45,7 +44,6 @@
     {% for entity in object_list %}
         <tr>
             <td>{{ entity.title }}</td>
-            <td>{{ entity.category.title }}</td>
             <td>
                 {{ entity.title }}<br>
             <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">

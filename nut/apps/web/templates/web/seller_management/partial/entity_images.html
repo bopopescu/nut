@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load guoku %}
 
-{% for index, image in images|enumerate_list %}
+{# {% for index, image in images|enumerate_list %} #}
     <div class="col-xs-6 col-sm-3">
             <div class="thumbnail">
                 <img class="img-responsive img-thumbnail" alt="{{ entity.title }}" src="{{ image|resize:'640' }}" width="240" height="240">
@@ -15,4 +15,4 @@
 {#                {% endif %}#}
             </div>
     </div>
-{% endfor %}
+{# {% endfor %} #}

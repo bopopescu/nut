@@ -1,4 +1,5 @@
 {% load i18n static %}
+
 <table class="table table-small-font table-bordered" >
 
     <thead>
@@ -71,7 +72,13 @@
             <td>{{ sku.origin_price }}</td>
             <td>{{ sku.promo_price }}</td>
             <td>{{ sku.attrs_display }}</td>
-            <td>{{ sku.get_status_display }}</td>
+            <td>{# <input type="checkbox"
+                    data-id="{{ sku.status }}"
+                    data-group="seller"
+                    class="js-switch" #}
+                   {% if sku.status %}checked{% endif %} />
+                {{ sku.get_status_display }}
+            </td>
             <td>
                 <div class="btn-group">
                     <a class="btn btn-warning" href="{% url 'sku_update_management' entity.pk sku.pk %}" >编辑SKU属性</a>
@@ -87,3 +94,11 @@
         </tr>
 
 </table>
+
+{% block user_script %}
+{#    switchery css is already in AdminLTE#}
+     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
+     <script src="{% static 'js/management/user/user.js' %}" type="application/javascript"></script>
+
+
+{% endblock %}
