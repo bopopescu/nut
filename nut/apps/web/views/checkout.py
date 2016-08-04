@@ -95,7 +95,8 @@ class MyOrderDetailView(UserPassesTestMixin,DetailView):
     def render_to_response(self, context, **response_kwargs):
         response_kwargs.setdefault('content_type', self.content_type)
         if self.request.GET.get('paid', False):
-            context['order'].set_paid()
+            if self.status == 1:
+                context['order'].set_paid()
             return HttpResponseRedirect(reverse('web_my_order_list'))
         return self.response_class(
             request = self.request,
@@ -104,8 +105,8 @@ class MyOrderDetailView(UserPassesTestMixin,DetailView):
             **response_kwargs
         )
     def get_context_data(self, **kwargs):
-
         context = super(MyOrderDetailView, self).get_context_data(**kwargs)
+        self.status=context['order'].status
         context['order_item'] = context['order'].items.all()
         #context['order_item'] = context['order'].items.all()
         context['order_number'] = self.order_number

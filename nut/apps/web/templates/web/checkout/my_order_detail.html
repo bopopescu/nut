@@ -30,9 +30,16 @@
                     <div style="float:right">
                         <a class="btn btn-success" href="{% url 'web_my_order_list' %}">返回</a>
                     </div>
+                    {% if order.status == 1 %}
                     <div style="margin-left:1500px;">
                         <a class="btn btn-success" href="{% url 'my_order_detail_management' order.id %}?paid=True">付款</a>
                     </div>
+                        {% else %}
+                        <div style="margin-left:1500px;">
+                        <a class="btn btn-success" disabled="disabled" href="{% url 'my_order_detail_management' order.id %}?paid=True">已付款</a>
+                        </div>
+                    {% endif %}
+
                     <div class="box-footer">
                         {% include "management/paginator.html" with objects=page_obj url=request.path %}
                     </div>
