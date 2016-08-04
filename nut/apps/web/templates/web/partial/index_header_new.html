@@ -67,7 +67,7 @@
                     {% url 'web_event_home' as web_event_home_url %}
                     <li {% if web_event_home_url in request.path %}class="active" {% endif %}>
 {#                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="round"></span></a>#}
-                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="b_day"><img src="{% static 'images/event/teenager_forbidden.png' %}"></span></a>
+                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="b_day"><img src="{% static 'images/event/teenager_forbidden.png' %}" alt=""></span></a>
                     </li>
 
                     {% url 'good_store' as store_url %}
@@ -102,7 +102,7 @@
                                  <span class="tip"></span>
                                  <ul class="notification-drop-list">
                                      <li class="notification-loading-icon">
-                                         <img src="{% static 'images/widgets/loading.gif' %}" height="32px" width="32px">
+                                         <img src="{% static 'images/widgets/loading.gif' %}" alt="" height="32px" width="32px">
                                      </li>
                                      {% include "web/account/partial/ajax_notification_droplist.html" %}
                                  </ul>
