@@ -151,7 +151,7 @@
                 {% for user in recommand_users %}
                     <li>
                         <a href="{{ user.absolute_url }}" target="_blank">
-                            <img class="img-responsive img-frame" style="background-image: url({{ user.avatar_url|resize:'128' }})" />
+                            <img class="img-responsive img-frame" alt="" style="background-image: url({{ user.avatar_url|resize:'128' }})"/>
                             <span class="user-name">{{ user.nickname }}</span>
                         </a>
                     </li>
@@ -165,7 +165,7 @@
               <div class="recommend-user-panel">
                   <div class="user-icon-wrapper">
                       <a href="{{ user.absolute_url }}" target="_blank">
-                          <img class="img-responsive img-circle" style="background-image: url({{ user.avatar_url|resize:'128' }})" />
+                          <img class="img-responsive img-circle" alt="" style="background-image: url({{ user.avatar_url|resize:'128' }})"/>
                       </a>
                   </div>
                   <div class="user-info-wrapper">
@@ -196,7 +196,7 @@
               <div class="recommend-user-panel">
                   <div class="user-icon-wrapper">
                       <a href="{{ user.absolute_url }}" target="_blank">
-                          <img class="img-responsive img-circle" style="background-image: url({{ user.avatar_url|resize:'128' }})" />
+                          <img class="img-responsive img-circle" alt="" style="background-image: url({{ user.avatar_url|resize:'128' }})" />
                       </a>
                   </div>
                   <div class="user-info-wrapper">
@@ -260,7 +260,7 @@
 
     <div class="row" >
         <div class="col-xs-12 loading-icon">
-            <img src="{% static 'images/widgets/loading.gif' %}" height="32px" width="32px">
+            <img src="{% static 'images/widgets/loading.gif' %}" alt="loading icon" height="32px" width="32px">
         </div>
     </div>
 
@@ -282,7 +282,7 @@
                             <a class="gk-download">
                                 <i class="fa fa-mobile fa-lg" style="font-size:28px;"></i>
                                 <div class="qrcode-wrapper download-qrcode-wrapper display-toggle">
-                                    <img src="{%  static 'images/article/DL_guoku.jpg' %}" class="qrcode-img">
+                                    <img src="{%  static 'images/article/DL_guoku.jpg' %}" alt="应用下载" class="qrcode-img">
                                     <div class="qr-text">应用下载</div>
                                     <span class="bottom-bot"></span>
                                 </div>
@@ -292,7 +292,7 @@
                             <a class="gk-wechat-share">
                                 <i class="fa fa-wechat"></i>
                                 <div class="qrcode-wrapper wechat-qrcode-wrapper display-toggle">
-                                    <img src="{%  static 'images/footer/QR-code.jpg' %}" class="qrcode-img">
+                                    <img src="{%  static 'images/footer/QR-code.jpg' %}" alt="微信公众平台" class="qrcode-img">
                                     <div class="qr-text">微信公众平台</div>
                                     <span class="bottom-bot"></span>
                                 </div>
