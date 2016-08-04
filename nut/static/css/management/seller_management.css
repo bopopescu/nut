@@ -1368,6 +1368,11 @@ a.new-black-link:hover {
   border: 1px solid #e6e6e6;
   padding: 7px 14px;
 }
+.new-box {
+  position: relative;
+  background-color: #fff;
+  border-top: 3px solid #212121;
+}
 body.seller-management {
   color: #212121;
 }
@@ -1415,4 +1420,10 @@ body.seller-management .main-sidebar .user-panel .info {
 }
 body.seller-management .content-wrapper {
   background-color: #fff;
+}
+body.seller-management .content-header {
+  padding: 40px 40px 0 40px;
+}
+body.seller-management .content {
+  padding: 16px 40px;
 }
