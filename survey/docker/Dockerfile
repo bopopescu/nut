@@ -8,4 +8,4 @@ COPY		gunicorn /etc/default/gunicorn
 COPY        supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 WORKDIR     /data/www/survey
 EXPOSE 		8000
-CMD         ["/usr/bin/supervisord"]
+#CMD         ["/usr/bin/supervisord"]
