@@ -83,7 +83,7 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin,TemplateView):
         context['articles'] = self.get_selection_articles()[:3]  # 最新精选图文
         # test = Selection_Article.objects\
         #                       .select_related('article').using('slave')
-        context['recommand_users'] = GKUser.objects.recommended_user().select_related('profile')[:20]  # 推荐用户
+        context['recommand_users'] = GKUser.objects.recommended_user_random().select_related('profile')[:20]  # 推荐用户
         context['middle_banners'] = StorePageBanners.objects.filter(status=StorePageBanners.enabled)  # 中间banner
         # context['selection_entity'] = Selection_Entity.objects.select_related('entity')[:6]
         context['selection_entity'] = self.get_selection_entities()[:20]
