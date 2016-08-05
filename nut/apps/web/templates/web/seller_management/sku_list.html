@@ -90,7 +90,14 @@
             var sku_class = $(this).attr('class');
             if(sku_class === 'js-switch') {
                 var url = sku_id + '/sku_status/';
-                var data =  {id:sku_id ,status: $(this).prop('checked')};
+                var result = $(this).prop('checked')
+                if(result == 'true'){
+                    result = 1
+                }
+                if(result == 'false'){
+                    result = 0
+                }
+                var data =  {id:sku_id ,status: result};
             }
 
             $.when($.ajax({

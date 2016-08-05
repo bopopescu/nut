@@ -255,12 +255,8 @@ class SKUStatusChangeView(EntityUserPassesTestMixin, JSONResponseMixin, UpdateVi
     form_class = SwitchSkuStatusForm
     model = SKU
     pk_url_kwarg = 'sku_id'
-    def get(self):
-        pass
-    def post_ajax(self):
-        pass
+
     def form_invalid(self, form):
-        form.save()
         res = {'error':1}
         return self.render_json_response(res)
     def form_valid(self, form):
