@@ -307,7 +307,7 @@ class SKUListView(EntityUserPassesTestMixin, SortMixin, ListView):
 class SKUCreateView(EntityUserPassesTestMixin, CreateView):
     model = SKU
     form_class = SKUForm
-    template_name = 'web/seller_management/add_sku.html'
+    template_name = 'web/seller_management/sku_add_template.html'
     def get_success_url(self):
         return reverse('sku_list_management', args=[self.entity_id])
     def get_context_data(self, **kwargs):
