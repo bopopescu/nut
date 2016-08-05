@@ -43,6 +43,13 @@
     <script>
         var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
+        function postSuccess(data){
+            console.log(data);
+        }
+        function postFail(data){
+            console.log(data);
+        }
+
         function switchChange(){
             console.log(this);
             console.log(this['data-id']);
@@ -51,9 +58,9 @@
             console.log($(this).attr('class'));
             var sku_id = $(this).attr('data-id');
             var sku_class = $(this).attr('class');
-            if(tag_class === 'js-switch') {
+            if(sku_class === 'js-switch') {
                 var url = '';
-                var data =  {id:sku_id ,isPublishedEntitySku: $(this).prop('checked')};
+                var data = {id:sku_id ,isPublishedSku: $(this).prop('checked')};
             }
 
             $.when($.ajax({
