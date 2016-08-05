@@ -72,10 +72,10 @@
             <td>{{ sku.origin_price }}</td>
             <td>{{ sku.promo_price }}</td>
             <td>{{ sku.attrs_display }}</td>
-            <td>{# <input type="checkbox"
+            <td><input type="checkbox"
                     data-id="{{ sku.status }}"
                     data-group="seller"
-                    class="js-switch" #}
+                    class="js-switch"
                    {% if sku.status %}checked{% endif %} />
                 {{ sku.get_status_display }}
             </td>

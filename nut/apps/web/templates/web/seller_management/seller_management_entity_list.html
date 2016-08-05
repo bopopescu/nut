@@ -13,19 +13,21 @@
             {% trans 'SKU属性' %}
         </th>
         <th>
-            {% if sort_by == 'dprice' %}
-            <a href="{% url  'web_seller_management' %}?sort_by=uprice">
-        {% else %}
-            <a href="{% url  'web_seller_management' %}?sort_by=dprice">
-        {% endif %}
             {% trans 'price' %}
-            {%  if sort_by == 'dprice' %}<i class="fa fa-arrow-circle-down"></i>
-            {% elif sort_by == 'uprice' %}<i class="fa fa-arrow-circle-up"></i>
-            {% endif %}
-            </a>
         </th>
 
-        <th>{% trans '库存' %}</th>
+        <th>{% if sort_by == 'dstock' %}
+            <a href="{% url  'web_seller_management' %}?sort_by=ustock">
+        {% else %}
+            <a href="{% url  'web_seller_management' %}?sort_by=dstock">
+        {% endif %}
+            {% trans '库存' %}
+            {%  if sort_by == 'dstock' %}<i class="fa fa-arrow-circle-down"></i>
+            {% elif sort_by == 'ustock' %}<i class="fa fa-arrow-circle-up"></i>
+            {% endif %}
+            </a>
+
+        </th>
         <th>{% if sort_by == 'dupdated_time' %}
             <a href="{% url  'web_seller_management' %}?sort_by=uupdated_time">
         {% else %}
