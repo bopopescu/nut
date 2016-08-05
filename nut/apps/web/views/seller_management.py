@@ -250,6 +250,19 @@ class SellerEntitySKUCreateView(EntityUserPassesTestMixin, CreateView):
             'entity':self.entity_id
         }
 
+class SKUStatusChangeView(EntityUserPassesTestMixin,JSONResponseMixin, UpdateView):
+    form_class = SKUForm
+    model = SKU
+    pk_url_kwarg = 'sku_id'
+    def form_invalid(self, form):
+        res = {'error':1}
+        return self.render_json_response(res)
+
+    def form_valid(self, form):
+        form.save()
+        res = {'error':0}
+        return self.render_json_response(res)
+
 class SKUListView(EntityUserPassesTestMixin, SortMixin, ListView):
     default_sort_params = ('dstock', 'desc')
     template_name = 'web/seller_management/sku_list.html'
