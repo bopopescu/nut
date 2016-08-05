@@ -4,15 +4,15 @@
 
 {% block content %}
     <section class="content-header">
+        <ol class="new-breadcrumb">
+            <li><a href="{% url 'web_seller_management' %}">{% trans '卖家中心' %}</a></li>
+            <li><a href="{% url 'web_seller_management' %}">{% trans 'entity' %}</a></li>
+            <li><a >{% trans 'SKU管理' %}</a></li>
+        </ol>
         <h1>
             {{ entity.title }}
-{#            <small>{{ entity }}</small>#}
         </h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
-            <li><a href="#">{% trans 'entity' %}</a></li>
-            <li><a href="#">{% trans 'skus' %}</a></li>
-        </ol>
+    </section>
 
 
     <section class="content">

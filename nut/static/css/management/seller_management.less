@@ -3,7 +3,12 @@
 @import '../lib/component.less';
 @import '../lib/widgets.less';
 
+ol{
+  -webkit-padding-start: 0;
+}
+
 @light-blue-bg:#F5F8FF;
+
 //btn
 .seller-mng-btn{
   color:@common-text-color;
@@ -44,6 +49,22 @@
     }
 }
 
+//breadcrumb
+.new-breadcrumb{
+  font-size: @smaller-primary;
+  li{
+    display: inline-block;
+  }
+  li:last-child a{
+    color:@new-text-gray;
+  }
+}
+.new-breadcrumb li+li:before{
+  color: @new-text-gray;
+  padding:0 8px;
+  content:'>\00a0';
+}
+
 //sku item
 .sku-item{
   width:100%;
@@ -52,6 +73,7 @@
   background-color: @light-blue-bg;
   border-bottom: 1px solid @border-gray;
 }
+
 body.seller-management{
   color:@common-text-color;
   .wrapper{

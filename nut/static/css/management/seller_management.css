@@ -1362,6 +1362,9 @@ a.new-black-link:hover {
   left: 0;
   background-color: rgba(0, 0, 0, 0.2);
 }
+ol {
+  -webkit-padding-start: 0;
+}
 .seller-mng-btn {
   color: #212121;
   background-color: #fff;
@@ -1391,6 +1394,20 @@ a.new-black-link:hover {
 .new-table tbody tr td {
   text-align: center;
   vertical-align: middle;
+}
+.new-breadcrumb {
+  font-size: 14px;
+}
+.new-breadcrumb li {
+  display: inline-block;
+}
+.new-breadcrumb li:last-child a {
+  color: #757575;
+}
+.new-breadcrumb li + li:before {
+  color: #757575;
+  padding: 0 8px;
+  content: '>\00a0';
 }
 .sku-item {
   width: 100%;
