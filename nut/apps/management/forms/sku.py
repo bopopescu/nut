@@ -5,6 +5,10 @@ from django.core.exceptions import ValidationError
 from django.forms import ModelForm, CharField, HiddenInput
 from apps.core.models import SKU, Entity
 
+class SwitchSkuStatusForm(ModelForm):
+    class Meta:
+        model = SKU
+        fields = ['status']
 
 class SKUForm(ModelForm):
 

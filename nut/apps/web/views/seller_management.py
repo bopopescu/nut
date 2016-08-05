@@ -13,7 +13,7 @@ from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.shortcuts import get_object_or_404
-from apps.management.forms.sku import SKUForm
+from apps.management.forms.sku import SKUForm,SwitchSkuStatusForm
 from apps.core.models import SKU,Entity,Order
 from django.template import RequestContext
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView,DetailView, View
@@ -249,6 +249,25 @@ class SellerEntitySKUCreateView(EntityUserPassesTestMixin, CreateView):
         return {
             'entity':self.entity_id
         }
+
+class SKUStatusChangeView(EntityUserPassesTestMixin, JSONResponseMixin, UpdateView):
+
+    form_class = SwitchSkuStatusForm
+    model = SKU
+    pk_url_kwarg = 'sku_id'
+    def get(self):
+        pass
+    def post_ajax(self):
+        pass
+    def form_invalid(self, form):
+        form.save()
+        res = {'error':1}
+        return self.render_json_response(res)
+    def form_valid(self, form):
+        form.save()
+        res = {'error':0}
+        return self.render_json_response(res)
+
 
 class SKUListView(EntityUserPassesTestMixin, SortMixin, ListView):
     default_sort_params = ('dstock', 'desc')
