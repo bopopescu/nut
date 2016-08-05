@@ -3,6 +3,7 @@
 @import '../lib/component.less';
 @import '../lib/widgets.less';
 
+@light-blue-bg:#F5F8FF;
 //btn
 .seller-mng-btn{
   color:@common-text-color;
@@ -24,6 +25,7 @@
 
 }
 
+//table
 .new-table-bordered,.new-table-bordered tbody tr td{
   border:1px solid @border-gray;
 }
@@ -42,6 +44,14 @@
     }
 }
 
+//sku item
+.sku-item{
+  width:100%;
+  height:100%;
+  padding:12px;
+  background-color: @light-blue-bg;
+  border-bottom: 1px solid @border-gray;
+}
 body.seller-management{
   color:@common-text-color;
   .wrapper{

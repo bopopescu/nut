@@ -50,28 +50,47 @@
                 {{ entity.title }}
             </td>
             <td>
+                 {% for sku in entity.sku_list %}
+                    {% if sku.attrs_display %}
+                        <div class="sku-item">
+                         {{ sku.attrs_display }}
+                        </div>
+                    {% else %}
+                        默认
+                    {% endif %}
+                {% endfor %}
 
             </td>
             <td class="price-wrapper">
-                <div class="entity_price" id="{{ entity.id }}">&yen;{{ entity.price }}
-                </div>
+{#                <div class="entity_price" id="{{ entity.id }}">#}
+                    {% for sku in entity.sku_list %}
+                        <div class="sku-item">
+                          &yen;{{ sku.promo_price }}
+                        </div>
+                    {% endfor %}
+{#                </div>#}
             </td>
             <td>
                 {% for sku in entity.sku_list %}
-                    {% if sku.attrs_display %}
-                        {{ sku.attrs_display }}
-                    {% else %}
-                        缺省SKU
-                    {% endif %}
-                    <form>
-                        <input id="{{ sku.id }}_price" type="text" style="width:80px; height:30px" name="{{ sku.id }}" value="{{ sku.promo_price }}">
-                        <input id="{{ sku.id }}_stock" type="text" style="width:80px; height:30px" name="{{ sku.id }}" value="{{ sku.stock }}">
-                        <span class="btn newest-btn-primary"  id="{{ sku.id }}" target="_blank">{% trans 'update' %}</span>
-                    </form>
+{#                    {% if sku.attrs_display %}#}
+{#                        {{ sku.attrs_display }}#}
+{#                    {% else %}#}
+{#                        缺省SKU#}
+{#                    {% endif %}#}
+{#                    <form>#}
+{#                        <input id="{{ sku.id }}_price" type="text" style="width:80px; height:30px" name="{{ sku.id }}" value="{{ sku.promo_price }}">#}
+{#                        <input id="{{ sku.id }}_stock" type="text" style="width:80px; height:30px" name="{{ sku.id }}" value="{{ sku.stock }}">#}
+{#                        <span class="btn newest-btn-primary"  id="{{ sku.id }}" target="_blank">{% trans 'update' %}</span>#}
+{#                    </form>#}
+                     <div class="sku-item">
+                          {{ sku.stock }}
+                     </div>
                 {% endfor %}
             </td>
             <td>
-                {{ entity.updated_time|date:'Y-m-d H:i:s' }}
+                {{ entity.updated_time|date:'Y-m-d' }}
+                <br>
+                {{ entity.updated_time|date:'H:i:s' }}
             </td>
             <td>
                 <div class="btn-group">
