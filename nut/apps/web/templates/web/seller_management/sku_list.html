@@ -14,7 +14,6 @@
         </h1>
     </section>
 
-
     <section class="content">
         <div class="row">
              <div class="col-xs-12">
@@ -22,25 +21,22 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" style="margin-top:32px;margin-bottom: 16px;">
             <div class="col-xs-12">
-                <div class="box box-default">
-                    {% include 'web/seller_management/partial/skus_list.html' %}
-                </div>
-
+                <a class="btn newest-btn-primary" href="{% url 'add_sku_management' entity.id %}">添加规格</a>
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="new-box">
+                    {% include 'web/seller_management/partial/skus_list.html' %}
+                </div>
+            </div>
+        </div>
     </section>
-
-
-
-    </section>
-
-
 
 {% endblock %}
-
 
 {% block user_script %}
 {% endblock %}
