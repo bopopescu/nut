@@ -39,4 +39,12 @@
 {% endblock %}
 
 {% block user_script %}
+    <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
+    <script>
+       var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+       elems.forEach(function(ele) {
+           var switchery = new Switchery(ele);
+           ele.onchange = switchChange;
+       });
+    </script>
 {% endblock %}
