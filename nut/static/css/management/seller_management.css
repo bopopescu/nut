@@ -1409,6 +1409,10 @@ ol {
   padding: 0 8px;
   content: '>\00a0';
 }
+.original-price {
+  text-decoration: line-through;
+  color: #757575;
+}
 .sku-item {
   width: 100%;
   height: 100%;

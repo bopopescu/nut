@@ -11,87 +11,98 @@
 {#        </tr>#}
         <tr>
             <th>
-                {% trans '#' %}
+                {% trans '属性' %}
             </th>
+
+            <th>
+                {% trans '价格' %}
+            </th>
+
             <th>{% if sort_by == 'dstock' %}
                     <a href="{% url  'sku_list_management' entity.id %}?sort_by=ustock">
                 {% else %}
                     <a href="{% url  'sku_list_management' entity.id %}?sort_by=dstock">
                 {% endif %}
-                    {% trans 'stock' %}
+                    {% trans '库存' %}
                 {%  if sort_by == 'dstock' %}<i class="fa fa-arrow-circle-down"></i>
                 {% elif sort_by == 'ustock' %}<i class="fa fa-arrow-circle-up"></i>
                 {% endif %}</a>
             </th>
-             <th>
 
-                {% if sort_by == 'dorigin_price' %}
-                    <a href="{% url  'sku_list_management' entity.id %}?sort_by=uorigin_price">
-                {% else %}
-                    <a href="{% url  'sku_list_management' entity.id %}?sort_by=dorigin_price">
-                {% endif %}
-                    {% trans 'origin_price' %}
-                {%  if sort_by == 'dorigin_price' %}<i class="fa fa-arrow-circle-down"></i>
-                {% elif sort_by == 'uorigin_price' %}<i class="fa fa-arrow-circle-up"></i>
-                {% endif %}</a>
-             </th>
              <th>
-                {% if sort_by == 'dpromotion_price' %}
-                    <a href="{% url  'sku_list_management' entity.id %}?sort_by=upromotion_price">
-                {% else %}
-                    <a href="{% url  'sku_list_management' entity.id %}?sort_by=dpromotion_price">
-                {% endif %}
-                    {% trans 'promotion_price' %}
-                {%  if sort_by == 'dpromotion_price' %}<i class="fa fa-arrow-circle-down"></i>
-                {% elif sort_by == 'upromotion_price' %}<i class="fa fa-arrow-circle-up"></i>
-                {% endif %}</a>
-            </th>
-            <th>
-                {% trans 'Attributes' %}
-            </th>
-            <th>
                 {% if sort_by == 'dstatus' %}
                     <a href="{% url  'sku_list_management' entity.id %}?sort_by=ustatus">
                 {% else %}
                     <a href="{% url  'sku_list_management' entity.id %}?sort_by=dstatus">
                 {% endif %}
-                    {% trans 'status' %}
+                    {% trans '激活' %}
                 {%  if sort_by == 'dstatus' %}<i class="fa fa-arrow-circle-down"></i>
                 {% elif sort_by == 'ustatus' %}<i class="fa fa-arrow-circle-up"></i>
                 {% endif %}</a>
             </th>
+
+{#             <th>#}
+{##}
+{#                {% if sort_by == 'dorigin_price' %}#}
+{#                    <a href="{% url  'sku_list_management' entity.id %}?sort_by=uorigin_price">#}
+{#                {% else %}#}
+{#                    <a href="{% url  'sku_list_management' entity.id %}?sort_by=dorigin_price">#}
+{#                {% endif %}#}
+{#                    {% trans 'origin_price' %}#}
+{#                {%  if sort_by == 'dorigin_price' %}<i class="fa fa-arrow-circle-down"></i>#}
+{#                {% elif sort_by == 'uorigin_price' %}<i class="fa fa-arrow-circle-up"></i>#}
+{#                {% endif %}</a>#}
+{#             </th>#}
+{#             <th>#}
+{#                {% if sort_by == 'dpromotion_price' %}#}
+{#                    <a href="{% url  'sku_list_management' entity.id %}?sort_by=upromotion_price">#}
+{#                {% else %}#}
+{#                    <a href="{% url  'sku_list_management' entity.id %}?sort_by=dpromotion_price">#}
+{#                {% endif %}#}
+{#                    {% trans 'promotion_price' %}#}
+{#                {%  if sort_by == 'dpromotion_price' %}<i class="fa fa-arrow-circle-down"></i>#}
+{#                {% elif sort_by == 'upromotion_price' %}<i class="fa fa-arrow-circle-up"></i>#}
+{#                {% endif %}</a>#}
+{#            </th>#}
+
             <th>
-                {% trans 'Action' %}
+                {% trans '操作' %}
             </th>
         </tr>
     </thead>
-    {% for sku in object_list %}
+    <tbody>
+     {% for sku in object_list %}
         <tr>
-            <td>{{ sku.id }}</td>
-            <td>{{ sku.stock }}</td>
-            <td>{{ sku.origin_price }}</td>
-            <td>{{ sku.promo_price }}</td>
+{#            <td>{{ sku.id }}</td>#}
             <td>{{ sku.attrs_display }}</td>
-            <td>{# <input type="checkbox"
-                    data-id="{{ sku.status }}"
-                    data-group="seller"
-                    class="js-switch" #}
-                   {% if sku.status %}checked{% endif %} />
+            <td>
+                <div class="original-price">
+                     &yen;{{ sku.origin_price }}
+                </div>
+                <div>
+                    &yen;{{ sku.promo_price }}
+                </div>
+            </td>
+            <td>{{ sku.stock }}</td>
+            <td>
+                <input type="checkbox" data-id="{{ sku.status }}" data-group="seller" class="js-switch" {% if sku.status %}checked{% endif %} />
                 {{ sku.get_status_display }}
             </td>
             <td>
                 <div class="btn-group">
-                    <a class="btn btn-warning" href="{% url 'sku_update_management' entity.pk sku.pk %}" >编辑SKU属性</a>
-                    <a class="btn btn-danger" href="{% url 'sku_delete_management' entity.pk sku.pk %}">删除SKU</a>
+                    <a class="btn newest-btn-primary" href="{% url 'sku_update_management' entity.pk sku.pk %}" >编辑SKU属性</a>
+                    <a class="btn btn-danger" href="{% url 'sku_delete_management' entity.pk sku.pk %}">删除</a>
                 </div>
             </td>
         </tr>
     {% endfor %}
-        <tr>
-            <td>
-            <a class="btn btn-success" href="{% url 'web_seller_management' %}">返回</a>
-            </td>
-        </tr>
+    </tbody>
+
+{#        <tr>#}
+{#            <td>#}
+{#            <a class="btn btn-success" href="{% url 'web_seller_management' %}">返回</a>#}
+{#            </td>#}
+{#        </tr>#}
 
 </table>
 
