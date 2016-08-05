@@ -41,10 +41,34 @@
 {% block user_script %}
     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
     <script>
-       var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-       elems.forEach(function(ele) {
-           var switchery = new Switchery(ele);
-           ele.onchange = switchChange;
-       });
+        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+        function switchChange(){
+            console.log(this);
+            console.log(this['data-id']);
+            console.log($(this).prop('checked'));
+            console.log($(this).attr('data-id'));
+            console.log($(this).attr('class'));
+            var sku_id = $(this).attr('data-id');
+            var sku_class = $(this).attr('class');
+            if(tag_class === 'js-switch') {
+                var url = '';
+                var data =  {id:sku_id ,isPubishedEntitySku: $(this).prop('checked')};
+            }
+
+            $.when($.ajax({
+                type:'POST',
+                url: url,
+                data: data
+            })).then(
+                    postSuccess,
+                    postFail
+            );
+        }
+
+        elems.forEach(function(ele) {
+            var switchery = new Switchery(ele);
+            ele.onchange = switchChange;
+        });
     </script>
 {% endblock %}
