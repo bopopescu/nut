@@ -39,6 +39,10 @@ ol{
   width: 100%;
   max-width: 100%;
   margin-bottom: 20px;
+    thead tr{
+      height:50px;
+      background-color: @very-light-gray;
+    }
     thead tr th,tbody tr td{
       min-height: 50px;
       padding:8px;
@@ -47,6 +51,11 @@ ol{
       text-align: center;
       vertical-align: middle;
     }
+}
+.new-table-hover{
+  tbody tr:hover{
+    background-color: @very-light-gray;
+  }
 }
 
 //breadcrumb

@@ -1385,6 +1385,10 @@ ol {
   max-width: 100%;
   margin-bottom: 20px;
 }
+.new-table thead tr {
+  height: 50px;
+  background-color: #F8F8F8;
+}
 .new-table thead tr th,
 .new-table tbody tr td {
   min-height: 50px;
@@ -1394,6 +1398,9 @@ ol {
 .new-table tbody tr td {
   text-align: center;
   vertical-align: middle;
+}
+.new-table-hover tbody tr:hover {
+  background-color: #F8F8F8;
 }
 .new-breadcrumb {
   font-size: 14px;
