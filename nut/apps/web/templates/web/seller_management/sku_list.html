@@ -23,7 +23,8 @@
 
         <div class="row" style="margin-top:32px;margin-bottom: 16px;">
             <div class="col-xs-12">
-                <a class="btn newest-btn-primary" href="{% url 'add_sku_management' entity.id %}">添加规格</a>
+{#                <a class="btn newest-btn-primary" href="{% url 'add_sku_management' entity.id %}">添加规格</a>#}
+                 <a id="add_sku_trigger" class="btn newest-btn-primary" data-url="">添加规格</a>
             </div>
         </div>
 
@@ -40,6 +41,8 @@
 
 {% block user_script %}
     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
+
+{#    below is switch btn function #}
     <script>
         var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
@@ -77,5 +80,14 @@
             var switchery = new Switchery(ele);
             ele.onchange = switchChange;
         });
+    </script>
+
+
+{#    below is sku add #}
+    <script>
+    $('#add_sku_trigger').click(this.showModel.bind(this));
+    function showModel(){
+        bootbox.alert('test');
+    }
     </script>
 {% endblock %}
