@@ -973,7 +973,7 @@ class Entity(BaseModel):
             return res
 
     @property
-    def stock_of_all_skus(self):
+    def total_stock(self):
         return sum([i.stock for i in self.skus.all()])
 
     @property

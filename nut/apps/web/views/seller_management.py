@@ -102,9 +102,9 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
         elif sort_by == 'uupdated_time':
             qs = qs.order_by('updated_time')
         elif sort_by == 'ustock':
-            qs = sorted(qs, key=lambda x: x.stock_of_all_skus, reverse=False)
+            qs = sorted(qs, key=lambda x: x.total_stock, reverse=False)
         elif sort_by == 'dstock':
-            qs = sorted(qs,key=lambda x: x.stock_of_all_skus, reverse=True)
+            qs = sorted(qs,key=lambda x: x.total_stock, reverse=True)
         else:
             pass
         return qs
