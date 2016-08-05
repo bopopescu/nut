@@ -24,7 +24,7 @@
         <div class="row" style="margin-top:32px;margin-bottom: 16px;">
             <div class="col-xs-12">
 {#                <a class="btn newest-btn-primary" href="{% url 'add_sku_management' entity.id %}">添加规格</a>#}
-                 <a id="add_sku_trigger" class="btn newest-btn-primary" data-url="">添加规格</a>
+                 <a id="add_sku_trigger" class="btn newest-btn-primary" data-url="add url here">添加规格</a>
             </div>
         </div>
 
@@ -85,9 +85,48 @@
 
 {#    below is sku add #}
     <script>
-    $('#add_sku_trigger').click(this.showModel.bind(this));
-    function showModel(){
-        bootbox.alert('test');
-    }
+    $('#add_sku_trigger').click(function(){
+        var url = $(this).attr('data-url');
+
+        $.when($.ajax({
+            url: url,
+            method: 'GET'
+        })).then(
+                function(html){
+                    //will return a  rendered template
+                    bootbox.dialog({
+                        title: '添加规格',
+                        message: html,
+                        buttons: {
+                            success:{
+                                label:'发送',
+                                className:'btn newest-btn-primary',
+                                callback: function(){
+                                    var _form = $('#sku_add_form');
+                                    if (_form.length){
+                                        $.when($.ajax({
+                                            url: _form.attr('action'),
+                                            data: _form.serialize(),
+                                            method: 'POST'
+                                        })).then(
+                                                function addSkuSuccess(data){
+                                                    return bootbox.alert({
+                                                        size: 'small',
+                                                        message: '添加成功'
+                                                    }) ;
+                                                },
+                                                function reportFail(){
+                                                    console.log('add sku fail');
+                                                }
+                                        );
+                                    }
+                                }
+                            }
+                        }
+                    });
+                },function(){
+                    console.log('get report form fail ');
+                });
+    });
     </script>
 {% endblock %}
