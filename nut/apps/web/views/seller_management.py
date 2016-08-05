@@ -359,6 +359,11 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
         order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
         order_ids = order_items.values_list('order')
         qs = Order.objects.filter(id__in=order_ids)
+        self.status = self.request.GET.get('status')
+        if self.status == 'waiting_for_payment':
+            qs = qs.filter(status=2)
+        elif self.status == 'paid':
+            qs = qs.filter(status=3)
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
     def filter_queryset(self, qs, filter_param):
@@ -387,6 +392,7 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
 
     def get_context_data(self, **kwargs):
         context = super(SellerManagementOrders, self).get_context_data(**kwargs)
+        context['status']=self.status
         for order in context['object_list']:
             order_items = order.items.all()
             order.skus = [order_item.sku for order_item in order_items]
