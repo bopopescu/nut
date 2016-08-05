@@ -85,7 +85,6 @@
             <td>{{ sku.stock }}</td>
             <td>
                 <input type="checkbox" data-id="{{ sku.status }}" data-group="seller" class="js-switch" {% if sku.status %}checked{% endif %} />
-                {{ sku.get_status_display }}
             </td>
             <td>
                 <div class="btn-group">
