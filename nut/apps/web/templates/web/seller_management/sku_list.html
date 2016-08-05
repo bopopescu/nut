@@ -61,7 +61,7 @@
             }
             return cookieValue;
         }
-        ;
+
         var csrftoken = getCookie('csrftoken');
         function csrfSafeMethod(method) {
             // these HTTP methods do not require CSRF protection
@@ -93,7 +93,11 @@
             var sku_class = $(this).attr('class');
             if(sku_class === 'js-switch') {
                 var url = sku_id + '/sku_status/';
-                var data =  {id:sku_id ,status: $(this).prop('checked')};
+                var status_val = 0;
+                if($(this).prop('checked')){
+                    status_val = 1
+                }
+                var data =  {id:sku_id ,status: status_val};
             }
 
             $.when($.ajax({
@@ -117,7 +121,7 @@
     <script>
     $('#add_sku_trigger').click(function(){
         var url = $(this).attr('data-url');
-
+{#        console.log('get add sku model url');#}
         $.when($.ajax({
             url: url,
             method: 'GET'
