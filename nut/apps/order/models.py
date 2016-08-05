@@ -175,16 +175,19 @@ class Order(models.Model):
 
     @property
     def promo_total_price(self):
+        # promo price , without shipping fee
         return reduce(lambda a,b : a + b,
                         [item.promo_total_price for item in self.items.all()])
 
     @property
     def grand_total_price(self):
+        # origin price , not actual price
         return reduce(lambda a,b : a+b ,
                         [item.grand_total_price for item in self.items.all()])
 
     @property
     def order_total_value(self):
+        # final price customer need to paid
         return self.promo_total_price + self.shipping_fee
 
 class OrderItem(models.Model):
