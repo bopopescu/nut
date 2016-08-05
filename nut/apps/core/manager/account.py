@@ -62,18 +62,9 @@ class GKUserQuerySet(models.query.QuerySet):
 
     def recommended_user(self):
         return self.authorized_user()\
-                   .select_related('authorized_profile')\
+                   .select_related('authorized_profile', 'profile')\
                    .filter(authorized_profile__is_recommended_user=True)\
                    .order_by('-authorized_profile__points')
-
-    def recommended_user_random(self):
-        _key = 'index:user:recommend:random'
-        _user_list = cache.get(_key, None)
-        if _user_list is None:
-            _user_list = random.shuffle(self.recommended_user())
-            cache.set(_key,_user_list,3600*6)
-        return _user_list
-
 
 
 class GKUserManager(BaseUserManager):
@@ -151,7 +142,14 @@ class GKUserManager(BaseUserManager):
     def create_superuser(self, email, password, **extra_fields):
         return self._create_user(email, password, True, True, **extra_fields)
 
-
+    def recommended_user_random(self):
+        _key = 'index:user:recommend:random'
+        _user_list = cache.get(_key, None)
+        if _user_list is None:
+            _user_list = list(self.recommended_user())
+            random.shuffle(_user_list)
+            cache.set(_key,_user_list,3600*6)
+        return _user_list
 
 
 class AuthorizedUserQuerySet(models.query.QuerySet):
