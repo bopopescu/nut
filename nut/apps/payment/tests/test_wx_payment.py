@@ -1,8 +1,9 @@
+# -*- coding: UTF-8 -*-
 from pprint import pprint
 from apps.order.tests import  DBTestBase
 from apps.payment.weixinpay import WXPayment
 
-from apps.payment.weixinpay.config import WX_APPID, WX_APPSEC, WX_MCH_ID
+from apps.payment.weixinpay.config import WX_APPID
 from xml.etree import cElementTree as ET
 class WX_Payment_Test(DBTestBase):
     def setUp(self):
@@ -39,7 +40,7 @@ class WX_Payment_Test(DBTestBase):
         params = wxpayment.get_request_params()
         self.assertEqual(params['appid'],WX_APPID)
         self.assertEqual(int(params['total_fee']), 3)
-        self.assertEqual(params['norify_url'] , 'http://www.guoku.com/payment/wxpay/notify/')
+        self.assertEqual(params['notify_url'] , 'http://www.guoku.com/payment/wxpay/notify/')
 
 
     def test_generate_xml_string(self):
@@ -53,28 +54,67 @@ class WX_Payment_Test(DBTestBase):
     def test_xml_generate(self):
         wxpayment = WXPayment(self.order)
         str = wxpayment.get_request_xml_string()
+        print(str)
         self.assertEqual('wx59118ccde8270caa' in str , True)
 
-    def test_request_qr_code(self):
-        import requests
-        wxpayment = WXPayment(self.order)
-        response = requests.post(WXPayment._GATEWAY,
-                                 data=wxpayment.get_request_xml_string(),
-                                 headers={'Content-Type':'application/xml'}
-                                )
+    def test_xml_post(self):
+        # make sure wx payment api work
+        # api key is right etc ...
 
-        # pprint(response)
-        self.assertEqual(response.url , wxpayment._GATEWAY)
-        # url = wxpayment.parse_payment_url(response)
-        #
-        pprint(response.text)
-        pprint(response.content)
+        wxpayment = WXPayment(self.order)
+        headers = {'Content-Type':'application/xml'}
+        import  requests
+        response = requests.post(wxpayment._GATEWAY,
+                                 data=wxpayment.get_request_xml_string(),
+                                 headers=headers)
+
+
         response.encoding='utf-8'
         pprint(response.text)
-        root = ET.fromstring(response.text)
-        pprint(root)
+        from django.utils.encoding import smart_str, smart_unicode
+        raw_str = smart_str(response.text)
+        root = ET.fromstring(raw_str)
+        msg = {}
+        if root.tag == 'xml':
+            for child in root:
+                msg[child.tag] = smart_unicode(child.text)
 
-        # self.assertEqual(url, 'not fit')
+
+        pprint(msg)
+        print(msg['return_msg'].encode('utf8'))
+        self.assertEqual('weixin://wxpay/' in raw_str , True)
+
+
+    def test_xml_post_resposne_sign(self):
+        # make sure the response is returning from wx
+        # make sure the sign checking algorithm is right
+        wxpayment = WXPayment(self.order)
+        headers = {'Content-Type':'application/xml'}
+        import  requests
+        response = requests.post(wxpayment._GATEWAY,
+                                 data=wxpayment.get_request_xml_string(),
+                                 headers=headers)
+
+
+        response.encoding='utf-8'
+        pprint(response.text)
+        from django.utils.encoding import smart_str, smart_unicode
+        raw_str = smart_str(response.text)
+        root = ET.fromstring(raw_str)
+        msg = {}
+        if root.tag == 'xml':
+            for child in root:
+                msg[child.tag] = smart_unicode(child.text)
+
+
+        self.assertEqual(wxpayment.check_wx_response_sign(response), True)
+
+    def test_get_wx_pay_url(self):
+        wxpayment = WXPayment(self.order)
+        wx_pay_url = wxpayment.get_payment_qrcode_url()
+        print('-'*80)
+        pprint(wx_pay_url)
+        self.assertEqual('weixin://wxpay/' in wx_pay_url, True)
 
 
 

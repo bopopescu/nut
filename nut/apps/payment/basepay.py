@@ -13,25 +13,6 @@ class BasePayment(object):
         self._host  = host
 
 
-    def build_sign(self, prestr, key, sign_type = 'MD5'):
-        if sign_type == 'MD5':
-            return md5(prestr + key).hexdigest()
-        return ''
-
-    def params_filter(self, params):
-        ks = params.keys()
-        ks.sort()
-        newparams = {}
-        prestr = ''
-        for k in ks:
-            v = params[k]
-            k = self.smart_str(k, 'utf-8')
-            if k not in ('sign','sign_type') and v != '':
-                newparams[k] = self.smart_str(v, 'utf-8')
-                prestr += '%s=%s&' % (k, newparams[k])
-        prestr = prestr[:-1]
-        return newparams, prestr
-
     def smart_str(self, s, encoding='utf-8', strings_only=False, errors='strict'):
         """
         Returns a bytestring version of 's', encoded as specified in 'encoding'.
