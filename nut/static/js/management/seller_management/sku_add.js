@@ -29,13 +29,17 @@ var SKUAddManager = Class.extend({
                                             method: 'POST'
                                         })).then(
                                                 function addSkuSuccess(data){
-                                                    return bootbox.alert({
+                                                    if(data == 1){
+                                                         return bootbox.alert({
                                                         size: 'small',
                                                         message: '添加成功'
                                                     }) ;
-                                                },
-                                                function reportFail(){
-                                                    console.log('add sku fail');
+                                                    }else{
+                                                       return bootbox.alert({
+                                                        size: 'small',
+                                                        message: '添加失败'
+                                                    }) ;
+                                                    }
                                                 }
                                         );
                                     }
