@@ -5,9 +5,11 @@
 <table class="new-table new-table-bordered new-table-hover" id="seller_management_entity_price">
     <thead>
     <tr>
-        <th>{% trans 'entity' %}
-            <input class="guoku_search_input hidden" data-search-field="title" type="text">
-            <i class="fa fa-search"></i>
+        <th class="entity-search">
+            {% trans 'entity' %}
+            <input class="guoku_search_input" data-search-field="title" type="text">
+            <i class="fa fa-search">
+            </i>
         </th>
         <th>
             {% trans 'SKU属性' %}
@@ -45,13 +47,13 @@
     <tbody>
     {% for entity in object_list %}
         <tr>
-            <td>
+            <td class="entity-cell">
                 <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
                     <img src="{{ entity.chief_image|resize:'128' }}" width="54" height="54">
                 </a>
                 {{ entity.title }}
             </td>
-            <td>
+            <td class="sku-cell">
                  {% for sku in entity.sku_list %}
                     {% if sku.attrs_display %}
                         <div class="sku-item">
@@ -64,13 +66,11 @@
 
             </td>
             <td class="price-wrapper">
-{#                <div class="entity_price" id="{{ entity.id }}">#}
-                    {% for sku in entity.sku_list %}
-                        <div class="sku-item">
-                          &yen;{{ sku.promo_price }}
-                        </div>
-                    {% endfor %}
-{#                </div>#}
+                {% for sku in entity.sku_list %}
+                    <div class="sku-item entity_price" id="{{ entity.id }}">
+                        &yen;{{ sku.promo_price }}
+                    </div>
+                {% endfor %}
             </td>
             <td>
                 {% for sku in entity.sku_list %}
@@ -89,7 +89,7 @@
                      </div>
                 {% endfor %}
             </td>
-            <td>
+            <td class="update-time-cell">
                 {{ entity.updated_time|date:'Y-m-d' }}
                 <br>
                 {{ entity.updated_time|date:'H:i:s' }}

@@ -1430,6 +1430,18 @@ ol {
   background-color: #F5F8FF;
   border-bottom: 1px solid #e6e6e6;
 }
+.sku-item i {
+  color: #BDBDBD;
+}
+.entity-search .guoku_search_input {
+  display: none;
+}
+.entity-search:hover {
+  cursor: pointer;
+}
+.entity-search:hover .guoku_search_input {
+  display: inline-block;
+}
 body.seller-management {
   color: #212121;
 }
@@ -1483,4 +1495,17 @@ body.seller-management .content-header {
 }
 body.seller-management .content {
   padding: 16px 40px;
+}
+body.seller-management #seller_management_entity_price tr th.entity-search {
+  width: 240px;
+}
+body.seller-management #seller_management_entity_price tr td.entity-cell {
+  text-align: left;
+}
+body.seller-management #seller_management_entity_price tr td.sku-cell,
+body.seller-management #seller_management_entity_price tr td.update-time-cell {
+  color: #757575;
+}
+body.seller-management #seller_management_entity_price .sku-save-btn {
+  margin-left: 12px;
 }

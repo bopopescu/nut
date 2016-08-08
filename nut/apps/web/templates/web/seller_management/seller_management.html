@@ -25,11 +25,6 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="new-box">
-{#                    {% if current_url == '/seller_management/' %}#}
-{#                        <a class="btn btn-success" href="{{ current_url }}?print=true" target="_blank">{% trans '打印二维码' %}</a>#}
-{#                    {% else %}#}
-{#                        <a class="btn btn-success" href="{{ current_url }}&print=true" target="_blank">{% trans '打印二维码' %}</a>#}
-{#                    {% endif %}#}
                     <div class="new-box-body table-responsive">
                         {% include 'web/seller_management/seller_management_entity_list.html' %}
                     </div>
@@ -53,20 +48,22 @@
     <script src="{% static 'js/management/seller_management/sku_save.js' %}" type="application/javascript"></script>
 
     <script>
+{#    along write begin #}
     $("div.entity_price").hover(function(){
         if (!$(this).html().match("input")){
-            $(this).append("<div id='edit' onclick='changeContent()'><i class='fa fa-pencil'></i></div>");
+{#            $(this).append("<div id='edit' onclick='changeContent()'><i class='fa fa-pencil-square'></i></div>");#}
+             $(this).append("<i class='fa fa-pencil-square' id='edit' onclick='changeContent()'></i>");
         }
         }, function(){
 
-        $(this).children("div").remove();
-        })
+        $(this).children("i").remove();
+        });
 
         function changeContent(){
             var parent = document.getElementById("edit").parentNode;
             var result = parent.innerHTML.split('<div')[0];
-            parent.innerHTML = "<input type='text'"  + "data-entity-id='"+ parent.id + "'value='" + result + "'/>" +
-                    '<button type="submit" id="test_button" class="btn btn-success" onclick="update_price(event)">save</button>';
+            parent.innerHTML = "<input style='height:34px;' type='text'"  + "data-entity-id='"+ parent.id + "'value='" + result + "'/>" +
+                    '<button type="submit" id="test_button" class="btn btn-success sku-save-btn" onclick="update_price(event)">保存</button>';
 
 }
 
@@ -97,6 +94,7 @@
     }
 
     </script>
+{#    along write end#}
 
 
 {% endblock %}

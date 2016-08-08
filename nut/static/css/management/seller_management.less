@@ -87,6 +87,22 @@ ol{
   padding:12px;
   background-color: @light-blue-bg;
   border-bottom: 1px solid @border-gray;
+  i{
+    color:@gray-light;
+  }
+}
+
+//search
+.entity-search{
+  .guoku_search_input{
+    display: none;
+  }
+  &:hover{
+    cursor: pointer;
+    .guoku_search_input{
+      display: inline-block;
+    }
+  }
 }
 
 body.seller-management{
@@ -144,5 +160,19 @@ body.seller-management{
   }
   .content{
     padding:16px 40px;
+  }
+  #seller_management_entity_price{
+    tr th.entity-search{
+      width:240px;
+    }
+    tr td.entity-cell{
+      text-align: left;
+    }
+    tr td.sku-cell,tr td.update-time-cell{
+      color:@new-text-gray;
+    }
+    .sku-save-btn{
+      margin-left:12px;
+    }
   }
 }
