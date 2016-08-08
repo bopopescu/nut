@@ -68,9 +68,8 @@
             <td class="price-wrapper">
 {#                <div class="entity_price" id="{{ entity.id }}">#}
                     {% for sku in entity.sku_list %}
-                        <div class="sku-item">
+                        <div class="sku-item entity_price" id="{{ entity.id }}">
                           &yen;{{ sku.promo_price }}
-                         <i class="fa fa-pencil-square"></i>
                         </div>
                     {% endfor %}
 {#                </div>#}

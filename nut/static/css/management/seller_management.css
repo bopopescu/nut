@@ -1506,3 +1506,6 @@ body.seller-management #seller_management_entity_price tr td.sku-cell,
 body.seller-management #seller_management_entity_price tr td.update-time-cell {
   color: #757575;
 }
+body.seller-management #seller_management_entity_price .sku-save-btn {
+  margin-left: 12px;
+}
