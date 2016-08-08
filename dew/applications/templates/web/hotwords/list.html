@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block mian %}
+    <section class="content-header">
+      <h1>
+        Hot Words
+        <small>Control panel</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Hot Words</li>
+      </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <ul class="nav nav-pills" role="tablist">
+                           <li>
+                               <a class="btn btn-primary" href="" target="_blank">add</a>
+                           </li>
+                        </ul>
+                    </div>
+                    <div class="box-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for row in objects %}
+                                    {{ row }}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -237,7 +237,7 @@ class EntityLikeManager(models.Manager):
         key = 'entity:popular:random:%s' % scale
         # popular_list = self.popular()
         res = cache.get(key)
-        log.info(res)
+        # log.info(res)
         if res:
             return res
         source = self.popular(scale)

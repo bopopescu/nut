@@ -12,14 +12,13 @@ STATICFILES_DIRS = (
 
 # STATIC_URL = 'http://static.guoku.com/static/v4/d6d8bc3600a44816fbf1ebcfacd2de45c32cc359/'
 
-
 LANGUAGE_CODE = 'zh-cn'
 
 TIME_ZONE = 'Asia/Shanghai'
 
 USE_TZ = False
 
-DATABASES = TESTING_DATABASE
+DATABASES = PRODUCTION_DATABASES
 
 # CELERY #################################
 BROKER_URL = 'redis://localhost:6379/0'
@@ -177,10 +176,7 @@ HAYSTACK_CONNECTIONS = {
 # HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
-#add by anchen , for index page icon hack
-SITE_HOST = 'http://test.guoku.com'
 
-#add by anchen
 # ANT_SIMULATE_MOBILE = True
 
 __author__ = 'edison7500'

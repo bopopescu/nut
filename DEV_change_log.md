@@ -1,4 +1,20 @@
-4. 
+4. article mobile page bug(user link) fix 
+3. remove hot enity ajax loading and add cache 
+2. random recommend user 
+1. add auth_token function for rest-api
+
+action :
+   need sync db 
+   add  authtoken_token from rest-framework
+   
+    
+
+=======================
+# merged to master 2016 7-29
+=======================
+
+5. web bug fix (top bar element margin, article remark mobile display , etc)
+4. index page hot entity use ajax 
 3. push notification formal send 
 2. web scroll bug fix 
 1. article remark mobile 
