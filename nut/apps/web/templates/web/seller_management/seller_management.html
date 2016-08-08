@@ -9,12 +9,12 @@
                  添加商品
             </a>
             {% if current_url == '/seller_management/' %}
-                <a class="btn  seller-mng-btn" href="{{ current_url }}?print=true" target="_blank">
+                <a class="btn  seller-mng-btn" href="{% url 'web_seller_management_qrcode_list' %}" target="_blank">
                     <i class="fa fa-qrcode"></i>
                     {% trans '打印二维码' %}
                 </a>
             {% else %}
-                <a class="btn  seller-mng-btn" href="{{ current_url }}&print=true" target="_blank">
+                <a class="btn  seller-mng-btn" href="{% url 'web_seller_management_qrcode_list' %}" target="_blank">
                     <i class="fa fa-qrcode"></i>
                     {% trans '打印二维码' %}
                 </a>
@@ -112,7 +112,7 @@
 
         function changeStockContent(){
             var parent = document.getElementById("stock_edit").parentNode;
-            alert(parent.innerHTML);
+            {# alert(parent.innerHTML); #}
             var result = parent.innerHTML.split('<i')[0];
             parent.innerHTML = "<input style='height:34px;' type='text'"  + "data-entity-id='"+ parent.id + "'value='" + result + "'/>" +
                     '<button type="submit" class="btn btn-success sku-save-btn" onclick="update_stock(event)">保存</button>';

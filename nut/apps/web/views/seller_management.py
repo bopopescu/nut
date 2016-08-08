@@ -110,6 +110,26 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
             pass
         return qs
 
+class QrcodeListView(IsAuthorizedSeller,  ListView):
+    http_method_names = ['get']
+    template_name = 'web/seller_management/qr_image.html'
+
+    def get(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        host = request.get_host()
+        for entity in self.object_list:
+            entity.title = entity.title[:15]
+            entity.qr_info = [entity.brand, entity.title, "", entity.price, host + entity.absolute_url]
+        return render_to_response(self.template_name, {'entities': self.object_list},
+                                  context_instance=RequestContext(request)
+                                  )
+
+    def get_queryset(self):
+        qs = self.request.user.entities.all()
+        return qs
+
+
+
 class IsAuthorizedSeller(UserPassesTestMixin):
     def test_func(self, user):
         return user.is_authorized_seller
@@ -329,22 +349,8 @@ class SKUCreateBoxView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView)
     model = SKU
     form_class = SKUForm
     template_name = 'management/sku/sku_add_template.html'
-
-    def post_ajax(self, request, *args, **kwargs):
-        _forms = SKUForm(request.POST)
-        if _forms.is_valid():
-            _forms.save()
-            return JSONResponse(
-                data={
-                    'status': 1
-                }
-            )
-        else:
-            return JSONResponse(
-                data={
-                    'status': 0
-                }
-            )
+    def get_success_url(self):
+        return reverse('sku_list_management', args=[self.entity_id])
     def get_context_data(self, **kwargs):
         context = super(SKUCreateBoxView,self).get_context_data(**kwargs)
         context['entity_id']=self.entity_id

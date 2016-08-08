@@ -46,10 +46,14 @@
                                 <div class="btn-group">
                                     状态: {{ order.get_status_display }}<br>
                                     <a class="btn btn-primary" href="{% url 'my_order_detail_management' order.id %}" target="_blank">{% trans '订单详情' %}</a>
-                                    <a class="btn btn-danger" href="{% url 'my_order_delete_management' order.id %}" target="_blank">{% trans '删除订单' %}</a>
+                                    <a class="btn btn-danger " href="{% url 'my_order_delete_management' order.id %}">{% trans '删除订单' %}</a>
                                 </div>
                             </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
+
+{% block user_script %}
+<script src="{% static 'js/web/app/checkout/order_delete.js' %}" type="application/javascript"></script>
+{% endblock %}
