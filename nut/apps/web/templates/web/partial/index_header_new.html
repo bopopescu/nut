@@ -10,7 +10,9 @@
                 <img src="{% static 'images/top_search_logo.png' %}" alt="{% trans 'guoku' %}" title="{% trans 'guoku' %}" style="width:64px;height:40px;">
                  <form class="navbar-form search-form" action="{% url 'web_search' %}" method="get" role="form">
                     <div class="input-group search">
-                        <input class="form-control top-search-input" name="q" type="search" placeholder="&nbsp;{% trans 'Search' %}" value="{{ keyword }}" >
+                        <input class="form-control top-search-input"
+                               autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false"
+                               name="q" type="search" placeholder="&nbsp;{% trans 'Search' %}" value="{{ keyword }}" >
                         <i class="fa fa-search fa-search-control"></i>
                         <div class="hot_article_tags" style="display:none">
                             <ul>
