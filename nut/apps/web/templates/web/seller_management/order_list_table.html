@@ -1,31 +1,7 @@
 {% load i18n %}
 {% load guoku %}
 {% load static %}
-                <div class="box-header">
-                                    <input class="guoku_search_input" data-search-field="number" type="text" value="订单号搜索:">
-                                    <span class="dropdown-toggle category-action">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                           aria-haspopup="false" role="button" aria-expanded="false">
-                                            {% if status == None %}
-                                                全部
-                                            {% elif status == 'all' %}
-                                                全部
-                                            {% elif status == "waiting_for_payment" %}
-                                            待付款
-                                            {% elif status == "paid" %}
-                                            已完成
-                                            {% endif %}
-                                            <span class="caret"></span>
-                                        </a>
-                                        <ul  id="sort_dropdown" class="dropdown-menu dropdown-menu-control" role="menu"  >
-                                            <li ><a href="{{ current_path }}?status=all">全部</a></li>
-                                            <li  class="divider"></li>
-                                            <li ><a href="{{ current_path }}?status=waiting_for_payment">待付款</a></li>
-                                            <li  class="divider"></li>
-                                            <li ><a href="{{ current_path }}?status=paid">已完成</a></li>
-                                        </ul>
-                                    </span>
-                </div>
+
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
