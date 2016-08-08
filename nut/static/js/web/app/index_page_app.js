@@ -10,7 +10,7 @@ require([
         'subapp/index/entity_category_tab',
         'subapp/index/category_tab_view',
         'subapp/user_follow',
-        'subapp/index/hot_entity',
+        //'subapp/index/hot_entity',
         'subapp/gotop'
 
     ],
@@ -26,7 +26,7 @@ require([
               EntityCategoryTab,
               CategoryTabView,
               UserFollow,
-              HotEntity,
+              //HotEntity,
               GoTop
               ) {
 // TODO : check if csrf work --
@@ -40,6 +40,6 @@ require([
         var entity_category_tab = new EntityCategoryTab();
         var category_tab_view = new CategoryTabView();
         var user_follow = new UserFollow();
-        var hot_entity = new HotEntity();
+        //var hot_entity = new HotEntity();
         var goto = new GoTop();
     });

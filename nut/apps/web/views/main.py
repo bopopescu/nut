@@ -76,23 +76,20 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin, TemplateView):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['banners'] = SiteBanner.objects.get_mainpage_banner()  # 顶部banner (link, image)
         context['categories'] = Category.objects.filter(status=True)  # 品类
-        # popular_list = Entity_Like.objects.popular_random()
-        # context['entities'] = Entity.objects.filter(id__in=popular_list)  # 热门商品
+        popular_list = Entity_Like.objects.popular_random()
+        context['entities'] = Entity.objects.filter(id__in=popular_list)  # 热门商品
         context['article_tags'] = Tags.objects.top_article_tags()  # 图文标签
-        # context['articles'] = Selection_Article.objects.select_related('article').all()[:3]  # 最新精选图文
         context['articles'] = self.get_selection_articles()[:3]  # 最新精选图文
-        # test = Selection_Article.objects\
-        #                       .select_related('article').using('slave')
-        context['recommand_users'] = GKUser.objects.recommended_user().select_related('profile')[:20]  # 推荐用户
+        context['recommand_users'] = GKUser.objects.recommended_user_random()[:20]  # 推荐用户
         context['middle_banners'] = StorePageBanners.objects.filter(status=StorePageBanners.enabled)  # 中间banner
         # context['selection_entity'] = Selection_Entity.objects.select_related('entity')[:6]
         context['selection_entity'] = self.get_selection_entities()[:20]
         context['static_url'] = settings.STATIC_URL
 
-        # _entities = context['entities']
-        # if self.request.user.is_authenticated():
-        #     context['user_entity_likes'] = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=
-        #         list(_entities.values_list('id', flat=True))+(list(context['selection_entity'].values_list('entity_id',flat=True))))
+        _entities = context['entities']
+        if self.request.user.is_authenticated():
+            context['user_entity_likes'] = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=
+                list(_entities.values_list('id', flat=True))+(list(context['selection_entity'].values_list('entity_id',flat=True))))
 
         return context
 
