@@ -16,32 +16,35 @@ var SKUAddManager = Class.extend({
                     bootbox.dialog({
                         title: '添加规格',
                         message: html,
-                        buttons: {
-                            success:{
-                                label:'发送',
-                                className:'btn newest-btn-primary',
-                                callback: function(){
-                                    var _form = $('#sku_add_form');
-                                    if (_form.length){
-                                        $.when($.ajax({
-                                            url: _form.attr('action'),
-                                            data: _form.serialize(),
-                                            method: 'POST'
-                                        })).then(
-                                                function addSkuSuccess(data){
-                                                    return bootbox.alert({
-                                                        size: 'small',
-                                                        message: '添加成功'
-                                                    }) ;
-                                                },
-                                                function reportFail(){
-                                                    console.log('add sku fail');
-                                                }
-                                        );
-                                    }
-                                }
-                            }
-                        }
+                        //buttons: {
+                        //    success:{
+                        //        label:'保存',
+                        //        className:'btn newest-btn-primary',
+                        //        callback: function(){
+                        //            var _form = $('#sku_add_form');
+                        //            if (_form.length){
+                        //                $.when($.ajax({
+                        //                    url: _form.attr('action'),
+                        //                    method: 'POST'
+                        //                })).then(
+                        //                        function addSkuSuccess(data){
+                        //                            if(data == 1){
+                        //                                 return bootbox.alert({
+                        //                                size: 'small',
+                        //                                message: '添加成功'
+                        //                            }) ;
+                        //                            }else{
+                        //                               return bootbox.alert({
+                        //                                size: 'small',
+                        //                                message: '添加失败'
+                        //                            }) ;
+                        //                            }
+                        //                        }
+                        //                );
+                        //            }
+                        //        }
+                        //    }
+                        //}
                     });
                 },function(){
                     console.log('get form fail ');

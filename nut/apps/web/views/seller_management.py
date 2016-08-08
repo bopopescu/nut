@@ -349,22 +349,8 @@ class SKUCreateBoxView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView)
     model = SKU
     form_class = SKUForm
     template_name = 'management/sku/sku_add_template.html'
-
-    def post_ajax(self, request, *args, **kwargs):
-        _forms = SKUForm(request.POST)
-        if _forms.is_valid():
-            _forms.save()
-            return JSONResponse(
-                data={
-                    'status': 1
-                }
-            )
-        else:
-            return JSONResponse(
-                data={
-                    'status': 0
-                }
-            )
+    def get_success_url(self):
+        return reverse('sku_list_management', args=[self.entity_id])
     def get_context_data(self, **kwargs):
         context = super(SKUCreateBoxView,self).get_context_data(**kwargs)
         context['entity_id']=self.entity_id
