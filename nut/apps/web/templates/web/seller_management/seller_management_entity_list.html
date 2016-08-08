@@ -53,7 +53,7 @@
                 </a>
                 {{ entity.title }}
             </td>
-            <td>
+            <td class="sku-cell">
                  {% for sku in entity.sku_list %}
                     {% if sku.attrs_display %}
                         <div class="sku-item">
@@ -70,6 +70,7 @@
                     {% for sku in entity.sku_list %}
                         <div class="sku-item">
                           &yen;{{ sku.promo_price }}
+                         <i class="fa fa-pencil-square"></i>
                         </div>
                     {% endfor %}
 {#                </div>#}
@@ -91,7 +92,7 @@
                      </div>
                 {% endfor %}
             </td>
-            <td>
+            <td class="update-time-cell">
                 {{ entity.updated_time|date:'Y-m-d' }}
                 <br>
                 {{ entity.updated_time|date:'H:i:s' }}
