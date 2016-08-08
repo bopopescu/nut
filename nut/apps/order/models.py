@@ -1,5 +1,7 @@
 #encoding=utf-8
 import json
+
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from apps.order.manager import OrderManager
@@ -8,6 +10,7 @@ from apps.order.manager.cart import CartItemManager
 from apps.core.extend.fields.listfield import ListObjectField
 
 from apps.payment.alipay import AliPayPayment
+from apps.payment.weixinpay import WXPayment
 
 class SKU(models.Model):
     (disable, enable) =  (0, 1)
@@ -140,7 +143,15 @@ class Order(models.Model):
         return AliPayPayment(order=self,host=host).payment_url
 
     def generate_weixin_payment_url(self,host='http://www.guoku.com'):
-        return
+        return reverse('web_wx_payment_page', args=[self.id])
+
+
+
+    @property
+    def wx_payment_qrcode_url(self):
+        #todo : need cache qrcode , read wx api for payment timeout value
+        wxpay = WXPayment(self)
+        return wxpay.get_payment_qrcode_url()
 
     def set_paid(self):
         self.status = Order.paid
