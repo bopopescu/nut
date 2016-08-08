@@ -2,7 +2,7 @@
 {% load guoku %}
 
 <div class="modal-body" id="add_sku_form_wrapper">
-    <form class="form-horizontal" id="sku_add_form" enctype="multipart/form-data" action="{% url 'sku_add_box' entity_id %}" method="post">
+    <form class="form-horizontal" id="sku_form" enctype="multipart/form-data" action="{% url 'sku_add_box' entity_id %}" method="post">
         {% csrf_token %}
         {% for field in form %}
             <div class="form-group">
@@ -32,9 +32,9 @@
             </div>
         </div>
 
-{#        <div class="col-sm-10">#}
-{#            <button type="submit" class="btn btn-primary btn-lg save-sku"> 保存</button>#}
-{#        </div>#}
+
+            <button type="submit" class="btn newest-btn-primary"> 保存</button>
+
     </form>
 </div>
 
