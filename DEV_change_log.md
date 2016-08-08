@@ -1,3 +1,4 @@
+4. article mobile page bug(user link) fix 
 3. remove hot enity ajax loading and add cache 
 2. random recommend user 
 1. add auth_token function for rest-api
