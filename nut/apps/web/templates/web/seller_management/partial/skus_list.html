@@ -2,12 +2,6 @@
 
 <table class="new-table new-custom-table-bordered new-table-hover" >
     <thead>
-{#        <tr>#}
-{#            <td>#}
-{#                 <a class="btn btn-success" href="{% url 'add_sku_management' entity.id %}">添加</a>#}
-{#            </td>#}
-{##}
-{#        </tr>#}
         <tr>
             <th>
                 {% trans '属性' %}
@@ -18,25 +12,25 @@
             </th>
 
             <th>{% if sort_by == 'dstock' %}
-                    <a href="{% url  'sku_list_management' entity.id %}?sort_by=ustock">
+                    <a class="new-blue-link" href="{% url  'sku_list_management' entity.id %}?sort_by=ustock">
                 {% else %}
-                    <a href="{% url  'sku_list_management' entity.id %}?sort_by=dstock">
+                    <a class="new-blue-link" href="{% url  'sku_list_management' entity.id %}?sort_by=dstock">
                 {% endif %}
                     {% trans '库存' %}
-                {%  if sort_by == 'dstock' %}<i class="fa fa-arrow-circle-down"></i>
-                {% elif sort_by == 'ustock' %}<i class="fa fa-arrow-circle-up"></i>
+                {%  if sort_by == 'dstock' %}<i class="fa fa-arrow-down"></i>
+                {% elif sort_by == 'ustock' %}<i class="fa fa-arrow-up"></i>
                 {% endif %}</a>
             </th>
 
              <th>
                 {% if sort_by == 'dstatus' %}
-                    <a href="{% url  'sku_list_management' entity.id %}?sort_by=ustatus">
+                    <a class="new-blue-link" href="{% url  'sku_list_management' entity.id %}?sort_by=ustatus">
                 {% else %}
-                    <a href="{% url  'sku_list_management' entity.id %}?sort_by=dstatus">
+                    <a class="new-blue-link" href="{% url  'sku_list_management' entity.id %}?sort_by=dstatus">
                 {% endif %}
                     {% trans '激活' %}
-                {%  if sort_by == 'dstatus' %}<i class="fa fa-arrow-circle-down"></i>
-                {% elif sort_by == 'ustatus' %}<i class="fa fa-arrow-circle-up"></i>
+                {%  if sort_by == 'dstatus' %}<i class="fa fa-arrow-down"></i>
+                {% elif sort_by == 'ustatus' %}<i class="fa fa-arrow-up"></i>
                 {% endif %}</a>
             </th>
 
