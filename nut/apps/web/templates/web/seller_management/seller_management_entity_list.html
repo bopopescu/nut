@@ -19,26 +19,26 @@
         </th>
 
         <th>{% if sort_by == 'dstock' %}
-            <a href="{% url  'web_seller_management' %}?sort_by=ustock">
+            <a class="new-blue-link" href="{% url  'web_seller_management' %}?sort_by=ustock">
         {% else %}
-            <a href="{% url  'web_seller_management' %}?sort_by=dstock">
+            <a class="new-blue-link" href="{% url  'web_seller_management' %}?sort_by=dstock">
         {% endif %}
             {% trans '库存' %}
-            {%  if sort_by == 'dstock' %}<i class="fa fa-arrow-circle-down"></i>
-            {% elif sort_by == 'ustock' %}<i class="fa fa-arrow-circle-up"></i>
+            {%  if sort_by == 'dstock' %}<i class="fa fa-arrow-down"></i>
+            {% elif sort_by == 'ustock' %}<i class="fa fa-arrow-up"></i>
             {% endif %}
             </a>
 
         </th>
         <th class="update-time-cell">
             {% if sort_by == 'dupdated_time' %}
-            <a href="{% url  'web_seller_management' %}?sort_by=uupdated_time">
+            <a class="new-blue-link" href="{% url  'web_seller_management' %}?sort_by=uupdated_time">
         {% else %}
-            <a href="{% url  'web_seller_management' %}?sort_by=dupdated_time">
+            <a class="new-blue-link" href="{% url  'web_seller_management' %}?sort_by=dupdated_time">
         {% endif %}
             {% trans '最后修改时间' %}
-            {%  if sort_by == 'dupdated_time' %}<i class="fa fa-arrow-circle-down"></i>
-            {% elif sort_by == 'uupdated_time' %}<i class="fa fa-arrow-circle-up"></i>
+            {%  if sort_by == 'dupdated_time' %}<i class="fa fa-arrow-down"></i>
+            {% elif sort_by == 'uupdated_time' %}<i class="fa fa-arrow-up"></i>
             {% endif %}</a></th>
         <th class="operation-cell">
             {% trans '操作' %}
