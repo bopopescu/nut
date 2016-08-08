@@ -1430,6 +1430,15 @@ ol {
   background-color: #F5F8FF;
   border-bottom: 1px solid #e6e6e6;
 }
+.entity-search .guoku_search_input {
+  display: none;
+}
+.entity-search:hover {
+  cursor: pointer;
+}
+.entity-search:hover .guoku_search_input {
+  display: inline-block;
+}
 body.seller-management {
   color: #212121;
 }

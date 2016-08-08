@@ -89,6 +89,19 @@ ol{
   border-bottom: 1px solid @border-gray;
 }
 
+//search
+.entity-search{
+  .guoku_search_input{
+    display: none;
+  }
+  &:hover{
+    cursor: pointer;
+    .guoku_search_input{
+      display: inline-block;
+    }
+  }
+}
+
 body.seller-management{
   color:@common-text-color;
   .wrapper{
