@@ -1,5 +1,11 @@
 2. 
 1. hot article tags (not top article tags)
+ 
+See : 
+
+TagsManager.hot_article_tags()
+
+
 
 =======================
 # merged to master 2016 8-8
