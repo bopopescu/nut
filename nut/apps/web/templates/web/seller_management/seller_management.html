@@ -48,6 +48,7 @@
     <script src="{% static 'js/management/seller_management/sku_save.js' %}" type="application/javascript"></script>
 
     <script>
+{#    along write begin #}
     $("div.entity_price").hover(function(){
         if (!$(this).html().match("input")){
 {#            $(this).append("<div id='edit' onclick='changeContent()'><i class='fa fa-pencil-square'></i></div>");#}
@@ -93,6 +94,7 @@
     }
 
     </script>
+{#    along write end#}
 
 
 {% endblock %}
