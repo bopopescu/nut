@@ -25,7 +25,6 @@ var SKUAddManager = Class.extend({
                                     if (_form.length){
                                         $.when($.ajax({
                                             url: _form.attr('action'),
-                                            //data: _form.serialize(),
                                             method: 'POST'
                                         })).then(
                                                 function addSkuSuccess(data){
