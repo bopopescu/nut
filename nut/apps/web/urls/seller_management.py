@@ -3,7 +3,7 @@ from apps.web.views.seller_management import SKUListView,SKUCreateView,SKUDelete
                                              SellerManagementEntitySave,OrderDetailView,\
                                              SellerManagementOrders, SellerManagementSoldEntityList, \
                                              SellerManagementSkuSave, SellerManagementImportEntity,\
-                                             SKUStatusChangeView,SKUCreateBoxView
+                                             SKUStatusChangeView,SKUCreateBoxView, QrcodeListView
 from apps.web.views.seller_management import SellerManagement, SellerManagementAddEntity
 from django.conf.urls import url, patterns
 
@@ -11,6 +11,7 @@ from django.conf.urls import url, patterns
 urlpatterns = patterns(
     'apps.web.views.seller_management',
     url(r'^$', SellerManagement.as_view(), name='web_seller_management'),
+    url(r'^qrcode_list/$', QrcodeListView.as_view(), name='web_seller_management_qrcode_list'),
     url(r'^entity_list/$', SellerManagement.as_view()),
     url(r'^orders/$', SellerManagementOrders.as_view(), name='web_seller_management_order_list'),
     url(r'^sold_entity/$', SellerManagementSoldEntityList.as_view(), name='web_seller_management_sold_entity_list'),

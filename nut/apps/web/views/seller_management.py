@@ -110,6 +110,26 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
             pass
         return qs
 
+class QrcodeListView(IsAuthorizedSeller,  ListView):
+    http_method_names = ['get']
+    template_name = 'web/seller_management/qr_image.html'
+
+    def get(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        host = request.get_host()
+        for entity in self.object_list:
+            entity.title = entity.title[:15]
+            entity.qr_info = [entity.brand, entity.title, "", entity.price, host + entity.absolute_url]
+        return render_to_response(self.template_name, {'entities': self.object_list},
+                                  context_instance=RequestContext(request)
+                                  )
+
+    def get_queryset(self):
+        qs = self.request.user.entities.all()
+        return qs
+
+
+
 class IsAuthorizedSeller(UserPassesTestMixin):
     def test_func(self, user):
         return user.is_authorized_seller

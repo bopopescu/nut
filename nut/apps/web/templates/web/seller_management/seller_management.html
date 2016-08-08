@@ -9,12 +9,12 @@
                  添加商品
             </a>
             {% if current_url == '/seller_management/' %}
-                <a class="btn  seller-mng-btn" href="{{ current_url }}?print=true" target="_blank">
+                <a class="btn  seller-mng-btn" href="{% url 'web_seller_management_qrcode_list' %}" target="_blank">
                     <i class="fa fa-qrcode"></i>
                     {% trans '打印二维码' %}
                 </a>
             {% else %}
-                <a class="btn  seller-mng-btn" href="{{ current_url }}&print=true" target="_blank">
+                <a class="btn  seller-mng-btn" href="{% url 'web_seller_management_qrcode_list' %}" target="_blank">
                     <i class="fa fa-qrcode"></i>
                     {% trans '打印二维码' %}
                 </a>
