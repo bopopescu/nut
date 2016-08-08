@@ -19,6 +19,9 @@ var SKUManager = Class.extend({
                                size: 'small',
                                message: '删除成功'
                            }) ;
+
+                            window.setTimeout( function(){ bootbox.hideAll();}, 1000);
+                            window.location.reload();
                         });
 
                 }else{
@@ -28,8 +31,7 @@ var SKUManager = Class.extend({
 
         }
 
-    },
-
+    }
 });
 
 
