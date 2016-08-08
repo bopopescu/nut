@@ -30,7 +30,8 @@
             </a>
 
         </th>
-        <th>{% if sort_by == 'dupdated_time' %}
+        <th class="update-time-cell">
+            {% if sort_by == 'dupdated_time' %}
             <a href="{% url  'web_seller_management' %}?sort_by=uupdated_time">
         {% else %}
             <a href="{% url  'web_seller_management' %}?sort_by=dupdated_time">
@@ -39,7 +40,7 @@
             {%  if sort_by == 'dupdated_time' %}<i class="fa fa-arrow-circle-down"></i>
             {% elif sort_by == 'uupdated_time' %}<i class="fa fa-arrow-circle-up"></i>
             {% endif %}</a></th>
-        <th>
+        <th class="operation-cell">
             {% trans '操作' %}
         </th>
     </tr>

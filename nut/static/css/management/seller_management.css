@@ -1499,6 +1499,10 @@ body.seller-management .content {
 body.seller-management #seller_management_entity_price tr th.entity-search {
   width: 240px;
 }
+body.seller-management #seller_management_entity_price tr th.update-time-cell,
+body.seller-management #seller_management_entity_price tr th.operation-cell {
+  width: 150px;
+}
 body.seller-management #seller_management_entity_price tr td.entity-cell {
   text-align: left;
 }
