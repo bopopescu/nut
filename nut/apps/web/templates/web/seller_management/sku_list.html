@@ -24,7 +24,7 @@
         <div class="row" style="margin-top:32px;margin-bottom: 16px;">
             <div class="col-xs-12">
 {#                <a class="btn newest-btn-primary" href="{% url 'add_sku_management' entity.id %}">添加规格</a>#}
-                 <a id="add_sku_trigger" class="btn newest-btn-primary" data-url="{% url 'add_sku_management' entity.id %}">添加规格</a>
+                 <a id="add_sku_trigger" class="btn newest-btn-primary" data-url="{% url 'sku_add_box' entity.id %}">添加规格</a>
             </div>
         </div>
 
@@ -61,7 +61,7 @@
             }
             return cookieValue;
         }
-        ;
+
         var csrftoken = getCookie('csrftoken');
         function csrfSafeMethod(method) {
             // these HTTP methods do not require CSRF protection
@@ -93,14 +93,11 @@
             var sku_class = $(this).attr('class');
             if(sku_class === 'js-switch') {
                 var url = sku_id + '/sku_status/';
-                var result = $(this).prop('checked')
-                if(result == 'true'){
-                    result = 1
+                var status_val = 0;
+                if($(this).prop('checked')){
+                    status_val = 1
                 }
-                if(result == 'false'){
-                    result = 0
-                }
-                var data =  {id:sku_id ,status: result};
+                var data =  {id:sku_id ,status: status_val};
             }
 
             $.when($.ajax({
@@ -124,7 +121,7 @@
     <script>
     $('#add_sku_trigger').click(function(){
         var url = $(this).attr('data-url');
-
+{#        console.log('get add sku model url');#}
         $.when($.ajax({
             url: url,
             method: 'GET'
