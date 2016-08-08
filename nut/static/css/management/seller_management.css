@@ -1493,3 +1493,9 @@ body.seller-management .content-header {
 body.seller-management .content {
   padding: 16px 40px;
 }
+body.seller-management #seller_management_entity_price tr th.entity-search {
+  width: 240px;
+}
+body.seller-management #seller_management_entity_price tr td.entity-cell {
+  text-align: left;
+}

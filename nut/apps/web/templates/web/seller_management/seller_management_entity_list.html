@@ -47,7 +47,7 @@
     <tbody>
     {% for entity in object_list %}
         <tr>
-            <td>
+            <td class="entity-cell">
                 <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
                     <img src="{{ entity.chief_image|resize:'128' }}" width="54" height="54">
                 </a>
