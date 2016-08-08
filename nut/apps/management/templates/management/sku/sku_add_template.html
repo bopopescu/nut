@@ -2,7 +2,7 @@
 {% load guoku %}
 
 <div class="modal-body" id="add_sku_form_wrapper">
-    <form class="form-horizontal" id="sku_add_form" enctype="multipart/form-data" action="" method="post">
+    <form class="form-horizontal" id="sku_add_form" enctype="multipart/form-data" action="{% url 'sku_add_box' entity_id %}" method="post">
         {% csrf_token %}
         {% for field in form %}
             <div class="form-group">

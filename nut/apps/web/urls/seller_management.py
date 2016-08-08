@@ -3,7 +3,7 @@ from apps.web.views.seller_management import SKUListView,SKUCreateView,SKUDelete
                                              SellerManagementEntitySave,OrderDetailView,\
                                              SellerManagementOrders, SellerManagementSoldEntityList, \
                                              SellerManagementSkuSave, SellerManagementImportEntity,\
-                                             SKUStatusChangeView
+                                             SKUStatusChangeView,SKUCreateBoxView
 from apps.web.views.seller_management import SellerManagement, SellerManagementAddEntity
 from django.conf.urls import url, patterns
 
@@ -17,6 +17,7 @@ urlpatterns = patterns(
     url(r'^sku_save/$', SellerManagementSkuSave.as_view(), name='web_seller_management_sku_save'),
     url(r'^add_entity/$', SellerManagementAddEntity.as_view(), name='web_seller_management_entity_add'),
     url(r'^import_entity/$', SellerManagementImportEntity.as_view()),
+    url(r'^(?P<entity_id>\d+)/skus/box/$', SKUCreateBoxView.as_view(), name='sku_add_box'),
     url(r'^(?P<entity_id>\d+)/edit/$', 'seller_management_entity_edit', name='web_seller_management_entity_edit'),
     url(r'^(?P<entity_id>\d+)/save/$', SellerManagementEntitySave.as_view(), name='web_seller_management_entity_save'),
     url(r'^(?P<entity_id>\d+)/skus/$', SKUListView.as_view(), name='sku_list_management'),

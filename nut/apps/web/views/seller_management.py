@@ -18,6 +18,7 @@ from apps.core.models import SKU,Entity,Order
 from django.template import RequestContext
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView,DetailView, View
 from django.http import Http404
+from apps.core.utils.http import JSONResponse
 
 class SKUUserPassesTestMixin(UserPassesTestMixin):
     def test_func(self, user):
@@ -255,12 +256,8 @@ class SKUStatusChangeView(EntityUserPassesTestMixin, JSONResponseMixin, UpdateVi
     form_class = SwitchSkuStatusForm
     model = SKU
     pk_url_kwarg = 'sku_id'
-    def get(self):
-        pass
-    def post_ajax(self):
-        pass
+
     def form_invalid(self, form):
-        form.save()
         res = {'error':1}
         return self.render_json_response(res)
     def form_valid(self, form):
@@ -314,6 +311,25 @@ class SKUCreateView(EntityUserPassesTestMixin, CreateView):
     template_name = 'web/seller_management/add_sku.html'
     def get_success_url(self):
         return reverse('sku_list_management', args=[self.entity_id])
+    def get_context_data(self, **kwargs):
+        context = super(CreateView,self).get_context_data(**kwargs)
+        context['entity_id']=self.entity_id
+        return context
+    def get_initial(self):
+        return {
+            'entity':self.entity_id
+        }
+
+class SKUCreateBoxView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView):
+    model = SKU
+    form_class = SKUForm
+    template_name = 'management/sku/sku_add_template.html'
+    def post_ajax(self,request):
+        return JSONResponse(
+            data={
+                'status':1
+            },
+        )
     def get_context_data(self, **kwargs):
         context = super(CreateView,self).get_context_data(**kwargs)
         context['entity_id']=self.entity_id

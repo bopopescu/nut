@@ -10,6 +10,7 @@ class SwitchSkuStatusForm(ModelForm):
         model = SKU
         fields = ['status']
 
+
 class SKUForm(ModelForm):
 
     entity = CharField()
