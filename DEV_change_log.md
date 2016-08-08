@@ -1,3 +1,10 @@
+2. 
+1. hot article tags (not top article tags)
+
+=======================
+# merged to master 2016 8-8
+=======================
+
 4. article mobile page bug(user link) fix 
 3. remove hot enity ajax loading and add cache 
 2. random recommend user 
