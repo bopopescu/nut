@@ -222,19 +222,24 @@ def seller_management_entity_edit(request, entity_id, template='web/seller_manag
 
 class SellerManagementEntitySave(JSONResponseMixin, AjaxResponseMixin, View):
     model = Entity
-    def save_update(self,entity_id, price):
-        entity = Entity.objects.get(id=entity_id)
-        entity.price = price
-        entity.save()
+    def save_update(self,sku_id, price, stock):
+        sku_id = int(json.loads(sku_id))
+        sku = SKU.objects.get(id=sku_id)
+        if price:
+            price = float(json.loads(price))
+            sku.promo_price = price
+        if stock:
+            stock = int(json.loads(stock))
+            sku.stock = stock
+        sku.save()
         return
 
     def post_ajax(self, request, *args, **kwargs):
         price = request.POST.get('price', None)
-        entity_id = request.POST.get('entity_id', None)
-        price = float(json.loads(price))
-        entity_id = int(json.loads(entity_id))
+        stock = request.POST.get('stock')
+        sku_id = request.POST.get('sku_id', None)
         try:
-            self.save_update(entity_id, price)
+            self.save_update(sku_id, price, stock)
             return self.render_json_response({'status': '1'}, 200)
         except:
             return self.render_json_response({'status': '-1'}, 404)
@@ -324,22 +329,22 @@ class SKUCreateBoxView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView)
     model = SKU
     form_class = SKUForm
     template_name = 'management/sku/sku_add_template.html'
-    def post_ajax(self,request,*args,**kwargs):
+
+    def post_ajax(self, request, *args, **kwargs):
         _forms = SKUForm(request.POST)
         if _forms.is_valid():
             _forms.save()
             return JSONResponse(
                 data={
-                    'status':1
+                    'status': 1
                 }
             )
         else:
             return JSONResponse(
                 data={
-                    'status':0
+                    'status': 0
                 }
             )
-
     def get_context_data(self, **kwargs):
         context = super(SKUCreateBoxView,self).get_context_data(**kwargs)
         context['entity_id']=self.entity_id
