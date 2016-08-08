@@ -29,7 +29,6 @@ class Article(db.Model):
     def __repr__(self):
         return "<Article %r>" % self.title
 
-
     @property
     def strip_content(self):
         html_string = self.content.strip()
