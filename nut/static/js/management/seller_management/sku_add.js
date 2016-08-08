@@ -18,7 +18,7 @@ var SKUAddManager = Class.extend({
                         message: html,
                         buttons: {
                             success:{
-                                label:'发送',
+                                label:'保存',
                                 className:'btn newest-btn-primary',
                                 callback: function(){
                                     var _form = $('#sku_add_form');
