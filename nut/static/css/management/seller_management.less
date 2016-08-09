@@ -3,8 +3,12 @@
 @import '../lib/component.less';
 @import '../lib/widgets.less';
 
-ol{
+ol,ul{
   -webkit-padding-start: 0;
+}
+
+ul{
+  list-style:none;
 }
 
 @light-blue-bg:#F5F8FF;
@@ -52,6 +56,13 @@ ol{
     thead tr th,tbody tr td{
       text-align: center;
       vertical-align: middle;
+    }
+    tr.order-cell-header{
+      background-color: @light-blue-bg;
+      td{
+        text-align: left;
+        padding:15px 12px;
+      }
     }
 }
 .new-table-hover{

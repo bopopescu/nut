@@ -1,77 +1,80 @@
 {% load i18n %}
 {% load guoku %}
 {% load static %}
-                <div class="box-header">
-                                    <input class="guoku_search_input" data-search-field="number" type="text" value="订单号搜索:">
-                                    <span class="dropdown-toggle category-action">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                           aria-haspopup="false" role="button" aria-expanded="false">
-                                            {% if status == None %}
-                                                全部
-                                            {% elif status == 'all' %}
-                                                全部
-                                            {% elif status == "waiting_for_payment" %}
-                                            待付款
-                                            {% elif status == "paid" %}
-                                            已完成
-                                            {% endif %}
-                                            <span class="caret"></span>
-                                        </a>
-                                        <ul  id="sort_dropdown" class="dropdown-menu dropdown-menu-control" role="menu"  >
-                                            <li ><a href="{{ current_path }}?status=all">全部</a></li>
-                                            <li  class="divider"></li>
-                                            <li ><a href="{{ current_path }}?status=waiting_for_payment">待付款</a></li>
-                                            <li  class="divider"></li>
-                                            <li ><a href="{{ current_path }}?status=paid">已完成</a></li>
-                                        </ul>
-                                    </span>
-                </div>
-            <table class="table table-bordered table-hover">
+
+            <table class="new-table new-table-bordered new-table-hover">
                 <thead>
                     <tr>
                         <th>
-                            {% if sort_by == 'dnumber' %}
-                                <a href="{% url  'web_seller_management_order_list' %}?sort_by=unumber">
-                            {% else %}
-                                <a href="{% url  'web_seller_management_order_list' %}?sort_by=dnumber">
-                            {% endif %}
-                                {% trans '订单号' %}
-                            {%  if sort_by == 'dnumber' %}<i class="fa fa-arrow-circle-down"></i>
-                            {% elif sort_by == 'unumber' %}<i class="fa fa-arrow-circle-up"></i>
-                            {% endif %}</a>
-                            </th>
+{#                            {% if sort_by == 'dnumber' %}#}
+{#                                <a href="{% url  'web_seller_management_order_list' %}?sort_by=unumber">#}
+{#                            {% else %}#}
+{#                                <a href="{% url  'web_seller_management_order_list' %}?sort_by=dnumber">#}
+{#                            {% endif %}#}
+{#                                {% trans '订单号' %}#}
+{#                            {%  if sort_by == 'dnumber' %}<i class="fa fa-arrow-circle-down"></i>#}
+{#                            {% elif sort_by == 'unumber' %}<i class="fa fa-arrow-circle-up"></i>#}
+{#                            {% endif %}</a>#}
+                            {% trans 'entity' %}
+                        </th>
 {#                        <th>#}
 {#                        <a href="{% url  'web_seller_management_order_list' %}?sort_by=status">#}
 {#                            {% trans 'status' %}#}
 {#                        {%  if sort_by == 'status' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}</a></th>#}
                         <th>
-                            {% if sort_by == 'dprice' %}
-                                <a href="{% url  'web_seller_management_order_list' %}?sort_by=uprice">
-                            {% else %}
-                                <a href="{% url  'web_seller_management_order_list' %}?sort_by=dprice">
-                            {% endif %}
-                                {% trans 'price' %}
-                            {%  if sort_by == 'dprice' %}<i class="fa fa-arrow-circle-down"></i>
-                            {% elif sort_by == 'uprice' %}<i class="fa fa-arrow-circle-up"></i>
-                            {% endif %}</a></th>
-                        <th>{% trans '商品概要' %}</th>
-
-                        <th>{% trans '订单详情' %}
+{#                            {% if sort_by == 'dprice' %}#}
+{#                                <a href="{% url  'web_seller_management_order_list' %}?sort_by=uprice">#}
+{#                            {% else %}#}
+{#                                <a href="{% url  'web_seller_management_order_list' %}?sort_by=dprice">#}
+{#                            {% endif %}#}
+{#                                {% trans 'price' %}#}
+{#                            {%  if sort_by == 'dprice' %}<i class="fa fa-arrow-circle-down"></i>#}
+{#                            {% elif sort_by == 'uprice' %}<i class="fa fa-arrow-circle-up"></i>#}
+{#                            {% endif %}</a>#}
+                            {% trans '单价' %}
+                        </th>
+                        <th>
+                            {% trans '数量' %}
+                        </th>
+                        <th>
+                            {% trans '实收款' %}
+                        </th>
+                         <th>
+                            {% trans '交易状态' %}
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for order in object_list %}
+                        <tr class="order-cell-header">
+                          <td colspan="5">
+                              订单号:{{ order.number }} &nbsp;&nbsp;创建时间:here need time
+                          </td>
+                        </tr>
                         <tr>
                             <td>
-                                {{ order.number }}</td>
-{#                            <td>{{ order.get_status_display }}</td>#}
-                            <td>{{ order.order_total_value }}</td>
-                            <td>{% for sku in order.skus %}{{ sku.entity|truncatechars:12 }}  {{ sku.attrs_display }}<br>{% endfor %}</td>
+                                <img src="" width="54" height="54">
+                                <div>need entity name</div>
+                                <div>need entity sku</div>
+                            </td>
+                            <td>
+                                <div class="original-price">
+                                    &yen;{{ order.grand_total_price }}
+                                </div>
+                                <div>
+                                    &yen;{{ order.promo_total_price }}
+                                </div>
+                            </td>
+                            <td>
+                                 need count here
+                            </td>
+                            <td>
+                                &yen;{{ order.order_total_value }}
+                            </td>
                             <td>
                                 <div class="btn-group">
-                                    状态: {{ order.get_status_display }}<br>
-                                    <a class="btn btn-primary" href="{% url 'order_detail_management' order.id %}" target="_blank">{% trans '订单详情' %}</a>
+                                    {{ order.get_status_display }}<br>
+                                    <a class="new-blue-link" href="{% url 'order_detail_management' order.id %}" target="_blank">{% trans '查看详情' %}</a>
                                 </div>
                             </td>
                         </tr>

@@ -1362,8 +1362,12 @@ a.new-black-link:hover {
   left: 0;
   background-color: rgba(0, 0, 0, 0.2);
 }
-ol {
+ol,
+ul {
   -webkit-padding-start: 0;
+}
+ul {
+  list-style: none;
 }
 .seller-mng-btn {
   color: #212121;
@@ -1401,6 +1405,13 @@ ol {
 .new-table tbody tr td {
   text-align: center;
   vertical-align: middle;
+}
+.new-table tr.order-cell-header {
+  background-color: #F5F8FF;
+}
+.new-table tr.order-cell-header td {
+  text-align: left;
+  padding: 15px 12px;
 }
 .new-table-hover tbody tr:hover {
   background-color: #F8F8F8;
