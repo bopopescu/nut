@@ -3,15 +3,11 @@
 {% load staticfiles i18n %}
 {% block content %}
     <section class="content-header">
-        <h1>
-            {% trans 'entity' %}
-            <a href="{% url 'web_seller_management_entity_add' %}"><i class="fa fa-plus" style="font-size:18px;"></i></a>
-        </h1>
-
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard">{% trans "home" %}</i></a></li>
-            <li >{% trans 'order' %}</li></ol>
-
+        <ol class="new-breadcrumb">
+            <li><a href="{% url 'web_seller_management' %}">{% trans '卖家中心' %}</a></li>
+            <li><a href="{% url 'web_seller_management_order_list' %}">{% trans 'order' %}</a></li>
+            <li><a >{% trans '订单详情' %}</a></li>
+        </ol>
     </section>
 
     <section class="content">
@@ -44,7 +40,7 @@
     <script src="{% static 'js/management/util.js' %}"></script>
     <script src="{% static 'js/management/moment.js' %}"></script>
 
-     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
+{#     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>#}
     <script src="{% static 'js/management/manage_search.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/seller_management/entity_save.js' %}" type="application/javascript"></script>
 {% endblock %}
