@@ -58,10 +58,15 @@
                                 <div>need entity sku</div>
                             </td>
                             <td>
-                                need single price
+                                <div class="original-price">
+                                    &yen;{{ order.grand_total_price }}
+                                </div>
+                                <div>
+                                    &yen;{{ order.promo_total_price }}
+                                </div>
                             </td>
                             <td>
-                                need count
+                                 {{ order.volume }}
                             </td>
                             <td>
                                 &yen;{{ order.order_total_value }}
