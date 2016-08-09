@@ -5,31 +5,32 @@
                 <thead>
                     <tr>
                         <th>
-                            {% trans '名称' %}
-                        <input class="guoku_search_input" data-search-field="title" type="text" ></th>
-                        <th>
-                            {% trans 'image' %}
+                            {% trans 'entity' %}
+                        <input class="guoku_search_input" data-search-field="title" type="text" >
                         </th>
-                        <th>SKU</th>
+
+                        <th>
+                            SKU属性
+                        </th>
                         <th>
                             {% if sort_by == 'dsold_count' %}
-                                <a href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=usold_count">
+                                <a class="new-blue-link" href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=usold_count">
                             {% else %}
-                                <a href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=dsold_count">
+                                <a class="new-blue-link" href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=dsold_count">
                             {% endif %}
                                 {% trans '售出数量' %}
-                            {%  if sort_by == 'dsold_count' %}<i class="fa fa-arrow-circle-down"></i>
-                            {% elif sort_by == 'usold_count' %}<i class="fa fa-arrow-circle-up"></i>
+                            {%  if sort_by == 'dsold_count' %}<i class="fa fa-arrow-down"></i>
+                            {% elif sort_by == 'usold_count' %}<i class="fa fa-arrow-up"></i>
                             {% endif %}</a>
                         </th>
                         <th>{% if sort_by == 'dstock' %}
-                                <a href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=ustock">
+                                <a class="new-blue-link" href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=ustock">
                             {% else %}
-                                <a href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=dstock">
+                                <a class="new-blue-link" href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=dstock">
                             {% endif %}
                                 {% trans '库存数量' %}
-                            {%  if sort_by == 'dstock' %}<i class="fa fa-arrow-circle-down"></i>
-                            {% elif sort_by == 'ustock' %}<i class="fa fa-arrow-circle-up"></i>
+                            {%  if sort_by == 'dstock' %}<i class="fa fa-arrow-down"></i>
+                            {% elif sort_by == 'ustock' %}<i class="fa fa-arrow-up"></i>
                             {% endif %}</a>
                         </th>
                     </tr>
@@ -38,15 +39,21 @@
                     {% for sku in object_list %}
                         <tr>
                             <td>
-                                {{ sku.title }}</td>
-{#                            <td>{{ entity.chief_image }}</td>#}
-                        <td class="product-thumb-img">
-                            <a href="{% url 'web_entity_detail' sku.entity.entity_hash %}" target="_blank">
-                                <img class="img-thumbnail img-responsive" src="{{ sku.entity.chief_image|resize:'128' }}" width="128" height="128">
-                            </a>
-                        </td>
-                            <td> {% if sku.attrs_display %}{{ sku.attrs_display }}<br>{% else %}缺省SKU{% endif %}</td>
-                            <td>{{ sku.sold_count }}</td>
+                                <a href="{% url 'web_entity_detail' sku.entity.entity_hash %}" target="_blank">
+                                <img src="{{ sku.entity.chief_image|resize:'128' }}" width="54px" height="54px">
+                                </a>
+                                {{ sku.title }}
+                            </td>
+                            <td>
+                                {% if sku.attrs_display %}
+                                    {{ sku.attrs_display }}
+                                {% else %}
+                                    缺省SKU
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ sku.sold_count }}
+                            </td>
                             <td>
                                 {{ sku.stock }}
                             </td>
