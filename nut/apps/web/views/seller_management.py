@@ -418,6 +418,7 @@ class OrderDetailView(UserPassesTestMixin,DetailView):
         context['order_number']=self.order_number
         context['promo_total_price']=context['order'].promo_total_price
         context['origin_total_price']=context['order'].grand_total_price
+        context['count']=context['order'].items.all().count()
         return context
 
 
@@ -471,6 +472,7 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
         for order in context['object_list']:
             order_items = order.items.all()
             order.skus = [order_item.sku for order_item in order_items]
+            order.count=order.items.all().count()
         return context
 
 class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):

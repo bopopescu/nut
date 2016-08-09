@@ -32,29 +32,29 @@
                     </td>
                 </tr>
 
-                    {% for order in order_item %}
+                    {% for item in order_item %}
                         <tr>
                             <td>
                                 <div>
-                                    <img src = {{ order.sku.entity.chief_image|resize:'128' }} width="54px" height="54px">
+                                    <img src = {{ item.sku.entity.chief_image|resize:'128' }} width="54px" height="54px">
                                 </div>
                                 <div>
-                                    {{ order.title }}
+                                    {{ item.title }}
                                 </div>
                                 <div>
-                                     {{ order.sku.attrs_display }}
+                                     {{ item.sku.attrs_display }}
                                 </div>
                             </td>
                             <td>
                                 <div class="original-price">
-                                    &yen;{{ order.grand_total_price }}
+                                    &yen;{{ item.grand_total_price }}
                                 </div>
                                 <div>
-                                    &yen;{{ order.promo_total_price }}
+                                    &yen;{{ item.promo_total_price }}
                                 </div>
                             </td>
                             <td>
-                               need count here
+                               {{ item.volume }}
                             </td>
                         </tr>
                     {% endfor %}
