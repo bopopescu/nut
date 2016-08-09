@@ -10,8 +10,8 @@ var SKUAddManager = Class.extend({
             var url = $(this).attr('data-url');
             console.log('get add sku model url');
             $.when($.ajax({
-            url: url,
-            method: 'GET'
+                url: url,
+                method: 'GET'
             })).then(
                 function(html){
                     //will return a  rendered template
@@ -22,29 +22,29 @@ var SKUAddManager = Class.extend({
                         //    success:{
                         //        label:'发送',
                         //        className:'btn newest-btn-primary',
-                                //callback: function(){
-                                //    var _form = $('#sku_add_form');
-                                //    if (_form.length){
-                                //        $.when($.ajax({
-                                //            url: _form.attr('action'),
-                                //            method: 'POST'
-                                //        })).then(
-                                //                function addSkuSuccess(data){
-                                //                    if(data){
-                                //                         return bootbox.alert({
-                                //                        size: 'small',
-                                //                        message: '添加成功'
-                                //                    }) ;
-                                //                    }else{
-                                //                       return bootbox.alert({
-                                //                        size: 'small',
-                                //                        message: '添加失败'
-                                //                    }) ;
-                                //                    }
-                                //                }
-                                //        );
-                                //    }
-                                //}
+                        //callback: function(){
+                        //    var _form = $('#sku_add_form');
+                        //    if (_form.length){
+                        //        $.when($.ajax({
+                        //            url: _form.attr('action'),
+                        //            method: 'POST'
+                        //        })).then(
+                        //                function addSkuSuccess(data){
+                        //                    if(data){
+                        //                         return bootbox.alert({
+                        //                        size: 'small',
+                        //                        message: '添加成功'
+                        //                    }) ;
+                        //                    }else{
+                        //                       return bootbox.alert({
+                        //                        size: 'small',
+                        //                        message: '添加失败'
+                        //                    }) ;
+                        //                    }
+                        //                }
+                        //        );
+                        //    }
+                        //}
                         //    }
                         //}
                     });
@@ -53,30 +53,43 @@ var SKUAddManager = Class.extend({
                 },function(){
                     console.log('get form fail ');
                 });
-    });
+        });
     },
+    post_add_sku: function(){
+        var that = this;
+        var _form = $('#sku_form');
+        _form.onsubmit=function(){return false;}
+
+        $.when($.ajax({
+            url: _form.attr('action'),
+            method: 'POST'
+        })).then(
+            that.post_add_sku_success.bind(this)
+            ,
+            that.post_add_sku_fail.bind(this)
+
+        );
+    },
+    post_add_sku_success: function addSkuSuccess(data){
+        if(data){
+            return bootbox.alert({
+                size: 'small',
+                message: '添加成功'
+            }) ;
+        }else{
+            return bootbox.alert({
+                size: 'small',
+                message: '添加失败'
+            }) ;
+        }
+    },
+    post_add_sku_fail:function(data){
+        console.log('post add sku fail');
+    },
+
+
     initSaveSku:function(){
-        $('.sku-save').click(function(){
-             var _form = $('#sku_add_form');
-            $.when($.ajax({
-                url: _form.attr('action'),
-                method: 'POST'
-            })).then(
-                function addSkuSuccess(data){
-                    if(data){
-                        return bootbox.alert({
-                            size: 'small',
-                            message: '添加成功'
-                        }) ;
-                    }else{
-                        return bootbox.alert({
-                            size: 'small',
-                            message: '添加失败'
-                        }) ;
-                    }
-                }
-            );
-        })
+        $('.sku-save').click(this.post_add_sku.bind(this));
     }
 
 });
@@ -84,6 +97,6 @@ var SKUAddManager = Class.extend({
 
 (function($, window, document){
     $(function(){
-         var sku_manager = new SKUAddManager();
+        var sku_manager = new SKUAddManager();
     });
 })(jQuery, window, document);
