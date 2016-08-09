@@ -30,7 +30,7 @@ var SKUAddManager = Class.extend({
                                 //            method: 'POST'
                                 //        })).then(
                                 //                function addSkuSuccess(data){
-                                //                    if(data == 1){
+                                //                    if(data){
                                 //                         return bootbox.alert({
                                 //                        size: 'small',
                                 //                        message: '添加成功'
@@ -63,8 +63,7 @@ var SKUAddManager = Class.extend({
                 method: 'POST'
             })).then(
                 function addSkuSuccess(data){
-                    console.log('data:'+data);
-                    if(data === 1){
+                    if(data){
                         return bootbox.alert({
                             size: 'small',
                             message: '添加成功'
