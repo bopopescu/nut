@@ -13,18 +13,11 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                <div class="box box-info">
-                    <div class="box-header">
-                    </div>
-                    <div class="box-body table-responsive">
+                <div class="new-box">
+                    <div class="new-box-body">
                         {% include 'web/seller_management/order_detail_table.html' %}
                     </div>
 
-
-                    </br>
-                    <div style="float:right">
-                        <a class="btn btn-success" href="{% url 'web_seller_management_order_list' %}">返回</a>
-                    </div>
                     <div class="box-footer">
                         {% include "management/paginator.html" with objects=page_obj url=request.path %}
                     </div>
