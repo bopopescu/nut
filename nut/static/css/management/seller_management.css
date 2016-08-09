@@ -1447,6 +1447,14 @@ ul {
 .sku-item i {
   color: #BDBDBD;
 }
+.entity-container .entity-wrapper {
+  width: 54px;
+  float: left;
+}
+.entity-container .entity-info-wrapper {
+  margin-left: 66px;
+  max-width: 200px;
+}
 .entity-search {
   width: 240px;
 }
