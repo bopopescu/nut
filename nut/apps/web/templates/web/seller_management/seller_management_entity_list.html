@@ -84,20 +84,6 @@
                     </tbody>
                 </table>
             </td>
-{#            <td class="price-wrapper">#}
-{#                {% for sku in entity.sku_list %}#}
-{#                    <div class="sku-item entity_price" id="{{ entity.id }}" data-sku-id="{{ sku.id }}">#}
-{#                        &yen;{{ sku.promo_price }}#}
-{#                    </div>#}
-{#                {% endfor %}#}
-{#            </td>#}
-{#            <td>#}
-{#                {% for sku in entity.sku_list %}#}
-{#                     <div class="sku-item entity-stock" id="{{ entity.id }}" data-sku-id="{{ sku.id }}">#}
-{#                          {{ sku.stock }}#}
-{#                     </div>#}
-{#                {% endfor %}#}
-{#            </td>#}
             <td class="update-time-cell">
                 {{ entity.updated_time|date:'Y-m-d' }}
                 <br>
