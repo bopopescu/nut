@@ -5,6 +5,14 @@ See :
 
 TagsManager.hot_article_tags()
 
+Action : 
+    1. syncdb 
+    2. if you already have order_*** table created 
+       run following 
+       
+        ALTER TABLE `core`.`order_order` 
+        ADD COLUMN `created_datetime` DATETIME NOT NULL AFTER `shipping_to_id`,
+        ADD COLUMN `updated_datetime` DATETIME NOT NULL AFTER `created_datetime`;
 
 
 =======================
