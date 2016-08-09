@@ -54,35 +54,33 @@
                 </a>
                 {{ entity.title }}
             </td>
-            <td class="sku-cell no-padding-cell" colspan="3">
+            <td class="sku-cell">
+                 {% for sku in entity.sku_list %}
+                    {% if sku.attrs_display %}
+                        <div class="sku-item">
+                         {{ sku.attrs_display }}
+                        </div>
+                    {% else %}
+                        <div class="sku-item">
+                        默认
+                        </div>
+                    {% endif %}
+                {% endfor %}
 
-                <table class="entity-sku-custom-table">
-                    <tbody>
-                    {% for sku in entity.sku_list %}
-                        <tr>
-                            <td>
-                                {% if sku.attrs_display %}
-                                    <div class="sku-item">
-                                        {{ sku.attrs_display }}
-                                    </div>
-                                {% else %}
-                                    默认
-                                {% endif %}
-                            </td>
-                            <td class="price-wrapper">
-                                <div class="sku-item entity_price" id="{{ entity.id }}" data-sku-id="{{ sku.id }}">
-                                    &yen;{{ sku.promo_price }}
-                                </div>
-                            </td>
-                            <td>
-                                <div class="sku-item entity-stock" id="{{ entity.id }}" data-sku-id="{{ sku.id }}">
-                                    {{ sku.stock }}
-                                </div>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+            </td>
+            <td class="price-wrapper">
+                {% for sku in entity.sku_list %}
+                    <div class="sku-item entity_price" id="{{ entity.id }}" data-sku-id="{{ sku.id }}">
+                        &yen;{{ sku.promo_price }}
+                    </div>
+                {% endfor %}
+            </td>
+            <td>
+                {% for sku in entity.sku_list %}
+                     <div class="sku-item entity-stock" id="{{ entity.id }}" data-sku-id="{{ sku.id }}">
+                          {{ sku.stock }}
+                     </div>
+                {% endfor %}
             </td>
             <td class="update-time-cell">
                 {{ entity.updated_time|date:'Y-m-d' }}
