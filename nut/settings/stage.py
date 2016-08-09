@@ -177,6 +177,9 @@ HAYSTACK_CONNECTIONS = {
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
 
+SITE_HOST="http://test.guoku.com"
+
+
 # ANT_SIMULATE_MOBILE = True
 
 __author__ = 'edison7500'
