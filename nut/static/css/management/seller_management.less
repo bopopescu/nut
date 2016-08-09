@@ -132,6 +132,45 @@ ul{
   }
 }
 
+.order-search-wrapper{
+  position:relative;
+  display: inline-block;
+  input.guoku_search_input{
+    padding-left:12px;
+    width: 400px;
+    height:50px;
+    line-height: 50px;
+    background-color:@hover-dark-gray;
+    color:@new-text-gray;
+    border:none;
+    outline: none;
+  }
+  i{
+    position: absolute;
+    top:17px;
+    right:22px;
+  }
+}
+
+.order-status-dropdown-wrapper{
+  position:relative;
+  ul.order-status-dropdown-menu{
+    top:30px;
+    li{
+      text-align: center;
+      a{
+        color:@common-text-color;
+         &:hover{
+        background-color: @very-light-gray;
+         }
+      }
+    }
+  }
+  a{
+    color:@common-text-color;
+  }
+}
+
 body.seller-management{
   color:@common-text-color;
   .wrapper{

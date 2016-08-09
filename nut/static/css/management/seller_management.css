@@ -1467,6 +1467,43 @@ ul {
 .entity-search:hover .guoku_search_input {
   display: inline-block;
 }
+.order-search-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.order-search-wrapper input.guoku_search_input {
+  padding-left: 12px;
+  width: 400px;
+  height: 50px;
+  line-height: 50px;
+  background-color: #f1f1f1;
+  color: #757575;
+  border: none;
+  outline: none;
+}
+.order-search-wrapper i {
+  position: absolute;
+  top: 17px;
+  right: 22px;
+}
+.order-status-dropdown-wrapper {
+  position: relative;
+}
+.order-status-dropdown-wrapper ul.order-status-dropdown-menu {
+  top: 30px;
+}
+.order-status-dropdown-wrapper ul.order-status-dropdown-menu li {
+  text-align: center;
+}
+.order-status-dropdown-wrapper ul.order-status-dropdown-menu li a {
+  color: #212121;
+}
+.order-status-dropdown-wrapper ul.order-status-dropdown-menu li a:hover {
+  background-color: #F8F8F8;
+}
+.order-status-dropdown-wrapper a {
+  color: #212121;
+}
 body.seller-management {
   color: #212121;
 }
