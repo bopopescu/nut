@@ -6,31 +6,9 @@
                 <thead>
                     <tr>
                         <th>
-{#                            {% if sort_by == 'dnumber' %}#}
-{#                                <a href="{% url  'web_seller_management_order_list' %}?sort_by=unumber">#}
-{#                            {% else %}#}
-{#                                <a href="{% url  'web_seller_management_order_list' %}?sort_by=dnumber">#}
-{#                            {% endif %}#}
-{#                                {% trans '订单号' %}#}
-{#                            {%  if sort_by == 'dnumber' %}<i class="fa fa-arrow-circle-down"></i>#}
-{#                            {% elif sort_by == 'unumber' %}<i class="fa fa-arrow-circle-up"></i>#}
-{#                            {% endif %}</a>#}
                             {% trans 'entity' %}
                         </th>
-{#                        <th>#}
-{#                        <a href="{% url  'web_seller_management_order_list' %}?sort_by=status">#}
-{#                            {% trans 'status' %}#}
-{#                        {%  if sort_by == 'status' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}</a></th>#}
                         <th>
-{#                            {% if sort_by == 'dprice' %}#}
-{#                                <a href="{% url  'web_seller_management_order_list' %}?sort_by=uprice">#}
-{#                            {% else %}#}
-{#                                <a href="{% url  'web_seller_management_order_list' %}?sort_by=dprice">#}
-{#                            {% endif %}#}
-{#                                {% trans 'price' %}#}
-{#                            {%  if sort_by == 'dprice' %}<i class="fa fa-arrow-circle-down"></i>#}
-{#                            {% elif sort_by == 'uprice' %}<i class="fa fa-arrow-circle-up"></i>#}
-{#                            {% endif %}</a>#}
                             {% trans '单价' %}
                         </th>
                         <th>

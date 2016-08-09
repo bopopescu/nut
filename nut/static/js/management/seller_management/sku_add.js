@@ -48,6 +48,7 @@ var SKUAddManager = Class.extend({
                         //    }
                         //}
                     });
+                    //成功渲染弹框之后再初始化保存按钮
                     that.initSaveSku();
                 },function(){
                     console.log('get form fail ');
@@ -56,7 +57,6 @@ var SKUAddManager = Class.extend({
     },
     initSaveSku:function(){
         $('.sku-save').click(function(){
-            alert('click');
              var _form = $('#sku_add_form');
             $.when($.ajax({
                 url: _form.attr('action'),
