@@ -4,11 +4,12 @@
             <table class="new-table new-custom-table-bordered new-table-hover">
                 <thead>
                     <tr>
-                        <th>
+                        <th class="entity-search">
                             {% trans 'entity' %}
-                        <input class="guoku_search_input" data-search-field="title" type="text" >
+                           <input class="guoku_search_input" data-search-field="title" type="text" >
+                            <i class="fa fa-search">
+                            </i>
                         </th>
-
                         <th>
                             SKU属性
                         </th>
@@ -38,7 +39,7 @@
                 <tbody>
                     {% for sku in object_list %}
                         <tr>
-                            <td>
+                            <td class="entity-cell">
                                 <a href="{% url 'web_entity_detail' sku.entity.entity_hash %}" target="_blank">
                                 <img src="{{ sku.entity.chief_image|resize:'128' }}" width="54px" height="54px">
                                 </a>

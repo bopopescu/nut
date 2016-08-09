@@ -1406,6 +1406,9 @@ ul {
   text-align: center;
   vertical-align: middle;
 }
+.new-table tr td.entity-cell {
+  text-align: left;
+}
 .new-table tr.order-cell-header {
   background-color: #F5F8FF;
 }
@@ -1443,6 +1446,9 @@ ul {
 }
 .sku-item i {
   color: #BDBDBD;
+}
+.entity-search {
+  width: 240px;
 }
 .entity-search .guoku_search_input {
   display: none;
