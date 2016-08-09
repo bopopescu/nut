@@ -7,6 +7,8 @@ TagsManager.hot_article_tags()
 
 Action : 
     1. syncdb 
+    
+    --- only run this if you already synced order models -----
     2. if you already have order_*** table created 
        run following 
        
