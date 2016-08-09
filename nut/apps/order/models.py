@@ -136,6 +136,8 @@ class Order(models.Model):
     number = models.CharField(max_length=128, db_index=True, unique=True)
     status = models.IntegerField(choices=ORDER_STATUS_CHOICE, default=address_unbind)
     shipping_to  = models.ForeignKey(ShippingAddress, null=True, blank=True)
+    Created_datetime = models.DateTimeField(auto_created=True)
+    Updated_datetime = models.DateTimeField(auto_now_add=True)
 
     objects = OrderManager()
 
