@@ -4,8 +4,8 @@
 {% block content %}
     <section class="content-header">
         <ol class="new-breadcrumb">
-            <li><a href="{% url 'web_seller_management' %}">{% trans '卖家中心' %}</a></li>
-            <li><a href="{% url 'web_seller_management_order_list' %}">{% trans 'order' %}</a></li>
+            <li><a href="{% url 'web_seller_management' %}" class="new-blue-link">{% trans '卖家中心' %}</a></li>
+            <li><a href="{% url 'web_seller_management_order_list' %}" class="new-blue-link">{% trans 'order' %}</a></li>
             <li><a >{% trans '订单详情' %}</a></li>
         </ol>
     </section>
@@ -38,6 +38,11 @@
                     </li>
                     <li>
                         交易号:
+                    </li>
+                    <li>
+                        <a href="{% url 'web_seller_management_order_list' %}" class="new-blue-link">
+                            <i class="fa fa-caret-left"></i>&nbsp;&nbsp;返回
+                        </a>
                     </li>
                 </ul>
             </div>
