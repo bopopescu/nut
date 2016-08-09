@@ -51,7 +51,68 @@
                               订单号:{{ order.number }} &nbsp;&nbsp;创建时间:here need time
                           </td>
                         </tr>
-                        <tr>
+                        {% if order.count = 1 %}
+                             <tr>
+                                 {% for item in order.items.all %}
+                                 <td>
+                                     <img src="" width="54" height="54">
+                                     <div>{{ item.title }}</div>
+                                     <div>{{ item.sku.attrs_display }}</div>
+                                 </td>
+                                 <td>
+                                     <div class="original-price">
+                                         &yen;{{ item.grand_total_price }}
+                                     </div>
+                                     <div>
+                                         &yen;{{ item.promo_total_price }}
+                                     </div>
+                            </td>
+                            <td>
+                                 {{ item.volume }}
+                            </td>
+
+                            <td>
+                                &yen;{{ order.order_total_value }}
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    {{ order.get_status_display }}<br>
+                                    <a class="new-blue-link" href="{% url 'order_detail_management' order.id %}" target="_blank">{% trans '查看详情' %}</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% elif %}
+                             <tr>
+
+                             <td>
+                                <img src="{{ order.items.all.0.sku.entity.chief_image|resize:'128' }}" width="54" height="54">
+                                <div>{{ order.items.all.0.title }}</div>
+                                <div>{{ order.items.all.0.sku.attrs_display }}</div>
+                            </td>
+                            <td>
+                                <div class="original-price">
+                                    &yen;{{ order.items.all.0.grand_total_price }}
+                                </div>
+                                <div>
+                                    &yen;{{ order.items.all.0.promo_total_price }}
+                                </div>
+                            </td>
+                            <td>
+                                 {{ order.items.all.0.volume }}
+                            </td>
+
+                            <td>
+                                &yen;{{ order.order_total_value }}
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    {{ order.get_status_display }}<br>
+                                    <a class="new-blue-link" href="{% url 'order_detail_management' order.id %}" target="_blank">{% trans '查看详情' %}</a>
+                                </div>
+                            </td>
+                        </tr>
+
+                            <tr>
                         {% for item in order.items.all %}
                             <td>
                                 <img src="" width="54" height="54">
