@@ -51,39 +51,7 @@
                               订单号:{{ order.number }} &nbsp;&nbsp;创建时间:here need time
                           </td>
                         </tr>
-                        {% if order.count = 1 %}
                              <tr>
-                                 {% for item in order.items.all %}
-                                 <td>
-                                     <img src="" width="54" height="54">
-                                     <div>{{ item.title }}</div>
-                                     <div>{{ item.sku.attrs_display }}</div>
-                                 </td>
-                                 <td>
-                                     <div class="original-price">
-                                         &yen;{{ item.grand_total_price }}
-                                     </div>
-                                     <div>
-                                         &yen;{{ item.promo_total_price }}
-                                     </div>
-                            </td>
-                            <td>
-                                 {{ item.volume }}
-                            </td>
-
-                            <td>
-                                &yen;{{ order.order_total_value }}
-                            </td>
-                            <td>
-                                <div class="btn-group">
-                                    {{ order.get_status_display }}<br>
-                                    <a class="new-blue-link" href="{% url 'order_detail_management' order.id %}" target="_blank">{% trans '查看详情' %}</a>
-                                </div>
-                            </td>
-                        </tr>
-                        {% elif %}
-                             <tr>
-
                              <td>
                                 <img src="{{ order.items.all.0.sku.entity.chief_image|resize:'128' }}" width="54" height="54">
                                 <div>{{ order.items.all.0.title }}</div>
@@ -100,36 +68,26 @@
                             <td>
                                  {{ order.items.all.0.volume }}
                             </td>
-
-                            <td>
-                                &yen;{{ order.order_total_value }}
-                            </td>
-                            <td>
-                                <div class="btn-group">
-                                    {{ order.get_status_display }}<br>
-                                    <a class="new-blue-link" href="{% url 'order_detail_management' order.id %}" target="_blank">{% trans '查看详情' %}</a>
-                                </div>
-                            </td>
-                        </tr>
-
-                            <tr>
-                        {% for item in order.items.all %}
-                            <td>
-                                <img src="" width="54" height="54">
-                                <div>{{ item.title }}</div>
-                                <div>{{ item.sku.attrs_display }}</div>
+                            {% if order.count > 1 %}
+                                 {% for i in order.list %}
+                             <td>
+                                <img src="{{ order.items.all.i.sku.entity.chief_image|resize:'128' }}" width="54" height="54">
+                                <div>{{ order.items.all.i.title }}</div>
+                                <div>{{ order.items.all.i.sku.attrs_display }}</div>
                             </td>
                             <td>
                                 <div class="original-price">
-                                    &yen;{{ item.grand_total_price }}
+                                    &yen;{{ order.items.all.i.grand_total_price }}
                                 </div>
                                 <div>
-                                    &yen;{{ item.promo_total_price }}
+                                    &yen;{{ order.items.all.i.promo_total_price }}
                                 </div>
                             </td>
                             <td>
-                                 {{ item.volume }}
+                                 {{ order.items.all.i.volume }}
                             </td>
+                                {% endfor %}
+                            {% endif %}
 
                             <td>
                                 &yen;{{ order.order_total_value }}
@@ -141,7 +99,6 @@
                                 </div>
                             </td>
                         </tr>
-                        {% endfor %}
-                    {% endfor %}
+                {% endfor %}
                 </tbody>
             </table>
