@@ -2,6 +2,7 @@ var SKUAddManager = Class.extend({
     init: function(){
         console.log('sku add begin');
         this.initSkuAdd();
+        //this.initSaveSku();
     },
     initSkuAdd:function(){
         var that = this;
@@ -15,54 +16,55 @@ var SKUAddManager = Class.extend({
                 function(html){
                     //will return a  rendered template
                     bootbox.dialog({
-                        title: '添加规格',
+                        title: '添加SKU',
                         message: html,
                         //buttons: {
                         //    success:{
-                        //        label:'保存',
+                        //        label:'发送',
                         //        className:'btn newest-btn-primary',
-                        //        callback: function(){
-                        //            var _form = $('#sku_add_form');
-                        //            if (_form.length){
-                        //                $.when($.ajax({
-                        //                    url: _form.attr('action'),
-                        //                    method: 'POST'
-                        //                })).then(
-                        //                        function addSkuSuccess(data){
-                        //                            if(data == 1){
-                        //                                 return bootbox.alert({
-                        //                                size: 'small',
-                        //                                message: '添加成功'
-                        //                            }) ;
-                        //                            }else{
-                        //                               return bootbox.alert({
-                        //                                size: 'small',
-                        //                                message: '添加失败'
-                        //                            }) ;
-                        //                            }
-                        //                        }
-                        //                );
-                        //            }
-                        //        }
+                                //callback: function(){
+                                //    var _form = $('#sku_add_form');
+                                //    if (_form.length){
+                                //        $.when($.ajax({
+                                //            url: _form.attr('action'),
+                                //            method: 'POST'
+                                //        })).then(
+                                //                function addSkuSuccess(data){
+                                //                    if(data == 1){
+                                //                         return bootbox.alert({
+                                //                        size: 'small',
+                                //                        message: '添加成功'
+                                //                    }) ;
+                                //                    }else{
+                                //                       return bootbox.alert({
+                                //                        size: 'small',
+                                //                        message: '添加失败'
+                                //                    }) ;
+                                //                    }
+                                //                }
+                                //        );
+                                //    }
+                                //}
                         //    }
                         //}
                     });
-                    that.saveSkuHandler();
-
+                    that.initSaveSku();
                 },function(){
                     console.log('get form fail ');
                 });
     });
     },
-    saveSkuHandler:function(){
+    initSaveSku:function(){
         $('.sku-save').click(function(){
+            alert('click');
              var _form = $('#sku_add_form');
             $.when($.ajax({
                 url: _form.attr('action'),
                 method: 'POST'
             })).then(
                 function addSkuSuccess(data){
-                    if(data == 1){
+                    console.log('data:'+data);
+                    if(data === 1){
                         return bootbox.alert({
                             size: 'small',
                             message: '添加成功'
