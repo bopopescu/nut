@@ -1362,8 +1362,12 @@ a.new-black-link:hover {
   left: 0;
   background-color: rgba(0, 0, 0, 0.2);
 }
-ol {
+ol,
+ul {
   -webkit-padding-start: 0;
+}
+ul {
+  list-style: none;
 }
 .seller-mng-btn {
   color: #212121;

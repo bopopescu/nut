@@ -49,8 +49,12 @@
                                 </div>
                             </td>
                             <td>
-                                &yen;{{ order.grand_total_price }}
-                                 &yen;{{ order.promo_total_price }}
+                                <div class="original-price">
+                                    &yen;{{ order.grand_total_price }}
+                                </div>
+                                <div>
+                                    &yen;{{ order.promo_total_price }}
+                                </div>
                             </td>
                             <td>
                                 {{ order.volume }}
