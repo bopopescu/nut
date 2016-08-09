@@ -349,6 +349,21 @@ class SKUCreateBoxView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView)
     model = SKU
     form_class = SKUForm
     template_name = 'management/sku/sku_add_template.html'
+    def post_ajax(self, request, *args, **kwargs):
+        _forms = SKUForm(request.POST)
+        if _forms.is_valid():
+            _forms.save()
+            return JSONResponse(
+                data={
+                    'status': 1
+                }
+            )
+        else:
+            return JSONResponse(
+                data={
+                    'status': 0
+                }
+            )
     def get_success_url(self):
         return reverse('sku_list_management', args=[self.entity_id])
     def get_context_data(self, **kwargs):
@@ -471,15 +486,16 @@ class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,
         self.order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
         order_ids = self.order_items.values_list('order')
         self.orders = Order.objects.filter(id__in=order_ids).filter(status__in=[3,5])
+        sku_ids = [ ]
         if self.orders:
-            sku_ids=[]
             for order in self.orders:
                 if sku_ids:
                     sku_ids += list(order.items.values_list('sku'))
                 else:
                     sku_ids = list(order.items.values_list('sku'))
-        for i in range(len(sku_ids)):
-            sku_ids[i]=sku_ids[i][0]
+        if sku_ids:
+            for i in range(len(sku_ids)):
+                sku_ids[i]=sku_ids[i][0]
         #sku_ids = self.order_items.values_list('sku')
         qs = SKU.objects.filter(id__in=sku_ids).filter(entity_id__in=entities)
         # qs = list(set([item.sku for item in self.order_items]))
