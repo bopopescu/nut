@@ -362,7 +362,11 @@ class ArticleTextRankView(BaseJsonView):
         article_textrank_url = "%s%s" % (textrank_url, self.article_id)
         log.info(article_textrank_url)
         r = requests.get(article_textrank_url)
-        return r.json()
+        if r.status_code == 200:
+            res = r.json()
+            r.close()
+            return res
+        return {}
 
     def get(self, request, *args, **kwargs):
         self.article_id = kwargs.pop('pk', None)

@@ -19,3 +19,13 @@ class UserOrderView(LoginRequiredMixin, DetailView):
     def get_object(self, queryset=None):
         pk = self.kwargs.get('pk', None)
         return  get_object_or_404(Order, customer=self.request.user, pk=pk)
+
+class OrderWeixinPaymentView(LoginRequiredMixin, DetailView):
+    context_object_name = 'order'
+    template_name = 'web/order/order_wx_payment.html'
+    def get_login_url(self):
+        return reverse('web_login')
+
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get('pk',None)
+        return get_object_or_404(Order, customer=self.request.user,pk=pk)

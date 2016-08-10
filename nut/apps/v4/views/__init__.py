@@ -505,9 +505,10 @@ class APISearchView(SearchView, JSONResponseMixin):
 
     def form_invalid(self, form):
         return ErrorJsonResponse(status=400, data=form.errors)
-    # @check_sign
-    # def dispatch(self, request, *args, **kwargs):
-        # return super(APISearchView, self).dispatch(request, *args, **kwargs)
+
+    @check_sign
+    def dispatch(self, request, *args, **kwargs):
+        return super(APISearchView, self).dispatch(request, *args, **kwargs)
 
 
 class PopularView(APIJsonView):
