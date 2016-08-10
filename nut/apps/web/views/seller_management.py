@@ -353,11 +353,11 @@ class SKUCreateView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView):
         _forms = SKUForm(request.POST)
         if _forms.is_valid():
             _forms.save()
-            return JSONResponse(data={'status': 1})
+            return JSONResponse(data={'result': 1},status=200)
         elif _forms.repeatstatus:
-            return JSONResponse(data={'status': -1},status=406)
+            return JSONResponse(data={'result': -1},status=406)
         else:
-            return JSONResponse(data={'status': 0},status=400)
+            return JSONResponse(data={'result': 0},status=400)
     def get_success_url(self):
         return reverse('sku_list_management', args=[self.entity_id])
     def get_context_data(self, **kwargs):
@@ -369,10 +369,10 @@ class SKUCreateView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView):
             'entity':self.entity_id
         }
 
-class SKUUpdateView(SKUUserPassesTestMixin,UpdateView):
+class SKUUpdateView(SKUUserPassesTestMixin, AjaxResponseMixin,UpdateView):
     model = SKU
     form_class = SKUForm
-    template_name = 'web/seller_management/update_sku.html'
+    template_name = 'management/sku/sku_edit_template.html'
     def post_ajax(self, request, *args, **kwargs):
         _forms = SKUForm(request.POST)
         if _forms.is_valid():

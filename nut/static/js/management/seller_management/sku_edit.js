@@ -1,13 +1,12 @@
-var SKUAddManager = Class.extend({
+var SKUEditManager = Class.extend({
     init: function(){
-        console.log('sku add begin');
-        this.initSkuAdd();
+        console.log('sku edit begin');
+        this.initSkuEdit();
     },
-    initSkuAdd:function(){
+    initSkuEdit:function(){
         var that = this;
-        $('#add_sku_trigger').click(function(){
+        $('.edit-sku-trigger').click(function(){
             var url = $(this).attr('data-url');
-            console.log('get add sku model url');
             $.when($.ajax({
                 url: url,
                 method: 'GET'
@@ -24,40 +23,33 @@ var SKUAddManager = Class.extend({
                 });
         });
     },
-    post_add_sku: function(){
+    post_edit_sku: function(){
         var that = this;
         var _form = $('#sku_form');
         _form.onsubmit=function(){return false;};
-        //alert(_form.serialize());
+        alert(_form.serialize());
 
         $.when($.ajax({
             url: _form.attr('action'),
             method: 'POST',
-            data: _form.serialize(),
-            dataType:'json'
+            data: _form.serialize()
         })).then(
-            that.post_add_sku_success.bind(this),
-            that.post_add_sku_fail.bind(this)
+            that.post_edit_sku_success.bind(this),
+            that.post_edit_sku_fail.bind(this)
         );
     },
-    post_add_sku_success: function addSkuSuccess(data){
+    post_edit_sku_success: function editSkuSuccess(data){
         var that = this;
         this.hideDialog();
-         var success_status = parseInt(data.result);
-        if(success_status == 1){
+         var status = parseInt(data.status);
+        if(status == 1){
             bootbox.alert({
                 size: 'small',
-                message: '添加成功!'
+                message: '添加成功!',
+                callback: that.reloadCurrentPage()
             }) ;
-            //that.reloadCurrentPage();
         }
-    },
-    post_add_sku_fail:function(data){
-        this.hideDialog();
-        console.log('post add sku fail');
-        var fail_status = parseInt(data.status);
-        // look for data to know why
-        if(fail_status == 406){
+        else if(status == -1){
              bootbox.alert({
                 size: 'small',
                 message: '添加重复,请重新添加!'
@@ -70,9 +62,13 @@ var SKUAddManager = Class.extend({
             }) ;
         }
     },
+    post_edit_sku_fail:function(data){
+        this.hideDialog();
+        console.log('post edit sku fail');
+    },
 
     initSaveSku:function(){
-        $('.sku-save').click(this.post_add_sku.bind(this));
+        $('.sku-save').click(this.post_edit_sku.bind(this));
     },
      hideDialog:function(){
            bootbox.hideAll();
@@ -86,6 +82,6 @@ var SKUAddManager = Class.extend({
 
 (function($, window, document){
     $(function(){
-        var sku_manager = new SKUAddManager();
+        var sku_manager = new SKUEditManager();
     });
 })(jQuery, window, document);
