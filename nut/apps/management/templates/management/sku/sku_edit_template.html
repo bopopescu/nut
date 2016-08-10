@@ -1,0 +1,52 @@
+{% load i18n static %}
+{% load guoku %}
+<div class="modal-header">
+    <button class="close" data-dismiss="modal" type="button">
+        <span aria-hidden="true">×</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <h4 class="modal-title">{% trans '编辑SKU属性' %}</h4>
+</div>
+
+<div class="modal-body" id="edit_sku_form_wrapper">
+    <form class="form-horizontal" id="sku_form" enctype="multipart/form-data" action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}" class="col-sm-2 control-label">{{ field.label }}</label>
+                <div class="col-sm-10">
+                    {{ field }}<span class="field-errors">{{ field.errors }}</span>
+                </div>
+            </div>
+            <div class="form-error">
+
+            </div>
+        {% endfor %}
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">SKU属性编辑</label>
+            <div class="col-sm-6">
+                <table class="table table-striped attr-table">
+                    <tr class="attr-add-tr">
+                        <td COLSPAN="2">
+                            <button type="button" class="btn btn-success attr-add">
+                                添加属性
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                 <button type="button" class="btn newest-btn-primary pull-right sku-save"> 保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% block user_script %}
+{% include "management/entities/create_sku_script_template.html" %}
+{% endblock %}
