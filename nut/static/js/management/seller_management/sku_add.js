@@ -33,7 +33,8 @@ var SKUAddManager = Class.extend({
         $.when($.ajax({
             url: _form.attr('action'),
             method: 'POST',
-            data: _form.serialize()
+            data: _form.serialize(),
+            dataType:'json'
         })).then(
             that.post_add_sku_success.bind(this),
             that.post_add_sku_fail.bind(this)
@@ -42,15 +43,21 @@ var SKUAddManager = Class.extend({
     post_add_sku_success: function addSkuSuccess(data){
         var that = this;
         this.hideDialog();
-         var status = parseInt(data.status);
-        if(status == 1){
+         var success_status = parseInt(data.result);
+        if(success_status == 1){
             bootbox.alert({
                 size: 'small',
-                message: '添加成功!',
-                callback: that.reloadCurrentPage()
+                message: '添加成功!'
             }) ;
+            //that.reloadCurrentPage();
         }
-        else if(status == -1){
+    },
+    post_add_sku_fail:function(data){
+        this.hideDialog();
+        console.log('post add sku fail');
+        var fail_status = parseInt(data.status);
+        // look for data to know why
+        if(fail_status == 406){
              bootbox.alert({
                 size: 'small',
                 message: '添加重复,请重新添加!'
@@ -62,10 +69,6 @@ var SKUAddManager = Class.extend({
                 message: '添加失败'
             }) ;
         }
-    },
-    post_add_sku_fail:function(data){
-        this.hideDialog();
-        console.log('post add sku fail');
     },
 
     initSaveSku:function(){
