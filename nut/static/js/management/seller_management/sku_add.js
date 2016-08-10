@@ -60,7 +60,7 @@ var SKUAddManager = Class.extend({
         if(fail_status == 406){
              bootbox.alert({
                 size: 'small',
-                message: '添加重复,请重新添加!'
+                message: '商品属性重复,请重新添加!'
             }) ;
         }
         else{

@@ -58,7 +58,7 @@ var SKUEditManager = Class.extend({
         if(fail_status == 406){
              bootbox.alert({
                 size: 'small',
-                message: 'SKU重复,请重新编辑!'
+                message: '商品属性重复,请重新编辑!'
             }) ;
         }
         else{
