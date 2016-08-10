@@ -377,11 +377,11 @@ class SKUUpdateView(SKUUserPassesTestMixin, AjaxResponseMixin,UpdateView):
         _forms = SKUForm(request.POST)
         if _forms.is_valid():
             _forms.save()
-            return JSONResponse(data={'status': 1},status=201)
+            return JSONResponse(data={'result': 1},status=200)
         elif _forms.repeatstatus:
-            return JSONResponse(data={'status': -1},status=406)
+            return JSONResponse(data={'result': -1},status=406)
         else:
-            return JSONResponse(data={'status': 0},status=400)
+            return JSONResponse(data={'result': 0},status=400)
     def get_context_data(self, **kwargs):
         context = super(SKUUpdateView,self).get_context_data(**kwargs)
         context['entity_id']=self.entity_id
