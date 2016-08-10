@@ -362,7 +362,8 @@ class SKUCreateBoxView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView)
             return JSONResponse(
                 data={
                     'status': 0
-                }
+                },
+
             )
     def get_success_url(self):
         return reverse('sku_list_management', args=[self.entity_id])

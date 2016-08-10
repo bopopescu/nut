@@ -38,6 +38,7 @@ ul{
 .new-table-bordered,.new-table-bordered tbody tr td{
   border:1px solid @border-gray;
 }
+
 .new-custom-table-bordered tbody tr{
   border-bottom: 1px solid @border-gray;
 }
@@ -52,6 +53,9 @@ ul{
     thead tr th,tbody tr td{
       min-height: 50px;
       padding:8px;
+    }
+    tbody tr td.no-padding-cell{
+      padding:0;
     }
     thead tr th,tbody tr td{
       text-align: center;
@@ -71,6 +75,20 @@ ul{
 .new-table-hover{
   tbody tr:hover{
     background-color: @very-light-gray;
+  }
+}
+.entity-sku-custom-table{
+  width:100%;
+  max-width: 100%;
+  tbody tr{
+    height: 70px;
+    border-bottom: 1px solid @border-gray;
+    td{
+      border:none;
+      padding:0;
+      background-color: @light-blue-bg;
+    }
+
   }
 }
 
@@ -100,7 +118,7 @@ ul{
   height:100%;
   padding:12px;
   background-color: @light-blue-bg;
-  border-bottom: 1px solid @border-gray;
+   border-bottom: 1px solid @border-gray;
   i{
     color:@gray-light;
   }

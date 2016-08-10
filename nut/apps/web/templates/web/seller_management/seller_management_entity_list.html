@@ -49,7 +49,9 @@
     {% for entity in object_list %}
         <tr>
             <td class="entity-cell">
-                <img src="{{ entity.chief_image|resize:'128' }}" width="54" height="54">
+                <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
+                    <img src="{{ entity.chief_image|resize:'128' }}" width="54" height="54">
+                </a>
                 {{ entity.title }}
             </td>
             <td class="sku-cell">
@@ -59,7 +61,9 @@
                          {{ sku.attrs_display }}
                         </div>
                     {% else %}
+                        <div class="sku-item">
                         默认
+                        </div>
                     {% endif %}
                 {% endfor %}
 
@@ -73,16 +77,6 @@
             </td>
             <td>
                 {% for sku in entity.sku_list %}
-{#                    {% if sku.attrs_display %}#}
-{#                        {{ sku.attrs_display }}#}
-{#                    {% else %}#}
-{#                        缺省SKU#}
-{#                    {% endif %}#}
-{#                    <form>#}
-{#                        <input id="{{ sku.id }}_price" type="text" style="width:80px; height:30px" name="{{ sku.id }}" value="{{ sku.promo_price }}">#}
-{#                        <input id="{{ sku.id }}_stock" type="text" style="width:80px; height:30px" name="{{ sku.id }}" value="{{ sku.stock }}">#}
-{#                        <span class="btn newest-btn-primary"  id="{{ sku.id }}" target="_blank">{% trans 'update' %}</span>#}
-{#                    </form>#}
                      <div class="sku-item entity-stock" id="{{ entity.id }}" data-sku-id="{{ sku.id }}">
                           {{ sku.stock }}
                      </div>
