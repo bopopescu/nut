@@ -27,7 +27,7 @@ var SKUEditManager = Class.extend({
         var that = this;
         var _form = $('#sku_form');
         _form.onsubmit=function(){return false;};
-        alert(_form.serialize());
+        //alert(_form.serialize());
 
         $.when($.ajax({
             url: _form.attr('action'),
@@ -41,15 +41,21 @@ var SKUEditManager = Class.extend({
     post_edit_sku_success: function editSkuSuccess(data){
         var that = this;
         this.hideDialog();
-         var status = parseInt(data.status);
-        if(status == 1){
+         var success_status = parseInt(data.result);
+        if(success_status == 1){
             bootbox.alert({
                 size: 'small',
                 message: '添加成功!',
-                callback: that.reloadCurrentPage()
+                callback:that.reloadCurrentPage()
             }) ;
         }
-        else if(status == -1){
+    },
+    post_edit_sku_fail:function(data){
+        this.hideDialog();
+        console.log('post add sku fail');
+        var fail_status = parseInt(data.status);
+        // look for data to know why
+        if(fail_status == 406){
              bootbox.alert({
                 size: 'small',
                 message: '添加重复,请重新添加!'
@@ -62,10 +68,6 @@ var SKUEditManager = Class.extend({
             }) ;
         }
     },
-    post_edit_sku_fail:function(data){
-        this.hideDialog();
-        console.log('post edit sku fail');
-    },
 
     initSaveSku:function(){
         $('.sku-save').click(this.post_edit_sku.bind(this));
@@ -74,7 +76,7 @@ var SKUEditManager = Class.extend({
            bootbox.hideAll();
      },
     reloadCurrentPage:function(){
-        window.location.reload();
+        window.setTimeout( function(){ window.location.reload();}, 2000);
     }
 
 });
