@@ -2554,7 +2554,7 @@ msgstr ""
 
 #: apps/order/models.py:121
 msgid "address unbind"
-msgstr ""
+msgstr "未绑定地址"
 
 #: apps/order/models.py:122 apps/payment/models.py:16
 #, fuzzy
@@ -2563,7 +2563,7 @@ msgstr "等待审核"
 
 #: apps/order/models.py:123
 msgid "order paid"
-msgstr ""
+msgstr "已付款"
 
 #: apps/order/models.py:124
 msgid "order send"
