@@ -47,9 +47,9 @@ var SKUAddManager = Class.extend({
         if(success_status == 1){
             bootbox.alert({
                 size: 'small',
-                message: '添加成功!'
+                message: '添加成功!',
+                callback:that.reloadCurrentPage()
             }) ;
-            //that.reloadCurrentPage();
         }
     },
     post_add_sku_fail:function(data){
@@ -78,7 +78,7 @@ var SKUAddManager = Class.extend({
            bootbox.hideAll();
      },
     reloadCurrentPage:function(){
-        window.location.reload();
+         window.setTimeout( function(){ window.location.reload();}, 2000);
     }
 
 });
