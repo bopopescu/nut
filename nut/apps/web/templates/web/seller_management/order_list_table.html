@@ -22,43 +22,52 @@
                         </th>
                     </tr>
                 </thead>
-                         <tbody>
+                <tbody>
                     {% for order in object_list %}
                         <tr class="order-cell-header">
                           <td colspan="5">
                               订单号:{{ order.number }} &nbsp;&nbsp;创建时间:here need time
                           </td>
                         </tr>
-                        <tr>
-                        {% for item in order.items.all %}
-                            <td class="entity-cell">
-                                <div class="entity-container">
-                                    <div class="entity-wrapper">
-                                        <a href="{% url 'web_entity_detail' item.sku.entity.entity_hash %}" target="_blank">
-                                             <img src="{{ item.sku.entity.chief_image|resize:'128' }}" class="img-responsive">
-                                         </a>
-                                    </div>
-                                    <div class="entity-info-wrapper">
-                                        <p class="entity-title">
-                                            {{ item.title |truncatechars:40 }}
-                                        </p>
-                                        <p class="entity-sku">
-                                            {{ item.sku.attrs_display |truncatechars:40 }}
-                                        </p>
-                                    </div>
-                                </div>
+                             <tr>
+                             <td>
+                                <img src="{{ order.items.all.0.sku.entity.chief_image|resize:'128' }}" width="54" height="54">
+                                <div>{{ order.items.all.0.title }}</div>
+                                <div>{{ order.items.all.0.sku.attrs_display }}</div>
                             </td>
                             <td>
                                 <div class="original-price">
-                                    &yen;{{ item.grand_total_price }}
+                                    &yen;{{ order.items.all.0.grand_total_price }}
                                 </div>
                                 <div>
-                                    &yen;{{ item.promo_total_price }}
+                                    &yen;{{ order.items.all.0.promo_total_price }}
                                 </div>
                             </td>
                             <td>
-                                 {{ item.volume }}
+                                 {{ order.items.all.0.volume }}
                             </td>
+                             </tr>
+                            {% if order.count > 1 %}
+                                <tr>
+                                 {% for i in order.list %}
+                             <td>
+                                <img src="{{ order.items.all.i.sku.entity.chief_image|resize:'128' }}" width="54" height="54">
+                                <div>{{ order.items.all.i.title }} </div>
+                                <div>{{ order.items.all.i.sku.attrs_display }}</div>
+                            </td>
+                            <td>
+                                <div class="original-price">
+                                    &yen;{{ order.items.all.i.grand_total_price }}
+                                </div>
+                                <div>
+                                    &yen;{{ order.items.all.i.promo_total_price }}
+                                </div>
+                            </td>
+                            <td>
+                                 {{ order.items.all.i.volume }}
+                            </td>
+                                {% endfor %}
+                            {% endif %}
 
                             <td>
                                 &yen;{{ order.order_total_value }}
@@ -70,7 +79,6 @@
                                 </div>
                             </td>
                         </tr>
-                        {% endfor %}
-                    {% endfor %}
+                {% endfor %}
                 </tbody>
             </table>
