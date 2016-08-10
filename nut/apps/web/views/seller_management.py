@@ -353,7 +353,7 @@ class SKUCreateView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView):
         _forms = SKUForm(request.POST)
         if _forms.is_valid():
             _forms.save()
-            return JSONResponse(data={'status': 1},status=201)
+            return JSONResponse(data={'status': 1})
         elif _forms.repeatstatus:
             return JSONResponse(data={'status': -1},status=406)
         else:
