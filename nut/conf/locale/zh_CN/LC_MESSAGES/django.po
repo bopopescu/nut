@@ -2567,11 +2567,11 @@ msgstr "已付款"
 
 #: apps/order/models.py:124
 msgid "order send"
-msgstr ""
+msgstr "已发货"
 
 #: apps/order/models.py:125
 msgid "order closed"
-msgstr ""
+msgstr "已签收"
 
 #: apps/order/models.py:126
 #, fuzzy
@@ -2585,7 +2585,7 @@ msgstr "商品下架"
 
 #: apps/order/models.py:128
 msgid "refund down"
-msgstr ""
+msgstr "退款已完成"
 
 #: apps/payment/models.py:17
 msgid "paid"

@@ -374,7 +374,8 @@ class SKUUpdateView(SKUUserPassesTestMixin, AjaxResponseMixin,UpdateView):
     form_class = SKUForm
     template_name = 'management/sku/sku_edit_template.html'
     def post_ajax(self, request, *args, **kwargs):
-        _forms = SKUForm(request.POST)
+        instance = SKU.objects.get(pk=kwargs['pk'])
+        _forms = SKUForm(request.POST,instance=instance)
         if _forms.is_valid():
             _forms.save()
             return JSONResponse(data={'result': 1},status=200)
