@@ -9,7 +9,7 @@
 </div>
 
 <div class="modal-body" id="edit_sku_form_wrapper">
-    <form class="form-horizontal" id="sku_form" enctype="multipart/form-data" action="" method="post">
+    <form class="form-horizontal" id="sku_form" enctype="multipart/form-data" action="{% url 'sku_update_management' entity_id sku.pk %}" method="post">
         {% csrf_token %}
         {% for field in form %}
             <div class="form-group">

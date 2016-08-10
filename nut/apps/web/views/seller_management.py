@@ -369,10 +369,10 @@ class SKUCreateView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView):
             'entity':self.entity_id
         }
 
-class SKUUpdateView(SKUUserPassesTestMixin,UpdateView):
+class SKUUpdateView(SKUUserPassesTestMixin, AjaxResponseMixin,UpdateView):
     model = SKU
     form_class = SKUForm
-    template_name = 'web/seller_management/update_sku.html'
+    template_name = 'management/sku/sku_edit_template.html'
     def post_ajax(self, request, *args, **kwargs):
         _forms = SKUForm(request.POST)
         if _forms.is_valid():
