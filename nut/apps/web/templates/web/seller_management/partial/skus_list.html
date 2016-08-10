@@ -42,7 +42,6 @@
     <tbody>
      {% for sku in object_list %}
         <tr>
-{#            <td>{{ sku.id }}</td>#}
             <td>{{ sku.attrs_display }}</td>
             <td>
                 <div class="original-price">
@@ -61,7 +60,6 @@
 {#                    <a class="btn newest-btn-primary" href="{% url 'sku_update_management' entity.pk sku.pk %}" >编辑SKU属性</a>#}
                     <a class="btn newest-btn-primary" href="{% url 'sku_update_management' entity.pk sku.pk %}" >编辑SKU属性</a>
 
-{#                    <a class="btn btn-danger" href="{% url 'sku_delete_management' entity.pk sku.pk %}">删除</a>#}
                     <a class="btn btn-danger sku-delete-trigger" data-url="{% url 'sku_delete_management' entity.pk sku.pk %}">删除</a>
                 </div>
             </td>
