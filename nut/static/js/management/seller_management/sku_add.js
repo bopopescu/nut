@@ -2,7 +2,6 @@ var SKUAddManager = Class.extend({
     init: function(){
         console.log('sku add begin');
         this.initSkuAdd();
-        //this.initSaveSku();
     },
     initSkuAdd:function(){
         var that = this;
@@ -14,43 +13,14 @@ var SKUAddManager = Class.extend({
                 method: 'GET'
             })).then(
                 function(html){
-                    //will return a  rendered template
                     bootbox.dialog({
                         title: '添加SKU',
-                        message: html,
-                        //buttons: {
-                        //    success:{
-                        //        label:'发送',
-                        //        className:'btn newest-btn-primary',
-                        //callback: function(){
-                        //    var _form = $('#sku_add_form');
-                        //    if (_form.length){
-                        //        $.when($.ajax({
-                        //            url: _form.attr('action'),
-                        //            method: 'POST'
-                        //        })).then(
-                        //                function addSkuSuccess(data){
-                        //                    if(data){
-                        //                         return bootbox.alert({
-                        //                        size: 'small',
-                        //                        message: '添加成功'
-                        //                    }) ;
-                        //                    }else{
-                        //                       return bootbox.alert({
-                        //                        size: 'small',
-                        //                        message: '添加失败'
-                        //                    }) ;
-                        //                    }
-                        //                }
-                        //        );
-                        //    }
-                        //}
-                        //    }
-                        //}
+                        message: html
                     });
                     //成功渲染弹框之后再初始化保存按钮
                     that.initSaveSku();
-                },function(){
+                },
+                function(){
                     console.log('get form fail ');
                 });
         });
@@ -71,12 +41,20 @@ var SKUAddManager = Class.extend({
         );
     },
     post_add_sku_success: function addSkuSuccess(data){
-        if(data){
+         var status = parseInt(data.status);
+        if(status == 1){
             return bootbox.alert({
                 size: 'small',
-                message: '添加成功'
+                message: '添加成功!'
             }) ;
-        }else{
+        }
+        else if(status == 0){
+             return bootbox.alert({
+                size: 'small',
+                message: '添加重复,请重新添加!'
+            }) ;
+        }
+        else{
             return bootbox.alert({
                 size: 'small',
                 message: '添加失败'
@@ -86,7 +64,6 @@ var SKUAddManager = Class.extend({
     post_add_sku_fail:function(data){
         console.log('post add sku fail');
     },
-
 
     initSaveSku:function(){
         $('.sku-save').click(this.post_add_sku.bind(this));
