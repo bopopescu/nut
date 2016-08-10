@@ -31,7 +31,8 @@ var SKUAddManager = Class.extend({
 
         $.when($.ajax({
             url: _form.attr('action'),
-            method: 'POST'
+            method: 'POST',
+            data: _form.serialize()
         })).then(
             that.post_add_sku_success.bind(this),
             that.post_add_sku_fail.bind(this)
