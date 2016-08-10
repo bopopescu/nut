@@ -14,7 +14,6 @@ var SKUAddManager = Class.extend({
             })).then(
                 function(html){
                     bootbox.dialog({
-                        title: '添加SKU',
                         message: html
                     });
                     //成功渲染弹框之后再初始化保存按钮
@@ -28,28 +27,28 @@ var SKUAddManager = Class.extend({
     post_add_sku: function(){
         var that = this;
         var _form = $('#sku_form');
-        _form.onsubmit=function(){return false;}
+        _form.onsubmit=function(){return false;};
 
         $.when($.ajax({
             url: _form.attr('action'),
             method: 'POST'
         })).then(
-            that.post_add_sku_success.bind(this)
-            ,
+            that.post_add_sku_success.bind(this),
             that.post_add_sku_fail.bind(this)
-
         );
     },
     post_add_sku_success: function addSkuSuccess(data){
+        //var that = this;
+        this.hideDialog();
          var status = parseInt(data.status);
         if(status == 1){
-            return bootbox.alert({
+            bootbox.alert({
                 size: 'small',
                 message: '添加成功!'
             }) ;
         }
-        else if(status == 0){
-             return bootbox.alert({
+        else if(status == -1){
+             bootbox.alert({
                 size: 'small',
                 message: '添加重复,请重新添加!'
             }) ;
@@ -62,11 +61,18 @@ var SKUAddManager = Class.extend({
         }
     },
     post_add_sku_fail:function(data){
+        this.hideDialog();
         console.log('post add sku fail');
     },
 
     initSaveSku:function(){
         $('.sku-save').click(this.post_add_sku.bind(this));
+    },
+     hideDialog:function(){
+           bootbox.hideAll();
+     },
+    reloadCurrentPage:function(){
+        window.location.reload();
     }
 
 });
