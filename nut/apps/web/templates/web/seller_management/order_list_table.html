@@ -2,84 +2,114 @@
 {% load guoku %}
 {% load static %}
 
-            <table class="new-table new-table-bordered new-table-hover">
-                <thead>
-                    <tr>
-                        <th>
-                            {% trans 'entity' %}
-                        </th>
-                        <th>
-                            {% trans '单价' %}
-                        </th>
-                        <th>
-                            {% trans '数量' %}
-                        </th>
-                        <th>
-                            {% trans '实收款' %}
-                        </th>
-                         <th>
-                            {% trans '交易状态' %}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for order in object_list %}
-                        <tr class="order-cell-header">
-                          <td colspan="5">
-                              订单号:{{ order.number }} &nbsp;&nbsp;创建时间:{{ order.Created_datetime }}
-                          </td>
-                        </tr>
-                         <tr>
-                             <td>
-                                <img src="{{ order.items.all.0.sku.entity.chief_image|resize:'128' }}" width="54" height="54">
-                                <div>{{ order.items.all.0.title }}</div>
-                                <div>{{ order.items.all.0.sku.attrs_display }}</div>
-                            </td>
-                            <td>
-                                <div class="original-price">
-                                    &yen;{{ order.items.all.0.grand_total_price }}
-                                </div>
-                                <div>
-                                    &yen;{{ order.items.all.0.promo_total_price }}
-                                </div>
-                            </td>
-                            <td>
-                                 {{ order.items.all.0.volume }}
-                            </td>
-                         </tr>
-                            {% if order.count > 1 %}
-                             {% for item in order.itemslist %}
-                        <tr>
-                             <td>
-                                <img src="{{ item.sku.entity.chief_image|resize:'128' }}" width="54" height="54">
-                                <div>{{ item.title }} </div>
-                                <div>{{ item.attrs_display }}</div>
-                             </td>
-                            <td>
-                                <div class="original-price">
-                                    &yen;{{ item.grand_total_price }}
-                                </div>
-                                <div>
-                                    &yen;{{ item.promo_total_price }}
-                                </div>
-                            </td>
-                            <td>
-                                 {{ item.volume }}
-                            </td>
-                            <td>
-                                &yen;{{ order.order_total_value }}
-                            </td>
+<table class="new-table new-table-bordered new-table-hover">
+    <thead>
+    <tr>
+        <th>
+            {% trans 'entity' %}
+        </th>
+        <th>
+            {% trans '单价' %}
+        </th>
+        <th>
+            {% trans '数量' %}
+        </th>
+        <th>
+            {% trans '实收款' %}
+        </th>
+        <th>
+            {% trans '交易状态' %}
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for order in object_list %}
+        <tr class="order-cell-header">
+            <td colspan="5">
+                订单号:{{ order.number }} &nbsp;&nbsp;创建时间:{{ order.Created_datetime }}
+            </td>
+        </tr>
+        <tr>
+            <td class="entity-cell">
+                <div class="entity-container">
+                    <div class="entity-wrapper">
+                        <a href="{% url 'web_entity_detail' order.items.all.0.sku.entity.entity_hash %}" target="_blank">
+                            <img src="{{ order.items.all.0.sku.entity.chief_image|resize:'128' }}" class="img-responsive">
+                        </a>
+                    </div>
+                    <div class="entity-info-wrapper">
+                        <p class="entity-title">
+                            {{ order.items.all.0.title |truncatechars:40 }}
+                        </p>
+                        <p class="entity-sku">
+                            {{ order.items.all.0.sku.attrs_display |truncatechars:40 }}
+                        </p>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="original-price">
+                    &yen;{{ order.items.all.0.grand_total_price }}
+                </div>
+                <div>
+                    &yen;{{ order.items.all.0.promo_total_price }}
+                </div>
+            </td>
+            <td>
+                {{ order.items.all.0.volume }}
+            </td>
+            <td class="no-border-cell">
+                &yen;{{ order.order_total_value }}
+            </td>
+            <td class="no-border-cell">
+                <div class="btn-group">
+                    {{ order.get_status_display }}<br>
+                    <a class="new-blue-link" href="{% url 'order_detail_management' order.id %}" target="_blank">{% trans '查看详情' %}</a>
+                </div>
+            </td>
+        </tr>
+        {% if order.count > 1 %}
 
-                            <td>
-                                <div class="btn-group">
-                                    {{ order.get_status_display }}<br>
-                                    <a class="new-blue-link" href="{% url 'order_detail_management' order.id %}" target="_blank">{% trans '查看详情' %}</a>
-                                </div>
-                            </td>
-                            {% endfor %}
-                        </tr>
-                            {% endif %}
-
-                {% endfor %}
-                </tbody>
-            </table>
+            {% for item in order.itemslist %}
+                <tr>
+                <td class="entity-cell">
+                    <div class="entity-container">
+                        <div class="entity-wrapper">
+{#                            这里,把超链接的数据替换一下,现在数据不对,会报错,所以暂时注释了.#}
+                               <a href="{% url 'web_entity_detail' item.sku.entity.entity_hash %}" target="_blank">
+                                <img src="{{ item.sku.entity.chief_image|resize:'128' }}" class="img-responsive">
+{#                            </a>#}
+                        </div>
+                        <div class="entity-info-wrapper">
+                            <p class="entity-title">
+                                {{ item.title |truncatechars:40 }}
+                            </p>
+                            <p class="entity-sku">
+                                {{ item.sku.attrs_display |truncatechars:40 }}
+                            </p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="original-price">
+                        &yen;{{ item.grand_total_price }}
+                    </div>
+                    <div>
+                        &yen;{{ item.promo_total_price }}
+                    </div>
+                </td>
+                <td>
+                    {{ item.volume }}
+                </td>
+                <td class="no-border-cell">
+                    &nbsp;
+                </td>
+                <td class="no-border-cell">
+                    &nbsp;
+                </td>
+            {% endfor %}
+             </tr>
+        {% endif %}
+    {% endfor %}
+    </tbody>
+</table>

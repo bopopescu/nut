@@ -475,6 +475,7 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
             order.skus = [order_item.sku for order_item in order_items]
             order.count=order.items.all().count()
             order.itemslist=order.items.all()[1:order.count]
+            order.firstitem=order.items.all()[0]
         return context
 
 class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
