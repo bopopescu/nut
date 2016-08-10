@@ -435,6 +435,9 @@
   top: -8px;
   left: 1px;
 }
+.b_day img {
+  max-height: 16px;
+}
 p .b_day {
   top: -8px;
   left: 3px;
