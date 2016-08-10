@@ -1594,6 +1594,19 @@ body.seller-management #seller_management_entity_price tr td.sku-cell,
 body.seller-management #seller_management_entity_price tr td.update-time-cell {
   color: #757575;
 }
+body.seller-management #seller_management_entity_price tr td.sku-cell {
+  padding-right: 0;
+  border-right: 0;
+}
+body.seller-management #seller_management_entity_price tr td.price-wrapper {
+  padding: 0;
+  border-left: 0;
+  border-right: 0;
+}
+body.seller-management #seller_management_entity_price tr td.stock-wrapper {
+  padding-left: 0;
+  border-left: 0;
+}
 body.seller-management #seller_management_entity_price .sku-save-btn {
   margin-left: 12px;
 }
