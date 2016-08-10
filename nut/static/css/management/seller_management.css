@@ -1384,6 +1384,9 @@ ul {
 .new-table-bordered tbody tr td {
   border: 1px solid #e6e6e6;
 }
+.new-table-bordered tr td.no-border-cell {
+  border: none;
+}
 .new-custom-table-bordered tbody tr {
   border-bottom: 1px solid #e6e6e6;
 }
