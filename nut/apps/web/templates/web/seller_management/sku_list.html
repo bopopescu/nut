@@ -4,47 +4,49 @@
 
 {% block content %}
     <section class="content-header">
+        <ol class="new-breadcrumb">
+            <li><a href="{% url 'web_seller_management' %}">{% trans '卖家中心' %}</a></li>
+            <li><a href="{% url 'web_seller_management' %}">{% trans 'entity' %}</a></li>
+            <li><a >{% trans 'SKU管理' %}</a></li>
+        </ol>
         <h1>
             {{ entity.title }}
-{#            <small>{{ entity }}</small>#}
         </h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
-            <li><a href="#">{% trans 'entity' %}</a></li>
-            <li><a href="#">{% trans 'skus' %}</a></li>
-        </ol>
-
+    </section>
 
     <section class="content">
         <div class="row">
              <div class="col-xs-12">
-                <div class="box box-default">
-                    <div class="box-header" id="images">
-                        {% include "web/seller_management/partial/entity_images.html" with images=entity.images %}
-                    </div>
-                </div>
+                 {% include "web/seller_management/partial/entity_images.html" with image=entity.chief_image %}
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:32px;margin-bottom: 16px;">
+            <div class="col-xs-12">
+                 <a id="add_sku_trigger" class="btn newest-btn-primary" data-url="{% url 'sku_add_box' entity.id %}">添加SKU</a>
             </div>
         </div>
 
         <div class="row">
             <div class="col-xs-12">
-                <div class="box box-default">
+                <div class="new-box">
                     {% include 'web/seller_management/partial/skus_list.html' %}
                 </div>
-
             </div>
         </div>
-
     </section>
-
-
-
-    </section>
-
-
 
 {% endblock %}
 
-
 {% block user_script %}
+    <script src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/management/util.js' %}"></script>
+
+    <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
+    <script src="{% static 'js/management/seller_management/sku_switch.js' %}" type="application/javascript"></script>
+
+    <script src="{% static 'js/management/seller_management/sku_add.js' %}" type="application/javascript"></script>
+     <script src="{% static 'js/management/seller_management/sku_edit.js' %}" type="application/javascript"></script>
+    <script src="{% static 'js/management/seller_management/sku_delete.js' %}" type="application/javascript"></script>
+
 {% endblock %}

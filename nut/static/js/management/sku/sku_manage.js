@@ -14,6 +14,8 @@ _.extend(SKU_MNG_APP.prototype, {
 
     handle_save_sku:function(){
         $('#sku_form').submit(this.save_sku.bind(this));
+        //luoqian add here for ajax post
+        $('#sku_form .sku-save').click(this.save_sku.bind(this));
     },
 
     save_sku: function(e){

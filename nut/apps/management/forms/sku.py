@@ -5,6 +5,11 @@ from django.core.exceptions import ValidationError
 from django.forms import ModelForm, CharField, HiddenInput
 from apps.core.models import SKU, Entity
 
+class SwitchSkuStatusForm(ModelForm):
+    class Meta:
+        model = SKU
+        fields = ['status']
+
 
 class SKUForm(ModelForm):
 
@@ -16,16 +21,19 @@ class SKUForm(ModelForm):
         return Entity.objects.get(id=entity_id)
 
     def clean_attrs(self):
+
         attrs = json.loads(self.cleaned_data['attrs'])
         entity = self.cleaned_data['entity']
-        attrs_list = [s.attrs for s in entity.skus.all()]
+        attrs_list = [s.attrs for s in entity.skus.exclude(id=self.instance.id)]
         if attrs == {}:
             attrs = u''
         if attrs in attrs_list:
+            self.repeatstatus = 1
             raise ValidationError("属性已存在")
         return attrs
 
     def __init__(self, *args, **kwargs):
+        self.repeatstatus = 0
         super(SKUForm, self).__init__(*args, **kwargs)
         for key , field in self.fields.items():
             field.widget.attrs.update({'class':'form-control'})

@@ -18,7 +18,6 @@ class SKU(models.Model):
     origin_price = models.FloatField(default=0, db_index=True)
     promo_price = models.FloatField(default=0, db_index=True)
     status =  models.IntegerField(choices=SKU_STATUS_CHOICE, default=enable)
-
     objects =  SKUManager()
 
 
@@ -133,11 +132,26 @@ class Order(models.Model):
     number = models.CharField(max_length=128, db_index=True, unique=True)
     status = models.IntegerField(choices=ORDER_STATUS_CHOICE, default=address_unbind)
     shipping_to  = models.ForeignKey(ShippingAddress, null=True, blank=True)
+    Created_datetime = models.DateTimeField(auto_now_add=True)
+    Updated_datetime = models.DateTimeField(auto_now=True)
 
     objects = OrderManager()
 
     def generate_alipay_payment_url(self, host='http://www.guoku.com'):
         return AliPayPayment(order=self,host=host).payment_url
+
+    def generate_weixin_payment_url(self,host='http://www.guoku.com'):
+        return
+
+    def set_paid(self):
+        self.status = Order.paid
+        self.save()
+        return self
+
+    def set_closed(self):
+        self.status = Order.closed
+        self.save()
+        return self
 
     @property
     def payment_subject(self):
@@ -177,7 +191,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,related_name='items')
     customer = models.ForeignKey('core.GKUser', related_name='order_items',db_index=True)
-    sku  = models.ForeignKey(SKU, db_index=True)
+    sku = models.ForeignKey(SKU, db_index=True)
     volume = models.IntegerField(default=1)
     add_time = models.DateTimeField(auto_now_add=True, auto_now=True,db_index=True)
     grand_total_price = models.FloatField(null=False) # 当订单生成的时候计算

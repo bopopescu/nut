@@ -111,6 +111,12 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def has_guoku_assigned_email(self):
         return ('@guoku.com' in self.email ) and (len(self.email) > 29)
 
+    def has_sku(self,sku):
+        return sku.entity.user.id == self.id
+
+    def has_entity(self,entity):
+        return entity.user.id == self.id
+
     @property
     def need_verify_mail(self):
         return (not self.profile.email_verified ) and (not self.need_change_mail)
@@ -966,6 +972,9 @@ class Entity(BaseModel):
             # for found brand , cache 2 week
             return res
 
+    @property
+    def total_stock(self):
+        return sum([i.stock for i in self.skus.all()])
 
     @property
     def chief_image(self):
@@ -1190,7 +1199,7 @@ class Entity(BaseModel):
     def add_sku(self, attributes=None):
         if attributes is None:
             attributes = {}
-        sku , created = SKU.object.get_or_create(entity=self,attrs=attributes)
+        sku , created = SKU.objects.get_or_create(entity=self,attrs=attributes)
         if created :
             sku.entity = self
             sku.attributes = attributes

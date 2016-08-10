@@ -243,6 +243,44 @@ def create(request, template='management/entities/new.html'):
         context_instance=RequestContext(request)
     )
 
+class Import_entity(View):
+    def __init__(self, template='management/entities/new.html', entity_edit_url='management_entity_edit'):
+        self.template = template
+        self.entity_edit_url = entity_edit_url
+
+    def get_res(self, request):
+        _url = request.GET.get('url')
+        if _url is None:
+            raise Http404
+        res = load_entity_info(_url)
+        return res
+
+    def get(self, request, *args, **kwargs):
+        res = self.get_res(request)
+        if res.has_key('entity_id'):
+            return HttpResponseRedirect(
+                reverse(self.entity_edit_url, args=[res['entity_id']]))
+        if len(res) == 0:
+            return HttpResponse('not support')
+        key_string = "%s%s" % (res['cid'], res['origin_source'])
+        key = md5(key_string.encode('utf-8')).hexdigest()
+        category_id = cache.get(key)
+        if category_id:
+            res['category_id'] = category_id
+        else:
+            res['category_id'] = 300
+        _forms = CreateEntityForm(request=request, initial=res)
+        return render(request, self.template, {'res': res, 'forms': _forms})
+
+    def post(self, request, *args, **kwargs):
+        res = self.get_res(request)
+        _forms = CreateEntityForm(request=request, data=request.POST,
+                                  initial=res)
+        if _forms.is_valid():
+            entity = _forms.save()
+            return HttpResponseRedirect(
+                reverse(self.entity_edit_url, args=[entity.pk]))
+
 class Add_local(View):
         template_name = 'management/entities/add.html'
         form_class = AddEntityForm
@@ -523,6 +561,10 @@ class EntitySKUUpdateView(EditorRequiredMixin,UpdateView):
         entity = get_object_or_404(Entity, id=entity_id)
         return entity
 
+    def get_context_data(self, **kwargs):
+        context = super(EntitySKUUpdateView, self).get_context_data(**kwargs)
+        context['entity_id'] = self.get_entity().id
+        return context
     def get_success_url(self):
         return reverse('management_entity_skus', args=[self.get_entity().id])
 
