@@ -353,18 +353,11 @@ class SKUCreateBoxView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView)
         _forms = SKUForm(request.POST)
         if _forms.is_valid():
             _forms.save()
-            return JSONResponse(
-                data={
-                    'status': 1
-                }
-            )
+            return JSONResponse(data={'status': 1})
+        elif _forms.repeatstatus:
+            return JSONResponse(data={'status': -1})
         else:
-            return JSONResponse(
-                data={
-                    'status': 0
-                },
-
-            )
+            return JSONResponse(data={'status': 0})
     def get_success_url(self):
         return reverse('sku_list_management', args=[self.entity_id])
     def get_context_data(self, **kwargs):
@@ -475,7 +468,6 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
             order.skus = [order_item.sku for order_item in order_items]
             order.count=order.items.all().count()
             order.itemslist=order.items.all()[1:order.count]
-            order.firstitem=order.items.all()[0]
         return context
 
 class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
