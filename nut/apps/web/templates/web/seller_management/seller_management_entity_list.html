@@ -57,11 +57,11 @@
             <td class="sku-cell">
                  {% for sku in entity.sku_list %}
                     {% if sku.attrs_display %}
-                        <div class="sku-item">
+                        <div class="sku-item sku-item-border">
                          {{ sku.attrs_display }}
                         </div>
                     {% else %}
-                        <div class="sku-item">
+                        <div class="sku-item sku-item-border">
                         默认
                         </div>
                     {% endif %}
@@ -70,14 +70,14 @@
             </td>
             <td class="price-wrapper">
                 {% for sku in entity.sku_list %}
-                    <div class="sku-item entity_price" id="{{ entity.id }}" data-sku-id="{{ sku.id }}">
+                    <div class="sku-item sku-item-border entity_price" id="{{ entity.id }}" data-sku-id="{{ sku.id }}">
                         &yen;{{ sku.promo_price }}
                     </div>
                 {% endfor %}
             </td>
             <td>
                 {% for sku in entity.sku_list %}
-                     <div class="sku-item entity-stock" id="{{ entity.id }}" data-sku-id="{{ sku.id }}">
+                     <div class="sku-item sku-item-border entity-stock" id="{{ entity.id }}" data-sku-id="{{ sku.id }}">
                           {{ sku.stock }}
                      </div>
                 {% endfor %}

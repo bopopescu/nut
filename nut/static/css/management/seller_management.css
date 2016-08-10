@@ -1456,12 +1456,14 @@ ul {
   text-decoration: line-through;
   color: #757575;
 }
+.sku-item-border + .sku-item-border {
+  border-top: 1px solid #e6e6e6;
+}
 .sku-item {
   width: 100%;
   height: 100%;
   padding: 12px;
   background-color: #F5F8FF;
-  border-bottom: 1px solid #e6e6e6;
 }
 .sku-item i {
   color: #BDBDBD;
