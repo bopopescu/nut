@@ -45,7 +45,7 @@ var SKUEditManager = Class.extend({
         if(success_status == 1){
             bootbox.alert({
                 size: 'small',
-                message: '添加成功!',
+                message: '编辑成功!',
                 callback:that.reloadCurrentPage()
             }) ;
         }
@@ -58,13 +58,13 @@ var SKUEditManager = Class.extend({
         if(fail_status == 406){
              bootbox.alert({
                 size: 'small',
-                message: '添加重复,请重新添加!'
+                message: 'SKU重复,请重新编辑!'
             }) ;
         }
         else{
             return bootbox.alert({
                 size: 'small',
-                message: '添加失败'
+                message: '编辑失败'
             }) ;
         }
     },
