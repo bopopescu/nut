@@ -28,23 +28,26 @@ var SKUAddManager = Class.extend({
         var that = this;
         var _form = $('#sku_form');
         _form.onsubmit=function(){return false;};
+        //alert(_form.serialize());
 
         $.when($.ajax({
             url: _form.attr('action'),
-            method: 'POST'
+            method: 'POST',
+            data: _form.serialize()
         })).then(
             that.post_add_sku_success.bind(this),
             that.post_add_sku_fail.bind(this)
         );
     },
     post_add_sku_success: function addSkuSuccess(data){
-        //var that = this;
+        var that = this;
         this.hideDialog();
          var status = parseInt(data.status);
         if(status == 1){
             bootbox.alert({
                 size: 'small',
-                message: '添加成功!'
+                message: '添加成功!',
+                callback: that.reloadCurrentPage()
             }) ;
         }
         else if(status == -1){
