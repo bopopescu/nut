@@ -34,7 +34,7 @@ class DesignWeekViewSet(viewsets.ReadOnlyModelViewSet):
 
 
     def get_pagination_serializer(self, page):
-        class SerializerClass(Test):
+        class SerializerClass(NewPaginationSerializer):
             class Meta:
                 object_serializer_class = self.get_serializer_class()
         pagination_serializer_class = SerializerClass
@@ -56,11 +56,11 @@ class DesignWeekPaginationSerializer(BasePaginationSerializer):
 
 
 
-class Test(DesignWeekPaginationSerializer):
+class NewPaginationSerializer(DesignWeekPaginationSerializer):
 
     def __init__(self, *args, **kwargs):
         self.results_field = 'data'
-        super(Test, self).__init__(*args, **kwargs)
+        super(NewPaginationSerializer, self).__init__(*args, **kwargs)
 
 
 
