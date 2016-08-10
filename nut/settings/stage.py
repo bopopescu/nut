@@ -176,10 +176,10 @@ HAYSTACK_CONNECTIONS = {
 # HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
+#add by anchen , for index page icon hack
+SITE_HOST = 'http://test.guoku.com'
 
-SITE_HOST="http://test.guoku.com"
-
-
+#add by anchen
 # ANT_SIMULATE_MOBILE = True
 
 __author__ = 'edison7500'
