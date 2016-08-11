@@ -622,14 +622,14 @@ class TaobaoRecommendationView(BaseJsonView):
         # self.mall = kwargs.pop('mall', False)
         return super(TaobaoRecommendationView, self).get(requests, *args, **kwargs)
 
-class DesignWeekAPIView(EntityDetailMixin, RedirectView):
-    def get(self, request, *args, **kwargs):
-        entity_hash = kwargs.get('entity_hash')
-        referer = request.META.get('HTTP_REFERER')
-        user_id = request.user.id
-        entity_id = self.get_object().id
-        click_record.delay(user_id, entity_id, referer)
-        return HttpResponseRedirect(reverse('web_entity_detail', args=[entity_hash]))
+# class DesignWeekAPIView(EntityDetailMixin, RedirectView):
+#     def get(self, request, *args, **kwargs):
+#         entity_hash = kwargs.get('entity_hash')
+#         referer = request.META.get('HTTP_REFERER')
+#         user_id = request.user.id
+#         entity_id = self.get_object().id
+#         click_record.delay(user_id, entity_id, referer)
+#         return HttpResponseRedirect(reverse('web_entity_detail', args=[entity_hash]))
 
 
 

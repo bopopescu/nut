@@ -44,7 +44,7 @@ urlpatterns += patterns(
 urlpatterns += patterns(
     'apps.web.views.entity',
     url(r'^detail/(?P<entity_hash>\w+)/$', NewEntityDetailView.as_view(), name='web_entity_detail'),
-    url(r'^jump/entity/(?P<entity_hash>\w+)/$', DesignWeekAPIView.as_view()),
+    # url(r'^jump/entity/(?P<entity_hash>\w+)/$', DesignWeekAPIView.as_view()),
     # url(r'^detail/(?P<entity_hash>\w+)/$', 'entity_detail', name='web_entity_detail'),
     url(r'^detail/(?P<entity_hash>\w+)/liker/$', EntityLikersView.as_view(), name='web_entity_likers_list'),
     url(r'^detail/(?P<entity_hash>\w+)/card/$', EntityCard.as_view() , name='web_entity_card'),

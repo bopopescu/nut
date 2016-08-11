@@ -1,6 +1,8 @@
+from django.http import HttpResponseRedirect
 from haystack.query import SearchQuerySet
 from rest_framework import serializers
 from rest_framework.pagination import BasePaginationSerializer
+from rest_framework.response import Response
 
 from apps.core.models import Selection_Entity, GKUser, Entity
 from rest_framework import viewsets
@@ -25,6 +27,18 @@ class DesignWeekViewSet(viewsets.ReadOnlyModelViewSet):
         self.paginate_by_param = 'page_size'
         self.serializer_class = DesignWeekSerializer
         self.queryset = self.get_queryset()
+
+    def list(self, request, *args, **kwargs):
+        if request.query_params == {}:
+            return HttpResponseRedirect(request.path + "?page_size=30&page_offset=1")
+        instance = self.filter_queryset(self.get_queryset())
+        page = self.paginate_queryset(instance)
+        if page is not None:
+            serializer = self.get_pagination_serializer(page)
+        else:
+            serializer = self.get_serializer(instance, many=True)
+        return Response(serializer.data)
+
 
     def get_queryset(self):
         auth_seller = GKUser.objects.authorized_seller()
