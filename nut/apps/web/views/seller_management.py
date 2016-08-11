@@ -1,6 +1,6 @@
 # encoding: utf-8
 import json
-
+from apps.core.forms.entity import EntityImageForm
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.forms.entity import EditEntityForm
 from apps.core.mixins.views import FilterMixin, SortMixin
@@ -194,6 +194,32 @@ class SellerManagementAddEntity(Add_local):
         return render(request, self.template_name, {'forms': form})
 
 @login_required
+def image(request, entity_id,
+          template='web/seller_management/seller_upload_image.html'):
+    try:
+        _entity = Entity.objects.get(pk=entity_id)
+    except Entity.DoesNotExist:
+        raise Http404
+
+    if request.method == "POST":
+        _forms = EntityImageForm(entity=_entity, data=request.POST,
+                                 files=request.FILES)
+        if _forms.is_valid():
+            _forms.save()
+            return HttpResponseRedirect(reverse('management_entity_edit', args=[_entity.id]))
+
+    else:
+        _forms = EntityImageForm(entity=_entity)
+
+    return render_to_response(
+        template,
+        {
+            'entity': _entity,
+            'forms': _forms,
+        },
+        context_instance=RequestContext(request)
+    )
+@login_required
 def seller_management_entity_edit(request, entity_id, template='web/seller_management/edit_entity.html'):
     #Todo 拆分模版
     _update = None
@@ -349,6 +375,7 @@ class SKUCreateView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView):
     model = SKU
     form_class = SKUForm
     template_name = 'management/sku/sku_add_template.html'
+
     def post_ajax(self, request, *args, **kwargs):
         _forms = SKUForm(request.POST)
         if _forms.is_valid():
@@ -365,8 +392,11 @@ class SKUCreateView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView):
         context['entity_id']=self.entity_id
         return context
     def get_initial(self):
+        initial_price = Entity.objects.get(pk=self.entity_id).price
         return {
-            'entity':self.entity_id
+            'entity':self.entity_id,
+            'origin_price':initial_price,
+            'promo_price':initial_price
         }
 
 class SKUUpdateView(SKUUserPassesTestMixin, AjaxResponseMixin,UpdateView):
@@ -441,7 +471,7 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
         qs = Order.objects.filter(id__in=order_ids)
         self.status = self.request.GET.get('status')
         if self.status == 'waiting_for_payment':
-            qs = qs.filter(status=2)
+            qs = qs.filter(status__in=[1,2,4])
         elif self.status == 'paid':
             qs = qs.filter(status=3)
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
