@@ -5,7 +5,7 @@ from apps.web.views.design_week import DesignWeekViewSet
 from apps.web.views.discover import DiscoverView, RecommendUserView
 from apps.web.views.main import SelectionEntityList, SiteMapView, IndexArticleTagView, IndexSelectionEntityTagView\
                                 ,IndexHotEntityView
-from apps.web.views.entity import EntityCard, EntityLikersView, EntitySaleView, NewEntityDetailView, DesignWeekAPIView
+from apps.web.views.entity import EntityCard, EntityLikersView, EntitySaleView, NewEntityDetailView
 from apps.web.views.main import GKSearchView, PopularView,IndexView
 from apps.web.views.flink import FriendlyLinkListView
 from rest_framework.routers import DefaultRouter
