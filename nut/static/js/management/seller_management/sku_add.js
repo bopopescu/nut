@@ -55,12 +55,19 @@ var SKUAddManager = Class.extend({
     post_add_sku_fail:function(data){
         this.hideDialog();
         console.log('post add sku fail');
-        var fail_status = parseInt(data.status);
-        // look for data to know why
-        if(fail_status == 406){
+        var fail_status = parseInt(data.responseJSON.result);
+        console.log('status'+fail_status);
+
+        if(fail_status == -1){
              bootbox.alert({
                 size: 'small',
-                message: '添加重复,请重新添加!'
+                message: '商品属性重复,请重新添加!'
+            }) ;
+        }
+        else if(fail_status == 0){
+            bootbox.alert({
+                size: 'small',
+                message: '商品属性不能为空,请重新添加!'
             }) ;
         }
         else{
