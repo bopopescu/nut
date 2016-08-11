@@ -41,7 +41,7 @@
                                 <strong>{% trans '本商品暂无图片' %}</strong>
                             </div>
                         {% else %}
-                        {% include "management/entities/partial/entity_images.html" with image=entity.chief_image %}
+                        {% include "management/entities/partial/all_entity_images.html" with image=entity.chief_image %}
                         {% endif %}
                     </div>
                 </div>
