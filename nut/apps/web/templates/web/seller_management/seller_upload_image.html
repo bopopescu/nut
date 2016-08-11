@@ -6,7 +6,7 @@
 {% block content %}
     <h1 class="page-header">{{ entity.title }}</h1>
     <div class="row placeholders" id="images">
-        {% include 'management/entities/partial/entity_images.html' with image=entity.chief_image %}
+        {% include 'management/entities/partial/all_entity_images.html'%}
 {#        {% for index, image in entity.images|enumerate_list %}#}
 {#            <div class="col-xs-6 col-sm-3 placeholder">#}
 {#                <img class="img-responsive img-thumbnail" alt="240x240" src="{{ image|resize:'600' }}" width="240" height="240">#}

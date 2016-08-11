@@ -3,7 +3,7 @@ from apps.web.views.seller_management import SKUListView,SKUDeleteView,SKUUpdate
                                              SellerManagementEntitySave,OrderDetailView,\
                                              SellerManagementOrders, SellerManagementSoldEntityList, \
                                              SellerManagementSkuSave, SellerManagementImportEntity,\
-                                             SKUStatusChangeView,SKUCreateView, QrcodeListView,image
+                                             SKUStatusChangeView,SKUCreateView, QrcodeListView,image,delete_image
 from apps.web.views.seller_management import SellerManagement, SellerManagementAddEntity
 from django.conf.urls import url, patterns
 
@@ -24,6 +24,7 @@ urlpatterns = patterns(
     url(r'^(?P<entity_id>\d+)/save/$', SellerManagementEntitySave.as_view(), name='web_seller_management_entity_save'),
     url(r'^(?P<entity_id>\d+)/skus/$', SKUListView.as_view(), name='sku_list_management'),
     url(r'^(?P<entity_id>\d+)/skus/(?P<sku_id>\d+)/sku_status/$', SKUStatusChangeView.as_view(), name='sku_status_change'),
+    url(r'^/(?P<entity_id>\d+)/image/remove/$', 'delete_image', name='seller_remove_entity_image'),
 #    url(r'^(?P<entity_id>\d+)/skus/new/$', SKUCreateView.as_view(), name='add_sku_management'),
     url(r'^orders/(?P<order_number>\d+)/detail/$',OrderDetailView.as_view(),name='order_detail_management'),
     url(r'^(?P<entity_id>\d+)/skus/(?P<pk>\d+)/delete/$', SKUDeleteView.as_view(), name='sku_delete_management'),

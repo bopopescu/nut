@@ -1,5 +1,6 @@
 # encoding: utf-8
 import json
+from django.views.decorators.csrf import csrf_exempt
 from apps.core.forms.entity import EntityImageForm
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.forms.entity import EditEntityForm
@@ -14,10 +15,12 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.shortcuts import get_object_or_404
 from apps.management.forms.sku import SKUForm,SwitchSkuStatusForm
+from apps.core.utils.http import SuccessJsonResponse
 from apps.core.models import SKU,Entity,Order
 from django.template import RequestContext
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView,DetailView, View
-from django.http import Http404
+from django.http import Http404,HttpResponseNotAllowed
+from apps.management.decorators import staff_only, staff_and_editor
 from apps.core.utils.http import JSONResponse
 
 class SKUUserPassesTestMixin(UserPassesTestMixin):
@@ -265,6 +268,27 @@ def seller_management_entity_edit(request, entity_id, template='web/seller_manag
         },
         context_instance=RequestContext(request)
     )
+@csrf_exempt
+@login_required
+def delete_image(request, entity_id):
+    if request.method == 'POST':
+        _index = request.POST.get('index', None)
+        try:
+            _entity = Entity.objects.get(pk=entity_id)
+            images = _entity.images
+            images.remove(_index)
+            _entity.images = images
+            _entity.save()
+        except Entity.DoesNotExist:
+            raise Http404
+
+        status = True
+        # if 'http://imgcdn.guoku.com/' in _index:
+        #     image_name = _index.replace('http://imgcdn.guoku.com/', '')
+        #     status = default_storage.delete(image_name)
+        return SuccessJsonResponse(data={'status': status})
+
+    return HttpResponseNotAllowed
 
 class SellerManagementEntitySave(JSONResponseMixin, AjaxResponseMixin, View):
     model = Entity
