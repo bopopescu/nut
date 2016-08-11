@@ -1,0 +1,125 @@
+{% load i18n staticfiles %}
+{% load static %}
+{% load common guoku %}
+<html>
+<DIV> ENTITY : 二维码</DIV>
+<div class='qr_code_container' data-url="{{ current_host }}{{ entity.absolute_url }}"></div>
+
+
+=========================================
+
+<br>
+<br>
+
+<ul>
+    {% for sku in entity.skus.all %}
+        <li>
+            {{ entity.title }} <br>
+            {{ sku.origin_price }} <br>
+            {{ sku.promo_price }} <br>
+            {{ sku.stock }} <br>
+            {{ sku.attrs }} <br>
+            {% if user.is_authenticated %}
+                <button data-sku="{{ sku.id }}" class="add-cart-btn"> add to cart</button>
+            {% else %}
+                <button> login</button>
+            {% endif %}
+        </li>
+{#        <li><div class="qr_code_container" data-url="{{ current_host }}{{  }}"></div></li>#}
+    {% endfor %}
+
+</ul>
+<script language="javascript" src="{% static 'js/web/app/libs/jquery-1.11.1.min.js' %}"></script>
+<script language="javascript" src="{% static 'js/web/app/libs/qrcode.js' %}"></script>
+
+<script language="javascript">
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+</script>
+<script language="javascript">
+    var AddCartApp = function(){
+        this.init();
+    }
+    AddCartApp.prototype = {
+        init: function(){
+            this.init_add_button();
+            this.init_qrcode();
+        },
+        init_qrcode:function(){
+          var qr_ele =   $('.qr_code_container');
+              url = qr_ele.attr('data-url');
+                new QRCode(qr_ele[0],
+                    {
+                        text: url,
+                        width: 218,
+                        height: 218
+                    }
+                );
+
+        },
+        init_add_button: function(){
+            $('.add-cart-btn').click(this.add_cart.bind(this));
+        },
+        add_cart: function(event){
+            var ele = event.currentTarget;
+            var skuid = $(ele).attr('data-sku');
+            var url = this.get_request_url();
+            var data = {'sku_id':skuid, 'volume': 1};
+            $.when($.ajax(url,{
+                method: 'POST',
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+            })).then(
+                    this.add_cart_success.bind(this),
+                    this.add_cart_fail.bind(this)
+            )
+{#            use post method #}
+        },
+
+        add_cart_success:function(data){
+            console.log('add cart success');
+        },
+        add_cart_fail:function(data){
+            console.log('add cart fail');
+        },
+        get_request_url: function(){
+            return '/cart/add/'
+        }
+
+    }
+
+    var cart_app = new AddCartApp()
+
+
+</script>
+</html>

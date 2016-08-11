@@ -1,16 +1,18 @@
 from apps.core.views import BaseFormView
 from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect, \
     HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404, render
 from django.template import RequestContext
-from django.core.urlresolvers import reverse
-# from django.views.generic.list import ListView
+from django.core.urlresolvers import reverse, reverse_lazy
 # from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.utils.log import getLogger
 # from django.core.files.storage import default_storage
 from django.views.decorators.csrf import csrf_exempt
 from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
+from django.views.generic import ListView,DeleteView, CreateView, UpdateView,View
+
 from apps.management.decorators import staff_only, staff_and_editor
 
 from apps.core.models import Entity, Buy_Link, GKUser
@@ -27,6 +29,9 @@ from django.views.generic.list import ListView
 from django.views.generic import TemplateView, View
 from apps.core.mixins.views import SortMixin, FilterMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
+
+from apps.management.mixins.auth import EditorRequiredMixin
+from apps.management.forms.sku import SKUForm
 
 import requests
 
@@ -238,22 +243,56 @@ def create(request, template='management/entities/new.html'):
         context_instance=RequestContext(request)
     )
 
-@login_required
-@staff_and_editor
-def add_local(request):
-        template = 'management/entities/add.html'
-        if request.method == 'POST':
-            form = AddEntityForm(request, data=request.POST, files=request.FILES)
+class Import_entity(View):
+    def __init__(self, template='management/entities/new.html', entity_edit_url='management_entity_edit'):
+        self.template = template
+        self.entity_edit_url = entity_edit_url
+
+    def get_res(self, request):
+        _url = request.GET.get('url')
+        if _url is None:
+            raise Http404
+        res = load_entity_info(_url)
+        return res
+
+    def get(self, request, *args, **kwargs):
+        res = self.get_res(request)
+        if res.has_key('entity_id'):
+            return HttpResponseRedirect(
+                reverse(self.entity_edit_url, args=[res['entity_id']]))
+        if len(res) == 0:
+            return HttpResponse('not support')
+        key_string = "%s%s" % (res['cid'], res['origin_source'])
+        key = md5(key_string.encode('utf-8')).hexdigest()
+        category_id = cache.get(key)
+        if category_id:
+            res['category_id'] = category_id
+        else:
+            res['category_id'] = 300
+        _forms = CreateEntityForm(request=request, initial=res)
+        return render(request, self.template, {'res': res, 'forms': _forms})
+
+    def post(self, request, *args, **kwargs):
+        res = self.get_res(request)
+        _forms = CreateEntityForm(request=request, data=request.POST,
+                                  initial=res)
+        if _forms.is_valid():
+            entity = _forms.save()
+            return HttpResponseRedirect(
+                reverse(self.entity_edit_url, args=[entity.pk]))
+
+class Add_local(View):
+        template_name = 'management/entities/add.html'
+        form_class = AddEntityForm
+        def get(self, request, *args, **kwargs):
+            form = self.form_class(request)
+            return render(request, self.template_name, {'forms': form})
+        def post(self, request, *args, **kwargs):
+            form = self.form_class(request, data=request.POST, files=request.FILES)
             if form.is_valid():
                 form.save()
-            return HttpResponseRedirect(reverse('management_entity_list'))
-        form = AddEntityForm(request)
-        return render_to_response(
-            template,
-            {'forms': form,
-             },
-            context_instance=RequestContext(request),
-        )
+                return HttpResponseRedirect(reverse('management_entity_list'))
+            return render(request, self.template_name, {'forms': form})
 
 
 # TODO:
@@ -468,6 +507,81 @@ def delete_image(request, entity_id):
         return SuccessJsonResponse(data={'status': status})
 
     return HttpResponseNotAllowed
+
+from apps.core.models import SKU
+
+class EntitySKUListView(EditorRequiredMixin,ListView):
+    template_name = 'management/entities/entity_sku_list.html'
+    def get_queryset(self):
+        entity = self.get_entity()
+        return entity.skus.all()
+
+    def get_entity(self):
+        return get_object_or_404(Entity, id=self.kwargs.get('entity_id', None))
+
+    def get_context_data(self, **kwargs):
+        context = super(EntitySKUListView, self).get_context_data(**kwargs)
+        context['entity']= self.get_entity()
+        return context
+
+
+
+class EntitySKUCreateView(EditorRequiredMixin, CreateView):
+    model = SKU
+    form_class = SKUForm
+    template_name = 'management/entities/create_sku.html'
+    def get_success_url(self):
+        return reverse('management_entity_skus', args=[self.get_entity().id])
+
+    def get_initial(self):
+        entity = self.get_entity()
+        return {
+            'entity':entity.id
+        }
+
+    def get_entity(self):
+        entity_id =  self.kwargs.get('entity_id')
+        entity = get_object_or_404(Entity, id=entity_id)
+        return entity
+
+    def get_context_data(self, **kwargs):
+        context = super(EntitySKUCreateView, self).get_context_data(**kwargs)
+        context['entity'] = self.get_entity()
+        context['entity_id']=self.get_entity().id
+        return context
+
+
+class EntitySKUUpdateView(EditorRequiredMixin,UpdateView):
+    model = SKU
+    form_class = SKUForm
+    template_name = 'management/entities/update_sku.html'
+
+    def get_entity(self):
+        entity_id =  self.kwargs.get('entity_id')
+        entity = get_object_or_404(Entity, id=entity_id)
+        return entity
+
+    def get_context_data(self, **kwargs):
+        context = super(EntitySKUUpdateView, self).get_context_data(**kwargs)
+        context['entity_id'] = self.get_entity().id
+        return context
+    def get_success_url(self):
+        return reverse('management_entity_skus', args=[self.get_entity().id])
+
+
+class EntitySKUDeleteView(EditorRequiredMixin, DeleteView):
+    model = SKU
+    template_name = 'management/entities/delete_sku.html'
+
+    def get_entity(self):
+        entity_id =  self.kwargs.get('entity_id')
+        entity = get_object_or_404(Entity, id=entity_id)
+        return entity
+
+    def get_success_url(self):
+        return reverse('management_entity_skus', args=[self.get_entity().id])
+
+
 
 
 __author__ = 'edison7500'

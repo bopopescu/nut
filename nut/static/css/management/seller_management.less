@@ -1,0 +1,291 @@
+@import "../lib/mixin.less";
+@import "../lib/var.less";
+@import '../lib/component.less';
+@import '../lib/widgets.less';
+
+ol,ul{
+  -webkit-padding-start: 0;
+}
+
+ul{
+  list-style:none;
+}
+
+@light-blue-bg:#F5F8FF;
+
+//btn
+.seller-mng-btn{
+  color:@common-text-color;
+  background-color: @default-background;
+  border:1px solid @border-gray;
+  padding:7px 14px;
+}
+
+//box
+.new-box{
+  position:relative;
+  background-color: @default-background;
+  border-top:3px solid @common-text-color;
+}
+.new-box-header{
+
+}
+.new-box-body{
+
+}
+
+//table
+.new-table-bordered,.new-table-bordered tbody tr td{
+  border:1px solid @border-gray;
+}
+.new-table-bordered tr td.no-border-cell{
+  border:none;
+}
+
+.new-custom-table-bordered tbody tr{
+  border-bottom: 1px solid @border-gray;
+}
+.new-table{
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+    thead tr{
+      height:50px;
+      background-color: @very-light-gray;
+    }
+    thead tr th,tbody tr td{
+      min-height: 50px;
+      padding:8px;
+    }
+    tbody tr td.no-padding-cell{
+      padding:0;
+    }
+    thead tr th,tbody tr td{
+      text-align: center;
+      vertical-align: middle;
+    }
+  tr td.entity-cell{
+    text-align: left;
+  }
+    tr.order-cell-header{
+      background-color: @light-blue-bg;
+      td{
+        text-align: left;
+        padding:15px 12px;
+      }
+    }
+}
+.new-table-hover{
+  tbody tr:hover{
+    background-color: @very-light-gray;
+  }
+}
+.entity-sku-custom-table{
+  width:100%;
+  max-width: 100%;
+  tbody tr{
+    height: 70px;
+    border-bottom: 1px solid @border-gray;
+    td{
+      border:none;
+      padding:0;
+      background-color: @light-blue-bg;
+    }
+
+  }
+}
+
+//breadcrumb
+.new-breadcrumb{
+  font-size: @smaller-primary;
+  li{
+    display: inline-block;
+  }
+  li:last-child a{
+    color:@new-text-gray;
+  }
+}
+.new-breadcrumb li+li:before{
+  color: @new-text-gray;
+  padding:0 8px;
+  content:'>\00a0';
+}
+
+.original-price{
+  text-decoration: line-through;
+  color:@new-text-gray;
+}
+//sku item
+//li+li:before
+.sku-item-border+.sku-item-border{
+   //border-top: 1px solid @border-gray;
+}
+.sku-item{
+  width:100%;
+  //height:100%;
+  height:60px;
+  line-height: 60px;
+  white-space: nowrap;
+  //padding:12px;
+  background-color: @light-blue-bg;
+  margin-bottom:8px;
+  i{
+    color:@gray-light;
+  }
+}
+.sku-item:last-child{
+  margin-bottom: 0;
+}
+
+//entity cell
+.entity-container{
+  .entity-wrapper{
+    width:54px;
+    float:left;
+  }
+  .entity-info-wrapper{
+    margin-left:66px;
+    max-width:200px;
+  }
+}
+
+//search
+.entity-search{
+  width:240px;
+  .guoku_search_input{
+    display: none;
+  }
+  &:hover{
+    cursor: pointer;
+    .guoku_search_input{
+      display: inline-block;
+    }
+  }
+}
+
+.order-search-wrapper{
+  position:relative;
+  display: inline-block;
+  input.guoku_search_input{
+    padding-left:12px;
+    width: 400px;
+    height:50px;
+    line-height: 50px;
+    background-color:@hover-dark-gray;
+    color:@new-text-gray;
+    border:none;
+    outline: none;
+  }
+  i{
+    position: absolute;
+    top:17px;
+    right:22px;
+  }
+}
+
+.order-status-dropdown-wrapper{
+  position:relative;
+  ul.order-status-dropdown-menu{
+    top:30px;
+    li{
+      text-align: center;
+      a{
+        color:@common-text-color;
+         &:hover{
+        background-color: @very-light-gray;
+         }
+      }
+    }
+  }
+  a{
+    color:@common-text-color;
+  }
+}
+
+body.seller-management{
+  color:@common-text-color;
+  .wrapper{
+    background-color:@very-light-gray;
+  }
+  .main-header{
+    a.logo{
+      background-color: @common-text-color;
+      img{
+        width:66px;
+        height:23px;
+        opacity: 0.54;
+      }
+      &:hover{
+        background-color:@common-text-color;
+        img{
+          opacity: 1;
+        }
+      }
+    }
+    .navbar{
+      background-color: @common-text-color;
+    }
+  }
+  .main-sidebar{
+    background-color: @very-light-gray;
+    border-right:1px solid @border-gray;
+    .sidebar{
+      a{
+        color: @new-text-gray;
+        border:none;
+      }
+    }
+    .sidebar-menu li.active a,.sidebar-menu li:hover a{
+      background-color: @hover-dark-gray;
+      color:@common-text-color;
+      border:none;
+    }
+    .user-panel{
+      padding:16px;
+      border-bottom: 1px solid @border-gray;
+      .info{
+        color:@common-text-color;
+        white-space: normal;
+      }
+    }
+  }
+  .content-wrapper{
+    background-color: @default-background;
+  }
+  .content-header{
+    padding:40px 40px 0 40px;
+  }
+  .content{
+    padding:16px 40px;
+  }
+  #seller_management_entity_price{
+    tr th.entity-search{
+      width:240px;
+    }
+    tr th.update-time-cell,tr th.operation-cell{
+      width:110px;
+    }
+    tr td.entity-cell{
+      text-align: left;
+    }
+    tr td.sku-cell,tr td.update-time-cell{
+      color:@new-text-gray;
+    }
+    tr td.sku-cell{
+      padding-right:0;
+      border-right:0;
+    }
+    tr td.price-wrapper{
+      padding:0;
+      border-left:0;
+      border-right:0;
+    }
+    tr td.stock-wrapper{
+      padding-left:0;
+      border-left:0;
+    }
+    .sku-save-btn{
+      margin-left:12px;
+    }
+  }
+}

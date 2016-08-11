@@ -131,7 +131,7 @@ class ArticlesInterviewFeeds(Feed):
     def items(self):
         _tag = Tags.objects.get(name=u'专访')
         article_id_list = Content_Tags.objects.filter(tag=_tag, target_content_type_id=31).values_list('target_object_id').distinct()
-        articles = Article.objects.filter(id__in=article_id_list).order_by('-updated_datetime')[:50]
+        articles = Article.objects.filter(id__in=article_id_list).order_by('-updated_datetime')[:20]
         return articles
 
     def item_title(self, article):
@@ -179,7 +179,7 @@ class ArticlesFeeds(Feed):
     #     return getattr(get_object_or_404)
 
     def items(self):
-        return Selection_Article.objects.published().order_by('-pub_time')[0:50]
+        return Selection_Article.objects.published().order_by('-pub_time')[0:20]
 
     def item_title(self, item):
         return escape(item.article.title)
@@ -217,7 +217,7 @@ class GKEditorSelectionFeed(ArticlesFeeds):
         return Selection_Article.objects\
                     .published()\
                     .filter(article__creator__in=editors)\
-                    .order_by('-pub_time')[0:50]
+                    .order_by('-pub_time')[0:20]
 
 
 

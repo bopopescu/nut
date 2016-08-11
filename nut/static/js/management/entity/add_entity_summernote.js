@@ -6985,7 +6985,7 @@
 
       //031. create codable
       $('<textarea class="note-codable"></textarea>').prependTo($editor);
-      if ("/management/entity/add/" !== window.location.pathname) {
+      if ("/management/entity/add/" !== window.location.pathname && "/seller_management/add_entity/" !== window.location.pathname) {
         // done Title input here : by An .
         var titleInput = $('<div class=""><input class="title-input" name="article-title" placeholder="标题" maxlength="64"></div>')
             .prependTo($editor);

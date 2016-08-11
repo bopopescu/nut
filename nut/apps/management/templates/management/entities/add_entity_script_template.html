@@ -1,0 +1,20 @@
+{% load i18n static %}
+<script src="{% static 'chosen/chosen.jquery.min.js' %}"></script>
+    <script src="{% static 'js/management/category.js' %}"></script>
+    <script src="{% static 'js/management/entity/add_entity_summernote.js' %}"></script>
+    <script>
+    $(document).ready(function() {
+        $('#summernote').summernote({
+            height: 200,
+            codemirror: { // codemirror options
+{#                airMode: true,#}
+                theme: 'spacelab'
+            },
+            focus: true,
+            onImageUpload: function(file, editor, welEditable) {
+                sendFile(file, editor, welEditable);
+            },
+        });
+
+    });
+    </script>

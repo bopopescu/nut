@@ -49,13 +49,22 @@ class GKUserQuerySet(models.query.QuerySet):
         return self.filter(is_admin=True)
 
     def active_user(self):
-        return Group.objects.get(name='ActiveUser').user_set.all()
+        try :
+            return Group.objects.get(name='ActiveUser').user_set.all()
+        except models.ObjectDoesNotExist as e :
+            return list()
 
     def authorized_author(self):
-        return Group.objects.get(name='Author').user_set.all()
+        try :
+            return Group.objects.get(name='Author').user_set.all()
+        except models.ObjectDoesNotExist as e :
+            return list()
 
     def authorized_seller(self):
-        return Group.objects.get(name='Seller').user_set.all()
+        try :
+            return Group.objects.get(name='Seller').user_set.all()
+        except models.ObjectDoesNotExist as e:
+            return list()
 
     def authorized_user(self):
         return self.filter(groups__name__in=['Author', 'Seller']).distinct()

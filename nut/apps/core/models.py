@@ -4,7 +4,11 @@ import time
 import requests
 import HTMLParser
 import hashlib
+import json
 import re
+from pprint import  pprint
+
+
 
 from hashlib import md5
 from datetime import datetime
@@ -22,6 +26,7 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, Group
+from django.shortcuts import  get_object_or_404
 from django.utils.html import _strip_once
 
 from apps.notifications import notify
@@ -33,6 +38,8 @@ from apps.core.manager import *
 from apps.core.utils.text import truncate
 from apps.core.manager.account import  AuthorizedUserManager
 from haystack.query import SearchQuerySet
+from apps.order.models import CartItem, Order, OrderItem , SKU
+from apps.order.exceptions import CartException, OrderException, PaymentException
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -103,6 +110,12 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     def has_guoku_assigned_email(self):
         return ('@guoku.com' in self.email ) and (len(self.email) > 29)
+
+    def has_sku(self,sku):
+        return sku.entity.user.id == self.id
+
+    def has_entity(self,entity):
+        return entity.user.id == self.id
 
     @property
     def need_verify_mail(self):
@@ -488,6 +501,66 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def jpush_rids(self):
         return self.jpush_token.all().values_list('rid', flat=True)
 
+    @property
+    def cart_item_count(self):
+        return CartItem.objects.cart_item_count_by_user(self)
+
+    def add_sku_to_cart(self, sku, volume=1):
+        return CartItem.objects.add_sku_to_user_cart(self, sku, volume)
+
+    def decr_sku_in_cart(self,sku):
+        return CartItem.objects.decr_sku_in_user_cart(self, sku)
+
+    def remove_sku_from_cart(self, sku):
+        return CartItem.objects.remove_sku_from_user_cart(self,sku)
+
+
+    def checkout(self):
+        '''
+        this method can not be moved into cartitem manager
+        because of circular reference problem
+        :return:
+        '''
+        new_order = None
+        if self.cart_item_count <= 0 :
+            raise CartException('cart is empty')
+        else :
+            try :
+                new_order = Order.objects.create(**{
+                    'customer': self,
+                    'number': Order.objects.generate_order_number()
+
+                })
+                for cart_item in self.cart_items.all():
+                    order_item = None
+                    try :
+                        order_item = cart_item.generate_order_item(new_order)
+                    except Exception as e:
+                        log.error('create_order item error :%s'%e)
+                        if order_item:
+                            order_item.delete()
+                        raise OrderException('error when create order item: %s' %e)
+                self.clear_cart()
+                return new_order
+
+            except Exception as e :
+                # if exception happens
+                pprint(e)
+                log.error(e)
+                if new_order:
+                    new_order.delete()
+                raise OrderException('error create order:  %s: ' %e)
+                return None
+
+    def clear_cart(self):
+        CartItem.objects.clear_user_cart(self)
+
+    @property
+    def order_count(self):
+        return self.orders.count()
+
+
+
     def save(self, *args, **kwargs):
         #TODO  @huanghuang refactor following email related lines into a subroutine
         #
@@ -865,6 +938,8 @@ class Entity(BaseModel):
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
     status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=new, db_index=True)
 
+    # sku_attributes = ListObjectField()
+
     objects = EntityManager()
 
     class Meta:
@@ -890,6 +965,9 @@ class Entity(BaseModel):
             # for found brand , cache 2 week
             return res
 
+    @property
+    def total_stock(self):
+        return sum([i.stock for i in self.skus.all()])
 
     @property
     def chief_image(self):
@@ -1111,6 +1189,19 @@ class Entity(BaseModel):
         except Entity.DoesNotExist, e:
             pass
 
+    def add_sku(self, attributes=None):
+        if attributes is None:
+            attributes = {}
+        sku , created = SKU.objects.get_or_create(entity=self,attrs=attributes)
+        if created :
+            sku.entity = self
+            sku.attributes = attributes
+            sku.save()
+        return sku
+
+    @property
+    def sku_count(self):
+        return self.skus.filter(status=SKU.enable).count()
 
 class Selection_Entity(BaseModel):
     entity = models.OneToOneField(Entity, unique=True)

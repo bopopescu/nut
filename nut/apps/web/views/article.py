@@ -8,6 +8,7 @@ from django.views.generic import ListView,\
                                 TemplateView,\
                                 DetailView,\
                                 CreateView
+from django.shortcuts import get_object_or_404
 
 from django.core import exceptions
 from django.shortcuts import redirect, get_object_or_404,render
@@ -16,6 +17,7 @@ from django.template import RequestContext, loader,Context
 
 from apps.core.models import Article,Selection_Article, Article_Dig
 from apps.tag.models import Tags
+
 # from apps.core.mixins.views import SortMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 from apps.core.views import BaseJsonView
@@ -376,7 +378,7 @@ class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMix
 
     def get_article(self):
         self.article_id = self.kwargs.get('pk',None)
-        article = Article.objects.get(pk=self.article_id)
+        article = get_object_or_404(Article, pk=self.article_id)
         return article
 
     def get_user_remark_timer_key(self):

@@ -17,6 +17,9 @@
             <li class="divider"></li>
         {% endif %}
         <li><a id="user_dash_link" href="{% url 'web_user_index' user_context.pk %}" data-user-id="{{ user_context.pk }}"><i class="fa fa-user fa-lg"></i>&nbsp; {% trans "You" %}</a></li>
+        {% if request.user.is_authorized_seller %}
+        <li><a id="" href="{% url 'web_seller_management'%}" data-user-id="{{ user_context.pk }}"><i class="fa fa-key fa-lg"></i>&nbsp; {% trans "卖家管理" %}</a></li>
+        {% endif %}
         {% notifications_unread as unread_count %}
         <li><a href="{% url 'web_messages' %}"><i class="fa fa-volume-up fa-lg"></i>&nbsp;{% trans 'Messages' %}{% if unread_count > 0 %}&nbsp;&nbsp;<span class="badge">{{ unread_count }}</span>{% endif %}</a></li>
         <li><a href="{% url 'web_user_settings' %}"><i class="fa fa-cog fa-lg"></i>&nbsp; {% trans "Settings" %}<span class="round"></span></a></li>
