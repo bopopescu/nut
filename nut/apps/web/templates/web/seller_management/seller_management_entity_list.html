@@ -14,11 +14,11 @@
         <th>
             {% trans 'SKU属性' %}
         </th>
-        <th>
+        <th style="width:160px;">
             {% trans 'price' %}
         </th>
 
-        <th>{% if sort_by == 'dstock' %}
+        <th style="width:170px;">{% if sort_by == 'dstock' %}
             <a class="new-blue-link" href="{% url  'web_seller_management' %}?sort_by=ustock">
         {% else %}
             <a class="new-blue-link" href="{% url  'web_seller_management' %}?sort_by=dstock">
@@ -52,13 +52,13 @@
                 <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
                     <img src="{{ entity.chief_image|resize:'128' }}" width="54" height="54">
                 </a>
-                {{ entity.title }}
+                {{ entity.title|truncatechars:25 }}
             </td>
             <td class="sku-cell">
                  {% for sku in entity.sku_list %}
                     {% if sku.attrs_display %}
                         <div class="sku-item sku-item-border">
-                         {{ sku.attrs_display }}
+                         {{ sku.attrs_display|truncatechars:25 }}
                         </div>
                     {% else %}
                         <div class="sku-item sku-item-border">
