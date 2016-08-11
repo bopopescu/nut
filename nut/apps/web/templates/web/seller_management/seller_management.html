@@ -63,6 +63,9 @@
             var parent = document.getElementById("edit").parentNode;
             var result = parent.innerHTML.split('<i')[0];
             result = $.trim(result);
+         console.log('result:'+result);
+            result = result.substring(1,result.length);
+        console.log('result:'+result);
 {#            console.log(parent);#}
             parent.innerHTML = "<input style='width:70px;height:34px;' type='text'"  + "data-entity-id='"+ parent.id + "'value='" + result + "'/>" +
                     '<button type="submit" id="test_button" class="btn btn-success sku-save-btn" onclick="update_price(event)">保存</button>';
@@ -75,9 +78,11 @@
         var parent = button.parentNode;
         var entity_id = input.getAttribute('data-entity-id');
         var sku_id = parent.getAttribute('data-sku-id');
-        var price = Number(input.value.split('¥')[1]);
-        console.log(sku_id);
-        console.log(price);
+{#        var price = Number(input.value.split('¥')[1]);#}
+        var price = parseInt(input.value);
+{#        console.log('price'+price);#}
+{#        console.log(sku_id);#}
+{#        console.log(price);#}
         var url = '/seller_management/' + entity_id + '/save/';
         $.when($.ajax({
             url: url,
