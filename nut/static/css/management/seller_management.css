@@ -1461,9 +1461,9 @@ ul {
 }
 .sku-item {
   width: 100%;
-  height: 100%;
+  height: 60px;
+  line-height: 60px;
   white-space: nowrap;
-  padding: 12px;
   background-color: #F5F8FF;
   margin-bottom: 8px;
 }

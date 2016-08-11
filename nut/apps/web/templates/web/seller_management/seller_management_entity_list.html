@@ -49,10 +49,18 @@
     {% for entity in object_list %}
         <tr>
             <td class="entity-cell">
-                <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
-                    <img src="{{ entity.chief_image|resize:'128' }}" width="54" height="54">
-                </a>
-                {{ entity.title|truncatechars:25 }}
+                <div class="entity-container">
+                    <div class="entity-wrapper">
+                        <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
+                            <img src="{{ entity.chief_image|resize:'128' }}" class="img-responsive">
+                        </a>
+                    </div>
+                    <div class="entity-info-wrapper">
+                        <p class="entity-title">
+                            {{ entity.title |truncatechars:25 }}
+                        </p>
+                    </div>
+                </div>
             </td>
             <td class="sku-cell">
                  {% for sku in entity.sku_list %}
