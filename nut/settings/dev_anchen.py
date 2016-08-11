@@ -10,6 +10,8 @@ CELERY_ALWAYS_EAGER = False
 CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
 #
 IMAGE_HOST = 'http://imgcdn.guoku.com/'
+
+
 #
 
 # LOCAL_IMG_DEBUG=True
@@ -19,11 +21,19 @@ IMAGE_HOST = 'http://imgcdn.guoku.com/'
 # AVATAR_HOST = 'http://imgcdn.guoku.com/'
 
 
-# IMG_COUNTER_HOST = 'http://127.0.0.1:9766'
+# -------------------
+# IMAGE_HOST = 'http://imgcdn.guoku.com/'
+# MOGILEFS_DOMAIN = 'toast'
+# MOGILEFS_TRACKERS = ['10.0.0.188:7001']
+# MOGILEFS_MEDIA_URL = 'images/'
+# DEFAULT_FILE_STORAGE = 'storages.backends.mogile.MogileFSStorage'
+
+
+IMG_COUNTER_HOST = 'http://127.0.0.1:9766'
 
 
 #for mobile access simulation
-# ANT_SIMULATE_MOBILE = True
+ANT_SIMULATE_MOBILE = True
 
 #for local solr search
 
@@ -142,6 +152,6 @@ DEFAULT_POPULAR_SCALE = 200
 #             "Undefined variable or unknown value for: \"%s\"" % other)
 #
 # TEMPLATE_STRING_IF_INVALID = "****************** %s ****************"
-SITE_HOST = 'http://127.0.0.1:9766'
+
 
 __author__ = 'an chen '

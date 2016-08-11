@@ -435,6 +435,9 @@
   top: -8px;
   left: 1px;
 }
+.b_day img {
+  max-height: 16px;
+}
 p .b_day {
   top: -8px;
   left: 3px;
@@ -1458,8 +1461,9 @@ ul {
 }
 .sku-item {
   width: 100%;
-  height: 100%;
-  padding: 12px;
+  height: 60px;
+  line-height: 60px;
+  white-space: nowrap;
   background-color: #F5F8FF;
   margin-bottom: 8px;
 }
@@ -1585,7 +1589,7 @@ body.seller-management #seller_management_entity_price tr th.entity-search {
 }
 body.seller-management #seller_management_entity_price tr th.update-time-cell,
 body.seller-management #seller_management_entity_price tr th.operation-cell {
-  width: 150px;
+  width: 110px;
 }
 body.seller-management #seller_management_entity_price tr td.entity-cell {
   text-align: left;

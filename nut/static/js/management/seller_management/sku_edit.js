@@ -53,12 +53,12 @@ var SKUEditManager = Class.extend({
     post_edit_sku_fail:function(data){
         this.hideDialog();
         console.log('post add sku fail');
-        var fail_status = parseInt(data.status);
-        // look for data to know why
-        if(fail_status == 406){
+        var fail_status = parseInt(data.responseJSON.result);
+
+        if(fail_status == -1){
              bootbox.alert({
                 size: 'small',
-                message: 'SKU重复,请重新编辑!'
+                message: '商品属性重复,请重新编辑!'
             }) ;
         }
         else{
