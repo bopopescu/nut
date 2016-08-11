@@ -407,7 +407,7 @@ class SKUCreateView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView):
             return JSONResponse(data={'result': 1},status=200)
         elif _forms.repeatstatus:
             return JSONResponse(data={'result': -1},status=406)
-        else:
+        else :
             return JSONResponse(data={'result': 0},status=400)
     def get_success_url(self):
         return reverse('sku_list_management', args=[self.entity_id])

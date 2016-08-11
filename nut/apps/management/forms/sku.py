@@ -24,7 +24,9 @@ class SKUForm(ModelForm):
         attrs = json.loads(self.cleaned_data['attrs'])
         entity = self.cleaned_data['entity']
         attrs_list = [s.attrs for s in entity.skus.exclude(id=self.instance.id)]
-        if attrs == {} or attrs in attrs_list:
+        if attrs == {} :
+            raise ValidationError("属性为空")
+        if attrs in attrs_list:
             self.repeatstatus = 1
             raise ValidationError("属性已存在")
         return attrs
