@@ -20,6 +20,7 @@ class DesignWeekViewSet(viewsets.ReadOnlyModelViewSet):
 
     def __init__(self, *args, **kwargs):
         super(DesignWeekViewSet, self).__init__(**kwargs)
+        self.permission_classes = ()
         self.page_kwarg = 'page_offset'
         self.paginate_by_param = 'page_size'
         self.serializer_class = DesignWeekSerializer

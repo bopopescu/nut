@@ -1062,7 +1062,9 @@ class Entity(BaseModel):
 
     @property
     def design_week_url(self):
-        return host + self.get_absolute_url() + '?source=dweek'
+        absolute_url = self.get_absolute_url()
+        design_week_url = absolute_url.replace("/detail/", "/jump/entity/")
+        return host + design_week_url
 
     @property
     def mobile_url(self):
