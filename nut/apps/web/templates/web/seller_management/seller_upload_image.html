@@ -4,23 +4,19 @@
 
 
 {% block content %}
-    <h1 class="page-header">{{ entity.title }}</h1>
-    <div class="row placeholders" id="images">
-        {% include 'management/entities/partial/all_entity_images.html'%}
-{#        {% for index, image in entity.images|enumerate_list %}#}
-{#            <div class="col-xs-6 col-sm-3 placeholder">#}
-{#                <img class="img-responsive img-thumbnail" alt="240x240" src="{{ image|resize:'600' }}" width="240" height="240">#}
-{#                {% if index != 0 %}#}
-{#                <span class="text-muted">#}
-{#                    <a href="{% url 'management_remove_entity_image' entity.id %}" data-image="{{ image }}">{% trans 'remove' %}</a>#}
-{#                </span>#}
-{#                {% endif %}#}
-{#            </div>#}
-{#        {% endfor %}#}
-    </div>
 
-    <div class="row">
-        <form class="form-horizontal well" action="" method="post" enctype="multipart/form-data">
+    <section class="content-header">
+        <h1>
+            {{ entity.title }}
+        </h1>
+    </section>
+
+    <section class="content">
+        <div class="row placeholders" id="images">
+            {% include 'management/entities/partial/all_entity_images.html'%}
+        </div>
+        <div class="row">
+        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <fieldset>
 {#                {{ forms }}#}
@@ -43,4 +39,6 @@
             </div>
         </form>
     </div>
+    </section>
+
 {% endblock %}
