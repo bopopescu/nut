@@ -23,7 +23,7 @@
             <div class="col-xs-12">
                 <div class="box box-default">
                     <div class="box-header" id="images">
-                        {% include "management/entities/partial/all_entity_images.html" %}
+                        {% include "management/entities/partial/entity_images.html" %}
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                     <div class="box-header">
                         <a href="{% url 'web_entity_detail' entity.entity_hash %}" class="btn btn-success btn-lg" target="_blank">{% trans 'go to' %}</a>
 {#                        <a href="{% url 'management_note_create' entity.pk %}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#EntityNoteModal">{% trans 'add note' %}</a>#}
-                        <a href="{% url 'management_entity_image' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'upload image' %}</a>
+                        <a href="{% url 'seller_entity_image' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'upload image' %}</a>
 {#                        <a href="{% url 'management_entity_buy_link' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'add buy link' %}</a>#}
 {#                        <a href="{% url 'management_entity_fetch_image' entity.id %}" class="btn btn-primary btn-lg" target="_blank">{% trans 'fetch image' %}</a>#}
 {#                        {% if entity.brand %}#}
