@@ -21,7 +21,6 @@ class SKU(models.Model):
     origin_price = models.FloatField(default=0, db_index=True)
     promo_price = models.FloatField(default=0, db_index=True)
     status =  models.IntegerField(choices=SKU_STATUS_CHOICE, default=enable)
-
     objects =  SKUManager()
 
 
@@ -206,7 +205,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,related_name='items')
     customer = models.ForeignKey('core.GKUser', related_name='order_items',db_index=True)
-    sku  = models.ForeignKey(SKU, db_index=True)
+    sku = models.ForeignKey(SKU, db_index=True)
     volume = models.IntegerField(default=1)
     add_time = models.DateTimeField(auto_now_add=True, auto_now=True,db_index=True)
     grand_total_price = models.FloatField(null=False) # 当订单生成的时候计算
@@ -215,8 +214,13 @@ class OrderItem(models.Model):
     @property
     def title(self):
         return self.sku.entity.title
+    @property
+    def sku_unit_grand_price(self):
+        return self.grand_total_price/(1.0*self.volume)
 
-
+    @property
+    def sku_unit_promo_price(self):
+        return self.promo_total_price/(1.0*self.volume)
 class OrderMessage(models.Model):
     '''
         订单意见纪录,可以由用户填写,也可以由客服填写

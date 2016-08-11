@@ -111,6 +111,7 @@ urlpatterns += patterns(
     url(r'^payment/', include('apps.payment.urls.web')),
     url(r'^cart/', include('apps.order.urls.cart_web')),
     url(r'^orders/', include('apps.order.urls.order_web')),
+    url(r'^checkout/',include('apps.web.urls.checkout')),
     url(r'^seller_management/', include('apps.web.urls.seller_management')),
 
 

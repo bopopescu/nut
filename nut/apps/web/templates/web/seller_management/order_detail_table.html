@@ -1,57 +1,63 @@
 {% load i18n %}
 {% load static %}
 {% load guoku %}
-<div>
-    <span >
-                    订单号:{{order.number }}
-    </span>
-    <span style="float:right">
 
-                    订单状态:{{order.get_status_display }}
-    </span>
-</div>
-<table class="table table-bordered table-hover">
+<table class="new-table new-table-bordered new-table-hover">
 
                 <thead>
                     <tr>
-                        <th>
-                            {% trans '商品名称' %}
+                      <th>
+                            {% trans 'entity' %}
                         </th>
-                        <th>{% trans 'sku名称' %}</th>
-                        <th>{% trans '商品图' %}</th>
-                        <th>{% trans '原价' %}</th>
-                        <th>{% trans '促销价' %}</th>
-                        <th>{% trans '数量' %}</th>
+                        <th>
+                            {% trans '单价' %}
+                        </th>
+                        <th>
+                            {% trans '数量' %}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
+                <tr class="order-cell-header">
+                    <td colspan="5">
+                        订单号:{{order.number }} &nbsp;&nbsp;交易状态:{{order.get_status_display }}&nbsp;&nbsp;成交时间:{{ order.Updated_datetime|date:'Y-m-d H:i:s' }}
+                    </td>
+                </tr>
 
-                    {% for order in order_item %}
+                    {% for item in order_item %}
                         <tr>
-                            <td>
-                                {{ order.title }}</td>
-                            <td>{{ order.sku.attrs_display }}<br></td>
-                            <td class="product-thumb-img">
-                                {# <div class="thumbnail">#}
-                                   <img class="img-responsive img-thumbnail" src = {{ order.sku.entity.chief_image|resize:'128' }} width="80" height="80">
-                                 {#   <div class="caption">#}
-                                {#    </div>#}
-                              {#  </div> #}
+                            <td class="entity-cell">
+                                <div class="entity-container">
+                                    <div class="entity-wrapper">
+                                        <a href="{% url 'web_entity_detail' item.sku.entity.entity_hash %}" target="_blank">
+                                            <img src = {{ item.sku.entity.chief_image|resize:'128' }} width="54px" height="54px">
+                                        </a>
+                                    </div>
+                                    <div class="entity-info-wrapper">
+                                        <p class="entity-title">
+                                            {{ item.title |truncatechars:60 }}
+                                        </p>
+                                        <p class="entity-sku">
+                                            {{ item.sku.attrs_display |truncatechars:60 }}
+                                        </p>
+                                    </div>
+                                </div>
                             </td>
-
-                            <td>{{ order.grand_total_price }}</td>
-                            <td>{{ order.promo_total_price }}</td>
                             <td>
-                                {{ order.volume }}
+                                <div class="original-price">
+                                    &yen;{{ item.sku_unit_grand_price }}
+                                </div>
+                                <div>
+                                    &yen;{{ item.sku_unit_promo_price }}
+                                </div>
                             </td>
-
+                            <td>
+                               {{ item.volume }}
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
-            </table>
-            <div style="float:right">
-                结账时间 :           结账路径:      总价:{{ promo_total_price }} (原价: {{ origin_total_price }})
-            </div>
+</table>
 
 
 

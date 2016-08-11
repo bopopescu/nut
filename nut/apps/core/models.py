@@ -972,6 +972,9 @@ class Entity(BaseModel):
             # for found brand , cache 2 week
             return res
 
+    @property
+    def total_stock(self):
+        return sum([i.stock for i in self.skus.all()])
 
     @property
     def chief_image(self):

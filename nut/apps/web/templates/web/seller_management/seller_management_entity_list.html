@@ -1,87 +1,112 @@
 {% load i18n %}
 {% load static %}
 {% load guoku %}
-{#<div class="box-header">#}
-{#                        <ul class="nav nav-pills" role="tablist">#}
-{#                            <li {% ifequal status None %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}">{% trans 'all' %}</a></li>#}
-{#                            <li {% ifequal status '1' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=1">{% trans '精选商品' %}</a></li>#}
-{#                            <li {% ifequal status '0' %}class="active"{% endifequal %}><a href="{% url 'management_entity_list' %}?status=0">{% trans 'new' %}</a></li>#}
-{##}
-{#                        </ul>#}
-{#                    </div>#}
-<table class="table table-bordered table-hover" id="seller_management_entity_price">
+
+<table class="new-table new-table-bordered new-table-hover" id="seller_management_entity_price">
     <thead>
     <tr>
-        <th>{% trans 'name' %}
-            <input class="guoku_search_input" data-search-field="title" type="text" ></th>
-        <th>{% trans '商品类别' %}
-        <th>{% trans '商品图' %}</th>
-        <th>{% if sort_by == 'dprice' %}
-            <a href="{% url  'web_seller_management' %}?sort_by=uprice">
-            {% else %}
-                <a href="{% url  'web_seller_management' %}?sort_by=dprice">
-            {% endif %}
-                {% trans 'price' %}
-            {%  if sort_by == 'dprice' %}<i class="fa fa-arrow-circle-down"></i>
-            {% elif sort_by == 'uprice' %}<i class="fa fa-arrow-circle-up"></i>
-            {% endif %}</a></th>
-
-        <th>{% trans 'skus' %}(价格, 库存)</th>
-        <th>{% if sort_by == 'dupdated_time' %}
-            <a href="{% url  'web_seller_management' %}?sort_by=uupdated_time">
-            {% else %}
-                <a href="{% url  'web_seller_management' %}?sort_by=dupdated_time">
-            {% endif %}
-                {% trans '最后修改时间' %}
-            {%  if sort_by == 'dupdated_time' %}<i class="fa fa-arrow-circle-down"></i>
-            {% elif sort_by == 'uupdated_time' %}<i class="fa fa-arrow-circle-up"></i>
-            {% endif %}</a></th>
+        <th class="entity-search">
+            {% trans 'entity' %}
+            <input class="guoku_search_input" data-search-field="title" type="text">
+            <i class="fa fa-search">
+            </i>
+        </th>
         <th>
-            {#                            {% trans '商品<br>数量' %}{%  if sort_by == 'entity' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}#}
+            {% trans 'SKU属性' %}
+        </th>
+        <th style="width:160px;">
+            {% trans 'price' %}
+        </th>
+
+        <th style="width:170px;">{% if sort_by == 'dstock' %}
+            <a class="new-blue-link" href="{% url  'web_seller_management' %}?sort_by=ustock">
+        {% else %}
+            <a class="new-blue-link" href="{% url  'web_seller_management' %}?sort_by=dstock">
+        {% endif %}
+            {% trans '库存' %}
+            {%  if sort_by == 'dstock' %}<i class="fa fa-arrow-down"></i>
+            {% elif sort_by == 'ustock' %}<i class="fa fa-arrow-up"></i>
+            {% endif %}
+            </a>
+
+        </th>
+        <th class="update-time-cell">
+            {% if sort_by == 'dupdated_time' %}
+            <a class="new-blue-link" href="{% url  'web_seller_management' %}?sort_by=uupdated_time">
+        {% else %}
+            <a class="new-blue-link" href="{% url  'web_seller_management' %}?sort_by=dupdated_time">
+        {% endif %}
+            {% trans '最后修改时间' %}
+            {%  if sort_by == 'dupdated_time' %}<i class="fa fa-arrow-down"></i>
+            {% elif sort_by == 'uupdated_time' %}<i class="fa fa-arrow-up"></i>
+            {% endif %}</a></th>
+        <th class="operation-cell">
+            {% trans '操作' %}
         </th>
     </tr>
     </thead>
     <tbody>
     {% for entity in object_list %}
         <tr>
-            <td>{{ entity.title }}</td>
-            <td>{{ entity.category.title }}</td>
-            <td>
-                {{ entity.title }}<br>
-            <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
-                                <img class="img-thumbnail img-responsive" src="{{ entity.chief_image|resize:'128' }}" width="128" height="128">
-                            </a></td>
-            <td class="price-wrapper">
-                <div class="entity_price" id="{{ entity.id }}">{{ entity.price }}
+            <td class="entity-cell">
+                <div class="entity-container">
+                    <div class="entity-wrapper">
+                        <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
+                            <img src="{{ entity.chief_image|resize:'128' }}" class="img-responsive">
+                        </a>
+                    </div>
+                    <div class="entity-info-wrapper">
+                        <p class="entity-title">
+                            {{ entity.title |truncatechars:25 }}
+                        </p>
+                    </div>
                 </div>
-{#                <button type="submit" class="btn btn-success price-update-btn">save</button>#}
             </td>
-            {#                            <td><form>#}
-            {#                                <label></label>#}
-            {#                                <input id="entity_stock" type="text" name="stock" value="{{ entity.stock }}">#}
-            {#                            </form></td>#}
-            <td>{% for sku in entity.sku_list %}
+            <td class="sku-cell">
+                 {% for sku in entity.sku_list %}
+                    {% if sku.attrs_display %}
+                        <div class="sku-item sku-item-border">
+                         {{ sku.attrs_display|truncatechars:25 }}
+                        </div>
+                    {% else %}
+                        <div class="sku-item sku-item-border">
+                        默认
+                        </div>
+                    {% endif %}
+                {% endfor %}
 
-                {% if sku.attrs_display %}
-                    {{ sku.attrs_display }}
-                {% else %} 缺省SKU
-                {% endif %}
-                <form>
-                    <input id="{{ sku.id }}_price" type="text" style="width:80px; height:30px" name="{{ sku.id }}" value="{{ sku.promo_price }}">
-                    <input id="{{ sku.id }}_stock" type="text" style="width:80px; height:30px" name="{{ sku.id }}" value="{{ sku.stock }}">
-                    <span class="btn newest-btn-primary"  id="{{ sku.id }}" target="_blank">{% trans 'update' %}</span>
-                    <br></form>
-            {% endfor %}</td>
-            <td>{{ entity.updated_time|date:'Y-m-d H:i:s' }}</td>
+            </td>
+            <td class="price-wrapper">
+                {% for sku in entity.sku_list %}
+                    <div class="sku-item sku-item-border entity_price" id="{{ entity.id }}" data-sku-id="{{ sku.id }}">
+                        &yen;{{ sku.promo_price }}
+                    </div>
+                {% endfor %}
+            </td>
+            <td class="stock-wrapper">
+                {% for sku in entity.sku_list %}
+                     <div class="sku-item sku-item-border entity-stock" id="{{ entity.id }}" data-sku-id="{{ sku.id }}">
+                          {{ sku.stock }}
+                     </div>
+                {% endfor %}
+            </td>
+            <td class="update-time-cell">
+                {{ entity.updated_time|date:'Y-m-d' }}
+                <br>
+                {{ entity.updated_time|date:'H:i:s' }}
+            </td>
             <td>
                 <div class="btn-group">
-                    <a class="btn btn-primary" href="{% url 'sku_list_management' entity.id %}" target="_blank">{% trans 'SKU管理' %}</a><br>
-                    <a class="btn btn-default" href="{% url 'web_seller_management_entity_edit' entity.pk %}" target="_blank">{% trans 'edit' %}</a><br>
-{#                    <a class="btn btn-success" id="{{ entity.id }}" href="" batch_url="{% url 'web_seller_management_entity_save' entity.pk %}" target="_blank">{% trans 'save' %}</a>#}
+                    <a class="btn newest-btn-primary" href="{% url 'sku_list_management' entity.id %}" target="_blank">
+                        {% trans 'SKU管理' %}
+                    </a>
+                    <br>
+                    <a class="new-blue-link" href="{% url 'web_seller_management_entity_edit' entity.pk %}" target="_blank">
+                        {% trans '编辑商品信息' %}
+                    </a>
                 </div>
             </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
-{#<a class="btn btn-primary" href="{% url 'order_detail_management' entity.id %}" target="_blank">{% trans 'SKU管理' %}</a>#}
