@@ -121,7 +121,7 @@
             {# alert(parent.innerHTML); #}
             var result = parent.innerHTML.split('<i')[0];
             result = $.trim(result);
-            parent.innerHTML = "<input style='width:70px;height:34px;' type='text'"  + "data-entity-id='"+ parent.id + "'value='" + result + "'/>" +
+            parent.innerHTML = "<input style='width:70px;height:34px;line-height:34px;' type='text'"  + "data-entity-id='"+ parent.id + "'value='" + result + "'/>" +
                     '<button type="submit" class="btn btn-success sku-save-btn" onclick="update_stock(event)">保存</button>';
         }
       function update_stock(event){
