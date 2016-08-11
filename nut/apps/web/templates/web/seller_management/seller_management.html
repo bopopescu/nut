@@ -67,7 +67,7 @@
             result = result.substring(1,result.length);
         console.log('result:'+result);
 {#            console.log(parent);#}
-            parent.innerHTML = "<input style='width:70px;height:34px;' type='text'"  + "data-entity-id='"+ parent.id + "'value='" + result + "'/>" +
+            parent.innerHTML = "<input style='width:70px;height:34px;line-height:34px;' type='text'"  + "data-entity-id='"+ parent.id + "'value='" + result + "'/>" +
                     '<button type="submit" id="test_button" class="btn btn-success sku-save-btn" onclick="update_price(event)">保存</button>';
 
 }
