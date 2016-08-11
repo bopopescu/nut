@@ -632,28 +632,28 @@ class AddEntityForm(forms.Form):
                                                    help_text=_(''),
                                                    )
 
-    # content = forms.CharField(
-    #     label=_('note'),
-    #     widget=forms.Textarea(attrs={'class': 'form-control'}),
-    #     help_text=_(''),
-    #     required=False,
-    # )
+    content = forms.CharField(
+        label=_('note'),
+        widget=forms.Textarea(attrs={'class': 'form-control'}),
+        help_text=_(''),
+        required=False,
+    )
 
-    # status = forms.ChoiceField(label=_('note status'),
-    #                                           choices=Note.NOTE_STATUS_CHOICES,
-    #                                           widget=forms.Select(attrs={
-    #                                               'class': 'form-control'}),
-    #                                           initial=Note.normal,
-    #                                           )
+    status = forms.ChoiceField(label=_('note status'),
+                                              choices=Note.NOTE_STATUS_CHOICES,
+                                              widget=forms.Select(attrs={
+                                                  'class': 'form-control'}),
+                                              initial=Note.normal,
+                                              )
     auth_sellers = GKUser.objects.authorized_seller()
-    # user_choices = [(seller.pk, seller.nickname) for seller in auth_sellers]
-    #
-    # user = forms.ChoiceField(
-    #     label=_('创建者'),
-    #     choices=user_choices,
-    #     widget=forms.Select(attrs={'class': 'form-control'}),
-    #     help_text=_(''),
-    # )
+    user_choices = [(seller.pk, seller.nickname) for seller in auth_sellers]
+
+    user = forms.ChoiceField(
+        label=_('创建者'),
+        choices=user_choices,
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        help_text=_(''),
+    )
 
     def __init__(self, request, *args, **kwargs):
         super(AddEntityForm, self).__init__(*args, **kwargs)

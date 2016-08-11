@@ -64,12 +64,6 @@ var SKUAddManager = Class.extend({
                 message: '商品属性重复,请重新添加!'
             }) ;
         }
-        else if(fail_status == 0){
-            bootbox.alert({
-                size: 'small',
-                message: '商品属性不能为空,请重新添加!'
-            }) ;
-        }
         else{
             return bootbox.alert({
                 size: 'small',
