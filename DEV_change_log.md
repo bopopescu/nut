@@ -1,5 +1,7 @@
-2. 
+3. remove pic in header 
+2. order : seller sku/entity management 
 1. hot article tags (not top article tags)
+
  
 See : 
 

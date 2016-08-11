@@ -16,16 +16,10 @@
                         <i class="fa fa-search fa-search-control"></i>
                         <div class="hot_article_tags" style="display:none">
                             <ul>
-
                             {% for tag in hot_article_tags %}
-                                <li>
-                                    {{ tag.name }}
-                                </li>
-
+                                <li>{{ tag.name }}</li>
                             {% endfor %}
-
                             </ul>
-
                         </div>
                     </div>
                 </form>

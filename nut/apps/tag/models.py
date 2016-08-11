@@ -149,7 +149,8 @@ class TagsQueryset(models.query.QuerySet):
                                                    .select_related('tag')\
                                                    .annotate(acount=Count('tag'))\
                                                    .order_by('-acount').distinct()[:50]
-        tag_ids = random.shuffle([ctag.get('tag') for ctag in hot_content_tag_list])
+        tag_ids = [ctag.get('tag') for ctag in hot_content_tag_list]
+        random.shuffle(tag_ids)
         return self.filter(id__in=tag_ids)
 
 
@@ -175,8 +176,6 @@ class TagsManager(models.Manager):
             tag_list = self.get_queryset().hot_article_tags()
             cache.set(key,tag_list , 3600*24)
         return tag_list
-
-
 
     def top_article_tags(self):
         #top article tag is set by operation team
