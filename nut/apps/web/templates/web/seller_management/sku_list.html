@@ -1,5 +1,6 @@
 {% extends 'web/seller_management/seller_management_base.html' %}
 {% load i18n %}
+{% load guoku %}
 {% load staticfiles i18n %}
 
 {% block content %}
@@ -17,7 +18,8 @@
     <section class="content">
         <div class="row">
              <div class="col-xs-12">
-                 {% include "management/entities/partial/entity_images.html" %}
+{#                 {% include "management/entities/partial/entity_images.html" %}#}
+                  <img class="img-responsive" alt="{{ entity.title }}" src="{{ entity.chief_image|resize:'640' }}" width="240" height="240">
             </div>
         </div>
 
