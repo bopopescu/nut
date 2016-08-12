@@ -2,6 +2,7 @@ var SKUEditManager = Class.extend({
     init: function(){
         console.log('sku edit begin');
         this.initSkuEdit();
+        this.sku_attr_app = new SKU_MNG_APP();
     },
     show_sku_edit_dialog:function(e){
             var that = this;
@@ -16,14 +17,16 @@ var SKUEditManager = Class.extend({
                         message: html
                     });
                     //成功渲染弹框之后再初始化保存按钮
-                     that.initSaveSku();
-                    that.sku_attr_app = new SKU_MNG_APP();
-                    //that.sku_attr_app.render_attributes();
-                    if($('#sku_form').find('input')){
-                        return ;
-                    }else{
-                      that.sku_attr_app.render_attributes();
-                    }
+                    that.initSaveSku();
+
+                    that.sku_attr_app.render_attributes();
+                    that.sku_attr_app.handle_create_attribute();
+                    that.sku_attr_app.handle_delete_attribute();
+                    //if($('#sku_form').find('input')){
+                    //    return ;
+                    //}else{
+                    //  that.sku_attr_app.render_attributes();
+                    //}
 
                 },
                 function(){
