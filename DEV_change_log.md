@@ -1,3 +1,16 @@
+
+1. update common_shop_link for shop_shop
+
+
+ALTER TABLE `core`.`shop_shop` 
+ADD COLUMN `common_shop_link` VARCHAR(255) NULL DEFAULT NULL AFTER `tb_shop_id`;
+
+
+=======================
+# merged to master 2016 8-12
+=======================
+
+
 3. design week api 
 2. fix seller add entity form bug 
 1. fix seller sku add and edit bug

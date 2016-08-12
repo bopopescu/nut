@@ -53,6 +53,8 @@ class Shop(BaseModel):
     shop_style = models.IntegerField(choices=SHOP_STYLE_CHOICES, default=dress )
     shop_type = models.IntegerField(choices=SHOP_TYPE_CHOICES, default=taobao)
     tb_shop_id = models.CharField(max_length=64, null=True, blank=True)
+    common_shop_link = models.URLField(max_length=255, null=True, blank=True)
+
 
     @property
     def tb_shop_link(self):
