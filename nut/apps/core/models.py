@@ -43,7 +43,7 @@ from apps.order.exceptions import CartException, OrderException, PaymentExceptio
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
-host = getattr(settings, 'SET_HOST', None)
+click_host = getattr(settings, 'CLICK_HOST', "http://www.click.guoku.com")
 
 # if define avatar_host , then use avata_host , for local development .
 avatar_host = getattr(settings, 'AVATAR_HOST', image_host)
@@ -1062,7 +1062,9 @@ class Entity(BaseModel):
 
     @property
     def design_week_url(self):
-        return host + self.get_absolute_url() + '?source=dweek'
+        absolute_url = self.get_absolute_url()
+        design_week_url = absolute_url.replace("/detail/", "/jump/entity/")
+        return click_host + design_week_url
 
     @property
     def mobile_url(self):

@@ -44,6 +44,7 @@ urlpatterns += patterns(
 urlpatterns += patterns(
     'apps.web.views.entity',
     url(r'^detail/(?P<entity_hash>\w+)/$', NewEntityDetailView.as_view(), name='web_entity_detail'),
+    # url(r'^jump/entity/(?P<entity_hash>\w+)/$', DesignWeekAPIView.as_view()),
     # url(r'^detail/(?P<entity_hash>\w+)/$', 'entity_detail', name='web_entity_detail'),
     url(r'^detail/(?P<entity_hash>\w+)/liker/$', EntityLikersView.as_view(), name='web_entity_likers_list'),
     url(r'^detail/(?P<entity_hash>\w+)/card/$', EntityCard.as_view() , name='web_entity_card'),
@@ -100,7 +101,7 @@ urlpatterns += patterns(
 
 
 router = DefaultRouter()
-router.register(r'design_week/2016', DesignWeekViewSet, base_name="design_week_entities_api")
+router.register(r'design_week/2016', DesignWeekViewSet, base_name="Entity")
 
 # entity
 urlpatterns += patterns(
@@ -120,7 +121,7 @@ urlpatterns += patterns(
     url(r'^orders/', include('apps.order.urls.order_web')),
     url(r'^checkout/',include('apps.web.urls.checkout')),
     url(r'^seller_management/', include('apps.web.urls.seller_management')),
-    url(r'^', include(router.urls)) #TODO  , make design week url make sense
+    url(r'^', include(router.urls))
 )
 
 
