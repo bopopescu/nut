@@ -6,22 +6,40 @@
 
 {% block content %}
 
+    <div class="container tag-page-container">
+
 {% if tag.image %}
-    <div class="tag-intro-wrapper">
-        <div class="tag-bg-layer" style="background-image: url({{ image_host }}{{ tag.image }})"></div>
-        <div class="tag-title">
-            <h3>#{{ tag }}</h3>
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 guoku-middle-col">
+            <div class="tag-intro-wrapper" style="background-image: url({{ image_host }}{{ tag.image }})">
+                <div class="tag-bg-layer"></div>
+                <div class="tag-title">
+                    <h3>#{{ tag }}</h3>
+                </div>
+                <div class="tag-desc">
+                    <p>
+                        {% if tag.description %}
+                            {{ tag.description }}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="tag-desc">
-            <p>
-                {% if tag.description %}
-                    {{ tag.description }}
-                {% endif %}
-            </p>
+
+        <div class="hidden-xs col-sm-3 guoku-middle-col">
+            <div class="hot-tag-section">
+                <div>
+                    热门标签
+                </div>
+                <div class="hot-tag-wrapper">
+                    hot tags
+                </div>
+
+            </div>
         </div>
     </div>
 {% endif %}
-    <div class="container">
+
         {% if request.user.is_staff %}
             <div class="row user-admin-link-wrapper">
                 <a class="pull-right" href="{% url 'management_tag_edit' tag.id %}" target="_blank" alt="编辑标签" title="编辑标签"><i class="fa fa-edit"></i></a>
