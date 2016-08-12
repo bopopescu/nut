@@ -69,7 +69,6 @@
             </td>
         </tr>
         {% if order.count > 1 %}
-
             {% for item in order.itemslist %}
                 <tr>
                 <td class="entity-cell">
@@ -89,6 +88,7 @@
                         </div>
                     </div>
                 </td>
+
                 <td>
                     <div class="original-price">
                         &yen;{{ item.sku_unit_grand_price }}
