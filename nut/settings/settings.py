@@ -70,7 +70,6 @@ INSTALLED_APPS = (
     'apps.site_banner',
     'apps.order',
     'apps.payment',
-    'apps.click_record',
     'captcha',
 )
 
@@ -338,4 +337,4 @@ CURRENCY_SYMBOLS = (u'$', u'￥')
 TAOBAO_RECOMMEND_URL = 'http://10.0.2.120:10150/recommend'
 ARTICLE_TEXTRANK_URL = 'http://10.0.2.120:10150/article/'
 
-CLICK_RECORD_URL = 'http://192.168.99.100:7000/click_record/'
+CLICK_HOST = "http://www.click.guoku.com"
