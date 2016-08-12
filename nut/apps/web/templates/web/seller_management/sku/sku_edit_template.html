@@ -5,11 +5,11 @@
         <span aria-hidden="true">×</span>
         <span class="sr-only">Close</span>
     </button>
-    <h4 class="modal-title">{% trans '添加SKU' %}</h4>
+    <h4 class="modal-title">{% trans '编辑SKU属性' %}</h4>
 </div>
 
-<div class="modal-body" id="add_sku_form_wrapper">
-    <form class="form-horizontal" id="sku_form" enctype="multipart/form-data" action="{% url 'sku_add_box' entity_id %}" method="post">
+<div class="modal-body" id="edit_sku_form_wrapper">
+    <form class="form-horizontal" id="sku_form" enctype="multipart/form-data" action="{% url 'sku_update_management' entity_id sku.pk %}" method="post">
         {% csrf_token %}
         {% for field in form %}
             <div class="form-group">
@@ -23,10 +23,12 @@
             </div>
         {% endfor %}
 
+        <input type="hidden" id="sku_attr_json" value="{{ form.instance.attrs_json_str }}">
         <div class="form-group">
             <label  class="col-sm-2 control-label">SKU 属性编辑</label>
             <div class="col-sm-6">
                 <table class="table table-striped attr-table">
+
                     <tr class="attr-add-tr">
                         <td COLSPAN="2">
                             <button type="button" class="btn btn-success attr-add">
@@ -35,9 +37,24 @@
                         </td>
                     </tr>
                 </table>
-
             </div>
         </div>
+
+{#        <div class="form-group">#}
+{#            <label class="col-sm-2 control-label">SKU属性编辑</label>#}
+{#            <div class="col-sm-6">#}
+{#                <table class="table table-striped attr-table">#}
+{#                    <tr class="attr-add-tr">#}
+{#                        <td COLSPAN="2">#}
+{#                            <button type="button" class="btn btn-success attr-add">#}
+{#                                添加属性#}
+{#                            </button>#}
+{#                        </td>#}
+{#                    </tr>#}
+{#                </table>#}
+{##}
+{#            </div>#}
+{#        </div>#}
 
         <div class="row">
             <div class="col-xs-12">
@@ -47,6 +64,3 @@
     </form>
 </div>
 
-{% block user_script %}
-{% include "management/entities/create_sku_script_template.html" %}
-{% endblock %}

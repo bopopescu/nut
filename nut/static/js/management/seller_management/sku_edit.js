@@ -2,11 +2,12 @@ var SKUEditManager = Class.extend({
     init: function(){
         console.log('sku edit begin');
         this.initSkuEdit();
+        this.sku_attr_app = new SKU_MNG_APP();
     },
-    initSkuEdit:function(){
-        var that = this;
-        $('.edit-sku-trigger').click(function(){
-            var url = $(this).attr('data-url');
+    show_sku_edit_dialog:function(e){
+            var that = this;
+            var target = e.currentTarget;
+            var url = $(target).attr('data-url');
             $.when($.ajax({
                 url: url,
                 method: 'GET'
@@ -17,15 +18,28 @@ var SKUEditManager = Class.extend({
                     });
                     //成功渲染弹框之后再初始化保存按钮
                     that.initSaveSku();
+
+                    that.sku_attr_app.render_attributes();
+                    that.sku_attr_app.handle_create_attribute();
+                    that.sku_attr_app.handle_delete_attribute();
+                    //if($('#sku_form').find('input')){
+                    //    return ;
+                    //}else{
+                    //  that.sku_attr_app.render_attributes();
+                    //}
+
                 },
                 function(){
                     console.log('get form fail ');
                 });
-        });
+        },
+    initSkuEdit:function(){
+        $('.edit-sku-trigger').click(this.show_sku_edit_dialog.bind(this));
     },
     post_edit_sku: function(){
         var that = this;
         var _form = $('#sku_form');
+        _form.find('#id_attrs').val(this.sku_attr_app.collect_attribute());
         _form.onsubmit=function(){return false;};
         //alert(_form.serialize());
 
@@ -64,7 +78,7 @@ var SKUEditManager = Class.extend({
         else{
             return bootbox.alert({
                 size: 'small',
-                message: '编辑失败'
+                message: '编辑失败!'
             }) ;
         }
     },

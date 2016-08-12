@@ -58,6 +58,7 @@ _.extend(SKU_MNG_APP.prototype, {
     },
     render_attributes:function(){
         if ($('#sku_attr_json').length <= 0 ){
+            console.log('sku attr json is empty.');
             return ;
         }
 

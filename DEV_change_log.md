@@ -1,6 +1,14 @@
+
+2. fix seller add entity form bug 
+1. fix seller sku add and edit bug
+
+=======================
+# merged to master 2016 8-11
+=======================
+
 4. article feed count to 20 
 3. remove pic in header 
-2. order : seller sku/entity management 
+2. order  : seller sku/entity management 
 1. hot article tags (not top article tags)
 
  
