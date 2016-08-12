@@ -1,5 +1,6 @@
 {% extends 'web/seller_management/seller_management_base.html' %}
 {% load i18n %}
+{% load guoku %}
 {% load staticfiles i18n %}
 
 {% block content %}
@@ -17,7 +18,8 @@
     <section class="content">
         <div class="row">
              <div class="col-xs-12">
-                 {% include "web/seller_management/partial/entity_images.html" with image=entity.chief_image %}
+{#                 {% include "management/entities/partial/entity_images.html" %}#}
+                  <img class="img-responsive" alt="{{ entity.title }}" src="{{ entity.chief_image|resize:'320' }}" width="240" height="240">
             </div>
         </div>
 
@@ -45,7 +47,12 @@
     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/seller_management/sku_switch.js' %}" type="application/javascript"></script>
 
+    {% include 'management/entities/create_sku_script_template.html' %}
+
     <script src="{% static 'js/management/seller_management/sku_add.js' %}" type="application/javascript"></script>
+     <script src="{% static 'js/management/seller_management/sku_edit.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/seller_management/sku_delete.js' %}" type="application/javascript"></script>
 
+
 {% endblock %}
+

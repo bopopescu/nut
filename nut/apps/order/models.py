@@ -214,8 +214,13 @@ class OrderItem(models.Model):
     @property
     def title(self):
         return self.sku.entity.title
+    @property
+    def sku_unit_grand_price(self):
+        return self.grand_total_price/(1.0*self.volume)
 
-
+    @property
+    def sku_unit_promo_price(self):
+        return self.promo_total_price/(1.0*self.volume)
 class OrderMessage(models.Model):
     '''
         订单意见纪录,可以由用户填写,也可以由客服填写

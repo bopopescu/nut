@@ -34,30 +34,6 @@
                 {% endif %}</a>
             </th>
 
-{#             <th>#}
-{##}
-{#                {% if sort_by == 'dorigin_price' %}#}
-{#                    <a href="{% url  'sku_list_management' entity.id %}?sort_by=uorigin_price">#}
-{#                {% else %}#}
-{#                    <a href="{% url  'sku_list_management' entity.id %}?sort_by=dorigin_price">#}
-{#                {% endif %}#}
-{#                    {% trans 'origin_price' %}#}
-{#                {%  if sort_by == 'dorigin_price' %}<i class="fa fa-arrow-circle-down"></i>#}
-{#                {% elif sort_by == 'uorigin_price' %}<i class="fa fa-arrow-circle-up"></i>#}
-{#                {% endif %}</a>#}
-{#             </th>#}
-{#             <th>#}
-{#                {% if sort_by == 'dpromotion_price' %}#}
-{#                    <a href="{% url  'sku_list_management' entity.id %}?sort_by=upromotion_price">#}
-{#                {% else %}#}
-{#                    <a href="{% url  'sku_list_management' entity.id %}?sort_by=dpromotion_price">#}
-{#                {% endif %}#}
-{#                    {% trans 'promotion_price' %}#}
-{#                {%  if sort_by == 'dpromotion_price' %}<i class="fa fa-arrow-circle-down"></i>#}
-{#                {% elif sort_by == 'upromotion_price' %}<i class="fa fa-arrow-circle-up"></i>#}
-{#                {% endif %}</a>#}
-{#            </th>#}
-
             <th>
                 {% trans '操作' %}
             </th>
@@ -66,7 +42,6 @@
     <tbody>
      {% for sku in object_list %}
         <tr>
-{#            <td>{{ sku.id }}</td>#}
             <td>{{ sku.attrs_display }}</td>
             <td>
                 <div class="original-price">
@@ -82,10 +57,8 @@
             </td>
             <td>
                 <div class="btn-group">
-{#                    <a class="btn newest-btn-primary" href="{% url 'sku_update_management' entity.pk sku.pk %}" >编辑SKU属性</a>#}
-                    <a class="btn newest-btn-primary" href="{% url 'sku_update_management' entity.pk sku.pk %}" >编辑SKU属性</a>
+                    <a class="btn newest-btn-primary edit-sku-trigger" data-url="{% url 'sku_update_management' entity.pk sku.pk %}" >编辑SKU属性</a>
 
-{#                    <a class="btn btn-danger" href="{% url 'sku_delete_management' entity.pk sku.pk %}">删除</a>#}
                     <a class="btn btn-danger sku-delete-trigger" data-url="{% url 'sku_delete_management' entity.pk sku.pk %}">删除</a>
                 </div>
             </td>
