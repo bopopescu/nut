@@ -2,11 +2,12 @@ var SKUAddManager = Class.extend({
     init: function(){
         console.log('sku add begin');
         this.initSkuAdd();
+
     },
-    initSkuAdd:function(){
-        var that = this;
-        $('#add_sku_trigger').click(function(){
-            var url = $(this).attr('data-url');
+    show_sku_add_dialog: function(e){
+            var that = this ;
+            var target = e.currentTarget;
+            var url = $(target).attr('data-url');
             console.log('get add sku model url');
             $.when($.ajax({
                 url: url,
@@ -22,11 +23,16 @@ var SKUAddManager = Class.extend({
                 function(){
                     console.log('get form fail ');
                 });
-        });
+    },
+
+    initSkuAdd:function(){
+        var that = this;
+        $('#add_sku_trigger').click(this.show_sku_add_dialog.bind(this));
     },
     post_add_sku: function(){
         var that = this;
         var _form = $('#sku_form');
+        _form.find('#id_attrs').val(this.sku_attr_app.collect_attribute());
         _form.onsubmit=function(){return false;};
         //alert(_form.serialize());
 
@@ -56,6 +62,7 @@ var SKUAddManager = Class.extend({
         this.hideDialog();
         console.log('post add sku fail');
         var fail_status = parseInt(data.responseJSON.result);
+        console.log('status'+fail_status);
 
         if(fail_status == -1){
              bootbox.alert({
@@ -73,6 +80,7 @@ var SKUAddManager = Class.extend({
 
     initSaveSku:function(){
         $('.sku-save').click(this.post_add_sku.bind(this));
+        this.sku_attr_app = new SKU_MNG_APP();
     },
      hideDialog:function(){
            bootbox.hideAll();

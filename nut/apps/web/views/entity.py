@@ -67,6 +67,7 @@ class EntitySaleView(EntityDetailMixin, DetailView):
     template_name = 'web/entity/entity_sale.html'
     def get_context_data(self, **kwargs):
         context = super(EntitySaleView, self).get_context_data(**kwargs)
+        context['current_host'] = settings.SITE_HOST
         return context
 
 

@@ -1,3 +1,29 @@
+4. article feed count to 20 
+3. remove pic in header 
+2. order  : seller sku/entity management 
+1. hot article tags (not top article tags)
+
+ 
+See : 
+
+TagsManager.hot_article_tags()
+
+Action : 
+    1. syncdb 
+    
+    --- only run this if you already synced order models -----
+    2. if you already have order_*** table created 
+       run following 
+       
+        ALTER TABLE `core`.`order_order` 
+        ADD COLUMN `created_datetime` DATETIME NOT NULL AFTER `shipping_to_id`,
+        ADD COLUMN `updated_datetime` DATETIME NOT NULL AFTER `created_datetime`;
+
+
+=======================
+# merged to master 2016 8-8
+=======================
+
 4. article mobile page bug(user link) fix 
 3. remove hot enity ajax loading and add cache 
 2. random recommend user 
