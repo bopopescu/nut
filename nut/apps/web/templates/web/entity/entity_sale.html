@@ -1,6 +1,16 @@
 {% load i18n staticfiles %}
+{% load static %}
 {% load common guoku %}
 <html>
+<DIV> ENTITY : 二维码</DIV>
+<div class='qr_code_container' data-url="{{ current_host }}{{ entity.absolute_url }}"></div>
+
+
+=========================================
+
+<br>
+<br>
+
 <ul>
     {% for sku in entity.skus.all %}
         <li>
@@ -15,10 +25,13 @@
                 <button> login</button>
             {% endif %}
         </li>
+{#        <li><div class="qr_code_container" data-url="{{ current_host }}{{  }}"></div></li>#}
     {% endfor %}
 
 </ul>
 <script language="javascript" src="{% static 'js/web/app/libs/jquery-1.11.1.min.js' %}"></script>
+<script language="javascript" src="{% static 'js/web/app/libs/qrcode.js' %}"></script>
+
 <script language="javascript">
 
     function getCookie(name) {
@@ -59,6 +72,19 @@
     AddCartApp.prototype = {
         init: function(){
             this.init_add_button();
+            this.init_qrcode();
+        },
+        init_qrcode:function(){
+          var qr_ele =   $('.qr_code_container');
+              url = qr_ele.attr('data-url');
+                new QRCode(qr_ele[0],
+                    {
+                        text: url,
+                        width: 218,
+                        height: 218
+                    }
+                );
+
         },
         init_add_button: function(){
             $('.add-cart-btn').click(this.add_cart.bind(this));

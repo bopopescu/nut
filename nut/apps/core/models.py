@@ -1572,6 +1572,9 @@ class Article(BaseModel):
     def get_dig_key(self):
         return 'article:dig:%d' % self.pk
 
+    def get_comment_count_key(self):
+        return 'article:comment:count:{0}'.format(self.pk)
+
     def caculate_identity_code(self):
         title = self.title
         created_datetime = self.created_datetime
@@ -1595,14 +1598,14 @@ class Article(BaseModel):
         try:
             cache.incr(key)
         except ValueError:
-            cache.set(key, self.digs.count())
+            cache.set(key, self.digs.count(), timeout = 864000)
 
     def decr_dig(self):
         key = self.get_dig_key()
         try :
             cache.decr(key)
         except Exception:
-            cache.set(key, self.digs.count())
+            cache.set(key, self.digs.count(), timeout = 864000)
 
     @property
     def tag_list(self):
@@ -1639,7 +1642,6 @@ class Article(BaseModel):
             digest =  truncate(re.sub('[\r|\n| ]','',_strip_once(self.content)),length)
             cache.set(key , digest, 3600*24)
             return digest
-
 
     @property
     def status(self):
@@ -1724,6 +1726,18 @@ class Article(BaseModel):
     def url(self):
         return self.get_absolute_url()
 
+    @property
+    def comment_count(self):
+        key = self.get_comment_count_key()
+        res = cache.get(key)
+        if res:
+            return res
+        else:
+            res = self.comments.count()
+            cache.set(key, res, timeout = 86400)
+            return res
+        # return self.comments.count()
+
     def invalid_digest_cache(self):
         key = 'Article:digest:cache:%s'%self.pk
         cache.delete(key)
@@ -1760,6 +1774,7 @@ class Article(BaseModel):
         res['creator'] = self.creator.v3_toDict()
         res['dig_count'] = self.dig_count
         res['is_dig'] = False
+        res['comment_count'] = self.comment_count
         if self.id in articles_list:
             res['is_dig'] = True
         return res
@@ -1782,12 +1797,15 @@ class Article_Remark(BaseModel):
     ]
 
     user = models.ForeignKey(GKUser)
-    article = models.ForeignKey(Article)
+    article = models.ForeignKey(Article, related_name='comments')
     content = models.TextField(null=False, blank=False)
     reply_to = models.ForeignKey('self', null=True, blank=True)
     create_time = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
     update_time = models.DateTimeField(auto_now=True, editable=False, db_index=True)
     status = models.IntegerField(choices=STATUS_CHOICE, default=normal)
+
+    def __unicode__(self):
+        return self.content
 
 
 # use ForeignKey instead of  oneToOne for selection entity ,
@@ -2149,12 +2167,12 @@ class EDM(BaseModel):
             return "%s%s" % (image_host, cover_image)
 
 
-class Search_History(BaseModel):
-    user = models.ForeignKey(GKUser, null=True)
-    key_words = models.CharField(max_length=255, null=False, blank=False)
-    ip = models.CharField(max_length=45, null=False, blank=False)
-    agent = models.CharField(max_length=255, null=False, blank=False)
-    search_time = models.DateTimeField(null=True, blank=False)
+# class Search_History(BaseModel):
+#     user = models.ForeignKey(GKUser, null=True)
+#     key_words = models.CharField(max_length=255, null=False, blank=False)
+#     ip = models.CharField(max_length=45, null=False, blank=False)
+#     agent = models.CharField(max_length=255, null=False, blank=False)
+#     search_time = models.DateTimeField(null=True, blank=False)
 
 
 class SD_Address_List(BaseModel):

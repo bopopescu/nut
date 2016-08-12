@@ -94,6 +94,8 @@ class DesignWeekViewSet(viewsets.ReadOnlyModelViewSet):
         return entities
 
 
+
+
     def get_pagination_serializer(self, page):
         class SerializerClass(NewPaginationSerializer):
             class Meta:

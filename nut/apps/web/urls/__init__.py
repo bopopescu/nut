@@ -101,7 +101,7 @@ urlpatterns += patterns(
 
 
 router = DefaultRouter()
-router.register(r'design_week/2016', DesignWeekViewSet, base_name="Design_Week")
+router.register(r'design_week/2016', DesignWeekViewSet, base_name="Entity")
 
 # entity
 urlpatterns += patterns(

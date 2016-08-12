@@ -704,6 +704,49 @@ class AddEntityForm(forms.Form):
             )
         return entity
 
+class AddEntityFormForSeller(AddEntityForm):
+    def __init__(self, request, *args, **kwargs):
+        super(AddEntityFormForSeller, self).__init__(request,*args, **kwargs)
+        del self.fields['content'], self.fields['status'], self.fields['user'], self.fields['buy_link']
+        self.request = request
+
+
+    def save(self):
+        _title = self.cleaned_data.get('title')
+        _brand = self.cleaned_data.get('brand')
+        _price = self.cleaned_data.get('price')
+        _sub_category = self.cleaned_data.get('sub_category')
+        _user_id = self.request.user.id
+        _entity_hash = cal_entity_hash(_title + str(_user_id))
+        _intro = self.cleaned_data.get('intro')
+        _buy_link = self.cleaned_data.get('buy_link')
+        images = []
+
+        entity = Entity(
+            entity_hash=_entity_hash,
+            user_id= _user_id,
+            brand=_brand,
+            title=_title,
+            price=_price,
+            category_id=_sub_category,
+            images=images,
+            intro=_intro,
+
+        )
+        entity.save()
+        if not _buy_link:
+            Buy_Link.objects.create(
+                entity=entity,
+                origin_id=entity.id,
+                # cid=,
+                origin_source='guoku.com',
+                link= self.request.get_host() + entity.absolute_url,
+                price=_price,
+                default=True,
+            )
+        return entity
+
+
 
 class EditEntityForm(EntityForm):
     # def clean_status(self):

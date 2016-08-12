@@ -5,7 +5,7 @@ from settings import *
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-STATIC_URL = 'http://static.guoku.com/static/v4/b5c7825a85357477a19ac2c293ee13faf97c1b90/'
+STATIC_URL = 'http://static.guoku.com/static/v4/312e83769afb1878613325a3737eac9f53c2ae40/'
 
 LANGUAGE_CODE = 'zh-cn'
 
@@ -54,7 +54,7 @@ LOGGING = {
     'handlers': {
         'null': {
             'level': 'DEBUG',
-            'class': 'django.utils.log.NullHandler',
+            'class': 'logging.NullHandler',
         },
         'console':{
             'level': 'DEBUG',
@@ -86,7 +86,7 @@ LOGGING = {
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://10.0.2.110:8983/solr/',
+        'URL': 'http://10.0.2.115:8983/solr/',
         'INCLUDE_SPELLING': True,
     }
 }

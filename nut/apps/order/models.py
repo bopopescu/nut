@@ -1,5 +1,7 @@
 #encoding=utf-8
 import json
+
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from apps.order.manager import OrderManager
@@ -8,6 +10,7 @@ from apps.order.manager.cart import CartItemManager
 from apps.core.extend.fields.listfield import ListObjectField
 
 from apps.payment.alipay import AliPayPayment
+from apps.payment.weixinpay import WXPayment
 
 class SKU(models.Model):
     (disable, enable) =  (0, 1)
@@ -141,7 +144,15 @@ class Order(models.Model):
         return AliPayPayment(order=self,host=host).payment_url
 
     def generate_weixin_payment_url(self,host='http://www.guoku.com'):
-        return
+        return reverse('web_wx_payment_page', args=[self.id])
+
+
+
+    @property
+    def wx_payment_qrcode_url(self):
+        #todo : need cache qrcode , read wx api for payment timeout value
+        wxpay = WXPayment(self)
+        return wxpay.get_payment_qrcode_url()
 
     def set_paid(self):
         self.status = Order.paid
@@ -176,16 +187,19 @@ class Order(models.Model):
 
     @property
     def promo_total_price(self):
+        # promo price , without shipping fee
         return reduce(lambda a,b : a + b,
                         [item.promo_total_price for item in self.items.all()])
 
     @property
     def grand_total_price(self):
+        # origin price , not actual price
         return reduce(lambda a,b : a+b ,
                         [item.grand_total_price for item in self.items.all()])
 
     @property
     def order_total_value(self):
+        # final price customer need to paid
         return self.promo_total_price + self.shipping_fee
 
 class OrderItem(models.Model):
@@ -200,8 +214,13 @@ class OrderItem(models.Model):
     @property
     def title(self):
         return self.sku.entity.title
+    @property
+    def sku_unit_grand_price(self):
+        return self.grand_total_price/(1.0*self.volume)
 
-
+    @property
+    def sku_unit_promo_price(self):
+        return self.promo_total_price/(1.0*self.volume)
 class OrderMessage(models.Model):
     '''
         订单意见纪录,可以由用户填写,也可以由客服填写

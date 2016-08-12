@@ -1,6 +1,7 @@
 # encoding: utf-8
 import json
-
+from django.views.decorators.csrf import csrf_exempt
+from apps.core.forms.entity import EntityImageForm, AddEntityForm, AddEntityFormForSeller
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.forms.entity import EditEntityForm
 from apps.core.mixins.views import FilterMixin, SortMixin
@@ -14,10 +15,12 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.shortcuts import get_object_or_404
 from apps.management.forms.sku import SKUForm,SwitchSkuStatusForm
+from apps.core.utils.http import SuccessJsonResponse
 from apps.core.models import SKU,Entity,Order
 from django.template import RequestContext
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView,DetailView, View
-from django.http import Http404
+from django.http import Http404,HttpResponseNotAllowed
+from apps.management.decorators import staff_only, staff_and_editor
 from apps.core.utils.http import JSONResponse
 
 class SKUUserPassesTestMixin(UserPassesTestMixin):
@@ -185,6 +188,7 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
 
 class SellerManagementAddEntity(Add_local):
     template_name = 'web/seller_management/add_entity.html'
+    form_class = AddEntityFormForSeller
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request, data=request.POST, files=request.FILES)
@@ -193,6 +197,32 @@ class SellerManagementAddEntity(Add_local):
             return HttpResponseRedirect(reverse('web_seller_management'))
         return render(request, self.template_name, {'forms': form})
 
+@login_required
+def image(request, entity_id,
+          template='web/seller_management/seller_upload_image.html'):
+    try:
+        _entity = Entity.objects.get(pk=entity_id)
+    except Entity.DoesNotExist:
+        raise Http404
+
+    if request.method == "POST":
+        _forms = EntityImageForm(entity=_entity, data=request.POST,
+                                 files=request.FILES)
+        if _forms.is_valid():
+            _forms.save()
+            return HttpResponseRedirect(reverse('web_seller_management_entity_edit', args=[_entity.id]))
+
+    else:
+        _forms = EntityImageForm(entity=_entity)
+
+    return render_to_response(
+        template,
+        {
+            'entity': _entity,
+            'forms': _forms,
+        },
+        context_instance=RequestContext(request)
+    )
 @login_required
 def seller_management_entity_edit(request, entity_id, template='web/seller_management/edit_entity.html'):
     #Todo 拆分模版
@@ -239,6 +269,27 @@ def seller_management_entity_edit(request, entity_id, template='web/seller_manag
         },
         context_instance=RequestContext(request)
     )
+@csrf_exempt
+@login_required
+def delete_image(request, entity_id):
+    if request.method == 'POST':
+        _index = request.POST.get('index', None)
+        try:
+            _entity = Entity.objects.get(pk=entity_id)
+            images = _entity.images
+            images.remove(_index)
+            _entity.images = images
+            _entity.save()
+        except Entity.DoesNotExist:
+            raise Http404
+
+        status = True
+        # if 'http://imgcdn.guoku.com/' in _index:
+        #     image_name = _index.replace('http://imgcdn.guoku.com/', '')
+        #     status = default_storage.delete(image_name)
+        return SuccessJsonResponse(data={'status': status})
+
+    return HttpResponseNotAllowed
 
 class SellerManagementEntitySave(JSONResponseMixin, AjaxResponseMixin, View):
     model = Entity
@@ -348,16 +399,17 @@ class SKUListView(EntityUserPassesTestMixin, SortMixin, ListView):
 class SKUCreateView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView):
     model = SKU
     form_class = SKUForm
-    template_name = 'management/sku/sku_add_template.html'
+    template_name = 'web/seller_management/sku/sku_add_template.html'
+
     def post_ajax(self, request, *args, **kwargs):
         _forms = SKUForm(request.POST)
         if _forms.is_valid():
             _forms.save()
-            return JSONResponse(data={'status': 1},status=201)
+            return JSONResponse(data={'result': 1},status=200)
         elif _forms.repeatstatus:
-            return JSONResponse(data={'status': -1},status=406)
-        else:
-            return JSONResponse(data={'status': 0},status=400)
+            return JSONResponse(data={'result': -1},status=406)
+        else :
+            return JSONResponse(data={'result': 0},status=400)
     def get_success_url(self):
         return reverse('sku_list_management', args=[self.entity_id])
     def get_context_data(self, **kwargs):
@@ -365,23 +417,27 @@ class SKUCreateView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView):
         context['entity_id']=self.entity_id
         return context
     def get_initial(self):
+        initial_price = Entity.objects.get(pk=self.entity_id).price
         return {
-            'entity':self.entity_id
+            'entity':self.entity_id,
+            'origin_price':initial_price,
+            'promo_price':initial_price
         }
 
-class SKUUpdateView(SKUUserPassesTestMixin,UpdateView):
+class SKUUpdateView(SKUUserPassesTestMixin, AjaxResponseMixin,UpdateView):
     model = SKU
     form_class = SKUForm
-    template_name = 'web/seller_management/update_sku.html'
+    template_name = 'web/seller_management/sku/sku_edit_template.html'
     def post_ajax(self, request, *args, **kwargs):
-        _forms = SKUForm(request.POST)
+        instance = SKU.objects.get(pk=kwargs['pk'])
+        _forms = SKUForm(request.POST,instance=instance)
         if _forms.is_valid():
             _forms.save()
-            return JSONResponse(data={'status': 1},status=201)
+            return JSONResponse(data={'result': 1},status=200)
         elif _forms.repeatstatus:
-            return JSONResponse(data={'status': -1},status=406)
+            return JSONResponse(data={'result': -1},status=406)
         else:
-            return JSONResponse(data={'status': 0},status=400)
+            return JSONResponse(data={'result': 0},status=400)
     def get_context_data(self, **kwargs):
         context = super(SKUUpdateView,self).get_context_data(**kwargs)
         context['entity_id']=self.entity_id
@@ -440,7 +496,7 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
         qs = Order.objects.filter(id__in=order_ids)
         self.status = self.request.GET.get('status')
         if self.status == 'waiting_for_payment':
-            qs = qs.filter(status=2)
+            qs = qs.filter(status__in=[1,2,4])
         elif self.status == 'paid':
             qs = qs.filter(status=3)
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())

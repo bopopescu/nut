@@ -40,7 +40,6 @@ define(['jquery', 'libs/Class','underscore','bootbox','libs/qrcode'], function(
 
         initQrcodeImage: function(){
             var url = this.getShareUrl();
-
             new QRCode(document.getElementById('qr_code'),
                 {
                     text: url,

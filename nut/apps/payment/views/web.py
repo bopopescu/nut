@@ -9,3 +9,13 @@ class AlipayNotifyView(FormView):
 
 class AlipayRefoundNotify(FormView):
     pass
+
+class WXpayReturnView(FormView):
+    pass
+
+class WXpayNotifyView(FormView):
+    pass
+
+class WXpayRefoundView(FormView):
+    pass
+
