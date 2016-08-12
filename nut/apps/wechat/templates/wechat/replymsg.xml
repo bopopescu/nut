@@ -1,7 +1,0 @@
-<xml>
-    <ToUserName><![CDATA[{{ msg.FromUserName }}]]></ToUserName>
-    <FromUserName><![CDATA[{{ msg.ToUserName }}]]></FromUserName>
-    <CreateTime>{{ timestamp }}</CreateTime>
-    <MsgType><![CDATA[text]]></MsgType>
-    <Content><![CDATA[{{ content }}]]></Content>
-</xml>

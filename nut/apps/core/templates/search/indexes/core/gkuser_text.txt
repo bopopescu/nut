@@ -1,2 +1,0 @@
-{{ object.profile.nickname }}
-{{ object.profile.bio }}

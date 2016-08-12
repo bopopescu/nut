@@ -1,3 +1,0 @@
-{% load pinyin %}
-{{ object.brand }} {{ object.title }}
-{{ object.title|pinyin }}
