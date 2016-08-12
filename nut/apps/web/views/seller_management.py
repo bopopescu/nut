@@ -398,7 +398,7 @@ class SKUListView(EntityUserPassesTestMixin, SortMixin, ListView):
 class SKUCreateView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView):
     model = SKU
     form_class = SKUForm
-    template_name = 'management/sku/sku_add_template.html'
+    template_name = 'web/seller_management/sku/sku_add_template.html'
 
     def post_ajax(self, request, *args, **kwargs):
         _forms = SKUForm(request.POST)
@@ -426,7 +426,7 @@ class SKUCreateView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView):
 class SKUUpdateView(SKUUserPassesTestMixin, AjaxResponseMixin,UpdateView):
     model = SKU
     form_class = SKUForm
-    template_name = 'management/sku/sku_edit_template.html'
+    template_name = 'web/seller_management/sku/sku_edit_template.html'
     def post_ajax(self, request, *args, **kwargs):
         instance = SKU.objects.get(pk=kwargs['pk'])
         _forms = SKUForm(request.POST,instance=instance)
