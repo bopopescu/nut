@@ -1,7 +1,7 @@
 # encoding: utf-8
 import json
 from django.views.decorators.csrf import csrf_exempt
-from apps.core.forms.entity import EntityImageForm
+from apps.core.forms.entity import EntityImageForm, AddEntityForm, AddEntityFormForSeller
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.forms.entity import EditEntityForm
 from apps.core.mixins.views import FilterMixin, SortMixin
@@ -188,6 +188,7 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
 
 class SellerManagementAddEntity(Add_local):
     template_name = 'web/seller_management/add_entity.html'
+    form_class = AddEntityFormForSeller
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request, data=request.POST, files=request.FILES)
@@ -398,7 +399,7 @@ class SKUListView(EntityUserPassesTestMixin, SortMixin, ListView):
 class SKUCreateView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView):
     model = SKU
     form_class = SKUForm
-    template_name = 'management/sku/sku_add_template.html'
+    template_name = 'web/seller_management/sku/sku_add_template.html'
 
     def post_ajax(self, request, *args, **kwargs):
         _forms = SKUForm(request.POST)
@@ -426,7 +427,7 @@ class SKUCreateView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView):
 class SKUUpdateView(SKUUserPassesTestMixin, AjaxResponseMixin,UpdateView):
     model = SKU
     form_class = SKUForm
-    template_name = 'management/sku/sku_edit_template.html'
+    template_name = 'web/seller_management/sku/sku_edit_template.html'
     def post_ajax(self, request, *args, **kwargs):
         instance = SKU.objects.get(pk=kwargs['pk'])
         _forms = SKUForm(request.POST,instance=instance)
