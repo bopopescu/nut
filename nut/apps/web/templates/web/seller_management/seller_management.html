@@ -4,9 +4,15 @@
 
 {% block content %}
     <section class="content-header">
+            <a id="add_entity_bookmark" class="btn seller-mng-btn" href="javascript:window.open(%27http://127.0.0.1:8000/seller_management/import_entity/%3Furl%3D%27 %2BencodeURIComponent(location.href), %27_blank%27)%3B"
+               onclick="javascript:bootbox.alert('请把这个按钮拖到你的浏览器书签栏');return false;"
+            >
+                <i class="fa fa-star"></i>
+                 添加商品书签
+            </a>
             <a class="btn seller-mng-btn" href="{% url 'web_seller_management_entity_add' %}">
                 <i class="fa fa-plus"></i>
-                 添加商品
+                 手工添加商品
             </a>
             {% if current_url == '/seller_management/' %}
                 <a class="btn  seller-mng-btn" href="{% url 'web_seller_management_qrcode_list' %}" target="_blank">
