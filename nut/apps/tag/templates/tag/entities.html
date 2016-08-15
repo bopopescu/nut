@@ -56,13 +56,21 @@
                 {% trans 'Articles' %}
             </div>
         </div>
-        <div class="row" id="selection_article_list">
-            {% for article_item in articles %}
-                {% with article_item.article as article %}
-                    {% include 'web/events/partial/new_event_article_item.html' %}
-                {% endwith %}
+{#        <div class="row" id="selection_article_list">#}
+{#            {% for article_item in articles %}#}
+{#                {% with article_item as article %}#}
+{#                    {% include 'web/events/partial/new_event_article_item.html' %}#}
+{#                {% endwith %}#}
+{#            {% endfor %}#}
+{#        </div>#}
+
+           <div class="row selection_article_container" id="selection_article_list">
+            {% for article in articles %}
+             {% include 'web/article/partial/article_item_new.html' %}
             {% endfor %}
-        </div>
+           </div>
+
+
 
         <div class="row" id="tag-entity-list" data-refresh="{{ refresh_time }}">
 {#            <div class="col-md-12">#}
