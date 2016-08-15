@@ -48,6 +48,17 @@
                 <a class="pull-right" href="{% url 'management_tag_entities_detail' tag.id %}" target="_blank" alt="商品列表" title="商品列表" style="margin-right:15px;"><i class="fa fa-user"></i></a>
             </div>
         {% endif %}
+        <div class="row">
+            <div class="col-sm-12">{% trans 'Articles' %}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">{% trans 'entity' %}</div>
+        </div>
         <div class="row" id="tag-entity-list" data-refresh="{{ refresh_time }}">
 {#            <div class="col-md-12">#}
             {% if not tag.image %}
