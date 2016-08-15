@@ -3035,11 +3035,8 @@ body.new-index-body .recommend-user-panel .user-icon-wrapper {
   height: 72px;
 }
 body.new-index-body .recommend-user-panel .user-icon-wrapper img {
-  height: 0 ;
-  width: 100%;
-  padding-bottom: 100%;
-  background-size: cover;
-  background-position: center center;
+  width: 72px;
+  height: 72px;
   border: 1px solid #F2F2F2;
 }
 body.new-index-body .recommend-user-panel .user-info-wrapper {

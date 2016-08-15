@@ -165,7 +165,7 @@
               <div class="recommend-user-panel">
                   <div class="user-icon-wrapper">
                       <a href="{{ user.absolute_url }}" target="_blank">
-                          <img class="img-responsive img-circle" alt="" style="background-image: url({{ user.avatar_url|resize:'128' }})"/>
+                          <img class="img-circle" src="{{ user.avatar_url|resize:'128' }}" alt="{{ user.nickname }}"/>
                       </a>
                   </div>
                   <div class="user-info-wrapper">
@@ -191,12 +191,13 @@
               </div>
             </div>
         {% endfor %}
+        {#    for show to add below codes and should clean below #}
          {% for user in recommand_users %}
             <div class="col-sm-4 col-md-2 guoku-middle-col recommend-user-item">
               <div class="recommend-user-panel">
                   <div class="user-icon-wrapper">
                       <a href="{{ user.absolute_url }}" target="_blank">
-                          <img class="img-responsive img-circle" style="background-image: url({{ user.avatar_url|resize:'128' }})" />
+                          <img class="img-circle" src="{{ user.avatar_url|resize:'128' }}" alt="{{ user.nickname }}"/>
                       </a>
                   </div>
                   <div class="user-info-wrapper">
@@ -220,6 +221,7 @@
               </div>
             </div>
         {% endfor %}
+        {#    end clean #}
     </div>
     <div class="row">
         <div class="col-sm-12 new-banner-container">
