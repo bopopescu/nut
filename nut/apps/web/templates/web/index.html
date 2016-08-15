@@ -47,21 +47,6 @@
         </div>
     </div>
     <div class="row" id="category-container">
-{#        <div class="col-sm-12">#}
-{#            <ul id="category-item-container">#}
-{#                {% for category in categories %}#}
-{#                    <li class="category-item">#}
-{#                        <a href="{% url 'web_category_group' category.id %}" target="_blank">#}
-{#                            <div class="category-item-pic" style="background-image: url(/static/images/category-icon/{{ category.id }}.png)">#}
-{#                            </div>#}
-{#                            <div class="category-name">#}
-{#                                {{ category.title_cn }}#}
-{#                            </div>#}
-{#                        </a>#}
-{#                    </li>#}
-{#                {% endfor %}#}
-{#            </ul>#}
-{#        </div>#}
         {% for category in categories %}
             <div class="col-xs-2 col-sm-1 guoku-middle-col category-item-wrapper">
                 <a href="{% url 'web_category_group' category.id %}" target="_blank">
@@ -194,37 +179,6 @@
               </div>
             </div>
         {% endfor %}
-        {#    for show to add below codes and should clean below #}
-         {% for user in recommand_users %}
-            <div class="col-sm-4 col-md-2 guoku-middle-col recommend-user-item">
-              <div class="recommend-user-panel">
-                  <div class="user-icon-wrapper">
-                      <a href="{{ user.absolute_url }}" target="_blank">
-                          <img class="img-circle" src="{{ user.avatar_url|resize:'128' }}" alt="{{ user.nickname }}"/>
-                      </a>
-                  </div>
-                  <div class="user-info-wrapper">
-                      <span class="user-name">{{ user.nickname }}</span>
-                      <p class="user-intro">{{ user.profile.bio|truncatechars:'50' }}</p>
-                      <div class="action-wrapper">
-                          {% if user.is_blocked %}
-                          <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
-                          {% elif user == request.user %}
-                          <a class="guoku-button new-guoku-button button-blue newest-button-blue" href="{% url 'web_user_settings' %}">
-                              <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
-                          {% elif request.user.id in user.concren %}
-                          <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                          {% elif request.user.id in user.fans_list %}
-                          <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                      {% else %}
-                          <a class="follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
-                      {% endif %}
-                      </div>
-                  </div>
-              </div>
-            </div>
-        {% endfor %}
-        {#    end clean #}
     </div>
     <div class="row">
         <div class="col-sm-12 new-banner-container">
