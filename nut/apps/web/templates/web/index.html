@@ -151,7 +151,10 @@
                 {% for user in recommand_users %}
                     <li>
                         <a href="{{ user.absolute_url }}" target="_blank">
-                            <img class="img-responsive img-frame" alt="" style="background-image: url({{ user.avatar_url|resize:'128' }})"/>
+                            <div class="img-responsive img-frame img-circle" style="background-image: url({{ user.avatar_url|resize:'128' }});margin-bottom:18px;">
+                            </div>
+{#                            <img class="img-responsive img-frame" alt="" style="background-image: url({{ user.avatar_url|resize:'128' }})"/>#}
+{#                            <img class="img-responsive img-circle" src="{{ user.avatar_url|resize:'128' }}" alt="{{ user.nickname }}"/>#}
                             <span class="user-name">{{ user.nickname }}</span>
                         </a>
                     </li>
