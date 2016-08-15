@@ -43,7 +43,7 @@ class TagEntitiesByHashView(AjaxResponseMixin, JSONResponseMixin, ListView):
     paginate_by = 24
     paginator_class = ExtentPaginator
     template_name = 'tag/entities.html'
-    ajax_template_name = 'tag/partial/ajax_entities.html'
+    ajax_template_name = 'tag/partial/ajax_entities_bk.html'
     context_object_name = 'entities'
 
 
