@@ -1,9 +1,6 @@
 
+2. update design week api
 1. update common_shop_link for shop_shop
-
-
-ALTER TABLE `core`.`shop_shop` 
-ADD COLUMN `common_shop_link` VARCHAR(255) NULL DEFAULT NULL AFTER `tb_shop_id`;
 
 
 =======================
