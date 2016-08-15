@@ -1,3 +1,5 @@
+from apps.management.views.entities import Add_local, EntitySKUCreateView
+from apps.web.views.seller_management import SellerManagement, SellerManagementAddEntity
 from django.conf.urls import url, patterns
 
 from apps.web.views.user import UserIndex,\
@@ -9,6 +11,7 @@ from apps.web.views.user import UserIndex,\
                                 UserSendVerifyMail,\
                                 UserEntitiesView
 
+
 from apps.web.views.user import ChangePasswdFormView
 
 urlpatterns = patterns(
@@ -18,6 +21,7 @@ urlpatterns = patterns(
     url(r'^bind/sns/$', 'bind_sns', name='web_user_bind_sns'),
     url(r'^upload/avatar/$', 'upload_avatar', name='web_user_upload_avatar'),
     url(r'^sendverifymail/$', UserSendVerifyMail.as_view() , name='web_user_mail_verify'),
+
 
     # tmpl user page
 

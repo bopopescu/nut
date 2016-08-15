@@ -1,12 +1,14 @@
 from django.conf.urls import url, include, patterns
 from django.views.generic import RedirectView
 from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView, CooperateView
+from apps.web.views.design_week import DesignWeekViewSet
 from apps.web.views.discover import DiscoverView, RecommendUserView
 from apps.web.views.main import SelectionEntityList, SiteMapView, IndexArticleTagView, IndexSelectionEntityTagView\
                                 ,IndexHotEntityView
-from apps.web.views.entity import EntityCard, EntityLikersView
+from apps.web.views.entity import EntityCard, EntityLikersView, EntitySaleView, NewEntityDetailView
 from apps.web.views.main import GKSearchView, PopularView,IndexView
 from apps.web.views.flink import FriendlyLinkListView
+from rest_framework.routers import DefaultRouter
 
 urlpatterns = patterns(
     'apps.web.views',
@@ -41,11 +43,12 @@ urlpatterns += patterns(
 
 urlpatterns += patterns(
     'apps.web.views.entity',
-
-    url(r'^detail/(?P<entity_hash>\w+)/$', 'entity_detail', name='web_entity_detail'),
+    url(r'^detail/(?P<entity_hash>\w+)/$', NewEntityDetailView.as_view(), name='web_entity_detail'),
+    # url(r'^jump/entity/(?P<entity_hash>\w+)/$', DesignWeekAPIView.as_view()),
+    # url(r'^detail/(?P<entity_hash>\w+)/$', 'entity_detail', name='web_entity_detail'),
     url(r'^detail/(?P<entity_hash>\w+)/liker/$', EntityLikersView.as_view(), name='web_entity_likers_list'),
     url(r'^detail/(?P<entity_hash>\w+)/card/$', EntityCard.as_view() , name='web_entity_card'),
-
+    url(r'^detail/(?P<entity_hash>\w+)/sale/$', EntitySaleView.as_view() , name='web_entity_sale'),
 )
 
 
@@ -95,6 +98,11 @@ urlpatterns += patterns(
     url(r'^download/ios/$', 'download_ios'),
 )
 
+
+
+router = DefaultRouter()
+router.register(r'design_week/2016', DesignWeekViewSet, base_name="Entity")
+
 # entity
 urlpatterns += patterns(
     'apps.web.views',
@@ -108,9 +116,14 @@ urlpatterns += patterns(
     url(r'^articles/',include('apps.web.urls.article')),
     url(r'^brand/',include('apps.web.urls.brand')),
     url(r'^store/', include('apps.shop.urls.web')),
-
-
+    url(r'^payment/', include('apps.payment.urls.web')),
+    url(r'^cart/', include('apps.order.urls.cart_web')),
+    url(r'^orders/', include('apps.order.urls.order_web')),
+    url(r'^checkout/',include('apps.web.urls.checkout')),
+    url(r'^seller_management/', include('apps.web.urls.seller_management')),
+    url(r'^', include(router.urls))
 )
+
 
 # old url 301
 from apps.web.views.category import OldCategory

@@ -196,7 +196,7 @@
               <div class="recommend-user-panel">
                   <div class="user-icon-wrapper">
                       <a href="{{ user.absolute_url }}" target="_blank">
-                          <img class="img-responsive img-circle" alt="" style="background-image: url({{ user.avatar_url|resize:'128' }})" />
+                          <img class="img-responsive img-circle" style="background-image: url({{ user.avatar_url|resize:'128' }})" />
                       </a>
                   </div>
                   <div class="user-info-wrapper">
@@ -257,18 +257,11 @@
             </div>
         </div>
     </div>
-
-    <div class="row" >
-        <div class="col-xs-12 loading-icon">
-            <img src="{% static 'images/widgets/loading.gif' %}" alt="loading icon" height="32px" width="32px">
-        </div>
-    </div>
-
     <div class="row" id="hot-entity-list">
-{#        {% for entity in entities %}#}
-{#            {% include 'web/main/partial/new_entity.html' with entity=entity%}#}
-{#        {% endfor %}#}
-    </div>
+            {% for entity in entities %}
+                {% include 'web/main/partial/new_entity.html' with entity=entity%}
+            {% endfor %}
+        </div>
     <div class="row hidden-xs">
             <div class="col-sm-offset-12">
                 <div class="gotop-wrapper">

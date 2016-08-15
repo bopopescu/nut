@@ -11,7 +11,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.core.cache import cache
 from django.contrib.auth.models import Group, GroupManager
-# import random
+import random
 
 
 class GKUserQuerySet(models.query.QuerySet):
@@ -49,20 +49,29 @@ class GKUserQuerySet(models.query.QuerySet):
         return self.filter(is_admin=True)
 
     def active_user(self):
-        return Group.objects.get(name='ActiveUser').user_set.all()
+        try :
+            return Group.objects.get(name='ActiveUser').user_set.all()
+        except models.ObjectDoesNotExist as e :
+            return list()
 
     def authorized_author(self):
-        return Group.objects.get(name='Author').user_set.all()
+        try :
+            return Group.objects.get(name='Author').user_set.all()
+        except models.ObjectDoesNotExist as e :
+            return list()
 
     def authorized_seller(self):
-        return Group.objects.get(name='Seller').user_set.all()
+        try :
+            return Group.objects.get(name='Seller').user_set.all()
+        except models.ObjectDoesNotExist as e:
+            return list()
 
     def authorized_user(self):
         return self.filter(groups__name__in=['Author', 'Seller']).distinct()
 
     def recommended_user(self):
         return self.authorized_user()\
-                   .select_related('authorized_profile')\
+                   .select_related('authorized_profile', 'profile')\
                    .filter(authorized_profile__is_recommended_user=True)\
                    .order_by('-authorized_profile__points')
 
@@ -142,7 +151,14 @@ class GKUserManager(BaseUserManager):
     def create_superuser(self, email, password, **extra_fields):
         return self._create_user(email, password, True, True, **extra_fields)
 
-
+    def recommended_user_random(self):
+        _key = 'index:user:recommend:random'
+        _user_list = cache.get(_key, None)
+        if _user_list is None:
+            _user_list = list(self.recommended_user())
+            random.shuffle(_user_list)
+            cache.set(_key,_user_list,3600*6)
+        return _user_list
 
 
 class AuthorizedUserQuerySet(models.query.QuerySet):

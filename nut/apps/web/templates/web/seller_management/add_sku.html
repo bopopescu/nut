@@ -1,0 +1,8 @@
+{% extends 'web/seller_management/seller_management_base.html' %}
+{% load guoku %}
+{% block content %}
+{% include "web/seller_management/sellmanagement_create_sku_template.html" %}
+{% endblock %}
+{% block user_script %}
+{% include "management/entities/create_sku_script_template.html" %}
+{% endblock %}

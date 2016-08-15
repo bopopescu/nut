@@ -10,8 +10,17 @@
                 <img src="{% static 'images/top_search_logo.png' %}" alt="{% trans 'guoku' %}" title="{% trans 'guoku' %}" style="width:64px;height:40px;">
                  <form class="navbar-form search-form" action="{% url 'web_search' %}" method="get" role="form">
                     <div class="input-group search">
-                        <input class="form-control top-search-input" name="q" type="search" placeholder="&nbsp;{% trans 'Search' %}" value="{{ keyword }}" >
+                        <input class="form-control top-search-input"
+                               autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false"
+                               name="q" type="search" placeholder="&nbsp;{% trans 'Search' %}" value="{{ keyword }}" >
                         <i class="fa fa-search fa-search-control"></i>
+                        <div class="hot_article_tags" style="display:none">
+                            <ul>
+                            {% for tag in hot_article_tags %}
+                                <li>{{ tag.name }}</li>
+                            {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -67,7 +76,9 @@
                     {% url 'web_event_home' as web_event_home_url %}
                     <li {% if web_event_home_url in request.path %}class="active" {% endif %}>
 {#                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="round"></span></a>#}
-                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="b_day"><img src="{% static 'images/event/teenager_forbidden.png' %}" alt=""></span></a>
+                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="b_day">
+{#                            <img src="{% static 'images/event/teenager_forbidden.png' %}">#}
+                        </span></a>
                     </li>
 
                     {% url 'good_store' as store_url %}
@@ -102,7 +113,7 @@
                                  <span class="tip"></span>
                                  <ul class="notification-drop-list">
                                      <li class="notification-loading-icon">
-                                         <img src="{% static 'images/widgets/loading.gif' %}" alt="" height="32px" width="32px">
+                                         <img src="{% static 'images/widgets/loading.gif' %}" height="32px" width="32px">
                                      </li>
                                      {% include "web/account/partial/ajax_notification_droplist.html" %}
                                  </ul>

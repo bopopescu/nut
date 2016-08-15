@@ -1,0 +1,38 @@
+{% load static %}
+<html>
+<body>
+<script src="{% static 'js/web/app/libs/jquery-1.11.1.min.js'%}" language="javascript"></script>
+<script src="{% static 'js/web/app/libs/qrcode.js' %}" language="javascript"></script>
+<ul>
+    <li>单号: {{ order.number }}</li>
+    <li>状态: {{ order.get_status_display }}</li>
+    <li>原总价: {{ order.grand_total_price }}</li>
+    <li>促销总价: {{ order.promo_total_price }}</li>
+    {% for orderitem in order.items.all %}
+    <li>------{{ orderitem.sku.entity.title }} -- 数量 --{{ orderitem.volume }}</li>
+    {% endfor %}
+</ul>
+<br>
+============================================
+<br>
+<a id="wx_qrcode_url" href="{{ order.wx_payment_qrcode_url }}">
+    微信-支付
+</a>
+<div class="qrcode-container" id="qr_code">
+
+</div>
+
+<script>
+    $(function () {
+        var url = $('#wx_qrcode_url').attr('href');
+        new QRCode(document.getElementById('qr_code'),
+                {
+                    text: url,
+                    width: 128,
+                    height: 128,
+                    }
+                );
+    });
+</script>
+</body>
+</html>

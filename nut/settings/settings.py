@@ -50,7 +50,7 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.humanize',
     'rest_framework',
-    # 'rest_framework.authtoken',
+    'rest_framework.authtoken',
     'haystack',
     'djcelery',
     # 'notifications',
@@ -68,6 +68,8 @@ INSTALLED_APPS = (
     'apps.seller',
     'apps.shop',
     'apps.site_banner',
+    'apps.order',
+    'apps.payment',
     'captcha',
 )
 
@@ -334,3 +336,5 @@ CURRENCY_SYMBOLS = (u'$', u'￥')
 
 TAOBAO_RECOMMEND_URL = 'http://10.0.2.120:10150/recommend'
 ARTICLE_TEXTRANK_URL = 'http://10.0.2.120:10150/article/'
+
+CLICK_HOST = 'http://click.guoku.com'

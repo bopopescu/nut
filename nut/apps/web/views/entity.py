@@ -41,8 +41,9 @@ class EntityDetailMixin(object):
         _entity_hash = self.kwargs.get('entity_hash', None)
         if _entity_hash is None:
             raise Exception('can not find hash')
-        _entity = Entity.objects.get(entity_hash=_entity_hash,
-                                     status__gte=Entity.freeze)
+        _entity = get_object_or_404(Entity, entity_hash=_entity_hash,status__gte=Entity.freeze)
+        # _entity = Entity.objects.get(entity_hash=_entity_hash,
+        #                              status__gte=Entity.freeze)
         return _entity
 
 class EntityLikersView(EntityDetailMixin,ListView):
@@ -58,6 +59,15 @@ class EntityLikersView(EntityDetailMixin,ListView):
         context = super(EntityLikersView, self).get_context_data()
         context['entity'] = self.get_object()
         context = add_side_bar_context_data(context)
+        return context
+
+
+class EntitySaleView(EntityDetailMixin, DetailView):
+    context_object_name = 'entity'
+    template_name = 'web/entity/entity_sale.html'
+    def get_context_data(self, **kwargs):
+        context = super(EntitySaleView, self).get_context_data(**kwargs)
+        context['current_host'] = settings.SITE_HOST
         return context
 
 
@@ -103,80 +113,167 @@ def get_entity_brand(entity):
     return None
 
 
-def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
-    _entity_hash = entity_hash
 
-    _user = None
-    _note_forms = None
-    _user_pokes = list()
-
-    try:
-        _entity = Entity.objects.prefetch_related('notes').get(entity_hash=_entity_hash,
-                                     status__gte=Entity.freeze)\
+class NewEntityDetailView(EntityDetailMixin, DetailView):
+    template_name = 'web/entity/detail.html'
+    context_object_name = 'entity'
 
 
-    except Entity.DoesNotExist:
-        raise Http404
 
-    nid_list = _entity.notes.all().values_list('id', flat=True)
-    if request.user.is_authenticated():
-        _user = request.user
-        # pop up a note form if there is a note in entity's notes submit by current user .
-        # add by an , for user posted note pop up
-        _notes = Note.objects.filter(user=_user, entity=_entity)
+    def get_context_data(self, **kwargs):
+        context = super(NewEntityDetailView,self).get_context_data()
+        context['like_status'] = self.get_like_status(context)
+        context['user_pokes'] = self.get_user_pokes(context)
+        context['note_forms'] = self.get_note_forms(context)
+        context['user_post_note'] = self.get_is_user_post_note(context)
+        context['guess_entities'] = self.get_guess_entities(context)
+        context['is_entity_detail'] = True
+        context['tags'] = self.get_entity_tags(context)
+        context['entity_brand'] = self.get_entity_brand(context)
+        context = add_side_bar_context_data(context)
+        return context
 
-        if len(_notes) > 0:
-            _note_forms = NoteForm(instance=_notes[0])
+    def get_is_user_post_note(self,context):
+        if not self.request.user.is_authenticated():
+            return False
+        _entity = context['entity']
+        _user_post_note = True
+        try:
+            _entity.notes.get(user=self.request.user)
+        except Note.DoesNotExist:
+            _user_post_note = False
+        return _user_post_note
+
+    def get_like_status(self, context):
+        like_status = 0
+        if not self.request.user.is_authenticated():
+            return like_status
+
+        _entity = context['entity']
+        try:
+            _entity.likes.get(user=self.request.user)
+            like_status = 1
+        except Entity_Like.DoesNotExist:
+            pass
+        return like_status
+
+    def get_note_forms(self, context):
+        _entity = context['entity']
+
+        if self.request.user.is_authenticated():
+            _user = self.request.user
+            _notes = Note.objects.filter(user=_user, entity=_entity)
+            if len(_notes) >0:
+                _note_forms = NoteForm(instance=_notes[0])
+            else:
+                 _note_forms = NoteForm()
+            return _note_forms
+        else :
+            return NoteForm()
+
+
+    def get_user_pokes(self, context):
+        _entity = context['entity']
+        nid_list = _entity.notes.all().values_list('id', flat=True)
+        self._nid_list = nid_list
+        if self.request.user.is_authenticated():
+            return Note_Poke.objects.filter(note_id__in=list(nid_list),
+                                            user=self.request.user)\
+                                    .values_list('note_id', flat=True)
         else:
-            _note_forms = NoteForm()
-        _user_pokes = Note_Poke.objects.filter(note_id__in=list(nid_list),
-                                               user=request.user).values_list(
-            'note_id', flat=True)
-        # log.info(_user_pokes)
+            return list()
 
-    # tags = Content_Tags.objects.filter(target_object_id__in=list(nid_list))[:10]
-
-    tags = Content_Tags.objects.entity_tags(list(nid_list))[:10]
-
-    _user_post_note = True
-    try:
-        _entity.notes.get(user=_user)
-    except Note.DoesNotExist:
-        _user_post_note = False
-
-    like_status = 0
-    try:
-        _entity.likes.get(user=_user)
-        like_status = 1
-    except Entity_Like.DoesNotExist:
-        pass
-
-    _guess_entities = Entity.objects.guess(category_id=_entity.category_id,
+    def get_guess_entities(self, context):
+        _entity = context['entity']
+        return Entity.objects.guess(category_id=_entity.category_id,
                                            count=9, exclude_id=_entity.pk)
-    brand = None
-    if _entity.brand_id and _entity.brand_id != 'NOT_FOUND':
-        brand = Brand.objects.get(id=_entity.brand_id)
-    context = {
-        'entity': _entity,
-        'like_status': like_status,
-        # 'user':_user,
-        'user_pokes': _user_pokes,
-        'user_post_note': _user_post_note,
-        'note_forms': _note_forms or NoteForm(),
-        'guess_entities': _guess_entities,
-        # 'likers': _entity.likes.all()[:13],
-        'is_entity_detail': True,
-        'tags': tags,
-        'entity_brand': brand,
-        # 'entity_brand': get_entity_brand(_entity),
-        # 'pop_tags' : _pop_tags
-    }
-    context = add_side_bar_context_data(context)
-    return render_to_response(
-        templates,
-        context,
-        context_instance=RequestContext(request),
-    )
+
+    def get_entity_tags(self, context):
+        _entity = context['entity']
+        return Content_Tags.objects.entity_tags(list(self._nid_list))[:10]
+
+    def get_entity_brand(self, context):
+        _entity = context['entity']
+        brand = None
+        if _entity.brand_id and _entity.brand_id != 'NOT_FOUND':
+            brand = Brand.objects.get(id=_entity.brand_id)
+        return brand
+
+#  prepare to delete  following function view !!!
+# def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
+#     _entity_hash = entity_hash
+#
+#     _user = None
+#     _note_forms = None
+#     _user_pokes = list()
+#
+#     try:
+#         _entity = Entity.objects.prefetch_related('notes').get(entity_hash=_entity_hash,
+#                                      status__gte=Entity.freeze)\
+#
+#
+#     except Entity.DoesNotExist:
+#         raise Http404
+#
+#     nid_list = _entity.notes.all().values_list('id', flat=True)
+#     if request.user.is_authenticated():
+#         _user = request.user
+#         # pop up a note form if there is a note in entity's notes submit by current user .
+#         # add by an , for user posted note pop up
+#         _notes = Note.objects.filter(user=_user, entity=_entity)
+#
+#         if len(_notes) > 0:
+#             _note_forms = NoteForm(instance=_notes[0])
+#         else:
+#             _note_forms = NoteForm()
+#         _user_pokes = Note_Poke.objects.filter(note_id__in=list(nid_list),
+#                                                user=request.user).values_list(
+#             'note_id', flat=True)
+#         # log.info(_user_pokes)
+#
+#     # tags = Content_Tags.objects.filter(target_object_id__in=list(nid_list))[:10]
+#
+#     tags = Content_Tags.objects.entity_tags(list(nid_list))[:10]
+#
+#     _user_post_note = True
+#     try:
+#         _entity.notes.get(user=_user)
+#     except Note.DoesNotExist:
+#         _user_post_note = False
+#
+#     like_status = 0
+#     try:
+#         _entity.likes.get(user=_user)
+#         like_status = 1
+#     except Entity_Like.DoesNotExist:
+#         pass
+#
+#     _guess_entities = Entity.objects.guess(category_id=_entity.category_id,
+#                                            count=9, exclude_id=_entity.pk)
+#     brand = None
+#     if _entity.brand_id and _entity.brand_id != 'NOT_FOUND':
+#         brand = Brand.objects.get(id=_entity.brand_id)
+#     context = {
+#         'entity': _entity,
+#         'like_status': like_status,
+#         # 'user':_user,
+#         'user_pokes': _user_pokes,
+#         'user_post_note': _user_post_note,
+#         'note_forms': _note_forms or NoteForm(),
+#         'guess_entities': _guess_entities,
+#         # 'likers': _entity.likes.all()[:13],
+#         'is_entity_detail': True,
+#         'tags': tags,
+#         'entity_brand': brand,
+#         # 'entity_brand': get_entity_brand(_entity),
+#         # 'pop_tags' : _pop_tags
+#     }
+#     context = add_side_bar_context_data(context)
+#     return render_to_response(
+#         templates,
+#         context,
+#         context_instance=RequestContext(request),
+#     )
 
 
 def wap_entity_detail(request, entity_hash, template='wap/detail.html'):
@@ -512,6 +609,17 @@ class TaobaoRecommendationView(BaseJsonView):
             self.user_id = None
         # self.mall = kwargs.pop('mall', False)
         return super(TaobaoRecommendationView, self).get(requests, *args, **kwargs)
+
+# class DesignWeekAPIView(EntityDetailMixin, RedirectView):
+#     def get(self, request, *args, **kwargs):
+#         entity_hash = kwargs.get('entity_hash')
+#         referer = request.META.get('HTTP_REFERER')
+#         user_id = request.user.id
+#         entity_id = self.get_object().id
+#         click_record.delay(user_id, entity_id, referer)
+#         return HttpResponseRedirect(reverse('web_entity_detail', args=[entity_hash]))
+
+
 
 
 
