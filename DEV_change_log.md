@@ -1,4 +1,19 @@
 
+
+1. add discount property  into SKU model 
+
+
+action : 
+
+ALTER TABLE `core`.`order_sku` 
+ADD COLUMN `discount` FLOAT NOT NULL DEFAULT 1.0 AFTER `status`;
+
+
+
+=============================
+# merged to master 2016 8-15
+=============================
+
 2. update design week api
 1. update common_shop_link for shop_shop
 
