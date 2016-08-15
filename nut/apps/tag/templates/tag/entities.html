@@ -34,7 +34,9 @@
                     热门标签
                 </div>
                 <div class="hot-tag-wrapper">
-                    hot tags
+                    {% for tag_item in published_entity_tags %}
+                        <span>{{ tag_item.name }}</span>
+                    {% endfor %}
                 </div>
 
             </div>

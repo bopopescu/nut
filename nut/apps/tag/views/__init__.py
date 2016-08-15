@@ -46,6 +46,10 @@ class TagEntitiesByHashView(AjaxResponseMixin, JSONResponseMixin, ListView):
     ajax_template_name = 'tag/partial/ajax_entities_bk.html'
     context_object_name = 'entities'
 
+    def get_published_entity_tag(self):
+        published_entity_tags = Tags.objects.filter(isPubishedEntityTag=1)
+        return published_entity_tags
+
     def get_tag_articles_queryset(self):
         self.tag_name = _tag = get_object_or_404(Tags, hash=self.tag_hash)
         self.tag = get_object_or_404(Tags, name=self.tag_name)
@@ -95,6 +99,7 @@ class TagEntitiesByHashView(AjaxResponseMixin, JSONResponseMixin, ListView):
         context['refresh_time'] = self.get_refresh_time()
         content_tag_list = context['object_list']
         context['articles'] = self.get_tag_articles_queryset()
+        context['published_entity_tags'] = self.get_published_entity_tag()
         el = []
         if self.request.user.is_authenticated():
             note_id_list = content_tag_list.values_list("target_object_id",
