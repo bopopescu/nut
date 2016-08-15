@@ -19,9 +19,15 @@ class SKU(models.Model):
     attrs = ListObjectField()
     stock = models.IntegerField(default=0,db_index=True)#库存
     origin_price = models.FloatField(default=0, db_index=True)
-    promo_price = models.FloatField(default=0, db_index=True)
+
+    discount = models.FloatField(default=1.0, db_index=True)
+    # promo_price = models.FloatField(default=0, db_index=True)
     status =  models.IntegerField(choices=SKU_STATUS_CHOICE, default=enable)
     objects =  SKUManager()
+
+    @property
+    def promo_price(self):
+        return self.origin_price * self.discount
 
 
     @property
