@@ -353,6 +353,25 @@
     background-color: @tag-hover-background-dark;
   }
 }
+.new-hot-round-tag{
+  .border-radius(100px);
+  padding: 0 10px;
+  height: 32px;
+  line-height: 32px;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid @tag-border-color;
+  font-size: @primary-size;
+  a{
+     color: @new-text-gray;
+  }
+  &:hover,&.current{
+    color:@common-text-color;
+    background-color: @hover-dark-gray;
+
+  }
+
+}
 
 
 

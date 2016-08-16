@@ -12,7 +12,7 @@
 
 {% if tag.image %}
     <div class="row">
-        <div class="col-xs-12 col-sm-9 guoku-middle-col">
+        <div class="col-xs-12 col-sm-8 guoku-middle-col">
             <div class="tag-intro-wrapper" style="background-image: url({{ image_host }}{{ tag.image }})">
                 <div class="tag-bg-layer"></div>
                 <div class="tag-title">
@@ -28,12 +28,12 @@
             </div>
         </div>
 
-        <div class="hidden-xs col-sm-3 guoku-middle-col">
+        <div class="hidden-xs col-sm-4 guoku-middle-col">
             <div class="hot-tag-section">
                 <p>
                     热门标签
                 </p>
-                <div class="hot-tag-wrapper" id="top_articles_tags_container">
+                <div class="hot-tag-wrapper" id="top_article_tags_container">
                     {% for tag_item in published_entity_tags %}
                         <div class="top-article-tag">
                             <a href="{% url 'tag_entities_url' tag_item.hash %}" target="_self">

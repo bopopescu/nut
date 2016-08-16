@@ -705,6 +705,29 @@ ul li {
 .normal-round-tag.current {
   background-color: #ddd;
 }
+.new-hot-round-tag {
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  padding: 0 10px;
+  height: 32px;
+  line-height: 32px;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid #e6e6e6;
+  font-size: 16px;
+}
+.new-hot-round-tag a {
+  color: #757575;
+}
+.new-hot-round-tag:hover,
+.new-hot-round-tag.current {
+  color: #212121;
+  background-color: #f1f1f1;
+}
 .bottom-bordered {
   border-bottom: 1px solid #e6e6e6;
 }
