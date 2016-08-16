@@ -1,27 +1,24 @@
 {% load i18n staticfiles %}
 {% load common guoku %}
 
-<div class="hidden-xs col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item event-article-item article-compact" >
+<div class="hidden-xs col-sm-4 col-md-4 col-lg-4 guoku-middle-col new-selection-article-item new-event-article-item" >
     <div class="article-panel">
         <a class="img-link" href="{% url 'web_article_page' article.pk   %}">
             <div class="img-holder" style="background-image: url({{ article.cover_url|resize:'450' }})"></div>
         </a>
 
-        <div class="article-title">
-            <a  href="{% url 'web_article_page' article.pk   %}">
-                {{ article.title|truncatechars:32 }}
-            </a>
+        <div class="article-info-wrapper">
+            <div class="article-title">
+                <a  href="{% url 'web_article_page' article.pk   %}">
+                    {{ article.title|truncatechars:32 }}
+                </a>
+            </div>
+            <div class="article-intro">
+                {% autoescape off %}
+                {{ article.content|at_digest|striptags|truncatechars:54 }}
+                {% endautoescape %}
+            </div>
         </div>
-        <div class="article-intro">
-            {% autoescape off %}
-            {{ article.content|at_digest|striptags|truncatechars:54 }}
-            {% endautoescape %}
-        </div>
-        {#            <div class="article-info">#}
-        {#                 <span class="create-time">#}
-        {#                    <i class="fa fa-clock-o"></i>{{article.updated_datetime|format_time}}#}
-        {#                 </span>#}
-        {#            </div>#}
     </div>
 </div>
 

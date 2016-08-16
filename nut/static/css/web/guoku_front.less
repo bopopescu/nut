@@ -2369,6 +2369,73 @@ from {
   }
 }
 
+#new_selection_article_list{
+  .new-event-article-item{
+  }
+  .new-selection-article-item{
+    display: inline-block;
+    position:relative;
+    padding:0 9px;
+    .article-panel{
+      width:100%;
+      padding:16px 16px 32px 16px;
+      .img-holder{
+        width:100%;
+        height:0;
+        padding-bottom: 55%;
+        background-position: center center;
+        background-size: cover;
+        background-repeat:no-repeat;
+      }
+
+      .article-info-wrapper{
+        margin-top:24px;
+        min-height:140px;
+        max-height:140px;
+        .article-title{
+        font-size: @big-title-size;
+        color:@common-text-color;
+        line-height: 1.3;
+        a{
+          color: @common-text-color;
+          //solve several lines'texts overflow
+          //only support webkit browser
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          &:hover{
+            text-decoration: none;
+          }
+        }
+      }
+        .article-intro{
+          margin-top:12px;
+        font-size:@smaller-primary;
+        color: @new-text-gray;
+        line-height:1.6;
+
+      }
+      }
+    }
+  }
+  .selection-article-item.article-compact{
+    .article-title{
+      font-size:@subtitle-size;
+      font-weight: 600;
+    }
+  }
+  .xs-selection-article-item{
+    margin:10px 0;
+    .more-article-wrapper{
+      margin:0;
+      .title-wrapper a{
+        text-decoration: none;
+      }
+    }
+  }
+}
+
 #sitemap{
   #site_map_list{
     padding-left:20px;
