@@ -47,7 +47,7 @@ class TagEntitiesByHashView(AjaxResponseMixin, JSONResponseMixin, ListView):
     context_object_name = 'entities'
 
     def get_published_entity_tag(self):
-        published_entity_tags = Tags.objects.filter(isPubishedEntityTag=1)
+        published_entity_tags = Tags.objects.filter(isPubishedEntityTag=1).exclude(hash=self.tag_hash)
         return published_entity_tags
 
     def get_tag_articles_queryset(self):

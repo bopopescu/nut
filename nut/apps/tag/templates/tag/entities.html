@@ -30,12 +30,16 @@
 
         <div class="hidden-xs col-sm-3 guoku-middle-col">
             <div class="hot-tag-section">
-                <div>
+                <p>
                     热门标签
-                </div>
-                <div class="hot-tag-wrapper">
+                </p>
+                <div class="hot-tag-wrapper" id="top_articles_tags_container">
                     {% for tag_item in published_entity_tags %}
-                        <span>{{ tag_item.name }}</span>
+                        <div class="top-article-tag">
+                            <a href="{% url 'tag_entities_url' tag_item.hash %}" target="_self">
+                                <div class="tag-element">{{ tag_item.name }}</div>
+                            </a>
+                        </div>
                     {% endfor %}
                 </div>
 
