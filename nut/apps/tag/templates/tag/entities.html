@@ -81,13 +81,12 @@
             {% for article_item in articles %}
                 {% with article_item.object as article %}
                     {% if article %}
-                    {% include 'web/article/partial/article_item_new.html' %}
+{#                    {% include 'web/article/partial/article_item_new.html' %}#}
+                        {% include 'web/events/partial/new_event_article_item.html' %}
                     {% endif %}
                 {% endwith %}
             {% endfor %}
            </div>
-
-
 
         <div class="row" id="tag-entity-list" data-refresh="{{ refresh_time }}">
 {#            <div class="col-md-12">#}
