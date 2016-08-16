@@ -1422,6 +1422,9 @@ a.new-black-link:hover {
   #recommend-entity-container #recommend-entity-wrapper .slick-next:before {
     display: none;
   }
+  .tag-page-container .tag-intro-wrapper {
+    height: 180px;
+  }
 }
 @media (max-width: 767px) {
   .check-icon-wrapper .big-check-icon {
