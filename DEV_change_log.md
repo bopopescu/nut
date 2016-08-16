@@ -3,10 +3,10 @@
 1. add discount property  into SKU model 
 
 
-action : 
-
-ALTER TABLE `core`.`order_sku` 
-ADD COLUMN `discount` FLOAT NOT NULL DEFAULT 1.0 AFTER `status`;
+<!--action : -->
+not used 
+<!--ALTER TABLE `core`.`order_sku` -->
+<!--ADD COLUMN `discount` FLOAT NOT NULL DEFAULT 1.0 AFTER `status`;-->
 
 
 
