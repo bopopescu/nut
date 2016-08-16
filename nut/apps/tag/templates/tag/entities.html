@@ -65,8 +65,12 @@
 {#        </div>#}
 
            <div class="row selection_article_container" id="selection_article_list">
-            {% for article in articles %}
-             {% include 'web/article/partial/article_item_new.html' %}
+            {% for article_item in articles %}
+                {% with article_item.object as article %}
+                    {% if article %}
+                    {% include 'web/article/partial/article_item_new.html' %}
+                    {% endif %}
+                {% endwith %}
             {% endfor %}
            </div>
 
