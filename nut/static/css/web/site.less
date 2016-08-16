@@ -1626,15 +1626,20 @@ a:hover{text-decoration:underline;}
   }
   .more-article-wrapper{
     .title-wrapper{
-      padding-top:0;
+      padding:0;
       .title{
         color:@common-text-color;
         padding: 0 0 0 13px;
         font-size: @primary-size;
         font-weight: @new-font-weight;
+        .single-text-overflow;
       }
       .article-digest{
-        display:none;
+         display: block;
+         padding: 5px 0 0 13px;
+        font-size: @more-mini-size;
+        color:@new-text-gray;
+        .multiple-text-overflow(2);
       }
     }
   }

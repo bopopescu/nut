@@ -390,17 +390,23 @@
 
 //    reuse parts
   .more-article-wrapper{
-     .title-wrapper{
-         padding-top:5px;
-         .title{
-            padding: 10px 13px 0px 13px;
-            font-size: 15px;
-            font-weight: 800;
-         }
-         .article-digest{
-            display:none;
-         }
-     }
+    .title-wrapper{
+      padding:0;
+      .title{
+        color:@common-text-color;
+        padding: 0 0 0 13px;
+        font-size: @primary-size;
+        font-weight: @new-font-weight;
+        .single-text-overflow;
+      }
+      .article-digest{
+        display: block;
+        padding: 5px 0 0 13px;
+        font-size: @more-mini-size;
+        color:@new-text-gray;
+        .multiple-text-overflow(2);
+      }
+    }
   }
    .new-index-page .more-article-wrapper{
      .title-wrapper{
