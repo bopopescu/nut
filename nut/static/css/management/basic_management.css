@@ -604,6 +604,7 @@ p .b_day {
 }
 .new-entity-six {
   background-color: #fff;
+  padding: 16px 16px 0 17px;
 }
 .new-entity-six .img-box {
   position: relative;
