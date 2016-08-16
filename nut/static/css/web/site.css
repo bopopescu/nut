@@ -1703,7 +1703,10 @@ a.new-black-link:hover {
 .tag-page-container .tag-intro .tag-desc {
   margin-top: 16px;
 }
-.tag-page-container .hot-tag-section {
+.tag-page-container .hot-tag-section-wrapper {
+  overflow: hidden;
+}
+.tag-page-container .hot-tag-section-wrapper .hot-tag-section {
   width: 100%;
   height: 220px;
   padding: 24px 20px;
