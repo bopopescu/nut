@@ -33,9 +33,9 @@
                 <p>
                     热门标签
                 </p>
-                <div class="hot-tag-wrapper" id="top_article_tags_container">
+                <div class="hot-tag-wrapper" id="hot_entity_tags_container">
                     {% for tag_item in published_entity_tags %}
-                        <div class="top-article-tag">
+                        <div class="hot-entity-tag">
                             <a href="{% url 'tag_entities_url' tag_item.hash %}" target="_self">
                                 <div class="tag-element">{{ tag_item.name }}</div>
                             </a>
