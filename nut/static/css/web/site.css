@@ -1668,6 +1668,9 @@ a.new-black-link:hover {
 .category-header.category-header-control .dropdown-menu-control li {
   text-align: center;
 }
+.tag-page-container .section-title-wrapper {
+  margin-top: 40px;
+}
 .tag-page-container .tag-intro {
   position: relative;
   width: 100%;

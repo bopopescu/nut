@@ -64,7 +64,7 @@
             </div>
         {% endif %}
 
-        <div class="row">
+        <div class="row section-title-wrapper">
             <div class="col-sm-12 guoku-middle-col">
                 {% trans 'Articles' %}
             </div>
@@ -87,7 +87,7 @@
                     <p>#{{ tag }}</p>
                 </div>
             {% endif %}
-            <div class="col-sm-12 guoku-middle-col">{% trans 'entity' %}</div>
+            <div class="col-sm-12 guoku-middle-col section-title-wrapper">{% trans 'entity' %}</div>
                 {% include 'tag/partial/ajax_entities.html' with object_list=entities %}
 {#            </div>#}
         </div>
