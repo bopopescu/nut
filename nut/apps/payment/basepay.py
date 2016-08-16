@@ -1,12 +1,15 @@
 #encoding=utf-8
 from hashlib import md5
 import types
-
+from django.conf  import settings
 from apps.payment.exceptions import PaymentException
+
+
+site_host = getattr(settings,'SITE_HOST','http://www.guoku.com')
 
 class BasePayment(object):
 
-    def __init__(self,order=None, host='http://www.guoku.com'):
+    def __init__(self,order=None, host=site_host):
         if order is None:
             return PaymentException('payment must be inited with order instance')
         self._order = order

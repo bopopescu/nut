@@ -107,7 +107,7 @@ class WX_Payment_Test(DBTestBase):
                 msg[child.tag] = smart_unicode(child.text)
 
 
-        self.assertEqual(wxpayment.check_wx_response_sign(response), True)
+        self.assertEqual(wxpayment._parser.check_wx_response_sign(response), True)
 
     def test_get_wx_pay_url(self):
         wxpayment = WXPayment(self.order)
@@ -116,8 +116,10 @@ class WX_Payment_Test(DBTestBase):
         pprint(wx_pay_url)
         self.assertEqual('weixin://wxpay/' in wx_pay_url, True)
 
-
-
-
-
+    def test_get_wx_prepay_id(self):
+        wxpayment = WXPayment(self.order)
+        prepay_id = wxpayment.get_prepay_id()
+        self.assertIsNotNone(prepay_id)
+        self.assertIsInstance(prepay_id , unicode)
+        self.assertLessEqual(3, len(prepay_id))
 

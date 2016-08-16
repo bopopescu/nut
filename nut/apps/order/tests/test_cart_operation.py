@@ -77,13 +77,13 @@ class CartForUserOperationTest(TestCase):
         self.sku4.origin_price = 0
         self.sku4.promo_price = 3
         self.sku4.save()
-        self.assertEqual(self.sku4.discount_rate, 2)
+        self.assertEqual(self.sku4.discount_rate, 1)
 
         self.sku5 =  self.entity.add_sku(attributes={})
         self.sku5.origin_price = 1
         self.sku5.promo_price = 0
         self.sku5.save()
-        self.assertEqual(self.sku4.discount_rate, 2)
+        self.assertEqual(self.sku4.discount_rate, 1)
 
 
     def test_decr_sku_volum_in_user_cart(self):
