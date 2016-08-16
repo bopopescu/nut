@@ -65,7 +65,7 @@ docs/_build/
 #nut/settings/
 # Node tools
 node_modules
-
+node_modules/
 
 #local image test file and folder for ant
 nut/images/

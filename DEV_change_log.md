@@ -1,5 +1,5 @@
 
-
+2. entity qrcode add ?from=qrcode
 1. add discount property  into SKU model 
 
 

@@ -159,8 +159,6 @@ class Order(models.Model):
     def generate_weixin_payment_url(self,host='http://www.guoku.com'):
         return reverse('web_wx_payment_page', args=[self.id])
 
-
-
     @property
     def wx_payment_qrcode_url(self):
         #todo : need cache qrcode , read wx api for payment timeout value

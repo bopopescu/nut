@@ -44,9 +44,9 @@ class WXPayment(BasePayment):
         response = requests.post(self._GATEWAY,
                                  data=self.get_request_xml_string(),
                                  headers=headers)
-        return self.parse_payment_url(response)
+        return self._parse_payment_url(response)
 
-    def parse_payment_url(self, response):
+    def _parse_payment_url(self, response):
 
         if self.check_wx_response_sign(response) is not True:
             raise PaymentException('wx return sign fail')
@@ -129,6 +129,7 @@ class WXPayment(BasePayment):
     @property
     def notify_url(self):
         return reverse('wxpay_notify')
+
     def payment_url(self):
         return self._GATEWAY + urlencode(self.get_request_param())
 

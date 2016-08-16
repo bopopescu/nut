@@ -14,6 +14,7 @@ class WXpayReturnView(FormView):
     pass
 
 class WXpayNotifyView(FormView):
+
     pass
 
 class WXpayRefoundView(FormView):
