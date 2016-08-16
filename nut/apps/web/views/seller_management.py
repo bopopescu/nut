@@ -122,7 +122,7 @@ class QrcodeListView(IsAuthorizedSeller,  ListView):
         host = request.get_host()
         for entity in self.object_list:
             entity.title = entity.title[:15]
-            entity.qr_info = [entity.brand, entity.title, "", entity.price, host + entity.absolute_url]
+            entity.qr_info = [entity.brand, entity.title, "", entity.price, host + entity.qrcode_url]
         return render_to_response(self.template_name, {'entities': self.object_list},
                                   context_instance=RequestContext(request)
                                   )

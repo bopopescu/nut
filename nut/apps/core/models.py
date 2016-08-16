@@ -1061,6 +1061,10 @@ class Entity(BaseModel):
         return self.get_absolute_url()
 
     @property
+    def qrcode_url(self):
+        return "%s?from=qrcode"% self.absolute_url.encode('utf8')
+
+    @property
     def design_week_url(self):
         absolute_url = self.get_absolute_url()
         design_week_url = absolute_url.replace("/detail/", "/jump/entity/")
