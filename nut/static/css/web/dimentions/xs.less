@@ -10,12 +10,7 @@
         display: none;
     }
   }
-  .tag-intro-wrapper{
-    height:240px;
-    .tag-desc{
-      display: none;
-    }
-  }
+
   body.new-index-body #hot-entity-list .new-entity-item.hot-entity-item{
     margin-bottom:0;
   }
@@ -128,8 +123,25 @@
         display: none;
     }
   }
-  .tag-page-container .tag-intro-wrapper{
-    height:180px;
+  .tag-page{
+    padding-top:50px;
+    .tag-page-container{
+      .tag-intro-wrapper{
+        padding:0;
+        .tag-intro{
+          height:180px;
+          .tag-title{
+            margin-top:80px;
+          }
+          .tag-desc{
+            display: none;
+          }
+        }
+      }
+      .tag-desc{
+          padding:0 16px;
+        }
+    }
   }
 }
 

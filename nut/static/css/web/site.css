@@ -1668,7 +1668,7 @@ a.new-black-link:hover {
 .category-header.category-header-control .dropdown-menu-control li {
   text-align: center;
 }
-.tag-page-container .tag-intro-wrapper {
+.tag-page-container .tag-intro {
   position: relative;
   width: 100%;
   height: 220px;
@@ -1679,7 +1679,7 @@ a.new-black-link:hover {
   background-position: center center;
   background-size: 150%;
 }
-.tag-page-container .tag-intro-wrapper .tag-bg-layer {
+.tag-page-container .tag-intro .tag-bg-layer {
   position: absolute;
   top: 0;
   left: 0;
@@ -1687,17 +1687,17 @@ a.new-black-link:hover {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
 }
-.tag-page-container .tag-intro-wrapper .tag-title,
-.tag-page-container .tag-intro-wrapper .tag-desc {
+.tag-page-container .tag-intro .tag-title,
+.tag-page-container .tag-intro .tag-desc {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
   height: auto;
 }
-.tag-page-container .tag-intro-wrapper .tag-title {
+.tag-page-container .tag-intro .tag-title {
   margin-top: 50px;
 }
-.tag-page-container .tag-intro-wrapper .tag-desc {
+.tag-page-container .tag-intro .tag-desc {
   margin-top: 16px;
 }
 .tag-page-container .hot-tag-section {

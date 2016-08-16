@@ -1341,12 +1341,6 @@ a.new-black-link:hover {
   .new-index-body #index-banners .slick-next:before {
     display: none;
   }
-  .tag-intro-wrapper {
-    height: 240px;
-  }
-  .tag-intro-wrapper .tag-desc {
-    display: none;
-  }
   body.new-index-body #hot-entity-list .new-entity-item.hot-entity-item {
     margin-bottom: 0;
   }
@@ -1422,8 +1416,23 @@ a.new-black-link:hover {
   #recommend-entity-container #recommend-entity-wrapper .slick-next:before {
     display: none;
   }
-  .tag-page-container .tag-intro-wrapper {
+  .tag-page {
+    padding-top: 50px;
+  }
+  .tag-page .tag-page-container .tag-intro-wrapper {
+    padding: 0;
+  }
+  .tag-page .tag-page-container .tag-intro-wrapper .tag-intro {
     height: 180px;
+  }
+  .tag-page .tag-page-container .tag-intro-wrapper .tag-intro .tag-title {
+    margin-top: 80px;
+  }
+  .tag-page .tag-page-container .tag-intro-wrapper .tag-intro .tag-desc {
+    display: none;
+  }
+  .tag-page .tag-page-container .tag-desc {
+    padding: 0 16px;
   }
 }
 @media (max-width: 767px) {
