@@ -88,7 +88,7 @@
                 </div>
             {% endif %}
             <div class="col-sm-12 guoku-middle-col">{% trans 'entity' %}</div>
-                {% include 'tag/partial/ajax_entities_bk.html' with object_list=entities %}
+                {% include 'tag/partial/ajax_entities.html' with object_list=entities %}
 {#            </div>#}
         </div>
         {% if entities.has_next %}
