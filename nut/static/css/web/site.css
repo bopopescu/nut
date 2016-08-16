@@ -2943,12 +2943,13 @@ a:hover {
     background-clip: padding-box;
   }
   .more-article-wrapper .title-wrapper {
-    padding-top: 5px;
+    padding-top: 0;
   }
   .more-article-wrapper .title-wrapper .title {
-    padding: 10px 13px 0px 13px;
-    font-size: 15px;
-    font-weight: 800;
+    color: #212121;
+    padding: 0 0 0 13px;
+    font-size: 16px;
+    font-weight: 500;
   }
   .more-article-wrapper .title-wrapper .article-digest {
     display: none;

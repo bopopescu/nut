@@ -6132,6 +6132,10 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
     font-size: 18px!important;
     font-weight: 600;
   }
+  #new_selection_article_list .new-selection-article-item .article-title {
+    font-size: 18px!important;
+    font-weight: 500;
+  }
   .guoku-content.index-page .late-category {
     display: none;
   }
