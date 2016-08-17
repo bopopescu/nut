@@ -1,11 +1,11 @@
 var SKUStockUpdateManager = Class.extend({
     init: function(){
-        console.log('init sku stock update begin');
+        console.log('init sku stock and price update begin');
         this.initEditPencil();
         this.initSaveBtn();
     },
     initEditPencil:function(){
-        $('.stock-edit-pencil').click(this.showInputContent.bind(this));
+        $('.sku-edit-pencil').click(this.showInputContent.bind(this));
     },
     showInputContent:function(event){
         $(event.currentTarget).parent().addClass('hidden');
@@ -21,12 +21,26 @@ var SKUStockUpdateManager = Class.extend({
         var url =  targetElement.attr('data-url');
         //var entity_id = targetInput.attr('data-entity-id');
         var sku_id = targetInput.attr('data-sku-id');
-        var stock =  targetInput.val();
+         var inputValue =  targetInput.val();
+        var price,stock,data;
 
-        var data = {
+        if(targetInput.parent().hasClass('price-edit-wrapper')){
+
+            price = inputValue;
+            data = {
+            'sku_id':sku_id,
+            'price':price
+            };
+
+        }else{
+
+            stock = inputValue;
+            data = {
             'sku_id':sku_id,
             'stock':stock
-        };
+            };
+
+        }
 
         $.when($.ajax({
 

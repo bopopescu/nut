@@ -279,17 +279,37 @@ body.seller-management{
       padding:0;
       border-left:0;
       border-right:0;
+      .entity-price{
+        i.sku-edit-pencil{
+          display: none;
+        }
+        &:hover{
+          cursor: pointer;
+           i.sku-edit-pencil{
+             display: inline;
+           }
+        }
+      }
+      .price-edit-wrapper{
+        display: none;
+        input{
+          width: 70px;
+          height: 34px;
+          line-height:34px;
+        }
+      }
+
     }
     tr td.stock-wrapper{
       padding-left:0;
       border-left:0;
       .entity-stock{
-        i.stock-edit-pencil,.stock-edit-wrapper{
+        i.sku-edit-pencil{
           display: none;
         }
         &:hover{
           cursor: pointer;
-           i.stock-edit-pencil{
+           i.sku-edit-pencil{
              display: inline;
            }
         }
