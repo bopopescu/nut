@@ -8,6 +8,6 @@ var SKUStockUpdateManager = Class.extend({
 
 (function($, window, document){
     $(function(){
-        var sku_manager = new SKUStockUpdateManager();
+        var sku_stock_update_manager = new SKUStockUpdateManager();
     });
 })(jQuery, window, document);

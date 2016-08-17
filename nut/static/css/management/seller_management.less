@@ -283,6 +283,18 @@ body.seller-management{
     tr td.stock-wrapper{
       padding-left:0;
       border-left:0;
+      .entity-stock{
+        i.stock-edit-pencil{
+          display: none;
+        }
+        &:hover{
+          cursor: pointer;
+           i.stock-edit-pencil{
+             display: inline;
+           }
+        }
+      }
+
     }
     .sku-save-btn{
       margin-left:12px;

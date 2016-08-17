@@ -114,14 +114,14 @@
 
 {# luoqian copy ,should refactor these codes #}
 
-    $("div.entity-stock").hover(function(){
-        if (!$(this).html().match("input")){
-             $(this).append("<i class='fa fa-pencil-square' id='stock_edit' onclick='changeStockContent()'></i>");
-        }
-        }, function(){
-
-        $(this).children("i").remove();
-        });
+{#    $("div.entity-stock").hover(function(){#}
+{#        if (!$(this).html().match("input")){#}
+{#             $(this).append("<i class='fa fa-pencil-square' id='stock_edit' onclick='changeStockContent()'></i>");#}
+{#        }#}
+{#        }, function(){#}
+{##}
+{#        $(this).children("i").remove();#}
+{#        });#}
 
         function changeStockContent(){
             var parent = document.getElementById("stock_edit").parentNode;

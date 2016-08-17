@@ -87,6 +87,7 @@
                 {% for sku in entity.sku_list %}
                      <div class="sku-item sku-item-border entity-stock" id="{{ entity.id }}" data-sku-id="{{ sku.id }}">
                           {{ sku.stock }}
+                         <i class='fa fa-pencil-square stock-edit-pencil'></i>
                      </div>
                 {% endfor %}
             </td>
