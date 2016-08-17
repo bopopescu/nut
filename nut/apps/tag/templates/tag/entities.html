@@ -56,7 +56,15 @@
         </div>
     </div>
 {% endif %}
-
+{% if not tag.image %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="category-header">
+                <p>#{{ tag }}</p>
+            </div>
+        </div>
+    </div>
+{% endif %}
 
         {% if request.user.is_staff %}
             <div class="row user-admin-link-wrapper">
@@ -84,11 +92,6 @@
 
         <div class="row" id="tag-entity-list" data-refresh="{{ refresh_time }}">
 {#            <div class="col-md-12">#}
-            {% if not tag.image %}
-                <div class="category-header">
-                    <p>#{{ tag }}</p>
-                </div>
-            {% endif %}
             <div class="col-sm-12 guoku-middle-col section-title-wrapper">{% trans 'entity' %}</div>
                 {% include 'tag/partial/ajax_entities.html' with object_list=entities %}
 {#            </div>#}
