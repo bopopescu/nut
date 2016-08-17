@@ -91,8 +91,8 @@
                      </div>
 
                      <div class="sku-item sku-item-border stock-edit-wrapper">
-                         <input type="text" data-entity-id="{{ entity.id }}" data-sku-id="{{ sku.id }}" value="111">
-                         <button type="submit" class="btn btn-success sku-save-btn">保存</button>
+                         <input type="text" data-entity-id="{{ entity.id }}" data-sku-id="{{ sku.id }}" value="{{ sku.stock }}">
+                         <button type="submit" class="btn btn-success sku-save-btn" data-url="{% url 'web_seller_management_entity_save' entity.id %}">保存</button>
                      </div>
                 {% endfor %}
             </td>
