@@ -1,7 +1,7 @@
 from django.conf.urls import url, patterns, include
 from apps.v4.views import DiscoverView, HomeView, \
     AuthorizedUser, UnreadView, \
-    TopPopularView, PopularView, APISearchView
+    TopPopularView, PopularView, APISearchView, APISearchHotWordView
 from apps.v4.views.marketing import LaunchBoardView
 
 
@@ -12,16 +12,16 @@ urlpatterns = patterns(
     url(r'^homepage/$', 'homepage', name='v4_homepage'),
     url(r'^home/$', HomeView.as_view(), name='v4_home'),
     url(r'^selection/$', 'selection', name='v4_selection'),
-    # url(r'^popular/$', 'popular', name='v4_popular'),
+
+    # TODO: popular API
     url(r'^popular/$', PopularView.as_view(), name='v4_popular'),
+
     # TODO: discover API
     url(r'^discover/$', DiscoverView.as_view(), name='v4_discover'),
 
-    url(r'^search/$', APISearchView.as_view(), name='v4_search'),
 
     url(r'^authorized/users/', AuthorizedUser.as_view(), name='v4_authorized_user'),
 
-    # url(r'^toppopular/$', 'toppopular', name='v4_toppopular'),
     url(r'^toppopular/$', TopPopularView.as_view(), name='v4_toppopular'),
 
     url(r'^unread/$', UnreadView.as_view(), name='v4_unread'),
@@ -30,7 +30,8 @@ urlpatterns = patterns(
     url(r'^apns/token/$', 'apns_token', name='v4_apns_token'),
 
 # TODO: search API
-#     url(r'^search/$', ),
+    url(r'^search/$', APISearchView.as_view(), name='v4_search'),
+    url(r'^search/keywords/$', APISearchHotWordView.as_view(), name='v4_search_hot_word'),
 )
 
 urlpatterns += patterns(

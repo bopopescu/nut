@@ -1,5 +1,5 @@
 from django.conf.urls import url, patterns
-from apps.v4.views.entity import APIEntitySearchView
+from apps.v4.views.entity import APIEntitySearchView, EntitySKUView
 
 urlpatterns = patterns(
     'apps.v4.views.entity',
@@ -14,6 +14,9 @@ urlpatterns = patterns(
 
     # url(r'^note/$', 'note', name='v4_entity_note'),
     url(r'^(?P<entity_id>\d+)/report/$', 'report', name='v4_entity_report'),
+
+    # entity sku url
+    url(r'^/sku/(?P<entity_hash>\w+)/$', EntitySKUView.as_view(), name='v4_entity_sku'),
 )
 
 urlpatterns += patterns(

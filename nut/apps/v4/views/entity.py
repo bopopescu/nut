@@ -16,7 +16,7 @@ from apps.v4.models import APIEntity
 
 from haystack.generic_views import SearchView
 from apps.v4.forms.search import APIEntitySearchForm
-# from apps.v4.views import APIJsonView
+from apps.v4.views import APIJsonView
 from apps.core.views import JSONResponseMixin
 
 from django.utils.log import getLogger
@@ -238,6 +238,16 @@ class APIEntitySearchView(SearchView, JSONResponseMixin):
     def dispatch(self, request, *args, **kwargs):
         return super(APIEntitySearchView, self).dispatch(request, *args, **kwargs)
 
+
+
+class EntitySKUView(APIJsonView):
+
+    http_method_names = ['get']
+
+
+    def get(self, request, *args, **kwargs):
+
+        return super(EntitySKUView, self).get(request, *args, **kwargs);
 
 
 @csrf_exempt
