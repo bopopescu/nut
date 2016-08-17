@@ -5758,9 +5758,6 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   .tag-page .tag-page-container .tag-intro-wrapper .tag-intro {
     height: 180px;
   }
-  .tag-page .tag-page-container .tag-intro-wrapper .tag-intro .tag-title {
-    margin-top: 80px;
-  }
   .tag-page .tag-page-container .tag-intro-wrapper .tag-intro .tag-desc {
     display: none;
   }

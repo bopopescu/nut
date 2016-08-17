@@ -1425,9 +1425,6 @@ a.new-black-link:hover {
   .tag-page .tag-page-container .tag-intro-wrapper .tag-intro {
     height: 180px;
   }
-  .tag-page .tag-page-container .tag-intro-wrapper .tag-intro .tag-title {
-    margin-top: 80px;
-  }
   .tag-page .tag-page-container .tag-intro-wrapper .tag-intro .tag-desc {
     display: none;
   }

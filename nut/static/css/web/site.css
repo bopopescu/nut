@@ -1690,15 +1690,23 @@ a.new-black-link:hover {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
 }
+.tag-page-container .tag-intro .tag-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  width: 100%;
+  max-height: 100%;
+}
 .tag-page-container .tag-intro .tag-title,
 .tag-page-container .tag-intro .tag-desc {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
-  height: auto;
-}
-.tag-page-container .tag-intro .tag-title {
-  margin-top: 50px;
+  text-align: center;
 }
 .tag-page-container .tag-intro .tag-desc {
   margin-top: 16px;

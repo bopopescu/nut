@@ -353,14 +353,19 @@
     .tag-bg-layer{
       .custom-bg-layer;
     }
+    .tag-info{
+      position:absolute;
+      top:50%;
+      left:50%;
+      .transform(translate(-50%,-50%));
+      width:100%;
+      max-height:100%;
+    }
     .tag-title,.tag-desc{
       width:100%;
       max-width:400px;
       margin:0 auto;
-      height:auto;
-    }
-    .tag-title{
-      margin-top:50px;
+      text-align: center;
     }
     .tag-desc{
       margin-top:16px;
