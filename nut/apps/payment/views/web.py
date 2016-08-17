@@ -2,6 +2,7 @@ import xml.etree.cElementTree as ET
 
 from django.http import HttpResponse
 from django.views.generic import FormView, View, TemplateView
+from braces.views import CsrfExemptMixin
 
 from apps.payment.weixinpay.parser import WXResponseParser
 from apps.payment.weixinpay.handler import WXPaymentNotifyHanlder
@@ -22,12 +23,12 @@ class AlipayRefoundNotify(FormView):
 class WXpayReturnView(FormView):
     pass
 
-class WXPayNotifyView(View):
+class WXPayNotifyView(CsrfExemptMixin, View):
     template_name = 'payment/notify.html'
 
     def post(self, *args, **kwargs):
         #only return False when
-        log.error('weixin notify here')
+        # log.error('weixin notify here')
         parser = WXResponseParser()
         if not parser.check_wx_request_sign(self.request):
             log.warning('wx notify sign fail')
