@@ -52,6 +52,7 @@ var SKUStockUpdateManager = Class.extend({
         this.reloadCurrentPage();
     },
     postSaveFail:function(data){
+        var that = this;
         bootbox.alert({
             size: 'small',
             message: '更新失败!',
