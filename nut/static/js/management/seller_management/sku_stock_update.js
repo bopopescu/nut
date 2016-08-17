@@ -40,12 +40,26 @@ var SKUStockUpdateManager = Class.extend({
         );
     },
     postSaveSuccess:function(data){
-        if(data.status > 0){
-             bootbox.alert('更新成功');
+        var that = this;
+        var status = parseInt(data.status);
+        if(status > 0){
+            bootbox.alert({
+                size: 'small',
+                message: '更新成功!',
+                callback:that.reloadCurrentPage()
+            }) ;
         }
+        this.reloadCurrentPage();
     },
     postSaveFail:function(data){
-         bootbox.alert('更新失败');
+        bootbox.alert({
+            size: 'small',
+            message: '更新失败!',
+            callback:that.reloadCurrentPage()
+        }) ;
+    },
+    reloadCurrentPage:function(){
+        window.setTimeout( function(){ window.location.reload();}, 2000);
     }
 });
 
