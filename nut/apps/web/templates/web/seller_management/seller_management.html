@@ -112,55 +112,6 @@
     }
 {#    along write end #}
 
-{# luoqian copy ,should refactor these codes #}
-
-{#    $("div.entity-stock").hover(function(){#}
-{#        if (!$(this).html().match("input")){#}
-{#             $(this).append("<i class='fa fa-pencil-square' id='stock_edit' onclick='changeStockContent()'></i>");#}
-{#        }#}
-{#        }, function(){#}
-{##}
-{#        $(this).children("i").remove();#}
-{#        });#}
-
-        function changeStockContent(){
-            var parent = document.getElementById("stock_edit").parentNode;
-            {# alert(parent.innerHTML); #}
-            var result = parent.innerHTML.split('<i')[0];
-            result = $.trim(result);
-            parent.innerHTML = "<input style='width:70px;height:34px;line-height:34px;' type='text'"  + "data-entity-id='"+ parent.id + "'value='" + result + "'/>" +
-                    '<button type="submit" class="btn btn-success sku-save-btn" onclick="update_stock(event)">保存</button>';
-        }
-      function update_stock(event){
-        var button = event.currentTarget;
-        var input = button.previousSibling;var parent = button.parentNode;
-        var entity_id = input.getAttribute('data-entity-id');
-        var sku_id = parent.getAttribute('data-sku-id');
-        var stock = Number(input.value);
-        var url = '/seller_management/' + entity_id + '/save/';
-          console.log(sku_id);
-          console.log(input.value);
-        $.when($.ajax({
-            url: url,
-            method: 'POST',
-            data:{
-                'sku_id':JSON.stringify(sku_id),
-                'stock':JSON.stringify(stock)
-            }
-            })).then(function (data) {
-            var status = parseInt(data.status);
-            if (status > 0) {
-                bootbox.alert('更新成功');
-            }
-            input.parentNode.innerHTML = stock;
-
-        }, function () {
-            bootbox.alert('更新失败');
-
-        });
-    }
-
-
     </script>
 
 
