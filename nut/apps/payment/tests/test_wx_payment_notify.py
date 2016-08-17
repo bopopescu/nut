@@ -9,4 +9,4 @@ class WXNotifyParserTest(TestCase):
 
     def test_check_sign(self):
         params = self.parser.parse_string_xml_to_dic(self.xml_str)
-
+        self.assertEqual(self.parser.check_params_sign(params),True)
