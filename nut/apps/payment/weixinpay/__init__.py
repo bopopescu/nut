@@ -57,7 +57,14 @@ class WXPayment(BasePayment):
         return self._parse_payment_url(response)
 
     def _parse_payment_url(self, response):
+        if self._order_is_paid(response):
+            return 'order_paid'
         return self._parser.parse_key_from_response(response,'code_url')
+
+    def _order_is_paid(self, response):
+        result_code = self._parser.parse_key_from_response(response, 'result_code')
+        err_code_des = self._parser.parse_key_from_response(response, 'err_code')
+        return result_code == "FAIL" and err_code_des == 'ORDERPAID'
 
 
     def get_request_xml_string(self):

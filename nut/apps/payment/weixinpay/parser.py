@@ -17,21 +17,21 @@ class WXResponseParser(object):
             raise PaymentException('wx return sign fail')
 
         response.encoding='utf-8'
-        e = self.parse_string_xml_to_dic(response.text)
+        e = self.parse_string_xml_to_dic(response.content)
 
         if e.get('return_code') == 'FAIL':
             raise PaymentException('wx payment api interno error %s'
                                    %e.get('return_msg'))
+        #
+        # if e.get('result_code') == 'FAIL':
+        #     raise PaymentException('wx payment get qrcode fail %s'
+        #                            %e.get('err_code_des'))
+        #
+        # elif e.get('result_code') == 'SUCCESS':
+        return e.get(key, None)
 
-        if e.get('result_code') == 'FAIL':
-            raise PaymentException('wx payment get qrcode fail %s'
-                                   %e.get('err_code_des'))
-
-        elif e.get('result_code') == 'SUCCESS':
-            return e.get(key)
-
-        else:
-            raise PaymentException('unkown error')
+        # else:
+        #     raise PaymentException('unkown error')
 
     def check_wx_request_sign(self, request):
         xml_str = request.body.encode('utf8')
@@ -40,7 +40,7 @@ class WXResponseParser(object):
 
     def check_wx_response_sign(self, response):
         response.encoding='utf-8'
-        params = self.parse_string_xml_to_dic(response.text)
+        params = self.parse_string_xml_to_dic(response.content)
         return self.check_params_sign(params)
 
     def check_params_sign(self, params):

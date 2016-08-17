@@ -98,7 +98,6 @@ class CartItem(models.Model):
         return 0
 
 
-
 class ShippingAddress(models.Model):
     (normal, special) = range(1,3)
     SHIPPINGADDRESS_TYPE_CHOICE = (
@@ -154,10 +153,13 @@ class Order(models.Model):
     number = models.CharField(max_length=128, db_index=True, unique=True)
     status = models.IntegerField(choices=ORDER_STATUS_CHOICE, default=address_unbind)
     shipping_to  = models.ForeignKey(ShippingAddress, null=True, blank=True)
-    Created_datetime = models.DateTimeField(auto_now_add=True)
-    Updated_datetime = models.DateTimeField(auto_now=True)
+    created_datetime = models.DateTimeField(auto_now_add=True)
+    updated_datetime = models.DateTimeField(auto_now=True)
 
     objects = OrderManager()
+
+    class Meta:
+        ordering = ['-updated_datetime', '-created_datetime']
 
     def generate_alipay_payment_url(self):
         return AliPayPayment(order=self).payment_url
@@ -169,10 +171,12 @@ class Order(models.Model):
     def wx_payment_qrcode_url(self):
         #todo : need cache qrcode , read wx api for payment timeout value
         wxpay = WXPayment(self)
-        return wxpay.get_payment_qrcode_url()
+        url =  wxpay.get_payment_qrcode_url()
+        if url == 'order_paid':
+            self.set_paid()
+        return url
 
     def set_paid(self):
-
         if self.status < self.paid:
             self.status = Order.paid
             self.save()
@@ -180,14 +184,20 @@ class Order(models.Model):
         elif self.status == self.paid:
             return self
         else:
-            log.error('set order status fail, order:%s, status%s , origin status %s '%(self.id, Order.paid, self.status))
-            raise OrderException('can not set paid status, order status > paid')
-
+            #all status greater than paid is not effected
+            return self
 
     def set_closed(self):
-        self.status = Order.closed
-        self.save()
-        return self
+        #all status greater than paid is not effected
+        if self.status > Order.closed:
+            return self
+        if self.status >= Order.paid:
+            self.status = Order.closed
+            self.save()
+            return self
+        else:
+            raise OrderException('unpaid order can not be closed')
+            return self
 
     @property
     def payment_subject(self):
@@ -246,6 +256,10 @@ class OrderItem(models.Model):
     @property
     def sku_unit_promo_price(self):
         return self.promo_total_price/(1.0*self.volume)
+
+    class Meta:
+        ordering=['-add_time']
+
 class OrderMessage(models.Model):
     '''
         订单意见纪录,可以由用户填写,也可以由客服填写

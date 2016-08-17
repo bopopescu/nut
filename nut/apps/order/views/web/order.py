@@ -1,11 +1,14 @@
 from braces.views import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.views.generic import ListView, DetailView
+from django.shortcuts import redirect
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from apps.order.models import Order
 
 class UserOrderListView(LoginRequiredMixin, ListView):
+    template_name = 'web/order/order_list.html'
+    context_object_name = 'orders'
     def get_queryset(self):
         return self.request.user.orders.all()
 
@@ -25,6 +28,11 @@ class OrderWeixinPaymentView(LoginRequiredMixin, DetailView):
     template_name = 'web/order/order_wx_payment.html'
     def get_login_url(self):
         return reverse('web_login')
+
+    def get(self,*args, **kwargs):
+        order = self.get_object()
+        if order.status >= Order.paid:
+            return redirect('web_user_order', pk=order.pk)
 
     def get_object(self, queryset=None):
         pk = self.kwargs.get('pk',None)

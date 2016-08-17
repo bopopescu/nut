@@ -2,11 +2,14 @@ import json
 
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.utils.log import getLogger
 
 from apps.payment.weixinpay.config import WX_MCH_ID, WX_APPID
 from apps.order.models import Order
 from apps.order.exceptions import OrderException
 from apps.payment.models import PaymentLog
+
+log = getLogger('django')
 
 class WXPaymentNotifyHanlder(object):
     def __init__(self, dic):
@@ -23,12 +26,19 @@ class WXPaymentNotifyHanlder(object):
         if self._dic.get('result_code', 'FAIL') == 'SUCCESS' and self.check_payment_amount():
             return True
         else:
+            log.warning('wx pay notify result fail for order number : %s'\
+                        %self._dic.get('out_trade_no'))
             return False
 
     def check_payment_account(self):
         mch_id  = self._dic.get('mch_id', None)
         app_id  = self._dic.get('appid', None)
-        return mch_id == WX_MCH_ID and app_id == WX_APPID
+        if not( mch_id == WX_MCH_ID and app_id == WX_APPID):
+            log.warning('wx pay notify account error for order : %s' \
+                        %self._dic.get('out_trade_no'))
+            return False
+        else :
+            return True
 
     def update_order_status(self):
         _order = self.get_order()
@@ -52,7 +62,6 @@ class WXPaymentNotifyHanlder(object):
             _order = get_object_or_404(Order, number=_order_num)
         except Http404 as e:
             _order = None
-
         return _order
 
     def write_payment_log(self):
@@ -67,4 +76,5 @@ class WXPaymentNotifyHanlder(object):
             _plog.payment_notify_info = json.dumps(self._dic)
             _plog.pay_time = self._dic.get('time_end')
             _plog.save()
+            log.info('payment log created')
         return

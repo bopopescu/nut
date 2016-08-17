@@ -5,6 +5,9 @@ from django.views.generic import FormView, View, TemplateView
 
 from apps.payment.weixinpay.parser import WXResponseParser
 from apps.payment.weixinpay.handler import WXPaymentNotifyHanlder
+from django.utils.log import getLogger
+log = getLogger('django')
+
 
 
 class AlipayReturnView(FormView):
@@ -26,6 +29,7 @@ class WXPayNotifyView(View):
         #only return False when
         parser = WXResponseParser()
         if not parser.check_wx_request_sign(self.request):
+            log.warning('wx notify sign fail')
             result_xml_str = self.build_xml_return_str({
                 'return_code': 'FAIL',
                 'msg':'sign failed'
