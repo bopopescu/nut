@@ -1708,8 +1708,18 @@ a.new-black-link:hover {
   margin: 0 auto;
   text-align: center;
 }
+.tag-page-container .tag-intro .tag-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .tag-page-container .tag-intro .tag-desc {
   margin-top: 16px;
+  font-size: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .tag-page-container .hot-tag-section-wrapper {
   overflow: hidden;
