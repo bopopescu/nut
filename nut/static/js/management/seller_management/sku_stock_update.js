@@ -63,7 +63,6 @@ var SKUStockUpdateManager = Class.extend({
                 callback:that.reloadCurrentPage()
             }) ;
         }
-        this.reloadCurrentPage();
     },
     postSaveFail:function(data){
         var that = this;
