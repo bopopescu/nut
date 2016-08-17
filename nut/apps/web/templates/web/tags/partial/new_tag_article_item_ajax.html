@@ -1,5 +1,5 @@
 {% for item in object_list %}
     {% with item.object as article %}
-    {% include 'web/events/partial/new_event_article_item.html'%}
+        {% include 'web/tags/partial/new_tag_article_item.html' %}
     {% endwith %}
 {% endfor %}
