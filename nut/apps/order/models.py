@@ -167,9 +167,20 @@ class Order(models.Model):
     def generate_weixin_payment_url(self,):
         return reverse('web_wx_payment_page', args=[self.id])
 
+
+    @property
+    def is_paid(self):
+        if self.status >= Order.paid:
+            return True
+        else:
+            return False
+
     @property
     def wx_payment_qrcode_url(self):
-        #todo : need cache qrcode , read wx api for payment timeout value
+        # 订单已经支付成功的情况下, 返回 'order_paid'
+        if self.is_paid:
+            return 'order_paid'
+
         wxpay = WXPayment(self)
         url =  wxpay.get_payment_qrcode_url()
         if url == 'order_paid':

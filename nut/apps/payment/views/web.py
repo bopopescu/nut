@@ -27,6 +27,7 @@ class WXPayNotifyView(View):
 
     def post(self, *args, **kwargs):
         #only return False when
+        log.error('weixin notify here')
         parser = WXResponseParser()
         if not parser.check_wx_request_sign(self.request):
             log.warning('wx notify sign fail')

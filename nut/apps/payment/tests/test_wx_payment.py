@@ -123,3 +123,9 @@ class WX_Payment_Test(DBTestBase):
         self.assertIsInstance(prepay_id , unicode)
         self.assertLessEqual(3, len(prepay_id))
 
+
+    def test_order_paid_qr_code_generate(self):
+        self.order.number = '2016_0817_1657_1'
+        url = self.order.wx_payment_qrcode_url
+        self.assertEqual(url, 'order_paid')
+

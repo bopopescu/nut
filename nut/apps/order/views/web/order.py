@@ -33,6 +33,8 @@ class OrderWeixinPaymentView(LoginRequiredMixin, DetailView):
         order = self.get_object()
         if order.status >= Order.paid:
             return redirect('web_user_order', pk=order.pk)
+        else:
+            return super(OrderWeixinPaymentView, self).get(*args, **kwargs)
 
     def get_object(self, queryset=None):
         pk = self.kwargs.get('pk',None)
