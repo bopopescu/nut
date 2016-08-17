@@ -89,6 +89,11 @@
                           {{ sku.stock }}
                          <i class='fa fa-pencil-square stock-edit-pencil'></i>
                      </div>
+
+                     <div class="sku-item sku-item-border stock-edit-wrapper">
+                         <input type="text" data-entity-id="{{ entity.id }}" data-sku-id="{{ sku.id }}" value="111">
+                         <button type="submit" class="btn btn-success sku-save-btn">保存</button>
+                     </div>
                 {% endfor %}
             </td>
             <td class="update-time-cell">
