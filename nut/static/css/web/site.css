@@ -1670,6 +1670,9 @@ a.new-black-link:hover {
 }
 .tag-page-container .section-title-wrapper {
   margin-top: 40px;
+  font-size: 20px;
+  line-height: 22px;
+  font-weight: 500;
 }
 .tag-page-container .tag-intro {
   position: relative;
