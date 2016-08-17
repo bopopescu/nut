@@ -57,6 +57,7 @@
     </div>
 {% endif %}
 
+
         {% if request.user.is_staff %}
             <div class="row user-admin-link-wrapper">
                 <a class="pull-right" href="{% url 'management_tag_edit' tag.id %}" target="_blank" alt="编辑标签" title="编辑标签"><i class="fa fa-edit"></i></a>
@@ -64,12 +65,13 @@
             </div>
         {% endif %}
 
-        <div class="row section-title-wrapper">
-            <div class="col-sm-12 guoku-middle-col">
-                {% trans 'Articles' %}
+        {% if articles %}
+            <div class="row section-title-wrapper">
+                <div class="col-sm-12 guoku-middle-col">
+                    {% trans 'Articles' %}
+                </div>
             </div>
-        </div>
-
+        {% endif %}
            <div class="row" id="new_selection_article_list">
             {% for article_item in articles %}
                 {% with article_item.object as article %}
