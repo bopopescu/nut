@@ -106,9 +106,3 @@ class WXPayment(BasePayment):
 
     def get_spbill_ip(self):
         return '114.113.154.46'
-
-
-
-
-
-

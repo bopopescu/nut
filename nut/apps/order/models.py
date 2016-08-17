@@ -4,6 +4,9 @@ import json
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils.log import getLogger
+
+
 from apps.order.manager import OrderManager
 from apps.order.manager.sku import SKUManager
 from apps.order.manager.cart import CartItemManager
@@ -11,6 +14,9 @@ from apps.core.extend.fields.listfield import ListObjectField
 
 from apps.payment.alipay import AliPayPayment
 from apps.payment.weixinpay import WXPayment
+from apps.order.exceptions import OrderException
+
+log = getLogger('django')
 
 class SKU(models.Model):
     (disable, enable) =  (0, 1)
@@ -166,9 +172,17 @@ class Order(models.Model):
         return wxpay.get_payment_qrcode_url()
 
     def set_paid(self):
-        self.status = Order.paid
-        self.save()
-        return self
+
+        if self.status < self.paid:
+            self.status = Order.paid
+            self.save()
+            return self
+        elif self.status == self.paid:
+            return self
+        else:
+            log.error('set order status fail, order:%s, status%s , origin status %s '%(self.id, Order.paid, self.status))
+            raise OrderException('can not set paid status, order status > paid')
+
 
     def set_closed(self):
         self.status = Order.closed

@@ -1,6 +1,13 @@
-
+3. payment log update
 2. entity qrcode add ?from=qrcode
 1. add discount property  into SKU model 
+
+
+action : 
+    1. drop payment log table 
+        DROP TABLE `core`.`payment_paymentlog`;
+    2. syncdb 
+    
 
 
 <!--action : -->

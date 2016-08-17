@@ -11,6 +11,7 @@ from apps.payment.weixinpay.config import WX_APPID, WX_KEY, WX_MCH_ID
 
 
 class WXResponseParser(object):
+
     def parse_key_from_response(self, response, key):
         if self.check_wx_response_sign(response) is not True:
             raise PaymentException('wx return sign fail')
@@ -32,13 +33,24 @@ class WXResponseParser(object):
         else:
             raise PaymentException('unkown error')
 
+    def check_wx_request_sign(self, request):
+        xml_str = request.body.encode('utf8')
+        params = self.parse_string_xml_to_dic(xml_str)
+        return self.check_params_sign(params)
+
     def check_wx_response_sign(self, response):
         response.encoding='utf-8'
         params = self.parse_string_xml_to_dic(response.text)
+        return self.check_params_sign(params)
+
+    def check_params_sign(self, params):
         sign = params.pop('sign', None)
         params, prestr = self.params_filter(params)
-        check_sign = self.build_sign(prestr,WX_KEY)
+        check_sign = self.build_sign(prestr, WX_KEY)
         return sign == check_sign
+
+    def parse_xml_request_to_dic(self, request):
+        return self.parse_string_xml_to_dic(request.body.encode('utf8'))
 
     def parse_string_xml_to_dic(self, xml_string):
         root  = ET.fromstring(xml_string)
