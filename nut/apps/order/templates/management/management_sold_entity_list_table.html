@@ -17,9 +17,9 @@
                         </th>
                         <th>
                             {% if sort_by == 'dsold_count' %}
-                                <a class="new-blue-link" href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=usold_count">
+                                <a class="new-blue-link" href="{% url  'management_sold_list' %}?sort_by=usold_count">
                             {% else %}
-                                <a class="new-blue-link" href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=dsold_count">
+                                <a class="new-blue-link" href="{% url  'management_sold_list' %}?sort_by=dsold_count">
                             {% endif %}
                                 {% trans '售出数量' %}
                             {%  if sort_by == 'dsold_count' %}<i class="fa fa-arrow-down"></i>
@@ -27,9 +27,9 @@
                             {% endif %}</a>
                         </th>
                         <th>{% if sort_by == 'dstock' %}
-                                <a class="new-blue-link" href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=ustock">
+                                <a class="new-blue-link" href="{% url  'management_sold_list' %}?sort_by=ustock">
                             {% else %}
-                                <a class="new-blue-link" href="{% url  'web_seller_management_sold_entity_list' %}?sort_by=dstock">
+                                <a class="new-blue-link" href="{% url  'management_sold_list' %}?sort_by=dstock">
                             {% endif %}
                                 {% trans '库存数量' %}
                             {%  if sort_by == 'dstock' %}<i class="fa fa-arrow-down"></i>
@@ -57,7 +57,7 @@
                                 </div>
                             </td>
                             <td>
-                                <a class="btn newest-btn-primary" href="{% url 'sku_list_management' sku.entity_id %}" target="_blank">
+                                <a class="btn newest-btn-primary" href="{% url 'management_entity_skus' sku.entity_id %}" target="_blank">
                         {% trans 'SKU管理' %}
                                 </a>
                             </td>

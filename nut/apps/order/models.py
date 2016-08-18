@@ -202,6 +202,37 @@ class Order(models.Model):
         # final price customer need to paid
         return self.promo_total_price + self.shipping_fee
 
+    @property
+    def get_order_finished_count_by_time_and_user(self,start_date=None,end_date=None,user=None):
+        if not user:
+            return self.objects.filter(Updated_time__range=(start_date,end_date)).count() #应为结账时间,暂用Updated_time
+        else:
+            entities=user.Entities.all()
+            order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
+            order_ids = order_items.values_list('order')
+            return self.objects.filter(id__in=order_ids).filter(Updated_time__range=(start_date,end_date)).count() #应为结账时间,暂用Updated_time
+    @property
+    def get_income_by_time_and_user(self,start_date=None,end_date=None,user=None):
+        income = 0
+        if not user:
+            orders=self.objects.filter(Updated_time__range=(start_date,end_date)) #应为结账时间,暂用Updated_time
+            if orders:
+                for order in orders:
+                    income+=order.order_total_value
+        else:
+            entities = user.Entities.all()
+            order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
+            order_ids = order_items.values_list('order')
+            orders=self.objects.filter(id__in=order_ids).filter(Updated_time__range=(start_date,end_date)) #应为结账时间,暂用Updated_time
+            if orders:
+                for order in orders:
+                    for item in order.items.all():
+                        if item.sku.entity_id in entities:
+                            income+=item.promo_total_price
+        return income
+
+
+
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,related_name='items')
     customer = models.ForeignKey('core.GKUser', related_name='order_items',db_index=True)

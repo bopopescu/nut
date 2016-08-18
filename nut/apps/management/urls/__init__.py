@@ -43,8 +43,7 @@ urlpatterns = patterns(
 
     url(r'^shop/', include('apps.shop.urls.management')),
     url(r'^wechat/', include('apps.wechat.urls.management')),
-
-
+    url(r'^order_management/',include('apps.order.urls.order_manage')),
     url(r'^sitebanner/', include('apps.site_banner.urls.management')),
     url(r'^push/', include('apps.notifications.urls.management')),
     url(r'^editor_report/', include('apps.management.urls.editor_report')),
