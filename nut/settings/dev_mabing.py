@@ -109,7 +109,7 @@ DATABASES = {
         'PORT': '',
         'OPTIONS': {
             'use_unicode':'utf8mb4',
-            'init_command':'SET storage_engine=INNODB',
+            'init_command':'SET default_storage_engine=INNODB',
         }
     },
     'slave': {
@@ -121,7 +121,7 @@ DATABASES = {
         'PORT': '',
         'OPTIONS': {
             'use_unicode':'utf8mb4',
-            'init_command':'SET storage_engine=INNODB',
+            'init_command':'SET default_storage_engine=INNODB',
         }
     },
 }
