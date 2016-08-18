@@ -1,4 +1,7 @@
-
+8. gk manage 
+7. gk manage order list 
+6. tag page update
+--------
 5. paid order reduce sku stock 
 4. wx prepay id api
 3. payment log update
@@ -8,6 +11,7 @@
 
 action : 
     1. drop payment log table 
+    
         DROP TABLE `core`.`payment_paymentlog`;
         
     2. syncdb 

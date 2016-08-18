@@ -687,7 +687,7 @@ class SellerManagementFinancialReport(IsAuthorizedSeller,ListView):
             self.start_time = 'yesterday'
             self.start_date, self.end_date = get_time_range()
 
-        return Order.objects.filter(Created_datetime__range=(self.start_date,self.end_date))
+        return Order.objects.filter(created_datetime__range=(self.start_date,self.end_date))
     def get_context_data(self, **kwargs):
         context = super(SellerManagementFinancialReport, self).get_context_data(**kwargs)
         user_id = self.request.user.id

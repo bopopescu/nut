@@ -27,7 +27,7 @@
     {% for order in object_list %}
         <tr class="order-cell-header">
             <td colspan="6">
-                订单号:{{ order.number }} &nbsp;&nbsp;创建时间:{{ order.Created_datetime|date:'Y-m-d H:i:s' }} 创建人:{{ order.customer.nick }}
+                订单号:{{ order.number }} &nbsp;&nbsp;创建时间:{{ order.created_datetime|date:'Y-m-d H:i:s' }} 创建人:{{ order.customer.nick }}
             </td>
         </tr>
         <tr>
