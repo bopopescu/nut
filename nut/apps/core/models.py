@@ -527,8 +527,13 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         '''
         this method can not be moved into cartitem manager
         because of circular reference problem
+
+        TODO : check cartitem's sku , if sku stock is less than cartitem stock ,
+               , handle stock
         :return:
         '''
+
+
         new_order = None
         if self.cart_item_count <= 0 :
             raise CartException('cart is empty')
