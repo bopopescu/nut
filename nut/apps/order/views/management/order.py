@@ -37,9 +37,16 @@ class OrderListView(IsAdmin, FilterMixin, SortMixin, ListView):
     model = Order
     paginate_by = 10
     template_name = 'management/management_order_list.html'
-
     def get_queryset(self):
+        entities = self.request.user.entities.all()
+        order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
+        order_ids = order_items.values_list('order')
         qs = Order.objects.all()
+        self.status = self.request.GET.get('status')
+        if self.status == 'waiting_for_payment':
+            qs = qs.filter(status__in=[1,2,4])
+        elif self.status == 'paid':
+            qs = qs.filter(status=3)
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
     def filter_queryset(self, qs, filter_param):
@@ -68,9 +75,12 @@ class OrderListView(IsAdmin, FilterMixin, SortMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(OrderListView, self).get_context_data(**kwargs)
+        context['status'] = self.status
         for order in context['object_list']:
             order_items = order.items.all()
             order.skus = [order_item.sku for order_item in order_items]
+            order.count = order.items.all().count()
+            order.itemslist = order.items.all()[1:order.count]
         return context
 
 class SoldEntityListView(IsAdmin, FilterMixin, SortMixin, ListView):
