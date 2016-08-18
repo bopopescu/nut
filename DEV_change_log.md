@@ -1,4 +1,3 @@
-8. gk manage 
 7. gk manage order list 
 6. tag page update
 --------
