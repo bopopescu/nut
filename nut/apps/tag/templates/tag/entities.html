@@ -4,37 +4,95 @@
 
 {% block title %}{{ tag }}{% endblock %}
 
+{% block body_class %}tag-page{% endblock %}
+
 {% block content %}
 
+    <div class="container tag-page-container">
+
 {% if tag.image %}
-    <div class="tag-intro-wrapper">
-        <div class="tag-bg-layer" style="background-image: url({{ image_host }}{{ tag.image }})"></div>
-        <div class="tag-title">
-            <h3>#{{ tag }}</h3>
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 guoku-middle-col tag-intro-wrapper">
+            <div class="tag-intro" style="background-image: url({{ image_host }}{{ tag.image }})">
+                <div class="tag-bg-layer"></div>
+                <div class="tag-info">
+                    <div class="tag-title">
+                        <h3>#{{ tag }}</h3>
+                    </div>
+                    <div class="tag-desc">
+                        <p>
+                            {% if tag.description %}
+                                {{ tag.description }}
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="tag-desc">
-            <p>
+
+        <div class="hidden-sm hidden-md hidden-lg col-xs-12">
+            <div class="tag-desc">
                 {% if tag.description %}
                     {{ tag.description }}
                 {% endif %}
-            </p>
+            </div>
+        </div>
+        <div class="hidden-xs col-sm-4 guoku-middle-col hot-tag-section-wrapper">
+            <div class="hot-tag-section">
+                <p>
+                    热门标签
+                </p>
+                <div class="hot-tag-wrapper" id="hot_entity_tags_container">
+                    {% for tag_item in published_entity_tags %}
+                        <div class="hot-entity-tag">
+                            <a href="{% url 'tag_entities_url' tag_item.hash %}" target="_self">
+                                <div class="tag-element">{{ tag_item.name }}</div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
         </div>
     </div>
 {% endif %}
-    <div class="container">
+{% if not tag.image %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="category-header" style="margin-bottom: 0;">
+                <p>#{{ tag }}</p>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
         {% if request.user.is_staff %}
             <div class="row user-admin-link-wrapper">
                 <a class="pull-right" href="{% url 'management_tag_edit' tag.id %}" target="_blank" alt="编辑标签" title="编辑标签"><i class="fa fa-edit"></i></a>
                 <a class="pull-right" href="{% url 'management_tag_entities_detail' tag.id %}" target="_blank" alt="商品列表" title="商品列表" style="margin-right:15px;"><i class="fa fa-user"></i></a>
             </div>
         {% endif %}
+
+        {% if articles %}
+            <div class="row section-title-wrapper">
+                <div class="col-sm-12 guoku-middle-col">
+                    {% trans 'Articles' %}
+                </div>
+            </div>
+        {% endif %}
+           <div class="row" id="new_selection_article_list">
+            {% for article_item in articles %}
+                {% with article_item.object as article %}
+                    {% if article %}
+                        {% include 'web/tags/partial/new_tag_article_item.html' %}
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+           </div>
+
         <div class="row" id="tag-entity-list" data-refresh="{{ refresh_time }}">
 {#            <div class="col-md-12">#}
-            {% if not tag.image %}
-                <div class="category-header">
-                    <p>#{{ tag }}</p>
-                </div>
-            {% endif %}
+            <div class="col-sm-12 guoku-middle-col section-title-wrapper">{% trans 'entity' %}</div>
                 {% include 'tag/partial/ajax_entities.html' with object_list=entities %}
 {#            </div>#}
         </div>

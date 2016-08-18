@@ -1,7 +1,6 @@
 {% load staticfiles i18n %}
 {% load guoku %}
 {% load notifications_tags %}
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -304,6 +303,19 @@
                         </a>
                     </li>
 
+                    <li class="header">{% trans 'Order Management' %}</li>
+                    {% url 'management_order_list' as management_order_list_url %}
+                    <li {% if management_order_list_url in request.path %}class="active"{% endif %}>
+                        <a href="{{ management_order_list_url }}">
+                            <i class="fa fa-pencil"></i>&nbsp;<span>{% trans 'Order List' %}</span>
+                        </a>
+                    </li>
+                    {% url 'management_sold_list' as management_sold_list_url %}
+                    <li {% if management_sold_list_url in request.path %}class="active"{% endif %}>
+                        <a href="{{ management_sold_list_url }}">
+                            <i class="fa fa-pencil"></i>&nbsp;<span>{% trans 'Sold Entity' %}</span>
+                        </a>
+                    </li>
 
                     <li class="header">{% trans 'user manager' %}</li>
                     {% url 'management_user_list' as management_user_list_url %}

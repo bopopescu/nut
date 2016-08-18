@@ -4,9 +4,10 @@ from rest_framework import serializers
 from rest_framework.pagination import BasePaginationSerializer
 from rest_framework.response import Response
 
-from apps.core.models import Selection_Entity, GKUser, Entity
+from apps.core.models import Selection_Entity, GKUser, Entity, Buy_Link
 from rest_framework import viewsets
 
+from apps.shop.models import Shop
 
 
 class DesignWeekSerializer(serializers.ModelSerializer):
@@ -42,10 +43,14 @@ class DesignWeekViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         auth_seller = GKUser.objects.authorized_seller()
-        obj = SearchQuerySet().models(Entity).filter(is_in_selection=True, user__in=auth_seller).order_by('-enter_selection_time')
-        entity_ids = obj.values_list('entity_id', flat=True)
-        qs = Entity.objects.filter(id__in=entity_ids)
-        return qs
+        shop_link_list = Shop.objects.filter(owner__in=list(auth_seller)).values_list('common_shop_link', flat=True)
+        # Selection_Entity.objects.filter(entity__user__in=list(auth_seller)).order_by('pub_time')
+        # entities = Entity.objects.filter(user__in=list(auth_seller), status=1)
+        entities = Entity.objects.filter(buy_links__shop_link__in=list(shop_link_list), status=1)
+        # obj = SearchQuerySet().models(Entity).filter(is_in_selection=True, user__in=auth_seller).order_by('-enter_selection_time')
+        # entity_ids = obj.values_list('entity_id', flat=True)
+        # qs = Entity.objects.filter(id__in=entity_ids)
+        return entities
 
 
 

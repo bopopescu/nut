@@ -520,8 +520,13 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         '''
         this method can not be moved into cartitem manager
         because of circular reference problem
+
+        TODO : check cartitem's sku , if sku stock is less than cartitem stock ,
+               , handle stock
         :return:
         '''
+
+
         new_order = None
         if self.cart_item_count <= 0 :
             raise CartException('cart is empty')
@@ -1010,7 +1015,7 @@ class Entity(BaseModel):
             # log.info("hit hit")
             return res
         else:
-            log.info("miss miss")
+            # log.info("miss miss")
             res = self.notes.count()
             cache.set(key, res, timeout=86400)
             return res
@@ -1052,6 +1057,10 @@ class Entity(BaseModel):
     @property
     def absolute_url(self):
         return self.get_absolute_url()
+
+    @property
+    def qrcode_url(self):
+        return "%s?from=qrcode"% self.absolute_url.encode('utf8')
 
     @property
     def design_week_url(self):
@@ -1376,7 +1385,7 @@ class Note(BaseModel):
             res['is_selected'] = self.status
             res['poker_id_list'] = list(self.poke_list)
             cache.set(key, res, timeout=86400)
-            log.info("miss miss")
+            # log.info("miss miss")
         # log.info(user_note_pokes)
         # log.info(visitor)
         res['poke_count'] = self.poke_count

@@ -1,10 +1,15 @@
 # coding=utf-8
+from django.conf import settings
+from django.utils.http import urlquote_plus
 
 from apps.order.tests import DBTestBase
 from apps.order.models import Order
 from apps.order.exceptions import OrderException
 from apps.payment.exceptions import  PaymentException
 
+
+
+site_host = getattr(settings, 'SITE_HOST', None)
 class OrderPaymentTest(DBTestBase):
 
     def setUp(self):
@@ -38,13 +43,14 @@ class OrderPaymentTest(DBTestBase):
     def test_tb_payment_url_generate(self):
         url = self.order.generate_alipay_payment_url()
         print(url)
-        self.assertEqual('https://mapi.alipay.com/gateway.do?' in url , True)
-        self.assertEqual('www.guoku.com' in url , True)
 
+        self.assertEqual('https://mapi.alipay.com/gateway.do?' in url , True)
+        self.assertIn(urlquote_plus(site_host),url)
 
     def test_tb_payment_notify_url_host(self):
-        url = self.order.generate_alipay_payment_url(host="http://test.guoku.com")
+        url = self.order.generate_alipay_payment_url()
         print(url)
         self.assertEqual('https://mapi.alipay.com/gateway.do?' in url , True)
-        self.assertEqual('test.guoku.com' in url , True)
+        self.assertIn(urlquote_plus(site_host), url )
+
 

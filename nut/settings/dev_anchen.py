@@ -153,6 +153,6 @@ DEFAULT_POPULAR_SCALE = 200
 #
 # TEMPLATE_STRING_IF_INVALID = "****************** %s ****************"
 
-SET_HOST='http://www.guoku.com'
+SITE_HOST='http://test.guoku.com'
 
 __author__ = 'an chen '

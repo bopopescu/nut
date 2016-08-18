@@ -11,6 +11,8 @@
                             </i>
                         </th>
                         <th>
+                        </th>
+                        <th>
                             SKU属性
                         </th>
                         <th>
@@ -53,6 +55,11 @@
                                         </p>
                                     </div>
                                 </div>
+                            </td>
+                            <td>
+                                <a class="btn newest-btn-primary" href="{% url 'sku_list_management' sku.entity_id %}" target="_blank">
+                        {% trans 'SKU管理' %}
+                                </a>
                             </td>
                             <td>
                                 {% if sku.attrs_display %}

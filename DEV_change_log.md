@@ -1,4 +1,44 @@
+8. gk manage 
+7. gk manage order list 
+6. tag page update
+--------
+5. paid order reduce sku stock 
+4. wx prepay id api
+3. payment log update
+2. entity qrcode add ?from=qrcode
+1. add discount property  into SKU model 
 
+
+action : 
+    1. drop payment log table 
+    
+        DROP TABLE `core`.`payment_paymentlog`;
+        
+    2. syncdb 
+
+    
+    3.  add discount field 
+    ALTER TABLE `core`.`order_sku` 
+    ADD COLUMN `discount` FLOAT NOT NULL DEFAULT 1 AFTER `status`;
+
+       已经执行
+
+
+
+=============================
+# merged to master 2016 8-15
+=============================
+
+2. update design week api
+1. update common_shop_link for shop_shop
+
+
+=======================
+# merged to master 2016 8-12
+=======================
+
+
+3. design week api 
 2. fix seller add entity form bug 
 1. fix seller sku add and edit bug
 

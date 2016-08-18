@@ -31,6 +31,7 @@ class SKUForm(ModelForm):
             raise ValidationError("属性已存在")
         return attrs
 
+
     def __init__(self, *args, **kwargs):
         self.repeatstatus = 0
         super(SKUForm, self).__init__(*args, **kwargs)

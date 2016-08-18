@@ -22,6 +22,8 @@ from django.views.generic import ListView, CreateView, DeleteView, UpdateView,De
 from django.http import Http404,HttpResponseNotAllowed
 from apps.management.decorators import staff_only, staff_and_editor
 from apps.core.utils.http import JSONResponse
+from datetime import datetime, timedelta
+TIME_FORMAT = '%Y-%m-%d 8:00:00'
 
 class SKUUserPassesTestMixin(UserPassesTestMixin):
     def test_func(self, user):
@@ -122,7 +124,7 @@ class QrcodeListView(IsAuthorizedSeller,  ListView):
         host = request.get_host()
         for entity in self.object_list:
             entity.title = entity.title[:15]
-            entity.qr_info = [entity.brand, entity.title, "", entity.price, host + entity.absolute_url]
+            entity.qr_info = [entity.brand, entity.title, "", entity.price, host + entity.qrcode_url]
         return render_to_response(self.template_name, {'entities': self.object_list},
                                   context_instance=RequestContext(request)
                                   )
@@ -638,4 +640,60 @@ class SellerManagementImportEntity(Import_entity):
         super(SellerManagementImportEntity, self).__init__(template='web/seller_management/import_entity.html',
                                                                entity_edit_url='web_seller_management_entity_edit')
 
+
+def get_time_range():
+    if datetime.now().hour > 8:
+        today_start = datetime.now().strftime(TIME_FORMAT)
+        today_end = (datetime.now() + timedelta(days=1)).strftime(TIME_FORMAT)
+    else:
+        today_start = (datetime.now() - timedelta(days=1)).strftime(TIME_FORMAT)
+        today_end = datetime.now().strftime(TIME_FORMAT)
+
+    return today_start, today_end
+from django.db import connection
+def get_finished_orders(user_id):
+    cursor = connection.cursor()
+    cursor.execute("my sql ", [user_id])  # find finished orders of this user
+    res = cursor.fetchone()
+    return res
+def get_sold_sku(user_id):
+    cursor = connection.cursor()
+    cursor.execute("my sql",[user_id])
+    res=cursor.fetchone()
+    return res
+
+class SellerManagementFinancialReport(IsAuthorizedSeller,ListView):
+    model = Order
+    template_name = 'web/seller_management/seller_financial_report.html'
+
+    def get_queryset(self):
+
+
+        self.status = self.request.GET.get('status', None)
+        start_date = self.request.GET.get('start_date', None)
+        end_date = self.request.GET.get("end_date")
+        if start_date == 'lastweek':
+            self.start_time = start_date
+            self.start_date, self.end_date = ((datetime.now() - timedelta(days=7)).strftime(TIME_FORMAT)), (
+                datetime.now() + timedelta(days=1)).strftime(TIME_FORMAT)
+        elif start_date == 'lastmonth':
+            self.start_time = start_date
+            self.start_date, self.end_date = ((datetime.now() - timedelta(days=30)).strftime(TIME_FORMAT)), (
+                datetime.now() + timedelta(days=1)).strftime(TIME_FORMAT)
+        elif start_date and end_date:
+            self.start_time = None
+            self.start_date, self.end_date = start_date, end_date
+        else:
+            self.start_time = 'yesterday'
+            self.start_date, self.end_date = get_time_range()
+
+        return Order.objects.filter(created_datetime__range=(self.start_date,self.end_date))
+    def get_context_data(self, **kwargs):
+        context = super(SellerManagementFinancialReport, self).get_context_data(**kwargs)
+        user_id = self.request.user.id
+        finished_orders = get_finished_orders(user_id)
+        sold_sku = get_sold_sku(user_id)
+        context["finished_count"]=finished_orders.all().count()
+        context[""]
+        return context
 

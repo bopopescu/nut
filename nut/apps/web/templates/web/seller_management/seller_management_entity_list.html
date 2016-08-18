@@ -78,15 +78,27 @@
             </td>
             <td class="price-wrapper">
                 {% for sku in entity.sku_list %}
-                    <div class="sku-item sku-item-border entity_price" id="{{ entity.id }}" data-sku-id="{{ sku.id }}">
+                    <div class="sku-item sku-item-border entity-price" id="{{ entity.id }}" data-sku-id="{{ sku.id }}">
                         &yen;{{ sku.promo_price }}
+                     <i class='fa fa-pencil-square sku-edit-pencil'></i>
                     </div>
+
+                     <div class="sku-item sku-item-border price-edit-wrapper">
+                         <input type="text" data-entity-id="{{ entity.id }}" data-sku-id="{{ sku.id }}" value="{{ sku.promo_price }}">
+                         <button type="submit" class="btn btn-success sku-save-btn" data-url="{% url 'web_seller_management_entity_save' entity.id %}">保存</button>
+                     </div>
                 {% endfor %}
             </td>
             <td class="stock-wrapper">
                 {% for sku in entity.sku_list %}
                      <div class="sku-item sku-item-border entity-stock" id="{{ entity.id }}" data-sku-id="{{ sku.id }}">
                           {{ sku.stock }}
+                         <i class='fa fa-pencil-square sku-edit-pencil'></i>
+                     </div>
+
+                     <div class="sku-item sku-item-border stock-edit-wrapper">
+                         <input type="text" data-entity-id="{{ entity.id }}" data-sku-id="{{ sku.id }}" value="{{ sku.stock }}">
+                         <button type="submit" class="btn btn-success sku-save-btn" data-url="{% url 'web_seller_management_entity_save' entity.id %}">保存</button>
                      </div>
                 {% endfor %}
             </td>

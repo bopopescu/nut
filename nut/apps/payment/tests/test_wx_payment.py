@@ -1,10 +1,14 @@
 # -*- coding: UTF-8 -*-
+from django.conf import settings
 from pprint import pprint
 from apps.order.tests import  DBTestBase
 from apps.payment.weixinpay import WXPayment
 
 from apps.payment.weixinpay.config import WX_APPID
 from xml.etree import cElementTree as ET
+
+site_host = getattr(settings, 'SITE_HOST', None)
+
 class WX_Payment_Test(DBTestBase):
     def setUp(self):
         super(WX_Payment_Test, self).setUp()
@@ -32,6 +36,10 @@ class WX_Payment_Test(DBTestBase):
 
         self.order = self.the_user.checkout()
 
+        self.the_user.add_sku_to_cart(self.sku2)
+        self.order2  = self.the_user.checkout()
+
+
     def test_price(self):
         self.assertEqual(self.order.order_total_value,0.03)
 
@@ -40,7 +48,7 @@ class WX_Payment_Test(DBTestBase):
         params = wxpayment.get_request_params()
         self.assertEqual(params['appid'],WX_APPID)
         self.assertEqual(int(params['total_fee']), 3)
-        self.assertEqual(params['notify_url'] , 'http://www.guoku.com/payment/wxpay/notify/')
+        self.assertEqual(params['notify_url'] , '%s/payment/wxpay/notify/'%site_host)
 
 
     def test_generate_xml_string(self):
@@ -107,7 +115,7 @@ class WX_Payment_Test(DBTestBase):
                 msg[child.tag] = smart_unicode(child.text)
 
 
-        self.assertEqual(wxpayment.check_wx_response_sign(response), True)
+        self.assertEqual(wxpayment._parser.check_wx_response_sign(response), True)
 
     def test_get_wx_pay_url(self):
         wxpayment = WXPayment(self.order)
@@ -116,8 +124,11 @@ class WX_Payment_Test(DBTestBase):
         pprint(wx_pay_url)
         self.assertEqual('weixin://wxpay/' in wx_pay_url, True)
 
-
-
-
+    def test_get_wx_prepay_id(self):
+        wxpayment = WXPayment(self.order)
+        prepay_id = wxpayment.get_prepay_id()
+        self.assertIsNotNone(prepay_id)
+        self.assertIsInstance(prepay_id , unicode)
+        self.assertLessEqual(3, len(prepay_id))
 
 

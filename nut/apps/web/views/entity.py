@@ -118,19 +118,7 @@ class NewEntityDetailView(EntityDetailMixin, DetailView):
     template_name = 'web/entity/detail.html'
     context_object_name = 'entity'
 
-    # def get(self, request, *args, **kwargs):
-    #     if request.GET.get('source') == 'dweek':
-    #         path = request.get_full_path()
-    #         new_path = path.split('?')[0]
-    #         host = request.get_host()
-    #         referer = request.META.get('HTTP_REFERER')
-    #         user_id = request.user.id
-    #         entity_id = self.get_object().id
-    #         click_record.delay(user_id, entity_id, referer)
-    #         return HttpResponseRedirect('http://' + host + new_path)
-    #     self.object = self.get_object()
-    #     context = self.get_context_data(object=self.object)
-    #     return self.render_to_response(context)
+
 
     def get_context_data(self, **kwargs):
         context = super(NewEntityDetailView,self).get_context_data()
