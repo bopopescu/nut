@@ -24,13 +24,7 @@ from apps.core.utils.http import JSONResponse
 
 
 
-class IsAdmin(UserPassesTestMixin):
-    def test_func(self, user):
-        return user.is_admin
-    def no_permissions_fail(self, request=None):
-        raise Http404
-
-class OrderListView(IsAdmin, FilterMixin, SortMixin, ListView):
+class OrderListView(FilterMixin, SortMixin, ListView):
     default_sort_params = ('dnumber','desc')
     http_method_names = ['get']
     paginator_class = ExtentPaginator
@@ -83,7 +77,7 @@ class OrderListView(IsAdmin, FilterMixin, SortMixin, ListView):
             order.itemslist = order.items.all()[1:order.count]
         return context
 
-class SoldEntityListView(IsAdmin, FilterMixin, SortMixin, ListView):
+class SoldEntityListView(FilterMixin, SortMixin, ListView):
     default_sort_params = ('dstock', 'desc')
     http_method_names = ['get']
     paginator_class = ExtentPaginator
@@ -161,7 +155,7 @@ class SoldEntityListView(IsAdmin, FilterMixin, SortMixin, ListView):
             pass
         return qs
 
-class ManagementOrderDetailView(IsAdmin, DetailView):
+class ManagementOrderDetailView(DetailView):
     pk_url_kwarg = 'order_number'
     context_object_name = 'order'
     model = Order

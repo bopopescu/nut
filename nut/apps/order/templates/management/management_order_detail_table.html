@@ -9,6 +9,7 @@
                       <th>
                             {% trans 'entity' %}
                         </th>
+                        <th>{% trans '卖家' %}</th>
                         <th>
                             {% trans '单价' %}
                         </th>
@@ -19,8 +20,8 @@
                 </thead>
                 <tbody>
                 <tr class="order-cell-header">
-                    <td colspan="5">
-                        订单号:{{order.number }} &nbsp;&nbsp;交易状态:{{order.get_status_display }}&nbsp;&nbsp;成交时间:{{ order.Updated_datetime|date:'Y-m-d H:i:s' }}
+                    <td colspan="4">
+                        订单号:{{order.number }} &nbsp;&nbsp;交易状态:{{order.get_status_display }}&nbsp;&nbsp;成交时间:{{ order.Updated_datetime|date:'Y-m-d H:i:s' }} 创建人:{{ order.customer.nick }}
                     </td>
                 </tr>
 
@@ -43,6 +44,7 @@
                                     </div>
                                 </div>
                             </td>
+                            <td>{{ item.sku.entity.user.nick }}</td>
                             <td>
                                 <div class="original-price">
                                     &yen;{{ item.sku_unit_grand_price }}
