@@ -19,10 +19,12 @@ from django.template import RequestContext
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView,DetailView, View
 from django.http import Http404
 
-class MyOrderUserPassesTestMixin:
+class MyOrderUserPassesTestMixin(UserPassesTestMixin):
     def test_func(self, user):
         idlist=[9020,1997153,2000859]
         return user.id in idlist
+    def no_permissions_fail(self, request=None):
+        raise Http404
 
 class MyOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListView):
     default_sort_params = ('dnumber', 'desc')
@@ -83,8 +85,7 @@ class MyOrderDetailView(UserPassesTestMixin,DetailView):
     paginator_class = ExtentPaginator
     paginate_by = 10
     template_name = 'web/checkout/my_order_detail.html'
-    def no_permissions_fail(self, request=None):
-        raise Http404
+
     def render_to_response(self, context, **response_kwargs):
         response_kwargs.setdefault('content_type', self.content_type)
         if self.request.GET.get('paid', False):
