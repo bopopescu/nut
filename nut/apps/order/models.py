@@ -203,9 +203,17 @@ class Order(models.Model):
             self.set_paid()
         return url
 
+
+    def update_sku_stock(self):
+        for item in self.items.all():
+            item.sku.stock -= item.volume
+            item.sku.save()
+
+
     def set_paid(self):
         if self.status < self.paid:
             self.status = Order.paid
+            self.update_sku_stock()
             self.save()
             return self
         elif self.status == self.paid:
