@@ -106,6 +106,12 @@ class SoldEntityListView(FilterMixin, SortMixin, ListView):
 
     def sort_queryset(self, qs, sort_by, order):
         d={}
+        for ord in self.orders:
+            for order in ord.items.all():
+                if order.sku.id not in d.keys():
+                    d[order.sku.id] = order.volume
+                else:
+                    d[order.sku.id] += order.volume
         for order in self.order_items:
             if order.sku.id not in d.keys():
                 d[order.sku.id] = order.volume

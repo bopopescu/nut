@@ -77,7 +77,7 @@ class MyOrderDeleteView(MyOrderUserPassesTestMixin,DeleteView):
     def get_success_url(self):
         return reverse('web_my_order_list')
 
-class MyOrderDetailView(UserPassesTestMixin,DetailView):
+class MyOrderDetailView(MyOrderUserPassesTestMixin,DetailView):
     pk_url_kwarg = 'order_number'
     context_object_name = 'order'
     model = Order
