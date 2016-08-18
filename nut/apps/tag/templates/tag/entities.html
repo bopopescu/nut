@@ -2,7 +2,19 @@
 {% load i18n %}
 {% load static %}
 
-{% block title %}{{ tag }}{% endblock %}
+{% block meta-og %}
+    <meta property="og:title" content="果库标签 | 商品Tag | 果库精选商品 | 精英消费指南 | 理想生活主张" >
+    <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
+    <meta property="og:description" content="果库精选商品标签，关联精选图文，喜爱商品Tag，网友们参与给喜爱的商品贴上的个性化标签">
+{% endblock %}
+
+{% block meta-common %}
+    <meta name="title"  content="商品分类标签 {{ tag }} ｜ 精选标签 ｜精选商品 | 精英消费指南 | 果库">
+    <meta name="keywords" content="{{ tag }}精选商品，果库、guoku、果库网、果库应用、精英消费指南、消费指南、精品导购应用、导购、购物指南、购物分享、淘宝网购物、淘宝网精选、精品推荐">
+    <meta name="description" content="{{ tag }}，{% if tag.description %}{{ tag.description }}，{% endif %}果库精选商品标签，果库人气商品标签，关联精选图文，商品Tag">
+{% endblock %}
+
+{% block title %}{{ tag }}{% if tag.description %} - {{ tag.description }}{% endif %} | 精英消费指南 | 果库{% endblock %}
 
 {% block body_class %}tag-page{% endblock %}
 
