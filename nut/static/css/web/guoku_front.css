@@ -2238,6 +2238,11 @@ a.new-black-link:hover {
   font-size: 18px;
 }
 .bottom-article-share-wrapper {
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
   position: fixed;
   left: 0;
   bottom: 0;
@@ -3064,11 +3069,8 @@ body.new-index-body .recommend-user-panel .user-icon-wrapper {
   height: 72px;
 }
 body.new-index-body .recommend-user-panel .user-icon-wrapper img {
-  height: 0 ;
-  width: 100%;
-  padding-bottom: 100%;
-  background-size: cover;
-  background-position: center center;
+  width: 72px;
+  height: 72px;
   border: 1px solid #F2F2F2;
 }
 body.new-index-body .recommend-user-panel .user-info-wrapper {
