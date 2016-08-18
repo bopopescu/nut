@@ -15,12 +15,13 @@ action :
         DROP TABLE `core`.`payment_paymentlog`;
         
     2. syncdb 
+
     
     3.  add discount field 
     ALTER TABLE `core`.`order_sku` 
     ADD COLUMN `discount` FLOAT NOT NULL DEFAULT 1 AFTER `status`;
 
-
+       已经执行
 
 
 
