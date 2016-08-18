@@ -1,3 +1,5 @@
+
+5. paid order reduce sku stock 
 4. wx prepay id api
 3. payment log update
 2. entity qrcode add ?from=qrcode
