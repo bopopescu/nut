@@ -4,6 +4,9 @@ import json
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils.log import getLogger
+
+
 from apps.order.manager import OrderManager
 from apps.order.manager.sku import SKUManager
 from apps.order.manager.cart import CartItemManager
@@ -11,6 +14,9 @@ from apps.core.extend.fields.listfield import ListObjectField
 
 from apps.payment.alipay import AliPayPayment
 from apps.payment.weixinpay import WXPayment
+from apps.order.exceptions import OrderException
+
+log = getLogger('django')
 
 class SKU(models.Model):
     (disable, enable) =  (0, 1)
@@ -19,9 +25,23 @@ class SKU(models.Model):
     attrs = ListObjectField()
     stock = models.IntegerField(default=0,db_index=True)#库存
     origin_price = models.FloatField(default=0, db_index=True)
+    discount = models.FloatField(default=1, db_index=True)
     promo_price = models.FloatField(default=0, db_index=True)
     status =  models.IntegerField(choices=SKU_STATUS_CHOICE, default=enable)
     objects =  SKUManager()
+
+    # an hack for discount
+    # def __setattr__(self, attrname, val):
+    #     # if attrname == 'discount':
+    #     #     self.promo_price = self.origin_price * val
+    #     super(SKU, self).__setattr__(attrname, val)
+
+
+    def get_discount_rate(self):
+        if self.origin_price == 0  or self.promo_price == 0 :
+            return 1
+        return self.promo_price/(self.origin_price*1.0)
+
 
 
     @property
@@ -34,6 +54,11 @@ class SKU(models.Model):
         for key , value in self.attrs.iteritems():
             attr_str_list.append('%s:%s'%(key,value))
         return '/'.join(attr_str_list)
+
+    def save(self, *args, **kwargs):
+        self.discount = self.get_discount_rate()
+        super(SKU, self).save(*args, **kwargs)
+
 
     # class Meta:
     #     #TODO : unique together didn't work
@@ -77,7 +102,6 @@ class CartItem(models.Model):
     def shipping_cost(self):
         raise NotImplemented()
         return 0
-
 
 
 class ShippingAddress(models.Model):
@@ -135,34 +159,80 @@ class Order(models.Model):
     number = models.CharField(max_length=128, db_index=True, unique=True)
     status = models.IntegerField(choices=ORDER_STATUS_CHOICE, default=address_unbind)
     shipping_to  = models.ForeignKey(ShippingAddress, null=True, blank=True)
-    Created_datetime = models.DateTimeField(auto_now_add=True)
-    Updated_datetime = models.DateTimeField(auto_now=True)
+    created_datetime = models.DateTimeField(auto_now_add=True)
+    updated_datetime = models.DateTimeField(auto_now=True)
 
     objects = OrderManager()
 
-    def generate_alipay_payment_url(self, host='http://www.guoku.com'):
-        return AliPayPayment(order=self,host=host).payment_url
+    class Meta:
+        ordering = ['-updated_datetime', '-created_datetime']
 
-    def generate_weixin_payment_url(self,host='http://www.guoku.com'):
+    def generate_alipay_payment_url(self):
+        return AliPayPayment(order=self).payment_url
+
+    def generate_weixin_payment_url(self,):
         return reverse('web_wx_payment_page', args=[self.id])
 
 
+    @property
+    def is_paid(self):
+        if self.status >= Order.paid:
+            return True
+        else:
+            return False
+
+    @property
+    def wx_prepay_id(self):
+        if self.is_paid:
+            return 'order_paid'
+        wxpay =WXPayment(self)
+        prepay_id = wxpay.get_prepay_id()
+        if prepay_id == 'order_paid':
+            self.set_paid()
+        return prepay_id
 
     @property
     def wx_payment_qrcode_url(self):
-        #todo : need cache qrcode , read wx api for payment timeout value
+        # 订单已经支付成功的情况下, 返回 'order_paid'
+        if self.is_paid:
+            return 'order_paid'
+
         wxpay = WXPayment(self)
-        return wxpay.get_payment_qrcode_url()
+        url =  wxpay.get_payment_qrcode_url()
+        if url == 'order_paid':
+            self.set_paid()
+        return url
+
+
+    def update_sku_stock(self):
+        for item in self.items.all():
+            item.sku.stock -= item.volume
+            item.sku.save()
+
 
     def set_paid(self):
-        self.status = Order.paid
-        self.save()
-        return self
+        if self.status < self.paid:
+            self.status = Order.paid
+            self.update_sku_stock()
+            self.save()
+            return self
+        elif self.status == self.paid:
+            return self
+        else:
+            #all status greater than paid is not effected
+            return self
 
     def set_closed(self):
-        self.status = Order.closed
-        self.save()
-        return self
+        #all status greater than paid is not effected
+        if self.status > Order.closed:
+            return self
+        if self.status >= Order.paid:
+            self.status = Order.closed
+            self.save()
+            return self
+        else:
+            raise OrderException('unpaid order can not be closed')
+            return self
 
     @property
     def payment_subject(self):
@@ -252,6 +322,10 @@ class OrderItem(models.Model):
     @property
     def sku_unit_promo_price(self):
         return self.promo_total_price/(1.0*self.volume)
+
+    class Meta:
+        ordering=['-add_time']
+
 class OrderMessage(models.Model):
     '''
         订单意见纪录,可以由用户填写,也可以由客服填写

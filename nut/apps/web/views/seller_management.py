@@ -124,7 +124,7 @@ class QrcodeListView(IsAuthorizedSeller,  ListView):
         host = request.get_host()
         for entity in self.object_list:
             entity.title = entity.title[:15]
-            entity.qr_info = [entity.brand, entity.title, "", entity.price, host + entity.absolute_url]
+            entity.qr_info = [entity.brand, entity.title, "", entity.price, host + entity.qrcode_url]
         return render_to_response(self.template_name, {'entities': self.object_list},
                                   context_instance=RequestContext(request)
                                   )
@@ -687,7 +687,7 @@ class SellerManagementFinancialReport(IsAuthorizedSeller,ListView):
             self.start_time = 'yesterday'
             self.start_date, self.end_date = get_time_range()
 
-        return Order.objects.filter(Created_datetime__range=(self.start_date,self.end_date))
+        return Order.objects.filter(created_datetime__range=(self.start_date,self.end_date))
     def get_context_data(self, **kwargs):
         context = super(SellerManagementFinancialReport, self).get_context_data(**kwargs)
         user_id = self.request.user.id

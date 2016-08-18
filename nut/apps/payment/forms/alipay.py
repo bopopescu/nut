@@ -1,0 +1,3 @@
+
+class AlipayReturnForm(object):
+    pass

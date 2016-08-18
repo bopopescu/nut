@@ -43,6 +43,7 @@ from apps.order.exceptions import CartException, OrderException, PaymentExceptio
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
+click_host = getattr(settings, 'CLICK_HOST', "http://www.click.guoku.com")
 
 # if define avatar_host , then use avata_host , for local development .
 avatar_host = getattr(settings, 'AVATAR_HOST', image_host)
@@ -526,8 +527,13 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         '''
         this method can not be moved into cartitem manager
         because of circular reference problem
+
+        TODO : check cartitem's sku , if sku stock is less than cartitem stock ,
+               , handle stock
         :return:
         '''
+
+
         new_order = None
         if self.cart_item_count <= 0 :
             raise CartException('cart is empty')
@@ -1016,7 +1022,7 @@ class Entity(BaseModel):
             # log.info("hit hit")
             return res
         else:
-            log.info("miss miss")
+            # log.info("miss miss")
             res = self.notes.count()
             cache.set(key, res, timeout=86400)
             return res
@@ -1058,6 +1064,16 @@ class Entity(BaseModel):
     @property
     def absolute_url(self):
         return self.get_absolute_url()
+
+    @property
+    def qrcode_url(self):
+        return "%s?from=qrcode"% self.absolute_url.encode('utf8')
+
+    @property
+    def design_week_url(self):
+        absolute_url = self.get_absolute_url()
+        design_week_url = absolute_url.replace("/detail/", "/jump/entity/")
+        return click_host + design_week_url
 
     @property
     def mobile_url(self):
@@ -1376,7 +1392,7 @@ class Note(BaseModel):
             res['is_selected'] = self.status
             res['poker_id_list'] = list(self.poke_list)
             cache.set(key, res, timeout=86400)
-            log.info("miss miss")
+            # log.info("miss miss")
         # log.info(user_note_pokes)
         # log.info(visitor)
         res['poke_count'] = self.poke_count

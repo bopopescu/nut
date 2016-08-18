@@ -8,6 +8,7 @@
     {% endfor %}
 </ul>
 
+{% if order.status < 3 %}
 <a href="{{ order.generate_alipay_payment_url }}">
     支付宝-支付
 </a>
@@ -15,7 +16,9 @@
 <a href="{{ order.generate_weixin_payment_url }}">
     微信-支付
 </a>
-
+{% else %}
+    <DIV>订单状态 : {{ order.get_status_display }}</DIV>
+{% endif %}
 
 
 

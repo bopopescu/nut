@@ -169,7 +169,7 @@ class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
 
         context = self.get_context_data()
 
-        template = 'web/events/partial/new_event_article_item_ajax.html'
+        template = 'web/tags/partial/new_tag_article_item_ajax.html'
         _t = loader.get_template(template)
         _c = RequestContext(
             request,

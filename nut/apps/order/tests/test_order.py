@@ -124,6 +124,28 @@ class OrderForUserTest(DBTestBase):
         self.assertEqual(order.promo_total_price, 5*5 + 11*12)
 
 
+    def test_paid_order_reduce_stock(self):
+        self.sku1.stock=9
+        self.sku1.save()
+        self.sku2.stock=18
+        self.sku2.save()
+        self.the_user.add_sku_to_cart(self.sku1,5)
+        self.the_user.add_sku_to_cart(self.sku2,12)
+        order= self.the_user.checkout()
+        self.assertEqual(order.status , Order.address_unbind)
+        order.set_paid()
+        self.assertEqual(order.status, Order.paid)
+        #need refresh from db
+        self.assertEqual(self.sku1.stock , 9)
+        self.assertEqual(self.sku2.stock,  18)
+        self.sku1 = SKU.objects.get(pk=self.sku1.pk)
+        self.sku2 = SKU.objects.get(pk=self.sku2.pk)
+        #refresh now
+        self.assertEqual(self.sku1.stock , 9-5)
+        self.assertEqual(self.sku2.stock,  18-12)
+
+
+
 
 
 

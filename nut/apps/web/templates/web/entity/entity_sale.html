@@ -2,8 +2,14 @@
 {% load static %}
 {% load common guoku %}
 <html>
+
+<div >
+
+    <a href="{% url 'web_user_cart' %}">去购物车</a><br><br><br>
+</div>
+
 <DIV> ENTITY : 二维码</DIV>
-<div class='qr_code_container' data-url="{{ current_host }}{{ entity.absolute_url }}"></div>
+<div class='qr_code_container' data-url="{{ current_host }}{{ entity.qrcode_url }}"></div>
 
 
 =========================================
