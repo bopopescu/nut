@@ -1,3 +1,4 @@
+4. wx prepay id api
 3. payment log update
 2. entity qrcode add ?from=qrcode
 1. add discount property  into SKU model 
@@ -6,14 +7,14 @@
 action : 
     1. drop payment log table 
         DROP TABLE `core`.`payment_paymentlog`;
+        
     2. syncdb 
     
+    3.  add discount field 
+    ALTER TABLE `core`.`order_sku` 
+    ADD COLUMN `discount` FLOAT NOT NULL DEFAULT 1 AFTER `status`;
 
 
-<!--action : -->
-not used 
-<!--ALTER TABLE `core`.`order_sku` -->
-<!--ADD COLUMN `discount` FLOAT NOT NULL DEFAULT 1.0 AFTER `status`;-->
 
 
 

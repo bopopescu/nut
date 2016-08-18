@@ -12,7 +12,9 @@ log = getLogger('django')
 
 
 class AlipayReturnView(FormView):
-    pass
+    def get(self, *args, **kwargs):
+        pass
+
 
 class AlipayNotifyView(FormView):
     pass

@@ -46,6 +46,8 @@ class WXPayment(BasePayment):
         return self._parse_prepay_id(response)
 
     def _parse_prepay_id(self, response):
+        if self._order_is_paid(response):
+            return 'order_paid'
         return self._parser.parse_key_from_response(response, 'prepay_id')
 
 

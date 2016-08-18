@@ -25,7 +25,7 @@ class SKU(models.Model):
     attrs = ListObjectField()
     stock = models.IntegerField(default=0,db_index=True)#库存
     origin_price = models.FloatField(default=0, db_index=True)
-    # discount = models.FloatField(default=1, db_index=True)
+    discount = models.FloatField(default=1, db_index=True)
     promo_price = models.FloatField(default=0, db_index=True)
     status =  models.IntegerField(choices=SKU_STATUS_CHOICE, default=enable)
     objects =  SKUManager()
@@ -37,11 +37,12 @@ class SKU(models.Model):
     #     super(SKU, self).__setattr__(attrname, val)
 
 
-    @property
-    def discount_rate(self):
+    def get_discount_rate(self):
         if self.origin_price == 0  or self.promo_price == 0 :
             return 1
         return self.promo_price/(self.origin_price*1.0)
+
+
 
     @property
     def attrs_json_str(self):
@@ -53,6 +54,11 @@ class SKU(models.Model):
         for key , value in self.attrs.iteritems():
             attr_str_list.append('%s:%s'%(key,value))
         return '/'.join(attr_str_list)
+
+    def save(self, *args, **kwargs):
+        self.discount = self.get_discount_rate()
+        super(SKU, self).save(*args, **kwargs)
+
 
     # class Meta:
     #     #TODO : unique together didn't work
@@ -174,6 +180,16 @@ class Order(models.Model):
             return True
         else:
             return False
+
+    @property
+    def wx_prepay_id(self):
+        if self.is_paid:
+            return 'order_paid'
+        wxpay =WXPayment(self)
+        prepay_id = wxpay.get_prepay_id()
+        if prepay_id == 'order_paid':
+            self.set_paid()
+        return prepay_id
 
     @property
     def wx_payment_qrcode_url(self):
