@@ -40,12 +40,27 @@ class TagListView(ListView):
 
 
 class TagEntitiesByHashView(AjaxResponseMixin, JSONResponseMixin, ListView):
-    paginate_by = 20
+    paginate_by = 24
     paginator_class = ExtentPaginator
     template_name = 'tag/entities.html'
     ajax_template_name = 'tag/partial/ajax_entities.html'
     context_object_name = 'entities'
 
+    def get_published_entity_tag(self):
+        published_entity_tags = Tags.objects.filter(isPubishedEntityTag=1).exclude(hash=self.tag_hash)
+        return published_entity_tags
+
+    def get_tag_articles_queryset(self):
+        self.tag_name = _tag = get_object_or_404(Tags, hash=self.tag_hash)
+        self.tag = get_object_or_404(Tags, name=self.tag_name)
+
+        # haystack query for article
+        sqs = SearchQuerySet().models(Article).filter(tags=self.tag, is_selection=True).order_by("-enter_selection_time")
+
+        # log.info(sqs)
+        # TODO: Don't use this Method
+        # queryset = map(lambda x: x.object, sqs)
+        return sqs
 
     def get_queryset(self):
         self.tag_hash = self.kwargs.pop('tag_hash', None)
@@ -84,6 +99,9 @@ class TagEntitiesByHashView(AjaxResponseMixin, JSONResponseMixin, ListView):
         entities = context['page_obj']
         context['refresh_time'] = self.get_refresh_time()
         content_tag_list = context['object_list']
+        # context['articles'] = getattr(self, 'object_list', self.get_tag_articles_queryset())
+        context['articles'] = self.get_tag_articles_queryset()
+        context['published_entity_tags'] = self.get_published_entity_tag()[:8]
         el = []
         if self.request.user.is_authenticated():
             note_id_list = content_tag_list.values_list("target_object_id",

@@ -131,10 +131,11 @@
               </span>
         </div>
     </div>
-    <div class="row" id="selection_article_list">
+    <div class="row" id="new_selection_article_list">
         {% for article_item in articles %}
             {% with article_item.article as article %}
-                {% include 'web/events/partial/new_event_article_item.html' %}
+{#                {% include 'web/events/partial/new_event_article_item.html' %}#}
+                 {% include 'web/tags/partial/new_tag_article_item.html' %}
             {% endwith %}
         {% endfor %}
     </div>
@@ -258,10 +259,10 @@
         </div>
     </div>
     <div class="row" id="hot-entity-list">
-            {% for entity in entities %}
-                {% include 'web/main/partial/new_entity.html' with entity=entity%}
-            {% endfor %}
-        </div>
+        {% for entity in entities %}
+            {% include 'web/main/partial/new_entity.html' with entity=entity%}
+        {% endfor %}
+    </div>
     <div class="row hidden-xs">
             <div class="col-sm-offset-12">
                 <div class="gotop-wrapper">
