@@ -86,8 +86,6 @@ class SoldEntityListView(FilterMixin, SortMixin, ListView):
     template_name = 'management/management_sold_entity_list.html'
 
     def get_queryset(self):
-        entities = self.request.user.entities.all()
-        self.order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
         self.orders = Order.objects.filter(status__in=[3,5])
         sku_ids = [ ]
         if self.orders:
@@ -112,11 +110,6 @@ class SoldEntityListView(FilterMixin, SortMixin, ListView):
                     d[order.sku.id] = order.volume
                 else:
                     d[order.sku.id] += order.volume
-        for order in self.order_items:
-            if order.sku.id not in d.keys():
-                d[order.sku.id] = order.volume
-            else:
-                d[order.sku.id] += order.volume
         if qs:
             for i in qs:
                 if i.id in d.keys():
