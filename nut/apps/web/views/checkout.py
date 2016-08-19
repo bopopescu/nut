@@ -21,7 +21,7 @@ from django.http import Http404
 
 class MyOrderUserPassesTestMixin:
     def test_func(self, user):
-        idlist=[9020,1997153]
+        idlist=[9020,1997153,1964551]
         return user.id in idlist
 
 class MyOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListView):
