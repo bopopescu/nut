@@ -19,7 +19,10 @@
                     </div>
 
                     <div class="box-footer">
-                        {% include "management/paginator.html" with objects=page_obj url=request.path %}
+{#                        {% include "management/paginator.html" with objects=page_obj url=request.path %}#}
+                         <a href="" class="new-blue-link">
+                            <i class="fa fa-caret-left"></i>&nbsp;&nbsp;返回
+                        </a>
                     </div>
                 </div>
             </div>
