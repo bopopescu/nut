@@ -101,59 +101,6 @@
     </tbody>
 </table>
 
-{#            <table class="new-table new-table-bordered new-table-hover">#}
-{#                <thead>#}
-{#                    <tr>#}
-{#                        <th>#}
-{#                            {% if sort_by == 'dnumber' %}#}
-{#                                <a href="{% url  'web_my_order_list' %}?sort_by=unumber">#}
-{#                            {% else %}#}
-{#                                <a href="{% url  'web_my_order_list' %}?sort_by=dnumber">#}
-{#                            {% endif %}#}
-{#                                {% trans '订单号' %}#}
-{#                            {%  if sort_by == 'dnumber' %}<i class="fa fa-arrow-circle-down"></i>#}
-{#                            {% elif sort_by == 'unumber' %}<i class="fa fa-arrow-circle-up"></i>#}
-{#                            {% endif %}</a>#}
-{#                        <input class="guoku_search_input" data-search-field="number" type="text" ></th>#}
-{#                        <th>#}
-{#                        <a href="{% url  'web_seller_management_order_list' %}?sort_by=status">#}
-{#                            {% trans 'status' %}#}
-{#                        {%  if sort_by == 'status' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}</a></th>#}
-{#                        <th>#}
-{#                            {% if sort_by == 'dprice' %}#}
-{#                                <a href="{% url  'web_my_order_list' %}?sort_by=uprice">#}
-{#                            {% else %}#}
-{#                                <a href="{% url  'web_my_order_list' %}?sort_by=dprice">#}
-{#                            {% endif %}#}
-{#                                {% trans 'price' %}#}
-{#                            {%  if sort_by == 'dprice' %}<i class="fa fa-arrow-circle-down"></i>#}
-{#                            {% elif sort_by == 'uprice' %}<i class="fa fa-arrow-circle-up"></i>#}
-{#                            {% endif %}</a></th>#}
-{#                        <th>{% trans '商品概要' %}</th>#}
-{#                        <th>{% trans '操作' %}#}
-{#                        </th>#}
-{#                    </tr>#}
-{#                </thead>#}
-{#                <tbody>#}
-{#                    {% for order in object_list %}#}
-{#                        <tr>#}
-{#                            <td>#}
-{#                                {{ order.number }}</td>#}
-{#                            <td>{{ order.get_status_display }}</td>#}
-{#                            <td>{{ order.order_total_value }}</td>#}
-{#                            <td>{% for sku in order.skus %}{{ sku.entity|truncatechars:12 }}  {{ sku.attrs_display }}<br>{% endfor %}</td>#}
-{#                            <td>#}
-{#                                <div class="btn-group">#}
-{#                                    状态: {{ order.get_status_display }}<br>#}
-{#                                    <a class="btn btn-primary" href="{% url 'my_order_detail_management' order.id %}" target="_blank">{% trans '订单详情' %}</a>#}
-{#                                    <a class="btn btn-danger " href="{% url 'my_order_delete_management' order.id %}">{% trans '删除订单' %}</a>#}
-{#                                </div>#}
-{#                            </td>#}
-{#                        </tr>#}
-{#                    {% endfor %}#}
-{#                </tbody>#}
-{#            </table>#}
-
 {% block user_script %}
 
 {% endblock %}
