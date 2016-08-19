@@ -4487,7 +4487,7 @@ define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
         init: function(){
             $('#selection, #discover_entity_list, #category-entity-list, #tag-entity-list ,.search-result-list,.authorized-seller-body,.search-entity-item,#hot-entity-list').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
             $('.guoku-button .like-action').on('click', this.handleLike.bind(this));
-            $('.new-index-page').on('click','.new-btn-like',this.handleLike.bind(this));
+            $('.new-index-page,.tag-page-container').on('click','.new-btn-like',this.handleLike.bind(this));
 
             console.log('app entity like functions');
             console.log(fastdom);
@@ -4681,7 +4681,7 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
 ){
     var CategoryTabView= Class.extend({
         init: function () {
-            this.$article_container = $('#selection_article_list');
+            this.$article_container = $('#new_selection_article_list');
             this.initHoverCategory();
             this.categoryName = '';
             this.articleCache = window.sessionStorage;

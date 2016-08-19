@@ -287,6 +287,7 @@
 .user-page .img-box img:hover,
 .img-holder a:hover,
 .selection-article-item .img-holder:hover,
+.new-selection-article-item .img-holder:hover,
 .thumbnail.category img:hover,
 .hover-light:hover,
 .recommendation-item img:hover {
@@ -344,6 +345,30 @@
 .normal-round-tag:hover,
 .normal-round-tag.current {
   background-color: #ddd;
+}
+.new-hot-round-tag {
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  padding: 0 10px;
+  height: 32px;
+  line-height: 32px;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid #e6e6e6;
+  color: #757575;
+  font-size: 16px;
+}
+.new-hot-round-tag a {
+  color: #757575;
+}
+.new-hot-round-tag:hover,
+.new-hot-round-tag.current {
+  color: #212121;
+  background-color: #f1f1f1;
 }
 .bottom-bordered {
   border-bottom: 1px solid #e6e6e6;
@@ -514,6 +539,7 @@ p .b_day {
 }
 .new-entity-six {
   background-color: #fff;
+  padding: 16px 16px 0 17px;
 }
 .new-entity-six .img-box {
   position: relative;
@@ -543,12 +569,12 @@ p .b_day {
   -o-transition: opacity 0.3s ease-in-out;
 }
 .new-entity-six .img-box .bg-layer {
-  width: 100%;
-  height: 0;
-  padding-bottom: 100%;
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
   background-color: rgba(0, 0, 0, 0.2);
 }
 .new-entity-six .img-box .new-btn-like {
@@ -1167,12 +1193,12 @@ p.boolean-false {
   font-size: 11px;
 }
 .dark-section-wrapper .dark-section-item a .section-panel .bg-layer {
-  width: 100%;
-  height: 0;
-  padding-bottom: 100%;
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
   background-color: rgba(0, 0, 0, 0.2);
 }
 .new-dark-section-wrapper {
@@ -1223,12 +1249,12 @@ p.boolean-false {
   font-size: 11px;
 }
 .new-dark-section-wrapper .dark-section-item a .section-panel .bg-layer {
-  width: 100%;
-  height: 0;
-  padding-bottom: 100%;
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
   background-color: rgba(0, 0, 0, 0.2);
 }
 .normal-scale-bg {
@@ -1303,11 +1329,19 @@ a.new-black-link:hover {
   color: #212121;
 }
 .common-bg-layer {
-  width: 100%;
-  height: 0;
-  padding-bottom: 100%;
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
   background-color: rgba(0, 0, 0, 0.2);
+}
+.custom-bg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
 }

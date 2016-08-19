@@ -1,0 +1,31 @@
+<html>
+<body>
+
+<ul>
+    {% for order in orders %}
+    <li>
+        <span>
+            <a href="{% url 'web_user_order' order.pk %}">
+            {{ order.number }}
+            </a>
+        </span>
+        <span>
+            状态 : {{ order.get_status_display }}
+        </span>
+         {% for item in order.items.all %}
+             <div >
+                <span>{{ item.title }}</span>|
+                <span>{{ item.volume }}</span>|
+                <span>{{ item.promo_total_price }}</span>
+             </div>
+
+         {% endfor %}
+        <br><br>
+    </li>
+
+    {% endfor %}
+</ul>
+
+</body>
+
+</html>

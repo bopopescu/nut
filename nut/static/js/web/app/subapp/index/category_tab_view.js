@@ -4,7 +4,7 @@ define(['jquery', 'libs/Class'], function(
 ){
     var CategoryTabView= Class.extend({
         init: function () {
-            this.$article_container = $('#selection_article_list');
+            this.$article_container = $('#new_selection_article_list');
             this.initHoverCategory();
             this.categoryName = '';
             this.articleCache = window.sessionStorage;

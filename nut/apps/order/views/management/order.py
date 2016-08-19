@@ -24,13 +24,7 @@ from apps.core.utils.http import JSONResponse
 
 
 
-class IsAdmin(UserPassesTestMixin):
-    def test_func(self, user):
-        return user.is_admin
-    def no_permissions_fail(self, request=None):
-        raise Http404
-
-class OrderListView(IsAdmin, FilterMixin, SortMixin, ListView):
+class OrderListView(FilterMixin, SortMixin, ListView):
     default_sort_params = ('dnumber','desc')
     http_method_names = ['get']
     paginator_class = ExtentPaginator
@@ -83,7 +77,7 @@ class OrderListView(IsAdmin, FilterMixin, SortMixin, ListView):
             order.itemslist = order.items.all()[1:order.count]
         return context
 
-class SoldEntityListView(IsAdmin, FilterMixin, SortMixin, ListView):
+class SoldEntityListView(FilterMixin, SortMixin, ListView):
     default_sort_params = ('dstock', 'desc')
     http_method_names = ['get']
     paginator_class = ExtentPaginator
@@ -92,8 +86,6 @@ class SoldEntityListView(IsAdmin, FilterMixin, SortMixin, ListView):
     template_name = 'management/management_sold_entity_list.html'
 
     def get_queryset(self):
-        entities = self.request.user.entities.all()
-        self.order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
         self.orders = Order.objects.filter(status__in=[3,5])
         sku_ids = [ ]
         if self.orders:
@@ -112,11 +104,12 @@ class SoldEntityListView(IsAdmin, FilterMixin, SortMixin, ListView):
 
     def sort_queryset(self, qs, sort_by, order):
         d={}
-        for order in self.order_items:
-            if order.sku.id not in d.keys():
-                d[order.sku.id] = order.volume
-            else:
-                d[order.sku.id] += order.volume
+        for ord in self.orders:
+            for order in ord.items.all():
+                if order.sku.id not in d.keys():
+                    d[order.sku.id] = order.volume
+                else:
+                    d[order.sku.id] += order.volume
         if qs:
             for i in qs:
                 if i.id in d.keys():
@@ -161,7 +154,7 @@ class SoldEntityListView(IsAdmin, FilterMixin, SortMixin, ListView):
             pass
         return qs
 
-class ManagementOrderDetailView(IsAdmin, DetailView):
+class ManagementOrderDetailView(DetailView):
     pk_url_kwarg = 'order_number'
     context_object_name = 'order'
     model = Order

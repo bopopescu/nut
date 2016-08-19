@@ -25,6 +25,9 @@
 <script>
     $(function () {
         var url = $('#wx_qrcode_url').attr('href');
+        if(url=='order_paid'){
+            location.reload();
+        }
         new QRCode(document.getElementById('qr_code'),
                 {
                     text: url,
