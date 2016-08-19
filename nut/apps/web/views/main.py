@@ -244,6 +244,7 @@ class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView
         # cache.set(key, _data, timeout=15*60)
         return JSONResponse(
             data={
+                'category': self.category_id,
                 'data': _data,
                 'status': 1
             },
