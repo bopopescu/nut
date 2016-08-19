@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" maximum-scale=1, user-scalable=no">
 
-    <title>{% block  title %}收银台{% endblock %}</title>
+    <title>{% block title %}收银台{% endblock %}</title>
 
 {#    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">#}
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
@@ -17,10 +17,12 @@
     <link href="{% static 'thirdparty/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
     <link href="{% static 'css/management/AdminLTE.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/management/skins/_all-skins.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/management/switchery.min.css' %}">
-    <link href="{% static 'css/management/bootstrap-datetimepicker.min.css' %}" rel="stylesheet">
+{#    <link rel="stylesheet" href="{% static 'css/management/skins/_all-skins.min.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'css/management/switchery.min.css' %}">#}
+{#    <link href="{% static 'css/management/bootstrap-datetimepicker.min.css' %}" rel="stylesheet">#}
     <link href="{% static 'css/management/basic_management.css' %}" rel="stylesheet">
+    <link href="{% static 'css/management/seller_management.css' %}" rel="stylesheet">
+
 
     {% block css %}{% endblock %}
 {#    <script src="{% static 'js/management/restful/sentinel.js' %}" id="hero" ></script>#}
@@ -28,102 +30,15 @@
 
 
 </head>
-<body class="guoku-management hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
-    {% block navbar %}
-        <header class="main-header">
-            <a href="http://127.0.0.1:8000/selected/" class="logo">
-                <span class="logo-lg"><b>G</b>uoku</span>
-            </a>
-            <nav class="navbar navbar-static-top" role="navigation">
-                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                </a>
-                <div class="navbar-custom-menu">
-                    {% notifications_unread as unread_count %}
-                     <ul class="nav navbar-nav">
-                         <li class="dropdown notifications-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-bell-o"></i>
-                                <span class="label label-warning">{{ unread_count }}</span>
-                            </a>
-                             <ul class="dropdown-menu" id="notify">
-                                 <li class="header">You have {{ unread_count }} notifications</li>
-                                 <li>
-                                     <ul class="menu">
-                                         <li>
-                                            <a href="#">
-                                                <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                            </a>
-                                         </li>
-                                     </ul>
-                                 </li>
-                             </ul>
-                         </li>
+<body class="seller-management">
 
-                         <li class="dropdown user user-menu">
-                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="{{ request.user.profile.avatar_url|resize:'50' }}" class="user-image" alt="{{ request.user.profile.nick }}">
-                                <span class="hidden-xs">{{ request.user.profile.nick }}</span>
-                             </a>
-                             <ul class="dropdown-menu">
-                                 <li class="user-header">
-                                     <img src="{{ request.user.profile.avatar_url|resize:'180' }}" class="img-circle" alt="User Image">
-                                     <p>
-                                        {{ request.user.profile.nick }}
-                                        <small>{{ request.user.profile.bio }}</small>
-                                     </p>
-                                 </li>
-
-                                 <li class="user-body">
-                                    <div class="col-xs-6 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-6 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
-                                </li>
-                                                   <!-- Menu Footer-->
-                                <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="{% url 'management_user_edit' request.user.pk %}" class="btn btn-default btn-flat">Profile</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                                    </div>
-                                </li>
-                             </ul>
-                         </li>
-
-{#                         <li>#}
-{#                             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>#}
-{#                         </li>#}
-                     </ul>
-                </div>
-            </nav>
-        </header>
-    {% endblock %}
-
-{% block main %}
-{#    <div class="wrapper row-offcanvas row-offcanvas-left">#}
-
-
-        <div class="content-wrapper">
-             {% block content %}{% endblock %}
-        </div>
-{#    </div>#}
-{#    </div>#}
-{% endblock %}
-{% block footer %}
-    <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-            <b>Version</b> 4.1
-        </div>
-        <strong>Copyright &copy; 2011-2015 <a href="http://www.guoku.com">guoku</a>.</strong> All rights reserved.
-    </footer>
+{% block header %}
+    {% include "web/checkout/partical/header.html" %}
 {% endblock %}
 
-</div>
+{% block content %}
+
+{% endblock %}
 
 </body>
 {% block manage_script %}
@@ -140,8 +55,7 @@
 
     <script src="{% static 'js/underscore-min.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/backbone-min.js' %}" type="application/javascript"></script>
-{#    <script src="{% static 'js/management/category.js' %}"></script>#}
-{#    {% block js %}{% endblock %}#}
+
 <script type="text/javascript">
     $(".form_datetime").datetimepicker({
         language: 'zh-CN',
