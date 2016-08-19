@@ -43,7 +43,7 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
             );
         },
         postSuccess:function(result){
-            console.log('post request success.');
+            console.log(this.categoryName + 'post request success.');
             var status = parseInt(result.status);
             if(status == 1){
                  this.showContent($(result.data));
@@ -59,7 +59,7 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
             console.log('ajax data failed');
         },
         showContent: function(elemList){
-            console.log('ajax data success');
+            console.log(this.categoryName +'ajax data success');
             this.$entity_container.empty();
             this.$entity_container.append(elemList);
             this.init_slick();
@@ -69,6 +69,7 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
             if(!this.entityCache.getItem(category)){
                 this.entityCache.setItem(category,result.data);
             }
+            console.log(this.categoryName +'set cache success');
         }
     });
     return EntityCategoryTab;

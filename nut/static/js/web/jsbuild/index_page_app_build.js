@@ -4641,7 +4641,7 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
             );
         },
         postSuccess:function(result){
-            console.log('post request success.');
+            console.log(this.categoryName + 'post request success.');
             var status = parseInt(result.status);
             if(status == 1){
                  this.showContent($(result.data));
@@ -4657,12 +4657,13 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
             console.log('ajax data failed');
         },
         showContent: function(elemList){
-            console.log('ajax data success');
+            console.log(this.categoryName +'ajax data success');
             this.$entity_container.empty();
             this.$entity_container.append(elemList);
             this.init_slick();
         },
         setCache:function(result){
+            console.log(this.categoryName +'set cache success');
             var category = this.categoryName;
             if(!this.entityCache.getItem(category)){
                 this.entityCache.setItem(category,result.data);

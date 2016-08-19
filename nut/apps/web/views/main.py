@@ -47,6 +47,15 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin, TemplateView):
                 'img': show.banner.image_url
             })
         return banners
+    def get_banners(self):
+        shows = Show_Banner.objects.all()
+        banners = []
+        for show in shows:
+            banners.append({
+                'url': show.banner.url,
+                'img': show.banner.image_url
+            })
+        return banners
 
     def get_selection_entities(self):
         selections = Selection_Entity.objects.published_until_now()\
@@ -177,7 +186,7 @@ class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
         )
         _data = _t.render(_c)
 
-        cache.set(key , _data , timeout=3600*1)
+        # cache.set(key , _data , timeout=3600*1)
 
         return JSONResponse(
             data={
@@ -215,15 +224,15 @@ class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView
         context = self.get_context_data()
 
         key = 'index:selection:entity:category:%s' % self.category_id
-        _data = cache.get(key)
-        if not _data is None:
-            return JSONResponse(
-            data={
-                'data': _data,
-                'status': 1
-            },
-            content_type='text/html; charset=utf-8',
-            )
+        # _data = cache.get(key)
+        # if not _data is None:
+        #     return JSONResponse(
+        #     data={
+        #         'data': _data,
+        #         'status': 1
+        #     },
+        #     content_type='text/html; charset=utf-8',
+        #     )
 
         template = 'web/main/partial/new_selection_ajax.html'
         _t = loader.get_template(template)
@@ -232,7 +241,7 @@ class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView
             context
         )
         _data = _t.render(_c)
-        cache.set(key, _data, timeout=15*60)
+        # cache.set(key, _data, timeout=15*60)
         return JSONResponse(
             data={
                 'data': _data,
