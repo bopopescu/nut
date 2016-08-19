@@ -6,9 +6,9 @@
                     <tr>
                         <th>
                             {% if sort_by == 'dnumber' %}
-                                <a href="{% url  'web_my_order_list' %}?sort_by=unumber">
+                                <a href="{% url  'checkout_order_list' %}?sort_by=unumber">
                             {% else %}
-                                <a href="{% url  'web_my_order_list' %}?sort_by=dnumber">
+                                <a href="{% url  'checkout_order_list' %}?sort_by=dnumber">
                             {% endif %}
                                 {% trans '订单号' %}
                             {%  if sort_by == 'dnumber' %}<i class="fa fa-arrow-circle-down"></i>
@@ -21,9 +21,9 @@
 {#                        {%  if sort_by == 'status' %}<i class="fa fa-arrow-circle-down"></i>{% endif %}</a></th>#}
                         <th>
                             {% if sort_by == 'dprice' %}
-                                <a href="{% url  'web_my_order_list' %}?sort_by=uprice">
+                                <a href="{% url  'checkout_order_list' %}?sort_by=uprice">
                             {% else %}
-                                <a href="{% url  'web_my_order_list' %}?sort_by=dprice">
+                                <a href="{% url  'checkout_order_list' %}?sort_by=dprice">
                             {% endif %}
                                 {% trans 'price' %}
                             {%  if sort_by == 'dprice' %}<i class="fa fa-arrow-circle-down"></i>
@@ -45,8 +45,8 @@
                             <td>
                                 <div class="btn-group">
                                     状态: {{ order.get_status_display }}<br>
-                                    <a class="btn btn-primary" href="{% url 'my_order_detail_management' order.id %}" target="_blank">{% trans '订单详情' %}</a>
-                                    <a class="btn btn-danger " href="{% url 'my_order_delete_management' order.id %}">{% trans '删除订单' %}</a>
+                                    <a class="btn btn-primary" href="{% url 'checkout_order_detail_management' order.id %}" target="_blank">{% trans '订单详情' %}</a>
+                                    <a class="btn btn-danger " href="{% url 'checkout_order_delete_management' order.id %}">{% trans '删除订单' %}</a>
                                 </div>
                             </td>
                         </tr>
