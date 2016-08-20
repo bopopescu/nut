@@ -1,6 +1,6 @@
 # encoding: utf-8
 import json
-
+from apps.core.utils.http import JSONResponse
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.forms.entity import EditEntityForm
 from apps.core.mixins.views import FilterMixin, SortMixin
@@ -13,7 +13,7 @@ from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.shortcuts import get_object_or_404
-from apps.management.forms.sku import SKUForm
+from apps.management.forms.sku import SKUForm,OrderCheckoutForm
 from apps.core.models import SKU,Entity,Order
 from django.template import RequestContext
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView,DetailView, View
@@ -42,11 +42,12 @@ class IndexView(MyOrderUserPassesTestMixin,ListView):
 
 class SellerOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListView):
     default_sort_params = ('dnumber', 'desc')
-    http_method_names = ['get']
     paginator_class = ExtentPaginator
     model = Order
     paginate_by = 10
-    template_name = 'web/checkout/order_list.html'
+    template_name = 'web/checkout/orderlists.html'
+    def post_ajax(self, request, *args, **kwargs):
+        pass
     def get_queryset(self):
         entities = self.request.user.entities.all()
         order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
@@ -60,10 +61,8 @@ class SellerOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,List
         #if filter_field == 'id':
             #qs = qs.filter(id=filter_value.strip())
         if filter_field == 'number':
-            if filter_value == u'1':
-                filter_value = 'empty'
             qs = qs.filter(number__icontains=filter_value.strip())
-        if order_number:
+        elif order_number:
             qs=qs.filter(number__icontains=order_number.strip())
         return qs
     def sort_queryset(self, qs, sort_by, order):
@@ -129,3 +128,25 @@ class SellerOrderDetailView(MyOrderUserPassesTestMixin,DetailView):
         context['origin_total_price'] = context['order'].grand_total_price
         context['repetition'] = 0
         return context
+
+class CheckoutView(MyOrderUserPassesTestMixin, AjaxResponseMixin,UpdateView):
+    model = Order
+    form_class = OrderCheckoutForm
+    template_name = 'web/seller_management/sku/sku_edit_template.html'
+    http_method_names = ["post"]
+    def post_ajax(self, request, *args, **kwargs):
+        instance = Order.objects.get(pk=kwargs['order_id'])
+        _forms = OrderCheckoutForm(request.POST,instance=instance)
+        if _forms.is_valid():
+            _forms.save()
+            return JSONResponse(data={'result': 1},status=200)
+        else:
+            return JSONResponse(data={'result': 0},status=400)
+    def get_success_url(self):
+        return reverse('management_entity_skus', args=[self.entity_id])
+    def get_context_data(self, **kwargs):
+        context = super(CheckoutView,self).get_context_data(**kwargs)
+        context['entity_id']=self.entity_id
+        return context
+    def get_success_url(self):
+        return reverse('sku_list_management', args=[self.entity_id])

@@ -57,8 +57,11 @@
                 &yen;{{ order.order_total_value }}
             </td>
             <td class="no-border-cell">
+                {% if order.status == 3 %}
                     已收款<br>
-                    <a class="btn newest-btn-green" data-url="">{% trans '确认已收款' %}</a>
+                {% else %}
+                  <a class="btn newest-btn-green" data-url="">{% trans '确认已收款' %}</a>
+                {% endif %}
             </td>
         </tr>
         {% if order.count > 1 %}
