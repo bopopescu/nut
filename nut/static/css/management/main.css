@@ -1151,6 +1151,17 @@ p.boolean-false {
   background-color: #3F6FF0;
   color: #ffffff;
 }
+.newest-btn-green {
+  border: 1px solid #39BA2F;
+  background-color: #39BA2F;
+  color: #ffffff;
+}
+.newest-btn-green:hover,
+.newest-btn-green:focus {
+  border: 1px solid #29AA1F;
+  background-color: #29AA1F;
+  color: #ffffff;
+}
 .newest-button-blue {
   border: 1px solid #6192FF;
   background-color: #ffffff;

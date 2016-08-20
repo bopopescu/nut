@@ -3,44 +3,39 @@
 {% load staticfiles i18n %}
 
 {% block content %}
-    <section class="content-header">
-        <h1>
-            {% trans '订单' %}
-{#            <a href="{% url 'web_seller_management_entity_add' %}"><i class="fa fa-plus" style="font-size:18px;"></i></a>#}
-        </h1>
-
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard">{% trans "home" %}</i></a></li>
-            <li class="active">{% trans 'order' %}</li>
-        </ol>
+    <div class="container">
+        <section class="content-header">
+        <div class="order-search-wrapper">
+             <input class="guoku_search_input" data-search-field="number" type="text" placeholder="订单号搜索">
+             <i class="fa fa-search"></i>
+        </div>
     </section>
-
-    <section class="content">
+        <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                <div class="box box-info">
-                    <div class="box-header">
-                    </div>
-                    <div class="box-body table-responsive">
+                <div class="new-box">
+                    <div class="new-box-body">
                         {% include 'web/checkout/orderlists_table.html' %}
                     </div>
 
                     <div class="box-footer">
-                        {% include "management/paginator.html" with objects=page_obj url=request.path %}
+{#                        {% include "management/paginator.html" with objects=page_obj url=request.path %}#}
+                         <a href="" class="new-blue-link">
+                            <i class="fa fa-caret-left"></i>&nbsp;&nbsp;返回
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
+    </div>
 {% endblock %}
 
 {% block user_script %}
     <script src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>
     <script src="{% static 'js/management/util.js' %}"></script>
     <script src="{% static 'js/management/moment.js' %}"></script>
-
-     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/manage_search.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/seller_management/entity_save.js' %}" type="application/javascript"></script>
 {% endblock %}
+
