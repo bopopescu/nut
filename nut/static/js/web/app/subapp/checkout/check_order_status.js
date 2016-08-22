@@ -28,13 +28,7 @@ var CheckoutManager = Class.extend({
                         });
 
                     }else{
-                        bootbox.alert({
-                            size: 'small',
-                            message: '操作失败,请重新尝试!'
-                        }) ;
-
-                        window.setTimeout( function(){ bootbox.hideAll();}, 1000);
-                        window.location.reload();
+                       return ;
                     }
             });
 
