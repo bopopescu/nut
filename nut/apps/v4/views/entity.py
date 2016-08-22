@@ -244,10 +244,23 @@ class EntitySKUView(APIJsonView):
 
     http_method_names = ['get']
 
+    def get_data(self, context):
+        try:
+            entity = APIEntity.objects.get(entity_hash = self.entity_hash)
+        except APIEntity.DoesNotExist:
+            raise
+        print dir(entity)
+        return entity.v4_toDict()
+
 
     def get(self, request, *args, **kwargs):
+        self.entity_hash = kwargs.pop('entity_hash', None)
 
-        return super(EntitySKUView, self).get(request, *args, **kwargs);
+        assert self.entity_hash is not None
+
+
+
+        return super(EntitySKUView, self).get(request, *args, **kwargs)
 
 
 @csrf_exempt

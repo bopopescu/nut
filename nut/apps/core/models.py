@@ -6,7 +6,7 @@ import HTMLParser
 import hashlib
 import json
 import re
-from pprint import  pprint
+# from pprint import  pprint
 
 
 
@@ -36,7 +36,7 @@ from apps.core.extend.fields.listfield import ListObjectField
 from apps.web.utils.datatools import get_entity_list_from_article_content
 from apps.core.manager import *
 from apps.core.utils.text import truncate
-from apps.core.manager.account import  AuthorizedUserManager
+# from apps.core.manager.account import  AuthorizedUserManager
 from haystack.query import SearchQuerySet
 from apps.order.models import CartItem, Order, OrderItem , SKU
 from apps.order.exceptions import CartException, OrderException, PaymentException
@@ -551,7 +551,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
             except Exception as e :
                 # if exception happens
-                pprint(e)
+                # pprint(e)
                 log.error(e)
                 if new_order:
                     new_order.delete()

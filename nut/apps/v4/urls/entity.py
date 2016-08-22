@@ -16,7 +16,7 @@ urlpatterns = patterns(
     url(r'^(?P<entity_id>\d+)/report/$', 'report', name='v4_entity_report'),
 
     # entity sku url
-    url(r'^/sku/(?P<entity_hash>\w+)/$', EntitySKUView.as_view(), name='v4_entity_sku'),
+    url(r'^sku/(?P<entity_hash>\w+)/$', EntitySKUView.as_view(), name='v4_entity_sku'),
 )
 
 urlpatterns += patterns(
