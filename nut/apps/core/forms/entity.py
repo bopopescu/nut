@@ -577,6 +577,12 @@ class CreateEntityForm(forms.Form):
             )
         return entity
 
+class CreateEntityFormForSeller(CreateEntityForm):
+    def __init__(self, request, *args, **kwargs):
+        super(CreateEntityFormForSeller, self).__init__(request,*args, **kwargs)
+        del self.fields['content'], self.fields['status'], self.fields['user']
+
+
 class AddEntityForm(forms.Form):
     title = forms.CharField(
         label=_('title'),
