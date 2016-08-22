@@ -1,6 +1,6 @@
 # encoding: utf-8
 import json
-
+from apps.core.utils.http import JSONResponse
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.forms.entity import EditEntityForm
 from apps.core.mixins.views import FilterMixin, SortMixin
@@ -13,7 +13,7 @@ from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.shortcuts import get_object_or_404
-from apps.management.forms.sku import SKUForm
+from apps.management.forms.sku import SKUForm,OrderCheckoutForm
 from apps.core.models import SKU,Entity,Order
 from django.template import RequestContext
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView,DetailView, View
@@ -25,28 +25,45 @@ class MyOrderUserPassesTestMixin(UserPassesTestMixin):
         return user.id in idlist
     def no_permissions_fail(self, request=None):
         raise Http404
+class IndexView(MyOrderUserPassesTestMixin,ListView):
+    model = Order
+    template_name = 'web/checkout/index.html'
+    def get(self,request,*args,**kwargs):
+        self.object_list = self.get_queryset()
+        number=self.request.GET.get('filtervalue','')
+        if number:
+            return HttpResponseRedirect(reverse('checkout_order_list')+'?number='+str(number))
+        else:
+            context = self.get_context_data()
+            return self.render_to_response(context)
+    def get_queryset(self):
+        return Order.objects.none()
 
-class MyOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListView):
+
+class SellerOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListView):
     default_sort_params = ('dnumber', 'desc')
-    http_method_names = ['get']
     paginator_class = ExtentPaginator
     model = Order
     paginate_by = 10
     template_name = 'web/checkout/orderlists.html'
+    def post_ajax(self, request, *args, **kwargs):
+        pass
     def get_queryset(self):
-        qs = Order.objects.filter(customer_id = self.request.user.id)
+        entities = self.request.user.entities.all()
+        order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
+        order_ids = order_items.values_list('order')
+        qs = Order.objects.filter(id__in=order_ids)
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
     def filter_queryset(self, qs, filter_param):
+        order_number = self.request.GET.get('number')
         filter_field, filter_value = filter_param
         #if filter_field == 'id':
             #qs = qs.filter(id=filter_value.strip())
         if filter_field == 'number':
-            if filter_value == u'1':
-                filter_value = 'empty'
             qs = qs.filter(number__icontains=filter_value.strip())
-        else:
-            pass
+        elif order_number:
+            qs=qs.filter(number__icontains=order_number.strip())
         return qs
     def sort_queryset(self, qs, sort_by, order):
         if sort_by == 'dprice':
@@ -64,20 +81,22 @@ class MyOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListView
         return qs
 
     def get_context_data(self, **kwargs):
-        context = super(MyOrderListView, self).get_context_data(**kwargs)
+        context = super(SellerOrderListView, self).get_context_data(**kwargs)
         for order in context['object_list']:
             order_items = order.items.all()
             order.skus = [order_item.sku for order_item in order_items]
+            order.count=order.items.all().count()
+            order.itemslist=order.items.all()[1:order.count]
         return context
 
-class MyOrderDeleteView(MyOrderUserPassesTestMixin,DeleteView):
+class SellerOrderDeleteView(MyOrderUserPassesTestMixin,DeleteView):
     model = Order
     template_name = 'web/checkout/delete_order.html'
     pk_url_kwarg = 'order_number'
     def get_success_url(self):
-        return reverse('web_my_order_list')
+        return reverse('checkout_order_list')
 
-class MyOrderDetailView(MyOrderUserPassesTestMixin,DetailView):
+class SellerOrderDetailView(MyOrderUserPassesTestMixin,DetailView):
     pk_url_kwarg = 'order_number'
     context_object_name = 'order'
     model = Order
@@ -91,7 +110,7 @@ class MyOrderDetailView(MyOrderUserPassesTestMixin,DetailView):
         if self.request.GET.get('paid', False):
             if self.status == 1:
                 context['order'].set_paid()
-            return HttpResponseRedirect(reverse('web_my_order_list'))
+            return HttpResponseRedirect(reverse('checkout_order_list'))
         return self.response_class(
             request = self.request,
             template = self.get_template_names(),
@@ -100,7 +119,7 @@ class MyOrderDetailView(MyOrderUserPassesTestMixin,DetailView):
         )
     def get_context_data(self, **kwargs):
         self.order_number = self.kwargs.get('order_number')
-        context = super(MyOrderDetailView, self).get_context_data(**kwargs)
+        context = super(SellerOrderDetailView, self).get_context_data(**kwargs)
         self.status=context['order'].status
         context['order_item'] = context['order'].items.all()
         #context['order_item'] = context['order'].items.all()
@@ -109,3 +128,25 @@ class MyOrderDetailView(MyOrderUserPassesTestMixin,DetailView):
         context['origin_total_price'] = context['order'].grand_total_price
         context['repetition'] = 0
         return context
+
+class CheckoutView(MyOrderUserPassesTestMixin, AjaxResponseMixin,UpdateView):
+    model = Order
+    form_class = OrderCheckoutForm
+    template_name = 'web/seller_management/sku/sku_edit_template.html'
+    http_method_names = ["post"]
+    def post_ajax(self, request, *args, **kwargs):
+        instance = Order.objects.get(pk=kwargs['order_id'])
+        _forms = OrderCheckoutForm(request.POST,instance=instance)
+        if _forms.is_valid():
+            _forms.save()
+            return JSONResponse(data={'result': 1},status=200)
+        else:
+            return JSONResponse(data={'result': 0},status=400)
+    def get_success_url(self):
+        return reverse('management_entity_skus', args=[self.entity_id])
+    def get_context_data(self, **kwargs):
+        context = super(CheckoutView,self).get_context_data(**kwargs)
+        context['entity_id']=self.entity_id
+        return context
+    def get_success_url(self):
+        return reverse('sku_list_management', args=[self.entity_id])

@@ -26,7 +26,7 @@
     {% for order in object_list %}
         <tr class="order-cell-header">
             <td colspan="5">
-                订单号:{{ order.number }} &nbsp;&nbsp;创建时间:{{ order.Created_datetime|date:'Y-m-d H:i:s' }}
+                订单号:{{ order.number }} &nbsp;&nbsp;创建时间:{{ order.created_datetime|date:'Y-m-d H:i:s' }}
             </td>
         </tr>
         <tr>
@@ -48,7 +48,12 @@
                 </div>
             </td>
             <td>
-                &yen;{{ order.items.all.0.sku_unit_promo_price }}
+                <div class="original-price">
+                    &yen;{{ order.items.all.0.sku_unit_grand_price }}
+                </div>
+                <div>
+                    &yen;{{ order.items.all.0.sku_unit_promo_price }}
+                </div>
             </td>
             <td>
                 {{ order.items.all.0.volume }}
@@ -57,15 +62,12 @@
                 &yen;{{ order.order_total_value }}
             </td>
             <td class="no-border-cell">
-                {% if order.status == 3 %}
-                    已收款<br>
-                {% else %}
-                  <a class="btn newest-btn-green" data-url="">{% trans '确认已收款' %}</a>
-                {% endif %}
+                <div class="btn-group">
+                    <a class="new-blue-link" href="{% url 'checkout_order_detail_management' order.id %}" target="_blank">{% trans '确认已收款' %}</a>
+                </div>
             </td>
         </tr>
         {% if order.count > 1 %}
-
             {% for item in order.itemslist %}
                 <tr>
                 <td class="entity-cell">
@@ -85,8 +87,14 @@
                         </div>
                     </div>
                 </td>
+
                 <td>
-                    &yen;{{ item.sku_unit_promo_price }}
+                    <div class="original-price">
+                        &yen;{{ item.sku_unit_grand_price }}
+                    </div>
+                    <div>
+                        &yen;{{ item.sku_unit_promo_price }}
+                    </div>
                 </td>
                 <td>
                     {{ item.volume }}
@@ -103,7 +111,3 @@
     {% endfor %}
     </tbody>
 </table>
-
-{% block user_script %}
-
-{% endblock %}
