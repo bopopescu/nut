@@ -1,8 +1,8 @@
 # coding=utf-8
 
 from apps.order.tests import DBTestBase
-from apps.core.models import SKU,Entity,GKUser, Category, Sub_Category
-from apps.order.models import CartItem, ShippingAddress, Order, OrderItem
+from apps.core.models import Entity,GKUser, Category, Sub_Category
+from apps.order.models import CartItem, ShippingAddress, Order, OrderItem, SKU
 from apps.order.exceptions import  CartException, OrderException,PaymentException
 
 

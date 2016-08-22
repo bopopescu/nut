@@ -1,4 +1,3 @@
-8. gk manage 
 7. gk manage order list 
 6. tag page update
 --------
@@ -15,12 +14,13 @@ action :
         DROP TABLE `core`.`payment_paymentlog`;
         
     2. syncdb 
+
     
     3.  add discount field 
     ALTER TABLE `core`.`order_sku` 
     ADD COLUMN `discount` FLOAT NOT NULL DEFAULT 1 AFTER `status`;
 
-
+       已经执行
 
 
 

@@ -58,8 +58,8 @@
                 &yen;{{ order.order_total_value }}
             </td>
             <td class="no-border-cell">
-                {% if order.status == 3 %}
-                    已收款<br>
+                {% if order.is_paid %}
+                    {{ order.get_status_display }}<br>
                 {% else %}
                   <a class="btn newest-btn-green check-order-status" data-order-id="{{ order.id }}" data-url="{% url 'checkout_done' %}">{% trans '确认已收款' %}</a>
                 {% endif %}

@@ -57,7 +57,7 @@ SESSION_CACHE_ALIAS = "default"
 
 # CELERY #################################
 CELERY_ALWAYS_EAGER = True
-BROKER_URL = 'redis://localhost:6ev379/0'
+BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 #celery end  #############################
 import djcelery

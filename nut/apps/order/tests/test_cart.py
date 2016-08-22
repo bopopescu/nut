@@ -7,8 +7,8 @@ from django.test import TestCase
 from django.conf import  settings
 from django.core.exceptions import ImproperlyConfigured
 
-from apps.core.models import SKU,Entity,GKUser, Category, Sub_Category
-from apps.order.models import CartItem
+from apps.core.models import Entity,GKUser, Category, Sub_Category
+from apps.order.models import CartItem , SKU
 from apps.order.exceptions import  CartException, OrderException,PaymentException
 
 
