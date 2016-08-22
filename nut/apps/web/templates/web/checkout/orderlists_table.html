@@ -60,7 +60,7 @@
                 {% if order.status == 3 %}
                     已收款<br>
                 {% else %}
-                  <a class="btn newest-btn-green" data-url="">{% trans '确认已收款' %}</a>
+                  <a class="btn newest-btn-green check-order-status" data-order-id="{{ order.id }}" data-url="">{% trans '确认已收款' %}</a>
                 {% endif %}
             </td>
         </tr>
