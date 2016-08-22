@@ -13,8 +13,9 @@ from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.shortcuts import get_object_or_404
-from apps.management.forms.sku import SKUForm,OrderCheckoutForm
-from apps.core.models import SKU,Entity,Order
+from apps.management.forms.sku import SKUForm
+from apps.core.models import Entity
+from apps.order.models import SKU,Order
 from django.template import RequestContext
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView,DetailView, View
 from django.http import Http404
@@ -126,7 +127,6 @@ class SellerOrderDetailView(MyOrderUserPassesTestMixin,DetailView):
 
 class CheckoutView(MyOrderUserPassesTestMixin, AjaxResponseMixin,UpdateView):
     model = Order
-    form_class = OrderCheckoutForm
     template_name = 'web/seller_management/sku/sku_edit_template.html'
     http_method_names = ["post"]
     def post_ajax(self, request, *args, **kwargs):

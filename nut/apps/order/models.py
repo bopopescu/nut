@@ -6,7 +6,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.log import getLogger
 
-
+from apps.core.base import BaseModel
 from apps.order.manager import OrderManager
 from apps.order.manager.sku import SKUManager
 from apps.order.manager.cart import CartItemManager
@@ -18,7 +18,7 @@ from apps.order.exceptions import OrderException
 
 log = getLogger('django')
 
-class SKU(models.Model):
+class SKU(BaseModel):
     (disable, enable) =  (0, 1)
     SKU_STATUS_CHOICE = [(disable, _('disable')), (enable, _('enable'))]
     entity = models.ForeignKey('core.Entity', related_name='skus')
@@ -65,7 +65,7 @@ class SKU(models.Model):
     #     unique_together = ('entity' ,'attrs')
 
 
-class CartItem(models.Model):
+class CartItem(BaseModel):
     user = models.ForeignKey('core.GKUser', related_name='cart_items',db_index=True)
     sku  = models.ForeignKey(SKU, db_index=True)
     volume = models.IntegerField(default=1)
@@ -104,7 +104,7 @@ class CartItem(models.Model):
         return 0
 
 
-class ShippingAddress(models.Model):
+class ShippingAddress(BaseModel):
     (normal, special) = range(1,3)
     SHIPPINGADDRESS_TYPE_CHOICE = (
         (normal,_('normal address')),
@@ -132,7 +132,7 @@ class ShippingAddress(models.Model):
             return self._cal_shipping_fee()
 
 
-class Order(models.Model):
+class Order(BaseModel):
 
     (   address_unbind, #
         waiting_for_payment,#未付款
@@ -303,7 +303,7 @@ class Order(models.Model):
 
 
 
-class OrderItem(models.Model):
+class OrderItem(BaseModel):
     order = models.ForeignKey(Order,related_name='items')
     customer = models.ForeignKey('core.GKUser', related_name='order_items',db_index=True)
     sku = models.ForeignKey(SKU, db_index=True)
@@ -326,7 +326,7 @@ class OrderItem(models.Model):
     class Meta:
         ordering=['-add_time']
 
-class OrderMessage(models.Model):
+class OrderMessage(BaseModel):
     '''
         订单意见纪录,可以由用户填写,也可以由客服填写
     '''

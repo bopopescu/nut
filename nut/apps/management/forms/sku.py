@@ -3,17 +3,14 @@ import json
 
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm, CharField, HiddenInput
-from apps.core.models import SKU, Entity,Order
+from apps.core.models import  Entity
+from apps.order.models import SKU
 
 class SwitchSkuStatusForm(ModelForm):
     class Meta:
         model = SKU
         fields = ['status']
 
-class OrderCheckoutForm(ModelForm):
-    class Meta:
-        model = Order
-        fields = ['status']
 
 class SKUForm(ModelForm):
 

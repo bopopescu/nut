@@ -32,7 +32,7 @@ def upload_code():
             remote_dir = env.project_root,
             local_dir = env.local_root,
             delete = True,
-            exclude=['node_modules/*', 'images/*','ant_image/*'],
+            exclude=['node_modules/*', 'images/*','ant_image/*' , '*/.git/*'],
             extra_opts='-O'
         )
 
