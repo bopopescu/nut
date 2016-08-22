@@ -249,8 +249,27 @@ class EntitySKUView(APIJsonView):
             entity = APIEntity.objects.get(entity_hash = self.entity_hash)
         except APIEntity.DoesNotExist:
             raise
-        print dir(entity)
-        return entity.v4_toDict()
+        print entity.skus.all()
+
+        entity_res = entity.v4_toDict()
+        # entity_res.update(
+        #     {
+        #         'entity': entity.v4_toDict(),
+        #         'skus': list(),
+        #     }
+        # )
+        sku_list   = list()
+        for row in entity.skus.filter(status=1):
+            sku_list.append(
+                row.toDict(),
+            )
+        entity_res.update(
+            {
+                'skus': sku_list,
+            }
+        )
+
+        return entity_res
 
 
     def get(self, request, *args, **kwargs):
