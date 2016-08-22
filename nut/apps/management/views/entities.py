@@ -508,7 +508,7 @@ def delete_image(request, entity_id):
 
     return HttpResponseNotAllowed
 
-from apps.core.models import SKU
+from apps.order.models import SKU
 
 class EntitySKUListView(EditorRequiredMixin,ListView):
     template_name = 'management/entities/entity_sku_list.html'

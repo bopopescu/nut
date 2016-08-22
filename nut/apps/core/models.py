@@ -29,6 +29,7 @@ from django.contrib.auth.models import PermissionsMixin, Group
 from django.shortcuts import  get_object_or_404
 from django.utils.html import _strip_once
 
+from apps.core.base import BaseModel
 from apps.notifications import notify
 from apps.core.utils.image import HandleImage
 from apps.core.utils.articlecontent import contentBleacher
@@ -38,7 +39,11 @@ from apps.core.manager import *
 from apps.core.utils.text import truncate
 # from apps.core.manager.account import  AuthorizedUserManager
 from haystack.query import SearchQuerySet
-from apps.order.models import CartItem, Order, OrderItem , SKU
+
+# from apps.order.manager.cart import CartItemManager
+# from apps.order.manager.order import OrderManager
+# from apps.order.manager.sku import SKUManager
+
 from apps.order.exceptions import CartException, OrderException, PaymentException
 
 log = getLogger('django')
@@ -50,34 +55,6 @@ avatar_host = getattr(settings, 'AVATAR_HOST', image_host)
 
 feed_img_counter_host =  getattr(settings, 'IMG_COUNTER_HOST' , None)
 
-class BaseModel(models.Model):
-    class Meta:
-        abstract = True
-
-    def toDict(self):
-        fields = []
-        for f in self._meta.fields:
-            fields.append(f.column)
-        d = {}
-        for attr in fields:
-            # log.info( getattr(self, attr) )
-            value = getattr(self, attr)
-            if value is None:
-                continue
-            # log.info(value)
-            d[attr] = "%s" % getattr(self, attr)
-        # log.info(d)
-        return d
-
-    def pickToDict(self, *args):
-        '''
-          only work on simple python value fields ,
-          can not use to serialize object field!
-        '''
-        d = {}
-        for key in args:
-            d[key] = getattr(self, key, None)
-        return d
 
 
 class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
@@ -502,18 +479,19 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def jpush_rids(self):
         return self.jpush_token.all().values_list('rid', flat=True)
 
+
     @property
     def cart_item_count(self):
-        return CartItem.objects.cart_item_count_by_user(self)
+        return self.cart_items.cart_item_count_by_user(self)
 
     def add_sku_to_cart(self, sku, volume=1):
-        return CartItem.objects.add_sku_to_user_cart(self, sku, volume)
+        return self.cart_items.add_sku_to_user_cart(self, sku, volume)
 
     def decr_sku_in_cart(self,sku):
-        return CartItem.objects.decr_sku_in_user_cart(self, sku)
+        return self.cart_items.decr_sku_in_user_cart(self, sku)
 
     def remove_sku_from_cart(self, sku):
-        return CartItem.objects.remove_sku_from_user_cart(self,sku)
+        return self.cartcart_items.remove_sku_from_user_cart(self,sku)
 
 
     def checkout(self):
@@ -532,9 +510,9 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             raise CartException('cart is empty')
         else :
             try :
-                new_order = Order.objects.create(**{
+                new_order = self.orders.create(**{
                     'customer': self,
-                    'number': Order.objects.generate_order_number()
+                    'number': self.orders.generate_order_number()
 
                 })
                 for cart_item in self.cart_items.all():
@@ -559,7 +537,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                 return None
 
     def clear_cart(self):
-        CartItem.objects.clear_user_cart(self)
+        self.cart_items.clear_user_cart(self)
 
     @property
     def order_count(self):
@@ -1208,7 +1186,7 @@ class Entity(BaseModel):
     def add_sku(self, attributes=None):
         if attributes is None:
             attributes = {}
-        sku , created = SKU.objects.get_or_create(entity=self,attrs=attributes)
+        sku , created = self.skus.get_or_create(entity=self,attrs=attributes)
         if created :
             sku.entity = self
             sku.attributes = attributes
@@ -1217,7 +1195,7 @@ class Entity(BaseModel):
 
     @property
     def sku_count(self):
-        return self.skus.filter(status=SKU.enable).count()
+        return self.skus.filter(status=1).count()
 
 class Selection_Entity(BaseModel):
     entity = models.OneToOneField(Entity, unique=True)
