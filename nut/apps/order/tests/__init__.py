@@ -1,4 +1,5 @@
-from apps.core.models import SKU,Entity,GKUser, Category, Sub_Category
+from apps.core.models import Entity,GKUser, Category, Sub_Category
+from apps.order.models import SKU
 from django.test import  TestCase
 
 class DBTestBase(TestCase):

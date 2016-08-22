@@ -1,13 +1,12 @@
 import json
-
 from django.db import  models
 from django.utils.translation import ugettext_lazy as _
 
-
+from apps.core.base import BaseModel
 from apps.order.models import Order
 
 
-class PaymentLog(models.Model):
+class PaymentLog(BaseModel):
     '''
         a log for payment/refund route and its results
     '''
