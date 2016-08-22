@@ -21,7 +21,7 @@ from django.http import Http404
 
 class MyOrderUserPassesTestMixin(UserPassesTestMixin):
     def test_func(self, user):
-        idlist=[9020,1997153,2000859]
+        idlist=[9020,1997153,2000859,1964551]
         return user.id in idlist
     def no_permissions_fail(self, request=None):
         raise Http404
