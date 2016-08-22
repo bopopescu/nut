@@ -135,18 +135,12 @@ class CheckoutView(MyOrderUserPassesTestMixin, AjaxResponseMixin,UpdateView):
     template_name = 'web/seller_management/sku/sku_edit_template.html'
     http_method_names = ["post"]
     def post_ajax(self, request, *args, **kwargs):
-        instance = Order.objects.get(pk=kwargs['order_id'])
-        _forms = OrderCheckoutForm(request.POST,instance=instance)
-        if _forms.is_valid():
-            _forms.save()
-            return JSONResponse(data={'result': 1},status=200)
-        else:
-            return JSONResponse(data={'result': 0},status=400)
-    def get_success_url(self):
-        return reverse('management_entity_skus', args=[self.entity_id])
-    def get_context_data(self, **kwargs):
-        context = super(CheckoutView,self).get_context_data(**kwargs)
-        context['entity_id']=self.entity_id
-        return context
-    def get_success_url(self):
-        return reverse('sku_list_management', args=[self.entity_id])
+        order_id=request.POST['order_id']
+        instance = Order.objects.get(pk=order_id)
+        instance.status='3'
+        try:
+            instance.save()
+            return JSONResponse(data={'result':1},status=200)
+        except Exception:
+            return JSONResponse(data={'result':0},status=400)
+
