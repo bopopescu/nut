@@ -3,7 +3,6 @@ from django.db import  models
 from django.utils.translation import ugettext_lazy as _
 
 from apps.core.base import BaseModel
-from apps.order.models import Order
 
 
 class PaymentLog(BaseModel):
