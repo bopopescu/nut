@@ -56,11 +56,16 @@ class AllOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListVie
             return self.render_to_response(context)
     def get_queryset(self):
         qs = Order.objects.all()
+        self.status = self.request.GET.get('status')
+        if self.status == 'waiting_for_payment':
+            qs = qs.filter(status__in=[1, 2, 4])
+        elif self.status == 'paid':
+            qs = qs.filter(status=3)
         return self.sort_queryset(qs, *self.get_sort_params())
 
     def sort_queryset(self, qs, sort_by, order):
         if sort_by == 'created_datetime':
-            qs = qs.order_by('-created_datetime')
+            qs = qs.order_by('status','-created_datetime')
             return qs
 
 class SellerOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListView):
@@ -71,6 +76,11 @@ class SellerOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,List
     template_name = 'web/checkout/orderlists.html'
     def get_queryset(self):
         qs = Order.objects.all()
+        self.status = self.request.GET.get('status')
+        if self.status == 'waiting_for_payment':
+            qs = qs.filter(status__in=[1, 2, 4])
+        elif self.status == 'paid':
+            qs = qs.filter(status=3)
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
     def filter_queryset(self, qs, filter_param):
@@ -85,7 +95,7 @@ class SellerOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,List
         return qs
     def sort_queryset(self, qs, sort_by, order):
         if sort_by == 'created_datetime':
-            qs = qs.order_by('-created_datetime')
+            qs = qs.order_by('status','-created_datetime')
         return qs
 
     def get_context_data(self, **kwargs):
