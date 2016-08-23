@@ -1852,7 +1852,7 @@ define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
         init: function(){
             $('#selection, #discover_entity_list, #category-entity-list, #tag-entity-list ,.search-result-list,.authorized-seller-body,.search-entity-item,#hot-entity-list').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
             $('.guoku-button .like-action').on('click', this.handleLike.bind(this));
-            $('.new-index-page').on('click','.new-btn-like',this.handleLike.bind(this));
+            $('.new-index-page,.tag-page-container').on('click','.new-btn-like',this.handleLike.bind(this));
 
             console.log('app entity like functions');
             console.log(fastdom);
@@ -2275,6 +2275,8 @@ define('subapp/note/notecomment',['libs/Class', 'jquery', 'subapp/account'],
                                 $html.insertBefore(form);
                       //                }
                                 commentText.val('');
+                                replyToUser = '';
+                                replyToComment = '';
                             } catch (err) {
                                 var html = $(result);
                                 that.accountApp.modalSignIn(html);
@@ -3571,7 +3573,6 @@ define('subapp/entity/entity_share',['jquery', 'libs/Class','underscore','bootbo
 
         initQrcodeImage: function(){
             var url = this.getShareUrl();
-
             new QRCode(document.getElementById('qr_code'),
                 {
                     text: url,
