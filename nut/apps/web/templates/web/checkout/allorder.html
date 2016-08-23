@@ -44,6 +44,9 @@
                     <div class="new-box-body">
                         {% include 'web/checkout/allorder_table.html' %}
                     </div>
+                    <div class="box-footer">
+                        {% include "management/paginator.html" with objects=page_obj url=request.path %}
+                    </div>
                 </div>
             </div>
         </div>
