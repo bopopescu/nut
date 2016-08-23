@@ -40,6 +40,28 @@ class IndexView(MyOrderUserPassesTestMixin,ListView):
     def get_queryset(self):
         return Order.objects.none()
 
+class AllOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListView):
+    default_sort_params = ('created_datetime', 'desc')
+    paginator_class = ExtentPaginator
+    model = Order
+    paginate_by = 10
+    template_name = 'web/checkout/allorder.html'
+    def get(self,request,*args,**kwargs):
+        self.object_list = self.get_queryset()
+        number=self.request.GET.get('filtervalue','')
+        if number:
+            return HttpResponseRedirect(reverse('checkout_order_list')+'?number='+str(number))
+        else:
+            context = self.get_context_data()
+            return self.render_to_response(context)
+    def get_queryset(self):
+        qs = Order.objects.all()
+        return self.sort_queryset(qs, *self.get_sort_params())
+
+    def sort_queryset(self, qs, sort_by, order):
+        if sort_by == 'created_datetime':
+            qs = qs.order_by('-created_datetime')
+            return qs
 
 class SellerOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListView):
     default_sort_params = ('dnumber', 'desc')
@@ -52,14 +74,13 @@ class SellerOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,List
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
     def filter_queryset(self, qs, filter_param):
-        order_number = self.request.GET.get('number')
+        all_order = self.request.GET.get('all_order')
         filter_field, filter_value = filter_param
         #if filter_field == 'id':
             #qs = qs.filter(id=filter_value.strip())
-        if filter_field == 'number':
-            qs = qs.filter(number__icontains=filter_value.strip())
-        elif order_number:
-            qs=qs.filter(number__icontains=order_number.strip())
+        if not all_order:
+            if filter_field == 'number':
+                qs = qs.filter(number__icontains=filter_value.strip())
         return qs
     def sort_queryset(self, qs, sort_by, order):
         if sort_by == 'dprice':
