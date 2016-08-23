@@ -31,17 +31,11 @@ class SKU(BaseModel):
     status =  models.IntegerField(choices=SKU_STATUS_CHOICE, default=enable)
     objects =  SKUManager()
 
-    # an hack for discount
-    # def __setattr__(self, attrname, val):
-    #     # if attrname == 'discount':
-    #     #     self.promo_price = self.origin_price * val
-    #     super(SKU, self).__setattr__(attrname, val)
 
-
-    # def get_discount_rate(self):
-    #     if self.origin_price == 0  or self.promo_price == 0 :
-    #         return 1
-    #     return self.promo_price/(self.origin_price*1.0)
+    def get_discount_rate(self):
+        if self.origin_price == 0  or self.promo_price == 0 :
+            return 1
+        return self.promo_price/(self.origin_price*1.0)
 
 
     @property
