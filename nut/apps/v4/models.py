@@ -31,7 +31,7 @@ class APIUser(GKUser):
     def fans_list(self):
         # log.info("cache cache")
         # return self.fans.all().values_list('follower_id', flat=True)
-        key_string = "user:fans:%s" % self.id
+        key_string = "user:v4:fans:%s" % self.id
         key = md5(key_string.encode('utf-8')).hexdigest()
 
         res = cache.get(key)
@@ -46,7 +46,7 @@ class APIUser(GKUser):
     @property
     def following_list(self):
         # log.info("cache cache")
-        key_string = "user_follow_%s" % self.id
+        key_string = "user:v4:following:%s" % self.id
         key = md5(key_string.encode('utf-8')).hexdigest()
 
         res = cache.get(key)
@@ -100,6 +100,7 @@ class APIUser(GKUser):
         res['dig_count'] = self.dig_count
         res['article_count'] = self.published_article_count
         res['authorized_author'] = self.is_authorized_author
+        res['authorized_seller'] = self.is_authorized_seller
 
         try:
             res['sina_screen_name'] = self.weibo.screen_name
@@ -177,25 +178,15 @@ class APIEntity(Entity):
         return res
 
     def v4_toDict(self, user_like_list=None):
-        # log.info(user_like_list)
         res = self.toDict()
         res.pop('id', None)
         res.pop('images', None)
         res.pop('user_id', None)
         res.pop('rate', None)
         res['entity_id'] = self.id
-        # res['item_id_list'] = ['54c21867a2128a0711d970da']
-        # res['price'] = "%s" % int(self.price)
-        # res['weight'] = 0
-        # res['score_count'] = 0
-        # res['mark_value'] = 0
-        # res['mark'] = "none"
         res['created_time'] = time.mktime(self.created_time.timetuple())
         res['updated_time'] = time.mktime(self.created_time.timetuple())
-        # res['novus_time'] = time.mktime(self.created_time.timetuple())
         res['creator_id'] = self.user_id
-        # res['old_root_category_id'] = 9
-        # res['old_category_id'] = 152
         res['total_score'] = 0
         res['like_already'] = 0
         if user_like_list and self.id in user_like_list:

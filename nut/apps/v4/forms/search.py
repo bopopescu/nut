@@ -1,6 +1,11 @@
 from apps.core.models import Entity, GKUser, Article
 from haystack.forms import SearchForm as haystackSearchForm
 
+from django.utils.log import getLogger
+
+log = getLogger('django')
+
+
 
 class APISearchForm(haystackSearchForm):
 
@@ -15,27 +20,34 @@ class APISearchForm(haystackSearchForm):
         entity_list = sqs.models(Entity).filter(content=self.cleaned_data['q']).order_by('-created_time')
         entities = list()
         for row in entity_list[:20]:
-            entities.append(
-                row.object.v3_toDict()
-            )
-            # print row.object
-        # print entities
+            try:
+                entities.append(
+                    row.object.v3_toDict()
+                )
+            except Exception as e:
+                log.info(e.message)
 
         # TODO Articles search result
         article_list = sqs.models(Article).filter(content=self.cleaned_data['q'], is_selection=True).order_by('-enter_selection_time')
         articles = list()
         for row in article_list[:10]:
-            articles.append(
-                row.object.v4_toDict()
-            )
+            try:
+                articles.append(
+                    row.object.v4_toDict()
+                )
+            except Exception as e:
+                log.error(e.message)
 
         # TODO Users search result
         user_list = sqs.models(GKUser).filter(content=self.cleaned_data['q']).order_by('date_joined')
         users = list()
         for row in user_list[:20]:
-            users.append(
-                row.object.v3_toDict()
-            )
+            try:
+                users.append(
+                    row.object.v3_toDict()
+                )
+            except Exception as e:
+                log.info(e.message)
 
         res.update(
             {

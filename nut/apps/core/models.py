@@ -6,7 +6,7 @@ import HTMLParser
 import hashlib
 import json
 import re
-from pprint import  pprint
+# from pprint import  pprint
 
 
 
@@ -37,7 +37,7 @@ from apps.core.extend.fields.listfield import ListObjectField
 from apps.web.utils.datatools import get_entity_list_from_article_content
 from apps.core.manager import *
 from apps.core.utils.text import truncate
-from apps.core.manager.account import  AuthorizedUserManager
+# from apps.core.manager.account import  AuthorizedUserManager
 from haystack.query import SearchQuerySet
 
 from apps.order.exceptions import CartException, OrderException, PaymentException
@@ -293,13 +293,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def entity_liked_categories(self):
-        # _entity_ids =  Entity_Like.objects.user_likes_id_list(user=self)
-        # _category_id_list = Entity.objects.using('slave').filter(id__in=_entity_ids)\
-        #                           .select_related('category__group')\
-        #                           .filter(status__gte=Entity.freeze)\
-        #                           .annotate(category_count=Count('category__group'))\
-        #                           .values_list('category__group', flat=True)
-
         _category_id_list = Entity_Like.objects.select_related('entity__category__group')\
                             .filter(user=self, entity__status__gte=Entity.freeze)\
                             .annotate(category_count=Count('entity__category__group'))\
@@ -532,7 +525,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
             except Exception as e :
                 # if exception happens
-                pprint(e)
+                # pprint(e)
                 log.error(e)
                 if new_order:
                     new_order.delete()
