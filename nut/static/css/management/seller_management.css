@@ -1712,10 +1712,8 @@ body.seller-management #seller_management_entity_price .sku-save-btn {
   text-align: center;
 }
 .checkout-management section.content-header .btn.all-orders-btn {
-  -webkit-transform: translateY(-4px);
-  -moz-transform: translateY(-4px);
-  -ms-transform: translateY(-4px);
-  -o-transform: translateY(-4px);
+  vertical-align: baseline;
+  outline: none;
   margin-left: 24px;
   width: 178px;
   height: 75px;

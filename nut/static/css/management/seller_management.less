@@ -349,8 +349,10 @@ body.seller-management{
   section.content-header{
     text-align: center;
     .btn.all-orders-btn{
-      //below is strange
-      .transform(translateY(-4px));
+      //below is to fix something strange
+      //.transform(translateY(-4px));
+      vertical-align: baseline;
+      outline: none;
       margin-left:24px;
       width:178px;
       height:75px;
