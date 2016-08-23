@@ -23,7 +23,6 @@
     </tr>
     </thead>
     <tbody>
-    {% if object_list %}
      {% for order in object_list %}
         <tr class="order-cell-header">
             <td colspan="5">
@@ -100,14 +99,13 @@
             {% endfor %}
              </tr>
         {% endif %}
-    {% endfor %}
-    {% else %}
+    {% empty %}
     <tr>
         <td colspan="5">
-            未找到符合条件的结构,请重新搜索!
+            未找到符合条件的结果,请重新搜索!
         </td>
     </tr>
-    {% endif %}
+    {% endfor %}
     </tbody>
 </table>
 
