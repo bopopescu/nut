@@ -67,7 +67,10 @@ class AllOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListVie
         if sort_by == 'created_datetime':
             qs = qs.order_by('status','-created_datetime')
             return qs
-
+    def get_context_data(self, **kwargs):
+        context = super(AllOrderListView, self).get_context_data(**kwargs)
+        context['status']=self.status
+        return context
 class SellerOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListView):
     default_sort_params = ('created_datetime', 'desc')
     paginator_class = ExtentPaginator
@@ -102,6 +105,7 @@ class SellerOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,List
         context = super(SellerOrderListView, self).get_context_data(**kwargs)
         context['input_value'] = self.request.GET.get('number')
         context['filter_input_value'] = self.request.GET.get('filtervalue','')
+        context['status']=self.status
         for order in context['object_list']:
             order_items = order.items.all()
             order.skus = [order_item.sku for order_item in order_items]
