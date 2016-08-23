@@ -14,9 +14,10 @@ class BaseModel(models.Model):
             value = getattr(self, attr)
             if value is None:
                 continue
-            # log.info(value)
-            d[attr] = "%s" % getattr(self, attr)
-        # log.info(d)
+            elif isinstance(value, dict):
+                d[attr] = getattr(self, attr)
+            else:
+                d[attr] = "%s" % getattr(self, attr)
         return d
 
     def pickToDict(self, *args):
