@@ -1712,14 +1712,15 @@ body.seller-management #seller_management_entity_price .sku-save-btn {
   text-align: center;
 }
 .checkout-management section.content-header .btn.all-orders-btn {
-  vertical-align: baseline;
-  outline: none;
   margin-left: 24px;
   width: 178px;
   height: 75px;
   line-height: 75px;
   padding: 0;
   font-size: 24px;
+  vertical-align: baseline;
+  outline: none;
+  box-shadow: none;
 }
 .checkout-management .order-search-wrapper input.guoku_search_input {
   width: 650px;
