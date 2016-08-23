@@ -79,6 +79,7 @@ class SellerOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,List
     def get_context_data(self, **kwargs):
         context = super(SellerOrderListView, self).get_context_data(**kwargs)
         context['input_value'] = self.request.GET.get('number')
+        context['filter_input_value'] = self.request.GET.get('filtervalue','')
         for order in context['object_list']:
             order_items = order.items.all()
             order.skus = [order_item.sku for order_item in order_items]
