@@ -13,6 +13,29 @@
             <i class="fa fa-list-ul"></i>
             全部订单
         </a>
+        <span style="margin-left:25px;margin-right:16px;">订单状态:</span>
+        <span class="dropdown-toggle order-status-dropdown-wrapper">
+            <a href="#" class="dropdown-toggle seller-mng-dropdown" data-toggle="dropdown"
+               aria-haspopup="false" role="button" aria-expanded="false">
+                {% if status == None %}
+                    全部
+                {% elif status == 'all' %}
+                    全部
+                {% elif status == "waiting_for_payment" %}
+                    待付款
+                {% elif status == "paid" %}
+                    已完成
+                {% endif %}
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu order-status-dropdown-menu" role="menu">
+                <li><a href="{{ current_path }}?status=all">全部</a></li>
+                <li class="divider"></li>
+                <li><a href="{{ current_path }}?status=waiting_for_payment">待付款</a></li>
+                <li class="divider"></li>
+                <li><a href="{{ current_path }}?status=paid">已完成</a></li>
+            </ul>
+        </span>
     </section>
         <section class="content">
         <div class="row">
