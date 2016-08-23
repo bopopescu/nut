@@ -16,6 +16,8 @@ class BaseModel(models.Model):
                 continue
             elif isinstance(value, dict):
                 d[attr] = getattr(self, attr)
+            elif isinstance(value, list):
+                d[attr] = getattr(self, attr)
             else:
                 d[attr] = "%s" % getattr(self, attr)
         return d
