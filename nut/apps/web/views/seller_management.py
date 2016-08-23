@@ -490,7 +490,7 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
     paginator_class = ExtentPaginator
     model = Order
     paginate_by = 10
-    template_name = 'web/seller_management/order_list.html'
+    template_name = 'web/seller_management/.html'
 
     def get_queryset(self):
         entities = self.request.user.entities.all()

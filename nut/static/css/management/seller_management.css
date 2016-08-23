@@ -1713,22 +1713,14 @@ body.seller-management #seller_management_entity_price .sku-save-btn {
 }
 .checkout-management section.content-header .btn.all-orders-btn {
   margin-left: 24px;
-  width: 178px;
-  height: 75px;
-  line-height: 75px;
+  width: 108px;
+  height: 50px;
+  line-height: 50px;
   padding: 0;
-  font-size: 24px;
   vertical-align: baseline;
   outline: none;
   box-shadow: none;
 }
 .checkout-management .order-search-wrapper input.guoku_search_input {
-  width: 650px;
-  height: 75px;
-  font-size: 24px;
   padding-left: 24px;
-}
-.checkout-management .order-search-wrapper i {
-  font-size: 24px;
-  top: 28px;
 }
