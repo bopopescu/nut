@@ -40,10 +40,6 @@ from apps.core.utils.text import truncate
 from apps.core.manager.account import  AuthorizedUserManager
 from haystack.query import SearchQuerySet
 
-# from apps.order.manager.cart import CartItemManager
-# from apps.order.manager.order import OrderManager
-# from apps.order.manager.sku import SKUManager
-
 from apps.order.exceptions import CartException, OrderException, PaymentException
 
 log = getLogger('django')
