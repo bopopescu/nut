@@ -6,7 +6,7 @@
     <div class="container">
         <section class="content-header">
         <div class="order-search-wrapper">
-             <input class="guoku_search_input" data-search-field="number" type="text" {% if input_value %}placeholder="订单号搜索">
+             <input class="guoku_search_input" data-search-field="number" type="text" placeholder="订单号搜索" value="{% if input_value %}{{ input_value }}{% else %}订单号搜索{% endif %}">
              <i class="fa fa-search"></i>
         </div>
     </section>
