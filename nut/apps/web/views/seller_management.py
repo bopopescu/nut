@@ -1,7 +1,7 @@
 # encoding: utf-8
 import json
 from django.views.decorators.csrf import csrf_exempt
-from apps.core.forms.entity import EntityImageForm, AddEntityForm, AddEntityFormForSeller
+from apps.core.forms.entity import EntityImageForm, AddEntityForm, AddEntityFormForSeller, CreateEntityFormForSeller
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.forms.entity import EditEntityForm
 from apps.core.mixins.views import FilterMixin, SortMixin
@@ -595,7 +595,8 @@ class SellerManagementSkuSave(AjaxResponseMixin, JSONResponseMixin, View):
 class SellerManagementImportEntity(Import_entity):
     def __init__(self):
         super(SellerManagementImportEntity, self).__init__(template='web/seller_management/import_entity.html',
-                                                               entity_edit_url='web_seller_management_entity_edit')
+                                                           entity_edit_url='web_seller_management_entity_edit',
+                                                           form=CreateEntityFormForSeller)
 
 
 def get_time_range():

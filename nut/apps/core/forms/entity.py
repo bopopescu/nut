@@ -499,6 +499,7 @@ class CreateEntityForm(forms.Form):
         # log.info(self.initial['shop_nick'])
         _entity_hash = cal_entity_hash(
             _origin_id + _title + self.initial['shop_nick'])
+        _shop_link = self.initial.get('shop_link', None)
         log.info("main image %s" % _main_image)
 
         images = self.initial['thumb_images']
@@ -542,6 +543,7 @@ class CreateEntityForm(forms.Form):
                 link="http://item.taobao.com/item.htm?id=%s" % _origin_id,
                 price=_price,
                 default=True,
+                shop_link=_shop_link
             )
         elif "jd.com" in _origin_source:
             Buy_Link.objects.create(
@@ -576,6 +578,12 @@ class CreateEntityForm(forms.Form):
                 default=True,
             )
         return entity
+
+class CreateEntityFormForSeller(CreateEntityForm):
+    def __init__(self, request, *args, **kwargs):
+        super(CreateEntityFormForSeller, self).__init__(request,*args, **kwargs)
+        del self.fields['content'], self.fields['status'], self.fields['user']
+
 
 class AddEntityForm(forms.Form):
     title = forms.CharField(
