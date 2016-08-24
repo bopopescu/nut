@@ -141,6 +141,8 @@ define(['libs/Class', 'jquery', 'subapp/account'],
                                 $html.insertBefore(form);
                       //                }
                                 commentText.val('');
+                                replyToUser = '';
+                                replyToComment = '';
                             } catch (err) {
                                 var html = $(result);
                                 that.accountApp.modalSignIn(html);
