@@ -143,51 +143,7 @@ class IsAuthorizedSeller(UserPassesTestMixin):
     def no_permissions_fail(self, request=None):
         raise Http404
 
-class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
-    default_sort_params = ('dnumber','desc')
-    http_method_names = ['get']
-    paginator_class = ExtentPaginator
-    model = Order
-    paginate_by = 10
-    template_name = 'web/seller_management/order_list.html'
 
-    def get_queryset(self):
-        entities = self.request.user.entities.all()
-        order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
-        order_ids = order_items.values_list('order')
-        qs = Order.objects.filter(id__in=order_ids)
-        return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
-
-    def filter_queryset(self, qs, filter_param):
-        filter_field, filter_value = filter_param
-        #if filter_field == 'id':
-            #qs = qs.filter(id=filter_value.strip())
-        if filter_field == 'number':
-            qs = qs.filter(number__icontains=filter_value.strip())
-        else:
-            pass
-        return qs
-    def sort_queryset(self, qs, sort_by, order):
-        if sort_by == 'dprice':
-            qs = sorted(qs, key=lambda x: x.order_total_value, reverse=True)
-        elif sort_by == 'uprice':
-            qs = sorted(qs, key=lambda x: x.order_total_value, reverse=False)
-        elif sort_by == 'dnumber':
-            qs = qs.order_by('-number')
-        elif sort_by == 'unumber':
-            qs = qs.order_by('number')
-        elif sort_by == 'status':
-            qs =  qs.order_by('-status')
-        else:
-            pass
-        return qs
-
-    def get_context_data(self, **kwargs):
-        context = super(SellerManagementOrders, self).get_context_data(**kwargs)
-        for order in context['object_list']:
-            order_items = order.items.all()
-            order.skus = [order_item.sku for order_item in order_items]
-        return context
 
 class SellerManagementAddEntity(Add_local):
     template_name = 'web/seller_management/add_entity.html'

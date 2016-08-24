@@ -41,15 +41,50 @@ class IndexView(MyOrderUserPassesTestMixin,ListView):
     def get_queryset(self):
         return Order.objects.none()
 
+class AllOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListView):
+    default_sort_params = ('created_datetime', 'desc')
+    paginator_class = ExtentPaginator
+    model = Order
+    paginate_by = 10
+    template_name = 'web/checkout/allorder.html'
+    def get(self,request,*args,**kwargs):
+        self.object_list = self.get_queryset()
+        number=self.request.GET.get('filtervalue','')
+        if number:
+            return HttpResponseRedirect(reverse('checkout_order_list')+'?number='+str(number))
+        else:
+            context = self.get_context_data()
+            return self.render_to_response(context)
+    def get_queryset(self):
+        qs = Order.objects.all()
+        self.status = self.request.GET.get('status')
+        if self.status == 'waiting_for_payment':
+            qs = qs.filter(status__in=[1, 2])
+        elif self.status == 'paid':
+            qs = qs.filter(status__in=[3,4,5,6,7,8])
+        return self.sort_queryset(qs, *self.get_sort_params())
 
+    def sort_queryset(self, qs, sort_by, order):
+        if sort_by == 'created_datetime':
+            qs = qs.order_by('status','-created_datetime')
+            return qs
+    def get_context_data(self, **kwargs):
+        context = super(AllOrderListView, self).get_context_data(**kwargs)
+        context['status']=self.status
+        return context
 class SellerOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListView):
-    default_sort_params = ('dnumber', 'desc')
+    default_sort_params = ('created_datetime', 'desc')
     paginator_class = ExtentPaginator
     model = Order
     paginate_by = 10
     template_name = 'web/checkout/orderlists.html'
     def get_queryset(self):
         qs = Order.objects.all()
+        self.status = self.request.GET.get('status')
+        if self.status == 'waiting_for_payment':
+            qs = qs.filter(status__in=[1, 2])
+        elif self.status == 'paid':
+            qs = qs.filter(status__in=[3,4,5,6,7,8])
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
     def filter_queryset(self, qs, filter_param):
@@ -57,28 +92,20 @@ class SellerOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,List
         filter_field, filter_value = filter_param
         #if filter_field == 'id':
             #qs = qs.filter(id=filter_value.strip())
-        if filter_field == 'number':
+        if filter_value and filter_value!='all':
             qs = qs.filter(number__icontains=filter_value.strip())
         elif order_number:
             qs=qs.filter(number__icontains=order_number.strip())
         return qs
     def sort_queryset(self, qs, sort_by, order):
-        if sort_by == 'dprice':
-            qs = sorted(qs, key=lambda x: x.order_total_value, reverse=True)
-        elif sort_by == 'uprice':
-            qs = sorted(qs, key=lambda x: x.order_total_value, reverse=False)
-        elif sort_by == 'dnumber':
-            qs = qs.order_by('-number')
-        elif sort_by == 'unumber':
-            qs = qs.order_by('number')
-        elif sort_by == 'status':
-            qs =  qs.order_by('-status')
-        else:
-            pass
+        if sort_by == 'created_datetime':
+            qs = qs.order_by('status','-created_datetime')
         return qs
-
     def get_context_data(self, **kwargs):
         context = super(SellerOrderListView, self).get_context_data(**kwargs)
+        context['input_value'] = self.request.GET.get('number')
+        context['filter_input_value'] = self.request.GET.get('filtervalue','')
+        context['status']=self.status
         for order in context['object_list']:
             order_items = order.items.all()
             order.skus = [order_item.sku for order_item in order_items]
@@ -93,38 +120,6 @@ class SellerOrderDeleteView(MyOrderUserPassesTestMixin,DeleteView):
     def get_success_url(self):
         return reverse('checkout_order_list')
 
-class SellerOrderDetailView(MyOrderUserPassesTestMixin,DetailView):
-    pk_url_kwarg = 'order_number'
-    context_object_name = 'order'
-    model = Order
-    http_method_names = ['get']
-    paginator_class = ExtentPaginator
-    paginate_by = 10
-    template_name = 'web/checkout/my_order_detail.html'
-
-    def render_to_response(self, context, **response_kwargs):
-        response_kwargs.setdefault('content_type', self.content_type)
-        if self.request.GET.get('paid', False):
-            if self.status == 1:
-                context['order'].set_paid()
-            return HttpResponseRedirect(reverse('checkout_order_list'))
-        return self.response_class(
-            request = self.request,
-            template = self.get_template_names(),
-            context = context,
-            **response_kwargs
-        )
-    def get_context_data(self, **kwargs):
-        self.order_number = self.kwargs.get('order_number')
-        context = super(SellerOrderDetailView, self).get_context_data(**kwargs)
-        self.status=context['order'].status
-        context['order_item'] = context['order'].items.all()
-        #context['order_item'] = context['order'].items.all()
-        context['order_number'] = self.order_number
-        context['promo_total_price'] = context['order'].promo_total_price
-        context['origin_total_price'] = context['order'].grand_total_price
-        context['repetition'] = 0
-        return context
 
 class CheckoutView(MyOrderUserPassesTestMixin, AjaxResponseMixin,UpdateView):
     model = Order

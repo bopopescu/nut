@@ -6,14 +6,14 @@
     <div class="container">
         <section class="content-header">
         <div class="order-search-wrapper">
-             <input class="guoku_search_input" data-search-field="number" type="text" placeholder="订单号搜索" value="{% if filter_input_value %}{{ filter_input_value }}{% elif input_value %}{{ input_value }}{% endif %}">
+             <input class="guoku_search_input" data-search-field="number" type="text" placeholder="订单号搜索">
              <i class="fa fa-search"></i>
         </div>
         <a class="btn seller-mng-btn all-orders-btn" href="{% url 'checkout_index' %}">
-            <i class="fa fa-list-ul"></i>
-            全部订单
+        <i class="fa fa-list-ul"></i>
+        全部订单
         </a>
-        <span style="margin-left:25px;margin-right:16px;">订单状态:</span>
+         <span style="margin-left:25px;margin-right:16px;">订单状态:</span>
         <span class="dropdown-toggle order-status-dropdown-wrapper">
             <a href="#" class="dropdown-toggle seller-mng-dropdown" data-toggle="dropdown"
                aria-haspopup="false" role="button" aria-expanded="false">
@@ -29,11 +29,11 @@
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu order-status-dropdown-menu" role="menu">
-                <li><a href="{{ current_path }}?filtervalue={% if filter_input_value %}{{ filter_input_value }}{% elif input_value %}{{ input_value }}{% endif %}&status=all">全部</a></li>
+                <li><a href="{{ current_path }}?status=all">全部</a></li>
                 <li class="divider"></li>
-                <li><a href="{{ current_path }}?filtervalue={% if filter_input_value %}{{ filter_input_value }}{% elif input_value %}{{ input_value }}{% endif %}&status=waiting_for_payment">待付款</a></li>
+                <li><a href="{{ current_path }}?status=waiting_for_payment">待付款</a></li>
                 <li class="divider"></li>
-                <li><a href="{{ current_path }}?filtervalue={% if filter_input_value %}{{ filter_input_value }}{% elif input_value %}{{ input_value }}{% endif %}&status=paid">已完成</a></li>
+                <li><a href="{{ current_path }}?status=paid">已完成</a></li>
             </ul>
         </span>
     </section>
@@ -42,13 +42,10 @@
             <div class="col-xs-12">
                 <div class="new-box">
                     <div class="new-box-body">
-                        {% include 'web/checkout/orderlists_table.html' %}
+                        {% include 'web/checkout/allorder_table.html' %}
                     </div>
                     <div class="box-footer">
-{#                        {% include "management/paginator.html" with objects=page_obj url=request.path %}#}
-                         <a href="{% url 'checkout_index' %}" class="new-blue-link">
-                            <i class="fa fa-caret-left"></i>&nbsp;&nbsp;返回
-                        </a>
+                        {% include "management/paginator.html" with objects=page_obj url=request.path %}
                     </div>
                 </div>
             </div>
