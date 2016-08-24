@@ -554,7 +554,6 @@ class CreateEntityForm(forms.Form):
                 link="http://item.jd.com/%s.html" % _origin_id,
                 price=_price,
                 default=True,
-                shop_link=_shop_link
             )
         # elif "booking.com" in _origin_source:
         #     _link = self.cleaned_data.get('cand_url')
