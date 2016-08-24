@@ -91,7 +91,7 @@ class SellerOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,List
         filter_field, filter_value = filter_param
         #if filter_field == 'id':
             #qs = qs.filter(id=filter_value.strip())
-        if filter_value:
+        if filter_value and filter_value!='all':
             qs = qs.filter(number__icontains=filter_value.strip())
         elif order_number:
             qs=qs.filter(number__icontains=order_number.strip())

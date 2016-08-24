@@ -6,7 +6,7 @@
     <div class="container">
         <section class="content-header">
         <div class="order-search-wrapper">
-             <input class="guoku_search_input" data-search-field="number" type="text" placeholder="订单号搜索" value="{% if filter_input_value %}{{ filter_input_value }}{% elif input_value %}{{ input_value }}{% else %}{% endif %}">
+             <input class="guoku_search_input" data-search-field="number" type="text" placeholder="订单号搜索" value="{% if filter_input_value %}{{ filter_input_value }}{% elif input_value %}{{ input_value }}{% endif %}">
              <i class="fa fa-search"></i>
         </div>
         <a class="btn seller-mng-btn all-orders-btn" href="{% url 'checkout_index' %}">
@@ -29,11 +29,11 @@
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu order-status-dropdown-menu" role="menu">
-                <li><a href="{{ current_path }}?filtervalue={{ filter_input_value }}&status=all">全部</a></li>
+                <li><a href="{{ current_path }}?filtervalue={% if filter_input_value %}{{ filter_input_value }}{% elif input_value %}{{ input_value }}{% endif %}&status=all">全部</a></li>
                 <li class="divider"></li>
-                <li><a href="{{ current_path }}?filtervalue={{ filter_input_value }}&status=waiting_for_payment">待付款</a></li>
+                <li><a href="{{ current_path }}?filtervalue={% if filter_input_value %}{{ filter_input_value }}{% elif input_value %}{{ input_value }}{% endif %}&status=waiting_for_payment">待付款</a></li>
                 <li class="divider"></li>
-                <li><a href="{{ current_path }}?filtervalue={{ filter_input_value }}&status=paid">已完成</a></li>
+                <li><a href="{{ current_path }}?filtervalue={% if filter_input_value %}{{ filter_input_value }}{% elif input_value %}{{ input_value }}{% endif %}&status=paid">已完成</a></li>
             </ul>
         </span>
     </section>
