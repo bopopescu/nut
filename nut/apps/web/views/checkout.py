@@ -49,8 +49,9 @@ class AllOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListVie
     def get(self,request,*args,**kwargs):
         self.object_list = self.get_queryset()
         number=self.request.GET.get('filtervalue','')
+        self.status=self.request.GET.get('status')
         if number:
-            return HttpResponseRedirect(reverse('checkout_order_list')+'?number='+str(number))
+            return HttpResponseRedirect(reverse('checkout_order_list')+'?number='+str(number)+'&status='+self.status)
         else:
             context = self.get_context_data()
             return self.render_to_response(context)
@@ -70,6 +71,11 @@ class AllOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListVie
     def get_context_data(self, **kwargs):
         context = super(AllOrderListView, self).get_context_data(**kwargs)
         context['status']=self.status
+        for order in context['object_list']:
+            order_items = order.items.all()
+            order.skus = [order_item.sku for order_item in order_items]
+            order.count=order.items.all().count()
+            order.itemslist=order.items.all()[1:order.count]
         return context
 class SellerOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListView):
     default_sort_params = ('created_datetime', 'desc')
