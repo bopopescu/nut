@@ -58,9 +58,9 @@ class AllOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListVie
         qs = Order.objects.all()
         self.status = self.request.GET.get('status')
         if self.status == 'waiting_for_payment':
-            qs = qs.filter(status__in=[1, 2, 4])
+            qs = qs.filter(status__in=[1, 2])
         elif self.status == 'paid':
-            qs = qs.filter(status=3)
+            qs = qs.filter(status__in=[3,4,5,6,7,8])
         return self.sort_queryset(qs, *self.get_sort_params())
 
     def sort_queryset(self, qs, sort_by, order):
@@ -81,9 +81,9 @@ class SellerOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,List
         qs = Order.objects.all()
         self.status = self.request.GET.get('status')
         if self.status == 'waiting_for_payment':
-            qs = qs.filter(status__in=[1, 2, 4])
+            qs = qs.filter(status__in=[1, 2])
         elif self.status == 'paid':
-            qs = qs.filter(status=3)
+            qs = qs.filter(status__in=[3,4,5,6,7,8])
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
     def filter_queryset(self, qs, filter_param):
@@ -91,7 +91,7 @@ class SellerOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,List
         filter_field, filter_value = filter_param
         #if filter_field == 'id':
             #qs = qs.filter(id=filter_value.strip())
-        if filter_field == 'number':
+        if filter_value:
             qs = qs.filter(number__icontains=filter_value.strip())
         elif order_number:
             qs=qs.filter(number__icontains=order_number.strip())
@@ -100,7 +100,6 @@ class SellerOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,List
         if sort_by == 'created_datetime':
             qs = qs.order_by('status','-created_datetime')
         return qs
-
     def get_context_data(self, **kwargs):
         context = super(SellerOrderListView, self).get_context_data(**kwargs)
         context['input_value'] = self.request.GET.get('number')
