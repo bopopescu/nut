@@ -13,12 +13,12 @@ class KeywordListView(ListView):
     def get_queryset(self):
         return RobotDic.objects.all().order_by('-created_datetime')
 
+
 class KeywordCreateView(CreateView):
     form_class = BaseKeywordForm
     model = RobotDic
     template_name = 'management/wechat/management_create.html'
     success_url = reverse_lazy('management_wechat_keyword_list')
-
 
 
 class KeywordDeleteView(DeleteView):
