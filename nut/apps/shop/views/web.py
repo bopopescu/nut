@@ -5,6 +5,8 @@ from django.core.urlresolvers import reverse_lazy
 from apps.core.models import GKUser , Article , Entity
 from apps.shop.models import StorePageBanners, StorePageRecommend
 from apps.shop.models import Shop
+from apps.web.views.design_week import get_auth_seller_entities
+
 
 class SellerStoreListView(ListView):
     template_name = 'web/shop/sellers.html'
@@ -56,7 +58,7 @@ class SellerStoreListView(ListView):
         return recent_articles
 
     def get_recent_seller_entities(self):
-        return Entity.objects.random_seller_entities()
+        return get_auth_seller_entities()[:18]
 
 
 

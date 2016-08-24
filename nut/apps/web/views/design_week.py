@@ -1,3 +1,4 @@
+# encoding: utf-8
 from django.http import HttpResponseRedirect
 from haystack.query import SearchQuerySet
 from rest_framework import serializers
@@ -42,17 +43,19 @@ class DesignWeekViewSet(viewsets.ReadOnlyModelViewSet):
 
 
     def get_queryset(self):
-        auth_seller = GKUser.objects.authorized_seller()
-        shop_link_list = Shop.objects.filter(owner__in=list(auth_seller)).values_list('common_shop_link', flat=True)
         # Selection_Entity.objects.filter(entity__user__in=list(auth_seller)).order_by('pub_time')
         # entities = Entity.objects.filter(user__in=list(auth_seller), status=1)
-        entities = Entity.objects.filter(buy_links__shop_link__in=list(shop_link_list), status=1)
         # obj = SearchQuerySet().models(Entity).filter(is_in_selection=True, user__in=auth_seller).order_by('-enter_selection_time')
         # entity_ids = obj.values_list('entity_id', flat=True)
         # qs = Entity.objects.filter(id__in=entity_ids)
-        return entities
+        return get_auth_seller_entities()
 
-
+# 归属于认证卖家的商品
+def get_auth_seller_entities():
+    auth_seller = GKUser.objects.authorized_seller()
+    shop_link_list = Shop.objects.filter(owner__in=list(auth_seller)).values_list('common_shop_link', flat=True)
+    entities = Entity.objects.filter(buy_links__shop_link__in=list(shop_link_list), status=1)
+    return entities
 
 
     def get_pagination_serializer(self, page):
