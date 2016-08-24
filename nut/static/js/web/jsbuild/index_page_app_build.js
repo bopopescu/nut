@@ -4641,6 +4641,7 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
             );
         },
         postSuccess:function(result){
+            console.log(this.currentRequestcategoryName + 'post request success.');
             var status = parseInt(result.status);
             if(status == 1){
                  this.showContent($(result.data));
@@ -4656,6 +4657,7 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
             console.log('ajax data failed');
         },
         showContent: function(elemList){
+            console.log(this.currentRequestcategoryName +'ajax data success');
             this.$entity_container.empty();
             this.$entity_container.append(elemList);
             this.init_slick();
@@ -4665,6 +4667,8 @@ define('subapp/index/entity_category_tab',['jquery', 'subapp/index/selection_ent
             var result_category = result.category;
             if(!this.entityCache.getItem(requestCategory) && requestCategory == result_category){
                 this.entityCache.setItem(requestCategory,result.data);
+            }else{
+                console.log('current hover category:'+requestCategory+',response category:'+result_category);
             }
         }
     });
