@@ -46,6 +46,7 @@ class ContentTagQuerySet(models.query.QuerySet):
                     .values_list('tag__name', flat=True)
         return sorted(list(set(list(_tag_list))))
 
+
 class ContentTagManager(models.Manager):
 
     def user_tags_unique(self, _user):
@@ -150,7 +151,7 @@ class TagsQueryset(models.query.QuerySet):
                                                    .annotate(acount=Count('tag'))\
                                                    .order_by('-acount').distinct()[:50]
         tag_ids = [ctag.get('tag') for ctag in hot_content_tag_list]
-        random.shuffle(tag_ids)
+        # random.shuffle(tag_ids)
         return self.filter(id__in=tag_ids)
 
 
@@ -174,7 +175,8 @@ class TagsManager(models.Manager):
         tag_list = cache.get(key, None)
         if tag_list is None:
             tag_list = self.get_queryset().hot_article_tags()
-            cache.set(key,tag_list , 3600*24)
+            tag_list = random.sample(list(tag_list), 10)
+            cache.set(key, tag_list, 3600*24)
         return tag_list
 
     def top_article_tags(self):
@@ -184,7 +186,7 @@ class TagsManager(models.Manager):
         # tag_list = self.get_queryset().filter(isTopArticleTag=True)
         # content_tags = Content_Tags.objects.filter(tag__in=tag_list, target_content_type_id=31).group_by('target_object_id')
 
-        return tags
+        # return tags
 
 
 class Tags(BaseModel):

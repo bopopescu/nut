@@ -15,7 +15,9 @@ from django.shortcuts import render, render_to_response
 from django.shortcuts import get_object_or_404
 from apps.management.forms.sku import SKUForm,SwitchSkuStatusForm
 from apps.core.utils.http import SuccessJsonResponse
-from apps.core.models import SKU,Entity,Order
+from apps.core.models import Entity
+from apps.order.models import SKU,Order
+
 from django.template import RequestContext
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView,DetailView, View
 from django.http import Http404,HttpResponseNotAllowed
