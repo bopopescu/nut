@@ -1,4 +1,9 @@
-8. gk manage 
+3. SKU, Order ,CartItem, OrderItem inherted from BaseModel
+2. move BaseModel to independent file
+1. remove SKU, Order, CartItem dependency from core.models
+
+=============
+
 7. gk manage order list 
 6. tag page update
 --------
@@ -13,7 +18,7 @@ action :
     1. drop payment log table 
     
         DROP TABLE `core`.`payment_paymentlog`;
-        
+        悳v
     2. syncdb 
 
     

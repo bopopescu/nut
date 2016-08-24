@@ -76,6 +76,8 @@ nut/media/upload/
 
 
 
+dev_home.py
+
 
 nut/db.sqlite3
 
