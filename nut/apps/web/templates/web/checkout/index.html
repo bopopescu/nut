@@ -1,0 +1,23 @@
+{% extends 'web/checkout/checkout_base.html' %}
+{% load i18n %}
+{% load staticfiles i18n %}
+  {% block css %} <link rel="stylesheet" type="text/css" href="{% static 'css/management/seller_management.css' %}">{% endblock %}
+{% block body_class %}seller-management{% endblock %}
+{% block content %}
+    <section class="content-header">
+        <div class="order-search-wrapper">
+             <input class="guoku_search_input" data-search-field="number" type="text" placeholder="订单号搜索">
+             <i class="fa fa-search"></i>
+        </div>
+    </section>
+{% endblock %}
+
+{% block user_script %}
+    <script src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/management/util.js' %}"></script>
+    <script src="{% static 'js/management/moment.js' %}"></script>
+
+{#     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>#}
+    <script src="{% static 'js/management/manage_search.js' %}" type="application/javascript"></script>
+    <script src="{% static 'js/management/seller_management/entity_save.js' %}" type="application/javascript"></script>
+{% endblock %}
