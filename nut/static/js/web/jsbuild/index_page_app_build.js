@@ -1478,7 +1478,7 @@ define('subapp/topmenu',['bootstrap',
             this.scrollTop = null;
             this.lastScrollTop = null;
             this.read = this.write = null;
-            this.initHiddenBottomAd();
+            //this.initHiddenBottomAd();
             this.setupScrollMenu();
             this.checkSNSBindVisit();
             this.checkEventRead();
@@ -1566,20 +1566,20 @@ define('subapp/topmenu',['bootstrap',
 
             if(this.lastScrollTop > this.scrollTop){
                 this.showHeader();
-                this.showBottomAd();
+                //this.showBottomAd();
             }else{
                 if (this.scrollTop < 140){
                     this.showHeader();
-                    this.showBottomAd();
+                    //this.showBottomAd();
                 }else{
                      this.hideHeader(this.scrollTop);
-                    this.hiddenBottomAd();
+                    //this.hiddenBottomAd();
                 }
 
             }
             if(this.hiddenLeftCondition > this.hiddenRightCondition){
                 this.hideHeader();
-                 this.hiddenBottomAd();
+                 //this.hiddenBottomAd();
             }
 
             this.read = null;
@@ -1592,21 +1592,21 @@ define('subapp/topmenu',['bootstrap',
              var testUrl = /articles\/\d+/.test(location.href);
              return testUrl;
         },
-        initHiddenBottomAd:function(){
-            if(this.checkArticleDetailUrl){
-                 $('.bottom-ad').removeClass('showing');
-            }
-        },
-        showBottomAd:function(){
-            if(!this.checkArticleDetailUrl()){
-                 $('.bottom-ad').addClass('showing');
-            }
-        },
-        hiddenBottomAd:function(){
-            if(!this.checkArticleDetailUrl){
-                 $('.bottom-ad').removeClass('showing');
-            }
-        },
+        //initHiddenBottomAd:function(){
+        //    if(this.checkArticleDetailUrl){
+        //         $('.bottom-ad').removeClass('showing');
+        //    }
+        //},
+        //showBottomAd:function(){
+        //    if(!this.checkArticleDetailUrl()){
+        //         $('.bottom-ad').addClass('showing');
+        //    }
+        //},
+        //hiddenBottomAd:function(){
+        //    if(!this.checkArticleDetailUrl){
+        //         $('.bottom-ad').removeClass('showing');
+        //    }
+        //},
         showHeader: function(){
             //console.log('show header');
             //this.$menu.removeClass('hidden-header');
