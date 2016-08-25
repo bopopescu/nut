@@ -52,7 +52,10 @@ class AllOrderListView(MyOrderUserPassesTestMixin,FilterMixin, SortMixin,ListVie
         number=self.request.GET.get('filtervalue','')
         self.status=self.request.GET.get('status')
         if number:
-            return HttpResponseRedirect(reverse('checkout_order_list')+'?number='+str(number)+'&status='+self.status)
+            if self.status:
+                return HttpResponseRedirect(reverse('checkout_order_list')+'?number='+str(number)+'&status='+self.status)
+            else:
+                return HttpResponseRedirect(reverse('checkout_order_list')+'?number='+str(number))
         else:
             context = self.get_context_data()
             return self.render_to_response(context)

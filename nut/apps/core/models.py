@@ -303,7 +303,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def recent_likes(self):
-        rlikes = Entity_Like.objects.active_entity_likes().filter(user=self).order_by()
+        rlikes = Entity_Like.objects.active_entity_likes().filter(user=self).order_by('-created_time')
         return rlikes[:3]
 
 
@@ -328,7 +328,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             res.pop('date_joined', None)
             res.pop('is_admin', None)
             res.pop('is_superuser', None)
-
             res['user_id'] = self.id
             res['is_censor'] = False
 
