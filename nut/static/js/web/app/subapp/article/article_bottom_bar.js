@@ -23,7 +23,13 @@ define([
             var that = this;
             if (!this.read){
                 this.read = fastdom.read(function(){
+                    if($('#main_article').length){
+                          that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
+                    }
                     that.scrollTop = $(window).scrollTop();
+                    that.screenHeight = window.screen.height;
+                    that.hiddenLeftCondition = that.screenHeight + that.scrollTop;
+                    that.hiddenRightCondition = that.articleHeight + 102;
                 });
             }
 
@@ -38,7 +44,7 @@ define([
             if (_.isNull(this.scrollTop)) {
                 return ;
             }
-            
+
             if (_.isNull(this.lastScrollTop)){
                 this.lastScrollTop = this.scrollTop;
                 return ;
@@ -52,7 +58,6 @@ define([
                 }else{
                      this.hideArticleBottomBar(this.scrollTop);
                 }
-
             }
             if(this.hiddenLeftCondition > this.hiddenRightCondition){
                 this.hideArticleBottomBar();
