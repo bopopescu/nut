@@ -19,7 +19,7 @@ action :
     1. drop payment log table 
     
         DROP TABLE `core`.`payment_paymentlog`;
-        悳v
+        
     2. syncdb 
 
     
