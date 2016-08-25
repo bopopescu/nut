@@ -78,6 +78,9 @@ define(['bootstrap',
             if (!this.read){
                 this.read = fastdom.read(function(){
                     that.scrollTop = $(window).scrollTop();
+                    if($('#guoku_main_nav').length){
+                         that.fixMenuCondition = $('#guoku_main_nav')[0].getBoundingClientRect().height - 50;
+                    }
                 });
             }
 
