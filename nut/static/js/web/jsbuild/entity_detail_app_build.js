@@ -915,6 +915,99 @@ define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class,
 
     return TopAd;
 });
+define('subapp/bottom_ad/bottom_ad',[
+        'libs/Class',
+        'jquery',
+        'fastdom',
+        'cookie'
+    ],
+    function(Class,$,fastdom,cookie){
+
+    var BottomAd = Class.extend({
+        init: function(){
+            console.log('bottom ad begin');
+
+            this.scrollTop = null;
+            this.lastScrollTop = null;
+            this.read = this.write = null;
+            this.initHiddenBottomAd();
+            this.setupBottomCloseButton();
+            this.setupScroll();
+
+        },
+        setupBottomCloseButton: function(){
+            $('.bottom-ad .close-button').click(function(){
+                $('.bottom-ad').addClass('hidden');
+            });
+        },
+        setupScroll: function(){
+            $(window).scroll(this.handleBottomAdMove.bind(this));
+        },
+        handleBottomAdMove:function(){
+            var that = this;
+            if (!this.read){
+                this.read = fastdom.read(function(){
+                    that.scrollTop = $(window).scrollTop();
+                });
+            }
+
+            if(this.write) {
+                fastdom.clear(this.write);
+            }
+
+            this.write = fastdom.write(this.moveBottomAd.bind(this));
+        },
+        moveBottomAd:function(){
+
+            if (_.isNull(this.scrollTop)) {
+                return ;
+            }
+
+            if (_.isNull(this.lastScrollTop)){
+                this.lastScrollTop = this.scrollTop;
+                return ;
+            }
+
+            if(this.lastScrollTop > this.scrollTop){
+                this.showBottomAd();
+            }else{
+                if (this.scrollTop < 140){
+                    this.showBottomAd();
+                }else{
+                    this.hiddenBottomAd();
+                }
+
+            }
+            this.read = null;
+            this.write= null;
+            this.lastScrollTop = this.scrollTop;
+        },
+
+
+        checkArticleDetailUrl:function(){
+             var testUrl = /articles\/\d+/.test(location.href);
+             return testUrl;
+        },
+        initHiddenBottomAd:function(){
+            if(this.checkArticleDetailUrl){
+                 $('.bottom-ad').removeClass('showing');
+            }
+        },
+        showBottomAd:function(){
+            if(!this.checkArticleDetailUrl()){
+                 $('.bottom-ad').addClass('showing');
+            }
+        },
+        hiddenBottomAd:function(){
+            if(!this.checkArticleDetailUrl){
+                 $('.bottom-ad').removeClass('showing');
+            }
+        }
+    });
+
+    return  BottomAd;
+
+});
 /**
  * FastDom
  *
@@ -1461,9 +1554,10 @@ define('subapp/topmenu',['bootstrap',
         'fastdom',
         'cookie',
         'subapp/top_ad/top_ad',
+        'subapp/bottom_ad/bottom_ad',
         'subapp/top_notification/top_notification'
     ],
-    function(boot, Class,_,$,fastdom,cookie,TopAd,TopNotification){
+    function(boot, Class,_,$,fastdom,cookie,TopAd,BottomAd,TopNotification){
 
     // cookie is a shim resource , it will attch to jquery objects.
 
@@ -1491,20 +1585,14 @@ define('subapp/topmenu',['bootstrap',
             this.scrollTop = null;
             this.lastScrollTop = null;
             this.read = this.write = null;
-            this.initHiddenBottomAd();
             this.setupScrollMenu();
             this.checkSNSBindVisit();
             this.checkEventRead();
-            //this.topAd = new TopAd();
+            this.bottomAd = new BottomAd();
             this.topNotification = new TopNotification();
-            this.setupBottomCloseButton();
 
         },
-        setupBottomCloseButton: function(){
-            $('.bottom-ad .close-button').click(function(){
-                $('.bottom-ad').addClass('hidden');
-            });
-        },
+
         checkEventRead:function(){
             // add by an , for event link status check , remove the red dot if event is read.
             // the key is defined in 2 places!  DRY...
@@ -1539,17 +1627,9 @@ define('subapp/topmenu',['bootstrap',
             if (!this.read){
                 this.read = fastdom.read(function(){
                     that.scrollTop = $(window).scrollTop();
-                    that.screenHeight = window.screen.height;
                     if($('#guoku_main_nav').length){
                          that.fixMenuCondition = $('#guoku_main_nav')[0].getBoundingClientRect().height - 50;
                     }
-                    if($('#main_article').length){
-                          that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
-                    }
-                    that.pageHeight = document.body.scrollHeight;
-                    that.hiddenLeftCondition = that.screenHeight + that.scrollTop;
-                    that.hiddenRightCondition = that.articleHeight + 102;
-
                 });
             }
 
@@ -1576,68 +1656,25 @@ define('subapp/topmenu',['bootstrap',
                 this.lastScrollTop = this.scrollTop;
                 return ;
             }
-
             if(this.lastScrollTop > this.scrollTop){
-                this.showHeader();
-                this.showBottomAd();
+                this.showRoundLink();
             }else{
-                if (this.scrollTop < 140){
-                    this.showHeader();
-                    this.showBottomAd();
+                if(this.scrollTop < 140){
+                    this.showRoundLink();
                 }else{
-                     this.hideHeader(this.scrollTop);
-                    this.hiddenBottomAd();
+                    this.hideRoundLink();
                 }
-
-            }
-            if(this.hiddenLeftCondition > this.hiddenRightCondition){
-                this.hideHeader();
-                 this.hiddenBottomAd();
             }
 
             this.read = null;
             this.write= null;
             this.lastScrollTop = this.scrollTop;
         },
-
-
-        checkArticleDetailUrl:function(){
-             var testUrl = /articles\/\d+/.test(location.href);
-             return testUrl;
+        showRoundLink:function(){
+              $('.round-link').show();
         },
-        initHiddenBottomAd:function(){
-            if(this.checkArticleDetailUrl){
-                 $('.bottom-ad').removeClass('showing');
-            }
-        },
-        showBottomAd:function(){
-            if(!this.checkArticleDetailUrl()){
-                 $('.bottom-ad').addClass('showing');
-            }
-        },
-        hiddenBottomAd:function(){
-            if(!this.checkArticleDetailUrl){
-                 $('.bottom-ad').removeClass('showing');
-            }
-        },
-        showHeader: function(){
-            //console.log('show header');
-            //this.$menu.removeClass('hidden-header');
-            //this.$menu.addClass('shown-header');
-            $('.round-link').show();
-            $('.bottom-article-share-wrapper').removeClass('hidden-animation');
-
-            //console.log((new Date()).getMilliseconds());
-
-        },
-        hideHeader: function(){
-            //console.log('hideHeader');
-            //this.$menu.removeClass('shown-header');
-            //this.$menu.addClass('hidden-header');
-            $('.round-link').hide();
-            $('.bottom-article-share-wrapper').addClass('hidden-animation');
-
-            //console.log((new Date()).getMilliseconds());
+        hideRoundLink:function(){
+             $('.round-link').hide();
         },
         fixMenu:function(){
             this.$menu.addClass('fix-new-index-navbar');
@@ -1852,7 +1889,7 @@ define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
         init: function(){
             $('#selection, #discover_entity_list, #category-entity-list, #tag-entity-list ,.search-result-list,.authorized-seller-body,.search-entity-item,#hot-entity-list').on('click' ,'.btn-like, .like-action', this.handleLike.bind(this));
             $('.guoku-button .like-action').on('click', this.handleLike.bind(this));
-            $('.new-index-page').on('click','.new-btn-like',this.handleLike.bind(this));
+            $('.new-index-page,.tag-page-container').on('click','.new-btn-like',this.handleLike.bind(this));
 
             console.log('app entity like functions');
             console.log(fastdom);
@@ -3571,7 +3608,6 @@ define('subapp/entity/entity_share',['jquery', 'libs/Class','underscore','bootbo
 
         initQrcodeImage: function(){
             var url = this.getShareUrl();
-
             new QRCode(document.getElementById('qr_code'),
                 {
                     text: url,

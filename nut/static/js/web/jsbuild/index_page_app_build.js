@@ -1643,12 +1643,26 @@ define('subapp/topmenu',['bootstrap',
                 this.lastScrollTop = this.scrollTop;
                 return ;
             }
+            if(this.lastScrollTop > this.scrollTop){
+                this.showRoundLink();
+            }else{
+                if(this.scrollTop < 140){
+                    this.showRoundLink();
+                }else{
+                    this.hideRoundLink();
+                }
+            }
 
             this.read = null;
             this.write= null;
             this.lastScrollTop = this.scrollTop;
         },
-
+        showRoundLink:function(){
+              $('.round-link').show();
+        },
+        hideRoundLink:function(){
+             $('.round-link').hide();
+        },
         fixMenu:function(){
             this.$menu.addClass('fix-new-index-navbar');
             if($('.top-search-wrapper').length){
