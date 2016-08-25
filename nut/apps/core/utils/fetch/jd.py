@@ -68,12 +68,18 @@ class JD():
 
     @property
     def cid(self):
-        cattag = self.soup.select("html body div.w div.breadcrumb span a")[1]
+        try:
+            cattag = self.soup.select("html body div.w div.breadcrumb span a")[1]
+        except:
+            cattag = self.soup.select("html body div.w div.crumb.fl.clearfix div a")[2]
         catlink = cattag.attrs['href']
         catstr = re.findall(r'\d+',catlink)
         category = [int(x) for x in catstr]
         # print category
         return category[-1]
+
+
+
 
     @property
     def shop_link(self):
@@ -91,8 +97,12 @@ class JD():
 
     @property
     def imgs(self):
+
         imgtags = self.soup.select("html body div.w div#product-intro \
                 div#preview div#spec-list div.spec-items ul li img")
+        if not imgtags:
+            imgtags = self.soup.find('div', class_='spec-items').find_all('img')
+
         imgs = []
 
         for tag in imgtags:
