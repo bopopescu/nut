@@ -5,6 +5,7 @@ require([
         'subapp/topmenu',
         'subapp/gotop',
 
+        'subapp/article/article_bottom_bar',
         'subapp/article/article_link_scroll',
         'subapp/articledig',
         'subapp/articlepagecounter',
@@ -29,6 +30,7 @@ require([
               Menu,
               GoTop,
 
+              ArticleBottomBar,
               ArticleLinkScroll,
               ArticleDig,
 
@@ -51,6 +53,7 @@ require([
         var page = new Page();
         var menu = new Menu();
         var goto = new GoTop();
+        var articleBottomBar = new ArticleBottomBar();
         var anchorScroller = new ArticleLinkScroll('.share-bt-list .remark-item .remark-info');
         var articleDig = new ArticleDig();
         var articlePageCounter = new ArticlePageCounter();

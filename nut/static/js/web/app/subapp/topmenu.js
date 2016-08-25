@@ -5,9 +5,10 @@ define(['bootstrap',
         'fastdom',
         'cookie',
         'subapp/top_ad/top_ad',
+        'subapp/bottom_ad/bottom_ad',
         'subapp/top_notification/top_notification'
     ],
-    function(boot, Class,_,$,fastdom,cookie,TopAd,TopNotification){
+    function(boot, Class,_,$,fastdom,cookie,TopAd,BottomAd,TopNotification){
 
     // cookie is a shim resource , it will attch to jquery objects.
 
@@ -35,20 +36,14 @@ define(['bootstrap',
             this.scrollTop = null;
             this.lastScrollTop = null;
             this.read = this.write = null;
-            //this.initHiddenBottomAd();
             this.setupScrollMenu();
             this.checkSNSBindVisit();
             this.checkEventRead();
-            //this.topAd = new TopAd();
+            this.bottomAd = new BottomAd();
             this.topNotification = new TopNotification();
-            this.setupBottomCloseButton();
 
         },
-        setupBottomCloseButton: function(){
-            $('.bottom-ad .close-button').click(function(){
-                $('.bottom-ad').addClass('hidden');
-            });
-        },
+
         checkEventRead:function(){
             // add by an , for event link status check , remove the red dot if event is read.
             // the key is defined in 2 places!  DRY...
@@ -83,17 +78,6 @@ define(['bootstrap',
             if (!this.read){
                 this.read = fastdom.read(function(){
                     that.scrollTop = $(window).scrollTop();
-                    that.screenHeight = window.screen.height;
-                    if($('#guoku_main_nav').length){
-                         that.fixMenuCondition = $('#guoku_main_nav')[0].getBoundingClientRect().height - 50;
-                    }
-                    if($('#main_article').length){
-                          that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
-                    }
-                    that.pageHeight = document.body.scrollHeight;
-                    that.hiddenLeftCondition = that.screenHeight + that.scrollTop;
-                    that.hiddenRightCondition = that.articleHeight + 102;
-
                 });
             }
 
@@ -121,68 +105,11 @@ define(['bootstrap',
                 return ;
             }
 
-            if(this.lastScrollTop > this.scrollTop){
-                this.showHeader();
-                //this.showBottomAd();
-            }else{
-                if (this.scrollTop < 140){
-                    this.showHeader();
-                    //this.showBottomAd();
-                }else{
-                     this.hideHeader(this.scrollTop);
-                    //this.hiddenBottomAd();
-                }
-
-            }
-            if(this.hiddenLeftCondition > this.hiddenRightCondition){
-                this.hideHeader();
-                 //this.hiddenBottomAd();
-            }
-
             this.read = null;
             this.write= null;
             this.lastScrollTop = this.scrollTop;
         },
 
-
-        checkArticleDetailUrl:function(){
-             var testUrl = /articles\/\d+/.test(location.href);
-             return testUrl;
-        },
-        //initHiddenBottomAd:function(){
-        //    if(this.checkArticleDetailUrl){
-        //         $('.bottom-ad').removeClass('showing');
-        //    }
-        //},
-        //showBottomAd:function(){
-        //    if(!this.checkArticleDetailUrl()){
-        //         $('.bottom-ad').addClass('showing');
-        //    }
-        //},
-        //hiddenBottomAd:function(){
-        //    if(!this.checkArticleDetailUrl){
-        //         $('.bottom-ad').removeClass('showing');
-        //    }
-        //},
-        showHeader: function(){
-            //console.log('show header');
-            //this.$menu.removeClass('hidden-header');
-            //this.$menu.addClass('shown-header');
-            $('.round-link').show();
-            $('.bottom-article-share-wrapper').removeClass('hidden-animation');
-
-            //console.log((new Date()).getMilliseconds());
-
-        },
-        hideHeader: function(){
-            //console.log('hideHeader');
-            //this.$menu.removeClass('shown-header');
-            //this.$menu.addClass('hidden-header');
-            $('.round-link').hide();
-            $('.bottom-article-share-wrapper').addClass('hidden-animation');
-
-            //console.log((new Date()).getMilliseconds());
-        },
         fixMenu:function(){
             this.$menu.addClass('fix-new-index-navbar');
             if($('.top-search-wrapper').length){
