@@ -77,7 +77,7 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
                                   )
 
     def get_queryset(self):
-        qs = self.request.user.entities.all()
+        qs = self.request.user.entities.all().filter(status__in=[0,1])
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
     def get_context_data(self, **kwargs):
