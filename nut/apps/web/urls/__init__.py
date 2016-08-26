@@ -136,7 +136,7 @@ urlpatterns += patterns(
 
 urlpatterns += patterns('',
             url(r'^captcha/', include('captcha.urls')),
-        )
+)
 
 
 

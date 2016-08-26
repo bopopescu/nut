@@ -1,7 +1,7 @@
 # encoding: utf-8
 import json
 from django.views.decorators.csrf import csrf_exempt
-from apps.core.forms.entity import EntityImageForm, AddEntityForm, AddEntityFormForSeller
+from apps.core.forms.entity import EntityImageForm, AddEntityForm, AddEntityFormForSeller, CreateEntityFormForSeller
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.forms.entity import EditEntityForm
 from apps.core.mixins.views import FilterMixin, SortMixin
@@ -143,51 +143,7 @@ class IsAuthorizedSeller(UserPassesTestMixin):
     def no_permissions_fail(self, request=None):
         raise Http404
 
-class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
-    default_sort_params = ('dnumber','desc')
-    http_method_names = ['get']
-    paginator_class = ExtentPaginator
-    model = Order
-    paginate_by = 10
-    template_name = 'web/seller_management/order_list.html'
 
-    def get_queryset(self):
-        entities = self.request.user.entities.all()
-        order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
-        order_ids = order_items.values_list('order')
-        qs = Order.objects.filter(id__in=order_ids)
-        return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
-
-    def filter_queryset(self, qs, filter_param):
-        filter_field, filter_value = filter_param
-        #if filter_field == 'id':
-            #qs = qs.filter(id=filter_value.strip())
-        if filter_field == 'number':
-            qs = qs.filter(number__icontains=filter_value.strip())
-        else:
-            pass
-        return qs
-    def sort_queryset(self, qs, sort_by, order):
-        if sort_by == 'dprice':
-            qs = sorted(qs, key=lambda x: x.order_total_value, reverse=True)
-        elif sort_by == 'uprice':
-            qs = sorted(qs, key=lambda x: x.order_total_value, reverse=False)
-        elif sort_by == 'dnumber':
-            qs = qs.order_by('-number')
-        elif sort_by == 'unumber':
-            qs = qs.order_by('number')
-        elif sort_by == 'status':
-            qs =  qs.order_by('-status')
-        else:
-            pass
-        return qs
-
-    def get_context_data(self, **kwargs):
-        context = super(SellerManagementOrders, self).get_context_data(**kwargs)
-        for order in context['object_list']:
-            order_items = order.items.all()
-            order.skus = [order_item.sku for order_item in order_items]
-        return context
 
 class SellerManagementAddEntity(Add_local):
     template_name = 'web/seller_management/add_entity.html'
@@ -639,7 +595,8 @@ class SellerManagementSkuSave(AjaxResponseMixin, JSONResponseMixin, View):
 class SellerManagementImportEntity(Import_entity):
     def __init__(self):
         super(SellerManagementImportEntity, self).__init__(template='web/seller_management/import_entity.html',
-                                                               entity_edit_url='web_seller_management_entity_edit')
+                                                           entity_edit_url='web_seller_management_entity_edit',
+                                                           form=CreateEntityFormForSeller)
 
 
 def get_time_range():
@@ -651,50 +608,49 @@ def get_time_range():
         today_end = datetime.now().strftime(TIME_FORMAT)
 
     return today_start, today_end
+
 from django.db import connection
-def get_finished_orders(user_id):
+def get_finished_count(user_id):
     cursor = connection.cursor()
-    cursor.execute("my sql ", [user_id])  # find finished orders of this user
-    res = cursor.fetchone()
+    cursor.execute( "select date(created_datetime),count(*) as finished_count from( "\
+                    "select order_order.number,order_order.created_datetime,"\
+                    "order_sku.attrs "\
+                    "from order_order "\
+                    "join order_orderitem "\
+                    "on order_orderitem.order_id=order_order.id "\
+                    "join order_sku "\
+                    "on order_orderitem.sku_id=order_sku.id "\
+                    "join core_entity "\
+                    "on order_sku.entity_id=core_entity.id "\
+                    "where core_entity.user_id=%s "\
+                    "and order_order.status<6 and order_order.status>2 "\
+                    "group by order_order.id) as temp "\
+                    "group by date(created_datetime)", [user_id])  # find finished orders of this user
+    res = cursor.fetchall()
     return res
-def get_sold_sku(user_id):
+def get_income(user_id):
     cursor = connection.cursor()
-    cursor.execute("my sql",[user_id])
-    res=cursor.fetchone()
+    cursor.execute( "select date(created_datetime),sum(income) from"\
+                    "(select order_order.created_datetime,order_sku.attrs,"\
+                    "order_orderitem.promo_total_price as income "\
+                    "from order_order join order_orderitem on order_order.id=order_orderitem.order_id join order_sku on order_orderitem.sku_id=order_sku.id "\
+                    "join core_entity on order_sku.entity_id=core_entity.id "\
+                    " where core_entity.user_id=%s "\
+                    "and order_order.status<6 and order_order.status>2 "\
+                    "order by date(created_datetime)) as temp  "\
+                    "group by date(created_datetime)",[user_id])
+    res=cursor.fetchall()
     return res
 
 class SellerManagementFinancialReport(IsAuthorizedSeller,ListView):
     model = Order
     template_name = 'web/seller_management/seller_financial_report.html'
-
     def get_queryset(self):
-
-
-        self.status = self.request.GET.get('status', None)
-        start_date = self.request.GET.get('start_date', None)
-        end_date = self.request.GET.get("end_date")
-        if start_date == 'lastweek':
-            self.start_time = start_date
-            self.start_date, self.end_date = ((datetime.now() - timedelta(days=7)).strftime(TIME_FORMAT)), (
-                datetime.now() + timedelta(days=1)).strftime(TIME_FORMAT)
-        elif start_date == 'lastmonth':
-            self.start_time = start_date
-            self.start_date, self.end_date = ((datetime.now() - timedelta(days=30)).strftime(TIME_FORMAT)), (
-                datetime.now() + timedelta(days=1)).strftime(TIME_FORMAT)
-        elif start_date and end_date:
-            self.start_time = None
-            self.start_date, self.end_date = start_date, end_date
-        else:
-            self.start_time = 'yesterday'
-            self.start_date, self.end_date = get_time_range()
-
-        return Order.objects.filter(created_datetime__range=(self.start_date,self.end_date))
+        return Order.objects.none()
     def get_context_data(self, **kwargs):
         context = super(SellerManagementFinancialReport, self).get_context_data(**kwargs)
         user_id = self.request.user.id
-        finished_orders = get_finished_orders(user_id)
-        sold_sku = get_sold_sku(user_id)
-        context["finished_count"]=finished_orders.all().count()
-        context[""]
+        context["finished_count"] = get_finished_count(user_id)
+        context["income"] = get_income(user_id)
         return context
 

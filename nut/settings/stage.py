@@ -28,7 +28,7 @@ CELERYD_CONCURRENCY = 1
 CELERY_ALWAYS_EAGER = True
 
 CELERY_DISABLE_RATE_LIMITS = False
-#celery end  #############################
+# celery end  #############################
 import djcelery
 djcelery.setup_loader()
 
@@ -66,8 +66,6 @@ INSTALLED_APPS += (
 #         }
 #     }
 # }
-
-
 
 CACHES = {
     'default': {

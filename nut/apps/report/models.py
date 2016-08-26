@@ -15,7 +15,7 @@ class BaseModel(models.Model):
 
     def toDict(self):
         fields = []
-        for f in  self._meta.fields:
+        for f in self._meta.fields:
             fields.append(f.column)
         d = {}
         for attr in fields:
@@ -39,7 +39,7 @@ class Report(models.Model):
 
     PROGRESS = [
         (processed, _('processed')),
-        (in_hand, ('in hand')),
+        (in_hand, _('in hand')),
         (pending, _('process pending')),
     ]
 
@@ -77,9 +77,9 @@ def process_report(sender, instance, created, **kwargs):
                 if row.status == 0:
                     continue
                 data = {
-                    'project':'default',
-                    'spider':'taobao',
-                    'setting':'DOWNLOAD_DELAY=2',
+                    'project': 'default',
+                    'spider': 'taobao',
+                    'setting': 'DOWNLOAD_DELAY=2',
                     'item_id': row.origin_id,
                 }
                 # print data

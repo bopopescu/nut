@@ -11,6 +11,7 @@ from apps.order.manager import OrderManager
 from apps.order.manager.sku import SKUManager
 from apps.order.manager.cart import CartItemManager
 from apps.core.extend.fields.listfield import ListObjectField
+# from apps.core.models import BaseModel
 
 from apps.payment.alipay import AliPayPayment
 from apps.payment.weixinpay import WXPayment
@@ -30,18 +31,11 @@ class SKU(BaseModel):
     status =  models.IntegerField(choices=SKU_STATUS_CHOICE, default=enable)
     objects =  SKUManager()
 
-    # an hack for discount
-    # def __setattr__(self, attrname, val):
-    #     # if attrname == 'discount':
-    #     #     self.promo_price = self.origin_price * val
-    #     super(SKU, self).__setattr__(attrname, val)
-
 
     def get_discount_rate(self):
         if self.origin_price == 0  or self.promo_price == 0 :
             return 1
         return self.promo_price/(self.origin_price*1.0)
-
 
 
     @property
@@ -52,12 +46,18 @@ class SKU(BaseModel):
     def attrs_display(self):
         attr_str_list = list()
         for key , value in self.attrs.iteritems():
-            attr_str_list.append('%s:%s'%(key,value))
+            attr_str_list.append('%s:%s' % (key, value))
         return '/'.join(attr_str_list)
 
     def save(self, *args, **kwargs):
         self.discount = self.get_discount_rate()
         super(SKU, self).save(*args, **kwargs)
+
+    # def toDict(self):
+    #     res = super(SKU, self).toDict()
+    #     res.pop('attrs', None)
+    #     res['attrs'] = getattr(self, 'attrs')
+    #     return res
 
 
     # class Meta:
@@ -101,7 +101,7 @@ class CartItem(BaseModel):
     @property
     def shipping_cost(self):
         raise NotImplemented()
-        return 0
+        # return 0
 
 
 class ShippingAddress(BaseModel):
@@ -209,7 +209,6 @@ class Order(BaseModel):
             item.sku.stock -= item.volume
             item.sku.save()
 
-
     def set_paid(self):
         if self.status < self.paid:
             self.status = Order.paid
@@ -271,35 +270,6 @@ class Order(BaseModel):
     def order_total_value(self):
         # final price customer need to paid
         return self.promo_total_price + self.shipping_fee
-
-    @property
-    def get_order_finished_count_by_time_and_user(self,start_date=None,end_date=None,user=None):
-        if not user:
-            return self.objects.filter(Updated_time__range=(start_date,end_date)).count() #应为结账时间,暂用Updated_time
-        else:
-            entities=user.Entities.all()
-            order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
-            order_ids = order_items.values_list('order')
-            return self.objects.filter(id__in=order_ids).filter(Updated_time__range=(start_date,end_date)).count() #应为结账时间,暂用Updated_time
-    @property
-    def get_income_by_time_and_user(self,start_date=None,end_date=None,user=None):
-        income = 0
-        if not user:
-            orders=self.objects.filter(Updated_time__range=(start_date,end_date)) #应为结账时间,暂用Updated_time
-            if orders:
-                for order in orders:
-                    income+=order.order_total_value
-        else:
-            entities = user.Entities.all()
-            order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
-            order_ids = order_items.values_list('order')
-            orders=self.objects.filter(id__in=order_ids).filter(Updated_time__range=(start_date,end_date)) #应为结账时间,暂用Updated_time
-            if orders:
-                for order in orders:
-                    for item in order.items.all():
-                        if item.sku.entity_id in entities:
-                            income+=item.promo_total_price
-        return income
 
 
 

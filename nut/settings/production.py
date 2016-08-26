@@ -5,7 +5,7 @@ from settings import *
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-STATIC_URL = 'http://static.guoku.com/static/v4/312e83769afb1878613325a3737eac9f53c2ae40/'
+STATIC_URL = 'http://static.guoku.com/static/v4/1ab0620d6394d8df2657afa35ddd1e6644e0c5eb/'
 
 LANGUAGE_CODE = 'zh-cn'
 
@@ -33,11 +33,8 @@ MOGILEFS_DOMAIN = 'prod'
 MOGILEFS_TRACKERS = ['10.0.2.50:7001']
 MOGILEFS_MEDIA_URL = 'images/'
 DEFAULT_FILE_STORAGE = 'storages.backends.mogile.MogileFSStorage'
-# DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-# IMAGE_SIZE = [128, 310, 640]
 
 Avatar_Image_Path = 'avatar/'
-# Avatar_Image_Size = [180, 50]
 
 
 LOGGING = {
@@ -86,7 +83,7 @@ LOGGING = {
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://10.0.2.115:8983/solr/',
+        'URL': 'http://10.0.2.110:8983/solr/',
         'INCLUDE_SPELLING': True,
     }
 }
@@ -97,9 +94,9 @@ SINA_APP_SECRET = 'bfb2e43c3fa636f102b304c485fa2110'
 SINA_BACK_URL = APP_HOST + '/sina/auth'
 
 # config of site in redis.
-CONFIG_REDIS_HOST = '10.0.2.95'
-CONFIG_REDIS_PORT = 6379
-CONFIG_REDIS_DB = 10
+CONFIG_REDIS_HOST   = '10.0.2.95'
+CONFIG_REDIS_PORT   = 6379
+CONFIG_REDIS_DB     = 10
 
 
 SITE_HOST = 'http://www.guoku.com'

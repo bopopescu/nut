@@ -13,6 +13,25 @@ ul{
 
 @light-blue-bg:#F5F8FF;
 
+//dropdown
+.seller-mng-dropdown{
+  position: relative;
+  display: inline-block;
+  width:120px;
+  height:36px;
+  line-height: 36px;
+  text-align: left;
+  border:1px solid @border-gray;
+  border-radius: 4px;
+  padding:0 12px;
+  span.caret{
+    position: absolute;
+    right:12px;
+    top:16px;
+  }
+
+}
+
 //btn
 .seller-mng-btn{
   color:@common-text-color;
@@ -20,6 +39,7 @@ ul{
   border:1px solid @border-gray;
   padding:7px 14px;
 }
+
 
 //box
 .new-box{
@@ -190,9 +210,11 @@ ul{
   position:relative;
   ul.order-status-dropdown-menu{
     top:30px;
+    min-width: 120px;
     li{
-      text-align: center;
+      //text-align: center;
       a{
+        padding:3px 12px;
         color:@common-text-color;
          &:hover{
         background-color: @very-light-gray;
@@ -331,4 +353,38 @@ body.seller-management{
       margin-left:12px;
     }
   }
+}
+
+//seller checkout management
+.checkout-management {
+  .checkout-header{
+  width:100%;
+  height:50px;
+  line-height: 50px;
+  background-color: @common-text-color;
+  color:#ffffff;
+  padding:0 52px;
+  a.logo{
+    width:auto;
+  }
+  }
+  section.content-header{
+    text-align: center;
+    .btn.all-orders-btn{
+      margin-left:24px;
+      width:108px;
+      height:50px;
+      line-height: 50px;
+      padding:0;
+      vertical-align: baseline;
+      outline: none;
+      box-shadow: none;
+    }
+  }
+  .order-search-wrapper{
+    input.guoku_search_input{
+      padding-left:24px;
+  }
+}
+
 }

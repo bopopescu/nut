@@ -1151,6 +1151,17 @@ p.boolean-false {
   background-color: #3F6FF0;
   color: #ffffff;
 }
+.newest-btn-green {
+  border: 1px solid #39BA2F;
+  background-color: #39BA2F;
+  color: #ffffff;
+}
+.newest-btn-green:hover,
+.newest-btn-green:focus {
+  border: 1px solid #29AA1F;
+  background-color: #29AA1F;
+  color: #ffffff;
+}
 .newest-button-blue {
   border: 1px solid #6192FF;
   background-color: #ffffff;
@@ -1406,6 +1417,22 @@ ul {
 ul {
   list-style: none;
 }
+.seller-mng-dropdown {
+  position: relative;
+  display: inline-block;
+  width: 120px;
+  height: 36px;
+  line-height: 36px;
+  text-align: left;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  padding: 0 12px;
+}
+.seller-mng-dropdown span.caret {
+  position: absolute;
+  right: 12px;
+  top: 16px;
+}
 .seller-mng-btn {
   color: #212121;
   background-color: #fff;
@@ -1555,11 +1582,10 @@ ul {
 }
 .order-status-dropdown-wrapper ul.order-status-dropdown-menu {
   top: 30px;
-}
-.order-status-dropdown-wrapper ul.order-status-dropdown-menu li {
-  text-align: center;
+  min-width: 120px;
 }
 .order-status-dropdown-wrapper ul.order-status-dropdown-menu li a {
+  padding: 3px 12px;
   color: #212121;
 }
 .order-status-dropdown-wrapper ul.order-status-dropdown-menu li a:hover {
@@ -1685,4 +1711,31 @@ body.seller-management #seller_management_entity_price tr td.stock-wrapper .stoc
 }
 body.seller-management #seller_management_entity_price .sku-save-btn {
   margin-left: 12px;
+}
+.checkout-management .checkout-header {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  background-color: #212121;
+  color: #ffffff;
+  padding: 0 52px;
+}
+.checkout-management .checkout-header a.logo {
+  width: auto;
+}
+.checkout-management section.content-header {
+  text-align: center;
+}
+.checkout-management section.content-header .btn.all-orders-btn {
+  margin-left: 24px;
+  width: 108px;
+  height: 50px;
+  line-height: 50px;
+  padding: 0;
+  vertical-align: baseline;
+  outline: none;
+  box-shadow: none;
+}
+.checkout-management .order-search-wrapper input.guoku_search_input {
+  padding-left: 24px;
 }

@@ -915,6 +915,99 @@ define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class,
 
     return TopAd;
 });
+define('subapp/bottom_ad/bottom_ad',[
+        'libs/Class',
+        'jquery',
+        'fastdom',
+        'cookie'
+    ],
+    function(Class,$,fastdom,cookie){
+
+    var BottomAd = Class.extend({
+        init: function(){
+            console.log('bottom ad begin');
+
+            this.scrollTop = null;
+            this.lastScrollTop = null;
+            this.read = this.write = null;
+            this.initHiddenBottomAd();
+            this.setupBottomCloseButton();
+            this.setupScroll();
+
+        },
+        setupBottomCloseButton: function(){
+            $('.bottom-ad .close-button').click(function(){
+                $('.bottom-ad').addClass('hidden');
+            });
+        },
+        setupScroll: function(){
+            $(window).scroll(this.handleBottomAdMove.bind(this));
+        },
+        handleBottomAdMove:function(){
+            var that = this;
+            if (!this.read){
+                this.read = fastdom.read(function(){
+                    that.scrollTop = $(window).scrollTop();
+                });
+            }
+
+            if(this.write) {
+                fastdom.clear(this.write);
+            }
+
+            this.write = fastdom.write(this.moveBottomAd.bind(this));
+        },
+        moveBottomAd:function(){
+
+            if (_.isNull(this.scrollTop)) {
+                return ;
+            }
+
+            if (_.isNull(this.lastScrollTop)){
+                this.lastScrollTop = this.scrollTop;
+                return ;
+            }
+
+            if(this.lastScrollTop > this.scrollTop){
+                this.showBottomAd();
+            }else{
+                if (this.scrollTop < 140){
+                    this.showBottomAd();
+                }else{
+                    this.hiddenBottomAd();
+                }
+
+            }
+            this.read = null;
+            this.write= null;
+            this.lastScrollTop = this.scrollTop;
+        },
+
+
+        checkArticleDetailUrl:function(){
+             var testUrl = /articles\/\d+/.test(location.href);
+             return testUrl;
+        },
+        initHiddenBottomAd:function(){
+            if(this.checkArticleDetailUrl){
+                 $('.bottom-ad').removeClass('showing');
+            }
+        },
+        showBottomAd:function(){
+            if(!this.checkArticleDetailUrl()){
+                 $('.bottom-ad').addClass('showing');
+            }
+        },
+        hiddenBottomAd:function(){
+            if(!this.checkArticleDetailUrl){
+                 $('.bottom-ad').removeClass('showing');
+            }
+        }
+    });
+
+    return  BottomAd;
+
+});
 /**
  * FastDom
  *
@@ -1461,9 +1554,10 @@ define('subapp/topmenu',['bootstrap',
         'fastdom',
         'cookie',
         'subapp/top_ad/top_ad',
+        'subapp/bottom_ad/bottom_ad',
         'subapp/top_notification/top_notification'
     ],
-    function(boot, Class,_,$,fastdom,cookie,TopAd,TopNotification){
+    function(boot, Class,_,$,fastdom,cookie,TopAd,BottomAd,TopNotification){
 
     // cookie is a shim resource , it will attch to jquery objects.
 
@@ -1491,20 +1585,14 @@ define('subapp/topmenu',['bootstrap',
             this.scrollTop = null;
             this.lastScrollTop = null;
             this.read = this.write = null;
-            this.initHiddenBottomAd();
             this.setupScrollMenu();
             this.checkSNSBindVisit();
             this.checkEventRead();
-            //this.topAd = new TopAd();
+            this.bottomAd = new BottomAd();
             this.topNotification = new TopNotification();
-            this.setupBottomCloseButton();
 
         },
-        setupBottomCloseButton: function(){
-            $('.bottom-ad .close-button').click(function(){
-                $('.bottom-ad').addClass('hidden');
-            });
-        },
+
         checkEventRead:function(){
             // add by an , for event link status check , remove the red dot if event is read.
             // the key is defined in 2 places!  DRY...
@@ -1539,17 +1627,9 @@ define('subapp/topmenu',['bootstrap',
             if (!this.read){
                 this.read = fastdom.read(function(){
                     that.scrollTop = $(window).scrollTop();
-                    that.screenHeight = window.screen.height;
                     if($('#guoku_main_nav').length){
                          that.fixMenuCondition = $('#guoku_main_nav')[0].getBoundingClientRect().height - 50;
                     }
-                    if($('#main_article').length){
-                          that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
-                    }
-                    that.pageHeight = document.body.scrollHeight;
-                    that.hiddenLeftCondition = that.screenHeight + that.scrollTop;
-                    that.hiddenRightCondition = that.articleHeight + 102;
-
                 });
             }
 
@@ -1576,68 +1656,25 @@ define('subapp/topmenu',['bootstrap',
                 this.lastScrollTop = this.scrollTop;
                 return ;
             }
-
             if(this.lastScrollTop > this.scrollTop){
-                this.showHeader();
-                this.showBottomAd();
+                this.showRoundLink();
             }else{
-                if (this.scrollTop < 140){
-                    this.showHeader();
-                    this.showBottomAd();
+                if(this.scrollTop < 140){
+                    this.showRoundLink();
                 }else{
-                     this.hideHeader(this.scrollTop);
-                    this.hiddenBottomAd();
+                    this.hideRoundLink();
                 }
-
-            }
-            if(this.hiddenLeftCondition > this.hiddenRightCondition){
-                this.hideHeader();
-                 this.hiddenBottomAd();
             }
 
             this.read = null;
             this.write= null;
             this.lastScrollTop = this.scrollTop;
         },
-
-
-        checkArticleDetailUrl:function(){
-             var testUrl = /articles\/\d+/.test(location.href);
-             return testUrl;
+        showRoundLink:function(){
+              $('.round-link').show();
         },
-        initHiddenBottomAd:function(){
-            if(this.checkArticleDetailUrl){
-                 $('.bottom-ad').removeClass('showing');
-            }
-        },
-        showBottomAd:function(){
-            if(!this.checkArticleDetailUrl()){
-                 $('.bottom-ad').addClass('showing');
-            }
-        },
-        hiddenBottomAd:function(){
-            if(!this.checkArticleDetailUrl){
-                 $('.bottom-ad').removeClass('showing');
-            }
-        },
-        showHeader: function(){
-            //console.log('show header');
-            //this.$menu.removeClass('hidden-header');
-            //this.$menu.addClass('shown-header');
-            $('.round-link').show();
-            $('.bottom-article-share-wrapper').removeClass('hidden-animation');
-
-            //console.log((new Date()).getMilliseconds());
-
-        },
-        hideHeader: function(){
-            //console.log('hideHeader');
-            //this.$menu.removeClass('shown-header');
-            //this.$menu.addClass('hidden-header');
-            $('.round-link').hide();
-            $('.bottom-article-share-wrapper').addClass('hidden-animation');
-
-            //console.log((new Date()).getMilliseconds());
+        hideRoundLink:function(){
+             $('.round-link').hide();
         },
         fixMenu:function(){
             this.$menu.addClass('fix-new-index-navbar');
@@ -1754,6 +1791,86 @@ define('subapp/gotop',['jquery','libs/underscore','libs/Class','libs/fastdom'],
 
         return GoTop;
     });
+define('subapp/article/article_bottom_bar',[
+        'libs/Class',
+        'jquery',
+        'fastdom'
+    ],
+    function(Class,$,fastdom){
+        
+    var ArticleBottomBar = Class.extend({
+        init: function(){
+            console.log('article bottom bar begin');
+            
+            this.scrollTop = null;
+            this.lastScrollTop = null;
+            this.read = this.write = null;
+            
+            this.setupScroll();
+        },
+        
+        setupScroll: function(){
+            $(window).scroll(this.articleBottomBarMove.bind(this));
+        },
+        articleBottomBarMove:function(){
+            var that = this;
+            if (!this.read){
+                this.read = fastdom.read(function(){
+                    if($('#main_article').length){
+                          that.articleHeight = $('#main_article')[0].getBoundingClientRect().height;
+                    }
+                    that.scrollTop = $(window).scrollTop();
+                    that.screenHeight = window.screen.height;
+                    that.hiddenLeftCondition = that.screenHeight + that.scrollTop;
+                    that.hiddenRightCondition = that.articleHeight + 102;
+                });
+            }
+
+            if(this.write) {
+                fastdom.clear(this.write);
+            }
+
+            this.write = fastdom.write(this.moveArticleBottomBar.bind(this));
+        },
+        moveArticleBottomBar:function(){
+
+            if (_.isNull(this.scrollTop)) {
+                return ;
+            }
+
+            if (_.isNull(this.lastScrollTop)){
+                this.lastScrollTop = this.scrollTop;
+                return ;
+            }
+
+            if(this.lastScrollTop > this.scrollTop){
+                this.showArticleBottomBar();
+            }else{
+                if (this.scrollTop < 140){
+                    this.showArticleBottomBar();
+                }else{
+                     this.hideArticleBottomBar(this.scrollTop);
+                }
+            }
+            if(this.hiddenLeftCondition > this.hiddenRightCondition){
+                this.hideArticleBottomBar();
+            }
+
+            this.read = null;
+            this.write= null;
+            this.lastScrollTop = this.scrollTop;
+        },
+        showArticleBottomBar: function(){
+            $('.bottom-article-share-wrapper').removeClass('hidden-animation');
+        },
+        hideArticleBottomBar: function(){
+            $('.bottom-article-share-wrapper').addClass('hidden-animation');
+        }
+    });
+
+    return  ArticleBottomBar;
+
+});
 /*
  * jQuery Easing v1.3 - http://gsgd.co.uk/sandbox/jquery/easing/
  *
@@ -7209,6 +7326,7 @@ require([
         'subapp/topmenu',
         'subapp/gotop',
 
+        'subapp/article/article_bottom_bar',
         'subapp/article/article_link_scroll',
         'subapp/articledig',
         'subapp/articlepagecounter',
@@ -7233,6 +7351,7 @@ require([
               Menu,
               GoTop,
 
+              ArticleBottomBar,
               ArticleLinkScroll,
               ArticleDig,
 
@@ -7255,6 +7374,7 @@ require([
         var page = new Page();
         var menu = new Menu();
         var goto = new GoTop();
+        var articleBottomBar = new ArticleBottomBar();
         var anchorScroller = new ArticleLinkScroll('.share-bt-list .remark-item .remark-info');
         var articleDig = new ArticleDig();
         var articlePageCounter = new ArticlePageCounter();

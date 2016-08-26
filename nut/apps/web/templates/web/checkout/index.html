@@ -1,4 +1,4 @@
-{% extends 'management/management_base.html' %}
+{% extends 'web/checkout/checkout_base.html' %}
 {% load i18n %}
 {% load staticfiles i18n %}
   {% block css %} <link rel="stylesheet" type="text/css" href="{% static 'css/management/seller_management.css' %}">{% endblock %}
@@ -6,13 +6,16 @@
 {% block content %}
     <section class="content-header">
         <div class="order-search-wrapper">
-             <input style="border:1px solid #1e347b" class="guoku_search_input" data-search-field="number" type="text" placeholder="订单号搜索">
+             <input class="guoku_search_input" data-search-field="number" type="text" placeholder="订单号">
              <i class="fa fa-search"></i>
         </div>
-
+        <a class="btn seller-mng-btn all-orders-btn" href="{% url 'checkout_index' %}">
+            <i class="fa fa-list-ul"></i>
+            全部订单
+        </a>
         <span style="margin-left:25px;margin-right:16px;">订单状态:</span>
         <span class="dropdown-toggle order-status-dropdown-wrapper">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            <a href="#" class="dropdown-toggle seller-mng-dropdown" data-toggle="dropdown"
                aria-haspopup="false" role="button" aria-expanded="false">
                 {% if status == None %}
                     全部
@@ -34,23 +37,6 @@
             </ul>
         </span>
     </section>
-
-    <section class="content">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="new-box">
-                    <div class="new-box-body">
-                        {% include 'management/management_order_list_table.html' %}
-                    </div>
-
-                    <div class="box-footer">
-                        {% include "management/paginator.html" with objects=page_obj url=request.path %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
 {% endblock %}
 
 {% block user_script %}

@@ -17,6 +17,7 @@ from apps.v4.forms.search import APISearchForm
 from apps.v4.models import APIUser, APISelection_Entity, APIEntity,\
                             APICategory, APISeletion_Articles, \
                             APIArticle, APIArticle_Dig
+from apps.tag.models import Tags
 
 from apps.core.views import BaseJsonView, JSONResponseMixin
 
@@ -32,7 +33,6 @@ def is_taobaoke_url(url):
     return "s.click.taobao.com" in url
 
 def get_taobao_url(taobao_id, is_mobile = False, app_key = None):
-    url = ""
     if is_mobile:
         url = "http://a.m.taobao.com/i%s.htm" % taobao_id
     else:
@@ -511,6 +511,22 @@ class APISearchView(SearchView, JSONResponseMixin):
         return super(APISearchView, self).dispatch(request, *args, **kwargs)
 
 
+class APISearchHotWordView(APIJsonView):
+    http_method_names = ['get']
+
+    def get_data(self, context):
+        tags = Tags.objects.hot_article_tags()
+        # # print "okokoko", tags
+        # tag_list = map(lambda x.name : x, tags)
+        # [for row in tags: row.name]
+        tag_list = [row.name for row in tags]
+        return tag_list
+
+    def get(self, request, *args, **kwargs):
+        return super(APISearchHotWordView, self).get(request, *args, **kwargs)
+
+
+# TODO: Popular View API
 class PopularView(APIJsonView):
     '''
         Get Popular Entity API

@@ -3,44 +3,65 @@
 {% load staticfiles i18n %}
 
 {% block content %}
-    <section class="content-header">
-        <h1>
-            {% trans '我的订单' %}
-{#            <a href="{% url 'web_seller_management_entity_add' %}"><i class="fa fa-plus" style="font-size:18px;"></i></a>#}
-        </h1>
-
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard">{% trans "home" %}</i></a></li>
-            <li class="active">{% trans 'order' %}</li>
-        </ol>
+    <div class="container">
+        <section class="content-header">
+        <div class="order-search-wrapper">
+             <input class="guoku_search_input" data-search-field="number" type="text" placeholder="订单号搜索" value="{% if filter_input_value %}{{ filter_input_value }}{% elif input_value %}{{ input_value }}{% endif %}">
+             <i class="fa fa-search"></i>
+        </div>
+        <a class="btn seller-mng-btn all-orders-btn" href="{% url 'checkout_index' %}">
+            <i class="fa fa-list-ul"></i>
+            全部订单
+        </a>
+        <span style="margin-left:25px;margin-right:16px;">订单状态:</span>
+        <span class="dropdown-toggle order-status-dropdown-wrapper">
+            <a href="#" class="dropdown-toggle seller-mng-dropdown" data-toggle="dropdown"
+               aria-haspopup="false" role="button" aria-expanded="false">
+                {% if status == None %}
+                    全部
+                {% elif status == 'all' %}
+                    全部
+                {% elif status == "waiting_for_payment" %}
+                    待付款
+                {% elif status == "paid" %}
+                    已完成
+                {% endif %}
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu order-status-dropdown-menu" role="menu">
+                <li><a href="{{ current_path }}?filtervalue={% if filter_input_value %}{{ filter_input_value }}{% elif input_value %}{{ input_value }}{% endif %}&status=all">全部</a></li>
+                <li class="divider"></li>
+                <li><a href="{{ current_path }}?filtervalue={% if filter_input_value %}{{ filter_input_value }}{% elif input_value %}{{ input_value }}{% endif %}&status=waiting_for_payment">待付款</a></li>
+                <li class="divider"></li>
+                <li><a href="{{ current_path }}?filtervalue={% if filter_input_value %}{{ filter_input_value }}{% elif input_value %}{{ input_value }}{% endif %}&status=paid">已完成</a></li>
+            </ul>
+        </span>
     </section>
-
-    <section class="content">
+        <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                <div class="box box-info">
-                    <div class="box-header">
-                    </div>
-                    <div class="box-body table-responsive">
+                <div class="new-box">
+                    <div class="new-box-body">
                         {% include 'web/checkout/orderlists_table.html' %}
                     </div>
-
                     <div class="box-footer">
-                        {% include "management/paginator.html" with objects=page_obj url=request.path %}
+{#                       {% include "management/paginator.html" with objects=page_obj url=request.path %}#}
+                         <a href="{% url 'checkout_index' %}" class="new-blue-link">
+                            <i class="fa fa-caret-left"></i>&nbsp;&nbsp;返回
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
+    </div>
 {% endblock %}
 
 {% block user_script %}
     <script src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>
     <script src="{% static 'js/management/util.js' %}"></script>
     <script src="{% static 'js/management/moment.js' %}"></script>
-
-     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/manage_search.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/seller_management/entity_save.js' %}" type="application/javascript"></script>
+    <script src="{% static 'js/web/app/subapp/checkout/check_order_status.js' %}" type="application/javascript"></script>
 {% endblock %}
