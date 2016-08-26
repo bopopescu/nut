@@ -24,6 +24,7 @@ from django.http import Http404,HttpResponseNotAllowed
 from apps.management.decorators import staff_only, staff_and_editor
 from apps.core.utils.http import JSONResponse
 from datetime import datetime, timedelta
+
 TIME_FORMAT = '%Y-%m-%d 8:00:00'
 
 class SKUUserPassesTestMixin(UserPassesTestMixin):
@@ -627,7 +628,8 @@ def get_finished_count(user_id):
                     "group by order_order.id) as temp "\
                     "group by date(created_datetime)", [user_id])  # find finished orders of this user
     res = cursor.fetchall()
-    return res
+    return parse_data(res)
+
 def get_income(user_id):
     cursor = connection.cursor()
     cursor.execute( "select date(created_datetime),sum(income) from"\
@@ -640,6 +642,16 @@ def get_income(user_id):
                     "order by date(created_datetime)) as temp  "\
                     "group by date(created_datetime)",[user_id])
     res=cursor.fetchall()
+    return parse_data(res)
+def parse_data(res):
+    if res:
+        start=res[0][0]
+        key_list=[x[0] for x in res]
+        while(start<datetime.now().date()):
+            start=start+timedelta(1)
+            if start not in key_list:
+                res+=(start,0),
+    res=sorted(res,key=lambda x:x[0])
     return res
 
 class SellerManagementFinancialReport(IsAuthorizedSeller,ListView):
@@ -652,9 +664,10 @@ class SellerManagementFinancialReport(IsAuthorizedSeller,ListView):
         user_id = self.request.user.id
         finished_count = get_finished_count(user_id)
         income = get_income(user_id)
-        context["finished_count_x"]=[x[0].day for x in finished_count]
-        context["finished_count_y"]=[x[1] for x in finished_count]
-        context["income_x"]=[x[0].day for x in income]
-        context['income_y']=[x[1] for x in income]
+        context["finished_count_x"]=[str(x[0].day) for x in finished_count]
+      #  context['finished_count_x']=["Red", "Blue", "Yellow", "Green", "Purple", "Orange"]
+        context["finished_count_y"]=[int(x[1]) for x in finished_count]
+        context["income_x"]=[str(x[0].day) for x in income]
+        context['income_y']=[int(x[1]) for x in income]
         return context
 
