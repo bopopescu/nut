@@ -6769,11 +6769,12 @@
           imageLimitation = '<small>' + lang.image.maximumFileSize + ' : ' + readableSize + '</small>';
         }
 
-        var body = '<div class="form-group row-fluid note-group-select-from-files">' +
-                     '<label>' + lang.image.selectFromFiles + '</label>' +
-                     '<input class="note-image-input" type="file" name="files" accept="image/*" multiple="multiple" />' +
-                     imageLimitation +
-                   '</div>' +
+        var body =
+                   // '<div class="form-group row-fluid note-group-select-from-files">' +
+                   //  '<label>' + lang.image.selectFromFiles + '</label>' +
+                   //  '<input class="note-image-input" type="file" name="files" accept="image/*" multiple="multiple" />' +
+                   //  imageLimitation +
+                   //'</div>' +
                    '<div class="form-group row-fluid">' +
                      '<label>' + lang.image.url + '</label>' +
                      '<input class="note-image-url form-control span12" type="text" />' +
