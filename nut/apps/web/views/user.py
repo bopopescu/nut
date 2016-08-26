@@ -15,6 +15,7 @@ from apps.management.forms.sku import SKUForm
 from apps.order.models import SKU
 
 from apps.core.tasks import send_activation_mail
+from apps.shop.models import Shop
 from apps.web.forms.user import UserSettingsForm, UserChangePasswordForm
 from apps.core.utils.http import JSONResponse, ErrorJsonResponse
 # from apps.core.utils.image import HandleImage
@@ -628,8 +629,12 @@ class UserIndex(UserPageMixin, DetailView):
         _article_list = Article.objects.get_published_by_user(current_user).filter(selections__isnull = False)\
                                        .filter(pk__in=list(_selection_article_ids))[:6]
         # get current seller's the first eight published selection entities
+        try:
+            current_user_shop_link = Shop.objects.get(owner=current_user).common_shop_link
+            _entity_list = Entity.objects.filter(buy_links__shop_link=current_user_shop_link, status=1, buy_links__status=2)[:8]
+        except:
+            _entity_list = Entity.objects.get_user_added_entities(current_user)[:8]
 
-        _entity_list = Entity.objects.get_user_added_entities(current_user)[:8]
         _add_entity_list = Entity.objects.get_user_added_entities(current_user)[:12]
 
         context_data['author_articles'] = self.get_author_articles(current_user)

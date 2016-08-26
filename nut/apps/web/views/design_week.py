@@ -46,7 +46,7 @@ class DesignWeekViewSet(viewsets.ReadOnlyModelViewSet):
         shop_link_list = Shop.objects.filter(owner__in=list(auth_seller)).values_list('common_shop_link', flat=True)
         # Selection_Entity.objects.filter(entity__user__in=list(auth_seller)).order_by('pub_time')
         # entities = Entity.objects.filter(user__in=list(auth_seller), status=1)
-        entities = Entity.objects.filter(buy_links__shop_link__in=list(shop_link_list), status=1)
+        entities = Entity.objects.filter(buy_links__shop_link__in=list(shop_link_list), status=1, buy_links__status=2)
         # obj = SearchQuerySet().models(Entity).filter(is_in_selection=True, user__in=auth_seller).order_by('-enter_selection_time')
         # entity_ids = obj.values_list('entity_id', flat=True)
         # qs = Entity.objects.filter(id__in=entity_ids)

@@ -7,9 +7,9 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
             this.$entity_container = $('.latest-entity-wrapper');
             this.init_slick();
             this.initHoverCategory();
-            this.categoryName = '';
+            this.currentRequestcategoryName = '';
             this.entityCache = window.sessionStorage;
-            console.log('selection entity tab view begin');
+            //console.log('selection entity tab view begin');
         },
         initHoverCategory:function(){
             $('#entity_category_container .category-list-item').mouseenter(this.handleHoverCategory.bind(this));
@@ -18,7 +18,7 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
         handleHoverCategory:function(event){
             var dataValue = $(event.currentTarget).attr('data-value');
             var entityCache = this.entityCache.getItem(dataValue);
-            this.categoryName = dataValue;
+            this.currentRequestcategoryName = dataValue;
             if(entityCache){
                 this.showContent($(entityCache));
             }else{
@@ -43,7 +43,7 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
             );
         },
         postSuccess:function(result){
-            console.log('post request success.');
+            //console.log(this.currentRequestcategoryName + 'post request success.');
             var status = parseInt(result.status);
             if(status == 1){
                  this.showContent($(result.data));
@@ -59,16 +59,20 @@ define(['jquery', 'subapp/index/selection_entity_slick'], function(
             console.log('ajax data failed');
         },
         showContent: function(elemList){
-            console.log('ajax data success');
+            //console.log(this.currentRequestcategoryName +'ajax data success');
             this.$entity_container.empty();
             this.$entity_container.append(elemList);
             this.init_slick();
         },
         setCache:function(result){
-            var category = this.categoryName;
-            if(!this.entityCache.getItem(category)){
-                this.entityCache.setItem(category,result.data);
+            var requestCategory = this.currentRequestcategoryName;
+            var result_category = result.category;
+            if(!this.entityCache.getItem(requestCategory) && requestCategory == result_category){
+                this.entityCache.setItem(requestCategory,result.data);
             }
+            //else{
+            //    console.log('current hover category:'+requestCategory+',response category:'+result_category);
+            //}
         }
     });
     return EntityCategoryTab;

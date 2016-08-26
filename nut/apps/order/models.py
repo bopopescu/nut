@@ -46,12 +46,18 @@ class SKU(BaseModel):
     def attrs_display(self):
         attr_str_list = list()
         for key , value in self.attrs.iteritems():
-            attr_str_list.append('%s:%s'%(key,value))
+            attr_str_list.append('%s:%s' % (key, value))
         return '/'.join(attr_str_list)
 
     def save(self, *args, **kwargs):
         self.discount = self.get_discount_rate()
         super(SKU, self).save(*args, **kwargs)
+
+    # def toDict(self):
+    #     res = super(SKU, self).toDict()
+    #     res.pop('attrs', None)
+    #     res['attrs'] = getattr(self, 'attrs')
+    #     return res
 
 
     # class Meta:
@@ -202,7 +208,6 @@ class Order(BaseModel):
         for item in self.items.all():
             item.sku.stock -= item.volume
             item.sku.save()
-
 
     def set_paid(self):
         if self.status < self.paid:

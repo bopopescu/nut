@@ -244,9 +244,10 @@ def create(request, template='management/entities/new.html'):
     )
 
 class Import_entity(View):
-    def __init__(self, template='management/entities/new.html', entity_edit_url='management_entity_edit'):
+    def __init__(self, template='management/entities/new.html', entity_edit_url='management_entity_edit', form=CreateEntityForm):
         self.template = template
         self.entity_edit_url = entity_edit_url
+        self.form = form
 
     def get_res(self, request):
         _url = request.GET.get('url')
@@ -269,12 +270,12 @@ class Import_entity(View):
             res['category_id'] = category_id
         else:
             res['category_id'] = 300
-        _forms = CreateEntityForm(request=request, initial=res)
+        _forms = self.form(request=request, initial=res)
         return render(request, self.template, {'res': res, 'forms': _forms})
 
     def post(self, request, *args, **kwargs):
         res = self.get_res(request)
-        _forms = CreateEntityForm(request=request, data=request.POST,
+        _forms = self.form(request=request, data=request.POST,
                                   initial=res)
         if _forms.is_valid():
             entity = _forms.save()
