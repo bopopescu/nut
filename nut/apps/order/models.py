@@ -272,7 +272,6 @@ class Order(BaseModel):
         return self.promo_total_price + self.shipping_fee
 
 
-
 class OrderItem(BaseModel):
     order = models.ForeignKey(Order,related_name='items')
     customer = models.ForeignKey('core.GKUser', related_name='order_items',db_index=True)
