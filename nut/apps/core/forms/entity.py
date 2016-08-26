@@ -773,10 +773,11 @@ class EditEntityForm(EntityForm):
         position = self.cleaned_data.get('position', 0)
 
         images = self.entity.images
-        a = images[int(position)]
-        b = images[0]
-        images[int(position)] = b
-        images[0] = a
+        if images:
+            a = images[int(position)]
+            b = images[0]
+            images[int(position)] = b
+            images[0] = a
 
         self.entity.brand = brand
         self.entity.title = title
