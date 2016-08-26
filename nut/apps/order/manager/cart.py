@@ -2,7 +2,7 @@ from pprint import pprint
 from django.db import models
 from django.utils.log import getLogger
 
-from apps.order.exceptions import CartException, OrderException
+from apps.order.exceptions import CartException
 
 log = getLogger('django')
 
@@ -30,7 +30,7 @@ class CartItemManager(models.Manager):
         if created:
             cart_item.volume = volume
             cart_item.save()
-        else :
+        else:
             cart_item.volume += volume
             cart_item.save()
         return cart_item
