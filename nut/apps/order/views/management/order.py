@@ -36,6 +36,7 @@ class OrderListView(FilterMixin, SortMixin, ListView):
         else:
             pass
         return qs
+
     def sort_queryset(self, qs, sort_by, order):
         if sort_by == 'dprice':
             qs = sorted(qs, key=lambda x: x.order_total_value, reverse=True)
@@ -61,6 +62,7 @@ class OrderListView(FilterMixin, SortMixin, ListView):
             order.itemslist = order.items.all()[1:order.count]
         return context
 
+
 class SoldEntityListView(FilterMixin, SortMixin, ListView):
     default_sort_params = ('dstock', 'desc')
     http_method_names = ['get']
@@ -70,8 +72,8 @@ class SoldEntityListView(FilterMixin, SortMixin, ListView):
     template_name = 'management/management_sold_entity_list.html'
 
     def get_queryset(self):
-        self.orders = Order.objects.filter(status__in=[3,5])
-        sku_ids = [ ]
+        self.orders = Order.objects.filter(status__in=[3, 5])
+        sku_ids = []
         if self.orders:
             for order in self.orders:
                 if sku_ids:
