@@ -1,25 +1,23 @@
-{% load i18n %}
-{% load staticfiles i18n %}
+{% extends 'web/seller_management/seller_management_base.html' %}
 {% block content %}
-<head>
-<meta charset="UTF-8" />
-<title>财务分析</title>
-<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
 <div id="finished_count_x" style = "display:none">{{ finished_count_x }}</div>
 <div id="finished_count_y" style = "display:none">{{ finished_count_y }}</div>
 <div id="income_x" style = "display:none">{{ income_x }}</div>
 <div id="income_y" style = "display:none">{{ income_y }}</div>
-</head>
-<body>
 <div id="finished_count_chart" style="width:550px; height: 250px; margin: 0 auto"></div>
 <div id="income_chart" style="width: 550px; height: 250px; margin: 0 auto"></div>
-</body>
+
+
 {% endblock %}
 
-<script language="JavaScript">
+
+
+{% block user_script %}
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+
+    <script language="JavaScript">
 $(document).ready(function() {
-    $('#finished_count_y').hide()
-    $('#finished_count_x').hide()
    var title = {
       text: '完成单数'
    };
@@ -73,8 +71,6 @@ $(document).ready(function() {
 </script>
 <script language="JavaScript">
 $(document).ready(function() {
-    $('#income_x').hide()
-    $('#income_y').hide()
    var title = {
       text: '收入曲线'
    };
@@ -126,8 +122,4 @@ $(document).ready(function() {
    $('#income_chart').highcharts(json);
 });
 </script>
-
-{% block user_script %}
-    <script src="http://code.highcharts.com/highcharts.js"></script>
-
 {% endblock %}

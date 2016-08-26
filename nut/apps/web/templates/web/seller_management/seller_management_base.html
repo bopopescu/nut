@@ -152,6 +152,13 @@
                             <i class="fa fa-briefcase"></i>&nbsp;<span>{% trans '售出商品' %}</span>
                         </a>
                     </li>
+
+                    {% url 'web_seller_management_financial_reports' as web_seller_management_financial_reports %}
+                    <li {% if web_seller_management_financial_reports  == request.path %}class="active"{% endif %}>
+                        <a href="{{ web_seller_management_financial_reports  }}">
+                            <i class="fa fa-briefcase"></i>&nbsp;<span>{% trans '财务分析' %}</span>
+                        </a>
+                    </li>
                 </ul>
             </section>
         </aside>
