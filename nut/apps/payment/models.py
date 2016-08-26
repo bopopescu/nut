@@ -17,7 +17,7 @@ class PaymentLog(BaseModel):
         (paid, _('paid')),
         (refund, _('refund')),
         ]
-    (weixin_pay, ali_pay, cash_ccard)= range(3)
+    (weixin_pay, ali_pay, cash_ccard) = range(3)
 
     PAYMENT_SOURCE_CHOICES = [
         (weixin_pay, _('weixin payment')),

@@ -10,7 +10,6 @@ from django.utils.log import getLogger
 log = getLogger('django')
 
 
-
 class AlipayReturnView(FormView):
     def get(self, *args, **kwargs):
         pass
@@ -19,24 +18,27 @@ class AlipayReturnView(FormView):
 class AlipayNotifyView(FormView):
     pass
 
+
 class AlipayRefoundNotify(FormView):
     pass
 
+
 class WXpayReturnView(FormView):
     pass
+
 
 class WXPayNotifyView(CsrfExemptMixin, View):
     template_name = 'payment/notify.html'
 
     def post(self, *args, **kwargs):
-        #only return False when
+        # only return False when
         # log.error('weixin notify here')
         parser = WXResponseParser()
         if not parser.check_wx_request_sign(self.request):
             log.warning('wx notify sign fail')
             result_xml_str = self.build_xml_return_str({
                 'return_code': 'FAIL',
-                'msg':'sign failed'
+                'msg': 'sign failed'
             })
             return HttpResponse(result_xml_str, content_type='text/xml')
         else:
