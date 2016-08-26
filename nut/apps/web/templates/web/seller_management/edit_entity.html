@@ -81,7 +81,7 @@
                     {% csrf_token %}
                     <div class="box-body">
                     {% for field in forms %}
-                        <div class="form-group">
+                        <div class="form-group {% if field.id_for_label == 'sub-category'  %}hidden{% endif %}">
                             <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
                             <div class="col-sm-5">
                                 {{ field }}
