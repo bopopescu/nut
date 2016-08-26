@@ -1,29 +1,10 @@
-import json
-from django.views.decorators.csrf import csrf_exempt
-from apps.core.forms.entity import EntityImageForm, AddEntityForm, AddEntityFormForSeller
 from apps.core.extend.paginator import ExtentPaginator
-from apps.core.forms.entity import EditEntityForm
 from apps.core.mixins.views import FilterMixin, SortMixin
-from apps.management.views.entities import Add_local, Import_entity
 from apps.order.models import OrderItem
-from braces.views import JSONResponseMixin,AjaxResponseMixin, UserPassesTestMixin
-from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
-from django.db.models import Sum
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, render_to_response
-from django.shortcuts import get_object_or_404
-from apps.management.forms.sku import SKUForm,SwitchSkuStatusForm
-from apps.core.utils.http import SuccessJsonResponse
 from apps.core.models import Entity
 from apps.order.models import SKU,Order
 
-from django.template import RequestContext
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView,DetailView, View
-from django.http import Http404,HttpResponseNotAllowed
-from apps.management.decorators import staff_only, staff_and_editor
-from apps.core.utils.http import JSONResponse
-
+from django.views.generic import ListView, DetailView
 
 
 class OrderListView(FilterMixin, SortMixin, ListView):
@@ -33,6 +14,7 @@ class OrderListView(FilterMixin, SortMixin, ListView):
     model = Order
     paginate_by = 10
     template_name = 'management/management_order_list.html'
+
     def get_queryset(self):
         entities = self.request.user.entities.all()
         order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
@@ -155,6 +137,7 @@ class SoldEntityListView(FilterMixin, SortMixin, ListView):
         else:
             pass
         return qs
+
 
 class ManagementOrderDetailView(DetailView):
     pk_url_kwarg = 'order_number'
