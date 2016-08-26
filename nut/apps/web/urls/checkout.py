@@ -1,6 +1,6 @@
 
 from django.conf.urls import url, patterns
-from apps.web.views.checkout import SellerOrderListView,SellerOrderDeleteView,IndexView,CheckoutView,\
+from apps.web.views.checkout import SellerOrderListView,SellerOrderDeleteView,IndexView,CheckDeskPayView,\
                                     AllOrderListView
 
 urlpatterns = patterns(
@@ -8,5 +8,5 @@ urlpatterns = patterns(
     url(r'^$',AllOrderListView.as_view(),name='checkout_index'),
     url(r'^order/(?P<order_number>\d+)/delete/$',SellerOrderDeleteView.as_view(),name='checkout_order_delete_management'),
     url(r'^order_list/$', SellerOrderListView.as_view(), name='checkout_order_list'),
-    url(r'^order_list/checkout/$',CheckoutView.as_view(),name="checkout_done")
+    url(r'^order_list/pay/$', CheckDeskPayView.as_view(), name="checkout_done")
 )
