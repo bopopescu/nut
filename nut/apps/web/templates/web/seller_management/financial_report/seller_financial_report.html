@@ -1,0 +1,80 @@
+{% load staticfiles i18n %}
+
+{% block content %}
+<head>
+<meta charset="UTF-8" />
+<title>Highcharts 教程 | 菜鸟教程(runoob.com)</title>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<div id="finished_count_x">{{ finished_count_x }}</div>
+<div id="finished_count_y">{{ finished_count_y }}</div>
+<div id="income_x">{{ income_x }}</div>
+<div id="income_y">{{ income_y }}</div>
+</head>
+<body>
+<div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
+</body>
+{% endblock %}
+<script language="JavaScript">
+$(document).ready(function() {
+   var title = {
+       text: '月平均气温'
+   };
+   var subtitle = {
+        text: 'Source: runoob.com'
+   };
+   var xAxis = {
+       categories: $('#finished_count_x').text()
+   };
+   var yAxis = {
+      title: {
+         text: 'Temperature (\xB0C)'
+      },
+      plotLines: [{
+         value: 0,
+         width: 1,
+         color: '#808080'
+      }]
+   };
+
+   var tooltip = {
+      valueSuffix: '\xB0C'
+   }
+
+   var legend = {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'middle',
+      borderWidth: 0
+   };
+
+   var series =  [
+      {
+         name: 'finished_count',
+         data: $('#finished_count_y').text()
+      },
+   ];
+
+   var json = {};
+
+   json.title = title;
+   json.subtitle = subtitle;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;
+   json.tooltip = tooltip;
+   json.legend = legend;
+   json.series = series;
+    alert($('#finished_count_x').text())
+    alert($('#finished_count_y').text())
+   $('#container').highcharts(json);
+});
+</script>
+
+{% block user_script %}
+    <script src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/management/util.js' %}"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
+    <script src="{% static 'js/management/seller_management/sku_switch.js' %}" type="application/javascript"></script>
+
+{% endblock %}

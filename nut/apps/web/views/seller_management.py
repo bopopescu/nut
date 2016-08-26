@@ -643,13 +643,17 @@ def get_income(user_id):
 
 class SellerManagementFinancialReport(IsAuthorizedSeller,ListView):
     model = Order
-    template_name = 'web/seller_management/seller_financial_report.html'
+    template_name = 'web/seller_management/financial_report/seller_financial_report.html'
     def get_queryset(self):
         return Order.objects.none()
     def get_context_data(self, **kwargs):
         context = super(SellerManagementFinancialReport, self).get_context_data(**kwargs)
         user_id = self.request.user.id
-        context["finished_count"] = get_finished_count(user_id)
-        context["income"] = get_income(user_id)
+        finished_count = get_finished_count(user_id)
+        income = get_income(user_id)
+        context["finished_count_x"]=[x[0].day for x in finished_count]
+        context["finished_count_y"]=[x[1] for x in finished_count]
+        context["income_x"]=[x[0].day for x in income]
+        context['income_y']=[x[1] for x in income]
         return context
 
