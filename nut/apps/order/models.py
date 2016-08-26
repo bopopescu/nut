@@ -209,7 +209,6 @@ class Order(BaseModel):
             item.sku.stock -= item.volume
             item.sku.save()
 
-
     def set_paid(self):
         if self.status < self.paid:
             self.status = Order.paid
