@@ -46,8 +46,8 @@ class AddSKUToCartView(APIJsonSessionView):
         if form.is_valid():
             form.save(user=self.session.user)
             return {'status': True}
-        print form.errors
-        return ErrorJsonResponse(status=401)
+        # print form.errors
+        return ErrorJsonResponse(data=form.errors ,status=401)
 
     # def post(self, request, *args, **kwargs):
 
