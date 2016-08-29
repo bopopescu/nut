@@ -19,6 +19,20 @@ class CheckoutViewTest(DBTestBase):
         self.factory = RequestFactory()
         self.data =  ''
         self.user=self.the_user
+        self.sku1 = self.entity.add_sku({
+            'color': 'red',
+            'size': 165
+        })
+
+        self.sku2 = self.entity.add_sku({
+            'color': 'black',
+            'size': 128
+        })
+        self.sku1.stock = 2432
+        self.sku2.stock = 2423
+        self.user.add_sku_to_cart(self.sku1)
+        self.user.add_sku_to_cart(self.sku2)
+        self.new_order = self.user.checkout()
     def test_all_order_list_view(self):
         request_url = reverse('checkout_index')
         request = self.factory.get(request_url, self.data)
@@ -43,7 +57,15 @@ class CheckoutViewTest(DBTestBase):
         self.assertEqual(response.status_code,200)
 
     def test_check_desk_pay_view(self):
-        pass
+        request_url=reverse('checkout_done')
+        id=self.new_order.id
+        request=self.factory.post(request_url,data={'order_id':id})
+        response=CheckDeskPayView.as_view()(request)
+        pprint('******')
+        pprint('test CheckDeskPayView...')
+        pprint(dir(response))
+        pprint(response._headers)
+        self.assertEqual(response.status_code, 200)
 
 class  ManagementOrderViewTest(DBTestBase):
     def setUp(self):
