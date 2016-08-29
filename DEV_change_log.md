@@ -1,4 +1,5 @@
-
+5.  
+4.  hao dian ye ,  seller products 
 3.  jd entity crawl bug fix 
 2.  refactor martin's code to for appliance to PEP8 
 1.  top menu update -- lq, need intensive test 
