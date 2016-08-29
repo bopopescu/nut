@@ -69,6 +69,8 @@ urlpatterns += patterns(
     url(r'^articles/', include('apps.v4.urls.articles')),
 
     url(r'^entity/', include('apps.v4.urls.entity')),
+    url(r'^cart/', include('apps.v4.urls.cart')),
+
     url(r'^category/', include('apps.v4.urls.category')),
     url(r'^user/', include('apps.v4.urls.user')),
     url(r'^message/', include('apps.v4.urls.message')),
