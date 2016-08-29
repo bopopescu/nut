@@ -63,7 +63,7 @@ class DesignWeekViewSet(viewsets.ReadOnlyModelViewSet):
 def get_auth_seller_entities():
     auth_seller = GKUser.objects.authorized_seller()
     shop_link_list = Shop.objects.filter(owner__in=list(auth_seller)).values_list('common_shop_link', flat=True)
-    entities = Entity.objects.filter(buy_links__shop_link__in=list(shop_link_list), status=1)
+    entities = Entity.objects.filter(buy_links__shop_link__in=list(shop_link_list), status=1,  buy_links__status=2)
     return entities
 
 
