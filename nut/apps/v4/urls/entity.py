@@ -1,6 +1,6 @@
 from django.conf.urls import url, patterns
 from apps.v4.views.entity import APIEntitySearchView, GuessEntityView
-from apps.v4.views.orders.entity_sku import EntitySKUView, AddSKUToCartView
+from apps.v4.views.orders.entity_sku import EntitySKUView
 
 
 urlpatterns = patterns(
@@ -19,7 +19,7 @@ urlpatterns = patterns(
 
     # entity sku url
     url(r'^sku/(?P<entity_hash>\w+)/$', EntitySKUView.as_view(), name='v4_entity_sku'),
-    url(r'^cart/$', AddSKUToCartView.as_view(), name='v4_add_to_cart'),
+
 )
 
 urlpatterns += patterns(

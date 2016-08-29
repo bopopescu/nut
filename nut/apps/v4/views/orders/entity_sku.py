@@ -37,14 +37,5 @@ class EntitySKUView(APIJsonView):
         return super(EntitySKUView, self).get(request, *args, **kwargs)
 
 
-class AddSKUToCartView(APIJsonSessionView):
 
-    http_method_names = ['post']
-
-    def get_data(self, context):
-        form = CartForm(self.request.POST)
-        if form.is_valid():
-            form.save(user=self.session.user)
-            return {'status': True}
-        return ErrorJsonResponse(data=form.errors ,status=401)
 

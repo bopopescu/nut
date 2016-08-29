@@ -90,8 +90,8 @@ class APIJsonSessionView(APIJsonView):
     def dispatch(self, request, *args, **kwargs):
         try:
             self.check_session(request)
-        except Session_Key.DoesNotExist:
-            return ErrorJsonResponse(status=403)
+        except Session_Key.DoesNotExist as e:
+            return ErrorJsonResponse(data={'message': e.message}, status=403)
         return super(APIJsonSessionView, self).dispatch(request, *args, **kwargs)
 
 
