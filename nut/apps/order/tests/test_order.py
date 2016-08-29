@@ -83,6 +83,12 @@ class OrderForUserTest(DBTestBase):
 
         #
         self.assertEqual(self.the_user.order_items.all()[1].volume , 2)
+        #sku1 unit_grand_price is 7
+        self.assertEqual(new_order.items.all().get(sku__id=self.sku1.id).sku_unit_grand_price,7)
+        #sku1 unit_promo_price is 5
+        self.assertEqual(new_order.items.all().get(sku__id=self.sku1.id).sku_unit_promo_price,5)
+        # sku2 unit_promo_price is 11
+        self.assertEqual(new_order.items.all().get(sku__id=self.sku2.id).sku_unit_promo_price,11)
 
 
 

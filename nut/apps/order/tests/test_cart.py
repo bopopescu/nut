@@ -76,7 +76,15 @@ class CartForUserTest(TestCase):
             'color':'blue'
         })
         self.assertEqual(entity.skus.all().count(), 3)
-
+    def test_entity_stock(self):
+        entity=self.entity
+        sku1=entity.add_sku({'color':'red'})
+        sku1.stock=4
+        sku1.save()
+        sku2=entity.add_sku({'sdf':'sd','stock':3})
+        sku2.stock=3
+        sku2.save()
+        self.assertEqual(entity.total_stock,7)
 
     def test_add_zero_stock_sku_to_cart_raise_cart_exception(self):
         user = self.the_user

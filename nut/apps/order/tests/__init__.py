@@ -10,6 +10,7 @@ class DBTestBase(TestCase):
             'is_active':  1,
             'is_admin': False,
             'password':'test_pass'
+
         })
 
       self.category = Category.objects.create(**{
@@ -32,3 +33,5 @@ class DBTestBase(TestCase):
             'images':  ["http://img01.taobaocdn.com/bao/uploaded/i1/T1Rgl7XkBtXXbGKWs._111251.jpg",],
             'status': 0
         })
+
+
