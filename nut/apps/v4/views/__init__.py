@@ -611,31 +611,6 @@ class TopPopularView(APIJsonView):
         self.count = request.GET.get('count', 30)
         return super(TopPopularView, self).get(request, *args, **kwargs)
 
-# @check_sign
-# def toppopular(request):
-#
-#     days = timedelta(days=1)
-#     now_string = datetime.now().strftime("%Y-%m-%d")
-#     dt = datetime.now() - days
-#     _count = request.GET.get('count')
-#     _count = int(_count)
-#
-#     query = "select id, entity_id, count(*) as lcount from core_entity_like where created_time between '%s' and '%s' group by entity_id order by lcount desc" % (dt.strftime("%Y-%m-%d"), now_string)
-#     _entity_list = Entity_Like.objects.raw(query).using('slave')
-#
-#     res = []
-#     for entity_like in _entity_list[:_count]:
-#         r = {
-#             'entity': entity_like.entity.v3_toDict(),
-#             'note': entity_like.entity.top_note.v3_toDict()
-#         }
-#         res.append({
-#             'content': r,
-#             'type': "top_popular",
-#         })
-#
-#     return SuccessJsonResponse(res)
-
 
 class UnreadView(APIJsonSessionView):
 
