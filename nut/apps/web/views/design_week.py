@@ -50,13 +50,6 @@ class DesignWeekViewSet(viewsets.ReadOnlyModelViewSet):
         # qs = Entity.objects.filter(id__in=entity_ids)
         return get_auth_seller_entities()
 
-# 归属于认证卖家的商品
-def get_auth_seller_entities():
-    auth_seller = GKUser.objects.authorized_seller()
-    shop_link_list = Shop.objects.filter(owner__in=list(auth_seller)).values_list('common_shop_link', flat=True)
-    entities = Entity.objects.filter(buy_links__shop_link__in=list(shop_link_list), status=1)
-    return entities
-
 
     def get_pagination_serializer(self, page):
         class SerializerClass(NewPaginationSerializer):
@@ -65,6 +58,13 @@ def get_auth_seller_entities():
         pagination_serializer_class = SerializerClass
         context = self.get_serializer_context()
         return pagination_serializer_class(instance=page, context=context)
+
+# 归属于认证卖家的商品
+def get_auth_seller_entities():
+    auth_seller = GKUser.objects.authorized_seller()
+    shop_link_list = Shop.objects.filter(owner__in=list(auth_seller)).values_list('common_shop_link', flat=True)
+    entities = Entity.objects.filter(buy_links__shop_link__in=list(shop_link_list), status=1)
+    return entities
 
 
 class DesignWeekPaginationSerializer(BasePaginationSerializer):
