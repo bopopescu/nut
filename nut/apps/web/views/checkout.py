@@ -6,7 +6,7 @@ from datetime import datetime
 
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.views.generic import ListView, DeleteView, UpdateView
+from django.views.generic import ListView, DeleteView, UpdateView, View
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 
@@ -143,17 +143,22 @@ class SellerOrderDeleteView(MyOrderUserPassesTestMixin, DeleteView):
         return reverse('checkout_order_list')
 
 
-class CheckDeskPayView(MyOrderUserPassesTestMixin, AjaxResponseMixin, UpdateView):
+class CheckDeskPayView(MyOrderUserPassesTestMixin, AjaxResponseMixin, View):
     model = Order
     template_name = 'web/seller_management/sku/sku_edit_template.html'
     http_method_names = ["post"]
 
-    def __init__(self, *args, **kwargs):
-        super(CheckDeskPayView, self).__init__(*args, **kwargs)
-        order_id = int(self.request.POST.get('order_id', None))
-        self._order = get_object_or_404(Order, pk=order_id)
+    # def __init__(self, *args, **kwargs):
+    #     super(CheckDeskPayView, self).__init__(*args, **kwargs)
+    #     order_id = int(self.request.POST.get('order_id', None))
+    #     self._order = get_object_or_404(Order, pk=order_id)
+    #     return self
 
     def get_order(self):
+        if getattr(self, '_order', None) is None:
+            order_id = int(self.request.POST.get('order_id', None))
+            self._order = get_object_or_404(Order, pk=order_id)
+
         return self._order
 
     def write_payment_log(self):
