@@ -1,7 +1,7 @@
 //change filename from fastdom to fastdom.ant to avoid duplicate module name
 
 requirejs.config({
-    waitSeconds : 30,
+    waitSeconds : 200,
     baseUrl: 'app/',
     paths: {
         libs: './libs',
