@@ -24,6 +24,9 @@ from django.http import Http404,HttpResponseNotAllowed
 from apps.management.decorators import staff_only, staff_and_editor
 from apps.core.utils.http import JSONResponse
 from datetime import datetime, timedelta
+
+from apps.web.views.user import get_seller_entities
+
 TIME_FORMAT = '%Y-%m-%d 8:00:00'
 
 class SKUUserPassesTestMixin(UserPassesTestMixin):
@@ -77,7 +80,7 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
                                   )
 
     def get_queryset(self):
-        qs = self.request.user.entities.all()
+        qs = get_seller_entities(self.request.user)
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
     def get_context_data(self, **kwargs):

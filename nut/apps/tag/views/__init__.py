@@ -130,6 +130,7 @@ class TagEntityView(TagEntitiesByHashView):
         self.tag_name = self.tag_name.lower()
         try:
             self.tag = Tags.objects.get(name=self.tag_name)
+            self.tag_hash = self.tag.hash
         except Tags.DoesNotExist:
             raise Http404
         self.queryset = Content_Tags.objects.filter(tag=self.tag,

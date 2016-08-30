@@ -90,8 +90,8 @@ class APIJsonSessionView(APIJsonView):
     def dispatch(self, request, *args, **kwargs):
         try:
             self.check_session(request)
-        except Session_Key.DoesNotExist:
-            return ErrorJsonResponse(status=403)
+        except Session_Key.DoesNotExist as e:
+            return ErrorJsonResponse(data={'message': e.message}, status=403)
         return super(APIJsonSessionView, self).dispatch(request, *args, **kwargs)
 
 
@@ -516,10 +516,10 @@ class APISearchHotWordView(APIJsonView):
 
     def get_data(self, context):
         tags = Tags.objects.hot_article_tags()
-        # # print "okokoko", tags
-        # tag_list = map(lambda x.name : x, tags)
-        # [for row in tags: row.name]
         tag_list = [row.name for row in tags]
+
+        # TODO: Dove Promotion
+        tag_list.insert(0, u'德芙')
         return tag_list
 
     def get(self, request, *args, **kwargs):
@@ -596,6 +596,21 @@ class TopPopularView(APIJsonView):
 
         res = []
         # log.info(type(self.count))
+        # TODO: Dove Promotion
+        try:
+            entity = APIEntity.objects.get(pk = 4641257)
+            r = {
+                'entity': entity.v3_toDict(),
+                'note': entity.top_note.v3_toDict()
+            }
+            res.append({
+                'content': r,
+                'type': "top_popular",
+            })
+        except APIEntity.DoesNotExist as e :
+            log.info(e.message)
+            pass
+
         for entity_like in _entity_list[:self.count]:
             r = {
                 'entity': entity_like.entity.v3_toDict(),
@@ -610,31 +625,6 @@ class TopPopularView(APIJsonView):
     def get(self, request,  *args, **kwargs):
         self.count = request.GET.get('count', 30)
         return super(TopPopularView, self).get(request, *args, **kwargs)
-
-# @check_sign
-# def toppopular(request):
-#
-#     days = timedelta(days=1)
-#     now_string = datetime.now().strftime("%Y-%m-%d")
-#     dt = datetime.now() - days
-#     _count = request.GET.get('count')
-#     _count = int(_count)
-#
-#     query = "select id, entity_id, count(*) as lcount from core_entity_like where created_time between '%s' and '%s' group by entity_id order by lcount desc" % (dt.strftime("%Y-%m-%d"), now_string)
-#     _entity_list = Entity_Like.objects.raw(query).using('slave')
-#
-#     res = []
-#     for entity_like in _entity_list[:_count]:
-#         r = {
-#             'entity': entity_like.entity.v3_toDict(),
-#             'note': entity_like.entity.top_note.v3_toDict()
-#         }
-#         res.append({
-#             'content': r,
-#             'type': "top_popular",
-#         })
-#
-#     return SuccessJsonResponse(res)
 
 
 class UnreadView(APIJsonSessionView):

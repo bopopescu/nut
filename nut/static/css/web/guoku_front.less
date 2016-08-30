@@ -697,7 +697,7 @@ body.new-index-body{
   .top-search-wrapper{
     width:100%;
     height:auto;
-    padding:32px 0 20px 0;
+    padding:32px 0 0 0;
     text-align: center;
     .search-form{
       display: inline-block;
@@ -721,12 +721,15 @@ body.new-index-body{
       .search-hot-tags{
         ul {
            .clearfix;
-          margin-bottom: 0;
           li{
           float: left;
           margin:0 6px;
-          font-size:@more-mini-size;
-          color:@new-text-gray;
+            a, a:hover, a:active, a:visited{
+              font-size:@more-mini-size;
+              color:@new-text-gray;
+              text-decoration: none;
+            }
+
           }
           li:first-child{
             margin-left:12px;

@@ -13,6 +13,7 @@ from apps.core.models import Entity, Buy_Link, Note, \
                             Selection_Entity, Sina_Token, \
                             Taobao_Token, WeChat_Token, User_Follow, Category
 from apps.core.models import Selection_Article, Article, Article_Dig, Article_Remark
+from apps.order.models import CartItem
 
 from django.conf import settings
 imghost = getattr(settings, 'IMAGE_HOST')
@@ -363,16 +364,36 @@ class APIArticle_Remark(Article_Remark):
 class APIJpush(JpushToken):
 
     class Meta:
-        proxy = True
+        proxy   = True
 
 
 # TODO API Seseion
 class APISession_Key(Session_Key):
 
     class Meta:
-        proxy = True
+        proxy   = True
 
 
+
+class APICartItem(CartItem):
+
+    class Meta:
+        proxy   = True
+
+    def v4_toDict(self):
+        res = super(APICartItem, self).toDict()
+        res.pop('sku_id', None)
+        res.update(
+            {
+                'sku': self.sku.toDict(),
+                'entity': self.sku.entity.toDict()
+            }
+        )
+        # print self.sku.toDict()
+        return res
+
+
+# jpush
 def remove_jpush_register_id(sender, instance, **kwargs):
 
     if issubclass(sender, APISession_Key):

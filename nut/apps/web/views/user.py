@@ -463,8 +463,7 @@ class UserEntitiesView(UserDetailBase):
 
     def get_queryset(self):
         _user = self.get_showing_user()
-        _user_entities = Entity.objects.get_user_added_entities(_user)
-        return _user_entities
+        return get_seller_entities(_user)
 
     def get_user_entity_likes(self, entities):
         like_list = list()
@@ -483,6 +482,13 @@ class UserEntitiesView(UserDetailBase):
         entities = context['entities']
         context['user_entity_likes'] = self.get_user_entity_likes(entities)
         return context
+
+def get_seller_entities(seller):
+    current_user_shop_link = Shop.objects.filter(owner=seller).values_list('common_shop_link', flat=True)
+    _entity_list = Entity.objects.filter(buy_links__shop_link__in=list(current_user_shop_link), status=1,
+                                         buy_links__status=2)
+    return _entity_list
+
 
 
 
