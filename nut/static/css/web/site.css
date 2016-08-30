@@ -1076,13 +1076,11 @@ p.boolean-false {
   color: #ffffff;
 }
 .newest-btn-primary {
-  border: 1px solid #6192FF;
   background-color: #6192FF;
   color: #ffffff;
 }
 .newest-btn-primary:hover,
 .newest-btn-primary:focus {
-  border: 1px solid #3F6FF0;
   background-color: #3F6FF0;
   color: #ffffff;
 }

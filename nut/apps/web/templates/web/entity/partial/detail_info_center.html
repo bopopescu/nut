@@ -80,7 +80,7 @@
     {% with row=entity.default_buy_link %}
         {% if row.status != 2   and   row.shop_link  and row.origin_source == 'taobao.com' %}
             <div class="row">
-                  <div class="col-xs-12 col-sm-10  guoku-button buy-btn">
+                  <div class="col-xs-12 col-sm-10  guoku-button buy-btn newest-btn-primary">
                       <a class="buy-button" rel="nofollow" href="{{ row.shop_link }}" target="_blank"  _hover-ignore="1" id="goto-shop-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity.title }}-taobao'])">
                           <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;{% trans '去店铺' %}
                       </a>
@@ -89,7 +89,7 @@
 
          {% elif row.status != 2 and  not row.shop_link and  row.origin_source == 'taobao.com' %}
             <div class="row">
-                <div class="col-xs-12 col-sm-10  guoku-button buy-btn">
+                <div class="col-xs-12 col-sm-10  guoku-button buy-btn newest-btn-primary">
                       <a class="buy-button" rel="nofollow" href="{{ entity.title|tbsearch_url }}" target="_blank"  _hover-ignore="1" id="search-tb-btn" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity.title }}-taobao'])">
                           <i class="fa fa-search"></i>&nbsp;&nbsp;{% trans '搜同款' %}
                       </a>
