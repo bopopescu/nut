@@ -167,7 +167,9 @@
                             <div class="section-panel">
                                 <div class="entity-pic" style="background-image: url('{{ entity.chief_image |resize:'240' }}')">
                                 </div>
-                                <span class="seller-name">{{ entity.user.nick }}</span>
+                                <span class="seller-name">
+                                   {{ entity.title }}
+                                </span>
                             </div>
                         </a>
                     </li>
