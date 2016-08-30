@@ -426,10 +426,11 @@ def entity_like(request, eid):
             #         obj.entity.innr_like()
             # return obj
             if settings.DEBUG:
-                el = Entity_Like.objects.create(
+                el, created = Entity_Like.objects.get_or_create(
                     user=_user,
                     entity_id=eid,
                 )
+
             else:
                 like_task.delay(uid=_user.id, eid=eid)
 
@@ -450,6 +451,7 @@ def entity_unlike(request, eid):
         try:
             if settings.DEBUG:
                 el = Entity_Like.objects.get(entity_id=eid, user=_user)
+
                 el.delete()
             else:
                 unlike_task.delay(uid=_user.id, eid=eid)

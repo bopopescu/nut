@@ -165,21 +165,45 @@ def entity_liker(request, entity_id):
     return SuccessJsonResponse(res)
 
 
-@check_sign
-def guess(request):
+# @check_sign
+# def guess(request):
+#
+#     res = []
+#
+#     _category_id = request.GET.get('cid', None)
+#     _entity_id = request.GET.get('eid', None)
+#     _count = int(request.GET.get('count', '5'))
+#
+#     entities = APIEntity.objects.guess(category_id=_category_id, count=_count, exclude_id=_entity_id)
+#
+#     for entity in entities:
+#         res.append(entity.v4_toDict())
+#
+#     return SuccessJsonResponse(res)
 
-    res = []
 
-    _category_id = request.GET.get('cid', None)
-    _entity_id = request.GET.get('eid', None)
-    _count = int(request.GET.get('count', '5'))
+class GuessEntityView(APIJsonView):
 
-    entities = APIEntity.objects.guess(category_id=_category_id, count=_count, exclude_id=_entity_id)
+    http_method_names = ['get']
 
-    for entity in entities:
-        res.append(entity.v4_toDict())
+    def get_data(self, context):
+        res = list()
 
-    return SuccessJsonResponse(res)
+        entities = APIEntity.objects.guess(category_id=self.category_id,
+                                           count=self.count,
+                                           exclude_id=self.entity_id)
+
+        for entity in entities:
+            res.append(entity.v4_toDict())
+
+        return res
+
+    def get(self, request, *args, **kwargs):
+        self.category_id = request.GET.get('cid', None)
+        self.entity_id = request.GET.get('eid', None)
+        self.count = int(request.GET.get('count', '5'))
+
+        return super(GuessEntityView, self).get(request, args, **kwargs)
 
 
 class APIEntitySearchView(SearchView, JSONResponseMixin):
@@ -240,46 +264,37 @@ class APIEntitySearchView(SearchView, JSONResponseMixin):
 
 
 
-class EntitySKUView(APIJsonView):
+# class EntitySKUView(APIJsonView):
+#
+#     http_method_names = ['get']
+#
+#     def get_data(self, context):
+#         try:
+#             entity = APIEntity.objects.get(entity_hash = self.entity_hash)
+#         except APIEntity.DoesNotExist:
+#             raise
+#         print entity.skus.all()
+#
+#         entity_res = entity.v4_toDict()
+#         sku_list   = list()
+#         for row in entity.skus.filter(status=1):
+#             sku_list.append(
+#                 row.toDict(),
+#             )
+#         entity_res.update(
+#             {
+#                 'skus': sku_list,
+#             }
+#         )
+#
+#         return entity_res
+#
+#     def get(self, request, *args, **kwargs):
+#         self.entity_hash = kwargs.pop('entity_hash', None)
+#
+#         assert self.entity_hash is not None
+#         return super(EntitySKUView, self).get(request, *args, **kwargs)
 
-    http_method_names = ['get']
-
-    def get_data(self, context):
-        try:
-            entity = APIEntity.objects.get(entity_hash = self.entity_hash)
-        except APIEntity.DoesNotExist:
-            raise
-        print entity.skus.all()
-
-        entity_res = entity.v4_toDict()
-        # entity_res.update(
-        #     {
-        #         'entity': entity.v4_toDict(),
-        #         'skus': list(),
-        #     }
-        # )
-        sku_list   = list()
-        for row in entity.skus.filter(status=1):
-            sku_list.append(
-                row.toDict(),
-            )
-        entity_res.update(
-            {
-                'skus': sku_list,
-            }
-        )
-
-        return entity_res
-
-
-    def get(self, request, *args, **kwargs):
-        self.entity_hash = kwargs.pop('entity_hash', None)
-
-        assert self.entity_hash is not None
-
-
-
-        return super(EntitySKUView, self).get(request, *args, **kwargs)
 
 
 @csrf_exempt

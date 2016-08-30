@@ -1,5 +1,7 @@
 from django.conf.urls import url, patterns
 from apps.order.views.web.cart import UserCartView, UserCheckoutView, UserAddSKUView
+
+
 urlpatterns = patterns(
     'apps.order.views.web.cart',
     url(r'^$', UserCartView.as_view(), name='web_user_cart'),

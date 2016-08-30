@@ -1,10 +1,12 @@
 # encoding: utf-8
+import json
 
 from braces.views import AjaxResponseMixin, UserPassesTestMixin
+from datetime import datetime
 
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.views.generic import ListView, DeleteView, UpdateView
+from django.views.generic import ListView, DeleteView, UpdateView, View
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 
@@ -12,6 +14,7 @@ from apps.core.utils.http import JSONResponse
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.mixins.views import FilterMixin, SortMixin
 from apps.order.models import Order
+from apps.payment.models import PaymentLog
 
 
 class MyOrderUserPassesTestMixin(UserPassesTestMixin):
@@ -140,17 +143,54 @@ class SellerOrderDeleteView(MyOrderUserPassesTestMixin, DeleteView):
         return reverse('checkout_order_list')
 
 
-class CheckDeskPayView(MyOrderUserPassesTestMixin, AjaxResponseMixin, UpdateView):
+class CheckDeskPayView(MyOrderUserPassesTestMixin, AjaxResponseMixin, View):
     model = Order
     template_name = 'web/seller_management/sku/sku_edit_template.html'
     http_method_names = ["post"]
 
+    # def __init__(self, *args, **kwargs):
+    #     super(CheckDeskPayView, self).__init__(*args, **kwargs)
+    #     order_id = int(self.request.POST.get('order_id', None))
+    #     self._order = get_object_or_404(Order, pk=order_id)
+    #     return self
+
+    def get_order(self):
+        if getattr(self, '_order', None) is None:
+            order_id = int(self.request.POST.get('order_id', None))
+            self._order = get_object_or_404(Order, pk=order_id)
+
+        return self._order
+
+    def write_payment_log(self):
+        _order = self.get_order()
+        _payment_log, created = PaymentLog.objects.get_or_create(
+            order=_order,
+            payment_source=PaymentLog.cash_ccard,
+            payment_status=PaymentLog.paid
+        )
+        if created:
+            _payment_log.payment_notify_info = json.dumps(self.get_payment_info_dic())
+            _payment_log.pay_time = datetime.now()
+            _payment_log.save()
+
+        return
+
     def post_ajax(self, request, *args, **kwargs):
-        order_id = request.POST['order_id']
-        instance = get_object_or_404(Order, pk=order_id)
+        _order = self.get_order()
         try:
-            instance.set_paid()
+            _order.set_paid()
+            self.write_payment_log()
             return JSONResponse(data={'result': 1}, status=200)
         except Exception:
             # TODO: more accurate exception later
             return JSONResponse(data={'result': 0}, status=400)
+
+    def get_payment_info_dic(self):
+        _order = self.get_order()
+        return {
+            'payment_method': 'check desk',
+            'payment_operator_id': self.request.user.id,
+            'payment_operator_nick': self.request.user.nick,
+            'payment_operator_time': datetime.now().strftime('%Y:%M:%D %H:%M:%S'),
+            'payment_total': _order.order_total_value
+        }
