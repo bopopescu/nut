@@ -90,7 +90,7 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin, TemplateView):
         context['entities'] = Entity.objects.filter(id__in=popular_list)  # 热门商品
         context['article_tags'] = Tags.objects.top_article_tags()  # 图文标签
         # ===============
-        context['hot_article_tags'] = Tags.objects.hot_article_tags()[6]  # 编辑最多使用的图文标签,用来作搜索提示
+        context['hot_article_tags'] = Tags.objects.hot_article_tags()[:6]  # 编辑最多使用的图文标签,用来作搜索提示
         # ===============
         # context['articles'] = Selection_Article.objects.select_related('article').all()[:3]  # 最新精选图文
         context['articles'] = self.get_selection_articles()[:3]  # 最新精选图文

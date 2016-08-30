@@ -17,8 +17,9 @@
                         <div class="hot_article_tags search-hot-tags">
                             <ul>
                             {% for tag in hot_article_tags %}
-                                <li>{{ tag.name }}</li>
+                                <li><a href='{% url 'web_search' %}?q={{ tag.name }}'>{{ tag.name }}</a></li>
                             {% endfor %}
+                                <li><a href='{% url 'web_search' %}?q=德芙'>德芙</a></li>
                             </ul>
                         </div>
                     </div>

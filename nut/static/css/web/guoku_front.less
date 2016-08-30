@@ -723,8 +723,12 @@ body.new-index-body{
           li{
           float: left;
           margin:0 6px;
-          font-size:@more-mini-size;
-          color:@new-text-gray;
+            a, a:hover, a:active, a:visited{
+              font-size:@more-mini-size;
+              color:@new-text-gray;
+              text-decoration: none;
+            }
+
           }
           li:first-child{
             margin-left:12px;

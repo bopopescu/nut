@@ -3739,8 +3739,14 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 #guoku_main_nav .top-search-wrapper .search-form .search-hot-tags ul li {
   float: left;
   margin: 0 6px;
+}
+#guoku_main_nav .top-search-wrapper .search-form .search-hot-tags ul li a,
+#guoku_main_nav .top-search-wrapper .search-form .search-hot-tags ul li a:hover,
+#guoku_main_nav .top-search-wrapper .search-form .search-hot-tags ul li a:active,
+#guoku_main_nav .top-search-wrapper .search-form .search-hot-tags ul li a:visited {
   font-size: 12px;
   color: #757575;
+  text-decoration: none;
 }
 #guoku_main_nav .top-search-wrapper .search-form .search-hot-tags ul li:first-child {
   margin-left: 12px;
