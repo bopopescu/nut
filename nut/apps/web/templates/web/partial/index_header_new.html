@@ -7,14 +7,14 @@
        {% include 'web/partial/top_ad.html' %}
         <div class="container">
             <div class="top-search-wrapper">
-                <img src="{% static 'images/top_search_logo.png' %}" alt="{% trans 'guoku' %}" title="{% trans 'guoku' %}" style="width:64px;height:40px;">
+                <img src="{% static 'images/top_search_logo.png' %}" alt="{% trans 'guoku' %}" title="{% trans 'guoku' %}" style="width:64px;height:40px;vertical-align:top;">
                  <form class="navbar-form search-form" action="{% url 'web_search' %}" method="get" role="form">
                     <div class="input-group search">
                         <input class="form-control top-search-input"
                                autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false"
-                               name="q" type="search" placeholder="&nbsp;{% trans 'Search' %}" value="{{ keyword }}" >
+                               name="q" type="search" placeholder="{% trans 'Search' %}" value="{{ keyword }}" >
                         <i class="fa fa-search fa-search-control"></i>
-                        <div class="hot_article_tags" style="display:none">
+                        <div class="hot_article_tags search-hot-tags">
                             <ul>
                             {% for tag in hot_article_tags %}
                                 <li>{{ tag.name }}</li>
