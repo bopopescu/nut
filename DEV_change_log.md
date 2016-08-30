@@ -1,4 +1,4 @@
-
+6.  add search word 
 5.  reduce qrcode complexity in sale page 
 4.  hao dian ye ,  seller products 
 3.  jd entity crawl bug fix 
