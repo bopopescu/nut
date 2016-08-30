@@ -3045,7 +3045,7 @@ body.compact-body {
   padding-top: 51px;
 }
 body.new-index-body {
-  padding-top: 176px;
+  padding-top: 188px;
 }
 body.new-index-body #guoku_main_nav.new-index-navbar {
   position: absolute;
@@ -3702,7 +3702,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 #guoku_main_nav .top-search-wrapper {
   width: 100%;
   height: auto;
-  padding: 20px 0;
+  padding: 32px 0 20px 0;
   text-align: center;
 }
 #guoku_main_nav .top-search-wrapper .search-form {
