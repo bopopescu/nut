@@ -19,6 +19,7 @@ from apps.order.exceptions import OrderException
 
 log = getLogger('django')
 
+
 class SKU(BaseModel):
     (disable, enable) = (0, 1)
     SKU_STATUS_CHOICE = [(disable, _('disable')), (enable, _('enable'))]
