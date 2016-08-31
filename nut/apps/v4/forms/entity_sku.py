@@ -9,7 +9,8 @@ class CartForm(forms.Form):
                         widget=forms.NumberInput(),
                     )
     volume          = forms.IntegerField(
-                        widget=forms.NumberInput(), initial=1
+                        widget=forms.NumberInput(), initial=1,
+                        required=False,
                     )
 
     def clean_sid(self):
@@ -26,14 +27,33 @@ class CartForm(forms.Form):
                 e.message
             )
 
-
+    def clean_volume(self):
+        volume = self.cleaned_data.get('volume')
+        if volume is None:
+            volume = 1
+        return volume
 
     def save(self, user):
         sku_id      = self.cleaned_data.get('sid')
         volume      = self.cleaned_data.get('volume')
+        # print type(volume)
         try:
-            user.add_sku_to_cart(sku_id, volume)
+            cart_item = user.add_sku_to_cart(sku_id, volume)
         except CartException as e:
             raise forms.ValidationError(
                 e.message
             )
+        return cart_item
+
+
+class DescCartItemForm(CartForm):
+
+    def save(self, user):
+        sku_id      = self.cleaned_data.get('sid')
+        try:
+            cart_item = user.decr_sku_in_cart(sku_id)
+        except CartException as e:
+            raise forms.ValidationError(
+                e.message
+            )
+        return cart_item
