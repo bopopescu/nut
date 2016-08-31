@@ -4,8 +4,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from apps.web.feeds import SelectionFeeds,\
                             ArticlesFeeds,\
                             ArticlesInterviewFeeds,\
-                            GKEditorSelectionFeed
-
+                            GKEditorSelectionFeed, ZKArticleFeeds
 
 urlpatterns = staticfiles_urlpatterns()
 
@@ -82,6 +81,7 @@ urlpatterns += patterns(
     url(r'^feed/articles/$', ArticlesFeeds()),
     url(r'^feed/articles/interview/$', ArticlesInterviewFeeds()),
     url(r'^feed/articles/editor/$', GKEditorSelectionFeed()),
+    url(r'^feed/ak/articles/$', ZKArticleFeeds()),
 )
 
 if settings.DEBUG:

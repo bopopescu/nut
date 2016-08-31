@@ -211,6 +211,11 @@ class ArticlesFeeds(Feed):
         return extra
 
 
+
+class ZKArticleFeeds(ArticlesFeeds):
+    def items(self):
+        return Selection_Article.objects.published().order_by('-pub_time')[0:10]
+
 class GKEditorSelectionFeed(ArticlesFeeds):
     def items(self):
         editors = list(GKUser.objects.editor())
