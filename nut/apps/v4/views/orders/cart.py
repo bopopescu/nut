@@ -1,7 +1,7 @@
 from apps.core.views import ErrorJsonResponse
 from apps.v4.views import APIJsonSessionView
 from apps.v4.models import APICartItem
-from apps.v4.forms.entity_sku import CartForm
+from apps.v4.forms.entity_sku import CartForm, DescCartItemForm
 
 
 class CartListView(APIJsonSessionView):
@@ -49,19 +49,27 @@ class IncrCartItemView(APIJsonSessionView):
                 }
             )
             return res
-
-
         return ErrorJsonResponse(data=form.errors, status=401)
 
 
+class DescCartItemView(APIJsonSessionView):
 
-class descCartItemView(APIJsonSessionView):
-
-    http_method_names = ['post']
+    http_method_names   = ['post']
 
     def get_data(self, context):
+        form            = DescCartItemForm(self.request.POST)
+        if form.is_valid():
+            cart_item   = form.save(user=self.session.user)
 
-        return
+            res = dict()
+            res['status'] = True
+            res.update(
+                {
+                    'volume': cart_item.volume
+                }
+            )
+            return res
+        return ErrorJsonResponse(data=form.errors, status=401)
 
 
 class ClearCartView(APIJsonSessionView):
