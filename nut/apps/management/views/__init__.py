@@ -35,9 +35,9 @@ def dashboard(request, template='management/dashboard.html'):
                                                                  today)).count()
     authorized_authors = GKUser.objects.authorized_author()
     yesterday_finish_detail = []
-    # for author in authorized_authors:
-    #     finish_num = get_update(author)
-    #     yesterday_finish_detail.append([author, author.profile.nickname, finish_num])
+    for author in authorized_authors:
+        finish_num = get_update(author)
+        yesterday_finish_detail.append([author, author.profile.nickname, finish_num])
 
 
 
