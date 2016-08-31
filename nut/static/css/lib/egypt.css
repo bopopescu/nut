@@ -198,7 +198,7 @@ textarea {
   font-weight: 700;
 }
 .pager .disabled > a {
-  background-color: #427DBF;
+  background-color: #6192FF;
   cursor: not-allowed;
   color: #fff;
 }
