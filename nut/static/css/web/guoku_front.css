@@ -2506,8 +2506,13 @@ a.new-black-link:hover {
 }
 .btn-primary {
   color: #fff;
-  background-color: #427EC0;
+  background-color: #6192FF;
   border: none;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primaryactive {
+  background-color: #3F6FF0;
 }
 /*.round:hover{color:blue;text-decoration:none}*/
 /*去掉苹果的默认UI来渲染按钮*/
