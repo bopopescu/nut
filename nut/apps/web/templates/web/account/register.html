@@ -23,7 +23,7 @@
 {#            <p>第{{ wizard.steps.step1 }}步，共{{ wizard.steps.count }}步</p>#}
         </div>
         <div class="col-xs-2 col-sm-2">
-            <a class="pull-right btn btn-link" href="{% url 'web_login' %}">{% trans 'Sign In Now' %}&nbsp;>></a>
+            <a class="pull-right btn new-blue-link" href="{% url 'web_login' %}">{% trans 'Sign In Now' %}&nbsp;>></a>
         </div>
     </div>
     <div class="row">
@@ -49,7 +49,7 @@
 {#                        <div class="form-group {% if field.errors %}has-error{% endif %}">#}
                         <div class="checkbox">
                             <label class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6">
-                                {{ field }}我已阅读并同意&nbsp;<a class="pull-right" href="{% url 'web_agreement' %}">果库使用协议</a>
+                                {{ field }}我已阅读并同意&nbsp;<a class="pull-right new-blue-link" href="{% url 'web_agreement' %}">果库使用协议</a>
                             </label>
 
 {#                            使用协议</a>#}
