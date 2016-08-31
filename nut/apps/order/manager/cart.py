@@ -32,6 +32,8 @@ class CartItemManager(models.Manager):
             cart_item.save()
         else:
             cart_item.volume += volume
+            if cart_item.volume > sku.stock:
+                raise CartException('sku stock less than required')
             cart_item.save()
         return cart_item
 
