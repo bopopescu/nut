@@ -2699,6 +2699,16 @@ textarea {
   cursor: not-allowed;
   color: #fff;
 }
+.pagination > li > a {
+  color: #5976c1;
+}
+.pagination > li > a:hover {
+  color: #4057A7;
+}
+.pagination > .active > a {
+  background-color: #6192FF;
+  border-color: #6192FF;
+}
 a {
   color: #5976c1;
   text-decoration: none;
