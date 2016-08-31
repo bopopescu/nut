@@ -1431,14 +1431,14 @@ define('subapp/top_notification/top_notification',[
             this.flag = 0;
             console.log('top notification begin');
             this.initClickBell();
-            this.initClickUser();
+            this.initNotificationListBlur();
             this.checkBadge();
+        },
+        initNotificationListBlur:function(){
+            $('.navbar-collapse .notification-icon').blur(this.handleNotificationIconBlur.bind(this));
         },
         initClickBell: function(){
             $('.navbar-collapse .notification-icon').click(this.handleClickBell.bind(this));
-        },
-        initClickUser:function(){
-            $('.navbar-collapse .nav-user-actions').click(this.handleClickUser.bind(this));
         },
         checkBadge:function(){
             if($('.nav-user-actions .badge').length > 0){
@@ -1459,7 +1459,7 @@ define('subapp/top_notification/top_notification',[
                 this.postAjaxNotification();
             }
         },
-        handleClickUser:function(){
+        handleNotificationIconBlur:function(){
             var notification = $('.navbar-collapse .notification-drop-list-wrapper');
             if(notification.css('display') == 'block'){
                 notification.css('display','none');
