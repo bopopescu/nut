@@ -202,3 +202,10 @@ textarea {
   cursor: not-allowed;
   color: #fff;
 }
+a {
+  color: #5976c1;
+  text-decoration: none;
+}
+a:hover {
+  color: #4057A7;
+}
