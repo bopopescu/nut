@@ -621,6 +621,7 @@ class AddEntityForm(forms.Form):
 
 
     cate_choices = get_category_choices()
+
     sub_cate_choices = get_sub_category_choices(cate_choices[0][0]) or []
 
     category = forms.ChoiceField(label=_('category'),

@@ -80,7 +80,7 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
                                   )
 
     def get_queryset(self):
-        qs = get_seller_entities(self.request.user)
+        qs = self.request.user.entities.all()
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
     def get_context_data(self, **kwargs):
@@ -630,7 +630,8 @@ def get_finished_count(user_id):
                     "group by order_order.id) as temp "\
                     "group by date(created_datetime)", [user_id])  # find finished orders of this user
     res = cursor.fetchall()
-    return res
+    return parse_data(res)
+
 def get_income(user_id):
     cursor = connection.cursor()
     cursor.execute( "select date(created_datetime),sum(income) from"\
@@ -643,17 +644,32 @@ def get_income(user_id):
                     "order by date(created_datetime)) as temp  "\
                     "group by date(created_datetime)",[user_id])
     res=cursor.fetchall()
+    return parse_data(res)
+def parse_data(res):
+    if res:
+        start=res[0][0]
+        key_list=[x[0] for x in res]
+        while(start<datetime.now().date()):
+            start=start+timedelta(1)
+            if start not in key_list:
+                res+=(start,0),
+    res=sorted(res,key=lambda x:x[0])
     return res
 
 class SellerManagementFinancialReport(IsAuthorizedSeller,ListView):
     model = Order
-    template_name = 'web/seller_management/seller_financial_report.html'
+    template_name = 'web/seller_management/financial_report/seller_financial_report.html'
     def get_queryset(self):
         return Order.objects.none()
     def get_context_data(self, **kwargs):
         context = super(SellerManagementFinancialReport, self).get_context_data(**kwargs)
         user_id = self.request.user.id
-        context["finished_count"] = get_finished_count(user_id)
-        context["income"] = get_income(user_id)
+        finished_count = get_finished_count(user_id)
+        income = get_income(user_id)
+        context["finished_count_x"]=[str(x[0].day) for x in finished_count]
+      #  context['finished_count_x']=["Red", "Blue", "Yellow", "Green", "Purple", "Orange"]
+        context["finished_count_y"]=[int(x[1]) for x in finished_count]
+        context["income_x"]=[str(x[0].day) for x in income]
+        context['income_y']=[int(x[1]) for x in income]
         return context
 

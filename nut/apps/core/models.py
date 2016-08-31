@@ -332,7 +332,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             res.pop('date_joined', None)
             res.pop('is_admin', None)
             res.pop('is_superuser', None)
-
             res['user_id'] = self.id
             res['is_censor'] = False
 

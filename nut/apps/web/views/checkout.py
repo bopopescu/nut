@@ -19,7 +19,9 @@ from apps.payment.models import PaymentLog
 
 class MyOrderUserPassesTestMixin(UserPassesTestMixin):
     def test_func(self, user):
-        idlist = [9020,
+        idlist = [1,
+                  3,
+                  9020,
                   1997153,
                   2000859,
                   1964551,
@@ -29,23 +31,6 @@ class MyOrderUserPassesTestMixin(UserPassesTestMixin):
 
     def no_permissions_fail(self, request=None):
         raise Http404
-
-
-class IndexView(MyOrderUserPassesTestMixin, ListView):
-    model = Order
-    template_name = 'web/checkout/index.html'
-
-    def get(self, request, *args, **kwargs):
-        self.object_list = self.get_queryset()
-        number = self.request.GET.get('filtervalue', '')
-        if number:
-            return HttpResponseRedirect(reverse('checkout_order_list')+'?number='+str(number))
-        else:
-            context = self.get_context_data()
-            return self.render_to_response(context)
-
-    def get_queryset(self):
-        return Order.objects.none()
 
 
 class AllOrderListView(MyOrderUserPassesTestMixin, FilterMixin, SortMixin, ListView):
@@ -60,7 +45,10 @@ class AllOrderListView(MyOrderUserPassesTestMixin, FilterMixin, SortMixin, ListV
         number = self.request.GET.get('filtervalue', '')
         self.status = self.request.GET.get('status')
         if number:
-            return HttpResponseRedirect(reverse('checkout_order_list')+'?number='+str(number)+'&status='+self.status)
+            if self.status:
+                return HttpResponseRedirect(reverse('checkout_order_list')+'?number='+str(number)+'&status='+self.status)
+            else:
+                return HttpResponseRedirect(reverse('checkout_order_list')+'?number='+str(number))
         else:
             context = self.get_context_data()
             return self.render_to_response(context)
