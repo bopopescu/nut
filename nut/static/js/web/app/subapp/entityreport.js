@@ -25,7 +25,7 @@ define(['jquery',
                                 buttons: {
                                     success:{
                                         label:'发送',
-                                        className:'btn-primary',
+                                        className:'newest-btn-primary',
                                         callback: that.sendReport.bind(that)
                                     },
                                 }
