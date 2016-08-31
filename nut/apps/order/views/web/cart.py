@@ -6,7 +6,7 @@ from django.views.generic import ListView, TemplateView, View
 from django.shortcuts import redirect, get_object_or_404
 
 from apps.order.models import SKU
-from apps.order.exceptions import OrderException
+from apps.order.exceptions import OrderException, CartException
 
 
 class UserCartView(LoginRequiredMixin, ListView):
@@ -62,7 +62,11 @@ class UserAddSKUView(LoginRequiredMixin,
         sku = self.get_sku_by_id(sku_id)
 
         if sku:
-            card_item = self.request.user.add_sku_to_cart(sku=sku, volume=volume)
+            try:
+                card_item = self.request.user.add_sku_to_cart(sku=sku, volume=volume)
+            except CartException as e:
+                return self.render_json_response({'status': 'error', 'message': e.message}, 500)
+
             return self.render_json_response({'status': 'success', 'volume': card_item.volume}, 200)
         else:
             return self.render_json_response({'status': 'error'}, 404)
