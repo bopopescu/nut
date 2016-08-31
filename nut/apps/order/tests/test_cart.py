@@ -94,6 +94,15 @@ class CartForUserTest(TestCase):
         self.assertEqual(0, user.cart_item_count)
 
 
+    def test_add_sku_volume_greater_than_stock(self):
+        user = self.the_user
+        sku = self.entity.add_sku()
+        sku.stock = 5
+        sku.save()
+        with self.assertRaises(CartException):
+            self.the_user.add_sku_to_cart(sku, 2)
+            self.the_user.add_sku_to_cart(sku, 4)
+
     def test_sku_can_be_added_to_cart(self):
         # sku =  self.entity.add_sku({'size':165})
         # self.user.add_sku_to_cart(sku)

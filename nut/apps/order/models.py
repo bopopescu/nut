@@ -67,11 +67,11 @@ class SKU(BaseModel):
 
 class CartItem(BaseModel):
     user = models.ForeignKey('core.GKUser', related_name='cart_items',db_index=True)
-    sku  = models.ForeignKey(SKU, db_index=True)
+    sku = models.ForeignKey(SKU, db_index=True)
     volume = models.IntegerField(default=1)
     add_time = models.DateTimeField(auto_now_add=True, auto_now=True,db_index=True)
 
-    objects =CartItemManager()
+    objects = CartItemManager()
 
     class Meta:
         ordering = ['-add_time']
