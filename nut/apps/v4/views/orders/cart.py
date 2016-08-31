@@ -19,10 +19,6 @@ class CartListView(APIJsonSessionView):
             )
         return res
 
-    # def get(self, request, *args, **kwargs):
-    #     return super(CartListView, self).get(request, args, **kwargs)
-
-
 
 class AddSKUToCartView(APIJsonSessionView):
 
@@ -34,3 +30,13 @@ class AddSKUToCartView(APIJsonSessionView):
             form.save(user=self.session.user)
             return {'status': True}
         return ErrorJsonResponse(data=form.errors ,status=401)
+
+
+class ClearCartView(APIJsonSessionView):
+
+    http_method_names = ['post']
+
+    def get_data(self, context):
+        _user = self.session.user
+        _user.clear_cart()
+        return {'status': True}
