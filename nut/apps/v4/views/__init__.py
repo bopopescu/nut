@@ -516,10 +516,10 @@ class APISearchHotWordView(APIJsonView):
 
     def get_data(self, context):
         tags = Tags.objects.hot_article_tags()
-        # # print "okokoko", tags
-        # tag_list = map(lambda x.name : x, tags)
-        # [for row in tags: row.name]
         tag_list = [row.name for row in tags]
+
+        # TODO: Dove Promotion
+        tag_list.insert(0, u'德芙')
         return tag_list
 
     def get(self, request, *args, **kwargs):
@@ -596,6 +596,21 @@ class TopPopularView(APIJsonView):
 
         res = []
         # log.info(type(self.count))
+        # TODO: Dove Promotion
+        try:
+            entity = APIEntity.objects.get(pk = 4641257)
+            r = {
+                'entity': entity.v3_toDict(),
+                'note': entity.top_note.v3_toDict()
+            }
+            res.append({
+                'content': r,
+                'type': "top_popular",
+            })
+        except APIEntity.DoesNotExist as e :
+            log.info(e.message)
+            pass
+
         for entity_like in _entity_list[:self.count]:
             r = {
                 'entity': entity_like.entity.v3_toDict(),
