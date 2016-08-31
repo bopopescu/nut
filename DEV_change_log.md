@@ -1,9 +1,19 @@
+3. web bug fix (
+    1.消息下拉列表，点击其他地方，隐藏下拉列表；
+    2.好点页，商品title  
+    3.商品详情页的用户点评中的标签bug（along fix）
+    )
+2. move recent like query to slave 
+1. add user recent like cache
+======================
+merged to master 8/30 
+======================
 6.  add search word 
 5.  reduce qrcode complexity in sale page 
 4.  hao dian ye ,  seller products 
 3.  jd entity crawl bug fix 
 2.  refactor martin's code to for appliance to PEP8 
-1.  top menu update -- lq, need intensive test 
+1.  top menu js update -- lq, need intensive test 
 
 ====================
 merged to master 8/25
