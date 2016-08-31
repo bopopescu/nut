@@ -71,21 +71,21 @@
                                                     &nbsp;
                                                     {% trans 'Fans' %}&nbsp;<span>{{ f.user.fans_count }}</span>
                                                 </p>
-                                                {% if f.user.id == request.user.id %}
+                                                {% if f.user_id == request.user.id %}
                                                     <a href="#" class="guoku-button button-disabled disabled-button"><b>{% trans 'Myself' %}</b></a>
-                                                {% elif f.user.id in request.user.concren %}
-                                                    <a data-status="1" data-user-id="{{ f.user.id }}" href="javascript:;" class="follow is-fan guoku-button new-guoku-button btn-cancel new-btn-cancel"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans "Unfollow" %}</a>
+                                                {% elif f.user_id in request.user.concren %}
+                                                    <a data-status="1" data-user-id="{{ f.user_id }}" href="javascript:;" class="follow is-fan guoku-button new-guoku-button btn-cancel new-btn-cancel"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans "Unfollow" %}</a>
                                                     {#                        <a href="#" class="follow is-fan btn btn-primary pull-right"><i class="fa fa-plus fa-lg" style="color: #fff"></i>&nbsp; <b>关注</b></a>#}
-                                                {% elif f.user.id in request.user.following_list %}
-                                                    <a data-status="1" data-user-id="{{ f.user.id }}" href="javascript:;" class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans "Unfollow" %}</a>
-                                                {% elif f.user.id in request.user.fans_list %}
-                                                    <a data-status="0" data-user-id="{{ f.user.id }}" href="javascript:;" class="follow guoku-button new-guoku-button button-blue newest-button-blue"><i class="fa fa-plus"></i>&nbsp; {% trans 'Follow' %}</a>
+                                                {% elif f.user_id in request.user.following_list %}
+                                                    <a data-status="1" data-user-id="{{ f.user_id }}" href="javascript:;" class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans "Unfollow" %}</a>
+                                                {% elif f.user_id in request.user.fans_list %}
+                                                    <a data-status="0" data-user-id="{{ f.user_id }}" href="javascript:;" class="follow guoku-button new-guoku-button button-blue newest-button-blue"><i class="fa fa-plus"></i>&nbsp; {% trans 'Follow' %}</a>
                                                 {% else %}
-                                                    <a data-status="0" data-user-id="{{ f.user.id }}" href="javascript:;" class="follow guoku-button new-guoku-button button-blue newest-button-blue"><i class="fa fa-plus"></i>&nbsp; {% trans 'Follow' %}</a>
+                                                    <a data-status="0" data-user-id="{{ f.user_id }}" href="javascript:;" class="follow guoku-button new-guoku-button button-blue newest-button-blue"><i class="fa fa-plus"></i>&nbsp; {% trans 'Follow' %}</a>
                                                 {% endif %}
                                             </div>
                                             <div class="entity-list clearfix">
-                                                {% for entity_like in f.user.recent_likes.all %}
+                                                {% for entity_like in f.user.recent_likes %}
                                                     <div class="entity-item" style="background-image:url('{{  entity_like.entity.chief_image|resize:'128' }}')">
                                                         <a href="{{ entity_like.entity.absolute_url }}" target="_blank">
                                                             <img class="transparent-holder" src="{% static 'images/trans.png' %}" alt="{{ entity_like.entity.title }}"  title="{{ entity_like.entity.title }}" >
