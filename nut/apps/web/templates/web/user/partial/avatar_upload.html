@@ -4,7 +4,7 @@
 <div class="head_pic">
         <img class="img-responsive img-circle" id='user-avatar' src="{{ user_context.profile.avatar_url|resize:"120" }}" width="120" height="120">
 </div>
-<div class="change_head bg_c_blue fs_16 fc_4">
+<div class="change_head newest-btn-primary">
     						点击选择图片
     <input id="fileupload" type="file" multiple="" name="avatar_file" data-url="{% url 'web_user_upload_avatar' %}">
 {#						<input type="file"/>#}
