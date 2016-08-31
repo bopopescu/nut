@@ -428,7 +428,7 @@ ul li {
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  background-color: #357ebd;
+  background-color: #5976c1;
   display: inline-block;
   color: #fff;
   padding: 0px 6px;
@@ -441,13 +441,13 @@ ul li {
   text-decoration: none!important;
 }
 .button-blue {
-  background-color: #357ebd;
+  background-color: #5976c1;
   color: #fff;
 }
 .button-blue:hover,
 .button-blue:focus {
   color: #fff;
-  background-color: #357ebd;
+  background-color: #5976c1;
 }
 .button-white {
   background-color: #fff;
@@ -465,7 +465,7 @@ ul li {
   border-radius: 4px;
   line-height: 32px;
   text-align: center;
-  background: #357ebd;
+  background: #5976c1;
   color: #fff;
   margin-top: 20px;
 }
@@ -519,7 +519,7 @@ ul li {
 }
 .entity-report-button {
   width: 120px;
-  background-color: #357ebd;
+  background-color: #5976c1;
   color: #fff;
 }
 .entity-report-button:hover,
@@ -530,7 +530,7 @@ ul li {
 .price-tag-widget {
   font-size: 22px;
   font-family: Georgia,serif;
-  color: #357ebd;
+  color: #5976c1;
   margin: 20px 0px;
 }
 .primary-button {
@@ -628,7 +628,7 @@ ul li {
 .event-entity-item .section-info .entity-price {
   font-size: 22px;
   font-family: Georgia,serif;
-  color: #357ebd;
+  color: #5976c1;
   margin: 20px 0px;
   margin: 7px 0;
   font-size: 16px;
@@ -886,7 +886,7 @@ p .b_day {
   color: #212121;
 }
 .entity-four.new-thumbnail .entity-four-info .caption .price {
-  color: #357ebd;
+  color: #5976c1;
 }
 .entity-four.new-thumbnail .entity-four-info .action {
   height: 30px;
@@ -3561,7 +3561,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 #guoku_main_nav .nav-notification-wrapper .notification-drop-list-wrapper .notification-drop-list .notification-list-item .main-notification .main-notification-intro .notification-user-mark:hover,
 #guoku_main_nav .nav-notification-wrapper .notification-drop-list-wrapper .notification-drop-list .notification-loading-icon .main-notification .main-notification-intro .notification-user-mark:hover {
   cursor: pointer;
-  color: #357ebd;
+  color: #5976c1;
   text-decoration: none;
 }
 #guoku_main_nav .nav-notification-wrapper .notification-drop-list-wrapper .notification-drop-list .notification-list-item .main-notification .main-notification-intro .notification-user-mark i,
@@ -4153,7 +4153,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   margin-top: 10px;
 }
 .user-page .authorized_author_info .user-social-wrapper .user-count {
-  color: #357ebd;
+  color: #5976c1;
   font-weight: 600;
 }
 .authorized-seller-body .section-title-wrapper {
@@ -4264,7 +4264,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 .entity-likers-body.index-page .user-info-wrapper .user-info .user-social-info .count,
 .guoku-content .liker-page .user-info-wrapper .user-info .user-social-info .count,
 .entity-likers-body .liker-page .user-info-wrapper .user-info .user-social-info .count {
-  color: #357ebd;
+  color: #5976c1;
   font-weight: 600;
 }
 .guoku-content.user-page .user-admin-link-wrapper a,
@@ -4899,7 +4899,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   font-weight: 800;
 }
 #detail_content_left .detail-info-center .brand.published {
-  color: #357ebd;
+  color: #5976c1;
 }
 #detail_content_left .detail-info-center .entity-title {
   font-size: 22px;
@@ -4910,7 +4910,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 #detail_content_left .detail-info-center .price-tag {
   font-size: 22px;
   font-family: Georgia,serif;
-  color: #357ebd;
+  color: #5976c1;
   margin: 20px 0px;
 }
 #detail_content_left .detail-info-center .entity-tags {
@@ -6290,7 +6290,7 @@ body .for-mobile {
   text-align: left;
 }
 .highlighted {
-  color: #357ebd;
+  color: #5976c1;
 }
 .gk_test {
   color: red;

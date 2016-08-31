@@ -68,7 +68,7 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  background-color: #357ebd;
+  background-color: #5976c1;
   display: inline-block;
   color: #fff;
   padding: 0px 6px;
@@ -81,13 +81,13 @@
   text-decoration: none!important;
 }
 .button-blue {
-  background-color: #357ebd;
+  background-color: #5976c1;
   color: #fff;
 }
 .button-blue:hover,
 .button-blue:focus {
   color: #fff;
-  background-color: #357ebd;
+  background-color: #5976c1;
 }
 .button-white {
   background-color: #fff;
@@ -105,7 +105,7 @@
   border-radius: 4px;
   line-height: 32px;
   text-align: center;
-  background: #357ebd;
+  background: #5976c1;
   color: #fff;
   margin-top: 20px;
 }
@@ -159,7 +159,7 @@
 }
 .entity-report-button {
   width: 120px;
-  background-color: #357ebd;
+  background-color: #5976c1;
   color: #fff;
 }
 .entity-report-button:hover,
@@ -170,7 +170,7 @@
 .price-tag-widget {
   font-size: 22px;
   font-family: Georgia,serif;
-  color: #357ebd;
+  color: #5976c1;
   margin: 20px 0px;
 }
 .primary-button {
@@ -268,7 +268,7 @@
 .event-entity-item .section-info .entity-price {
   font-size: 22px;
   font-family: Georgia,serif;
-  color: #357ebd;
+  color: #5976c1;
   margin: 20px 0px;
   margin: 7px 0;
   font-size: 16px;
@@ -526,7 +526,7 @@ p .b_day {
   color: #212121;
 }
 .entity-four.new-thumbnail .entity-four-info .caption .price {
-  color: #357ebd;
+  color: #5976c1;
 }
 .entity-four.new-thumbnail .entity-four-info .action {
   height: 30px;
@@ -2491,12 +2491,12 @@ a:hover {
   margin-left: 30px;
 }
 .user-block .button-action {
-  color: #357ebd;
+  color: #5976c1;
   font-weight: 900;
   font-size: 16px;
 }
 .user-block i {
-  color: #357ebd;
+  color: #5976c1;
 }
 .user-block i.fa-plus {
   color: #fff;
@@ -2548,10 +2548,10 @@ a:hover {
 }
 #user_article .user-article-item .info-wrapper .edit-link {
   padding-right: 20px;
-  color: #357ebd;
+  color: #5976c1;
 }
 #user_article .user-article-item .info-wrapper .edit-link i {
-  color: #357ebd;
+  color: #5976c1;
 }
 @media (min-width: 768px) {
   #detail_content #article_list .article-wrapper {
