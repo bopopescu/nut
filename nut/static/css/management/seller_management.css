@@ -1177,7 +1177,8 @@ p.boolean-false {
   background: #ffffff;
   color: #6192FF;
 }
-.newest-button-blue i.fa-plus {
+.newest-button-blue i.fa-plus,
+.newest-button-blue i.fa-exchange {
   color: #6192FF;
 }
 .check-icon-wrapper {
