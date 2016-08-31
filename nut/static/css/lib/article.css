@@ -1645,7 +1645,7 @@ a.new-black-link:hover {
   display: inline-block;
   font-family: Georgia,serif;
   font-size: 18px;
-  color: #357ebd;
+  color: #5976c1;
 }
 .article-wrapper .content-wrapper .guoku-card__deprecate .entity-info-detail .entity-link,
 .article-wrapper .note-editable .guoku-card__deprecate .entity-info-detail .entity-link {
@@ -1653,7 +1653,7 @@ a.new-black-link:hover {
 }
 .article-wrapper .content-wrapper .guoku-card__deprecate .entity-info-detail .entity-link i,
 .article-wrapper .note-editable .guoku-card__deprecate .entity-info-detail .entity-link i {
-  color: #357ebd;
+  color: #5976c1;
 }
 .article-wrapper .content-wrapper {
   line-height: 2;
