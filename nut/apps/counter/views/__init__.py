@@ -54,9 +54,6 @@ class Counter(JSONResponseMixin, AjaxResponseMixin, View):
         return self.response_sucess_obj(res)
 
 
-
-
-
 class ArticleImageCounter(View):
 
     def __init__(self):
@@ -74,7 +71,6 @@ class ArticleImageCounter(View):
 
     def updateCounter(self, id):
         self.feedCounterBridge.incr_article_feed_read_count(id)
-
 
     def get(self, *args ,**kwargs):
         id = self.kwargs.pop("aid")
