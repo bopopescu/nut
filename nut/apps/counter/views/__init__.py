@@ -58,17 +58,17 @@ class Counter(JSONResponseMixin, AjaxResponseMixin, View):
 
 
 class ArticleImageCounter(View):
+
     def __init__(self):
         self.feedCounterBridge = FeedCounterBridge()
 
-
     def get_img_data(self):
-        img_key = 'guoku_counter_image_key'
-        img_data  = cache.get(img_key)
+        img_key = 'guoku_counter_image_key_2016'
+        img_data = cache.get(img_key)
         if img_data:
             return img_data
         else:
-           img_data = open('static/images/guoku_banner.jpg').read()
+           img_data = open('static/images/guoku_banner_2016.jpg').read()
            cache.set(img_key, img_data, timeout=60*60*24)
            return img_data
 
