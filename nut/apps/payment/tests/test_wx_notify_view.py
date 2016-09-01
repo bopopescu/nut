@@ -5,7 +5,7 @@ from django.test import  TestCase, RequestFactory
 from apps.payment.views.web import WXPayNotifyView
 
 from apps.payment.weixinpay.parser import WXResponseParser
-from order.tests import DBTestBase
+from apps.order.tests import DBTestBase
 
 
 class WXNotifyParserTest(DBTestBase):

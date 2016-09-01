@@ -1,3 +1,13 @@
+1.  implement alipay rsa crypto methods 
+
+action 
+    1. need install m2crypto 
+        pip install M2Crypto
+    
+    
+=====================
+merged to master 8/31
+====================
 3. web bug fix (
     1.消息下拉列表，点击其他地方，隐藏下拉列表；
     2.好点页，商品title  
