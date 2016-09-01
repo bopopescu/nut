@@ -32,11 +32,11 @@ def handle_reply(content):
         popular_list = Entity_Like.objects.popular_random()
         entities = Entity.objects.filter(id__in=popular_list)
         res = entities[:5]
-    # elif regex(content, u'活动'):
-    #     return u'感谢您的参与，请稍等一会儿，看福利和运气哪个先到。我们将在4月5日统一公布获奖名单'
-    # elif content.decode('utf-8').lower() == u'id':
-    elif regex(content.lower(), u'福利'):
-        return u'感谢您的参与，请耐心等待结果。我们将在5月3日统一公布获奖名单。'
+    elif content.decode('utf-8') == u'合作' or content.decode('utf-8') == u'商务':
+        return u'bd@guoku.com'
+    elif regex(content.lower(), u'体验师'):
+        return u'「清迈旅行体验师招募｜你的工作就是玩够5天！」 ' \
+               u'<a href="http://www.yun-wifi.net/index.php/home/code/index/from/8">►立即领抽奖码：</a>'
     elif robot_handler.can_handle(content.lower()):
         return robot_handler.handle(content.lower())
     else:
