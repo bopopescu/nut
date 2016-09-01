@@ -6,6 +6,8 @@ class UserSchema(Schema):
     user_id             = fields.Integer(attribute='id')
     email               = fields.Email(required=True)
 
+    is_active           = fields.Integer()
+
     # user profile
     nickname            = fields.Method('get_nickname')
     nick                = fields.Method('get_nick')
@@ -18,7 +20,8 @@ class UserSchema(Schema):
     avatar_small        = fields.Method('get_avatar_url')
 
     mail_verified       = fields.Boolean(attribute='is_verified')
-    authorized_author   = fields.Integer(attribute='authorized_author')
+    authorized_author   = fields.Integer(attribute='is_authorized_author')
+    authorized_seller   = fields.Integer(attribute='is_authorized_seller')
 
     like_count          = fields.Integer(attribute='like_count')
     entity_note_count   = fields.Integer(attribute='post_note_count')
@@ -26,6 +29,8 @@ class UserSchema(Schema):
     dig_count           = fields.Integer(attribute='dig_count')
     fan_count           = fields.Integer(attribute='fans_count')
     following_count     = fields.Integer(attribute='following_count')
+    article_count       = fields.Integer(attribute='published_article_count')
+
 
     relation            = fields.Method('get_relation')
 

@@ -123,52 +123,26 @@ def rest_password(request):
     else:
         return ErrorJsonResponse(status=400)
 
-@check_sign
-def detail(request, user_id):
-
-    _key = request.GET.get('session')
-
-    try:
-        _session = Session_Key.objects.get(session_key=_key)
-        visitor = _session.user
-    except Session_Key.DoesNotExist:
-        visitor = None
-
-    try:
-        _user = APIUser.objects.get(pk=user_id)
-    except GKUser.DoesNotExist:
-        raise ErrorJsonResponse(status=404)
-
-    res = dict()
-    res['user'] = _user.v4_toDict(visitor)
-
-    return SuccessJsonResponse(res)
-
-
-class UserDetailView(APIJsonView):
-
-    def get_data(self, context):
-        try:
-            _user = APIUser.objects.get(pk=self.user_id)
-        except GKUser.DoesNotExist:
-            raise ErrorJsonResponse(status=404)
-        user_schema.context['visitor'] = self.visitor
-        res = user_schema.dump(_user).data
-        return res
-
-    def check_session(self):
-        _key = self.request.GET.get('session')
-        try:
-            _session = Session_Key.objects.get(session_key=_key)
-            self.visitor = _session.user
-        except Session_Key.DoesNotExist:
-            self.visitor = None
-
-    def get(self, request, *args, **kwargs):
-        self.user_id    = kwargs.pop('user_id', None)
-        assert self.user_id is not None
-        self.check_session()
-        return super(UserDetailView, self).get(request, *args, **kwargs)
+# @check_sign
+# def detail(request, user_id):
+#
+#     _key = request.GET.get('session')
+#
+#     try:
+#         _session = Session_Key.objects.get(session_key=_key)
+#         visitor = _session.user
+#     except Session_Key.DoesNotExist:
+#         visitor = None
+#
+#     try:
+#         _user = APIUser.objects.get(pk=user_id)
+#     except GKUser.DoesNotExist:
+#         raise ErrorJsonResponse(status=404)
+#
+#     res = dict()
+#     res['user'] = _user.v4_toDict(visitor)
+#
+#     return SuccessJsonResponse(res)
 
 
 @check_sign
@@ -403,11 +377,13 @@ class APIUserIndexView(APIJsonView):
             _user = APIUser.objects.get(pk=self.user_id)
         except GKUser.DoesNotExist:
             raise ErrorJsonResponse(status=404)
+        user_schema.context['visitor'] = self.visitor
+        res['user'] = user_schema.dump(_user).data
 
         _last_like = Entity_Like.objects.filter(user=_user, entity__status__gte=APIEntity.freeze)
         _last_note = APINote.objects.filter(user=_user).order_by('-post_time')
         _last_article = APIArticle.objects.filter(creator=_user, publish=APIArticle.published).order_by('-created_datetime')
-        res['user'] = _user.v4_toDict(self.visitor)
+
         res['last_user_like'] = []
         res['last_post_note'] = []
         res['last_post_article'] = []
