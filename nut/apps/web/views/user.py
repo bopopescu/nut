@@ -463,7 +463,11 @@ class UserEntitiesView(UserDetailBase):
 
     def get_queryset(self):
         _user = self.get_showing_user()
-        return get_seller_entities(_user)
+        if _user.is_authorized_seller:
+            return get_seller_entities(_user)
+        else:
+            return Entity.objects.get_user_added_entities(_user)
+
 
     def get_user_entity_likes(self, entities):
         like_list = list()
