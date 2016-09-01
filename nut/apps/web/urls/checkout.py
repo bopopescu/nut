@@ -1,6 +1,6 @@
 
 from django.conf.urls import url, patterns
-from apps.web.views.checkout import SellerOrderListView,SellerOrderDeleteView,IndexView,CheckDeskPayView,\
+from apps.web.views.checkout import SellerOrderListView,SellerOrderDeleteView,CheckDeskPayView,\
                                     AllOrderListView
 
 urlpatterns = patterns(

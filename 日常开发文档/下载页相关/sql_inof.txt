@@ -1,0 +1,17 @@
+SELECT
+    `core_entity_like`.`id`,
+    `core_entity_like`.`entity_id`,
+    `core_entity_like`.`user_id`,
+    `core_entity_like`.`created_time`
+ FROM `core_entity_like` INNER JOIN `core_entity`
+ ON ( `core_entity_like`.`entity_id` = `core_entity`.`id` )
+ WHERE (`core_entity`.`status` >= -1  AND `core_entity_like`.`user_id` = 11420 )
+ ORDER BY `core_entity_like`.`created_time` DESC LIMIT 3
+
+SELECT `core_entity_like`.`id`,
+       `core_entity_like`.`entity_id`,
+        `core_entity_like`.`user_id`,
+        `core_entity_like`.`created_time`
+FROM `core_entity_like` INNER JOIN `core_entity` ON ( `core_entity_like`.`entity_id` = `core_entity`.`id` )
+WHERE (`core_entity`.`status` >= -1  AND `core_entity_like`.`user_id` = 28940 )
+ORDER BY `core_entity_like`.`created_time` DESC LIMIT 3

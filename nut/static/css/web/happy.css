@@ -408,7 +408,7 @@ ul li {
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  background-color: #357ebd;
+  background-color: #6192FF;
   display: inline-block;
   width: 100%;
   height: 40px;
@@ -428,7 +428,7 @@ ul li {
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  background-color: #357ebd;
+  background-color: #5976c1;
   display: inline-block;
   color: #fff;
   padding: 0px 6px;
@@ -441,13 +441,13 @@ ul li {
   text-decoration: none!important;
 }
 .button-blue {
-  background-color: #357ebd;
+  background-color: #5976c1;
   color: #fff;
 }
 .button-blue:hover,
 .button-blue:focus {
   color: #fff;
-  background-color: #357ebd;
+  background-color: #5976c1;
 }
 .button-white {
   background-color: #fff;
@@ -465,7 +465,7 @@ ul li {
   border-radius: 4px;
   line-height: 32px;
   text-align: center;
-  background: #357ebd;
+  background: #5976c1;
   color: #fff;
   margin-top: 20px;
 }
@@ -519,7 +519,7 @@ ul li {
 }
 .entity-report-button {
   width: 120px;
-  background-color: #357ebd;
+  background-color: #5976c1;
   color: #fff;
 }
 .entity-report-button:hover,
@@ -530,7 +530,7 @@ ul li {
 .price-tag-widget {
   font-size: 22px;
   font-family: Georgia,serif;
-  color: #357ebd;
+  color: #5976c1;
   margin: 20px 0px;
 }
 .primary-button {
@@ -628,7 +628,7 @@ ul li {
 .event-entity-item .section-info .entity-price {
   font-size: 22px;
   font-family: Georgia,serif;
-  color: #357ebd;
+  color: #5976c1;
   margin: 20px 0px;
   margin: 7px 0;
   font-size: 16px;
@@ -747,7 +747,7 @@ ul li {
   border-radius: 3px;
   /*text-align:center;*/
   /*color:#ff1f77;*/
-  background-color: #3F6FF0;
+  background-color: #F70866;
   text-decoration: none;
 }
 .b_day {
@@ -886,7 +886,7 @@ p .b_day {
   color: #212121;
 }
 .entity-four.new-thumbnail .entity-four-info .caption .price {
-  color: #357ebd;
+  color: #5976c1;
 }
 .entity-four.new-thumbnail .entity-four-info .action {
   height: 30px;
@@ -1436,13 +1436,11 @@ p.boolean-false {
   color: #ffffff;
 }
 .newest-btn-primary {
-  border: 1px solid #6192FF;
   background-color: #6192FF;
   color: #ffffff;
 }
 .newest-btn-primary:hover,
 .newest-btn-primary:focus {
-  border: 1px solid #3F6FF0;
   background-color: #3F6FF0;
   color: #ffffff;
 }
@@ -1474,7 +1472,8 @@ p.boolean-false {
   background: #ffffff;
   color: #6192FF;
 }
-.newest-button-blue i.fa-plus {
+.newest-button-blue i.fa-plus,
+.newest-button-blue i.fa-exchange {
   color: #6192FF;
 }
 .check-icon-wrapper {

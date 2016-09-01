@@ -18,13 +18,13 @@
                 <a href="{% url 'web_user_index' row.actor.id %}" class="id" target="_blank">{{ row.actor.profile.nickname }}</a>开始关注你 <span class="fc_1">{{ row.timestamp|format_time|cut:" " }}</span>
             </p>
             {% if row.actor.id in request.user.concren %}
-                <a data-status="1" data-user-id="{{ row.actor.id }}" href="javascript:;" class="follow is-fan button bg_c_gray fc_3"><i class="fa fa-exchange fa-lg fc_3"></i>&nbsp;已关注</a>
+                <a data-status="1" data-user-id="{{ row.actor.id }}" href="javascript:;" class="follow is-fan button new-guoku-button new-btn-cancel"><i class="fa fa-exchange fa-lg"></i>&nbsp;已关注</a>
             {% elif row.actor.id in request.user.following_list %}
-                <a data-status="1" data-user-id="{{ row.actor.id  }}" href="javascript:;" class="follow button bg_c_gray fc_3"><i class="fa fa-exchange fa-lg fc_3"></i>&nbsp;已关注</a>
+                <a data-status="1" data-user-id="{{ row.actor.id  }}" href="javascript:;" class="follow button new-guoku-button new-btn-cancel"><i class="fa fa-exchange fa-lg"></i>&nbsp;已关注</a>
             {% elif row.actor.id  in request.user.fans_list %}
-                <a data-status="0" data-user-id="{{ row.actor.id }}" href="javascript:;" class="follow button btn-primary"><i class="fa fa-plus fa-lg fc_4"></i>&nbsp;关注</a>
+                <a data-status="0" data-user-id="{{ row.actor.id }}" href="javascript:;" class="follow button new-guoku-button newest-button-blue"><i class="fa fa-plus"></i>&nbsp;关注</a>
             {% else %}
-                <a data-status="0" data-user-id="{{ row.actor.id }}" href="javascript:;" class="follow button btn-primary"><i class="fa fa-plus fa-lg fc_4"></i>&nbsp;关注</a>
+                <a data-status="0" data-user-id="{{ row.actor.id }}" href="javascript:;" class="follow button new-guoku-button newest-button-blue"><i class="fa fa-plus"></i>&nbsp;关注</a>
             {% endif %}
     {#        <div class="media message">#}
     {#            <div class="pull-left message-icon">#}

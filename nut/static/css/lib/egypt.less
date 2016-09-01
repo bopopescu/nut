@@ -11,9 +11,12 @@
 
 
 .btn-primary {
-color: #fff;
-background-color: #427EC0;
-border:none;
+  color: #fff;
+  background-color: #6192FF;
+  border:none;
+  &:hover,&:focus,&active{
+    background-color:#3F6FF0;
+  }
 }
 
 /*.round:hover{color:blue;text-decoration:none}*/
@@ -101,7 +104,7 @@ input[type="submit"], input[type="reset"], input[type="button"], button,textarea
 
 .btn {
     border: 0;
-    border-radius: 0;
+    border-radius: 4px;
 }
 
 .btn-setting {
@@ -218,7 +221,26 @@ input[type="submit"], input[type="reset"], input[type="button"], button,textarea
     font-weight: 700;
 }
 .pager .disabled > a {
-    background-color: #427DBF;
+    background-color: #6192FF;
     cursor: not-allowed;
     color: #fff;
+}
+//add by lq
+.pagination > li > a{
+  color:#5976c1;
+}
+.pagination > li > a:hover{
+  color:#4057A7;
+
+}
+.pagination > .active > a{
+  background-color: #6192FF;
+  border-color: #6192FF;
+}
+a{
+  color:#5976c1;
+   text-decoration: none;
+  &:hover{
+    color:#4057A7;
+  }
 }

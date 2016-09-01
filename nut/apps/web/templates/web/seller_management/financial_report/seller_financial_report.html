@@ -1,0 +1,125 @@
+{% extends 'web/seller_management/seller_management_base.html' %}
+{% block content %}
+
+<div id="finished_count_x" style = "display:none">{{ finished_count_x }}</div>
+<div id="finished_count_y" style = "display:none">{{ finished_count_y }}</div>
+<div id="income_x" style = "display:none">{{ income_x }}</div>
+<div id="income_y" style = "display:none">{{ income_y }}</div>
+<div id="finished_count_chart" style="width:550px; height: 250px; margin: 0 auto"></div>
+<div id="income_chart" style="width: 550px; height: 250px; margin: 0 auto"></div>
+
+
+{% endblock %}
+
+
+
+{% block user_script %}
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+
+    <script language="JavaScript">
+$(document).ready(function() {
+   var title = {
+      text: '完成单数'
+   };
+   var subtitle = {
+      text: '八月份'
+   };
+   var xAxis = {
+      categories: JSON.parse(($('#finished_count_x').text()).replace(/\'/g,"\""))
+   };
+   var yAxis = {
+      title: {
+         text: 'counts (单)'
+      },
+      plotLines: [{
+         value: 0,
+         width: 1,
+         color: '#808080'
+      }]
+   };
+
+   var tooltip = {
+      valueSuffix: '单'
+   }
+
+   var legend = {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'middle',
+      borderWidth: 0
+   };
+
+   var series =  [
+      {
+         name: '成交单数',
+         data: JSON.parse(($('#finished_count_y').text()))
+      },
+   ];
+
+   var json = {};
+   json.credits={enabled:false}
+   json.title = title;
+   json.subtitle = subtitle;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;
+   json.tooltip = tooltip;
+   json.legend = legend;
+   json.series = series;
+
+   $('#finished_count_chart').highcharts(json);
+});
+</script>
+<script language="JavaScript">
+$(document).ready(function() {
+   var title = {
+      text: '收入曲线'
+   };
+   var subtitle = {
+      text: '八月份'
+   };
+   var xAxis = {
+      categories: JSON.parse(($('#income_x').text()).replace(/\'/g,"\""))
+   };
+   var yAxis = {
+      title: {
+         text: 'income (元)'
+      },
+      plotLines: [{
+         value: 0,
+         width: 1,
+         color: '#808080'
+      }]
+   };
+
+   var tooltip = {
+      valueSuffix: '元'
+   }
+
+   var legend = {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'middle',
+      borderWidth: 0
+   };
+
+   var series =  [
+      {
+         name: '收入',
+         data: JSON.parse(($('#income_y').text()))
+      },
+   ];
+
+   var json = {};
+   json.credits={enabled:false}
+   json.title = title;
+   json.subtitle = subtitle;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;
+   json.tooltip = tooltip;
+   json.legend = legend;
+   json.series = series;
+
+   $('#income_chart').highcharts(json);
+});
+</script>
+{% endblock %}

@@ -5,9 +5,12 @@ from django.test import  TestCase, RequestFactory
 from apps.payment.views.web import WXPayNotifyView
 
 from apps.payment.weixinpay.parser import WXResponseParser
+from apps.order.tests import DBTestBase
 
-class WXNotifyParserTest(TestCase):
+
+class WXNotifyParserTest(DBTestBase):
     def setUp(self):
+        super(WXNotifyParserTest,self).setUp()
         self.factory = RequestFactory()
         self.request_url = reverse('wxpay_notify')
         self.data =  '<xml></xml>'

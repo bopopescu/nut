@@ -33,7 +33,7 @@
   padding: 2px 5px;
   cursor: pointer;
   border: none;
-  background-color: #357ebd;
+  background-color: #5976c1;
   color: #fff;
 }
 .guoku-btn-blue:focus,
@@ -50,7 +50,7 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  background-color: #357ebd;
+  background-color: #5976c1;
   display: inline-block;
   width: 100%;
   color: #fff;

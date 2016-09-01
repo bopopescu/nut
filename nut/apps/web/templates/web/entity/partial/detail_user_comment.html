@@ -23,7 +23,7 @@
                         {% endfor %}
                     </fieldset>
                     <div class="action pull-right" style="margin-top:10px;">
-                        <button class="btn btn-primary btn-post" type="submit">点评</button>
+                        <button class="btn btn-post newest-btn-primary" type="submit">点评</button>
                     </div>
                 </form>
             </div>
@@ -32,7 +32,7 @@
 {% elif  not request.user.is_authenticated %}
     <div class="media">
         <div class="visitor-note-wrapper">
-            <div id="visitor_note" class="visitor-note-button blue-button guoku-button">
+            <div id="visitor_note" class="visitor-note-button guoku-button newest-btn-primary">
                 我来点评
                 <i class="fa fa-angle-right"></i>
                 <i class="fa fa-angle-right"></i>
