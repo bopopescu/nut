@@ -27,6 +27,8 @@ class UserSchema(Schema):
     fan_count           = fields.Integer(attribute='fans_count')
     following_count     = fields.Integer(attribute='following_count')
 
+    relation            = fields.Method('get_relation')
+
 
     def get_nickname(self, obj):
         return obj.profile.nickname
@@ -52,6 +54,22 @@ class UserSchema(Schema):
     def get_avatar_url(self, obj):
         # print self.context['visitor']
         return obj.profile.avatar_url
+
+    def get_relation(self, obj):
+        relation = 0
+        try:
+            visitor = self.context['visitor']
+            if obj.id == visitor.id:
+                relation = 4
+            elif obj.id in visitor.concren:
+                relation = 3
+            elif obj.id in visitor.following_list:
+                relation = 1
+            elif obj.id in visitor.fans_list:
+                relation = 2
+        except KeyError as e:
+            pass
+        return relation
 
 
 if __name__ == "__main__":

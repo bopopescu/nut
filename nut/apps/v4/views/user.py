@@ -23,8 +23,11 @@ from apps.core.views import JSONResponseMixin
 from apps.core.tasks import send_activation_mail
 from haystack.generic_views import SearchView
 
+from apps.v4.schema.users import UserSchema
+
 log = getLogger('django')
 
+user_schema = UserSchema(many=False)
 
 @csrf_exempt
 @check_sign
@@ -142,14 +145,30 @@ def detail(request, user_id):
     return SuccessJsonResponse(res)
 
 
-# class UserDetailView(APIJsonView):
-#
-#     def get_data(self, context):
-#
-#         return
-#
-#     def get(self, request, *args, **kwargs):
-#         return super(UserDetailView, self).get(request, *args, **kwargs)
+class UserDetailView(APIJsonView):
+
+    def get_data(self, context):
+        try:
+            _user = APIUser.objects.get(pk=self.user_id)
+        except GKUser.DoesNotExist:
+            raise ErrorJsonResponse(status=404)
+        user_schema.context['visitor'] = self.visitor
+        res = user_schema.dump(_user).data
+        return res
+
+    def check_session(self):
+        _key = self.request.GET.get('session')
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+            self.visitor = _session.user
+        except Session_Key.DoesNotExist:
+            self.visitor = None
+
+    def get(self, request, *args, **kwargs):
+        self.user_id    = kwargs.pop('user_id', None)
+        assert self.user_id is not None
+        self.check_session()
+        return super(UserDetailView, self).get(request, *args, **kwargs)
 
 
 @check_sign
