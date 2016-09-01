@@ -83,10 +83,10 @@ CACHES = {
 #
 
 # ----------------------- debug -----------------------
-def removeDebugToolBar(theList):
-    return [x  for x in theList if x!='debug_toolbar']
-
-INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
+# def removeDebugToolBar(theList):
+#     return [x  for x in theList if x!='debug_toolbar']
+#
+# INSTALLED_APPS = removeDebugToolBar(INSTALLED_APPS)
 
 
 INSTALLED_APPS +=(
@@ -153,6 +153,6 @@ DEFAULT_POPULAR_SCALE = 200
 #
 # TEMPLATE_STRING_IF_INVALID = "****************** %s ****************"
 
-SITE_HOST='http://test.guoku.com'
+SITE_HOST = 'http://127.0.0.1:9766'
 
 __author__ = 'an chen '

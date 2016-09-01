@@ -33,7 +33,7 @@ def dashboard(request, template='management/dashboard.html'):
 
     note_count = Note.objects.filter(post_time__range=(range_date,
                                                                  today)).count()
-    authorized_authors  = GKUser.objects.authorized_author()
+    authorized_authors = GKUser.objects.authorized_author()
     yesterday_finish_detail = []
     for author in authorized_authors:
         finish_num = get_update(author)

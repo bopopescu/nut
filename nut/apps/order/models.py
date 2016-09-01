@@ -19,8 +19,9 @@ from apps.order.exceptions import OrderException
 
 log = getLogger('django')
 
+
 class SKU(BaseModel):
-    (disable, enable) =  (0, 1)
+    (disable, enable) = (0, 1)
     SKU_STATUS_CHOICE = [(disable, _('disable')), (enable, _('enable'))]
     entity = models.ForeignKey('core.Entity', related_name='skus')
     attrs = ListObjectField()
@@ -28,9 +29,8 @@ class SKU(BaseModel):
     origin_price = models.FloatField(default=0, db_index=True)
     discount = models.FloatField(default=1, db_index=True)
     promo_price = models.FloatField(default=0, db_index=True)
-    status =  models.IntegerField(choices=SKU_STATUS_CHOICE, default=enable)
-    objects =  SKUManager()
-
+    status = models.IntegerField(choices=SKU_STATUS_CHOICE, default=enable)
+    objects = SKUManager()
 
     def get_discount_rate(self):
         if self.origin_price == 0  or self.promo_price == 0 :
@@ -67,11 +67,11 @@ class SKU(BaseModel):
 
 class CartItem(BaseModel):
     user = models.ForeignKey('core.GKUser', related_name='cart_items',db_index=True)
-    sku  = models.ForeignKey(SKU, db_index=True)
+    sku = models.ForeignKey(SKU, db_index=True)
     volume = models.IntegerField(default=1)
     add_time = models.DateTimeField(auto_now_add=True, auto_now=True,db_index=True)
 
-    objects =CartItemManager()
+    objects = CartItemManager()
 
     class Meta:
         ordering = ['-add_time']
