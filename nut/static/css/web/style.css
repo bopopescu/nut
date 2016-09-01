@@ -463,7 +463,7 @@ a:hover {
   position: relative;
 }
 .head .change_head:hover {
-  background: #3071a9;
+  background: #3F6FF0;
 }
 .head input {
   opacity: 0;
@@ -538,7 +538,7 @@ a:hover {
   border: none;
 }
 .submit_info button:hover {
-  background: #3071a9;
+  background: #3F6FF0;
 }
 .submit_info .button_local {
   margin-left: 104px;
@@ -738,7 +738,7 @@ a:hover {
   color: #427EC0;
 }
 .goods_detail .comment_list .buttons .save:hover {
-  background: #3071a9;
+  background: #3F6FF0;
   color: #fff;
 }
 .goods_detail .comment_list li .online_comment {
@@ -787,7 +787,7 @@ a:hover {
 }
 .goods_detail .button_buy:hover {
   color: #ffffff;
-  background-color: #3071a9;
+  background-color: #3F6FF0;
 }
 @media screen and (max-width: 768px) {
   .goods_detail .button_buy {
@@ -952,7 +952,7 @@ a:hover {
     line-height: 36px;
     margin-bottom: 8px;
     text-align: center;
-    background: #427EC0;
+    background: #6192FF;
     display: inline-block;
   }
   .download-middle .md-app-download-intro-table .download-intro-table {

@@ -22,7 +22,7 @@ define(
                             continue;
                      }
                     for (var j=0, len=cut.length;j<len; j++){
-                        str = str.replace(cut[j], "<a class='btn-link' rel='nofollow' href='/tag/name/"+encodeURI(cut[j].replace(/[#＃]/,""))+"' >"+cut[j]+"</a>&nbsp;");
+                        str = str.replace(cut[j], "<a rel='nofollow' href='/tag/name/"+encodeURI(cut[j].replace(/[#＃]/,""))+"' >"+cut[j]+"</a>&nbsp;");
                     }
                     tagContainers.eq(i).html(str.replace(/\n/g, "<br>"));
                     }
