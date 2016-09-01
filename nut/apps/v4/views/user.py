@@ -136,19 +136,20 @@ def detail(request, user_id):
     except GKUser.DoesNotExist:
         raise ErrorJsonResponse(status=404)
 
-    # _last_like = Entity_Like.objects.filter(user=_user).last()
-    # _last_note = Note.objects.filter(user=_user).last()
     res = dict()
     res['user'] = _user.v4_toDict(visitor)
-    # if _last_like:
-    #     try:
-    #         res['last_like'] = _last_like.entity.v3_toDict()
-    #     except Exception, e:
-    #         log.error("Error %s" % e.message)
-    # if _last_note:
-    #     res['last_note'] = _last_note.v3_toDict(visitor=visitor)
 
     return SuccessJsonResponse(res)
+
+
+# class UserDetailView(APIJsonView):
+#
+#     def get_data(self, context):
+#
+#         return
+#
+#     def get(self, request, *args, **kwargs):
+#         return super(UserDetailView, self).get(request, *args, **kwargs)
 
 
 @check_sign
