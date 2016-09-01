@@ -7,7 +7,7 @@ class alipay_settings(object):
     ALIPAY_PARTNER = '2088422742956241'
     ALIPAY_INPUT_CHARSET = 'utf-8'
     ALIPAY_SELLER_EMAIL = 'anchen@guoku.com'
-    ALIPAY_SIGN_TYPE = 'MD5'
+    ALIPAY_SIGN_TYPE = 'RSA'
     ALIPAY_SHOW_URL = ''
     ALIPAY_TRANSPORT = 'https'
     ALIPAY_GK_RSA_PRIVATE = '''-----BEGIN RSA PRIVATE KEY-----

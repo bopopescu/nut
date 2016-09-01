@@ -55,6 +55,7 @@ class AliPayPayment(BasePayment):
         params, prestr = sign_checker.params_filter(params)
         params['sign'] = sign_checker.build_sign(prestr, alipay_settings.ALIPAY_KEY, alipay_settings.ALIPAY_SIGN_TYPE)
         params['sign_type'] = alipay_settings.ALIPAY_SIGN_TYPE
+
         return params
 
 
