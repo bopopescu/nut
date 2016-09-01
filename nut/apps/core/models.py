@@ -303,8 +303,12 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def recent_likes(self):
-        rlikes = Entity_Like.objects.active_entity_likes().filter(user=self).order_by('-created_time')
-        return rlikes[:3]
+        _key = 'user:likes:recent:%s'%self.id
+        _rlikes = cache.get(_key, None)
+        if _rlikes is None:
+            _rlikes = Entity_Like.objects.active_entity_likes().filter(user=self).order_by('-created_time')[:3]
+            cache.set(_key, _rlikes, 3600*24)
+        return _rlikes
 
 
     @property
