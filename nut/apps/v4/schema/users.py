@@ -1,4 +1,9 @@
-from marshmallow import Schema, fields, pprint
+from marshmallow import Schema, fields
+from apps.core.models import Sina_Token, WeChat_Token, Taobao_Token
+
+from django.utils.log import getLogger
+
+log = getLogger('django')
 
 
 class UserSchema(Schema):
@@ -31,9 +36,11 @@ class UserSchema(Schema):
     following_count     = fields.Integer(attribute='following_count')
     article_count       = fields.Integer(attribute='published_article_count')
 
-
     relation            = fields.Method('get_relation')
 
+    sina_screen_name    = fields.Method('get_weibo_screen_name', default=None)
+    taobao_nick         = fields.Method('get_taobao_nick', default=None)
+    wechat_nick         = fields.Method('get_wechat_nickname', default=None)
 
     def get_nickname(self, obj):
         return obj.profile.nickname
@@ -57,7 +64,6 @@ class UserSchema(Schema):
         return obj.profile.website
 
     def get_avatar_url(self, obj):
-        # print self.context['visitor']
         return obj.profile.avatar_url
 
     def get_relation(self, obj):
@@ -76,18 +82,29 @@ class UserSchema(Schema):
             pass
         return relation
 
+    def get_weibo_screen_name(self, obj):
+        screen_name = None
+        try:
+             screen_name = obj.weibo.screen_name
+        except Sina_Token.DoesNotExist as e:
+            log.info("info: %s" % e.message)
+        return screen_name
 
-if __name__ == "__main__":
-    import os, sys
+    def get_taobao_nick(self, obj):
+        taobao_nick = None
+        try:
+            taobao_nick = obj.taobao.screen_name
+            # res['taobao_token_expires_in'] = self.taobao.expires_in
+        except Taobao_Token.DoesNotExist as e:
+            log.info("info: %s", e.message)
+        return taobao_nick
 
-    BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-    sys.path.append(BASE_DIR)
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
-    from apps.v4.models import APIUser
+    def get_wechat_nickname(self, obj):
+        wecaht_nick = None
+        try:
+            wecaht_nick = obj.weixin.nickname
+        except WeChat_Token.DoesNotExist as e:
+            log.info("info: %s", e.message)
+        return wecaht_nick
 
-    u = APIUser.objects.get(pk=1)
 
-    user_schema = UserSchema(many=True)
-    user_schema.context['visitor'] = u
-    result = user_schema.dump(u, many=False)
-    pprint(result.data, indent=2)

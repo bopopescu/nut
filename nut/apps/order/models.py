@@ -162,6 +162,10 @@ class Order(BaseModel):
     created_datetime = models.DateTimeField(auto_now_add=True)
     updated_datetime = models.DateTimeField(auto_now=True)
 
+
+    def __unicode__(self):
+        return "<order number; {0}>".format(self.number)
+
     objects = OrderManager()
 
     class Meta:
@@ -274,12 +278,15 @@ class Order(BaseModel):
 
 class OrderItem(BaseModel):
     order = models.ForeignKey(Order,related_name='items')
-    customer = models.ForeignKey('core.GKUser', related_name='order_items',db_index=True)
+    customer = models.ForeignKey('core.GKUser', related_name='order_items', db_index=True)
     sku = models.ForeignKey(SKU, db_index=True)
     volume = models.IntegerField(default=1)
     add_time = models.DateTimeField(auto_now_add=True, auto_now=True,db_index=True)
     grand_total_price = models.FloatField(null=False) # 当订单生成的时候计算
     promo_total_price = models.FloatField(null=False) # 当订单生成的时候计算
+
+    # def __unicode__(self):
+    #     return self.sku.attrs_json_str
 
     @property
     def title(self):
