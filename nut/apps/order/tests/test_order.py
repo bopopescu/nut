@@ -67,10 +67,10 @@ class OrderForUserTest(DBTestBase):
 
         self.assertEqual(self.the_user.cart_item_count, 2)
 
-        new_order  = self.the_user.checkout()
+        new_order = self.the_user.checkout()
 
         # new_order is a instance of  Order
-        self.assertIsInstance(new_order,Order)
+        self.assertIsInstance(new_order, Order)
 
         # order item is 2
         self.assertEqual(new_order.items.count(), 2)
