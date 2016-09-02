@@ -1,5 +1,6 @@
 from django import forms
 
+
 class TaobaoForm(forms.Form):
 
     taobao_id = forms.CharField(

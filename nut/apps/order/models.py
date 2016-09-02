@@ -273,17 +273,38 @@ class Order(BaseModel):
 
 
 class OrderItem(BaseModel):
-    order = models.ForeignKey(Order,related_name='items')
-    customer = models.ForeignKey('core.GKUser', related_name='order_items',db_index=True)
-    sku = models.ForeignKey(SKU, db_index=True)
+    order = models.ForeignKey(Order, related_name='items')
+    customer = models.ForeignKey('core.GKUser', related_name='order_items', db_index=True)
+    sku = models.ForeignKey(SKU, db_index=True,)
     volume = models.IntegerField(default=1)
-    add_time = models.DateTimeField(auto_now_add=True, auto_now=True,db_index=True)
-    grand_total_price = models.FloatField(null=False) # 当订单生成的时候计算
-    promo_total_price = models.FloatField(null=False) # 当订单生成的时候计算
-    title = models.CharField(max_length=128, null=False)
+    add_time = models.DateTimeField(auto_now_add=True, auto_now=True, db_index=True)
+    grand_total_price = models.FloatField(null=False)
+    # 当订单生成的时候计算
+
+    promo_total_price = models.FloatField(null=False)
+    # 当订单生成的时候计算
+
+    item_title = models.CharField(max_length=128, null=False)
+    # 订单生成的时候 赋值
+
     image = models.CharField(max_length=256, null=False)
+    # 订单生成的时候 赋值
+
     entity_link = models.CharField(max_length=256, null=False)
+    # 订单生成的时候 赋值
+
     attrs = ListObjectField()
+
+    @property
+    def attrs_json_str(self):
+        return json.dumps(self.attrs)
+
+    @property
+    def attrs_display(self):
+        attr_str_list = list()
+        for key, value in self.attrs.iteritems():
+            attr_str_list.append('%s:%s' % (key, value))
+        return '/'.join(attr_str_list)
 
     @property
     def title(self):
@@ -299,6 +320,7 @@ class OrderItem(BaseModel):
 
     class Meta:
         ordering = ['-add_time']
+
 
 class OrderMessage(BaseModel):
     '''

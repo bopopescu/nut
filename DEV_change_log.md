@@ -1,3 +1,15 @@
+
+1. add field's to order item 
+
+action : 
+ALTER TABLE `core`.`order_orderitem` 
+ADD COLUMN `item_title` VARCHAR(256) NULL DEFAULT NULL AFTER `promo_total_price`,
+ADD COLUMN `image` VARCHAR(256) NULL DEFAULT NULL AFTER `item_title`,
+ADD COLUMN `entity_link` VARCHAR(256) NULL DEFAULT NULL AFTER `image`,
+ADD COLUMN `attrs` LONGTEXT NULL DEFAULT NULL AFTER `entity_link`;
+
+========================
+
 3. web bug fix (
     1.消息下拉列表，点击其他地方，隐藏下拉列表；
     2.好点页，商品title  
