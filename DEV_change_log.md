@@ -14,6 +14,20 @@ ADD COLUMN `attrs` LONGTEXT NULL DEFAULT NULL AFTER `entity_link`;
 action 
     1. need install m2crypto 
         pip install M2Crypto
+        -----
+        important !!!
+        if install M2Crypto fail 
+        because of locale.Error: unsupported locale setting
+        export LC_ALL="en_US.UTF-8"
+        export LC_CTYPE="en_US.UTF-8"
+        
+        this is failed in test server 
+
+
+action : 
+
+ALTER TABLE `core`.`order_orderitem` 
+CHANGE COLUMN `item_title` `item_title` VARCHAR(256) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ;
 
 ========================
 

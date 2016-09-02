@@ -1,7 +1,7 @@
 import types
 from hashlib import md5, sha1
 
-import M2Crypto
+# import M2Crypto
 
 from apps.payment.alipay.settings import alipay_settings
 
@@ -51,17 +51,18 @@ def build_sign(prestr, key, sign_type='MD5'):
         if sign_type == 'MD5':
             return md5(prestr + key).hexdigest()
         elif sign_type == 'RSA':
-            return rsa_sign(prestr)
+            raise NotImplemented()
+            # return rsa_sign(prestr)
         return ''
 
 
-def rsa_sign(data, key=alipay_settings.ALIPAY_GK_RSA_PRIVATE):
-    key = M2Crypto.RSA.load_key_string(key)
-    m = M2Crypto.EVP.MessageDigest('sha1')
-    m.update(data)
-    digest = m.final()
-    signature = key.sign(digest, "sha1")
-    return signature
+# def rsa_sign(data, key=alipay_settings.ALIPAY_GK_RSA_PRIVATE):
+#     key = M2Crypto.RSA.load_key_string(key)
+#     m = M2Crypto.EVP.MessageDigest('sha1')
+#     m.update(data)
+#     digest = m.final()
+#     signature = key.sign(digest, "sha1")
+#     return signature
 
 
 def get_sign_from_params(params, sign_type="MD5"):
