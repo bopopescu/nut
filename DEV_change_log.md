@@ -1,6 +1,5 @@
-4.  move checkout method from GKUser into CartItem Manager
-3.  fix order_item serialize problem 
-2.  implement alipay rsa crypto methods 
+3.  move checkout method from GKUser into CartItem Manager
+2.  fix order_item serialize problem 
 1.  add field's to order item 
 
 action : 
