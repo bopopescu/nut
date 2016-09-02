@@ -572,7 +572,7 @@ class User_Profile(BaseModel):
 
     @property
     def weibo_link(self):
-        return "http://weibo.com/u/%s/"%self.weibo_id
+        return "http://weibo.com/u/%s/" % self.weibo_id
 
     def __unicode__(self):
         return self.nick

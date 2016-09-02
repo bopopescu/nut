@@ -595,22 +595,6 @@ class TopPopularView(APIJsonView):
         _entity_list = Entity_Like.objects.raw(query).using('slave')
 
         res = []
-        # log.info(type(self.count))
-        # TODO: Dove Promotion
-        try:
-            entity = APIEntity.objects.get(pk = 4641257)
-            r = {
-                'entity': entity.v3_toDict(),
-                'note': entity.top_note.v3_toDict()
-            }
-            res.append({
-                'content': r,
-                'type': "top_popular",
-            })
-        except APIEntity.DoesNotExist as e :
-            log.info(e.message)
-            pass
-
         for entity_like in _entity_list[:self.count]:
             r = {
                 'entity': entity_like.entity.v3_toDict(),

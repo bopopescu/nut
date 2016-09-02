@@ -17,6 +17,10 @@ from django.core.paginator import Paginator
 from datetime import datetime
 import time
 
+from apps.v4.schema.articles import ArticleSchema
+
+article_schema = ArticleSchema(many=False)
+
 
 class ArticlesListView(APIJsonView):
     http_method_names = ['get']
@@ -34,17 +38,14 @@ class ArticlesListView(APIJsonView):
         except Exception:
             return res
 
-        articles_list = list()
         if self.visitor:
-            articles_list = APIArticle_Dig.objects.filter(user=self.visitor).values_list('article_id', flat=True)
+            articles_list = APIArticle_Dig.objects.filter(user=self.visitor)\
+                                            .values_list('article_id', flat=True)
+            article_schema.context['articles_list'] = articles_list
 
         for row in sla.object_list:
-            a = row.api_article.v4_toDict(articles_list=articles_list)
-            a.update(
-                {
-                    'pub_time': time.mktime(row.pub_time.timetuple()),
-                }
-            )
+            article_schema.context['pub_time'] =time.mktime(row.pub_time.timetuple())
+            a = article_schema.dump(row.api_article).data
             res.append(
                 a
             )
@@ -75,10 +76,11 @@ class ArticleView(APIJsonView):
 
     def get_data(self, context):
         article = APIArticle.objects.get(pk = self.article_id)
-        da = list()
+        # da = list()
         if self.visitor:
             da = APIArticle_Dig.objects.filter(user=self.visitor).values_list('article_id', flat=True)
-        return article.v4_toDict(articles_list=da)
+            article_schema.context['articles_list'] = da
+        return article_schema.dump(article).data
 
     def get(self, request, *args, **kwargs):
 

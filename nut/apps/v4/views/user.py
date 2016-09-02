@@ -23,8 +23,11 @@ from apps.core.views import JSONResponseMixin
 from apps.core.tasks import send_activation_mail
 from haystack.generic_views import SearchView
 
+from apps.v4.schema.users import UserSchema
+
 log = getLogger('django')
 
+user_schema = UserSchema(many=False)
 
 @csrf_exempt
 @check_sign
@@ -119,36 +122,6 @@ def rest_password(request):
 
     else:
         return ErrorJsonResponse(status=400)
-
-@check_sign
-def detail(request, user_id):
-
-    _key = request.GET.get('session')
-
-    try:
-        _session = Session_Key.objects.get(session_key=_key)
-        visitor = _session.user
-    except Session_Key.DoesNotExist:
-        visitor = None
-
-    try:
-        _user = APIUser.objects.get(pk=user_id)
-    except GKUser.DoesNotExist:
-        raise ErrorJsonResponse(status=404)
-
-    # _last_like = Entity_Like.objects.filter(user=_user).last()
-    # _last_note = Note.objects.filter(user=_user).last()
-    res = dict()
-    res['user'] = _user.v4_toDict(visitor)
-    # if _last_like:
-    #     try:
-    #         res['last_like'] = _last_like.entity.v3_toDict()
-    #     except Exception, e:
-    #         log.error("Error %s" % e.message)
-    # if _last_note:
-    #     res['last_note'] = _last_note.v3_toDict(visitor=visitor)
-
-    return SuccessJsonResponse(res)
 
 
 @check_sign

@@ -166,6 +166,10 @@ class Order(BaseModel):
     created_datetime = models.DateTimeField(auto_now_add=True)
     updated_datetime = models.DateTimeField(auto_now=True)
 
+
+    def __unicode__(self):
+        return "<order number; {0}>".format(self.number)
+
     objects = OrderManager()
 
     class Meta:
@@ -309,6 +313,9 @@ class OrderItem(BaseModel):
         for key, value in self.attrs.iteritems():
             attr_str_list.append('%s:%s' % (key, value))
         return '/'.join(attr_str_list)
+
+    # def __unicode__(self):
+    #     return self.sku.attrs_json_str
 
     @property
     def title(self):
