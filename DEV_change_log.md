@@ -4,6 +4,7 @@
 1.  add field's to order item 
 
 action : 
+
 ALTER TABLE `core`.`order_orderitem` 
 ADD COLUMN `item_title` VARCHAR(256) NULL DEFAULT NULL AFTER `promo_total_price`,
 ADD COLUMN `image` VARCHAR(256) NULL DEFAULT NULL AFTER `item_title`,
