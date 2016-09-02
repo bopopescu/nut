@@ -78,16 +78,20 @@ class CartItem(BaseModel):
 
     def generate_order_item(self, order):
         order_item, created = OrderItem.objects.get_or_create(
-            order=order, sku=self.sku , customer=order.customer,
+            order=order, sku=self.sku, customer=order.customer,
             defaults={
                 'grand_total_price': self.grand_total_price,
-                'promo_total_price' : self.promo_total_price
+                'promo_total_price': self.promo_total_price
             }
         )
         if created:
             order_item.volume = self.volume
+            order_item.item_title = self.sku.entity.title
+            order_item.image = self.sku.entity.chief_image
+            order_item.attrs = self.sku.attrs
+            order_item.entity_link = self.sku.entity.absolute_url
             order_item.save()
-        return  order_item
+        return order_item
 
 
     @property
