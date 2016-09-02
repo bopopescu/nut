@@ -8,6 +8,7 @@ class ArticleSchema(Schema):
     title               = fields.String()
     cover               = fields.String()
     content             = fields.String(attribute='strip_tags_content')
+    # content             = fields.String()
     publish             = fields.Integer()
     tags                = fields.String(attribute='tag_list')
     url                 = fields.Method('get_url')

@@ -70,6 +70,7 @@ urlpatterns += patterns(
 
     url(r'^entity/', include('apps.v4.urls.entity')),
     url(r'^cart/', include('apps.v4.urls.cart')),
+    url(r'^order/', include('apps.v4.urls.order')),
 
     url(r'^category/', include('apps.v4.urls.category')),
     url(r'^user/', include('apps.v4.urls.user')),
