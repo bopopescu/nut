@@ -8,4 +8,5 @@ require(
         Menu
     ){
         var menu = new Menu();
+        console.log('init user settings');
 });

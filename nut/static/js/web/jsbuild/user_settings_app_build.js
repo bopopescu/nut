@@ -1572,6 +1572,7 @@ require(
         Menu
     ){
         var menu = new Menu();
+        console.log('init user settings');
 });
 
 define("user_settings_app", function(){});
