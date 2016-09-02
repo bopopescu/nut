@@ -1,5 +1,7 @@
-
-1. add field's to order item 
+4.  move checkout method from GKUser into CartItem Manager
+3.  fix order_item serialize problem 
+2.  implement alipay rsa crypto methods 
+1.  add field's to order item 
 
 action : 
 ALTER TABLE `core`.`order_orderitem` 
@@ -7,6 +9,10 @@ ADD COLUMN `item_title` VARCHAR(256) NULL DEFAULT NULL AFTER `promo_total_price`
 ADD COLUMN `image` VARCHAR(256) NULL DEFAULT NULL AFTER `item_title`,
 ADD COLUMN `entity_link` VARCHAR(256) NULL DEFAULT NULL AFTER `image`,
 ADD COLUMN `attrs` LONGTEXT NULL DEFAULT NULL AFTER `entity_link`;
+
+action 
+    1. need install m2crypto 
+        pip install M2Crypto
 
 ========================
 

@@ -14,68 +14,9 @@ from apps.payment.weixinpay.parser import WXResponseParser
 from apps.payment.weixinpay.handler import WXPaymentNotifyHanlder
 
 from apps.order.models import Order
-
+from apps.payment.alipay import sign_checker
 log = getLogger('django')
 
-
-class SignChecker(object):
-
-    @staticmethod
-    def smart_str(cls, s, encoding='utf-8', strings_only=False, errors='strict'):
-        """
-        Returns a bytestring version of 's', encoded as specified in 'encoding'.
-        If strings_only is True, don't convert (some) non-string-like objects.
-        """
-        if strings_only and isinstance(s, (types.NoneType, int)):
-            return s
-        if not isinstance(s, basestring):
-            try:
-                return str(s)
-            except UnicodeEncodeError:
-                if isinstance(s, Exception):
-                    # An Exception subclass containing non-ASCII data that doesn't
-                    # know how to print itself properly. We shouldn't raise a
-                    # further exception.
-                    return ' '.join([cls.smart_str(arg, encoding, strings_only,
-                            errors) for arg in s])
-                return unicode(s).encode(encoding, errors)
-        elif isinstance(s, unicode):
-            return s.encode(encoding, errors)
-        elif s and encoding != 'utf-8':
-            return s.decode('utf-8', errors).encode(encoding, errors)
-        else:
-            return s
-
-    @staticmethod
-    def params_filter(cls, params):
-        ks = params.keys()
-        ks.sort()
-        newparams = {}
-        prestr = ''
-        for k in ks:
-            v = params[k]
-            k = cls.smart_str(k)
-            if k not in ('sign','sign_type') and v != '':
-                newparams[k] = cls.smart_str(v)
-                prestr += '%s=%s&' % (k, newparams[k])
-        prestr = prestr[:-1]
-        return newparams, prestr
-
-    @staticmethod
-    def build_sign(cls, prestr, key, sign_type = 'MD5'):
-        if sign_type == 'MD5':
-            return md5(prestr + key).hexdigest()
-        return ''
-
-    @staticmethod
-    def get_sign_from_param(cls, params):
-        params, prestr = cls.params_filter(params)
-        return cls.build_sign(prestr, alipay_settings.ALIPAY_KEY)
-
-    @staticmethod
-    def check_sign(cls, params):
-        return params.get('sign', None) == cls.get_sign_from_params(params)
-    
 
 class AlipayReturnView(View):
     def get(self, *args, **kwargs):
@@ -93,10 +34,8 @@ class AlipayReturnView(View):
         number = params.get('out_trade_no')
         return Order.objects.get(number=number)
 
-
-
     def check_sign(self):
-        return SignChecker.check_sign(self.get_params())
+        return sign_checker.check_sign(self.get_params())
 
     def get_params(self):
         return self.request.GET
@@ -133,7 +72,8 @@ class AlipayReturnView(View):
         except Exception :
             pass
 
-    def write_alipay_log(self):
+    def write_alipay_log(self,):
+
         pass
 
 
