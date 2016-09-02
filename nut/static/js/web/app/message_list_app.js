@@ -1,12 +1,12 @@
-
-require([
-          'subapp/top_notification/top_notification'
+require(
+    [
+        'jquery',
+        'subapp/topmenu'
     ],
     function (
-              TopNotification
+        jQuery,
+        Menu
     ){
-        var topNotification = new TopNotification();
-
-        console.log("message list app！");
+        var menu = new Menu();
 });
 
