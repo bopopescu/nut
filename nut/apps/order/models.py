@@ -280,10 +280,15 @@ class OrderItem(BaseModel):
     add_time = models.DateTimeField(auto_now_add=True, auto_now=True,db_index=True)
     grand_total_price = models.FloatField(null=False) # 当订单生成的时候计算
     promo_total_price = models.FloatField(null=False) # 当订单生成的时候计算
+    title = models.CharField(max_length=128, null=False)
+    image = models.CharField(max_length=256, null=False)
+    entity_link = models.CharField(max_length=256, null=False)
+    attrs = ListObjectField()
 
     @property
     def title(self):
         return self.sku.entity.title
+
     @property
     def sku_unit_grand_price(self):
         return self.grand_total_price/(1.0*self.volume)
@@ -293,7 +298,7 @@ class OrderItem(BaseModel):
         return self.promo_total_price/(1.0*self.volume)
 
     class Meta:
-        ordering=['-add_time']
+        ordering = ['-add_time']
 
 class OrderMessage(BaseModel):
     '''
