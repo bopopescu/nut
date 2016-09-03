@@ -20,6 +20,7 @@ import time
 from apps.v4.schema.articles import ArticleSchema
 
 article_schema = ArticleSchema(many=False)
+from pprint import pprint
 
 
 class ArticlesListView(APIJsonView):
@@ -44,8 +45,10 @@ class ArticlesListView(APIJsonView):
             article_schema.context['articles_list'] = articles_list
 
         for row in sla.object_list:
-            article_schema.context['pub_time'] =time.mktime(row.pub_time.timetuple())
+            article_schema.context['pub_time'] = time.mktime(row.pub_time.timetuple())
+            # print row.api_article
             a = article_schema.dump(row.api_article).data
+            pprint(a['cover'], indent=2)
             res.append(
                 a
             )
