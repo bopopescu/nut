@@ -533,7 +533,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                 if new_order:
                     new_order.delete()
                 raise OrderException('error create order:  %s: ' %e)
-                return None
+                # return None
 
     def clear_cart(self):
         self.cart_items.clear_user_cart(self)

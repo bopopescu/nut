@@ -19,7 +19,8 @@ class EntitySchema(Schema):
     title               = fields.String()
 
     chief_image         = fields.String(attribute='chief_image')
-    detail_images       = fields.String(attribute='detail_images')
+    # detail_images       = fields.String(attribute='detail_images')
+    detail_images       = fields.Method('get_detail_images')
     price               = fields.Number()
 
     like_count          = fields.Integer(attribute='like_count')
@@ -27,6 +28,9 @@ class EntitySchema(Schema):
     like_already        = fields.Method('get_like_already')
 
     # buy_links           = fields.Nested(BuyLinkSchema, exclude=('id',), attribute='buy_links.all', many=True)
+
+    def get_detail_images(self, obj):
+        return obj.detail_images
 
     def get_like_already(self, obj):
         like_already = 0
