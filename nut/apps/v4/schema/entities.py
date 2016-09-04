@@ -39,4 +39,3 @@ class EntitySchema(Schema):
 
         return like_already
 
-

@@ -28,8 +28,10 @@ class OrderListView(APIJsonSessionView):
 
     def get_data(self, context):
         order_list = OrderModel.objects.filter(customer=self.session.user)
-        print order_schema.dump(order_list).data
-        return order_schema.dump(order_list).data
+        # print order_list
+        # print order_schema.dump(order_list).data
+        # pprint(order_schema.dump(order_list.first(), many=False).data, indent=2)
+        return order_schema.dump(order_list, many=True).data
 
     def get(self, request, *args, **kwargs):
 
