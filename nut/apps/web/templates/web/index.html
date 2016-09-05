@@ -66,16 +66,16 @@
                     精选商品
                 </a>
             </div>
-            <ul class="hidden-xs pull-left category-list" id="entity_category_container">
-                <li class="category-list-item" data-value="all_entity">
-                    全部
-                </li>
-                {% for category in categories %}
-                    <li class="category-list-item" data-value="{{ category.id }}">
-                       <a href="{% url 'web_category_group' category.id %}" target="_blank"> {{ category.title_cn }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
+{#            <ul class="hidden-xs pull-left category-list" id="entity_category_container">#}
+{#                <li class="category-list-item" data-value="all_entity">#}
+{#                    全部#}
+{#                </li>#}
+{#                {% for category in categories %}#}
+{#                    <li class="category-list-item" data-value="{{ category.id }}">#}
+{#                       <a href="{% url 'web_category_group' category.id %}" target="_blank"> {{ category.title_cn }}</a>#}
+{#                    </li>#}
+{#                {% endfor %}#}
+{#            </ul>#}
              <span class="pull-right">
                  <a class="more-link new-black-link" href="{{ web_selection_url }}" target="_blank">
                      查看更多&nbsp;
