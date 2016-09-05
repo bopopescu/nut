@@ -11,7 +11,6 @@ order_schema = OrderSchema()
 log = getLogger('django')
 
 
-
 class OrderListView(APIJsonSessionView):
 
     http_method_names = ['get']
