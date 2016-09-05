@@ -5,25 +5,11 @@ from apps.order.models import Order as OrderModel
 from apps.v4.views import APIJsonSessionView
 from apps.v4.schema.order import OrderSchema
 
-from pprint import pprint
+# from pprint import pprint
 
 order_schema = OrderSchema()
 log = getLogger('django')
 
-
-class CheckOutView(APIJsonSessionView):
-
-    http_method_names = ['post']
-
-    def get_data(self, context):
-        _user = self.session.user
-        order = _user.checkout()
-        # print order_schema.dump(order).data
-        pprint(order_schema.dump(order).data, indent=2)
-        return order_schema.dump(order, many=False).data
-
-    def get(self, request, *args, **kwargs):
-        return super(CheckOutView, self).get(request, *args, **kwargs)
 
 
 class OrderListView(APIJsonSessionView):
