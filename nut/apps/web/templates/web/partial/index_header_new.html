@@ -16,7 +16,6 @@
                         <i class="fa fa-search fa-search-control"></i>
                         <div class="hot_article_tags search-hot-tags">
                             <ul>
-                            <li><a href='{% url 'web_search' %}?q=德芙'>德芙</a></li>
                             {% for tag in hot_article_tags %}
                                 <li><a href='{% url 'web_search' %}?q={{ tag.name }}'>{{ tag.name }}</a></li>
                             {% endfor %}

@@ -517,9 +517,6 @@ class APISearchHotWordView(APIJsonView):
     def get_data(self, context):
         tags = Tags.objects.hot_article_tags()
         tag_list = [row.name for row in tags]
-
-        # TODO: Dove Promotion
-        tag_list.insert(0, u'德芙')
         return tag_list
 
     def get(self, request, *args, **kwargs):

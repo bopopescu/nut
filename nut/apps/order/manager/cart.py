@@ -45,7 +45,7 @@ class CartItemManager(models.Manager):
                         order_item.delete()
                     new_order.delete()
                 raise OrderException('error create order:  %s: ' % e)
-                return None
+                # return None
 
 
     def cart_item_count_by_user(self, user):

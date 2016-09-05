@@ -2,6 +2,11 @@ from apps.core.views import ErrorJsonResponse
 from apps.v4.views import APIJsonSessionView
 from apps.v4.models import APICartItem
 from apps.v4.forms.entity_sku import CartForm, DescCartItemForm
+from apps.v4.schema.order import OrderSchema
+
+from pprint import pprint
+
+order_schema    = OrderSchema(many=False)
 
 
 class CartListView(APIJsonSessionView):
@@ -80,3 +85,18 @@ class ClearCartView(APIJsonSessionView):
         _user = self.session.user
         _user.clear_cart()
         return {'status': True}
+
+
+class CheckOutView(APIJsonSessionView):
+
+    http_method_names = ['post']
+
+    def get_data(self, context):
+        _user = self.session.user
+        order = _user.checkout()
+        # print order_schema.dump(order).data
+        pprint(order_schema.dump(order).data, indent=2)
+        return order_schema.dump(order).data
+
+    def get(self, request, *args, **kwargs):
+        return super(CheckOutView, self).get(request, *args, **kwargs)

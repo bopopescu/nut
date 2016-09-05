@@ -9,7 +9,7 @@ class ArticleSchema(Schema):
     cover               = fields.String()
     content             = fields.String(attribute='strip_tags_content')
     publish             = fields.Integer()
-    tags                = fields.String(attribute='tag_list')
+    tags                = fields.Method('get_tag_list')
     url                 = fields.Method('get_url')
     is_dig              = fields.Method('check_is_dig')
 
@@ -22,6 +22,9 @@ class ArticleSchema(Schema):
 
     def get_url(self, obj):
         return obj.get_absolute_url()
+
+    def get_tag_list(self, obj):
+        return obj.tag_list
 
     def selection_pub_time(self, obj):
         return self.context['pub_time']
