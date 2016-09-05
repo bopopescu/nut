@@ -1,5 +1,5 @@
 from django.conf.urls import url, patterns
-from apps.v4.views.orders.order import OrderListView, CheckOutView
+from apps.v4.views.orders.order import OrderListView
 
 urlpatterns = patterns(
     'apps.v4.views.orders.order',
