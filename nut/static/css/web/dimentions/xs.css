@@ -1610,6 +1610,9 @@ a.new-black-link:hover {
   .guoku-content.user-page .content-panel .note-cell {
     margin-bottom: 10px;
   }
+  .guoku-content.user-page .authorized_author_info .user-nick .nick {
+    font-size: 24px;
+  }
   #detail_content {
     overflow: hidden;
   }
