@@ -28,7 +28,12 @@ class ArticleSchema(Schema):
         return obj.tag_list
 
     def selection_pub_time(self, obj):
-        return self.context['pub_time']
+        pub_time     = None
+        try:
+            pub_time = self.context['pub_time']
+        except KeyError:
+            pass
+        return pub_time
 
     def check_is_dig(self, obj):
         isDig = False

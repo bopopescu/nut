@@ -1,25 +1,24 @@
-from apps.core.models import Entity, GKUser, Article
 from haystack.forms import SearchForm as haystackSearchForm
+from apps.core.models import Entity, GKUser, Article
+from apps.v4.schema.articles import ArticleSchema
 
 from django.utils.log import getLogger
 
 log = getLogger('django')
 
+article_schema   = ArticleSchema()
 
 
 class APISearchForm(haystackSearchForm):
 
     def search(self):
-        # self.keyword = self.changed_data['q']
-        # print self.keyword
         sqs = super(APISearchForm, self).search()
-        # print self.cleaned_data['q']
         res = dict()
 
         # TODO entities search result
         entity_list = sqs.models(Entity).filter(content=self.cleaned_data['q']).order_by('-created_time')
         entities = list()
-        for row in entity_list[:20]:
+        for row in entity_list[:10]:
             try:
                 entities.append(
                     row.object.v3_toDict()
@@ -33,7 +32,7 @@ class APISearchForm(haystackSearchForm):
         for row in article_list[:10]:
             try:
                 articles.append(
-                    row.object.v4_toDict()
+                    article_schema.dump(row.object, many=False).data
                 )
             except Exception as e:
                 log.error(e.message)

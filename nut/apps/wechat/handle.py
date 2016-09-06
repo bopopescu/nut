@@ -47,7 +47,10 @@ def handle_reply(content):
         results = sqs.auto_query(content.decode('utf-8')).models(Entity).order_by('-like_count')
 
         for row in results:
-            res.append(row.object)
+            try:
+                res.append(row.object)
+            except Exception as e:
+                log.error("<Error: {0}>".format(e.message))
     return res
 
 

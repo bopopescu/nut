@@ -458,33 +458,6 @@ def selection(request):
     return SuccessJsonResponse(res)
 
 
-# @check_sign
-# def popular(request):
-#
-#     _scale = request.GET.get('scale', 'daily')
-#     _key = request.GET.get('session')
-#     log.info(_scale)
-#     popular_list = Entity_Like.objects.popular_random(_scale)
-#     _entities = APIEntity.objects.filter(id__in=popular_list, status=Entity.selection)
-#
-#     try:
-#         _session = Session_Key.objects.get(session_key=_key)
-#         # log.info("session %s" % _session)
-#         el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=_entities)
-#     except Session_Key.DoesNotExist, e:
-#         log.info(e.message)
-#         el = None
-#
-#     res = dict()
-#     res['content'] = list()
-#     res['scale'] = _scale
-#     for e in _entities:
-#         r = {
-#             'entity': e.v4_toDict(user_like_list=el)
-#         }
-#         res['content'].append(r)
-#
-#     return SuccessJsonResponse(res)
 
 # TODO: Search API
 class APISearchView(SearchView, JSONResponseMixin):
@@ -623,11 +596,6 @@ class UnreadView(APIJsonSessionView):
         }
         return res
 
-    # def get(self, request, *args, **kwargs):
-        # self.key = request.GET.get('session', None)
-        # if self.key is None:
-        #   return ErrorJsonResponse(status=403)
-        # return super(UnreadView, self).get(request, *args, **kwargs)
 
 
 def visit_item(request, item_id):
