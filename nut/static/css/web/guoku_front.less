@@ -1475,18 +1475,18 @@ body.new-index-body{
       height: 30px;
       .fa-heart,.fa-heart-o{
         font-size:23px;
-        margin-right:15px;
+        margin-right:10px;
 
       }
       .fa-heart-o{
-        color:@border-gray;
+        color:@new-text-gray;
       }
 
       .bubble {
         display: block;
         position: relative;
         height: 25px;
-        padding: 0px 10px;
+        //padding: 0px 10px;
         background: #FFFFFF;
         border: @border-gray solid 1px;
         -webkit-border-radius: 10px;
@@ -1498,31 +1498,31 @@ body.new-index-body{
         line-height: 25px;
       }
 
-      .bubble:before {
-        content: "";
-        position: absolute;
-        top: 6px;
-        left: -6px;
-        border-style: solid;
-        border-width: 6px 6px 6px 0px;
-        border-color: transparent @border-gray  transparent transparent;
-        display: block;
-        width: 0;
-        z-index: 0;
-      }
+      //.bubble:before {
+      //  content: "";
+      //  position: absolute;
+      //  top: 6px;
+      //  left: -6px;
+      //  border-style: solid;
+      //  border-width: 6px 6px 6px 0px;
+      //  border-color: transparent @border-gray  transparent transparent;
+      //  display: block;
+      //  width: 0;
+      //  z-index: 0;
+      //}
 
-      .bubble:after {
-        content: "";
-        position: absolute;
-        bottom: 7px;
-        left: -9px;
-        border-style: solid;
-        border-width: 5px;
-        border-color: transparent #fff transparent transparent;
-        display: block;
-        width: 0;
-        z-index: 1;
-      }
+      //.bubble:after {
+      //  content: "";
+      //  position: absolute;
+      //  bottom: 7px;
+      //  left: -9px;
+      //  border-style: solid;
+      //  border-width: 5px;
+      //  border-color: transparent #fff transparent transparent;
+      //  display: block;
+      //  width: 0;
+      //  z-index: 1;
+      //}
 
       .like-count{
         //        border: 1px solid @common-gray;
@@ -1538,19 +1538,20 @@ body.new-index-body{
 
 
     .btn-like, .btn-unlike {
-      padding: 0px;
+      padding: 0;
       padding-left: 3px;
-      line-height: 14px;
-      font-size: 14px;
-      height: 14px;
-      color: #9d9e9f;
+      line-height: 18px;
+      font-size: @more-mini-size;
+      //height: 14px;
+      height:auto;
+      color: @new-text-gray;
     }
     .posttime{
-      padding: 7px 0px 0px 0px;
-      line-height: 14px;
-      font-size: 14px;
-      height: 14px;
-      color: #9d9e9f;
+      padding: 5px 0 0 0;
+      line-height: 18px;
+      font-size: @more-mini-size;
+      //height: 14px;
+      color: @new-text-gray;
     }
   }
 }
