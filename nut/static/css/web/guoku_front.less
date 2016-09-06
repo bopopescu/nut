@@ -1449,9 +1449,11 @@ body.new-index-body{
   }
 
   .entity-selection.thumbnail{
-    .panel-no-padding;
-     //background-color: @very-light-gray;
-     //.border-radius(@global-box-radius);
+    //.panel-no-padding;
+    &:hover{
+      background-color: @very-light-gray;
+    }
+    .border-radius(@global-box-radius);
     overflow: hidden;
     margin-bottom: 52px;
     padding: 16px;
@@ -1545,6 +1547,7 @@ body.new-index-body{
       //height: 14px;
       height:auto;
       color: @new-text-gray;
+      background-color: transparent;
     }
     .posttime{
       padding: 5px 0 0 0;
