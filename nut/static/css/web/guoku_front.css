@@ -4856,6 +4856,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 }
 #selection .entity-selection.thumbnail:hover {
   background-color: #F8F8F8;
+  cursor: pointer;
 }
 #selection .entity-selection.thumbnail .img-box {
   border: none;
