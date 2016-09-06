@@ -963,6 +963,9 @@ p.boolean-false {
   font-weight: 500;
   margin-right: 12px;
 }
+.user-nick-big {
+  font-size: 24px;
+}
 .guoku-small-col {
   padding: 0 2px;
   margin-bottom: 4px;
@@ -1578,15 +1581,16 @@ a.new-black-link:hover {
   .guoku-content.user-page .user-info .user-nick-block {
     margin: 0 auto ;
   }
-  .guoku-content.user-page .user-info .center-wrapper {
+  .guoku-content.user-page .user-info .user-nick-block .center-wrapper {
     margin: 0 auto ;
     width: 142px;
   }
-  .guoku-content.user-page .user-info .center-wrapper .action {
+  .guoku-content.user-page .user-info .user-nick-block .center-wrapper .action {
     display: block;
     margin-top: 20px;
   }
-  .guoku-content.user-page .user-info .center-wrapper .nick {
+  .guoku-content.user-page .user-info .user-nick-block .center-wrapper .nick {
+    font-size: 24px;
     margin-top: 20px;
     display: block;
     text-align: center;
