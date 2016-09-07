@@ -1,4 +1,6 @@
 # coding=utf-8
+import datetime
+from pprint import pprint
 
 from apps.order.tests import DBTestBase
 from apps.core.models import Entity,GKUser, Category, Sub_Category
@@ -12,7 +14,7 @@ class OrderForUserTest(DBTestBase):
         super(OrderForUserTest, self).setUp()
         self.sku1 = self.entity.add_sku({
             'color': 'red',
-            'size':165
+            'size': 165
         })
         self.sku1.stock = 5
         self.sku1.origin_price = 7
@@ -110,7 +112,6 @@ class OrderForUserTest(DBTestBase):
         total_price = reduce(lambda a, b : a+b, [item.grand_total_price for item in order_items])
         self.assertEqual(total_price, 20)
 
-
         self.assertEqual(the_order.grand_total_price, 20)
         self.assertEqual(the_order.promo_total_price, 16)
 
@@ -123,6 +124,8 @@ class OrderForUserTest(DBTestBase):
     def test_user_checkout_order_more_sku_volume(self):
         self.sku1.stock = 6
         self.sku2.stock = 13
+        self.sku1.save()
+        self.sku2.save()
         self.the_user.add_sku_to_cart(self.sku1, 5)
         self.the_user.add_sku_to_cart(self.sku2, 12)
         order = self.the_user.checkout()
@@ -130,30 +133,46 @@ class OrderForUserTest(DBTestBase):
         self.assertEqual(order.promo_total_price, 5*5 + 11*12)
 
 
-    def test_paid_order_reduce_stock(self):
+    def test_checkouted_order_reduce_stock(self):
         self.sku1.stock=9
         self.sku1.save()
         self.sku2.stock=18
         self.sku2.save()
         self.the_user.add_sku_to_cart(self.sku1,5)
         self.the_user.add_sku_to_cart(self.sku2,12)
-        order= self.the_user.checkout()
-        self.assertEqual(order.status , Order.address_unbind)
-        order.set_paid()
-        self.assertEqual(order.status, Order.paid)
+        order = self.the_user.checkout()
+        self.assertEqual(order.status, Order.address_unbind)
         #need refresh from db
-        self.assertEqual(self.sku1.stock , 9)
+        self.assertEqual(self.sku1.stock, 9)
         self.assertEqual(self.sku2.stock,  18)
         self.sku1 = SKU.objects.get(pk=self.sku1.pk)
         self.sku2 = SKU.objects.get(pk=self.sku2.pk)
         #refresh now
-        self.assertEqual(self.sku1.stock , 9-5)
+        self.assertEqual(self.sku1.stock, 9-5)
         self.assertEqual(self.sku2.stock,  18-12)
 
+    def test_order_expired_property(self):
+        self.the_user.add_sku_to_cart(self.sku1)
+        order = self.the_user.checkout()
+        c_time = datetime.datetime.now() - datetime.timedelta(minutes=31)
+        order.created_datetime = c_time
+        order.save()
+        self.assertEqual(order.should_expired, True)
+        c_time2 = datetime.datetime.now() - datetime.timedelta(minutes=29)
+        order.created_datetime = c_time2
+        order.save()
+        self.assertEqual(order.should_expired, False)
 
+    def test_set_paid_to_expired_order_raise(self):
+        self.the_user.add_sku_to_cart(self.sku1)
+        order = self.the_user.checkout()
+        c_time = datetime.datetime.now() - datetime.timedelta(minutes=31)
+        order.created_datetime = c_time
+        order.save()
 
+        self.assertEqual(order.can_set_paid,  False)
 
-
-
-
+        with self.assertRaises(OrderException) as context:
+            order.set_paid()
+            pprint(context)
 
