@@ -231,7 +231,6 @@ class Order(BaseModel):
             self.set_paid()
         return url
 
-
     # def update_sku_stock(self):
     #     for item in self.items.all():
     #         item.sku.stock -= item.volume
@@ -239,7 +238,7 @@ class Order(BaseModel):
 
     @property
     def can_set_paid(self):
-        return self.status >= Order.address_unbind and not(self.should_expired)
+        return self.status >= Order.address_unbind and not self.should_expired
 
     def set_paid(self):
         if not self.can_set_paid:
