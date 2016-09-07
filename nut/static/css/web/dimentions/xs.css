@@ -1499,6 +1499,10 @@ a.new-black-link:hover {
   #selection_article_list .selection-article-item .article-intro {
     min-height: 0px!important;
   }
+  #top_article_tags_container .top-article-tag,
+  #top_article_tags_container .tag-element {
+    margin: 0;
+  }
   .guoku-card .entity-image-wrapper {
     padding: 0px!important;
     padding-top: 10px!important;
