@@ -1,7 +1,7 @@
 {% load i18n staticfiles %}
 {% load common guoku %}
 
-<div class="hidden-xs col-sm-4 col-md-4 col-lg-4 selection-article-item">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
         <div class="article-panel">
             <a class="img-link" href="{% url 'web_article_page' article.pk   %}">
                 <div class="img-holder" style="background-image: url({{ article.cover_url|resize:'450' }})"></div>
@@ -76,23 +76,3 @@
 {##}
 {#        </div>#}
     </div>
-
-<div class="col-xs-12 hidden-sm hidden-md hidden-lg xs-selection-article-item">
-    <div class="more-article-wrapper">
-        <div class="title-wrapper">
-            <a href="{% url 'web_article_page' article.pk %}#from=recommend">
-                <div class="title">{{ article.title|truncatechars:22 }}</div>
-            </a>
-            <div class="article-digest">
-                {{ article.content|at_digest|striptags|truncatechars:54 }}
-            </div>
-        </div>
-        <div class="cover-wrapper">
-            <a href="{% url 'web_article_page' article.pk %}#from=recommend">
-                {#                <img  src="{{ article.cover_url|resize:'450' }}">#}
-                <div class="img-holder img-holder-control" style="background-image: url({{ article.cover_url|resize:'450' }})"></div>
-
-            </a>
-        </div>
-    </div>
-</div>
