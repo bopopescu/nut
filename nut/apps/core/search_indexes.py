@@ -47,7 +47,8 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
         return brand
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.filter(status__gt=Entity.new).using('slave').filter(buy_links__status=2).distinct()
+        return self.get_model().objects.filter(status__gt=Entity.new).using('slave').\
+            filter(buy_links__status=2).distinct()
 
 
 class UserIndex(indexes.SearchIndex, indexes.Indexable):
