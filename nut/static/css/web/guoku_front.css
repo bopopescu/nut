@@ -5671,9 +5671,13 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 }
 #selection_article_list .selection-article-item .article-panel .article-intro {
   font-size: 14px;
+  line-height: 1.6;
   color: #757575;
   margin-top: 12px;
-  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 #selection_article_list .selection-article-item .article-panel .article-info {
   overflow: hidden;
