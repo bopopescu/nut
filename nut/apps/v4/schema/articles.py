@@ -7,7 +7,8 @@ class ArticleSchema(Schema):
     creator             = fields.Nested(UserSchema, many=False)
     title               = fields.String()
     cover               = fields.String()
-    content             = fields.String(attribute='strip_tags_content')
+    content             = fields.String()
+    # content             = fields.String(attribute='strip_tags_content')
     publish             = fields.Integer()
     tags                = fields.Method('get_tag_list')
     url                 = fields.Method('get_url')
@@ -27,7 +28,12 @@ class ArticleSchema(Schema):
         return obj.tag_list
 
     def selection_pub_time(self, obj):
-        return self.context['pub_time']
+        pub_time     = None
+        try:
+            pub_time = self.context['pub_time']
+        except KeyError:
+            pass
+        return pub_time
 
     def check_is_dig(self, obj):
         isDig = False

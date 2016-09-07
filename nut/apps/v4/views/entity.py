@@ -66,49 +66,100 @@ def entity_list(request):
     return SuccessJsonResponse(res)
 
 
-@check_sign
-def detail(request, entity_id):
+# @check_sign
+# def detail(request, entity_id):
+#
+#     _key = request.GET.get('session', None)
+#     # log.info("session "_key)
+#     try:
+#         entity = APIEntity.objects.using('slave').get(pk=entity_id, status__gte=Entity.freeze)
+#     except APIEntity.DoesNotExist:
+#         return ErrorJsonResponse(status=404)
+#
+#     try:
+#         _session = Session_Key.objects.get(session_key=_key)
+#         el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=[entity_id])
+#         np = Note_Poke.objects.user_poke_list(user=_session.user,  note_list=list(entity.notes.values_list('id', flat=True)))
+#         # np = Note_Poke.objects.filter(user=_session.user, note_id__in=list(entity.notes.values_list('id', flat=True))).values_list('note_id', flat=True)
+#     except Session_Key.DoesNotExist, e:
+#         log.info(e.message)
+#         el = None
+#         np = None
+#
+#     res = dict()
+#
+#     res['entity'] = entity.v4_toDict(user_like_list=el)
+#     res['note_list'] = []
+#
+#
+#     for note in entity.notes.top_or_normal():
+#         res['note_list'].append(
+#             note.v4_toDict(user_note_pokes=np)
+#         )
+#     log.info(dir(entity))
+#     res['like_user_list'] = []
+#     for liker in entity.likes.all()[0:16]:
+#         try:
+#             res['like_user_list'].append(
+#                 liker.user.v3_toDict()
+#             )
+#         except GKUser.DoesNotExist, e:
+#             log.error(e)
+#             continue
+#
+#     return SuccessJsonResponse(res)
 
-    _key = request.GET.get('session', None)
-    # log.info("session "_key)
-    try:
-        entity = APIEntity.objects.using('slave').get(pk=entity_id, status__gte=Entity.freeze)
-    except APIEntity.DoesNotExist:
-        return ErrorJsonResponse(status=404)
+class EntityDetialView(APIJsonView):
 
-    try:
-        _session = Session_Key.objects.get(session_key=_key)
-        el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=[entity_id])
-        np = Note_Poke.objects.user_poke_list(user=_session.user,  note_list=list(entity.notes.values_list('id', flat=True)))
-        # np = Note_Poke.objects.filter(user=_session.user, note_id__in=list(entity.notes.values_list('id', flat=True))).values_list('note_id', flat=True)
-    except Session_Key.DoesNotExist, e:
-        log.info(e.message)
+    def get_data(self, context):
+        try:
+            entity = APIEntity.objects.using('slave').get(pk=self.entity_id, status__gte=Entity.freeze)
+        except APIEntity.DoesNotExist:
+            return ErrorJsonResponse(status=404)
+
         el = None
         np = None
+        if self.session:
+            el = Entity_Like.objects.user_like_list(user=self.session.user, entity_list=[self.entity_id])
+            np = Note_Poke.objects.user_poke_list(user=self.session.user,
+                                                  note_list=list(entity.notes.values_list('id', flat=True)))
 
-    res = dict()
+        res = dict()
 
-    res['entity'] = entity.v4_toDict(user_like_list=el)
-    res['note_list'] = []
+        res['entity'] = entity.v4_toDict(user_like_list=el)
+        res['note_list'] = []
 
-
-    for note in entity.notes.top_or_normal():
-        res['note_list'].append(
-            note.v4_toDict(user_note_pokes=np)
-        )
-    log.info(dir(entity))
-    res['like_user_list'] = []
-    for liker in entity.likes.all()[0:16]:
-        try:
-            res['like_user_list'].append(
-                liker.user.v3_toDict()
+        for note in entity.notes.top_or_normal():
+            res['note_list'].append(
+                note.v4_toDict(user_note_pokes=np)
             )
-        except GKUser.DoesNotExist, e:
-            log.error(e)
-            continue
+        log.info(dir(entity))
+        res['like_user_list'] = []
+        for liker in entity.likes.all()[0:16]:
+            try:
+                res['like_user_list'].append(
+                    liker.user.v3_toDict()
+                )
+            except GKUser.DoesNotExist, e:
+                log.error(e)
+                continue
 
-    return SuccessJsonResponse(res)
+        return res
 
+
+    def get(self, request, *args, **kwargs):
+        self.entity_id  = kwargs.pop('entity_id', None)
+        assert self.entity_id is not None
+
+        _key = request.GET.get('session', None)
+
+        try:
+            self.session = Session_Key.objects.get(session_key=_key)
+        except Session_Key.DoesNotExist, e:
+            log.info(e.message)
+            self.session = None
+
+        return super(EntityDetialView, self).get(request, *args, **kwargs)
 
 @csrf_exempt
 @check_sign

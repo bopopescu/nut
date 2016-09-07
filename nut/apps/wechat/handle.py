@@ -32,11 +32,13 @@ def handle_reply(content):
         popular_list = Entity_Like.objects.popular_random()
         entities = Entity.objects.filter(id__in=popular_list)
         res = entities[:5]
-    elif content.decode('utf-8') == u'合作' or content.decode('utf-8') == u'商务':
-        return u'bd@guoku.com'
-    elif regex(content.lower(), u'体验师'):
-        return u'「清迈旅行体验师招募｜你的工作就是玩够5天！」 ' \
-               u'<a href="http://www.yun-wifi.net/index.php/home/code/index/from/8">►立即领抽奖码：</a>'
+    elif content.decode('utf-8') == u'合作':
+        return u'合作事宜请发邮件到 bd@guoku.com'
+    elif content.decode('utf-8') == u'转载':
+        return u'文章转载授权请联系 alka@guoku.com'
+    # elif regex(content.lower(), u'体验师'):
+    #     return u'「清迈旅行体验师招募｜你的工作就是玩够5天！」 ' \
+    #            u'<a href="http://www.yun-wifi.net/index.php/home/code/index/from/8">►立即领抽奖码：</a>'
     elif robot_handler.can_handle(content.lower()):
         return robot_handler.handle(content.lower())
     else:
@@ -44,8 +46,11 @@ def handle_reply(content):
         sqs = SearchQuerySet()
         results = sqs.auto_query(content.decode('utf-8')).models(Entity).order_by('-like_count')
 
-        for row in results:
-            res.append(row.object)
+        for row in results[:10]:
+            try:
+                res.append(row.object)
+            except Exception as e:
+                log.error("<Error: {0}>".format(e.message))
     return res
 
 

@@ -91,7 +91,6 @@ class GuokuUserSignUpForm(forms.Form):
 
     def clean_nickname(self):
         _nickname = self.cleaned_data.get('nickname')
-        print _nickname
         try:
             User_Profile.objects.get(nickname=_nickname)
         except User_Profile.DoesNotExist:

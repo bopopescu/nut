@@ -20,7 +20,7 @@ import time
 from apps.v4.schema.articles import ArticleSchema
 
 article_schema = ArticleSchema(many=False)
-from pprint import pprint
+# from pprint import pprint
 
 
 class ArticlesListView(APIJsonView):
@@ -46,9 +46,7 @@ class ArticlesListView(APIJsonView):
 
         for row in sla.object_list:
             article_schema.context['pub_time'] = time.mktime(row.pub_time.timetuple())
-            # print row.api_article
             a = article_schema.dump(row.api_article).data
-            pprint(a['cover'], indent=2)
             res.append(
                 a
             )
@@ -120,7 +118,7 @@ class ArticleSearchView(SearchView, JSONResponseMixin):
         article_ids = map(lambda x: x.article_id, articles.object_list)
         for row in APIArticle.objects.filter(pk__in=article_ids):
             res['articles'].append(
-                row.v4_toDict()
+                article_schema.dump(row).data
             )
         return res
 
@@ -172,7 +170,8 @@ class ArticleTagView(APIJsonView):
 
         for row in articles.object_list:
             res.append(
-                row.v4_toDict()
+                # row.v4_toDict()
+                article_schema.dump(row).data
             )
 
         return res
