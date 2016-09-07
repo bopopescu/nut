@@ -162,6 +162,12 @@
 
     #selection_article_list{
       .selection-article-item{
+        .article-panel{
+          margin-bottom: 0;
+          .article-info-wrapper{
+            min-height:1px;
+          }
+        }
         .article-title{
            min-height:0px!important;
         }
@@ -539,7 +545,7 @@
   #selection_article_list{
     .selection-article-item{
       .article-title{
-         min-height:66px!important;
+         //min-height:66px!important;
       }
     }
   }
@@ -626,6 +632,17 @@
       &:hover {
         background-color: @very-light-gray;
         cursor: pointer;
+      }
+    }
+  }
+
+  #selection_article_list {
+    .selection-article-item {
+      .article-panel {
+        &:hover {
+          cursor: pointer;
+          background-color: @very-light-gray;
+        }
       }
     }
   }

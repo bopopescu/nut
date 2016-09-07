@@ -1487,6 +1487,12 @@ a.new-black-link:hover {
   .check-icon-wrapper .more-message {
     font-size: 14px;
   }
+  #selection_article_list .selection-article-item .article-panel {
+    margin-bottom: 0;
+  }
+  #selection_article_list .selection-article-item .article-panel .article-info-wrapper {
+    min-height: 1px;
+  }
   #selection_article_list .selection-article-item .article-title {
     min-height: 0px!important;
   }
@@ -1787,9 +1793,6 @@ a.new-black-link:hover {
     font-size: 14px !important;
     font-color: #9D9E9F !important;
   }
-  #selection_article_list .selection-article-item .article-title {
-    min-height: 66px!important;
-  }
 }
 @media (min-width: 768px) {
   .navbar-collapse.search-collapse {
@@ -1841,5 +1844,9 @@ a.new-black-link:hover {
   #selection .entity-selection.thumbnail:hover {
     background-color: #F8F8F8;
     cursor: pointer;
+  }
+  #selection_article_list .selection-article-item .article-panel:hover {
+    cursor: pointer;
+    background-color: #F8F8F8;
   }
 }
