@@ -76,7 +76,6 @@ class GuokuUserSignUpForm(forms.Form):
         label=_('password'),
         widget=forms.PasswordInput(),
         min_length=8,
-
     )
 
     nickname = forms.CharField(
