@@ -56,7 +56,7 @@
     display: none!important;
   }
 .entity-selection-body{
-  //background-color: @very-light-gray;
+  background-color: @very-light-gray;
   .selection-item{
      padding:0px 2px;
   }
@@ -67,6 +67,11 @@
      }
   }
 }
+ #selection {
+    .entity-selection.thumbnail {
+      .panel-no-padding;
+    }
+  }
 // for setting page
 
   #settings{
@@ -612,6 +617,15 @@
     .user-info-wrapper{
       .user-icon{
         max-width: 200px;
+      }
+    }
+  }
+
+  #selection {
+    .entity-selection.thumbnail {
+      &:hover {
+        background-color: @very-light-gray;
+        cursor: pointer;
       }
     }
   }

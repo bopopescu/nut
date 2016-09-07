@@ -4878,10 +4878,6 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   padding: 16px;
   border: none;
 }
-#selection .entity-selection.thumbnail:hover {
-  background-color: #F8F8F8;
-  cursor: pointer;
-}
 #selection .entity-selection.thumbnail .img-box {
   border: none;
   max-height: 500px;
@@ -5847,6 +5843,9 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   .round-link {
     display: none!important;
   }
+  .entity-selection-body {
+    background-color: #F8F8F8;
+  }
   .entity-selection-body .selection-item {
     padding: 0px 2px;
   }
@@ -5855,6 +5854,19 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   }
   .entity-selection-body .entity-selection .posttime {
     display: none;
+  }
+  #selection .entity-selection.thumbnail {
+    background-color: #fff;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    -webkit-box-shadow: 0px 0px 2px #ddd;
+    -moz-box-shadow: 0px 0px 2px #ddd;
+    box-shadow: 0px 0px 2px #ddd;
+    overflow: hidden;
   }
   #settings .edit_info .input-element {
     max-width: 300px;
@@ -6261,6 +6273,10 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   }
   .user-page .user-info-wrapper .user-icon {
     max-width: 200px;
+  }
+  #selection .entity-selection.thumbnail:hover {
+    background-color: #F8F8F8;
+    cursor: pointer;
   }
 }
 @media (max-width: 991px) {
