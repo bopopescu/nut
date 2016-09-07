@@ -2429,6 +2429,68 @@ from {
 
 #selection_article_list{
   .event-article-item{
+     display: inline-block;
+    position:relative;
+    padding:0 9px;
+    .article-panel{
+      .panel-no-padding;
+      width:100%;
+      margin-bottom: 25px;
+
+      .img-holder{
+        width:100%;
+        height:0;
+        padding-bottom: 55%;
+        background-position: center center;
+        background-size: cover;
+        background-repeat:no-repeat;
+      }
+
+      .article-title{
+        font-size: @big-title-size;
+        color:@common-text-color;
+        margin: 16px 24px;
+        min-height: 54px;
+        max-height:54px;
+        line-height: 1.3;
+        a{
+          color: @common-text-color;
+          //solve several lines'texts overflow
+          //only support webkit browser
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          &:hover{
+            text-decoration: none;
+          }
+        }
+      }
+
+      .article-intro{
+        font-size:@smaller-primary;
+        color: @new-text-gray;
+        margin: 16px 24px;
+        min-height: 84px;
+        max-height:84px;
+        line-height:1.6;
+
+      }
+      .article-info{
+        //min-height:30px;
+        overflow: hidden;
+        padding:0 24px 24px 24px;
+        color: @new-text-gray;
+        .create-time{
+          float:right;
+          //padding-right: 10px;
+          font-size:@more-mini-size;
+          .fa{
+            margin-right:5px;
+          }
+        }
+      }
+    }
   }
   .selection-article-item{
     display: inline-block;
