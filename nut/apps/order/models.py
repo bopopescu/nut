@@ -140,6 +140,7 @@ class ShippingAddress(BaseModel):
 
 
 class Order(BaseModel):
+    expire_in_minutes = 30
 
     (   expired, #超时订单,失效订单
         address_unbind, #需要客户地址
@@ -199,7 +200,7 @@ class Order(BaseModel):
 
     @property
     def should_expired(self):
-        expired_time = self.created_datetime + timedelta(minutes=30)
+        expired_time = self.created_datetime + timedelta(minutes=Order.expire_in_minutes)
         return self.status < Order.paid and datetime.now() > expired_time
 
     @property

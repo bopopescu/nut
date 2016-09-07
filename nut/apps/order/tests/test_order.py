@@ -154,11 +154,11 @@ class OrderForUserTest(DBTestBase):
     def test_order_expired_property(self):
         self.the_user.add_sku_to_cart(self.sku1)
         order = self.the_user.checkout()
-        c_time = datetime.datetime.now() - datetime.timedelta(minutes=31)
+        c_time = datetime.datetime.now() - datetime.timedelta(minutes=Order.expire_in_minutes+1)
         order.created_datetime = c_time
         order.save()
         self.assertEqual(order.should_expired, True)
-        c_time2 = datetime.datetime.now() - datetime.timedelta(minutes=29)
+        c_time2 = datetime.datetime.now() - datetime.timedelta(minutes=Order.expire_in_minutes-1)
         order.created_datetime = c_time2
         order.save()
         self.assertEqual(order.should_expired, False)
@@ -166,7 +166,7 @@ class OrderForUserTest(DBTestBase):
     def test_set_paid_to_expired_order_raise(self):
         self.the_user.add_sku_to_cart(self.sku1)
         order = self.the_user.checkout()
-        c_time = datetime.datetime.now() - datetime.timedelta(minutes=31)
+        c_time = datetime.datetime.now() - datetime.timedelta(minutes=Order.expire_in_minutes+1)
         order.created_datetime = c_time
         order.save()
 
