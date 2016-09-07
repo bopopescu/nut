@@ -2,7 +2,7 @@ from django.core.paginator import Paginator
 from django.utils.log import getLogger
 
 from apps.order.models import Order as OrderModel
-from apps.v4.views import APIJsonSessionView
+from apps.v4.views import APIJsonSessionView, ErrorJsonResponse
 from apps.v4.schema.order import OrderSchema
 
 # from pprint import pprint
@@ -36,3 +36,21 @@ class OrderListView(APIJsonSessionView):
         self.status = request.GET.get('status', None)
 
         return super(OrderListView, self).get(request, *args, **kwargs)
+
+
+class WeChatPaymentView(APIJsonSessionView):
+
+    http_method_names = ['get']
+
+    def get_data(self, context):
+        try:
+            order = OrderModel.objects.get(pk = self.order_id)
+        except OrderModel.DoesNotExist as e:
+            log.info(e.message)
+            raise ErrorJsonResponse(status=404)
+        return {'wx_payment_url': order.wx_payment_qrcode_url}
+
+    def get(self, request, *args, **kwargs):
+        self.order_id   = kwargs.pop('order_id', None)
+        assert self.order_id is not None
+        return super(WeChatPaymentView, self).get(request, *args, **kwargs)

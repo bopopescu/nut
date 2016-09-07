@@ -33,7 +33,7 @@ class OrderSchema(Schema):
     created_datetime    = fields.Method('get_created_datetime')
     updated_datetime    = fields.Method('get_updated_datetime')
 
-    wx_payment_qrcode_url   = fields.String(attribute='wx_payment_qrcode_url')
+    # wx_payment_qrcode_url   = fields.String(attribute='wx_payment_qrcode_url')
 
 
     def get_created_datetime(self, obj):

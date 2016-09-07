@@ -235,7 +235,7 @@ class Order(BaseModel):
             return self
         else:
             raise OrderException('unpaid order can not be closed')
-            return self
+            # return self
 
     @property
     def payment_subject(self):
