@@ -1,5 +1,5 @@
-6
-5. remove index entity category list
+6. other bugs 
+5. selection entity and article page css update lq,
 4. merge lq's branch  :  lq_refactor_old_pages (web ADD entity  and other js test)
 
 ------------
@@ -21,15 +21,15 @@ ADD COLUMN `image` VARCHAR(256) NULL DEFAULT NULL AFTER `item_title`,
 ADD COLUMN `entity_link` VARCHAR(256) NULL DEFAULT NULL AFTER `image`,
 ADD COLUMN `attrs` LONGTEXT NULL DEFAULT NULL AFTER `entity_link`;
 
-action 
-    1. need install m2crypto 
-        pip install M2Crypto
-        -----
-        important !!!
-        if install M2Crypto fail 
-        because of locale.Error: unsupported locale setting
-        export LC_ALL="en_US.UTF-8"
-        export LC_CTYPE="en_US.UTF-8"
+<!--action -->
+    <!--1. need install m2crypto -->
+        <!--pip install M2Crypto-->
+        <!--------->
+        <!--important !!!-->
+        <!--if install M2Crypto fail -->
+        <!--because of locale.Error: unsupported locale setting-->
+        <!--export LC_ALL="en_US.UTF-8"-->
+        <!--export LC_CTYPE="en_US.UTF-8"-->
         
         this is failed in test server 
 
