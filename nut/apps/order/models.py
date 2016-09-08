@@ -2,7 +2,7 @@
 import json
 
 from datetime import timedelta, datetime
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.log import getLogger
@@ -195,7 +195,12 @@ class Order(BaseModel):
     def generate_alipay_payment_url(self):
         return AliPayPayment(order=self).payment_url
 
+    def alipay_qrcode_frame_page_url(self):
+        # use to jump from guoku to alipay , iframe already implemented
+        return reverse_lazy('web_user_order_alipay_qrcode', args=[self.id])
+
     def mini_alipay_qrcode_page_url(self):
+        # direct to alipay , need put this url into a <iframe>
         return AliPayPayment(order=self).mini_qrcode_page_url
 
     def generate_weixin_payment_url(self,):
