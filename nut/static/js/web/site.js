@@ -1553,8 +1553,7 @@ function getQueryStrings() {
             }
             function clean_bio(){
                 var bio = $.trim($('#id_bio').val());
-                    bio = clearUserInputString
-                    (bio);
+                    bio = clearUserInputString(bio);
                     $('#id_bio').val(bio);
                 return bio;
             }
