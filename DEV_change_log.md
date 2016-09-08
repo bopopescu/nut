@@ -1,3 +1,11 @@
+
+4. 
+3. Order.set_expired method to set the expire method and update sku stock 
+2. Order.should_expired  property , to see if a order should be expired
+1. update sku stock after checkout (used to be after payment)
+
+======================================
+
 3.  move checkout method from GKUser into CartItem Manager
 2.  fix order_item serialize problem 
 1.  add field's to order item 
