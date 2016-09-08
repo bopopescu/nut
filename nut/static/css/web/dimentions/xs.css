@@ -1412,6 +1412,7 @@ a.new-black-link:hover {
   }
   .entity-selection-body {
     background-color: #F8F8F8;
+    padding-top: 70px;
   }
   .entity-selection-body .selection-item {
     padding: 0px 2px;

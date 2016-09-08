@@ -5915,6 +5915,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   }
   .entity-selection-body {
     background-color: #F8F8F8;
+    padding-top: 70px;
   }
   .entity-selection-body .selection-item {
     padding: 0px 2px;
