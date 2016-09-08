@@ -267,7 +267,7 @@ class Order(BaseModel):
             return self
 
     def _restore_sku_stock(self):
-        # only can be called from  set_expire method
+        # only can be called from  set_expired method
         # TODO : enforce last sentence
         for item in self.items.all():
             item.sku.stock += item.volume
@@ -288,7 +288,7 @@ class Order(BaseModel):
     @property
     def payment_subject(self):
         #TODO : need define more prise subject
-        return 'GUOKU Order :%s' %self.number
+        return 'GUOKU Order :%s' % self.number
         # raise  NotImplemented()
 
     @property
