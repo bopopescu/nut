@@ -85,7 +85,7 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['banners'] = SiteBanner.objects.get_mainpage_banner()  # 顶部banner (link, image)
-        context['categories'] = Category.objects.filter(status=True)  # 品类
+        context['categories'] = Category.objects.filter(status=True).order_by('id')  # 品类
         popular_list = Entity_Like.objects.popular_random()
         context['entities'] = Entity.objects.filter(id__in=popular_list)  # 热门商品
         context['article_tags'] = Tags.objects.top_article_tags()  # 图文标签
