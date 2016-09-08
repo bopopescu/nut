@@ -1698,7 +1698,7 @@ define('subapp/topmenu',['bootstrap',
         'subapp/bottom_ad/bottom_ad',
         'subapp/top_notification/top_notification'
     ],
-    function(boot, Class,_,$,fastdom,cookie,TopAd,BottomAd,TopNotification){
+    function(boot,Class,_,$,fastdom,cookie,TopAd,BottomAd,TopNotification){
 
     // cookie is a shim resource , it will attch to jquery objects.
 

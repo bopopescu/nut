@@ -3,12 +3,12 @@ from django.http import HttpResponse
 from django.views.generic import View
 from django.core.cache import cache
 from braces.views import JSONResponseMixin, AjaxResponseMixin
-
 from django.utils.log import getLogger
-log = getLogger('django')
-
 
 from apps.counter.utils.data import RedisCounterMachine, FeedCounterBridge
+
+
+log = getLogger('django')
 
 class Counter(JSONResponseMixin, AjaxResponseMixin, View):
 
@@ -40,6 +40,8 @@ class Counter(JSONResponseMixin, AjaxResponseMixin, View):
         counter_key = None
         try:
             counter_key = self.get_key(request)
+            article_pk = RedisCounterMachine.get_article_pk_from_counter_key(counter_key)
+            RedisCounterMachine.add_need_update_article_id(article_pk)
         except Exception as e:
             return self.response_error_message(e.message)
 

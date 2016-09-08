@@ -32,11 +32,12 @@
                         >
                         <i class="fa fa-heart-o"></i>
                     {% endif %}
-                 <div class="bubble like-count">{{ entity.like_count | format_like_num }}</div>
+{#                 <div class="bubble like-count">{{ entity.like_count | format_like_num }}</div>#}
+                   <span class="like-count" style="vertical-align:text-bottom;">{{ entity.like_count | format_like_num }}</span>
             </a>
 
             <div class="pull-right posttime">
-                <i class="fa fa-clock-o"></i>
+{#                <i class="fa fa-clock-o"></i>#}
                     <span class="timestr">
                         {{ entity.selection_entity.pub_time|format_time|cut:" " }}
                     </span>

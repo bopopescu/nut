@@ -1,4 +1,5 @@
 {% extends 'web/user/settings.html' %}
+{% load i18n static %}
 
  {% block meta-og %}
 {% endblock %}
@@ -89,10 +90,12 @@
 {% endblock %}
 
 {% block script %}
-<script language="javascript">
-    var sns_bind_page_visited_key = 'SNS_BIND_PAGE_VISITED';
-    $.cookie(sns_bind_page_visited_key , 'visited' , { expires: 60, path: '/' });
-</script>
+     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script data-main="{% static 'js/web/jsbuild/user_settings_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+    <script language="javascript">
+        var sns_bind_page_visited_key = 'SNS_BIND_PAGE_VISITED';
+        $.cookie(sns_bind_page_visited_key , 'visited' , { expires: 60, path: '/' });
+    </script>
 {% endblock %}
 {#{% block main %}#}
 {#    <h2>绑定设置</h2>#}

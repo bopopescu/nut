@@ -1,6 +1,7 @@
 #encoding=utf-8
 import json
 
+from datetime import timedelta, datetime
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -15,7 +16,7 @@ from apps.core.extend.fields.listfield import ListObjectField
 
 from apps.payment.alipay import AliPayPayment
 from apps.payment.weixinpay import WXPayment
-from apps.order.exceptions import OrderException
+from apps.order.exceptions import OrderException, CartException
 
 log = getLogger('django')
 
@@ -77,17 +78,23 @@ class CartItem(BaseModel):
         ordering = ['-add_time']
 
     def generate_order_item(self, order):
+        if self.sku.stock < self.volume:
+            raise OrderException('sku no longer enough')
         order_item, created = OrderItem.objects.get_or_create(
-            order=order, sku=self.sku , customer=order.customer,
+            order=order, sku=self.sku, customer=order.customer,
             defaults={
                 'grand_total_price': self.grand_total_price,
-                'promo_total_price' : self.promo_total_price
+                'promo_total_price': self.promo_total_price
             }
         )
         if created:
             order_item.volume = self.volume
+            order_item.item_title = self.sku.entity.title
+            order_item.image = self.sku.entity.chief_image
+            order_item.attrs = self.sku.attrs
+            order_item.entity_link = self.sku.entity.absolute_url
             order_item.save()
-        return  order_item
+        return order_item
 
 
     @property
@@ -133,16 +140,18 @@ class ShippingAddress(BaseModel):
 
 
 class Order(BaseModel):
+    expire_in_minutes = 30
 
-    (   address_unbind, #
+    (   expired, #超时订单,失效订单
+        address_unbind, #需要客户地址
         waiting_for_payment,#未付款
-            paid, #已经付款,出库中
-            send, #货物在途,
-            closed, #已经签收
-            refund_submit, #收到退款申请
-            refund_sku_got, #处理货品回收
-            refund_done, #货款已经退回
-            ) = range(1,9)
+        paid, #已经付款,出库中
+        send, #货物在途,
+        closed, #已经签收
+        refund_submit, #收到退款申请
+        refund_sku_got, #处理货品回收
+        refund_done, #货款已经退回
+    ) = range(0, 9)
 
     ORDER_STATUS_CHOICE = [
         (address_unbind, _('address unbind')),
@@ -155,13 +164,25 @@ class Order(BaseModel):
         (refund_done,_('refund down')),
     ]
 
+    # status transition table , prepare for a real state machine
+    STATE_TRANSFORM_TABLE = [
+        # expired order can not transfer to other status
+        (expired, []),
+        # address_unbind order can transfer to expired, waiting_for_payment, paid,
+        (address_unbind, [expired, waiting_for_payment, paid]),
+        (waiting_for_payment, [expired, address_unbind, paid]),
+        (paid, [send, closed, refund_submit, refund_sku_got, refund_done]),
+        (closed, [refund_submit]),
+        (refund_submit, [refund_sku_got]),
+        (refund_sku_got, [refund_done]),
+    ]
+
     customer = models.ForeignKey('core.GKUser', related_name='orders')
     number = models.CharField(max_length=128, db_index=True, unique=True)
     status = models.IntegerField(choices=ORDER_STATUS_CHOICE, default=address_unbind)
-    shipping_to  = models.ForeignKey(ShippingAddress, null=True, blank=True)
+    shipping_to = models.ForeignKey(ShippingAddress, null=True, blank=True)
     created_datetime = models.DateTimeField(auto_now_add=True)
     updated_datetime = models.DateTimeField(auto_now=True)
-
 
     def __unicode__(self):
         return "<order number; {0}>".format(self.number)
@@ -177,6 +198,10 @@ class Order(BaseModel):
     def generate_weixin_payment_url(self,):
         return reverse('web_wx_payment_page', args=[self.id])
 
+    @property
+    def should_expired(self):
+        expired_time = self.created_datetime + timedelta(minutes=Order.expire_in_minutes)
+        return self.status < Order.paid and datetime.now() > expired_time
 
     @property
     def is_paid(self):
@@ -207,16 +232,20 @@ class Order(BaseModel):
             self.set_paid()
         return url
 
+    # def update_sku_stock(self):
+    #     for item in self.items.all():
+    #         item.sku.stock -= item.volume
+    #         item.sku.save()
 
-    def update_sku_stock(self):
-        for item in self.items.all():
-            item.sku.stock -= item.volume
-            item.sku.save()
+    @property
+    def can_set_paid(self):
+        return self.status >= Order.address_unbind and not self.should_expired
 
     def set_paid(self):
+        if not self.can_set_paid:
+            raise OrderException('can not set paid')
         if self.status < self.paid:
             self.status = Order.paid
-            self.update_sku_stock()
             self.save()
             return self
         elif self.status == self.paid:
@@ -237,10 +266,29 @@ class Order(BaseModel):
             raise OrderException('unpaid order can not be closed')
             # return self
 
+    def _restore_sku_stock(self):
+        # only can be called from  set_expired method
+        # TODO : enforce last sentence
+        for item in self.items.all():
+            item.sku.stock += item.volume
+            item.sku.save()
+
+    def reduce_sku_stock(self):
+        for item in self.items.all():
+            item.sku.stock -= item.volume
+            item.sku.save()
+
+    def set_expire(self):
+        if not self.should_expired:
+            raise OrderException(_('order can not be set expire'))
+        self.status = Order.expired
+        self._restore_sku_stock()
+        self.save()
+
     @property
     def payment_subject(self):
         #TODO : need define more prise subject
-        return 'GUOKU Order :%s' %self.number
+        return 'GUOKU Order :%s' % self.number
         # raise  NotImplemented()
 
     @property
@@ -277,13 +325,38 @@ class Order(BaseModel):
 
 
 class OrderItem(BaseModel):
-    order = models.ForeignKey(Order,related_name='items')
+    order = models.ForeignKey(Order, related_name='items')
     customer = models.ForeignKey('core.GKUser', related_name='order_items', db_index=True)
-    sku = models.ForeignKey(SKU, db_index=True)
+    sku = models.ForeignKey(SKU, db_index=True,)
     volume = models.IntegerField(default=1)
-    add_time = models.DateTimeField(auto_now_add=True, auto_now=True,db_index=True)
-    grand_total_price = models.FloatField(null=False) # 当订单生成的时候计算
-    promo_total_price = models.FloatField(null=False) # 当订单生成的时候计算
+    add_time = models.DateTimeField(auto_now_add=True, auto_now=True, db_index=True)
+    grand_total_price = models.FloatField(null=False)
+    # 当订单生成的时候计算
+
+    promo_total_price = models.FloatField(null=False)
+    # 当订单生成的时候计算
+
+    item_title = models.CharField(max_length=128, null=False)
+    # 订单生成的时候 赋值
+
+    image = models.CharField(max_length=256, null=False)
+    # 订单生成的时候 赋值
+
+    entity_link = models.CharField(max_length=256, null=False)
+    # 订单生成的时候 赋值
+
+    attrs = ListObjectField()
+
+    @property
+    def attrs_json_str(self):
+        return json.dumps(self.attrs)
+
+    @property
+    def attrs_display(self):
+        attr_str_list = list()
+        for key, value in self.attrs.iteritems():
+            attr_str_list.append('%s:%s' % (key, value))
+        return '/'.join(attr_str_list)
 
     # def __unicode__(self):
     #     return self.sku.attrs_json_str
@@ -291,6 +364,7 @@ class OrderItem(BaseModel):
     @property
     def title(self):
         return self.sku.entity.title
+
     @property
     def sku_unit_grand_price(self):
         return self.grand_total_price/(1.0*self.volume)
@@ -300,7 +374,8 @@ class OrderItem(BaseModel):
         return self.promo_total_price/(1.0*self.volume)
 
     class Meta:
-        ordering=['-add_time']
+        ordering = ['-add_time']
+
 
 class OrderMessage(BaseModel):
     '''

@@ -1572,8 +1572,8 @@ require(
         Menu
     ){
         var menu = new Menu();
+        console.log('init user settings');
 });
 
-
-define("message_list_app", function(){});
+define("user_settings_app", function(){});
 

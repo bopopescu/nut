@@ -1,3 +1,46 @@
+6. other bugs 
+5. selection entity and article page css update lq,
+4. merge lq's branch  :  lq_refactor_old_pages (web ADD entity  and other js test)
+
+------------
+3. Order.set_expired method to set the expire method and update sku stock 
+2. Order.should_expired  property , to see if a order should be expired
+1. update sku stock after checkout (used to be after payment)
+
+======================================
+
+3.  move checkout method from GKUser into CartItem Manager
+2.  fix order_item serialize problem 
+1.  add field's to order item 
+
+action : 
+
+ALTER TABLE `core`.`order_orderitem` 
+ADD COLUMN `item_title` VARCHAR(256) NULL DEFAULT NULL AFTER `promo_total_price`,
+ADD COLUMN `image` VARCHAR(256) NULL DEFAULT NULL AFTER `item_title`,
+ADD COLUMN `entity_link` VARCHAR(256) NULL DEFAULT NULL AFTER `image`,
+ADD COLUMN `attrs` LONGTEXT NULL DEFAULT NULL AFTER `entity_link`;
+
+<!--action -->
+    <!--1. need install m2crypto -->
+        <!--pip install M2Crypto-->
+        <!--------->
+        <!--important !!!-->
+        <!--if install M2Crypto fail -->
+        <!--because of locale.Error: unsupported locale setting-->
+        <!--export LC_ALL="en_US.UTF-8"-->
+        <!--export LC_CTYPE="en_US.UTF-8"-->
+        
+        this is failed in test server 
+
+
+action : 
+
+ALTER TABLE `core`.`order_orderitem` 
+CHANGE COLUMN `item_title` `item_title` VARCHAR(256) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ;
+
+========================
+
 3. web bug fix (
     1.消息下拉列表，点击其他地方，隐藏下拉列表；
     2.好点页，商品title  

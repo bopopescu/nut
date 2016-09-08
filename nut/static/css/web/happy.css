@@ -706,6 +706,30 @@ ul li {
 .normal-round-tag.current {
   background-color: #ddd;
 }
+.new-normal-round-tag {
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  padding: 1px 8px;
+  height: 22px;
+  line-height: 20px;
+  display: inline-block;
+  text-align: center;
+  color: #757575;
+  font-size: 14px;
+  margin: 4px 4px 0 0;
+}
+.new-normal-round-tag a {
+  color: #757575;
+}
+.new-normal-round-tag:hover,
+.new-normal-round-tag.current {
+  background-color: #f1f1f1;
+  color: #212121;
+}
 .new-hot-round-tag {
   -webkit-border-radius: 100px;
   -moz-border-radius: 100px;
@@ -1322,6 +1346,9 @@ p.boolean-false {
   font-size: 32px;
   font-weight: 500;
   margin-right: 12px;
+}
+.user-nick-big {
+  font-size: 24px;
 }
 .guoku-small-col {
   padding: 0 2px;

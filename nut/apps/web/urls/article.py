@@ -34,7 +34,6 @@ urlpatterns = patterns(
     url(r'^(?P<pk>\d+)/remark/$', ArticleRemarkCreate.as_view(), name='web_article_remark'),
     url(r'^(?P<pk>\d+)/remark/delete/$', ArticleRemarkDelete.as_view(), name='web_article_remark_delete'),
 
-
 )
 
 __author__ = 'edison'

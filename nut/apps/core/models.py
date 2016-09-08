@@ -502,38 +502,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                , handle stock
         :return:
         '''
-
-
-        new_order = None
-        if self.cart_item_count <= 0 :
-            raise CartException('cart is empty')
-        else :
-            try :
-                new_order = self.orders.create(**{
-                    'customer': self,
-                    'number': self.orders.generate_order_number()
-
-                })
-                for cart_item in self.cart_items.all():
-                    order_item = None
-                    try :
-                        order_item = cart_item.generate_order_item(new_order)
-                    except Exception as e:
-                        log.error('create_order item error :%s'%e)
-                        if order_item:
-                            order_item.delete()
-                        raise OrderException('error when create order item: %s' %e)
-                self.clear_cart()
-                return new_order
-
-            except Exception as e :
-                # if exception happens
-                # pprint(e)
-                log.error(e)
-                if new_order:
-                    new_order.delete()
-                raise OrderException('error create order:  %s: ' %e)
-                # return None
+        return self.cart_items.checkout(self)
 
     def clear_cart(self):
         self.cart_items.clear_user_cart(self)

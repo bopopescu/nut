@@ -1,8 +1,9 @@
 from pprint import pprint
 from django.db import models
 from django.utils.log import getLogger
+from django.utils.translation import ugettext_lazy as _
 
-from apps.order.exceptions import CartException
+from apps.order.exceptions import CartException,OrderException
 
 log = getLogger('django')
 
@@ -12,6 +13,55 @@ class CartItemQueryset(models.query.QuerySet):
 
 
 class CartItemManager(models.Manager):
+
+    def cart_stock_checked(self, user):
+        for cart_item in user.cart_items.all():
+            if cart_item.volume > cart_item.sku.stock:
+                return False
+        return True
+
+    def checkout(self, user):
+        new_order = None
+        if user.cart_item_count <= 0:
+            raise CartException(_('cart is empty'))
+        elif not self.cart_stock_checked(user):
+            raise CartException(_('some cart item is out of stock'))
+        else:
+            try:
+                new_order = user.orders.create(**{
+                    'customer': user,
+                    'number': user.orders.generate_order_number()
+                })
+                for cart_item in user.cart_items.all():
+                    order_item = None
+                    if cart_item.volume <= 0:
+                        continue
+                    try:
+                        order_item = cart_item.generate_order_item(new_order)
+                    except Exception as e:
+                        log.error('create_order item error :%s'%e)
+                        if order_item:
+                            order_item.delete()
+                        raise OrderException('error when create order item: %s' %e)
+
+                # clear_user_cart
+                user.clear_cart()
+                # reduce stock here
+                new_order.reduce_sku_stock()
+                return new_order
+
+            except Exception as e:
+                # if exception happens
+                # delete all order_item for that order , and shout out loudly
+                # pprint(e)
+                log.error(e)
+                if new_order:
+                    for order_item in new_order.items.all():
+                        order_item.delete()
+                    new_order.delete()
+                raise OrderException('error create order:  %s: ' % e)
+                # return None
+
 
     def cart_item_count_by_user(self, user):
         return self.get_queryset().filter(user=user).count()
