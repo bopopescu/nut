@@ -1,5 +1,8 @@
+6
+5. remove index entity category list
+4. merge lq's branch  :  lq_refactor_old_pages (web ADD entity  and other js test)
 
-4. 
+------------
 3. Order.set_expired method to set the expire method and update sku stock 
 2. Order.should_expired  property , to see if a order should be expired
 1. update sku stock after checkout (used to be after payment)
