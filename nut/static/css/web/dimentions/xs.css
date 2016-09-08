@@ -346,6 +346,30 @@
 .normal-round-tag.current {
   background-color: #ddd;
 }
+.new-normal-round-tag {
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  padding: 1px 8px;
+  height: 22px;
+  line-height: 20px;
+  display: inline-block;
+  text-align: center;
+  color: #757575;
+  font-size: 14px;
+  margin: 4px 4px 0 0;
+}
+.new-normal-round-tag a {
+  color: #757575;
+}
+.new-normal-round-tag:hover,
+.new-normal-round-tag.current {
+  background-color: #f1f1f1;
+  color: #212121;
+}
 .new-hot-round-tag {
   -webkit-border-radius: 100px;
   -moz-border-radius: 100px;
@@ -1398,6 +1422,19 @@ a.new-black-link:hover {
   .entity-selection-body .entity-selection .posttime {
     display: none;
   }
+  #selection .entity-selection.thumbnail {
+    background-color: #fff;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    -webkit-box-shadow: 0px 0px 2px #ddd;
+    -moz-box-shadow: 0px 0px 2px #ddd;
+    box-shadow: 0px 0px 2px #ddd;
+    overflow: hidden;
+  }
   #settings .edit_info .input-element {
     max-width: 300px;
   }
@@ -1453,11 +1490,21 @@ a.new-black-link:hover {
   .check-icon-wrapper .more-message {
     font-size: 14px;
   }
+  #selection_article_list .selection-article-item .article-panel {
+    margin-bottom: 0;
+  }
+  #selection_article_list .selection-article-item .article-panel .article-info-wrapper {
+    min-height: 1px;
+  }
   #selection_article_list .selection-article-item .article-title {
     min-height: 0px!important;
   }
   #selection_article_list .selection-article-item .article-intro {
     min-height: 0px!important;
+  }
+  #top_article_tags_container .top-article-tag,
+  #top_article_tags_container .tag-element {
+    margin: 0;
   }
   .guoku-card .entity-image-wrapper {
     padding: 0px!important;
@@ -1757,9 +1804,6 @@ a.new-black-link:hover {
     font-size: 14px !important;
     font-color: #9D9E9F !important;
   }
-  #selection_article_list .selection-article-item .article-title {
-    min-height: 66px!important;
-  }
 }
 @media (min-width: 768px) {
   .navbar-collapse.search-collapse {
@@ -1807,5 +1851,13 @@ a.new-black-link:hover {
   }
   .user-page .user-info-wrapper .user-icon {
     max-width: 200px;
+  }
+  #selection .entity-selection.thumbnail:hover {
+    background-color: #F8F8F8;
+    cursor: pointer;
+  }
+  .article-list-body #selection_article_list .selection-article-item .article-panel:hover {
+    cursor: pointer;
+    background-color: #F8F8F8;
   }
 }
