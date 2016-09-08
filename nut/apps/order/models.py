@@ -195,6 +195,9 @@ class Order(BaseModel):
     def generate_alipay_payment_url(self):
         return AliPayPayment(order=self).payment_url
 
+    def mini_alipay_qrcode_page_url(self):
+        return AliPayPayment(order=self).mini_qrcode_page_url
+
     def generate_weixin_payment_url(self,):
         return reverse('web_wx_payment_page', args=[self.id])
 
@@ -363,7 +366,7 @@ class OrderItem(BaseModel):
 
     @property
     def title(self):
-        return self.sku.entity.title
+        return self.item_title
 
     @property
     def sku_unit_grand_price(self):
