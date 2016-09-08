@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.core.cache import cache
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.log import getLogger
 
 from apps.core.models import Article
@@ -96,6 +96,7 @@ class FeedCounterBridge(object):
 class CounterException(Exception):
     pass
 
+
 class RedisCounterMachine(object):
     '''
         A class for web static/counter util
@@ -104,6 +105,8 @@ class RedisCounterMachine(object):
                                      3. handle group get generate and get
                                      4.
     '''
+
+    NEED_UPDATE_COUNTER_ARTICLE_ID_LIST = 'article:ids:counter:need:update'
 
     @classmethod
     def get_store(cls):
@@ -122,12 +125,12 @@ class RedisCounterMachine(object):
 
     @classmethod
     def get_article_read_count_key_from_pk(cls,pk):
-        path = reverse('web_article_page', args=[pk])
+        path = reverse_lazy('web_article_page', args=[pk])
         return cls.get_counter_key_from_path(path)
 
     @classmethod
     def set_article_read_count_from_pk(cls,pk,count):
-        path = reverse('web_article_page', args=[pk])
+        path = reverse_lazy('web_article_page', args=[pk])
         key = cls.get_counter_key_from_path(path)
         counter_store = cls.get_store()
         key = cls._hash_key(key)
@@ -154,15 +157,36 @@ class RedisCounterMachine(object):
         # return dict(zip(pks,counts));
 
     @classmethod
+    def get_need_update_article_id_set(cls):
+        store = cls.get_store()
+        theSet = store.get(cls.NEED_UPDATE_COUNTER_ARTICLE_ID_LIST)
+        if theSet is None:
+            theSet = set()
+        return theSet
+
+    @classmethod
+    def add_need_update_article_id(cls, id):
+        store = cls.get_store()
+        theSet = cls.get_need_update_article_id_set()
+        theSet.add(id)
+        store.set(cls.NEED_UPDATE_COUNTER_ARTICLE_ID_LIST, theSet, timeout=None)
+        return id
+
+    @classmethod
+    def clear_need_update_article_id(cls, id):
+        store = cls.get_store()
+        store.set(cls.NEED_UPDATE_COUNTER_ARTICLE_ID_LIST, set(), timeout=None)
+
+    @classmethod
     def increment_key(cls,key):
         counter_store = cls.get_store()
         key = cls._hash_key(key)
-        try :
+        try:
             count = counter_store.incr(key)
-        except ValueError :
+        except ValueError:
             # cache this value forever
             try:
-                count  = cls.get_count_value_from_mysql_by_key(key)
+                count = cls.get_count_value_from_mysql_by_key(key)
             except Exception as e :
                 count = 1
             counter_store.set(key, count ,timeout=None)
