@@ -195,10 +195,12 @@ class Order(BaseModel):
     def generate_alipay_payment_url(self):
         return AliPayPayment(order=self).payment_url
 
+    @property
     def alipay_qrcode_frame_page_url(self):
         # use to jump from guoku to alipay , iframe already implemented
         return reverse_lazy('web_user_order_alipay_qrcode', args=[self.id])
 
+    @property
     def mini_alipay_qrcode_page_url(self):
         # direct to alipay , need put this url into a <iframe>
         return AliPayPayment(order=self).mini_qrcode_page_url
