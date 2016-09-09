@@ -465,7 +465,6 @@ class APISearchView(SearchView, JSONResponseMixin):
     form_class = APISearchForm
 
     def get_data(self, context):
-        # print context
         res = context.copy()
         return res
 
