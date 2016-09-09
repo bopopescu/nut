@@ -1493,6 +1493,7 @@ a.new-black-link:hover {
   }
   .popular-entity-page .popular-entity-container .search-entity-item .entity-four {
     margin-bottom: 0;
+    border-radius: 0;
   }
   .check-icon-wrapper .big-check-icon {
     font-size: 80px;
