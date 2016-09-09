@@ -5524,6 +5524,9 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 .search-tag-item .fa-heart-o {
   color: #e6e6e6;
 }
+#category-entity-list .caption {
+  margin: 0;
+}
 .user-right .section {
   margin-bottom: 10px!important;
   padding: 0 0 10px 0!important;
@@ -5987,6 +5990,15 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   }
 }
 @media (max-width: 767px) {
+  .category-detail-body #category-entity-list {
+    padding: 0;
+  }
+  .category-detail-body #category-entity-list .search-entity-item {
+    padding: 0;
+  }
+  .category-detail-body #category-entity-list .search-entity-item .entity-four {
+    margin-bottom: 0;
+  }
   .check-icon-wrapper .big-check-icon {
     font-size: 80px;
   }
