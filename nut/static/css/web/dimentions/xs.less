@@ -160,7 +160,8 @@
       font-size: @smaller-primary;
     }
   }
-    #selection_article_list{
+  // only for selection article list page
+    #custom_selection_article_list{
       .selection-article-item{
         .article-panel{
           margin-bottom: 0;
@@ -168,6 +169,10 @@
             min-height:1px;
           }
         }
+      }
+    }
+    #selection_article_list{
+      .selection-article-item{
         .article-title{
            min-height:0px!important;
         }
@@ -176,6 +181,7 @@
         }
       }
     }
+
     #top_article_tags_container {
       //.top-article-tag{
       //  margin-left: 0;
@@ -557,7 +563,7 @@
   #selection_article_list{
     .selection-article-item{
       .article-title{
-         //min-height:66px!important;
+         min-height:66px!important;
       }
     }
   }
@@ -648,8 +654,7 @@
     }
   }
 
-  .article-list-body{
-    #selection_article_list {
+    #custom_selection_article_list {
     .selection-article-item {
       .article-panel {
         &:hover {
@@ -658,7 +663,6 @@
         }
       }
     }
-  }
   }
 }
 

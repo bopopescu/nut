@@ -48,7 +48,7 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="row selection-article-container" id="selection_article_list" refresh-time="{{ refresh_time }}" >
+        <div class="row selection-article-container" id="custom_selection_article_list" refresh-time="{{ refresh_time }}" >
             {% for sla in selection_articles %}
                 {% with sla.article as article %}
                     {% include 'web/article/partial/article_item_new.html' %}
