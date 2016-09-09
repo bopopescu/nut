@@ -10,23 +10,25 @@ from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.models import Show_Banner, \
     Buy_Link, Selection_Entity, Entity, \
     Entity_Like, Sub_Category
+from apps.core.views import BaseJsonView, JSONResponseMixin
 
 from apps.v4.forms.pushtoken import PushForm
 from apps.v4.forms.search import APISearchForm
-
 from apps.v4.models import APIUser, APISelection_Entity, APIEntity,\
                             APICategory, APISeletion_Articles, \
                             APIArticle, APIArticle_Dig
 from apps.tag.models import Tags
+from apps.v4.schema.articles import ArticleSchema
 
-from apps.core.views import BaseJsonView, JSONResponseMixin
 
 from haystack.generic_views import SearchView
 from datetime import datetime, timedelta
 
 
 from django.utils.log import getLogger
+
 log = getLogger('django')
+article_schema = ArticleSchema(many=False)
 
 
 def is_taobaoke_url(url):
@@ -241,8 +243,10 @@ class DiscoverView(APIJsonView):
         popular_articles = APISeletion_Articles.objects.discover()[:3]
         for row in popular_articles:
             # print type(row)
+            article_schema.context['articles_list'] = da
             r = {
-                'article': row.api_article.v4_toDict(articles_list=da)
+                # 'article': row.api_article.v4_toDict(articles_list=da)
+                'article': article_schema.dump(row.api_article).data
             }
             res['articles'].append(r)
 
