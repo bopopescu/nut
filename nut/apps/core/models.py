@@ -473,6 +473,29 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def is_authorized_user(self):
         return self.is_authorized_author or self.is_authorized_seller
 
+    def _get_seller_shop_entities(self):
+        eids = []
+        if not self.is_seller:
+            return []
+
+        if not self.shops:
+            return []
+
+        for shop in self.shops:
+            eids =[]
+
+        raise NotImplemented()
+
+
+    @property
+    def seller_entities(self):
+        if not self.is_seller:
+            return []
+
+        add_entity_ids = self.entities.active().values_list('id', flat=True)
+        shop_entity_ids = self._get_seller_shop_entities()
+        raise NotImplemented()
+
 
     @property
     def jpush_rids(self):

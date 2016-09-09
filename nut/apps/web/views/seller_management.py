@@ -29,6 +29,7 @@ from apps.web.views.user import get_seller_entities
 
 TIME_FORMAT = '%Y-%m-%d 8:00:00'
 
+
 class SKUUserPassesTestMixin(UserPassesTestMixin):
     def test_func(self, user):
         self.entity_id = self.kwargs.get('entity_id')
