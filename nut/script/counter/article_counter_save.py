@@ -22,4 +22,6 @@ for pk, read_count in count_list.iteritems():
     article.read_count = read_count
     article.save(skip_updatetime=True)
 
+RedisCounterMachine.clear_need_update_article_id()
+
 sys.exit(0)
