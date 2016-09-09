@@ -6404,7 +6404,8 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   .article-list-body .container {
     width: 100%!important;
   }
-  #selection_article_list .selection-article-item .article-title {
+  #selection_article_list .selection-article-item .article-title,
+  #custom_selection_article_list .selection-article-item .article-title {
     font-size: 18px!important;
     font-weight: 600;
   }
