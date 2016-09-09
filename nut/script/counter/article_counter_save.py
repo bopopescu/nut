@@ -11,10 +11,10 @@ from apps.core.models import Article
 from apps.counter.utils.data import RedisCounterMachine
 
 
-# article_ids = list(RedisCounterMachine.get_need_update_article_id_set())
+article_ids = list(RedisCounterMachine.get_need_update_article_id_set())
 
-articles = Article.objects.filter(publish=Article.published)
-# articles = Article.objects.filter(publish=Article.published, pk__in=article_ids)
+# articles = Article.objects.filter(publish=Article.published)
+articles = Article.objects.filter(publish=Article.published, pk__in=article_ids)
 count_list = RedisCounterMachine.get_read_counts(articles)
 
 for pk, read_count in count_list.iteritems():
