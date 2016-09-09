@@ -1,8 +1,10 @@
+#encoding: utf-8
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from haystack.forms import SearchForm as haystackSearchForm
 from apps.core.models import Article, Entity, GKUser
 from apps.tag.models import Tags
+import re
 
 
 class SearchForm(forms.Form):
@@ -17,7 +19,14 @@ class SearchForm(forms.Form):
         return self.keyword
 
 
+regex  = re.compile('-|－')
 class GKSearchForm(haystackSearchForm):
+
+    def clean_q(self):
+        q           = self.cleaned_data.get('q', None)
+        keyword     = regex.sub(' ', q)
+        # log.info("keyword %s", keyword)
+        return keyword
 
     def search(self, type='e'):
         if 'a' ==  type:
