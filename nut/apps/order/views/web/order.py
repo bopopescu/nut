@@ -13,6 +13,14 @@ class UserOrderListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return self.request.user.orders.all()
 
+class OrderAlipayQrcodeView(DetailView):
+    context_object_name = 'order'
+    template_name = 'web/order/order_ali_qrcode.html'
+
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get('pk', None)
+        return get_object_or_404(Order, customer=self.request.user, pk=pk)
+
 
 class UserOrderView(LoginRequiredMixin, DetailView):
     context_object_name = 'order'

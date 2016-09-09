@@ -1,8 +1,46 @@
+======================================
+
+Order.alipay_qrcode_frame_page_url
+
+这是一个果库页面的 url
+这个页面里 只有一个 当前订单 的 支付宝支付 二维码
+
+IOS 可以用这个页面进行订单支付。 
+
+
+
+=======================================
+1. OrderItem 生成的时候会记录如下字段
+    ------------------
+    item_title : 商品名
+    image : 商品主图
+    entity_link : 商品果库链接
+    attrs : SKU 的属性值
+    ------------------
+    同时有如下 property 
+    attrs_display : 显示 SKU 的 attr
+    
+2. 判断订单是否超时
+    @property 
+    Order.should_expired 
+    
+3. 当订单超时, 执行 Order.set_paid() 方法会抛出异常
+
+4. 用户checkout 时, 如果某SKU 库存不足, checkout 会失败,并抛出异常。
+用户checkout 时, 如果成功创建订单, 会减库存。
+
+5. 新增 Order.set_expire 方法, 该方法会被一个 定时脚本 (间隔一小时) 调用
+set_expire 方法会把订单中的库存还原。
+
+========================================
+
+
 6. other bugs 
 5. selection entity and article page css update lq,
 4. merge lq's branch  :  lq_refactor_old_pages (web ADD entity  and other js test)
 
 ------------
+
 3. Order.set_expired method to set the expire method and update sku stock 
 2. Order.should_expired  property , to see if a order should be expired
 1. update sku stock after checkout (used to be after payment)
