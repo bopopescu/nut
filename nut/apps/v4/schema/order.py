@@ -30,6 +30,7 @@ class OrderSchema(Schema):
     shipping_to         = fields.Nested(ShippingAddressSchema, exclude=('user',), many=False)
     order_items         = fields.Nested('OrderItemSchema', exclude=('order', 'order_item_id'),
                                         many=True, attribute='items.all')
+    order_total_value   = fields.Number(attribute='order_total_value')
     created_datetime    = fields.Method('get_created_datetime')
     updated_datetime    = fields.Method('get_updated_datetime')
 
@@ -46,19 +47,14 @@ class OrderSchema(Schema):
 class OrderItemSchema(Schema):
     order_item_id       = fields.Integer(attribute='id')
     # order               = fields.Nested('OrderSchema', many=False)
-    entity_title        = fields.Method('get_entity_title')
-    entity_image        = fields.Method('get_entity_image')
+    entity_title        = fields.String(attribute='item_title')
+    entity_image        = fields.String(attribute='image')
     attr                = fields.Method('get_sku_attr')
     volume              = fields.Integer()
     add_time            = fields.DateTime()
     grand_total_price   = fields.Number()
     promo_total_price   = fields.Number()
 
-    def get_entity_title(self, obj):
-        return obj.sku.entity.title
-
-    def get_entity_image(self, obj):
-        return obj.sku.entity.chief_image
 
     def get_sku_attr(self, obj):
         attr_string = ''
