@@ -59,7 +59,7 @@ class OrderItemSchema(Schema):
     def get_sku_attr(self, obj):
         attr_string = ''
 
-        for k, v in obj.sku.attrs.items():
+        for k, v in obj.attrs.items():
             attr_string += u"{0} / {1};".format(k, v)
 
         return attr_string[:-1]

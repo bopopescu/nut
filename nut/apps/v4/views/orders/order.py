@@ -70,7 +70,7 @@ class AliPayPaymentView(APIJsonSessionView):
         except OrderModel.DoesNotExist as e:
             log.info(e.message)
             raise ErrorJsonResponse(status=404)
-        return {'alipay_payment_url': order.generate_alipay_payment_url()}
+        return {'alipay_payment_url': order.mini_alipay_qrcode_page_url}
 
     def get(self, request, *args, **kwargs):
         self.order_id   = kwargs.pop('order_id', None)
