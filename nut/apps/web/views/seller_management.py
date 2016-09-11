@@ -43,7 +43,9 @@ class EntityUserPassesTestMixin(UserPassesTestMixin):
     def test_func(self, user):
         self.entity_id = self.kwargs.get('entity_id')
         entity = Entity.objects.get(id=self.entity_id)
-        return user.has_entity(entity)
+        return entity in user.seller_entities
+        # TODO : potential performance hit , when seller has lots of entities
+        # return user.has_entity(entity)
     def no_permissions_fail(self, request=None):
         raise Http404
 
@@ -81,7 +83,7 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
                                   )
 
     def get_queryset(self):
-        qs = self.request.user.entities.all()
+        qs = self.request.user.seller_entities
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
     def get_context_data(self, **kwargs):
@@ -308,12 +310,14 @@ class SKUStatusChangeView(EntityUserPassesTestMixin, JSONResponseMixin, UpdateVi
 class SKUListView(EntityUserPassesTestMixin, SortMixin, ListView):
     default_sort_params = ('dstock', 'desc')
     template_name = 'web/seller_management/sku_list.html'
+
     def get_queryset(self):
         entity = get_object_or_404(Entity, id=self.entity_id)
         return self.sort_queryset(entity.skus.all(), *self.get_sort_params())
+
     def get_context_data(self, **kwargs):
         context = super(SKUListView, self).get_context_data(**kwargs)
-        context['entity']= get_object_or_404(Entity, id=self.entity_id)
+        context['entity'] = get_object_or_404(Entity, id=self.entity_id)
         context['sort_by'] = self.get_sort_params()[0]
         context['extra_query'] = 'sort_by=' + context['sort_by']
         # for sku in context['object_list']:
@@ -322,6 +326,7 @@ class SKUListView(EntityUserPassesTestMixin, SortMixin, ListView):
         #         new = item.replace('_', ':')
 
         return context
+
     def sort_queryset(self, qs, sort_by, order):
         if sort_by == 'dstock':
             qs = qs.order_by('-stock')

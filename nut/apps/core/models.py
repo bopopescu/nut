@@ -109,10 +109,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.is_writer or self.is_editor or self.is_staff
 
     @property
-    def is_seller(self):
-        return hasattr(self, 'seller_profile')
-
-    @property
     def is_writer(self):
         return self.is_active == GKUser.writer
 
@@ -446,7 +442,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             pass
         return link
 
-    def setSeller(self, isSeller):
+    def setSeller(self, isSeller=True):
         seller_group = self.get_seller_group()
         if isSeller:
             self.groups.add(seller_group)
@@ -475,26 +471,28 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     def _get_seller_shop_entities(self):
         eids = []
-        if not self.is_seller:
+        if not self.is_authorized_seller:
             return []
 
         if not self.shops:
             return []
 
-        for shop in self.shops:
-            eids =[]
-
-        raise NotImplemented()
-
+        for shop in self.shops.all():
+            if shop.common_shop_link:
+                eids += list(Buy_Link.objects
+                             .filter(shop_link=shop.common_shop_link)
+                             .values_list('entity_id', flat=True)
+                             )
+        return eids
 
     @property
     def seller_entities(self):
-        if not self.is_seller:
+        if not self.is_authorized_seller:
             return []
-
-        add_entity_ids = self.entities.active().values_list('id', flat=True)
+        add_entity_ids = list(self.entities.active().values_list('id', flat=True))
         shop_entity_ids = self._get_seller_shop_entities()
-        raise NotImplemented()
+        ids = list(set(add_entity_ids + shop_entity_ids))
+        return Entity.objects.active().filter(id__in=ids,)
 
 
     @property

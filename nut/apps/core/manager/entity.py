@@ -20,7 +20,7 @@ class EntityQuerySet(models.query.QuerySet):
         return self.filter(status=0)
 
     def active(self):
-        return self.using('slave').filter(status__gte=-1)
+        return self.filter(status__gte=-1)
 
     def new_or_selection(self, category_id=None):
 
@@ -107,9 +107,9 @@ class EntityManager(models.Manager):
         key = 'Entity:Authorized_Seller:Random'
         rse = cache.get(key)
         if rse is None:
-            rse =  list(self.get_queryset().random_seller_entities())
+            rse = list(self.get_queryset().random_seller_entities())
             #TODO change timeout to 3600
-            cache.set(key, rse, timeout=10 )
+            cache.set(key, rse, timeout=3600)
         else:
             pass
 
