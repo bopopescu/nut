@@ -33,6 +33,9 @@ class SKU(BaseModel):
     status = models.IntegerField(choices=SKU_STATUS_CHOICE, default=enable)
     objects = SKUManager()
 
+    class Meta:
+        ordering = ['-stock']
+
     def get_discount_rate(self):
         if self.origin_price == 0  or self.promo_price == 0 :
             return 1
@@ -52,6 +55,8 @@ class SKU(BaseModel):
 
     def save(self, *args, **kwargs):
         self.discount = self.get_discount_rate()
+        self.entity.updated_time = datetime.now()
+        self.entity.save()
         super(SKU, self).save(*args, **kwargs)
 
     # def toDict(self):

@@ -61,7 +61,7 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
     http_method_names = ['get']
     paginator_class = ExtentPaginator
     model = Entity
-    paginate_by = 10
+    paginate_by = 20
     template_name = 'web/seller_management/seller_management.html'
 
     def get(self, request, *args, **kwargs):
@@ -503,7 +503,9 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
             order.itemslist=order.items.all()[1:order.count]
         return context
 
+
 class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
+
     default_sort_params = ('dsold_count', 'desc')
     http_method_names = ['get']
     paginator_class = ExtentPaginator
@@ -578,8 +580,10 @@ class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,
             pass
         return qs
 
+
 class SellerManagementSkuSave(AjaxResponseMixin, JSONResponseMixin, View):
     model = SKU
+
     def save_update(self, id, price, stock):
         sku = SKU.objects.get(id=id)
         sku.promo_price = price
