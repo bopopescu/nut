@@ -39,7 +39,6 @@ class OrderListView(APIJsonSessionView):
         return super(OrderListView, self).get(request, *args, **kwargs)
 
 
-
 class WeChatPaymentView(APIJsonSessionView):
     '''
         获取 微信支付链接
