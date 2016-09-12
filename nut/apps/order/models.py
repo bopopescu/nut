@@ -4,6 +4,7 @@ import json
 from datetime import timedelta, datetime
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db import models
+from django.db.models import PROTECT
 from django.utils.translation import ugettext_lazy as _
 from django.utils.log import getLogger
 
@@ -73,6 +74,9 @@ class SKU(BaseModel):
 
 class CartItem(BaseModel):
     user = models.ForeignKey('core.GKUser', related_name='cart_items',db_index=True)
+    # when delete sku , CartItem will be deleted
+    # this is django's default action
+    # in OrderItem , use PROTECT to prevent sku be deleted.
     sku = models.ForeignKey(SKU, db_index=True)
     volume = models.IntegerField(default=1)
     add_time = models.DateTimeField(auto_now_add=True, auto_now=True,db_index=True)
@@ -352,7 +356,9 @@ class Order(BaseModel):
 class OrderItem(BaseModel):
     order = models.ForeignKey(Order, related_name='items')
     customer = models.ForeignKey('core.GKUser', related_name='order_items', db_index=True)
-    sku = models.ForeignKey(SKU, db_index=True,)
+    # use PROTECT to prevent OrderItem and SKU deletion ,
+    # when user has already checkout the order
+    sku = models.ForeignKey(SKU, db_index=True, on_delete=PROTECT)
     volume = models.IntegerField(default=1)
     add_time = models.DateTimeField(auto_now_add=True, auto_now=True, db_index=True)
     grand_total_price = models.FloatField(null=False)
