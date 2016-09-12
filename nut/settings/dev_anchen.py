@@ -49,6 +49,13 @@ IMG_COUNTER_HOST = 'http://127.0.0.1:9766'
 # # HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 # HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://10.0.2.115:8983/solr/',
+        'INCLUDE_SPELLING': True,
+    }
+}
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"

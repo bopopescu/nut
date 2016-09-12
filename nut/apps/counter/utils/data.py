@@ -173,7 +173,7 @@ class RedisCounterMachine(object):
         return id
 
     @classmethod
-    def clear_need_update_article_id(cls, id):
+    def clear_need_update_article_id(cls):
         store = cls.get_store()
         store.set(cls.NEED_UPDATE_COUNTER_ARTICLE_ID_LIST, set(), timeout=None)
 
@@ -207,11 +207,11 @@ class RedisCounterMachine(object):
     @classmethod
     def get_key(cls,key):
         r_server= cls.get_store()
-        hkey = cls._hash_key()
+        hkey = cls._hash_key(key)
         try:
             value = r_server.get(hkey)
         except:
-            raise  CounterException('can not get key ')
+            raise CounterException('can not get key ')
         return value
 
     @classmethod
