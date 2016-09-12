@@ -5274,7 +5274,7 @@ define('subapp/entity/detail_image_slick',['jquery', 'libs/Class','libs/slick','
                 },
                 init_slick:function(){
                     $('#xs-detail-pic-wrapper').slick({
-                        centerMode: true,
+                        centerMode: false,
                         arrows: true,
                         slidesToShow: 1,
                         slidesToScroll:1,

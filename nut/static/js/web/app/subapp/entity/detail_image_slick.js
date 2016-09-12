@@ -9,7 +9,7 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                 },
                 init_slick:function(){
                     $('#xs-detail-pic-wrapper').slick({
-                        centerMode: true,
+                        centerMode: false,
                         arrows: true,
                         slidesToShow: 1,
                         slidesToScroll:1,
