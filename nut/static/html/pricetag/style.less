@@ -14,15 +14,28 @@ ul#tag_list{
   font-size:16px;
   overflow: auto;
   &>li{
-    border:1px solid #000000;
+     border:1px solid red;
     height:100px;
     width:400px;
     margin: 10px 10px;
     padding: 30px;
-    background: #fff;
+    //background: #fff;
 
     float:left;
-
+    display: inline-block;
+    .tag-container{
+      position: relative;
+      .cut-dot-top{
+         position: absolute;
+         right:-30px;
+         top:-30px;
+       }
+       .cut-dot-bottom{
+           position: absolute;
+           right:-30px;
+           bottom:-30px;
+         }
+    }
     .store{
       font-size: 16px;
       margin-bottom:10px;
@@ -80,14 +93,28 @@ ul#tag_list{
   ul#tag_list{
      font-size:0.3cm;
      &>li{
-       border:1px solid #000000;
+       position:relative;
       height:2.5cm;
       width:6cm;
       margin: 0.13cm;
       padding: 0.5cm;
       background: #fff;
+       border:1px solid red;
 
       float:left;
+       .tag-container{
+      position: relative;
+      .cut-dot-top{
+         position: absolute;
+         right:-0.5cm;
+         top:-0.5cm;
+       }
+         .cut-dot-bottom{
+           position: absolute;
+           right:-0.5cm;
+           bottom:-0.5cm;
+         }
+    }
 
       .store{
         font-size: 0.6em;

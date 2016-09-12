@@ -13,13 +13,26 @@ ul#tag_list {
   overflow: auto;
 }
 ul#tag_list > li {
-  border: 1px solid #000000;
+  border: 1px solid red;
   height: 100px;
   width: 400px;
   margin: 10px 10px;
   padding: 30px;
-  background: #fff;
   float: left;
+  display: inline-block;
+}
+ul#tag_list > li .tag-container {
+  position: relative;
+}
+ul#tag_list > li .tag-container .cut-dot-top {
+  position: absolute;
+  right: -30px;
+  top: -30px;
+}
+ul#tag_list > li .tag-container .cut-dot-bottom {
+  position: absolute;
+  right: -30px;
+  bottom: -30px;
 }
 ul#tag_list > li .store {
   font-size: 16px;
@@ -59,13 +72,27 @@ ul#tag_list > li .info .price-wrapper .price .price-number {
     font-size: 0.3cm;
   }
   ul#tag_list > li {
-    border: 1px solid #000000;
+    position: relative;
     height: 2.5cm;
     width: 6cm;
     margin: 0.13cm;
     padding: 0.5cm;
     background: #fff;
+    border: 1px solid red;
     float: left;
+  }
+  ul#tag_list > li .tag-container {
+    position: relative;
+  }
+  ul#tag_list > li .tag-container .cut-dot-top {
+    position: absolute;
+    right: -0.5cm;
+    top: -0.5cm;
+  }
+  ul#tag_list > li .tag-container .cut-dot-bottom {
+    position: absolute;
+    right: -0.5cm;
+    bottom: -0.5cm;
   }
   ul#tag_list > li .store {
     font-size: 0.6em;
