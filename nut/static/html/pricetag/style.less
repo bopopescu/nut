@@ -14,7 +14,7 @@ ul#tag_list{
   font-size:16px;
   overflow: auto;
   &>li{
-     border:1px solid red;
+     //border:1px solid red;
     height:100px;
     width:400px;
     margin: 10px 10px;
@@ -22,18 +22,27 @@ ul#tag_list{
     //background: #fff;
 
     float:left;
-    display: inline-block;
     .tag-container{
       position: relative;
-      .cut-dot-top{
+       .cut-dot-left-top{
+         position: absolute;
+         left:-30px;
+         top:-30px;
+       }
+       .cut-dot-left-bottom{
+         position: absolute;
+         left:-30px;
+        bottom:-60px;
+       }
+      .cut-dot-right-top{
          position: absolute;
          right:-30px;
          top:-30px;
        }
-       .cut-dot-bottom{
+       .cut-dot-right-bottom{
            position: absolute;
            right:-30px;
-           bottom:-30px;
+           bottom:-60px;
          }
     }
     .store{
@@ -93,26 +102,36 @@ ul#tag_list{
   ul#tag_list{
      font-size:0.3cm;
      &>li{
+        //border:1px solid red;
        position:relative;
       height:2.5cm;
       width:6cm;
-      margin: 0.13cm;
+      margin: 0.2cm;
       padding: 0.5cm;
       background: #fff;
-       border:1px solid red;
 
       float:left;
        .tag-container{
       position: relative;
-      .cut-dot-top{
+      .cut-dot-right-top{
          position: absolute;
          right:-0.5cm;
          top:-0.5cm;
        }
-         .cut-dot-bottom{
+         .cut-dot-right-bottom{
            position: absolute;
            right:-0.5cm;
-           bottom:-0.5cm;
+           bottom:-2cm;
+         }
+         .cut-dot-left-top{
+         position: absolute;
+         left:-0.5cm;
+         top:-0.5cm;
+       }
+         .cut-dot-left-bottom{
+           position: absolute;
+           left:-0.5cm;
+           bottom:-2cm;
          }
     }
 
