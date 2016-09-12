@@ -1,5 +1,5 @@
 
-6.  
+6.  sku remove PROTECT for OrderItem 
 5.  order number remove under dash 
 4.  order add a property 'realtime_status', is a wrapper arount order.status
     to handle expired order 
@@ -20,6 +20,7 @@ b.
 ======================================
 关于 SKU 和 OrderItem , CartItem 的约束
 
+
 1. OrderItem 的 sku 外键如下定义
         sku = models.ForeignKey(SKU, db_index=True, on_delete=PROTECT)
         
@@ -32,8 +33,10 @@ b.
     除了 sku 会被删除, 对应的 cartitem 也会被删除, 
     这是 django 数据库的缺省行为
     
+3. 可以把 sku status 设置为 disable 
 
-        
+
+4. 商品详情页,只显示 enable 的SKU (@jiaxin)
 
 ======================================
 
