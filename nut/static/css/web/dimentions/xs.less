@@ -5,7 +5,7 @@
 
 @media (max-width:768px){
    //for category in discover page
-  #category-container #category-item-container,.new-index-body #index-banners{
+  #category-container #category-item-container,.new-index-body #index-banners,#xs-detail-pic-wrapper{
     .slick-prev:before, .slick-next:before {
         display: none;
     }
@@ -42,6 +42,29 @@
   }
 }
 @media(max-width: 767px){
+  body.entity-body{
+    padding-top:65px;
+    #xs-detail-pic-wrapper{
+      &.slick-slider{
+         margin-bottom: 5px;
+        .slick-dots{
+          bottom:0;
+          li.slick-active button:before{
+            color:@btn-blue;
+          }
+          li button:before{
+            color:@very-light-gray;
+          }
+        }
+      }
+      li{
+        img{
+          margin:0 auto;
+          width:100%;
+        }
+      }
+    }
+  }
   body.new-index-body{
     padding-top:51px;
     .new-banner-container{
