@@ -318,7 +318,7 @@ class Order(BaseModel):
 
     @property
     def payment_body(self):
-        items = map(lambda item:item.title , self.items.all())
+        items = map(lambda item:item.title, self.items.all())
         return '\r\n'.join(items)
 
 
