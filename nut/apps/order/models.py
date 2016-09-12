@@ -201,6 +201,16 @@ class Order(BaseModel):
         return AliPayPayment(order=self).payment_url
 
     @property
+    def realtime_status(self):
+        # a wrapper around status field
+        # a lot effort and complexity is on the expire status
+        # TODO : need refactor.
+        if self.should_expired:
+            return Order.expired
+        else:
+            return self.status
+
+    @property
     def alipay_qrcode_frame_page_url(self):
         # use to jump from guoku to alipay , iframe already implemented
         return reverse_lazy('web_user_order_alipay_qrcode', args=[self.id])
