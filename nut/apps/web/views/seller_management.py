@@ -158,8 +158,8 @@ class SellerManagementAddEntity(Add_local):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request, data=request.POST, files=request.FILES)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('web_seller_management'))
+            entity = form.save()
+            return HttpResponseRedirect(reverse('web_seller_management_entity_edit', args=[entity.id]))
         return render(request, self.template_name, {'forms': form})
 
 @login_required

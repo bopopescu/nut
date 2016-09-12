@@ -1,3 +1,13 @@
+
+3.  
+2.  seller entity list update
+    1. sku save will change entity update time 
+    2. entity sku order by sku stock
+1.  seller management list bug fix 
+=====================
+merged to master 9/8
+=====================
+
 ======================================
 
 Order.alipay_qrcode_frame_page_url
