@@ -1412,11 +1412,13 @@ a.new-black-link:hover {
     color: #6192FF;
   }
   body.entity-body #xs-detail-pic-wrapper.slick-slider .slick-dots li button:before {
-    color: #F8F8F8;
+    color: #BDBDBD;
+  }
+  body.entity-body #xs-detail-pic-wrapper li {
+    outline: none;
   }
   body.entity-body #xs-detail-pic-wrapper li img {
     margin: 0 auto;
-    width: 100%;
   }
   body.new-index-body {
     padding-top: 51px;
