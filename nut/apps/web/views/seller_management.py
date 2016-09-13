@@ -122,7 +122,7 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
             pass
         return qs
 
-class QrcodeListView(IsAuthorizedSeller,  ListView):
+class QrcodeListView(IsAuthorizedSeller,  AjaxResponseMixin,  JSONResponseMixin,  ListView):
     http_method_names = ['get']
     template_name = 'web/seller_management/qr_image.html'
 
@@ -139,6 +139,38 @@ class QrcodeListView(IsAuthorizedSeller,  ListView):
     def get_queryset(self):
         qs = self.request.user.entities.all()
         return qs
+
+    def get_checked_entities(self, checked_entities):
+        checked_entities_to_print = self.object_list.filter(entity__id__in=checked_entities)
+        return checked_entities_to_print
+
+
+    def post_ajax(self, request, *args, **kwargs):
+        print_entities_jsonstring = request.POST.get('checked_entity_ids',None)
+        if not print_entities_jsonstring:
+            self.get()
+        print_entities = json.loads(print_entities_jsonstring)
+        if print_entities:
+            try:
+                self.get_checked_entities(print_entities)
+            except Exception as e:
+                res = {
+                    'error': 1,
+                    'msg': 'error %s' % e.message
+                }
+                return self.render_json_response(res)
+            res = {
+                'error': 0,
+                'msg': 'print checked entities Success'
+            }
+            return self.render_json_response(res)
+        else:
+            res = {
+                'error': 1,
+                'msg': 'print checked entities fail'
+            }
+            return self.render_json_response(res)
+
 
 
 
