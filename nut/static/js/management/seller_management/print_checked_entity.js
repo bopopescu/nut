@@ -9,6 +9,9 @@ var PrintCheckedEntityManager = Class.extend({
     },
     handlePrintQrcode:function(e) {
         var checked_entity_ids = this.collectCheckedEntity();
+        var new_url = 'seller_management/qrcode_list/?entity_ids=' +  JSON.stringify(checked_entity_ids)
+        window.open('new_url')
+
         var url = $(e.currentTarget).attr('data-url');
         if(checked_entity_ids){
             console.log('checked entities');
@@ -34,9 +37,9 @@ var PrintCheckedEntityManager = Class.extend({
         );
     },
     checkedPrintEntitySuccess:function(){
-        var target_url = $('#checked_print_qrcode').attr('data-url');
-        window.location.href = window.location.host + target_url;
         console.log('checked print entity success');
+        //var target_url = $('#checked_print_qrcode').attr('data-url');
+        //window.location.href = window.location.host + target_url;
     },
     checkedPrintEntityFail:function(){
         console.log('checked print entity fail');

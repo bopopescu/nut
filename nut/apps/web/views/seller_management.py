@@ -126,59 +126,40 @@ class QrcodeListView(IsAuthorizedSeller,  AjaxResponseMixin,  JSONResponseMixin,
     # http_method_names = ['get']
     template_name = 'web/seller_management/qr_image.html'
 
-    # def print_all_entities(self, request, *args, **kwargs):
-    #     self.object_list = self.get_queryset()
-    #     host = request.get_host()
-    #     for entity in self.object_list:
-    #         entity.title = entity.title[:15]
-    #         entity.qr_info = [entity.brand, entity.title, "", entity.price, host + entity.qrcode_url]
-    #     return render_to_response(self.template_name, {'entities': self.object_list},
-    #                               context_instance=RequestContext(request)
-    #                               )
+    def get(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        host = request.get_host()
+        for entity in self.object_list:
+            entity.title = entity.title[:15]
+            entity.qr_info = [entity.brand, entity.title, "", entity.price, host + entity.qrcode_url]
+        return render_to_response(self.template_name, {'entities': self.object_list},
+                                  context_instance=RequestContext(request)
+                                  )
 
     def get_queryset(self):
         qs = self.request.user.entities.all()
         return qs
 
     def get_checked_entities(self, checked_entities):
-        checked_entities_to_print = self.object_list.filter(entity__id__in=checked_entities)
+        checked_entities_to_print = self.request.user.entities.all().filter(entity_hash__in=checked_entities)
         return checked_entities_to_print
 
 
     def post_ajax(self, request, *args, **kwargs):
         print_entities_jsonstring = request.POST.get('checked_entity_ids',None)
-        if not print_entities_jsonstring:
-            self.object_list = self.get_queryset()
-            host = request.get_host()
-            for entity in self.object_list:
-              entity.title = entity.title[:15]
-              entity.qr_info = [entity.brand, entity.title, "", entity.price, host + entity.qrcode_url]
-            return render_to_response(self.template_name, {'entities': self.object_list},
-                                  context_instance=RequestContext(request)
-                                  )
         print_entities = json.loads(print_entities_jsonstring)
         if print_entities:
-            try:
-                self.get_checked_entities(print_entities)
-            except Exception as e:
-                res = {
-                    'error': 1,
-                    'msg': 'error %s' % e.message
-                }
-                return self.render_json_response(res)
-            res = {
-                'error': 0,
-                'msg': 'print checked entities Success'
-            }
-            return self.render_json_response(res)
+            self.object_list = self.get_checked_entities(print_entities)
         else:
-            res = {
-                'error': 1,
-                'msg': 'print checked entities fail'
-            }
-            return self.render_json_response(res)
+            self.object_list = self.get_queryset()
 
-
+        host = request.get_host()
+        for entity in self.object_list:
+          entity.title = entity.title[:15]
+          entity.qr_info = [entity.brand, entity.title, "", entity.price, host + entity.qrcode_url]
+        return render_to_response(self.template_name, {'entities': self.object_list},
+                                  context_instance=RequestContext(request)
+                                  )
 
 
 class IsAuthorizedSeller(UserPassesTestMixin):
