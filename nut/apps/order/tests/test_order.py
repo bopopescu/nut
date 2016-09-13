@@ -3,8 +3,8 @@ import datetime
 from pprint import pprint
 
 from apps.order.tests import DBTestBase
-from apps.order.models import CartItem, ShippingAddress, Order, OrderItem, SKU
-from apps.order.exceptions import CartException, OrderException,PaymentException
+from apps.order.models import ShippingAddress, Order, SKU
+from apps.order.exceptions import CartException, OrderException
 
 
 class OrderTestBase(DBTestBase):
@@ -21,7 +21,7 @@ class OrderTestBase(DBTestBase):
         self.sku1.save()
 
         self.sku2 = self.entity.add_sku({
-            'color':'black',
+            'color': 'black',
             'size': 128
         })
         self.sku2.stock = 5
@@ -45,7 +45,7 @@ class OrderForUserTest(DBTestBase):
         self.sku1.save()
 
         self.sku2 = self.entity.add_sku({
-            'color':'black',
+            'color': 'black',
             'size': 128
         })
         self.sku2.stock = 5
@@ -54,36 +54,34 @@ class OrderForUserTest(DBTestBase):
         self.sku2.save()
 
         self.normal_address = ShippingAddress(**{
-            'type':ShippingAddress.normal,
-            'country':'china',
-            'province':'beijing',
-            'city':'beijing',
-            'street':'chang an jie',
+            'type': ShippingAddress.normal,
+            'country': 'china',
+            'province': 'beijing',
+            'city': 'beijing',
+            'street': 'chang an jie',
             'detail': 'zhong nan hai, zi guang ge',
-            'post_code':'100010',
+            'post_code': '100010',
         })
 
         self.special_address = ShippingAddress(**{
-            'type':ShippingAddress.special
+            'type': ShippingAddress.special
         })
 
-
     def test_user_checkout_empty_cart_raise_cart_exception(self):
-        #create order base on user's cart
+        # create order base on user's cart
         self.assertEqual(self.the_user.cart_item_count, 0)
         with self.assertRaises(CartException):
             self.the_user.checkout()
 
     def test_add_sku_to_cart_price_cal(self):
         cart_item = self.the_user.add_sku_to_cart(self.sku1)
-        self.assertEqual(cart_item.volume , 1)
+        self.assertEqual(cart_item.volume, 1)
         self.assertEqual(cart_item.grand_total_price, 7)
 
-        #add same sku twice
+        # add same sku twice
         cart_item = self.the_user.add_sku_to_cart(self.sku1)
         self.assertEqual(cart_item.volume, 2)
         self.assertEqual(cart_item.grand_total_price, 14)
-
 
     def test_user_checkout_create_order(self):
         self.the_user.add_sku_to_cart(self.sku1)
@@ -100,22 +98,20 @@ class OrderForUserTest(DBTestBase):
         # order item is 2
         self.assertEqual(new_order.items.count(), 2)
 
-        #user got 1 order
+        # user got 1 order
         self.assertEqual(self.the_user.order_count, 1)
 
-        #cart is cleared
-        self.assertEqual(self.the_user.cart_item_count , 0)
+        # cart is cleared
+        self.assertEqual(self.the_user.cart_item_count, 0)
 
         #
-        self.assertEqual(self.the_user.order_items.all()[1].volume , 2)
-        #sku1 unit_grand_price is 7
-        self.assertEqual(new_order.items.all().get(sku__id=self.sku1.id).sku_unit_grand_price,7)
-        #sku1 unit_promo_price is 5
-        self.assertEqual(new_order.items.all().get(sku__id=self.sku1.id).sku_unit_promo_price,5)
+        self.assertEqual(self.the_user.order_items.all()[1].volume, 2)
+        # sku1 unit_grand_price is 7
+        self.assertEqual(new_order.items.all().get(sku__id=self.sku1.id).sku_unit_grand_price, 7)
+        # sku1 unit_promo_price is 5
+        self.assertEqual(new_order.items.all().get(sku__id=self.sku1.id).sku_unit_promo_price, 5)
         # sku2 unit_promo_price is 11
-        self.assertEqual(new_order.items.all().get(sku__id=self.sku2.id).sku_unit_promo_price,11)
-
-
+        self.assertEqual(new_order.items.all().get(sku__id=self.sku2.id).sku_unit_promo_price, 11)
 
     def test_user_checkout_order_price(self):
         self.the_user.add_sku_to_cart(self.sku1)
@@ -127,12 +123,12 @@ class OrderForUserTest(DBTestBase):
         self.assertIsInstance(the_order, Order)
 
         self.assertEqual(the_order.items.count(), 2)
-        self.assertEqual(the_order.items.all()[0].volume , 1)
-        self.assertEqual(the_order.items.all()[1].volume , 1)
+        self.assertEqual(the_order.items.all()[0].volume, 1)
+        self.assertEqual(the_order.items.all()[1].volume, 1)
 
         order_items = the_order.items.all()
         print [item.grand_total_price for item in order_items]
-        total_price = reduce(lambda a, b : a+b, [item.grand_total_price for item in order_items])
+        total_price = reduce(lambda a, b: a+b, [item.grand_total_price for item in order_items])
         self.assertEqual(total_price, 20)
 
         self.assertEqual(the_order.grand_total_price, 20)
@@ -143,7 +139,6 @@ class OrderForUserTest(DBTestBase):
             self.sku1.stock = 3
             self.the_user.add_sku_to_cart(sku=self.sku1, volume=4)
 
-
     def test_user_checkout_order_more_sku_volume(self):
         self.sku1.stock = 6
         self.sku2.stock = 13
@@ -152,25 +147,24 @@ class OrderForUserTest(DBTestBase):
         self.the_user.add_sku_to_cart(self.sku1, 5)
         self.the_user.add_sku_to_cart(self.sku2, 12)
         order = self.the_user.checkout()
-        self.assertEqual(order.grand_total_price, 7*5 +13*12)
+        self.assertEqual(order.grand_total_price, 7*5 + 13*12)
         self.assertEqual(order.promo_total_price, 5*5 + 11*12)
 
-
     def test_checkouted_order_reduce_stock(self):
-        self.sku1.stock=9
+        self.sku1.stock = 9
         self.sku1.save()
-        self.sku2.stock=18
+        self.sku2.stock = 18
         self.sku2.save()
-        self.the_user.add_sku_to_cart(self.sku1,5)
-        self.the_user.add_sku_to_cart(self.sku2,12)
+        self.the_user.add_sku_to_cart(self.sku1, 5)
+        self.the_user.add_sku_to_cart(self.sku2, 12)
         order = self.the_user.checkout()
         self.assertEqual(order.status, Order.address_unbind)
-        #need refresh from db
+        # need refresh from db
         self.assertEqual(self.sku1.stock, 9)
-        self.assertEqual(self.sku2.stock,  18)
+        self.assertEqual(self.sku2.stock, 18)
         self.sku1 = SKU.objects.get(pk=self.sku1.pk)
         self.sku2 = SKU.objects.get(pk=self.sku2.pk)
-        #refresh now
+        # refresh now
         self.assertEqual(self.sku1.stock, 9-5)
         self.assertEqual(self.sku2.stock,  18-12)
 
@@ -217,9 +211,3 @@ class OrderForUserTest(DBTestBase):
         # refresh sku1 data again
         self.sku1 = SKU.objects.get(pk=self.sku1.pk)
         self.assertEqual(self.sku1.stock, origin_stock)
-
-
-
-
-
-
