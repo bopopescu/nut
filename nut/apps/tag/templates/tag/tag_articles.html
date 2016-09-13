@@ -50,7 +50,7 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="row tag-article-container" id="selection_article_list" refresh-time="{{ refresh_time }}" >
+        <div class="row tag-article-container" id="custom_selection_article_list" refresh-time="{{ refresh_time }}" >
             {% for sqs_article in articles %}
                 {% with sqs_article.object as article %}
                     {% include 'web/article/partial/article_item_new.html' %}
