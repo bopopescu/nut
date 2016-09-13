@@ -26,7 +26,7 @@ class OrderSchema(Schema):
     order_id            = fields.Integer(attribute='id')
     customer            = fields.Nested('UserSchema', many=False)
     number              = fields.String()
-    status              = fields.Integer()
+    status              = fields.Integer(attribute='realtime_status')
     shipping_to         = fields.Nested(ShippingAddressSchema, exclude=('user',), many=False)
     order_items         = fields.Nested('OrderItemSchema', exclude=('order', 'order_item_id'),
                                         many=True, attribute='items.all')
