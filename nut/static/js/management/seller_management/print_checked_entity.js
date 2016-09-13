@@ -11,7 +11,7 @@ var PrintCheckedEntityManager = Class.extend({
         var checked_entity_ids = this.collectCheckedEntity();
         if(checked_entity_ids.length){
             var new_url = 'qrcode_list?entity_ids=' +  JSON.stringify(checked_entity_ids);
-            window.open = new_url;
+            window.location.href = new_url;
         }else{
             window.location.href = 'qrcode_list';
         }
