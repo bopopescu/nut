@@ -1417,9 +1417,14 @@ a.new-black-link:hover {
   body.entity-body #xs-detail-pic-wrapper li {
     outline: none;
   }
-  body.entity-body #xs-detail-pic-wrapper li img {
-    margin: 0 auto;
+  body.entity-body #xs-detail-pic-wrapper li .entity-pic {
     width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: contain;
   }
   body.new-index-body {
     padding-top: 51px;
