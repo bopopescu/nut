@@ -1,6 +1,7 @@
 
 6.  sku remove PROTECT for OrderItem 
 5.  order number remove under dash 
+
 4.  order add a property 'realtime_status', is a wrapper arount order.status
     to handle expired order 
     
@@ -9,6 +10,7 @@
 2.  seller entity list update
     1. sku save will change entity update time 
     2. entity sku order by sku stock
+    
 1.  seller management list bug fix 
 =====================
 merged to master 9/8

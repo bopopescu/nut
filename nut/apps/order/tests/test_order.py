@@ -3,13 +3,36 @@ import datetime
 from pprint import pprint
 
 from apps.order.tests import DBTestBase
-from apps.core.models import Entity,GKUser, Category, Sub_Category
 from apps.order.models import CartItem, ShippingAddress, Order, OrderItem, SKU
-from apps.order.exceptions import  CartException, OrderException,PaymentException
+from apps.order.exceptions import CartException, OrderException,PaymentException
+
+
+class OrderTestBase(DBTestBase):
+    def setUp(self):
+        super(OrderTestBase, self).setUp()
+
+        self.sku1 = self.entity.add_sku({
+            'color': 'red',
+            'size': 165
+        })
+        self.sku1.stock = 5
+        self.sku1.origin_price = 7
+        self.sku1.promo_price = 5
+        self.sku1.save()
+
+        self.sku2 = self.entity.add_sku({
+            'color':'black',
+            'size': 128
+        })
+        self.sku2.stock = 5
+        self.sku2.origin_price = 13
+        self.sku2.promo_price = 11
+        self.sku2.save()
 
 
 class OrderForUserTest(DBTestBase):
-    #see DBTestBase for pre setuped vars
+
+    # see DBTestBase for pre setup vars
     def setUp(self):
         super(OrderForUserTest, self).setUp()
         self.sku1 = self.entity.add_sku({
@@ -175,4 +198,28 @@ class OrderForUserTest(DBTestBase):
         with self.assertRaises(OrderException) as context:
             order.set_paid()
             pprint(context)
+
+    def test_set_expire_order_restore_sku_stock(self):
+        origin_stock = self.sku1.stock
+        self.the_user.add_sku_to_cart(self.sku1, 2)
+        the_order = self.the_user.checkout()
+
+        # order must can be expired or exception will raise
+        expired_time = datetime.datetime.now() - datetime.timedelta(minutes=Order.expire_in_minutes+1)
+        the_order.created_datetime = expired_time
+        the_order.save()
+
+        # refresh sku1 data
+        self.sku1 = SKU.objects.get(pk=self.sku1.pk)
+        self.assertEqual(self.sku1.stock, origin_stock-2)
+
+        the_order.set_expire()
+        # refresh sku1 data again
+        self.sku1 = SKU.objects.get(pk=self.sku1.pk)
+        self.assertEqual(self.sku1.stock, origin_stock)
+
+
+
+
+
 
