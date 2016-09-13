@@ -3,7 +3,7 @@ import xml.etree.cElementTree as ET
 from hashlib import md5
 from braces.views import CsrfExemptMixin
 
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import redirect
 from django.views.generic import FormView, View, TemplateView
 from django.utils.log import getLogger
@@ -83,11 +83,25 @@ class AlipayPayFailView(View):
     pass
 
 
-class AlipayNotifyView(FormView):
-    pass
+class AlipayNotifyView(CsrfExemptMixin, AlipayReturnView):
+    def get(self):
+        raise Http404
+
+    def get_params(self):
+        return self.request.POST
+
+    def post(self, *args, **kwargs):
+        if self.check_sign() and self.check_payment_data():
+            log.info('check notify data ok !!')
+            self.handle_pay_success()
+            return 'success'
+        else:
+            log.info('check notify data fail!!')
+            # TODO : testing , change following to success after test is success
+            return 'fail'
 
 
-class AlipayRefoundNotify(FormView):
+class AlipayRefundNotify(FormView):
     pass
 
 

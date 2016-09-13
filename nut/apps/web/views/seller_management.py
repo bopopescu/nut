@@ -497,19 +497,31 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
         elif sort_by == 'unumber':
             qs = qs.order_by('number')
         elif sort_by == 'status':
-            qs =  qs.order_by('-status')
+            qs = qs.order_by('-status')
         else:
             pass
         return qs
 
     def get_context_data(self, **kwargs):
         context = super(SellerManagementOrders, self).get_context_data(**kwargs)
-        context['status']=self.status
+        context['status'] = self.status
+        sum_payment_all = 0
+        sum_alipay = 0
+        sum_weixin = 0
+        sum_pos = 0
+        sum_cash = 0
+        sum_other = 0
+
         for order in context['object_list']:
             order_items = order.items.all()
             order.skus = [order_item.sku for order_item in order_items]
             order.count=order.items.all().count()
             order.itemslist=order.items.all()[1:order.count]
+
+            if order.is_paid:
+                sum_payment_all += order.order_total_value
+
+        context['sum_payment_all'] = sum_payment_all
         return context
 
 
