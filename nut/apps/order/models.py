@@ -149,7 +149,7 @@ class ShippingAddress(BaseModel):
 
 
 class Order(BaseModel):
-    expire_in_minutes = 30
+    expire_in_minutes = 3000
 
     (   expired, #超时订单,失效订单
         address_unbind, #需要客户地址

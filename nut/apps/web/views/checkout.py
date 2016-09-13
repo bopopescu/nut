@@ -17,23 +17,15 @@ from apps.order.models import Order
 from apps.payment.models import PaymentLog
 
 
-class MyOrderUserPassesTestMixin(UserPassesTestMixin):
+class CheckDeskUserTestMixin(UserPassesTestMixin):
     def test_func(self, user):
-        idlist = [1,
-                  3,
-                  9020,
-                  1997153,
-                  2000859,
-                  1964551,
-                  412916,
-                  252792]
-        return user.id in idlist
+        return user.is_admin
 
     def no_permissions_fail(self, request=None):
         raise Http404
 
 
-class AllOrderListView(MyOrderUserPassesTestMixin, FilterMixin, SortMixin, ListView):
+class AllOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, ListView):
     default_sort_params = ('created_datetime', 'desc')
     paginator_class = ExtentPaginator
     model = Order
@@ -78,7 +70,7 @@ class AllOrderListView(MyOrderUserPassesTestMixin, FilterMixin, SortMixin, ListV
         return context
 
 
-class SellerOrderListView(MyOrderUserPassesTestMixin, FilterMixin, SortMixin, ListView):
+class SellerOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, ListView):
     default_sort_params = ('created_datetime', 'desc')
     paginator_class = ExtentPaginator
     model = Order
@@ -121,7 +113,7 @@ class SellerOrderListView(MyOrderUserPassesTestMixin, FilterMixin, SortMixin, Li
         return context
 
 
-class SellerOrderDeleteView(MyOrderUserPassesTestMixin, DeleteView):
+class SellerOrderDeleteView(CheckDeskUserTestMixin, DeleteView):
 
     model = Order
     template_name = 'web/checkout/delete_order.html'
@@ -131,7 +123,7 @@ class SellerOrderDeleteView(MyOrderUserPassesTestMixin, DeleteView):
         return reverse('checkout_order_list')
 
 
-class CheckDeskPayView(MyOrderUserPassesTestMixin, AjaxResponseMixin, View):
+class CheckDeskPayView(CheckDeskUserTestMixin, AjaxResponseMixin, View):
     model = Order
     template_name = 'web/seller_management/sku/sku_edit_template.html'
     http_method_names = ["post"]
@@ -153,7 +145,7 @@ class CheckDeskPayView(MyOrderUserPassesTestMixin, AjaxResponseMixin, View):
         _order = self.get_order()
         _payment_log, created = PaymentLog.objects.get_or_create(
             order=_order,
-            payment_source=PaymentLog.cash_ccard,
+            payment_source=PaymentLog.cash,
             payment_status=PaymentLog.paid
         )
         if created:
@@ -169,7 +161,7 @@ class CheckDeskPayView(MyOrderUserPassesTestMixin, AjaxResponseMixin, View):
             _order.set_paid()
             self.write_payment_log()
             return JSONResponse(data={'result': 1}, status=200)
-        except Exception:
+        except Exception as e:
             # TODO: more accurate exception later
             return JSONResponse(data={'result': 0}, status=400)
 

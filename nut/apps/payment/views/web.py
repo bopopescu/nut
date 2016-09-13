@@ -39,9 +39,9 @@ class AlipayReturnView(TemplateView):
         return Order.objects.get(number=number)
 
     def check_sign(self):
-        log.info('----- check sign ----')
-        log.info(sign_checker.check_sign(self.get_params()))
-        log.info('----- check sign end ----')
+        # log.info('----- check sign ----')
+        # log.info(sign_checker.check_sign(self.get_params()))
+        # log.info('----- check sign end ----')
         return sign_checker.check_sign(self.get_params())
 
     def get_params(self):
@@ -55,9 +55,9 @@ class AlipayReturnView(TemplateView):
         result = (params.get('sign_type') == 'MD5' and
                  (params.get('trade_status') == 'TRADE_FINISHED' or params.get('trade_status') == 'TRADE_SUCCESS'))
 
-        log.info('------- check alipay data ---')
-        log.info(result)
-        log.info('------- check alipay data end ----')
+        # log.info('------- check alipay data ---')
+        # log.info(result)
+        # log.info('------- check alipay data end ----')
         return result
 
 
@@ -69,9 +69,9 @@ class AlipayReturnView(TemplateView):
         if order is None:
             return False
         result = order.order_total_value == float(total_fee)
-        log.info('------- check order price  ---')
-        log.info(result)
-        log.info('------- check order price  ----')
+        # log.info('------- check order price  ---')
+        # log.info(result)
+        # log.info('------- check order price  ----')
         return result
 
     def handle_pay_success(self):

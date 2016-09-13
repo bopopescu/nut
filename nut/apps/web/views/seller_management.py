@@ -535,11 +535,11 @@ class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,
     template_name = 'web/seller_management/sold_entity_list.html'
 
     def get_queryset(self):
-        entities = self.request.user.entities.all()
+        entities = self.request.user.seller_entities
         self.order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
         order_ids = self.order_items.values_list('order')
-        self.orders = Order.objects.filter(id__in=order_ids).filter(status__in=[3,5])
-        sku_ids = [ ]
+        self.orders = Order.objects.filter(id__in=order_ids).filter(status__in=[3, 5])
+        sku_ids = []
         if self.orders:
             for order in self.orders:
                 if sku_ids:
@@ -581,12 +581,12 @@ class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,
             sku.title=sku.entity.title[:15]
 
         d = {}
-        for ord in self.orders:
-            for order in ord.items.all():
-                if order.sku.id not in d.keys():
-                    d[order.sku.id] = order.volume
+        for order in self.orders:
+            for order_item in order.items.all():
+                if order_item.sku.id not in d.keys():
+                    d[order_item.sku.id] = order_item.volume
                 else:
-                    d[order.sku.id] += order.volume
+                    d[order_item.sku.id] += order_item.volume
         for object in context['object_list']:
             object.sold_count = d[object.id]
         context['sort_by'] = self.get_sort_params()[0]
