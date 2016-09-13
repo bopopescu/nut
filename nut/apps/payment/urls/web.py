@@ -10,7 +10,7 @@ urlpatterns = patterns(
     url(r'^alipay/refound_notify/$', AlipayRefundNotify.as_view(), name="alipay_refund_notify"),
     url(r'^alipay/fail/$', AlipayPayFailView.as_view(), name="alipay_pay_fail"),
 
-    url(r'^wxpay/return/$', WXpayReturnView.as_view() , name="wxpay_return"),
+    url(r'^wxpay/return/$', WXpayReturnView.as_view(), name="wxpay_return"),
     url(r'^wxpay/notify/$', WXPayNotifyView.as_view(), name="wxpay_notify"),
     url(r'^wxpay/refound_notify/$', WXpayRefundView.as_view(), name="wxpay_refund_notify"),
 )
