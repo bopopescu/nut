@@ -34,6 +34,8 @@ var PrintCheckedEntityManager = Class.extend({
         );
     },
     checkedPrintEntitySuccess:function(){
+        var target_url = $('#checked_print_qrcode').attr('data-url');
+        window.location.href = window.location.host + target_url;
         console.log('checked print entity success');
     },
     checkedPrintEntityFail:function(){
