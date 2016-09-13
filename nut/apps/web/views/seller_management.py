@@ -36,8 +36,10 @@ class SKUUserPassesTestMixin(UserPassesTestMixin):
         self.sku_id = self.kwargs.get('pk')
         sku = SKU.objects.get(pk=self.sku_id)
         return user.has_sku(sku)
+
     def no_permissions_fail(self, request=None):
         raise Http404
+
 
 class EntityUserPassesTestMixin(UserPassesTestMixin):
     def test_func(self, user):
@@ -46,12 +48,15 @@ class EntityUserPassesTestMixin(UserPassesTestMixin):
         return entity in user.seller_entities
         # TODO : potential performance hit , when seller has lots of entities
         # return user.has_entity(entity)
+
     def no_permissions_fail(self, request=None):
         raise Http404
+
 
 class IsAuthorizedSeller(UserPassesTestMixin):
     def test_func(self, user):
         return user.is_authorized_seller
+
     def no_permissions_fail(self, request=None):
         raise Http404
 
@@ -91,10 +96,11 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
         for entity in context['object_list']:
             entity.sku_list = entity.skus.all()
             entity.stock = entity.sku_list.aggregate(Sum('stock')).get('stock__sum', 0) or 0
-            entity.title=entity.title[:15]
+            entity.title = entity.title[:15]
         context['sort_by'] = self.get_sort_params()[0]
         context['extra_query'] = 'sort_by=' + context['sort_by']
         context['current_url'] = self.request.get_full_path()
+
         return context
 
     def filter_queryset(self, qs, filter_param):
@@ -433,14 +439,14 @@ class OrderDetailView(UserPassesTestMixin,DetailView):
         self.order_number = self.kwargs.get('order_number')
         order = Order.objects.get(pk=self.order_number)
         for i in order.items.all():
-            if i.sku.entity in user.entities.all():
+            if i.sku.entity in user.seller_entities:
                 return True
         return False
     def no_permissions_fail(self, request=None):
         raise Http404
     def get_context_data(self, **kwargs):
         context = super(OrderDetailView, self).get_context_data(**kwargs)
-        context['order_item'] = context['order'].items.all().filter(sku__entity__in = self.request.user.entities.all())
+        context['order_item'] = context['order'].items.all().filter(sku__entity__in=self.request.user.seller_entities)
         #context['order_item'] = context['order'].items.all()
         context['order_number']=self.order_number
         context['promo_total_price']=context['order'].promo_total_price
@@ -456,17 +462,20 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
     model = Order
     paginate_by = 10
     template_name = 'web/seller_management/order_list.html'
+    wait_pay_status = [Order.address_unbind, Order.waiting_for_payment]
+    paid_status = [Order.paid, Order.send, Order.closed]
+    expired_status = [Order.expired]
+
 
     def get_queryset(self):
-        entities = self.request.user.entities.all()
-        order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
-        order_ids = order_items.values_list('order')
+        entities = self.request.user.seller_entities
+        order_ids = list(OrderItem.objects.filter(sku__entity_id__in=entities).values_list('order', flat=True))
         qs = Order.objects.filter(id__in=order_ids)
         self.status = self.request.GET.get('status')
         if self.status == 'waiting_for_payment':
-            qs = qs.filter(status__in=[1,2,4])
+            qs = qs.filter(status__in=self.wait_pay_status)
         elif self.status == 'paid':
-            qs = qs.filter(status=3)
+            qs = qs.filter(status__in=self.paid_status)
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
     def filter_queryset(self, qs, filter_param):

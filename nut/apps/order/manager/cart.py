@@ -62,7 +62,6 @@ class CartItemManager(models.Manager):
                 raise OrderException('error create order:  %s: ' % e)
                 # return None
 
-
     def cart_item_count_by_user(self, user):
         return self.get_queryset().filter(user=user).count()
 

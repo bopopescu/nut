@@ -1512,6 +1512,9 @@ ul {
   text-align: left;
   padding: 15px 12px;
 }
+.new-table tr.order-cell-result {
+  background-color: darkseagreen;
+}
 .new-table-hover tbody tr:hover {
   background-color: #F8F8F8;
 }
@@ -1764,4 +1767,7 @@ body.seller-management #seller_management_entity_price .sku-save-btn {
 }
 .checkout-management .order-search-wrapper input.guoku_search_input {
   padding-left: 24px;
+}
+.test {
+  color: black;
 }

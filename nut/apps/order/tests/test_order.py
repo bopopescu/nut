@@ -211,3 +211,14 @@ class OrderForUserTest(DBTestBase):
         # refresh sku1 data again
         self.sku1 = SKU.objects.get(pk=self.sku1.pk)
         self.assertEqual(self.sku1.stock, origin_stock)
+
+    def test_should_expired_order_realtime_status_return_expired(self):
+        self.the_user.add_sku_to_cart(self.sku1)
+        order = self.the_user.checkout()
+
+        self.assertEqual(order.realtime_status, Order.address_unbind)
+
+        expired_time = datetime.datetime.now() - datetime.timedelta(minutes=Order.expire_in_minutes+1)
+        order.created_datetime = expired_time
+        order.save()
+        self.assertEqual(order.realtime_status, Order.expired)
