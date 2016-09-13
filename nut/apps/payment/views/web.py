@@ -146,7 +146,7 @@ class WXPayNotifyView(CsrfExemptMixin, View):
 
 
 
-class WXpayRefoundView(FormView):
+class WXpayRefundView(FormView):
 
     pass
 
