@@ -5,6 +5,11 @@
 <table class="new-table new-table-bordered new-table-hover" id="seller_management_entity_price">
     <thead>
     <tr>
+        <th>
+            <label>
+                <input id="usite-chk-all" type="checkbox" name="chkall" value="" >
+            </label>
+        </th>
         <th class="entity-search">
             {% trans 'entity' %}
             <input class="guoku_search_input" data-search-field="title" type="text">
@@ -48,6 +53,11 @@
     <tbody>
     {% for entity in object_list %}
         <tr>
+            <td>
+                <label>
+                    <input class="usite-chk" type="checkbox" name="chk[]" value="{{ entity.id }}" >
+                </label>
+            </td>
             <td class="entity-cell">
                 <div class="entity-container">
                     <div class="entity-wrapper">
