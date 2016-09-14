@@ -9,6 +9,7 @@ require([
         'subapp/entityreport',
         'subapp/note/usernote',
         'subapp/detailimage',
+        'subapp/entity/detail_image_slick',
 
         // entity liker part
         'models/Entity',
@@ -31,6 +32,7 @@ require([
               EntityReport,
               UserNote,
               EntityImageHandler,
+              DetailImageSlick,
               //entity liker part
               EntityModel,
               LikerAppController,
@@ -49,6 +51,7 @@ require([
         var entityReport = new EntityReport();
         var userNote = new UserNote();
         var imgHandler = new EntityImageHandler();
+        var detailImageSlick = new DetailImageSlick();
 
         // hide baichuan recommend , for service is down now
         // by an, 2016, 3-19 .
