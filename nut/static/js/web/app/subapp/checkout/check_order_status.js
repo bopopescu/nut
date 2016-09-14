@@ -91,7 +91,7 @@ var CheckoutManager = Class.extend({
         }
     },
     reloadCurrentPage:function(){
-         //window.setTimeout( function(){ window.location.reload();}, 2000);
+         window.setTimeout( function(){ window.location.reload();}, 2000);
     }
 
 });
