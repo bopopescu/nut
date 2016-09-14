@@ -1,3 +1,43 @@
+
+6.  sku remove PROTECT for OrderItem 
+5.  order number remove under dash 
+4.  order add a property 'realtime_status', is a wrapper arount order.status
+    to handle expired order 
+    
+3.  seller entity add entity update
+   
+2.  seller entity list update
+    1. sku save will change entity update time 
+    2. entity sku order by sku stock
+1.  seller management list bug fix 
+=====================
+merged to master 9/8
+=====================
+
+a.  only show sku , status= enable 
+b. 
+
+======================================
+关于 SKU 和 OrderItem , CartItem 的约束
+
+
+1. OrderItem 的 sku 外键如下定义
+        sku = models.ForeignKey(SKU, db_index=True, on_delete=PROTECT)
+        
+    因此当数据库中 , 某个 sku 被 OrderItem 指向后, 当试图删除 该sku时, 
+    会抛异常, 阻止 sku 被删除。 后台管理界面表现为删除 sku 不成功(界面未跟进)
+    
+2. CartItem 的 sku 外键定义如下
+        sku = models.ForeignKey(SKU, db_index=True)
+    因此,当数据库中, 某个 sku 被 CartItem 指向后, 试图删除 该sku时,
+    除了 sku 会被删除, 对应的 cartitem 也会被删除, 
+    这是 django 数据库的缺省行为
+    
+3. 可以把 sku status 设置为 disable 
+
+
+4. 商品详情页,只显示 enable 的SKU (@jiaxin)
+
 ======================================
 
 Order.alipay_qrcode_frame_page_url
