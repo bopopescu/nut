@@ -15,12 +15,12 @@
                  手工添加商品
             </a>
             {% if current_url == '/seller_management/' %}
-                <a class="btn  seller-mng-btn" href="{% url 'web_seller_management_qrcode_list' %}" target="_blank">
+                <a id="checked_print_qrcode" class="btn seller-mng-btn" data-url="{% url 'web_seller_management_qrcode_list' %}" target="_blank">
                     <i class="fa fa-qrcode"></i>
                     {% trans '打印二维码' %}
                 </a>
             {% else %}
-                <a class="btn  seller-mng-btn" href="{% url 'web_seller_management_qrcode_list' %}" target="_blank">
+                <a id="checked_print_qrcode" class="btn seller-mng-btn" data-url="{% url 'web_seller_management_qrcode_list' %}" target="_blank">
                     <i class="fa fa-qrcode"></i>
                     {% trans '打印二维码' %}
                 </a>
@@ -52,6 +52,6 @@
     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/manage_search.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/seller_management/sku_stock_update.js' %}" type="application/javascript"></script>
+    <script src="{% static 'js/management/seller_management/print_checked_entity.js' %}" type="application/javascript"></script>
 {#    <script src="{% static 'js/management/seller_management/sku_save.js' %}" type="application/javascript"></script>#}
-
 {% endblock %}
