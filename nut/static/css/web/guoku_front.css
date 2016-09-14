@@ -5525,6 +5525,9 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 .search-tag-item .fa-heart-o {
   color: #e6e6e6;
 }
+#category-entity-list .caption {
+  margin: 0;
+}
 .user-right .section {
   margin-bottom: 10px!important;
   padding: 0 0 10px 0!important;
@@ -5996,6 +5999,19 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
     margin: 0;
   }
   .popular-entity-page .popular-entity-container .search-entity-item .entity-four {
+    margin-bottom: 0;
+    border-radius: 0;
+  }
+  .category-detail-body .category-detail-container {
+    margin-top: 0;
+  }
+  .category-detail-body #category-entity-list {
+    padding: 0;
+  }
+  .category-detail-body #category-entity-list .search-entity-item {
+    padding: 0;
+  }
+  .category-detail-body #category-entity-list .search-entity-item .entity-four {
     margin-bottom: 0;
     border-radius: 0;
   }
