@@ -12,12 +12,13 @@ var CheckoutManager = Class.extend({
         this.order_id = $(target).attr('data-order-id');
 
         bootbox.dialog({
+            className: 'checkdesk-payment-dialog',
             title: '付款方式选择',
             message : this.dialog_html,
             buttons:{
                 success:{
                     label: '确定付款',
-                    className: 'btn-success',
+                    className: 'newest-btn-green order-pay-button',
                     callback: this.setOrderPaid.bind(this)
                 },
                 giveup: {
@@ -90,7 +91,7 @@ var CheckoutManager = Class.extend({
         }
     },
     reloadCurrentPage:function(){
-         window.setTimeout( function(){ window.location.reload();}, 2000);
+         //window.setTimeout( function(){ window.location.reload();}, 2000);
     }
 
 });
