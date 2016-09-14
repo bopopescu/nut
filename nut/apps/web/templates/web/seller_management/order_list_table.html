@@ -27,7 +27,7 @@
             {% trans '微信' %}
         </th>
          <th>
-            {% trans 'POS机' %}
+            {% trans '刷卡' %}
         </th>
         <th>
             {% trans '现金' %}
@@ -44,11 +44,11 @@
                 汇总
             </td>
             <td colspan="2">{{ sum_payment_all }}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{ sum_payment_ali }}</td>
+            <td>{{ sum_payment_wx }}</td>
+            <td>{{ sum_payment_credit_card }}</td>
+            <td>{{ sum_payment_cash }}</td>
+            <td>{{ sum_payment_other }}</td>
     </tr>
     <tr class="">
          <td colspan="10" class="blank"></td>

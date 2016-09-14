@@ -26,9 +26,13 @@ from apps.core.utils.http import JSONResponse
 from datetime import datetime, timedelta
 
 from apps.web.views.user import get_seller_entities
+from apps.payment.models import PaymentLog
 
 TIME_FORMAT = '%Y-%m-%d 8:00:00'
 
+
+def sum_price(sum, next_log):
+    return sum + next_log.order.order_total_value
 
 class SKUUserPassesTestMixin(UserPassesTestMixin):
     def test_func(self, user):
@@ -510,6 +514,22 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
             pass
         return qs
 
+    def get_sum_payment(self, order_list):
+        sum = 0
+        for order in order_list:
+            if order.is_paid:
+                sum += order.order_total_value
+
+        return sum
+
+    def get_sum_payment_for_payment_source(self, order_list, payment_souce):
+        order_ids = list(order_list.values_list('id', flat=True))
+        logs = PaymentLog.objects.filter(payment_source=payment_souce, order_id__in=order_ids)
+        return reduce(sum_price, list(logs), 0)
+
+
+
+
     def get_context_data(self, **kwargs):
         context = super(SellerManagementOrders, self).get_context_data(**kwargs)
         context['status'] = self.status
@@ -520,16 +540,20 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
         sum_cash = 0
         sum_other = 0
 
-        for order in context['object_list']:
+        order_list = context['object_list']
+
+        for order in order_list:
             order_items = order.items.all()
             order.skus = [order_item.sku for order_item in order_items]
-            order.count=order.items.all().count()
-            order.itemslist=order.items.all()[1:order.count]
+            order.count = order.items.all().count()
+            order.itemslist = order.items.all()[1:order.count]
 
-            if order.is_paid:
-                sum_payment_all += order.order_total_value
-
-        context['sum_payment_all'] = sum_payment_all
+        context['sum_payment_all'] = self.get_sum_payment(order_list)
+        context['sum_payment_wx'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.weixin_pay)
+        context['sum_payment_ali'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.ali_pay)
+        context['sum_payment_cash'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.cash)
+        context['sum_payment_credit_card'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.credit_card)
+        context['sum_payment_other'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.other)
         return context
 
 
