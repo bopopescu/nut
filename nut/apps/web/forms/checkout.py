@@ -63,7 +63,7 @@ class CheckDeskOrderPayForm(forms.Form):
         if created:
             _payment_log.payment_notify_info = json.dumps(self.get_payment_info_dic())
             _payment_log.pay_time = datetime.now()
-
+            _payment_log.payment_note = self.cleaned_data.get('payment_note')
             _payment_log.save()
         return
 
