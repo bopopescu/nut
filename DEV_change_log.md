@@ -1,3 +1,15 @@
+5.  seller order list update - not finished 
+4.  check desk payment , add payment source , and payment note update
+3.  fix qrcode print -- lq
+2.  add payment_note field
+1.  add PaymentLog source 
+
+action : 
+ALTER TABLE `core`.`payment_paymentlog` 
+ADD COLUMN `payment_note` VARCHAR(128) NULL AFTER `updated_datetime`;
+
+
+==============================
 
 6.  sku remove PROTECT for OrderItem 
 5.  order number remove under dash 

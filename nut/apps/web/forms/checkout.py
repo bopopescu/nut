@@ -63,6 +63,7 @@ class CheckDeskOrderPayForm(forms.Form):
         if created:
             _payment_log.payment_notify_info = json.dumps(self.get_payment_info_dic())
             _payment_log.pay_time = datetime.now()
+
             _payment_log.save()
         return
 
@@ -73,7 +74,8 @@ class CheckDeskOrderPayForm(forms.Form):
             'payment_operator_id': self.request.user.id,
             'payment_operator_nick': self.request.user.nick,
             'payment_operator_time': datetime.now().strftime('%Y:%M:%D %H:%M:%S'),
-            'payment_total': _order.order_total_value
+            'payment_total': _order.order_total_value,
+            'payment_note': self.cleaned_data.get('payment_note')
         }
 
 

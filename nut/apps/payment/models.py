@@ -33,8 +33,9 @@ class PaymentLog(BaseModel):
     payment_notify_info = models.TextField(null=True, blank=True)
     refund_notify_info = models.TextField(null=True, blank=True)
     pay_time = models.CharField(max_length=32, null=True, blank=True)
-    created_datetime =  models.DateTimeField(auto_now_add=True)
-    updated_datetime =  models.DateTimeField(auto_now=True)
+    created_datetime = models.DateTimeField(auto_now_add=True)
+    updated_datetime = models.DateTimeField(auto_now=True)
+    payment_note = models.CharField(max_length=128, null=True, blank=True)
 
     @property
     def payment_info(self):
