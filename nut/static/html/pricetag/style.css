@@ -17,8 +17,32 @@ ul#tag_list > li {
   width: 400px;
   margin: 10px 10px;
   padding: 30px;
-  background: #fff;
   float: left;
+}
+ul#tag_list > li .tag-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+ul#tag_list > li .tag-container .cut-dot-left-top {
+  position: absolute;
+  left: -30px;
+  top: -30px;
+}
+ul#tag_list > li .tag-container .cut-dot-left-bottom {
+  position: absolute;
+  left: -30px;
+  bottom: -40px;
+}
+ul#tag_list > li .tag-container .cut-dot-right-top {
+  position: absolute;
+  right: -30px;
+  top: -30px;
+}
+ul#tag_list > li .tag-container .cut-dot-right-bottom {
+  position: absolute;
+  right: -30px;
+  bottom: -40px;
 }
 ul#tag_list > li .store {
   font-size: 16px;
@@ -58,12 +82,38 @@ ul#tag_list > li .info .price-wrapper .price .price-number {
     font-size: 0.3cm;
   }
   ul#tag_list > li {
-    height: 3cm;
-    width: 5cm;
-    margin: 0.13cm;
-    padding: 0.1cm;
+    position: relative;
+    height: 2.5cm;
+    width: 6cm;
+    margin: 0.2cm;
+    padding: 0.5cm;
     background: #fff;
     float: left;
+  }
+  ul#tag_list > li .tag-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  ul#tag_list > li .tag-container .cut-dot-right-top {
+    position: absolute;
+    right: -0.5cm;
+    top: -0.5cm;
+  }
+  ul#tag_list > li .tag-container .cut-dot-right-bottom {
+    position: absolute;
+    right: -0.5cm;
+    bottom: -0.8cm;
+  }
+  ul#tag_list > li .tag-container .cut-dot-left-top {
+    position: absolute;
+    left: -0.5cm;
+    top: -0.5cm;
+  }
+  ul#tag_list > li .tag-container .cut-dot-left-bottom {
+    position: absolute;
+    left: -0.5cm;
+    bottom: -0.8cm;
   }
   ul#tag_list > li .store {
     font-size: 0.6em;

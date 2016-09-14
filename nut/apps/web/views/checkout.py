@@ -1,7 +1,7 @@
 # encoding: utf-8
 import json
 
-from braces.views import AjaxResponseMixin, UserPassesTestMixin
+from braces.views import AjaxResponseMixin, UserPassesTestMixin,JSONResponseMixin
 from datetime import datetime
 
 from django.core.urlresolvers import reverse
@@ -15,25 +15,18 @@ from apps.core.extend.paginator import ExtentPaginator
 from apps.core.mixins.views import FilterMixin, SortMixin
 from apps.order.models import Order
 from apps.payment.models import PaymentLog
+from apps.web.forms.checkout import CheckDeskOrderPayForm
 
 
-class MyOrderUserPassesTestMixin(UserPassesTestMixin):
+class CheckDeskUserTestMixin(UserPassesTestMixin):
     def test_func(self, user):
-        idlist = [1,
-                  3,
-                  9020,
-                  1997153,
-                  2000859,
-                  1964551,
-                  412916,
-                  252792]
-        return user.id in idlist
+        return getattr(user, 'is_admin', None)
 
     def no_permissions_fail(self, request=None):
         raise Http404
 
 
-class AllOrderListView(MyOrderUserPassesTestMixin, FilterMixin, SortMixin, ListView):
+class AllOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, ListView):
     default_sort_params = ('created_datetime', 'desc')
     paginator_class = ExtentPaginator
     model = Order
@@ -78,7 +71,7 @@ class AllOrderListView(MyOrderUserPassesTestMixin, FilterMixin, SortMixin, ListV
         return context
 
 
-class SellerOrderListView(MyOrderUserPassesTestMixin, FilterMixin, SortMixin, ListView):
+class SellerOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, ListView):
     default_sort_params = ('created_datetime', 'desc')
     paginator_class = ExtentPaginator
     model = Order
@@ -121,7 +114,7 @@ class SellerOrderListView(MyOrderUserPassesTestMixin, FilterMixin, SortMixin, Li
         return context
 
 
-class SellerOrderDeleteView(MyOrderUserPassesTestMixin, DeleteView):
+class SellerOrderDeleteView(CheckDeskUserTestMixin, DeleteView):
 
     model = Order
     template_name = 'web/checkout/delete_order.html'
@@ -131,54 +124,27 @@ class SellerOrderDeleteView(MyOrderUserPassesTestMixin, DeleteView):
         return reverse('checkout_order_list')
 
 
-class CheckDeskPayView(MyOrderUserPassesTestMixin, AjaxResponseMixin, View):
-    model = Order
-    template_name = 'web/seller_management/sku/sku_edit_template.html'
-    http_method_names = ["post"]
-
-    # def __init__(self, *args, **kwargs):
-    #     super(CheckDeskPayView, self).__init__(*args, **kwargs)
-    #     order_id = int(self.request.POST.get('order_id', None))
-    #     self._order = get_object_or_404(Order, pk=order_id)
-    #     return self
+class CheckDeskPayView(CheckDeskUserTestMixin, JSONResponseMixin, AjaxResponseMixin, View):
 
     def get_order(self):
-        if getattr(self, '_order', None) is None:
-            order_id = int(self.request.POST.get('order_id', None))
-            self._order = get_object_or_404(Order, pk=order_id)
-
-        return self._order
-
-    def write_payment_log(self):
-        _order = self.get_order()
-        _payment_log, created = PaymentLog.objects.get_or_create(
-            order=_order,
-            payment_source=PaymentLog.cash_ccard,
-            payment_status=PaymentLog.paid
-        )
-        if created:
-            _payment_log.payment_notify_info = json.dumps(self.get_payment_info_dic())
-            _payment_log.pay_time = datetime.now()
-            _payment_log.save()
-
-        return
+        order_id = int(self.request.POST.get('order_id', None))
+        return get_object_or_404(Order, pk=order_id)
 
     def post_ajax(self, request, *args, **kwargs):
-        _order = self.get_order()
-        try:
-            _order.set_paid()
-            self.write_payment_log()
-            return JSONResponse(data={'result': 1}, status=200)
-        except Exception:
-            # TODO: more accurate exception later
-            return JSONResponse(data={'result': 0}, status=400)
-
-    def get_payment_info_dic(self):
-        _order = self.get_order()
-        return {
-            'payment_method': 'check desk',
-            'payment_operator_id': self.request.user.id,
-            'payment_operator_nick': self.request.user.nick,
-            'payment_operator_time': datetime.now().strftime('%Y:%M:%D %H:%M:%S'),
-            'payment_total': _order.order_total_value
-        }
+        _form = CheckDeskOrderPayForm(request.POST, request=request)
+        if _form.is_valid():
+            _form.save()
+            return self.render_json_response(
+                {
+                    'result': 1,
+                },
+                status=200
+            )
+        else:
+            return self.render_json_response(
+                {
+                    'result': 0,
+                    'message': _form.errors.as_text()
+                },
+                status=400
+            )

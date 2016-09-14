@@ -11,23 +11,15 @@
 
     <title>{% block title %}收银台{% endblock %}</title>
 
-{#    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">#}
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-{#    <link href="{% static 'thirdparty/animate/animate.min.css' %}" rel="stylesheet">#}
     <link href="{% static 'thirdparty/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
     <link href="{% static 'css/management/AdminLTE.min.css' %}" rel="stylesheet">
-{#    <link rel="stylesheet" href="{% static 'css/management/skins/_all-skins.min.css' %}">#}
-{#    <link rel="stylesheet" href="{% static 'css/management/switchery.min.css' %}">#}
-{#    <link href="{% static 'css/management/bootstrap-datetimepicker.min.css' %}" rel="stylesheet">#}
     <link href="{% static 'css/management/basic_management.css' %}" rel="stylesheet">
     <link href="{% static 'css/management/seller_management.css' %}" rel="stylesheet">
 
-
-    {% block css %}{% endblock %}
-{#    <script src="{% static 'js/management/restful/sentinel.js' %}" id="hero" ></script>#}
-{#    <script data-main="{% static 'js/management/restful/app.js' %}" src="{% static 'js/management/restful/require.js' %}" ></script>#}
-
+    {% block css %}
+    {% endblock %}
 
 </head>
 <body class="seller-management checkout-management">

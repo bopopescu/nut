@@ -17,12 +17,14 @@ class PaymentLog(BaseModel):
         (paid, _('paid')),
         (refund, _('refund')),
         ]
-    (weixin_pay, ali_pay, cash_ccard) = range(3)
+    (weixin_pay, ali_pay, cash, credit_card, other) = range(5)
 
     PAYMENT_SOURCE_CHOICES = [
         (weixin_pay, _('weixin payment')),
         (ali_pay, _('ali payment')),
-        (cash_ccard, _('cash and ccard'))
+        (cash, _('cash')),
+        (credit_card, _('credit card')),
+        (other, _('other'))
     ]
 
     order = models.ForeignKey('order.Order', related_name='payments')
@@ -31,8 +33,9 @@ class PaymentLog(BaseModel):
     payment_notify_info = models.TextField(null=True, blank=True)
     refund_notify_info = models.TextField(null=True, blank=True)
     pay_time = models.CharField(max_length=32, null=True, blank=True)
-    created_datetime =  models.DateTimeField(auto_now_add=True)
-    updated_datetime =  models.DateTimeField(auto_now=True)
+    created_datetime = models.DateTimeField(auto_now_add=True)
+    updated_datetime = models.DateTimeField(auto_now=True)
+    payment_note = models.CharField(max_length=128, null=True, blank=True)
 
     @property
     def payment_info(self):
