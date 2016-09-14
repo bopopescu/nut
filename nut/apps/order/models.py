@@ -193,6 +193,7 @@ class Order(BaseModel):
     created_datetime = models.DateTimeField(auto_now_add=True)
     updated_datetime = models.DateTimeField(auto_now=True)
 
+
     def __unicode__(self):
         return "<order number; {0}>".format(self.number)
 
@@ -351,6 +352,13 @@ class Order(BaseModel):
     def order_total_value(self):
         # final price customer need to paid
         return self.promo_total_price + self.shipping_fee
+
+    @property
+    def payment_source(self):
+        if self.payments.count():
+            return self.payments.all()[0].payment_source
+        else:
+            return None
 
 
 class OrderItem(BaseModel):

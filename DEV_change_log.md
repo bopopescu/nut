@@ -1,4 +1,5 @@
-5.  seller order list update - not finished 
+6.  category page, popular page , update -lq
+5.  seller order list update , add payment info 
 4.  check desk payment , add payment source , and payment note update
 3.  fix qrcode print -- lq
 2.  add payment_note field
