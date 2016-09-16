@@ -6,7 +6,11 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_anchen'
 from pprint import  pprint
 
 
-from apps.core.models import Entity , SKU
+from apps.core.models import Entity
+from apps.order.models import SKU
+
+
+
 
 
 # SYNCDB

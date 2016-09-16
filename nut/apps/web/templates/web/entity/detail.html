@@ -17,6 +17,8 @@
 {% block title %}{%  if entity.brand|length != 0 %}{{ entity.brand }} - {% endif %}{{ entity.title }}  {% if not entity.category.title == '+' %}- {{ entity.category }} {% endif %}- {{ entity.category.group }} | 精英消费指南 | 果库{% endblock %}
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick-theme.css' %}"/>
 {% endblock %}
 
 {% block body_class %}
@@ -47,9 +49,24 @@
 
                 <div class="entity-wrapper">
                     <div class="row">
-                        <div class="detail-pic-left col-xs-12 col-sm-6 col-md-7 col-lg-7">
+                        <div class="detail-pic-left hidden-xs col-sm-6 col-md-7 col-lg-7">
                             {% include "web/entity/partial/detail_pic.html" %}
                             {% include 'web/entity/partial/entity_other_pic.html' %}
+                        </div>
+
+                        <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
+                           <ul id="xs-detail-pic-wrapper">
+                               <li>
+                                   <img itemprop="image" class="img-responsive" src="{{ entity.chief_image|resize:"310" }}" alt="{{ entity.title }}" title="{{ entity.title }}">
+                               </li>
+                               {% if entity.detail_images %}
+                                   {% for img in entity.detail_images %}
+                                       <li>
+                                           <img itemprop="image" class="img-responsive" src="{{ img|resize:"310" }}" alt="{{ entity.title }}" title="{{ entity.title }}">
+                                       </li>
+                                   {% endfor %}
+                               {% endif %}
+                           </ul>
                         </div>
 
                         <div class="detail-info-center col-xs-12 col-sm-6 col-md-5 col-lg-5">

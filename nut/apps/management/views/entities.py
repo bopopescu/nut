@@ -575,9 +575,14 @@ class EntitySKUDeleteView(EditorRequiredMixin, DeleteView):
     template_name = 'management/entities/delete_sku.html'
 
     def get_entity(self):
-        entity_id =  self.kwargs.get('entity_id')
+        entity_id = self.kwargs.get('entity_id')
         entity = get_object_or_404(Entity, id=entity_id)
         return entity
+
+    def get_context_data(self, **kwargs):
+        context = super(EntitySKUDeleteView, self).get_context_data()
+        context['entity'] = self.get_entity()
+        return context
 
     def get_success_url(self):
         return reverse('management_entity_skus', args=[self.get_entity().id])

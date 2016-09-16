@@ -26,8 +26,13 @@ from apps.core.utils.http import JSONResponse
 from datetime import datetime, timedelta
 
 from apps.web.views.user import get_seller_entities
+from apps.payment.models import PaymentLog
 
 TIME_FORMAT = '%Y-%m-%d 8:00:00'
+
+
+def sum_price(sum, next_log):
+    return sum + next_log.order.order_total_value
 
 class SKUUserPassesTestMixin(UserPassesTestMixin):
     def test_func(self, user):
@@ -35,20 +40,27 @@ class SKUUserPassesTestMixin(UserPassesTestMixin):
         self.sku_id = self.kwargs.get('pk')
         sku = SKU.objects.get(pk=self.sku_id)
         return user.has_sku(sku)
+
     def no_permissions_fail(self, request=None):
         raise Http404
+
 
 class EntityUserPassesTestMixin(UserPassesTestMixin):
     def test_func(self, user):
         self.entity_id = self.kwargs.get('entity_id')
         entity = Entity.objects.get(id=self.entity_id)
-        return user.has_entity(entity)
+        return entity in user.seller_entities
+        # TODO : potential performance hit , when seller has lots of entities
+        # return user.has_entity(entity)
+
     def no_permissions_fail(self, request=None):
         raise Http404
+
 
 class IsAuthorizedSeller(UserPassesTestMixin):
     def test_func(self, user):
         return user.is_authorized_seller
+
     def no_permissions_fail(self, request=None):
         raise Http404
 
@@ -58,7 +70,7 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
     http_method_names = ['get']
     paginator_class = ExtentPaginator
     model = Entity
-    paginate_by = 10
+    paginate_by = 20
     template_name = 'web/seller_management/seller_management.html'
 
     def get(self, request, *args, **kwargs):
@@ -80,7 +92,7 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
                                   )
 
     def get_queryset(self):
-        qs = self.request.user.entities.all()
+        qs = self.request.user.seller_entities
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
     def get_context_data(self, **kwargs):
@@ -88,10 +100,11 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
         for entity in context['object_list']:
             entity.sku_list = entity.skus.all()
             entity.stock = entity.sku_list.aggregate(Sum('stock')).get('stock__sum', 0) or 0
-            entity.title=entity.title[:15]
+            entity.title = entity.title[:15]
         context['sort_by'] = self.get_sort_params()[0]
         context['extra_query'] = 'sort_by=' + context['sort_by']
         context['current_url'] = self.request.get_full_path()
+
         return context
 
     def filter_queryset(self, qs, filter_param):
@@ -119,16 +132,21 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
             pass
         return qs
 
-class QrcodeListView(IsAuthorizedSeller,  ListView):
-    http_method_names = ['get']
+class QrcodeListView(IsAuthorizedSeller,  AjaxResponseMixin,  JSONResponseMixin,  ListView):
     template_name = 'web/seller_management/qr_image.html'
 
     def get(self, request, *args, **kwargs):
-        self.object_list = self.get_queryset()
+        print_entities_jsonstring = request.GET.get('entity_ids',None)
+        if print_entities_jsonstring:
+            print_entities = json.loads(print_entities_jsonstring)
+            self.object_list = self.get_checked_entities(print_entities)
+        else:
+            self.object_list = self.get_queryset()
+
         host = request.get_host()
         for entity in self.object_list:
-            entity.title = entity.title[:15]
-            entity.qr_info = [entity.brand, entity.title, "", entity.price, host + entity.qrcode_url]
+          entity.title = entity.title[:15]
+          entity.qr_info = [entity.brand, entity.title, "", entity.price, host + entity.qrcode_url]
         return render_to_response(self.template_name, {'entities': self.object_list},
                                   context_instance=RequestContext(request)
                                   )
@@ -137,6 +155,9 @@ class QrcodeListView(IsAuthorizedSeller,  ListView):
         qs = self.request.user.entities.all()
         return qs
 
+    def get_checked_entities(self, checked_entities):
+        checked_entities_to_print = self.request.user.entities.all().filter(entity_hash__in=checked_entities)
+        return checked_entities_to_print
 
 
 class IsAuthorizedSeller(UserPassesTestMixin):
@@ -155,8 +176,8 @@ class SellerManagementAddEntity(Add_local):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request, data=request.POST, files=request.FILES)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('web_seller_management'))
+            entity = form.save()
+            return HttpResponseRedirect(reverse('web_seller_management_entity_edit', args=[entity.id]))
         return render(request, self.template_name, {'forms': form})
 
 @login_required
@@ -307,12 +328,14 @@ class SKUStatusChangeView(EntityUserPassesTestMixin, JSONResponseMixin, UpdateVi
 class SKUListView(EntityUserPassesTestMixin, SortMixin, ListView):
     default_sort_params = ('dstock', 'desc')
     template_name = 'web/seller_management/sku_list.html'
+
     def get_queryset(self):
         entity = get_object_or_404(Entity, id=self.entity_id)
         return self.sort_queryset(entity.skus.all(), *self.get_sort_params())
+
     def get_context_data(self, **kwargs):
         context = super(SKUListView, self).get_context_data(**kwargs)
-        context['entity']= get_object_or_404(Entity, id=self.entity_id)
+        context['entity'] = get_object_or_404(Entity, id=self.entity_id)
         context['sort_by'] = self.get_sort_params()[0]
         context['extra_query'] = 'sort_by=' + context['sort_by']
         # for sku in context['object_list']:
@@ -321,6 +344,7 @@ class SKUListView(EntityUserPassesTestMixin, SortMixin, ListView):
         #         new = item.replace('_', ':')
 
         return context
+
     def sort_queryset(self, qs, sort_by, order):
         if sort_by == 'dstock':
             qs = qs.order_by('-stock')
@@ -427,14 +451,14 @@ class OrderDetailView(UserPassesTestMixin,DetailView):
         self.order_number = self.kwargs.get('order_number')
         order = Order.objects.get(pk=self.order_number)
         for i in order.items.all():
-            if i.sku.entity in user.entities.all():
+            if i.sku.entity in user.seller_entities:
                 return True
         return False
     def no_permissions_fail(self, request=None):
         raise Http404
     def get_context_data(self, **kwargs):
         context = super(OrderDetailView, self).get_context_data(**kwargs)
-        context['order_item'] = context['order'].items.all().filter(sku__entity__in = self.request.user.entities.all())
+        context['order_item'] = context['order'].items.all().filter(sku__entity__in=self.request.user.seller_entities)
         #context['order_item'] = context['order'].items.all()
         context['order_number']=self.order_number
         context['promo_total_price']=context['order'].promo_total_price
@@ -450,17 +474,20 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
     model = Order
     paginate_by = 10
     template_name = 'web/seller_management/order_list.html'
+    wait_pay_status = [Order.address_unbind, Order.waiting_for_payment]
+    paid_status = [Order.paid, Order.send, Order.closed]
+    expired_status = [Order.expired]
+
 
     def get_queryset(self):
-        entities = self.request.user.entities.all()
-        order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
-        order_ids = order_items.values_list('order')
+        entities = self.request.user.seller_entities
+        order_ids = list(OrderItem.objects.filter(sku__entity_id__in=entities).values_list('order', flat=True))
         qs = Order.objects.filter(id__in=order_ids)
         self.status = self.request.GET.get('status')
         if self.status == 'waiting_for_payment':
-            qs = qs.filter(status__in=[1,2,4])
+            qs = qs.filter(status__in=self.wait_pay_status)
         elif self.status == 'paid':
-            qs = qs.filter(status=3)
+            qs = qs.filter(status__in=self.paid_status)
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
     def filter_queryset(self, qs, filter_param):
@@ -482,22 +509,56 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
         elif sort_by == 'unumber':
             qs = qs.order_by('number')
         elif sort_by == 'status':
-            qs =  qs.order_by('-status')
+            qs = qs.order_by('-status')
         else:
             pass
         return qs
 
+    def get_sum_payment(self, order_list):
+        sum = 0
+        for order in order_list:
+            if order.is_paid:
+                sum += order.order_total_value
+
+        return sum
+
+    def get_sum_payment_for_payment_source(self, order_list, payment_souce):
+        order_ids = list(order_list.values_list('id', flat=True))
+        logs = PaymentLog.objects.filter(payment_source=payment_souce, order_id__in=order_ids)
+        return reduce(sum_price, list(logs), 0)
+
+
+
+
     def get_context_data(self, **kwargs):
         context = super(SellerManagementOrders, self).get_context_data(**kwargs)
-        context['status']=self.status
-        for order in context['object_list']:
+        context['status'] = self.status
+        sum_payment_all = 0
+        sum_alipay = 0
+        sum_weixin = 0
+        sum_pos = 0
+        sum_cash = 0
+        sum_other = 0
+
+        order_list = context['object_list']
+
+        for order in order_list:
             order_items = order.items.all()
             order.skus = [order_item.sku for order_item in order_items]
-            order.count=order.items.all().count()
-            order.itemslist=order.items.all()[1:order.count]
+            order.count = order.items.all().count()
+            order.itemslist = order.items.all()[1:order.count]
+
+        context['sum_payment_all'] = self.get_sum_payment(order_list)
+        context['sum_payment_wx'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.weixin_pay)
+        context['sum_payment_ali'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.ali_pay)
+        context['sum_payment_cash'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.cash)
+        context['sum_payment_credit_card'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.credit_card)
+        context['sum_payment_other'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.other)
         return context
 
+
 class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
+
     default_sort_params = ('dsold_count', 'desc')
     http_method_names = ['get']
     paginator_class = ExtentPaginator
@@ -506,11 +567,11 @@ class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,
     template_name = 'web/seller_management/sold_entity_list.html'
 
     def get_queryset(self):
-        entities = self.request.user.entities.all()
+        entities = self.request.user.seller_entities
         self.order_items = OrderItem.objects.filter(sku__entity_id__in=entities)
         order_ids = self.order_items.values_list('order')
-        self.orders = Order.objects.filter(id__in=order_ids).filter(status__in=[3,5])
-        sku_ids = [ ]
+        self.orders = Order.objects.filter(id__in=order_ids).filter(status__in=[3, 5])
+        sku_ids = []
         if self.orders:
             for order in self.orders:
                 if sku_ids:
@@ -552,12 +613,12 @@ class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,
             sku.title=sku.entity.title[:15]
 
         d = {}
-        for ord in self.orders:
-            for order in ord.items.all():
-                if order.sku.id not in d.keys():
-                    d[order.sku.id] = order.volume
+        for order in self.orders:
+            for order_item in order.items.all():
+                if order_item.sku.id not in d.keys():
+                    d[order_item.sku.id] = order_item.volume
                 else:
-                    d[order.sku.id] += order.volume
+                    d[order_item.sku.id] += order_item.volume
         for object in context['object_list']:
             object.sold_count = d[object.id]
         context['sort_by'] = self.get_sort_params()[0]
@@ -572,8 +633,10 @@ class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,
             pass
         return qs
 
+
 class SellerManagementSkuSave(AjaxResponseMixin, JSONResponseMixin, View):
     model = SKU
+
     def save_update(self, id, price, stock):
         sku = SKU.objects.get(id=id)
         sku.promo_price = price

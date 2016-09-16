@@ -42,7 +42,7 @@ class WXPayment(BasePayment):
         headers = {'Content-Type':'application/xml'}
         response = requests.post(self._GATEWAY,
                                  data=self.get_request_xml_string(),
-                                 headers=headers)
+                                  headers=headers)
         return self._parse_prepay_id(response)
 
     def _parse_prepay_id(self, response):
@@ -52,7 +52,7 @@ class WXPayment(BasePayment):
 
 
     def get_payment_qrcode_url(self):
-        headers = {'Content-Type':'application/xml'}
+        headers = {'Content-Type': 'application/xml'}
         response = requests.post(self._GATEWAY,
                                  data=self.get_request_xml_string(),
                                  headers=headers)
@@ -86,7 +86,7 @@ class WXPayment(BasePayment):
         params['mch_id'] = WX_MCH_ID
         params['nonce_str'] = self.get_rd_string().upper()
         # params['body'] = self._order.payment_body
-        params['body'] = 'payment_body'
+        params['body'] = 'guoku:' + self._order.number
         params['out_trade_no'] = self._order.number
         params['total_fee'] = self.get_wx_order_total_fee()
         params['spbill_create_ip'] = self.get_spbill_ip()

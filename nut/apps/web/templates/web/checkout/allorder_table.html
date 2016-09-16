@@ -60,7 +60,7 @@
                 {% if order.is_paid %}
                     {{ order.get_status_display }}<br>
                 {% else %}
-                  <a class="btn newest-btn-green check-order-status" data-order-id="{{ order.id }}" data-url="{% url 'checkout_done' %}">{% trans '确认已收款' %}</a>
+                  <a class="btn newest-btn-green order-pay-button" data-order-id="{{ order.id }}" data-url="{% url 'checkout_done' %}">{% trans '确认已收款' %}</a>
                 {% endif %}
             </td>
         </tr>
@@ -108,7 +108,11 @@
     {% endfor %}
     </tbody>
 </table>
-
-{% block user_script %}
-
-{% endblock %}
+<script type="text/html" id="checkdesk_payment_input">
+    <ul class="payment-type-list">
+        <li><input type="radio" name="payment_type" value="2">现金</li>
+        <li><input type="radio" name="payment_type" value="3">信用卡</li>
+        <li><input type="radio" name="payment_type" value="4">其他</li>
+        <li><textarea id="payment_note"></textarea>付款备注</li>
+    </ul>
+</script>

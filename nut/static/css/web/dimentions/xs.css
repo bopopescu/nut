@@ -1374,8 +1374,10 @@ a.new-black-link:hover {
 @media (max-width: 768px) {
   #category-container #category-item-container .slick-prev:before,
   .new-index-body #index-banners .slick-prev:before,
+  #xs-detail-pic-wrapper .slick-prev:before,
   #category-container #category-item-container .slick-next:before,
-  .new-index-body #index-banners .slick-next:before {
+  .new-index-body #index-banners .slick-next:before,
+  #xs-detail-pic-wrapper .slick-next:before {
     display: none;
   }
   body.new-index-body #hot-entity-list .new-entity-item.hot-entity-item {
@@ -1397,6 +1399,28 @@ a.new-black-link:hover {
   }
 }
 @media (max-width: 767px) {
+  body.entity-body {
+    padding-top: 65px;
+  }
+  body.entity-body #xs-detail-pic-wrapper.slick-slider {
+    margin-bottom: 5px;
+  }
+  body.entity-body #xs-detail-pic-wrapper.slick-slider .slick-dots {
+    bottom: 0;
+  }
+  body.entity-body #xs-detail-pic-wrapper.slick-slider .slick-dots li.slick-active button:before {
+    color: #6192FF;
+  }
+  body.entity-body #xs-detail-pic-wrapper.slick-slider .slick-dots li button:before {
+    color: #BDBDBD;
+  }
+  body.entity-body #xs-detail-pic-wrapper li {
+    outline: none;
+  }
+  body.entity-body #xs-detail-pic-wrapper li img {
+    margin: 0 auto;
+    width: 100%;
+  }
   body.new-index-body {
     padding-top: 51px;
   }
@@ -1484,6 +1508,30 @@ a.new-black-link:hover {
   }
 }
 @media (max-width: 767px) {
+  .popular-entity-page {
+    padding-top: 70px;
+  }
+  .popular-entity-page .popular-entity-container .search-entity-item {
+    padding: 0;
+    margin: 0;
+  }
+  .popular-entity-page .popular-entity-container .search-entity-item .entity-four {
+    margin-bottom: 0;
+    border-radius: 0;
+  }
+  .category-detail-body .category-detail-container {
+    margin-top: 0;
+  }
+  .category-detail-body #category-entity-list {
+    padding: 0;
+  }
+  .category-detail-body #category-entity-list .search-entity-item {
+    padding: 0;
+  }
+  .category-detail-body #category-entity-list .search-entity-item .entity-four {
+    margin-bottom: 0;
+    border-radius: 0;
+  }
   .check-icon-wrapper .big-check-icon {
     font-size: 80px;
   }

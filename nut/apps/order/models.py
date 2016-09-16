@@ -4,6 +4,7 @@ import json
 from datetime import timedelta, datetime
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db import models
+from django.db.models import PROTECT
 from django.utils.translation import ugettext_lazy as _
 from django.utils.log import getLogger
 
@@ -33,6 +34,9 @@ class SKU(BaseModel):
     status = models.IntegerField(choices=SKU_STATUS_CHOICE, default=enable)
     objects = SKUManager()
 
+    class Meta:
+        ordering = ['-stock']
+
     def get_discount_rate(self):
         if self.origin_price == 0  or self.promo_price == 0 :
             return 1
@@ -52,6 +56,8 @@ class SKU(BaseModel):
 
     def save(self, *args, **kwargs):
         self.discount = self.get_discount_rate()
+        self.entity.updated_time = datetime.now()
+        self.entity.save()
         super(SKU, self).save(*args, **kwargs)
 
     # def toDict(self):
@@ -68,6 +74,9 @@ class SKU(BaseModel):
 
 class CartItem(BaseModel):
     user = models.ForeignKey('core.GKUser', related_name='cart_items',db_index=True)
+    # when delete sku , CartItem will be deleted
+    # this is django's default action
+    # in OrderItem , use PROTECT to prevent sku be deleted.
     sku = models.ForeignKey(SKU, db_index=True)
     volume = models.IntegerField(default=1)
     add_time = models.DateTimeField(auto_now_add=True, auto_now=True,db_index=True)
@@ -140,7 +149,7 @@ class ShippingAddress(BaseModel):
 
 
 class Order(BaseModel):
-    expire_in_minutes = 30
+    expire_in_minutes = 3000
 
     (   expired, #超时订单,失效订单
         address_unbind, #需要客户地址
@@ -184,6 +193,7 @@ class Order(BaseModel):
     created_datetime = models.DateTimeField(auto_now_add=True)
     updated_datetime = models.DateTimeField(auto_now=True)
 
+
     def __unicode__(self):
         return "<order number; {0}>".format(self.number)
 
@@ -194,6 +204,16 @@ class Order(BaseModel):
 
     def generate_alipay_payment_url(self):
         return AliPayPayment(order=self).payment_url
+
+    @property
+    def realtime_status(self):
+        # a wrapper around status field
+        # a lot effort and complexity is on the expire status
+        # TODO : need refactor.
+        if self.should_expired:
+            return Order.expired
+        else:
+            return self.status
 
     @property
     def alipay_qrcode_frame_page_url(self):
@@ -303,7 +323,7 @@ class Order(BaseModel):
 
     @property
     def payment_body(self):
-        items = map(lambda item:item.title , self.items.all())
+        items = map(lambda item:item.title, self.items.all())
         return '\r\n'.join(items)
 
 
@@ -333,11 +353,20 @@ class Order(BaseModel):
         # final price customer need to paid
         return self.promo_total_price + self.shipping_fee
 
+    @property
+    def payment_source(self):
+        if self.payments.count():
+            return self.payments.all()[0].payment_source
+        else:
+            return None
+
 
 class OrderItem(BaseModel):
     order = models.ForeignKey(Order, related_name='items')
     customer = models.ForeignKey('core.GKUser', related_name='order_items', db_index=True)
-    sku = models.ForeignKey(SKU, db_index=True,)
+    # use PROTECT to prevent OrderItem and SKU deletion ,
+    # when user has already checkout the order
+    sku = models.ForeignKey(SKU, db_index=True, on_delete=PROTECT)
     volume = models.IntegerField(default=1)
     add_time = models.DateTimeField(auto_now_add=True, auto_now=True, db_index=True)
     grand_total_price = models.FloatField(null=False)

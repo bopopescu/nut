@@ -1,6 +1,9 @@
 {% extends 'web/seller_management/seller_management_base.html' %}
 {% load i18n %}
 {% load staticfiles i18n %}
+ {% block css %}
+         <link href="{% static 'js/management/libs/datepicker/datepicker.css' %}" rel="stylesheet">
+ {% endblock %}
 
 {% block content %}
     <section class="content-header">
@@ -56,6 +59,7 @@
     <script src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>
     <script src="{% static 'js/management/util.js' %}"></script>
     <script src="{% static 'js/management/moment.js' %}"></script>
+    <script src="{% static 'js/management/libs/datepicker/datepicker.js' %}"></script>
 
 {#     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>#}
     <script src="{% static 'js/management/manage_search.js' %}" type="application/javascript"></script>
