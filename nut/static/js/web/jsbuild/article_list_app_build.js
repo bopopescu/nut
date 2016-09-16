@@ -2009,7 +2009,7 @@ define('subapp/selection_article_loader',['component/ajaxloader', 'utils/browser
             this.hideNextButton();
         },
         getRefreshTime: function () {
-            return $('#selection_article_list').attr('refresh-time');
+            return $('#custom_selection_article_list').attr('refresh-time');
         },
 
         _shouldLoad: function () {

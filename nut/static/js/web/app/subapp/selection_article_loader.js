@@ -88,7 +88,7 @@ define(['component/ajaxloader', 'utils/browser', 'libs/fastdom'
             this.hideNextButton();
         },
         getRefreshTime: function () {
-            return $('#selection_article_list').attr('refresh-time');
+            return $('#custom_selection_article_list').attr('refresh-time');
         },
 
         _shouldLoad: function () {
