@@ -1964,7 +1964,7 @@ define('subapp/selection_article_loader',['component/ajaxloader', 'utils/browser
             if (data['errors'] === 0) {
 
                 fastdom.defer(30, function () {
-                    $(data['html']).appendTo($('#selection_article_list'));
+                    $(data['html']).appendTo($('#custom_selection_article_list'));
                     if (data['has_next_page'] === false) {
                         that.handleLastPage();
                     }
