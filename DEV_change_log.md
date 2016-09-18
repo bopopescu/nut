@@ -1,5 +1,5 @@
 
-2. sku default attr 
+2. sku default attr handle . 
 1. special seller, (fugu@guoku.com) , in seller management , can change entity creator
 
 ==========================================
