@@ -1768,6 +1768,26 @@ body.seller-management #seller_management_entity_price .sku-save-btn {
 .checkout-management .order-search-wrapper input.guoku_search_input {
   padding-left: 24px;
 }
+.checkout-management .checkdesk-payment-dialog .modal-body {
+  padding: 30px;
+}
+.checkout-management .checkdesk-payment-dialog .payment-type-list li {
+  height: 60px;
+  line-height: 60px;
+  border-bottom: 1px solid #ebebeb;
+}
+.checkout-management .checkdesk-payment-dialog .payment-type-list li span {
+  margin-left: 15px;
+}
+.checkout-management .checkdesk-payment-dialog #payment_note {
+  width: 100%;
+  resize: none;
+  border: 1px solid #F2F2F2;
+}
+.checkout-management .checkdesk-payment-dialog #payment_note:focus {
+  outline: none;
+  border: 1px solid #BDBDBD;
+}
 .test {
   color: black;
 }
