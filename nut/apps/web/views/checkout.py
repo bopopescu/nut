@@ -13,9 +13,13 @@ from django.shortcuts import get_object_or_404
 from apps.core.utils.http import JSONResponse
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.mixins.views import FilterMixin, SortMixin
-from apps.order.models import Order
+from apps.order.models import Order, OrderItem
 from apps.payment.models import PaymentLog
 from apps.web.forms.checkout import CheckDeskOrderPayForm
+
+
+def sum_price(sum, next_log):
+    return sum + next_log.order.order_total_value
 
 
 class CheckDeskUserTestMixin(UserPassesTestMixin):
@@ -140,6 +144,94 @@ class CheckDeskPayView(CheckDeskUserTestMixin, JSONResponseMixin, AjaxResponseMi
             )
 
 
-class CheckDeskOrderStatisticView(View):
+class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin,  ListView):
 
-    pass
+    default_sort_params = ('dnumber', 'desc')
+    http_method_names = ['get']
+    paginator_class = ExtentPaginator
+    model = Order
+    paginate_by = 10
+    template_name = 'web/checkout/order_statistic.html'
+    wait_pay_status = [Order.address_unbind, Order.waiting_for_payment]
+    paid_status = [Order.paid, Order.send, Order.closed]
+    expired_status = [Order.expired]
+
+    def get_queryset(self):
+        order_ids = list(OrderItem.objects.values_list('order', flat=True))
+        qs = Order.objects.filter(id__in=order_ids)
+        self.status = self.request.GET.get('status')
+
+        if self.status == 'waiting_for_payment':
+            qs = qs.filter(status__in=self.wait_pay_status)
+        elif self.status == 'paid':
+            qs = qs.filter(status__in=self.paid_status)
+
+        qs = self.apply_date_filter(qs)
+        return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
+
+    def filter_queryset(self, qs, filter_param):
+        filter_field, filter_value = filter_param
+        if filter_field == 'number':
+            qs = qs.filter(number__icontains=filter_value.strip())
+        else:
+            pass
+        return qs
+
+    def sort_queryset(self, qs, sort_by, order):
+        if sort_by == 'dprice':
+            qs = sorted(qs, key=lambda x: x.order_total_value, reverse=True)
+        elif sort_by == 'uprice':
+            qs = sorted(qs, key=lambda x: x.order_total_value, reverse=False)
+        elif sort_by == 'dnumber':
+            qs = qs.order_by('-number')
+        elif sort_by == 'unumber':
+            qs = qs.order_by('number')
+        elif sort_by == 'status':
+            qs = qs.order_by('-status')
+        else:
+            pass
+        return qs
+
+    def get_sum_payment(self, order_list):
+        sum = 0
+        for order in order_list:
+            if order.is_paid:
+                sum += order.order_total_value
+        return sum
+
+    def get_sum_payment_for_payment_source(self, order_list, payment_souce):
+        order_ids = list(order_list.values_list('id', flat=True))
+        logs = PaymentLog.objects.filter(payment_source=payment_souce, order_id__in=order_ids)
+        return reduce(sum_price, list(logs), 0)
+
+    def get_context_data(self, **kwargs):
+        context = super(CheckDeskOrderStatisticView, self).get_context_data(**kwargs)
+        context['status'] = self.status
+
+        paged_order_list = context['object_list']
+
+        for order in paged_order_list:
+            order_items = order.items.all()
+            order.skus = [order_item.sku for order_item in order_items]
+            order.count = order.items.all().count()
+            order.itemslist = order.items.all()[1:order.count]
+
+        order_list = self.get_queryset()
+        context['sum_payment_all'] = self.get_sum_payment(order_list)
+        context['sum_payment_wx'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.weixin_pay)
+        context['sum_payment_ali'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.ali_pay)
+        context['sum_payment_cash'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.cash)
+        context['sum_payment_credit_card'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.credit_card)
+        context['sum_payment_other'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.other)
+        return context
+
+    def apply_date_filter(self, order_list):
+        start_date = self.request.GET.get('start_date', None)
+        end_date = self.request.GET.get('end_date', None)
+
+        if start_date:
+            order_list = order_list.filter(created_datetime__gte=start_date)
+        if end_date:
+            order_list = order_list.filter(created_datetime__lte=end_date)
+
+        return order_list

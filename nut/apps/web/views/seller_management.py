@@ -502,6 +502,7 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
         else:
             pass
         return qs
+
     def sort_queryset(self, qs, sort_by, order):
         if sort_by == 'dprice':
             qs = sorted(qs, key=lambda x: x.order_total_value, reverse=True)
