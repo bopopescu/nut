@@ -484,10 +484,13 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
         order_ids = list(OrderItem.objects.filter(sku__entity_id__in=entities).values_list('order', flat=True))
         qs = Order.objects.filter(id__in=order_ids)
         self.status = self.request.GET.get('status')
+
         if self.status == 'waiting_for_payment':
             qs = qs.filter(status__in=self.wait_pay_status)
         elif self.status == 'paid':
             qs = qs.filter(status__in=self.paid_status)
+
+        qs = self.apply_date_filter(qs)
         return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
 
     def filter_queryset(self, qs, filter_param):
@@ -556,6 +559,17 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
         context['sum_payment_credit_card'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.credit_card)
         context['sum_payment_other'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.other)
         return context
+
+    def apply_date_filter(self, order_list):
+        start_date = self.request.GET.get('start_date', None)
+        end_date = self.request.GET.get('end_date', None)
+
+        if start_date:
+            order_list = order_list.filter(created_datetime__gte=start_date)
+        if end_date:
+            order_list = order_list.filter(created_datetime__lte=end_date)
+
+        return order_list
 
 
 class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):

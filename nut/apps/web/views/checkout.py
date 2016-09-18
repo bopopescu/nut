@@ -26,7 +26,7 @@ class CheckDeskUserTestMixin(UserPassesTestMixin):
         raise Http404
 
 
-class AllOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, ListView):
+class CheckDeskAllOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, ListView):
     default_sort_params = ('created_datetime', 'desc')
     paginator_class = ExtentPaginator
     model = Order
@@ -61,7 +61,7 @@ class AllOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, ListView)
             return qs
 
     def get_context_data(self, **kwargs):
-        context = super(AllOrderListView, self).get_context_data(**kwargs)
+        context = super(CheckDeskAllOrderListView, self).get_context_data(**kwargs)
         context['status']=self.status
         for order in context['object_list']:
             order_items = order.items.all()
@@ -71,7 +71,7 @@ class AllOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, ListView)
         return context
 
 
-class SellerOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, ListView):
+class CheckoutOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, ListView):
     default_sort_params = ('created_datetime', 'desc')
     paginator_class = ExtentPaginator
     model = Order
@@ -102,7 +102,7 @@ class SellerOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, ListVi
         return qs
 
     def get_context_data(self, **kwargs):
-        context = super(SellerOrderListView, self).get_context_data(**kwargs)
+        context = super(CheckoutOrderListView, self).get_context_data(**kwargs)
         context['input_value'] = self.request.GET.get('number')
         context['filter_input_value'] = self.request.GET.get('filtervalue', '')
         context['status'] = self.status
@@ -112,16 +112,6 @@ class SellerOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, ListVi
             order.count = order.items.all().count()
             order.itemslist = order.items.all()[1:order.count]
         return context
-
-
-class SellerOrderDeleteView(CheckDeskUserTestMixin, DeleteView):
-
-    model = Order
-    template_name = 'web/checkout/delete_order.html'
-    pk_url_kwarg = 'order_number'
-
-    def get_success_url(self):
-        return reverse('checkout_order_list')
 
 
 class CheckDeskPayView(CheckDeskUserTestMixin, JSONResponseMixin, AjaxResponseMixin, View):
@@ -148,3 +138,8 @@ class CheckDeskPayView(CheckDeskUserTestMixin, JSONResponseMixin, AjaxResponseMi
                 },
                 status=400
             )
+
+
+class CheckDeskOrderStatisticView(View):
+
+    pass
