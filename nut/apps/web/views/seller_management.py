@@ -417,12 +417,15 @@ class SKUCreateView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView):
             return JSONResponse(data={'result': -1},status=406)
         else :
             return JSONResponse(data={'result': 0},status=400)
+
     def get_success_url(self):
         return reverse('sku_list_management', args=[self.entity_id])
+
     def get_context_data(self, **kwargs):
         context = super(SKUCreateView,self).get_context_data(**kwargs)
         context['entity_id']=self.entity_id
         return context
+
     def get_initial(self):
         initial_price = Entity.objects.get(pk=self.entity_id).price
         return {
