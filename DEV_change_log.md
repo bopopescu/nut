@@ -1,3 +1,9 @@
+3.  fix web bug -- lq 
+2.  add payment method selection in checkdesk 
+1.  order statistics in checkout ui
+
+=================================================
+
 6.  category page, popular page , update -lq
 5.  seller order list update , add payment info 
 4.  check desk payment , add payment source , and payment note update

@@ -41,7 +41,9 @@
 
     <tr class="order-cell-result">
             <td colspan="3" class="result-title">
-                汇总
+               开始日期 <input data-provide="datepicker" data-date-format="yyyy-mm-dd" id="start_date">
+               结束日期 <input data-provide="datepicker" data-date-format="yyyy-mm-dd" id="end_date">
+               <button data_url="{{ request.path }}" id="date_filter_button">筛选</button>
             </td>
             <td colspan="2">{{ sum_payment_all }}</td>
             <td>{{ sum_payment_ali }}</td>

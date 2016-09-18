@@ -59,6 +59,8 @@
             <td class="no-border-cell">
                 {% if order.is_paid %}
                     {{ order.get_status_display }}<br>
+                {% elif order.should_expired %}
+                    {% trans '订单已经过期' %}
                 {% else %}
                   <a class="btn newest-btn-green order-pay-button" data-order-id="{{ order.id }}" data-url="{% url 'checkout_done' %}">{% trans '确认已收款' %}</a>
                 {% endif %}
@@ -110,9 +112,11 @@
 </table>
 <script type="text/html" id="checkdesk_payment_input">
     <ul class="payment-type-list">
-        <li><input type="radio" name="payment_type" value="2">现金</li>
-        <li><input type="radio" name="payment_type" value="3">信用卡</li>
-        <li><input type="radio" name="payment_type" value="4">其他</li>
-        <li><textarea id="payment_note"></textarea>付款备注</li>
+        <li><input type="radio" name="payment_type" value="2"><span>现金</span></li>
+        <li><input type="radio" name="payment_type" value="3"><span>信用卡</span></li>
+        <li><input type="radio" name="payment_type" value="4"><span>其他</span></li>
     </ul>
+     <p>付款备注</p>
+    <textarea id="payment_note" cols="40" rows="4"></textarea>
+
 </script>

@@ -40,6 +40,8 @@ class CheckDeskOrderPayForm(forms.Form):
 
     def clean(self):
         cleaned_data = super(CheckDeskOrderPayForm, self).clean()
+        if self.cleaned_data.get('payment_type') is None:
+            raise ValidationError(_('请选择付款方式'))
         payment_type = int(self.cleaned_data.get('payment_type'))
         payment_note = self.cleaned_data.get('payment_note')
         if payment_type == PaymentLog.other and len(payment_note) == 0:
