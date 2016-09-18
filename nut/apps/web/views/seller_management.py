@@ -3,7 +3,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from apps.core.forms.entity import EntityImageForm, AddEntityForm, AddEntityFormForSeller, CreateEntityFormForSeller
 from apps.core.extend.paginator import ExtentPaginator
-from apps.core.forms.entity import EditEntityForm
+from apps.core.forms.entity import EditEntityForm, ChangeCreatorEditEntityForm
 from apps.core.mixins.views import FilterMixin, SortMixin
 from apps.management.views.entities import Add_local, Import_entity
 from apps.order.models import OrderItem
@@ -206,6 +206,8 @@ def image(request, entity_id,
         },
         context_instance=RequestContext(request)
     )
+
+
 @login_required
 def seller_management_entity_edit(request, entity_id, template='web/seller_management/edit_entity.html'):
     #Todo 拆分模版
@@ -226,11 +228,22 @@ def seller_management_entity_edit(request, entity_id, template='web/seller_manag
     }
 
     if request.method == "POST":
-        _forms = EditEntityForm(
-            entity,
-            request.POST,
-            initial=data
-        )
+        # fugu is a special seller, use for guoku op to manage offline entity list
+
+        if request.user.email == 'fugu@guoku.com':
+            _forms = ChangeCreatorEditEntityForm(
+                entity,
+                request.POST,
+                initial=data,
+                request=request
+            )
+        else:
+            _forms = EditEntityForm(
+                entity,
+                request.POST,
+                initial=data
+            )
+
         _update = 1
 
         if _forms.is_valid():
@@ -238,10 +251,18 @@ def seller_management_entity_edit(request, entity_id, template='web/seller_manag
             _update = 0
 
     else:
-        _forms = EditEntityForm(
-            entity=entity,
-            initial=data
-        )
+
+        if request.user.email == 'fugu@guoku.com':
+            _forms = ChangeCreatorEditEntityForm(
+                entity,
+                initial=data,
+                request=request
+            )
+        else:
+            _forms = EditEntityForm(
+                entity=entity,
+                initial=data
+            )
 
     return render_to_response(
         template,

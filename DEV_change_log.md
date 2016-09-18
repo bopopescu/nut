@@ -1,3 +1,11 @@
+
+1. special seller, (fugu@guoku.com) , in seller management , can change entity creator
+
+==========================================
+merged to master 9/18 
+
+
+
 3.  fix web bug -- lq 
 2.  add payment method selection in checkdesk 
 1.  order statistics in checkout ui

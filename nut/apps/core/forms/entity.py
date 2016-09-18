@@ -758,7 +758,6 @@ class AddEntityFormForSeller(AddEntityForm):
         return entity
 
 
-
 class EditEntityForm(EntityForm):
     # def clean_status(self):
     #     status = self.cleaned_data.get('status')
@@ -791,6 +790,33 @@ class EditEntityForm(EntityForm):
         self.entity.save()
 
         return self.entity
+
+
+class ChangeCreatorEditEntityForm(EditEntityForm):
+    '''
+        this Form is only for sellermanagement use ,
+        and only for fugu@guoku.com user,
+        this is a special hack.
+    '''
+
+    def clean_creator(self):
+        return self.cleaned_data.get('creator')
+
+    def __init__(self, *args, **kwargs):
+        request = kwargs.pop('request')
+        super(ChangeCreatorEditEntityForm, self).__init__(*args, **kwargs)
+        entity = self.entity
+        if request is None:
+            raise Exception
+        choices = [(entity.user.id, entity.user.nick), (request.user.id, request.user.nick)]
+        self.fields['creator'] = forms.ChoiceField(choices=choices, widget=forms.Select(
+                                                          attrs={'class': 'form-control'}),)
+
+    def save(self):
+        entity = super(ChangeCreatorEditEntityForm, self).save()
+        entity.user_id = int(self.cleaned_data.get('creator'))
+        entity.save()
+        return entity
 
 
 # TODO:
