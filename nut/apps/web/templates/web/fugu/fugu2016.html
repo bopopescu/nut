@@ -1,0 +1,101 @@
+{% extends 'web/base.html' %}
+
+{% load i18n staticfiles %}
+
+
+{% block meta-og %}
+    <meta property="og:title" content="复古大会2016" >
+    <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
+    <meta property="og:description" content="复古大会2016">
+{% endblock %}
+
+{% block meta-common %}
+    <meta name="title"  content="复古大会2016">
+    <meta name="keywords" content="复古大会2016">
+    <meta name="description" content="复古大会2016">
+{% endblock %}
+
+{% block title %}复古大会2016{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/fullpage/jquery.fullPage.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/web/fugu2016.css' %}">
+{% endblock %}
+
+{% block body_class %}fugu-body{% endblock %}
+
+{% block weixin_share_img %}
+    <div id='wx_logo' style='margin:0 auto;display:none;'>
+{#    分享入口页面时展示的图片#}
+        <img src="{% static 'images/chunjie/entrance.jpg' %}" />
+    </div>
+{% endblock %}
+
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+<div id="test">
+	<div class="section section1">
+        page1
+    </div>
+	<div class="section section2">
+        page2
+    </div>
+	<div class="section section3">
+        page3
+    </div>
+	<div class="section section4">
+        page4
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
+
+{% block basic_script %}
+
+    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'thirdparty/fullpage/jquery.easings.min.js' %}"></script>
+    <script src="{% static 'thirdparty/fullpage/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'thirdparty/fullpage/jquery.fullPage.js' %}"></script>
+
+{% endblock %}
+
+
+{% block script %}
+    <script>
+    $(function(){
+	$('#test').fullpage({
+        sectionsColor: ['#1bbc9b', '#4BBFC3', '#7BAABE', '#f90'],
+		'navigation': true
+    });
+});
+
+
+    </script>
+{% endblock %}
+
+
+{% block ga_script %}
+    <!-- Google Analytics -->
+{#    <script language="javascript">#}
+{##}
+{#    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){#}
+{#    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),#}
+{#    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)#}
+{#    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');#}
+{##}
+{#    ga('create', 'UA-24696872-5', 'auto');#}
+{#    ga('send', 'pageview');#}
+{#    ga('set', '&uid', '412916' )#}
+{##}
+{#    </script>#}
+{% endblock %}
+
