@@ -1747,3 +1747,7 @@ a.new-black-link:hover {
   border: 10px solid black;
   padding: 0 20px;
 }
+.section1 {
+  background-repeat: no-repeat;
+  background-position: center center;
+}
