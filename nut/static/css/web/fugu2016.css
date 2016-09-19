@@ -1741,7 +1741,8 @@ a.new-black-link:hover {
   display: block;
   box-sizing: border-box;
 }
-.section2 {
+.section2,
+.section4 {
   border: 10px solid black;
   padding: 0 20px;
 }
