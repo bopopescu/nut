@@ -1732,6 +1732,19 @@ a.new-black-link:hover {
   background-color: rgba(0, 0, 0, 0.4);
 }
 .section {
-  text-align: center;
   font-weight: 500;
+}
+.section2.fp-table,
+.section4.fp-table,
+.section6.fp-table,
+.section8.fp-table {
+  display: block;
+  box-sizing: border-box;
+}
+.section2 .fp-tableCell {
+  vertical-align: top;
+}
+.section2 {
+  border: 10px solid black;
+  padding: 20px;
 }
