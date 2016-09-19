@@ -179,11 +179,59 @@
     $(function(){
 	$('#fugu2016_container').fullpage({
         sectionsColor: ['purple', '#FFFFFF', '#7BAABE', '#FFFFFF','#FFFFFF','#FFFFFF','#1bbc9b','#FFFFFF'],
+        anchors:['section1','section2','section3','section4','section5','section6','section7','section8'],
         css3:'true',
+        navigation:'true',
         afterLoad:function(link,index){
             switch(index){
                 case 1:
-                    move('.section1').set('background-color','#FFFFFF').duration('3s').delay('5s').end();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    move('.section5 .wechat-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
+                    move('.section5 .download-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+                default:
+                    break;
+
+
+            }
+        },
+
+        onLeave:function(link,index){
+            switch(index){
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    move('.section5 .wechat-wrapper').set('opacity', 0).y(-5).end();
+                    move('.section5 .download-wrapper').set('opacity', 0).y(-5).end();
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+                default:
+                    break;
+
             }
         }
     });

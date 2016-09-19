@@ -1784,6 +1784,7 @@ a.new-black-link:hover {
 .section5 .ad-wrapper .download-wrapper,
 .section5 .ad-wrapper .wechat-wrapper {
   display: inline-block;
+  opacity: 0;
 }
 .section5 .ad-wrapper .download-wrapper img,
 .section5 .ad-wrapper .wechat-wrapper img {
