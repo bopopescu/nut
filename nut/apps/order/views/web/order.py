@@ -22,7 +22,7 @@ class OrderAlipayQrcodeView(DetailView):
         return get_object_or_404(Order, customer=self.request.user, pk=pk)
 
 
-class UserOrderView(LoginRequiredMixin, DetailView):
+class UserOrderView(DetailView):
     context_object_name = 'order'
     template_name = 'web/order/order_detail.html'
 
