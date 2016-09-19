@@ -1731,6 +1731,20 @@ a.new-black-link:hover {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
 }
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
 .section {
   font-weight: 500;
 }

@@ -2,7 +2,6 @@
 
 {% load i18n staticfiles %}
 
-
 {% block meta-og %}
     <meta property="og:title" content="复古大会2016" >
     <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
@@ -16,6 +15,10 @@
 {% endblock %}
 
 {% block title %}复古大会2016{% endblock %}
+
+{% block css_basic %}
+    <link rel="icon" type="image/ico" href="{% static 'images/favicon.ico' %}">
+{% endblock %}
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/fullpage/jquery.fullPage.css' %}">
