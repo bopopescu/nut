@@ -2,11 +2,12 @@
 @import "../lib/var.less";
 @import "../lib/normal.less";
 @import "../lib/widgets.less";
+
 .section{
   font-weight: 500;
 }
 .section2.fp-table,.section4.fp-table,.section6.fp-table,.section8.fp-table{
-  display: block;
+  display: inline-block;
   box-sizing: border-box;
 }
 .section2 .fp-tableCell{
@@ -16,7 +17,13 @@
   border:10px solid black;
   padding:0 20px;
 }
-.section1{
+.section1,.section3{
   background-repeat: no-repeat;
   background-position: center center;
+}
+.section2,.section4{
+  .design-week-logo{
+    position: fixed;
+    right:30px;
+  }
 }
