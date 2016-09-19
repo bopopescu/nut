@@ -144,7 +144,7 @@
         </ul>
     </div>
 	<div class="section section7" style="background-image: url({% static 'images/guoku-logo.png' %})">
-
+        <h1>GUOKU.COM</h1>
     </div>
 	<div class="section section8">
         <h2>
@@ -178,7 +178,7 @@
     <script>
     $(function(){
 	$('#fugu2016_container').fullpage({
-        sectionsColor: ['purple', '#FFFFFF', '#7BAABE', '#FFFFFF','#FFFFFF','#FFFFFF','#1bbc9b','#FFFFFF'],
+        sectionsColor: ['purple', '#FFFFFF', '#7BAABE', '#FFFFFF','#FFFFFF','#FFFFFF','red','#FFFFFF'],
         anchors:['section1','section2','section3','section4','section5','section6','section7','section8'],
         css3:'true',
         navigation:'true',
@@ -199,6 +199,9 @@
                 case 6:
                     break;
                 case 7:
+                        move('.section7').set('background-size',0).duration('3s').end();
+                        move('.section7').set('background-color','#FFFFFF').duration('1.5s').end();
+                        move('.section7 h1').set('opacity',1).duration('1.5s').end();
                     break;
                 case 8:
                     break;
@@ -226,6 +229,9 @@
                 case 6:
                     break;
                 case 7:
+                         move('.section7').set('background-size','initial').end();
+                          move('.section7').set('background-color','red').duration('1.5s').end();
+                         move('.section7 h1').set('opacity', 0).end();
                     break;
                 case 8:
                     break;

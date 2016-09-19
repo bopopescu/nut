@@ -1768,6 +1768,11 @@ a.new-black-link:hover {
   background-repeat: no-repeat;
   background-position: center center;
 }
+.section2 .design-week-logo,
+.section4 .design-week-logo {
+  position: fixed;
+  right: 30px;
+}
 .section5 {
   background-repeat: no-repeat;
   background-position: center 30%;
@@ -1798,8 +1803,6 @@ a.new-black-link:hover {
 .section5 .ad-wrapper .download-wrapper {
   margin-right: 30px;
 }
-.section2 .design-week-logo,
-.section4 .design-week-logo {
-  position: fixed;
-  right: 30px;
+.section7 h1 {
+  opacity: 0;
 }
