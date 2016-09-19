@@ -169,6 +169,7 @@
     <script src="{% static 'thirdparty/fullpage/jquery.easings.min.js' %}"></script>
     <script src="{% static 'thirdparty/fullpage/jquery.slimscroll.min.js' %}"></script>
     <script src="{% static 'thirdparty/fullpage/jquery.fullPage.js' %}"></script>
+    <script src="{% static 'thirdparty/move/move.min.js' %}"></script>
 
 {% endblock %}
 
@@ -177,8 +178,14 @@
     <script>
     $(function(){
 	$('#fugu2016_container').fullpage({
-        sectionsColor: ['#1bbc9b', '#FFFFFF', '#7BAABE', '#FFFFFF','#FFFFFF','#FFFFFF','#1bbc9b','#FFFFFF'],
-        css3:'true'
+        sectionsColor: ['purple', '#FFFFFF', '#7BAABE', '#FFFFFF','#FFFFFF','#FFFFFF','#1bbc9b','#FFFFFF'],
+        css3:'true',
+        afterLoad:function(link,index){
+            switch(index){
+                case 1:
+                    move('.section1').set('background-color','#FFFFFF').duration('3s').delay('5s').end();
+            }
+        }
     });
 });
 
