@@ -1741,10 +1741,7 @@ a.new-black-link:hover {
   display: block;
   box-sizing: border-box;
 }
-.section2 .fp-tableCell {
-  vertical-align: top;
-}
 .section2 {
   border: 10px solid black;
-  padding: 20px;
+  padding: 0 20px;
 }
