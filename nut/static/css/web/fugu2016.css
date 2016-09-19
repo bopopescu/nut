@@ -1742,7 +1742,8 @@ a.new-black-link:hover {
   box-sizing: border-box;
 }
 .section2,
-.section4 {
+.section4,
+.section6 {
   border: 10px solid black;
   padding: 0 20px;
 }
