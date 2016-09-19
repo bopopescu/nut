@@ -199,9 +199,9 @@
                 case 6:
                     break;
                 case 7:
-                        move('.section7').set('background-size',0).duration('3s').end();
-                        move('.section7').set('background-color','#FFFFFF').duration('1.5s').end();
-                        move('.section7 h1').set('opacity',1).duration('1.5s').end();
+                        move('.section7').delay('3s').set('background-size',0).end();
+                        move('.section7').delay('0s').set('background-color','#FFFFFF').end();
+                        move('.section7 h1').delay('0.5s').set('opacity',1).duration('1.5s').end();
                     break;
                 case 8:
                     break;
@@ -229,9 +229,9 @@
                 case 6:
                     break;
                 case 7:
-                         move('.section7').set('background-size','initial').end();
-                          move('.section7').set('background-color','red').duration('1.5s').end();
-                         move('.section7 h1').set('opacity', 0).end();
+                         move('.section7').delay('0s').set('background-size','initial').end();
+                          move('.section7').delay('0s').set('background-color','red').duration('1.5s').end();
+                         move('.section7 h1').delay('0s').set('opacity', 0).end();
                     break;
                 case 8:
                     break;
