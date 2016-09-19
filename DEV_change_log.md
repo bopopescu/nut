@@ -1,4 +1,4 @@
-
+3. order detail page do not need login. 
 2. sku default attr handle . 
 1. special seller, (fugu@guoku.com) , in seller management , can change entity creator
 
