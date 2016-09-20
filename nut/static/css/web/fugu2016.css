@@ -1755,17 +1755,13 @@ a.new-black-link:hover {
   position: fixed;
   right: 30px;
 }
-.section1 {
+.section1,
+.section2 {
   text-align: center;
 }
-.section1 .fugu-logo {
-  z-index: 10;
-  -webkit-transform: translateY(100px);
-  -moz-transform: translateY(100px);
-  -ms-transform: translateY(100px);
-  -o-transform: translateY(100px);
-}
-.section1 .intro-wrapper {
+.section1 .intro-wrapper,
+.section2 .intro-wrapper,
+.section3 .intro-wrapper {
   opacity: 0;
   text-align: left;
   padding: 0 20px;

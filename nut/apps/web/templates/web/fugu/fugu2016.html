@@ -60,44 +60,47 @@
     </div>
 	<div class="section section2">
         <img class="gk-talks-logo" src="{% static 'images/gk_logo.png' %}">
-        <img class="design-week-logo" src="http://2016.bjdw.org/favicon.ico">
-        <h3>果库理想生活设计论</h3>
-        <p>如何做好自己的设计品牌</p>
-        <p>How to Design Your Ideal Life</p>
-        <p>
-            用单车唤醒清晨，蓝边碗能够慰藉失落的乡愁和灵魂，老织机T恤讲的是时间与重生的故事，手工玛丽珍鞋踢踏出行走的趣味。理想的城市生活
-            ，离不开物与人。成立五年的「果库」基于多年线上积累，邀请来自衣、食、行不同领域的中国设计力量，围绕与现代日常息息相关的「骑行」
-            「器物」「复古」「摩登」四大主题，探寻商品背后的城市生活意义，以及理想生活的种种可能。免费报名参加。　　　　
-        </p>
+        <div class="intro-wrapper">
+            <img class="design-week-logo" src="http://2016.bjdw.org/favicon.ico">
+            <h3>果库理想生活设计论</h3>
+            <p>如何做好自己的设计品牌</p>
+            <p>How to Design Your Ideal Life</p>
+            <p>
+                用单车唤醒清晨，蓝边碗能够慰藉失落的乡愁和灵魂，老织机T恤讲的是时间与重生的故事，手工玛丽珍鞋踢踏出行走的趣味。理想的城市生活
+                ，离不开物与人。成立五年的「果库」基于多年线上积累，邀请来自衣、食、行不同领域的中国设计力量，围绕与现代日常息息相关的「骑行」
+                「器物」「复古」「摩登」四大主题，探寻商品背后的城市生活意义，以及理想生活的种种可能。免费报名参加。　　　　
+            </p>
+        </div>
     </div>
-	<div class="section section3">
-        <img class="design-week-logo" src="http://2016.bjdw.org/favicon.ico">
-        <h3>果库理想生活设计论</h3>
-        <p>如何做好自己的设计品牌</p>
-        <p>How to Design Your Ideal Life</p>
-        <p>
-            演讲嘉宾：
-        </p>
-        <ul>
-            <li>
-                张志国，国棉壹厂品牌创始人
-            </li>
-            <li>
-                高庶三，WKUP城市单车品牌创始人
-            </li>
-            <li>
-                刘柏煦，痣品牌创始人
-            </li>
-            <li>
-                柴猫君Zerolily，Truble Maaker品牌主理人
-            </li>
+    <div class="section section3">
+        <div class="intro-wrapper">
+            <img class="design-week-logo" src="http://2016.bjdw.org/favicon.ico">
+            <h3>果库理想生活设计论</h3>
+            <p>如何做好自己的设计品牌</p>
+            <p>How to Design Your Ideal Life</p>
+            <p>
+                演讲嘉宾：
+            </p>
+            <ul>
+                <li>
+                    张志国，国棉壹厂品牌创始人
+                </li>
+                <li>
+                    高庶三，WKUP城市单车品牌创始人
+                </li>
+                <li>
+                    刘柏煦，痣品牌创始人
+                </li>
+                <li>
+                    柴猫君Zerolily，Truble Maaker品牌主理人
+                </li>
 
-        </ul>
-         <p>
-            地址：北京市前门大栅栏劝业场4层
-            时间：9月28日16:00起
-        </p>
-
+            </ul>
+            <p>
+                地址：北京市前门大栅栏劝业场4层
+                时间：9月28日16:00起
+            </p>
+        </div>
     </div>
     <div class="section section4" style="background-image: url({% static 'images/gk_logo.png' %})">
         <div class="ad-wrapper">
@@ -176,7 +179,7 @@
     <script>
     $(function(){
 	$('#fugu2016_container').fullpage({
-        sectionsColor: ['aliceblue', '#FFFFFF', '#7BAABE', '#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF','aliceblue','#FFFFFF'],
+        sectionsColor: ['aliceblue', 'aliceblue', '#FFFFFF', '#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF','aliceblue','#FFFFFF'],
         anchors:['section1','section2','section3','section4','section5','section6','section7'],
         css3:'true',
         navigation:'true',
@@ -185,11 +188,15 @@
                 case 1:
                     move('.section1 .fugu-logo').delay('0.5s').set('opacity',0).duration('0.8s').end();
                     move('.section1').delay('0.5s').set('background-color','#FFFFFF').duration('0.8s').end();
-                    move('.section .intro-wrapper').delay('1.5s').set('opacity',1).y(-100).duration('0.8s').end();
+                    move('.section1 .intro-wrapper').delay('1.5s').set('opacity',1).y(-100).duration('0.8s').end();
                     break;
                 case 2:
+                    move('.section2 .gk-talks-logo').delay('0.5s').set('opacity',0).duration('0.8s').end();
+                    move('.section2').delay('0.5s').set('background-color','#FFFFFF').duration('0.8s').end();
+                    move('.section2 .intro-wrapper').delay('1.5s').set('opacity',1).y(-100).duration('0.8s').end();
                     break;
                 case 3:
+                    move('.section3 .intro-wrapper').delay('1.5s').set('opacity',1).y(-100).duration('0.8s').end();
                     break;
                 case 4:
                     move('.section4 .wechat-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
@@ -213,10 +220,17 @@
         onLeave:function(link,index){
             switch(index){
                 case 1:
+                    move('.section1 .fugu-logo').delay('0s').set('opacity',1).end();
+                    move('.section1').delay('0s').set('background-color','aliceblue').end();
+                    move('.section1 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
                     break;
                 case 2:
+                    move('.section2 .gk-talks-logo').delay('0s').set('opacity',1).end();
+                    move('.section2').delay('0s').set('background-color','aliceblue').end();
+                    move('.section2 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
                     break;
                 case 3:
+                    move('.section3 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
                     break;
                 case 4:
                     move('.section4 .wechat-wrapper').set('opacity', 0).y(-5).end();
