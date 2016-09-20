@@ -147,11 +147,6 @@
         <img src="{% static 'images/author/seller.png' %}">
         <h1>GUOKU.COM</h1>
     </div>
-	<div class="section section8">
-        <h2>
-            GUOKU.COM
-        </h2>
-    </div>
 </div>
 
 {% endblock %}
@@ -180,7 +175,7 @@
     $(function(){
 	$('#fugu2016_container').fullpage({
         sectionsColor: ['purple', '#FFFFFF', '#7BAABE', '#FFFFFF','#FFFFFF','#FFFFFF','gray','#FFFFFF'],
-        anchors:['section1','section2','section3','section4','section5','section6','section7','section8'],
+        anchors:['section1','section2','section3','section4','section5','section6','section7'],
         css3:'true',
         navigation:'true',
         afterLoad:function(link,index){
@@ -204,8 +199,6 @@
                     move('.section7').delay('0.5s').set('background-color','#FFFFFF').duration('0.8s').end();
                     move('.section7 img').delay('0.5s').set('opacity',0).duration('0.8s').end();
                     move('.section7 h1').delay('1.5s').ease('out').set('opacity',1).y(-20).duration('1s').end();
-                    break;
-                case 8:
                     break;
                 default:
                     break;
@@ -234,8 +227,6 @@
                          move('.section7').delay('0s').set('background-color','gray').end();
                          move('.section7 img').delay('0s').set('opacity',1).end();
                          move('.section7 h1').delay('0s').set('opacity', 0).y(0).end();
-                    break;
-                case 8:
                     break;
                 default:
                     break;
