@@ -471,19 +471,23 @@ class OrderDetailView(UserPassesTestMixin,DetailView):
     paginator_class = ExtentPaginator
     paginate_by = 10
     template_name = 'web/seller_management/order_detail.html'
+
     def test_func(self, user):
+        if user.is_admin:
+            return True
         self.order_number = self.kwargs.get('order_number')
         order = Order.objects.get(pk=self.order_number)
         for i in order.items.all():
             if i.sku.entity in user.seller_entities:
                 return True
         return False
+
     def no_permissions_fail(self, request=None):
         raise Http404
+
     def get_context_data(self, **kwargs):
         context = super(OrderDetailView, self).get_context_data(**kwargs)
         context['order_item'] = context['order'].items.all().filter(sku__entity__in=self.request.user.seller_entities)
-        #context['order_item'] = context['order'].items.all()
         context['order_number']=self.order_number
         context['promo_total_price']=context['order'].promo_total_price
         context['origin_total_price']=context['order'].grand_total_price
