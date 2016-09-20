@@ -1745,6 +1745,16 @@ a.new-black-link:hover {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+#prev_icon {
+  position: fixed;
+  left: 50%;
+  bottom: 10px;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  z-index: 100;
+}
 .section {
   padding: 0 20px;
   font-size: 14px;

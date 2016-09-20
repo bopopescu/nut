@@ -18,6 +18,7 @@
 
 {% block css_basic %}
     <link rel="icon" type="image/ico" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/font-awesome/css/font-awesome.min.css' %}">
 {% endblock %}
 
 {% block css %}
@@ -39,6 +40,9 @@
 {% endblock %}
 
 {% block content %}
+<div id="prev_icon">
+    <i class="fa fa-chevron-down"></i>
+</div>
 <div id="fugu2016_container">
 	<div class="section section1">
         <img class="fugu-logo" src="{% static 'images/gk_logo.png' %}">
@@ -191,6 +195,7 @@
         sectionsColor: ['aliceblue', 'aliceblue', '#FFFFFF', '#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF','aliceblue','#FFFFFF'],
         anchors:['section1','section2','section3','section4','section5','section6','section7'],
         css3:'true',
+        fixedElement:'#prev_icon',
 {#        navigation:'true',#}
         afterLoad:function(link,index){
             switch(index){
