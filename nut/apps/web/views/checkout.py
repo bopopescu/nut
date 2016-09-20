@@ -16,6 +16,7 @@ from apps.core.mixins.views import FilterMixin, SortMixin
 from apps.order.models import Order, OrderItem
 from apps.payment.models import PaymentLog
 from apps.web.forms.checkout import CheckDeskOrderPayForm
+from apps.web.views.seller_management import OrderDetailView
 
 
 def sum_price(sum, next_log):
@@ -80,7 +81,7 @@ class CheckoutOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, List
     paginator_class = ExtentPaginator
     model = Order
     paginate_by = 10
-    template_name = 'web/checkout/orderlists.html'
+    template_name = 'web/checkout/allorder.html'
 
     def get_queryset(self):
         qs = Order.objects.all()
@@ -235,3 +236,19 @@ class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin
             order_list = order_list.filter(created_datetime__lte=end_date)
 
         return order_list
+
+
+class CheckoutOrderDetailView(OrderDetailView):
+
+    template_name = 'web/checkout/checkout_order_detail.html'
+
+    def test_func(self, user):
+        self.order_number = self.kwargs.get('order_number')
+
+        if user.is_admin:
+            return True
+        else:
+            return False
+
+    def no_permissions_fail(self, request=None):
+        raise Http404

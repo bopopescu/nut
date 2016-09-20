@@ -18,18 +18,87 @@
             {% trans '实收款' %}
         </th>
         <th>
-            {% trans '操作' %}
+            {% trans '交易状态' %}
+        </th>
+        <th>
+            {% trans '支付宝' %}
+        </th>
+         <th>
+            {% trans '微信' %}
+        </th>
+         <th>
+            {% trans '刷卡' %}
+        </th>
+        <th>
+            {% trans '现金' %}
+        </th>
+        <th>
+            {% trans '其他' %}
         </th>
     </tr>
     </thead>
     <tbody>
-     {% for order in object_list %}
-        <tr class="order-cell-header {% if order.should_expired %} order-cell-expired {% endif %}">
+
+    <tr class="order-cell-result">
+            <td colspan="3" class="result-title">
+               开始日期 <input data-provide="datepicker" data-date-format="yyyy-mm-dd" id="start_date">
+               结束日期 <input data-provide="datepicker" data-date-format="yyyy-mm-dd" id="end_date">
+               <button data_url="{{ request.path }}" id="date_filter_button">筛选</button>
+            </td>
+            <td colspan="2">{{ sum_payment_all }}</td>
+            <td>{{ sum_payment_ali }}</td>
+            <td>{{ sum_payment_wx }}</td>
+            <td>{{ sum_payment_credit_card }}</td>
+            <td>{{ sum_payment_cash }}</td>
+            <td>{{ sum_payment_other }}</td>
+    </tr>
+    <tr class="">
+         <td colspan="10" class="blank"></td>
+    </tr>
+    {% for order in object_list %}
+
+        <tr class="order-cell-header">
             <td colspan="5">
                 订单号:{{ order.number }} &nbsp;&nbsp;创建时间:{{ order.created_datetime|date:'Y-m-d H:i:s' }}
             </td>
+            <td>
+                {% if order.payment_source == 1 %}
+                    {{  order.order_total_value }}
+                {% else %}
+
+                {% endif %}
+            </td>
+            <td>
+                {% if order.payment_source == 0 %}
+                    {{  order.order_total_value }}
+                {% else %}
+
+                {% endif %}
+            </td>
+            <td>
+                {% if order.payment_source == 3 %}
+                   {{  order.order_total_value }}
+                {% else %}
+
+                {% endif %}
+
+            </td>
+            <td>
+                {% if order.payment_source == 2 %}
+                    {{  order.order_total_value }}
+                {% else %}
+
+                {% endif %}
+            </td>
+            <td>
+                {% if order.payment_source == 4 %}
+                    {{  order.order_total_value }}
+                {% else %}
+
+                {% endif %}
+            </td>
         </tr>
-        <tr class="{% if order.should_expired %} order-cell-expired {% endif %}" >
+        <tr>
             <td class="entity-cell">
                 <div class="entity-container">
                     <div class="entity-wrapper">
@@ -48,7 +117,12 @@
                 </div>
             </td>
             <td>
-                &yen;{{ order.items.all.0.sku_unit_promo_price }}
+                <div class="original-price">
+                    &yen;{{ order.items.all.0.sku_unit_grand_price }}
+                </div>
+                <div>
+                    &yen;{{ order.items.all.0.sku_unit_promo_price }}
+                </div>
             </td>
             <td>
                 {{ order.items.all.0.volume }}
@@ -57,18 +131,15 @@
                 &yen;{{ order.order_total_value }}
             </td>
             <td class="no-border-cell">
-                {% if order.is_paid %}
+                <div class="btn-group">
                     {{ order.get_status_display }}<br>
-                {% elif order.should_expired %}
-                    {% trans '订单已经过期' %}
-                {% else %}
-                  <a class="btn newest-btn-green order-pay-button" data-order-id="{{ order.id }}" data-url="{% url 'checkout_done' %}">{% trans '确认已收款' %}</a>
-                {% endif %}
+                    <a class="new-blue-link" href="{% url 'checkout_order_detail' order.id %}" target="_blank">{% trans '查看详情' %}</a>
+                </div>
             </td>
         </tr>
         {% if order.count > 1 %}
             {% for item in order.itemslist %}
-                <tr class="{% if order.should_expired %} order-cell-expired {% endif %}" >
+                <tr>
                 <td class="entity-cell">
                     <div class="entity-container">
                         <div class="entity-wrapper">
@@ -86,8 +157,14 @@
                         </div>
                     </div>
                 </td>
+
                 <td>
-                    &yen;{{ item.sku_unit_promo_price }}
+                    <div class="original-price">
+                        &yen;{{ item.sku_unit_grand_price }}
+                    </div>
+                    <div>
+                        &yen;{{ item.sku_unit_promo_price }}
+                    </div>
                 </td>
                 <td>
                     {{ item.volume }}
@@ -101,22 +178,6 @@
             {% endfor %}
              </tr>
         {% endif %}
-    {% empty %}
-    <tr>
-        <td colspan="5">
-            未找到符合条件的结果,请重新搜索!
-        </td>
-    </tr>
     {% endfor %}
     </tbody>
 </table>
-<script type="text/html" id="checkdesk_payment_input">
-    <ul class="payment-type-list">
-        <li><input type="radio" name="payment_type" value="2"><span>现金</span></li>
-        <li><input type="radio" name="payment_type" value="3"><span>信用卡</span></li>
-        <li><input type="radio" name="payment_type" value="4"><span>其他</span></li>
-    </ul>
-     <p>付款备注</p>
-    <textarea id="payment_note" cols="40" rows="4"></textarea>
-
-</script>
