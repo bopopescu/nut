@@ -1759,6 +1759,13 @@ a.new-black-link:hover {
 .section2 {
   text-align: center;
 }
+.section1 .fugu-logo,
+.section2 .gk-talks-logo {
+  -webkit-transform: translateY(100px);
+  -moz-transform: translateY(100px);
+  -ms-transform: translateY(100px);
+  -o-transform: translateY(100px);
+}
 .section1 .intro-wrapper,
 .section2 .intro-wrapper,
 .section3 .intro-wrapper {
