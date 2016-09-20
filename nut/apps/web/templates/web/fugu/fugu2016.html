@@ -183,9 +183,8 @@
         afterLoad:function(link,index){
             switch(index){
                 case 1:
-                        move('.section1 .fugu-logo').delay('0.5s').set('opacity',0).duration('0.8s').end();
+                        $('.section1 .fugu-logo').fadeOut();
                         move('.section1').delay('0.5').set('background-color','#FFFFFF').duration('0.8s').end();
-                        move('.section1 .intro-wrapper').delay('2s').set('display','block').end();
                     break;
                 case 2:''
                     break;
