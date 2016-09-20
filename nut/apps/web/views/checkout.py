@@ -58,6 +58,9 @@ class CheckDeskAllOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, 
             qs = qs.filter(status__in=[1, 2])
         elif self.status == 'paid':
             qs = qs.filter(status__in=[3, 4, 5, 6, 7, 8])
+        elif self.status == 'expired':
+            qs = qs.filter(status=0)
+
         return self.sort_queryset(qs, *self.get_sort_params())
 
     def sort_queryset(self, qs, sort_by, order):

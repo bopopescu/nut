@@ -201,7 +201,6 @@ class Order(BaseModel):
     created_datetime = models.DateTimeField(auto_now_add=True)
     updated_datetime = models.DateTimeField(auto_now=True)
 
-
     def __unicode__(self):
         return "<order number; {0}>".format(self.number)
 
