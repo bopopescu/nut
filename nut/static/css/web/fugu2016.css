@@ -1746,6 +1746,7 @@ a.new-black-link:hover {
   border: 0;
 }
 .section {
+  padding: 0 20px;
   font-size: 14px;
   color: #212121;
 }
@@ -1768,10 +1769,10 @@ a.new-black-link:hover {
 }
 .section1 .intro-wrapper,
 .section2 .intro-wrapper,
-.section3 .intro-wrapper {
+.section3 .intro-wrapper,
+.section5 .intro-wrapper {
   opacity: 0;
   text-align: left;
-  padding: 0 20px;
 }
 .section4 {
   background-repeat: no-repeat;
@@ -1802,6 +1803,9 @@ a.new-black-link:hover {
 }
 .section4 .ad-wrapper .download-wrapper {
   margin-right: 30px;
+}
+.section6 ul li {
+  opacity: 0;
 }
 .section7 {
   text-align: center;
