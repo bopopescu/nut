@@ -55,11 +55,13 @@ class CheckDeskAllOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, 
         qs = Order.objects.all()
         self.status = self.request.GET.get('status')
         if self.status == 'waiting_for_payment':
-            qs = qs.filter(status__in=[1, 2])
+            qs = qs.filter(status__in=[1, 2]).filter(status__gt=0)
         elif self.status == 'paid':
-            qs = qs.filter(status__in=[3, 4, 5, 6, 7, 8])
+            qs = qs.filter(status__in=[3, 4, 5, 6, 7, 8]).filter(status__gt=0)
         elif self.status == 'expired':
             qs = qs.filter(status=0)
+        else:
+            qs = qs.filter(status__gt=0)
 
         return self.sort_queryset(qs, *self.get_sort_params())
 
@@ -90,9 +92,9 @@ class CheckoutOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, List
         qs = Order.objects.all()
         self.status = self.request.GET.get('status')
         if self.status == 'waiting_for_payment':
-            qs = qs.filter(status__in=[1, 2])
+            qs = qs.filter(status__in=[1, 2]).filter(status__gt=0)
         elif self.status == 'paid':
-            qs = qs.filter(status__in=[3, 4, 5, 6, 7, 8])
+            qs = qs.filter(status__in=[3, 4, 5, 6, 7, 8]).filter(status__gt=0)
         return self.sort_queryset(self.filter_queryset(qs, self.get_filter_param()), *self.get_sort_params())
 
     def filter_queryset(self, qs, filter_param):

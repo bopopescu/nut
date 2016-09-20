@@ -25,6 +25,8 @@
                     待付款
                 {% elif status == "paid" %}
                     已完成
+                {% elif status == 'expired' %}
+                    已过期
                 {% endif %}
                 <span class="caret"></span>
             </a>
