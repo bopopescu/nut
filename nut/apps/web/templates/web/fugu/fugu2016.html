@@ -40,8 +40,8 @@
 
 {% block content %}
 <div id="fugu2016_container">
-	<div class="section section1" style="background-image: url({% static 'images/gk_logo.png' %})"></div>
-	<div class="section section2">
+	<div class="section section1">
+        <img class="fugu-logo" src="{% static 'images/gk_logo.png' %}">
         <img class="design-week-logo" src="http://2016.bjdw.org/favicon.ico">
         <h3>复古大会</h3>
         <h3>GUOKU POP-UP RETRO FAIR</h3>
@@ -56,10 +56,8 @@
             时间：9月23日至10月7日
         </p>
     </div>
-	<div class="section section3" style="background-image: url({% static 'images/gk_logo.png' %})">
-
-    </div>
-	<div class="section section4">
+	<div class="section section2">
+        <img class="gk-talks-logo" src="{% static 'images/gk_logo.png' %}">
         <img class="design-week-logo" src="http://2016.bjdw.org/favicon.ico">
         <h3>果库理想生活设计论</h3>
         <p>如何做好自己的设计品牌</p>
@@ -69,6 +67,12 @@
             ，离不开物与人。成立五年的「果库」基于多年线上积累，邀请来自衣、食、行不同领域的中国设计力量，围绕与现代日常息息相关的「骑行」
             「器物」「复古」「摩登」四大主题，探寻商品背后的城市生活意义，以及理想生活的种种可能。免费报名参加。　　　　
         </p>
+    </div>
+	<div class="section section3">
+        <img class="design-week-logo" src="http://2016.bjdw.org/favicon.ico">
+        <h3>果库理想生活设计论</h3>
+        <p>如何做好自己的设计品牌</p>
+        <p>How to Design Your Ideal Life</p>
         <p>
             演讲嘉宾：
         </p>
@@ -91,8 +95,9 @@
             地址：北京市前门大栅栏劝业场4层
             时间：9月28日16:00起
         </p>
+
     </div>
-    <div class="section section5" style="background-image: url({% static 'images/gk_logo.png' %})">
+    <div class="section section4" style="background-image: url({% static 'images/gk_logo.png' %})">
         <div class="ad-wrapper">
             <div class="download-wrapper">
                 <img src="{%  static 'images/article/DL_guoku.jpg' %}" alt="应用下载" title="应用下载">
@@ -104,13 +109,14 @@
             </div>
         </div>
     </div>
-	<div class="section section6">
-        <h3>果库线下商店</h3>
-        <h3>GUOKU Shops</h3>
+	<div class="section section5">
+        <h3 class="title">果库线下商店<br>GUOKU Shops</h3>
         <p>
             从前，果库每日精选介绍网上最值得买的好商品，关注最新潮流消费趋势，解决具体生活问题，让线上消费更简单和有效率。现在，果库藉由多年积累的线上选品经验，筛选出极具中国创意及制造的设计师品牌，
             共同进驻线下商店。与原有店铺相互辅助的经营方式，亦开启了线上与线下相结合的创意零售先河。一方面充分诠释体验式的思想生活形态，另一方面推介植根于中国本土的原创设计力量。　　　　
         </p>
+    </div>
+    <div class="section section6">
         <ul>
             <li>
                 <h4>
@@ -168,7 +174,7 @@
     <script>
     $(function(){
 	$('#fugu2016_container').fullpage({
-        sectionsColor: ['purple', '#FFFFFF', '#7BAABE', '#FFFFFF','#FFFFFF','#FFFFFF','gray','#FFFFFF'],
+        sectionsColor: ['aliceblue', '#FFFFFF', '#7BAABE', '#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF','aliceblue','#FFFFFF'],
         anchors:['section1','section2','section3','section4','section5','section6','section7'],
         css3:'true',
         navigation:'true',
@@ -181,10 +187,11 @@
                 case 3:
                     break;
                 case 4:
+                    move('.section4 .wechat-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
+                    move('.section4 .download-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
                     break;
                 case 5:
-                    move('.section5 .wechat-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
-                    move('.section5 .download-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
+
                     break;
                 case 6:
                     break;
@@ -207,17 +214,18 @@
                 case 3:
                     break;
                 case 4:
+                    move('.section4 .wechat-wrapper').set('opacity', 0).y(-5).end();
+                    move('.section4 .download-wrapper').set('opacity', 0).y(-5).end();
                     break;
                 case 5:
-                    move('.section5 .wechat-wrapper').set('opacity', 0).y(-5).end();
-                    move('.section5 .download-wrapper').set('opacity', 0).y(-5).end();
+
                     break;
                 case 6:
                     break;
                 case 7:
-                         move('.section7').delay('0s').set('background-color','gray').end();
-                         move('.section7 img').delay('0s').set('opacity',1).end();
-                         move('.section7 h1').delay('0s').set('opacity', 0).y(0).end();
+                    move('.section7').delay('0s').set('background-color','aliceblue').end();
+                    move('.section7 img').delay('0s').set('opacity',1).end();
+                    move('.section7 h1').delay('0s').set('opacity', 0).y(0).end();
                     break;
                 default:
                     break;

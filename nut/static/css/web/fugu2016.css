@@ -1746,38 +1746,20 @@ a.new-black-link:hover {
   border: 0;
 }
 .section {
-  font-weight: 500;
+  font-size: 14px;
+  color: #212121;
 }
-.section2.fp-table,
-.section4.fp-table,
-.section6.fp-table,
-.section8.fp-table {
-  display: inline-block;
-  box-sizing: border-box;
-}
-.section2,
-.section4,
-.section6,
-.section8 {
-  border: 10px solid black;
-  padding: 0 20px;
-}
-.section1,
-.section3,
-.section7 {
-  background-repeat: no-repeat;
-  background-position: center center;
-}
+.section1 .design-week-logo,
 .section2 .design-week-logo,
-.section4 .design-week-logo {
+.section3 .design-week-logo {
   position: fixed;
   right: 30px;
 }
-.section5 {
+.section4 {
   background-repeat: no-repeat;
   background-position: center 30%;
 }
-.section5 .ad-wrapper {
+.section4 .ad-wrapper {
   position: absolute;
   left: 50%;
   -webkit-transform: translateX(-50%);
@@ -1786,21 +1768,21 @@ a.new-black-link:hover {
   -o-transform: translateX(-50%);
   width: 200px;
 }
-.section5 .ad-wrapper .download-wrapper,
-.section5 .ad-wrapper .wechat-wrapper {
+.section4 .ad-wrapper .download-wrapper,
+.section4 .ad-wrapper .wechat-wrapper {
   display: inline-block;
   opacity: 0;
 }
-.section5 .ad-wrapper .download-wrapper img,
-.section5 .ad-wrapper .wechat-wrapper img {
+.section4 .ad-wrapper .download-wrapper img,
+.section4 .ad-wrapper .wechat-wrapper img {
   width: 80px;
   height: 80px;
 }
-.section5 .ad-wrapper .download-wrapper p,
-.section5 .ad-wrapper .wechat-wrapper p {
+.section4 .ad-wrapper .download-wrapper p,
+.section4 .ad-wrapper .wechat-wrapper p {
   text-align: center;
 }
-.section5 .ad-wrapper .download-wrapper {
+.section4 .ad-wrapper .download-wrapper {
   margin-right: 30px;
 }
 .section7 {
