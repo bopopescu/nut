@@ -1,9 +1,6 @@
 from apps.core.models import Entity, GKUser, Category, Sub_Category, Buy_Link
 from django.test import TestCase
 
-from apps.shop.models import Shop
-
-
 class DBTestBase(TestCase):
     def setUp(self):
         self.the_user = GKUser.objects.create_user(**{

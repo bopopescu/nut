@@ -20,13 +20,82 @@
         <th>
             {% trans '交易状态' %}
         </th>
+        <th>
+            {% trans '支付宝' %}
+        </th>
+         <th>
+            {% trans '微信' %}
+        </th>
+         <th>
+            {% trans '刷卡' %}
+        </th>
+        <th>
+            {% trans '现金' %}
+        </th>
+        <th>
+            {% trans '其他' %}
+        </th>
     </tr>
     </thead>
     <tbody>
+
+    <tr class="order-cell-result">
+            <td colspan="3" class="result-title">
+               开始日期 <input data-provide="datepicker" data-date-format="yyyy-mm-dd" id="start_date">
+               结束日期 <input data-provide="datepicker" data-date-format="yyyy-mm-dd" id="end_date">
+               <button data_url="{{ request.path }}" id="date_filter_button">筛选</button>
+            </td>
+            <td colspan="2">{{ sum_payment_all }}</td>
+            <td>{{ sum_payment_ali }}</td>
+            <td>{{ sum_payment_wx }}</td>
+            <td>{{ sum_payment_credit_card }}</td>
+            <td>{{ sum_payment_cash }}</td>
+            <td>{{ sum_payment_other }}</td>
+    </tr>
+    <tr class="">
+         <td colspan="10" class="blank"></td>
+    </tr>
     {% for order in object_list %}
+
         <tr class="order-cell-header">
             <td colspan="5">
                 订单号:{{ order.number }} &nbsp;&nbsp;创建时间:{{ order.created_datetime|date:'Y-m-d H:i:s' }}
+            </td>
+            <td>
+                {% if order.payment_source == 1 %}
+                    {{  order.order_total_value }}
+                {% else %}
+
+                {% endif %}
+            </td>
+            <td>
+                {% if order.payment_source == 0 %}
+                    {{  order.order_total_value }}
+                {% else %}
+
+                {% endif %}
+            </td>
+            <td>
+                {% if order.payment_source == 3 %}
+                   {{  order.order_total_value }}
+                {% else %}
+
+                {% endif %}
+
+            </td>
+            <td>
+                {% if order.payment_source == 2 %}
+                    {{  order.order_total_value }}
+                {% else %}
+
+                {% endif %}
+            </td>
+            <td>
+                {% if order.payment_source == 4 %}
+                    {{  order.order_total_value }}
+                {% else %}
+
+                {% endif %}
             </td>
         </tr>
         <tr>

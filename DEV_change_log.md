@@ -1,6 +1,35 @@
+3. order detail page do not need login. 
+2. sku default attr handle . 
+1. special seller, (fugu@guoku.com) , in seller management , can change entity creator
+
+==========================================
+merged to master 9/18 
+
+
+
+3.  fix web bug -- lq 
+2.  add payment method selection in checkdesk 
+1.  order statistics in checkout ui
+
+=================================================
+
+6.  category page, popular page , update -lq
+5.  seller order list update , add payment info 
+4.  check desk payment , add payment source , and payment note update
+3.  fix qrcode print -- lq
+2.  add payment_note field
+1.  add PaymentLog source 
+
+action : 
+ALTER TABLE `core`.`payment_paymentlog` 
+ADD COLUMN `payment_note` VARCHAR(128) NULL AFTER `updated_datetime`;
+
+
+==============================
 
 6.  sku remove PROTECT for OrderItem 
 5.  order number remove under dash 
+
 4.  order add a property 'realtime_status', is a wrapper arount order.status
     to handle expired order 
     
@@ -9,6 +38,7 @@
 2.  seller entity list update
     1. sku save will change entity update time 
     2. entity sku order by sku stock
+    
 1.  seller management list bug fix 
 =====================
 merged to master 9/8

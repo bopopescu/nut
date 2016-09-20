@@ -149,7 +149,7 @@ class ShippingAddress(BaseModel):
 
 
 class Order(BaseModel):
-    expire_in_minutes = 30
+    expire_in_minutes = 60
 
     (   expired, #超时订单,失效订单
         address_unbind, #需要客户地址
@@ -192,6 +192,7 @@ class Order(BaseModel):
     shipping_to = models.ForeignKey(ShippingAddress, null=True, blank=True)
     created_datetime = models.DateTimeField(auto_now_add=True)
     updated_datetime = models.DateTimeField(auto_now=True)
+
 
     def __unicode__(self):
         return "<order number; {0}>".format(self.number)
@@ -351,6 +352,13 @@ class Order(BaseModel):
     def order_total_value(self):
         # final price customer need to paid
         return self.promo_total_price + self.shipping_fee
+
+    @property
+    def payment_source(self):
+        if self.payments.count():
+            return self.payments.all()[0].payment_source
+        else:
+            return None
 
 
 class OrderItem(BaseModel):

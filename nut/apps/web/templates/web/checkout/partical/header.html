@@ -6,7 +6,12 @@
              <a href="http://www.guoku.com" class="logo">
                 <img src="{% static 'images/management/return_guoku_logo.png' %}">
             </a>
-            <span>收银台</span>
+            <span>
+                <a href="{% url 'checkout_index' %}">收银台</a></span>
+            <span>|</span>
+            <span>
+              <a href="{% url 'checkdesk_order_statistic' %}">订单汇总</a>
+            </span>
 
             <div class="pull-right">
                 <img class="img-circle" src="{{ request.user.profile.avatar_url}}" alt="{{ request.user.profile.nick }}" style="width:32px;height:32px;">

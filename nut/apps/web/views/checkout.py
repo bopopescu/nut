@@ -1,7 +1,7 @@
 # encoding: utf-8
 import json
 
-from braces.views import AjaxResponseMixin, UserPassesTestMixin
+from braces.views import AjaxResponseMixin, UserPassesTestMixin,JSONResponseMixin
 from datetime import datetime
 
 from django.core.urlresolvers import reverse
@@ -13,27 +13,24 @@ from django.shortcuts import get_object_or_404
 from apps.core.utils.http import JSONResponse
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.mixins.views import FilterMixin, SortMixin
-from apps.order.models import Order
+from apps.order.models import Order, OrderItem
 from apps.payment.models import PaymentLog
+from apps.web.forms.checkout import CheckDeskOrderPayForm
 
 
-class MyOrderUserPassesTestMixin(UserPassesTestMixin):
+def sum_price(sum, next_log):
+    return sum + next_log.order.order_total_value
+
+
+class CheckDeskUserTestMixin(UserPassesTestMixin):
     def test_func(self, user):
-        idlist = [1,
-                  3,
-                  9020,
-                  1997153,
-                  2000859,
-                  1964551,
-                  412916,
-                  252792]
-        return user.id in idlist
+        return getattr(user, 'is_admin', None)
 
     def no_permissions_fail(self, request=None):
         raise Http404
 
 
-class AllOrderListView(MyOrderUserPassesTestMixin, FilterMixin, SortMixin, ListView):
+class CheckDeskAllOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, ListView):
     default_sort_params = ('created_datetime', 'desc')
     paginator_class = ExtentPaginator
     model = Order
@@ -68,7 +65,7 @@ class AllOrderListView(MyOrderUserPassesTestMixin, FilterMixin, SortMixin, ListV
             return qs
 
     def get_context_data(self, **kwargs):
-        context = super(AllOrderListView, self).get_context_data(**kwargs)
+        context = super(CheckDeskAllOrderListView, self).get_context_data(**kwargs)
         context['status']=self.status
         for order in context['object_list']:
             order_items = order.items.all()
@@ -78,7 +75,7 @@ class AllOrderListView(MyOrderUserPassesTestMixin, FilterMixin, SortMixin, ListV
         return context
 
 
-class SellerOrderListView(MyOrderUserPassesTestMixin, FilterMixin, SortMixin, ListView):
+class CheckoutOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, ListView):
     default_sort_params = ('created_datetime', 'desc')
     paginator_class = ExtentPaginator
     model = Order
@@ -109,7 +106,7 @@ class SellerOrderListView(MyOrderUserPassesTestMixin, FilterMixin, SortMixin, Li
         return qs
 
     def get_context_data(self, **kwargs):
-        context = super(SellerOrderListView, self).get_context_data(**kwargs)
+        context = super(CheckoutOrderListView, self).get_context_data(**kwargs)
         context['input_value'] = self.request.GET.get('number')
         context['filter_input_value'] = self.request.GET.get('filtervalue', '')
         context['status'] = self.status
@@ -121,64 +118,120 @@ class SellerOrderListView(MyOrderUserPassesTestMixin, FilterMixin, SortMixin, Li
         return context
 
 
-class SellerOrderDeleteView(MyOrderUserPassesTestMixin, DeleteView):
-
-    model = Order
-    template_name = 'web/checkout/delete_order.html'
-    pk_url_kwarg = 'order_number'
-
-    def get_success_url(self):
-        return reverse('checkout_order_list')
-
-
-class CheckDeskPayView(MyOrderUserPassesTestMixin, AjaxResponseMixin, View):
-    model = Order
-    template_name = 'web/seller_management/sku/sku_edit_template.html'
-    http_method_names = ["post"]
-
-    # def __init__(self, *args, **kwargs):
-    #     super(CheckDeskPayView, self).__init__(*args, **kwargs)
-    #     order_id = int(self.request.POST.get('order_id', None))
-    #     self._order = get_object_or_404(Order, pk=order_id)
-    #     return self
+class CheckDeskPayView(CheckDeskUserTestMixin, JSONResponseMixin, AjaxResponseMixin, View):
 
     def get_order(self):
-        if getattr(self, '_order', None) is None:
-            order_id = int(self.request.POST.get('order_id', None))
-            self._order = get_object_or_404(Order, pk=order_id)
-
-        return self._order
-
-    def write_payment_log(self):
-        _order = self.get_order()
-        _payment_log, created = PaymentLog.objects.get_or_create(
-            order=_order,
-            payment_source=PaymentLog.cash_ccard,
-            payment_status=PaymentLog.paid
-        )
-        if created:
-            _payment_log.payment_notify_info = json.dumps(self.get_payment_info_dic())
-            _payment_log.pay_time = datetime.now()
-            _payment_log.save()
-
-        return
+        order_id = int(self.request.POST.get('order_id', None))
+        return get_object_or_404(Order, pk=order_id)
 
     def post_ajax(self, request, *args, **kwargs):
-        _order = self.get_order()
-        try:
-            _order.set_paid()
-            self.write_payment_log()
-            return JSONResponse(data={'result': 1}, status=200)
-        except Exception:
-            # TODO: more accurate exception later
-            return JSONResponse(data={'result': 0}, status=400)
+        _form = CheckDeskOrderPayForm(request.POST, request=request)
+        if _form.is_valid():
+            _form.save()
+            return self.render_json_response(
+                {
+                    'result': 1,
+                },
+                status=200
+            )
+        else:
+            return self.render_json_response(
+                {
+                    'result': 0,
+                    'message': _form.errors.as_text()
+                },
+                status=400
+            )
 
-    def get_payment_info_dic(self):
-        _order = self.get_order()
-        return {
-            'payment_method': 'check desk',
-            'payment_operator_id': self.request.user.id,
-            'payment_operator_nick': self.request.user.nick,
-            'payment_operator_time': datetime.now().strftime('%Y:%M:%D %H:%M:%S'),
-            'payment_total': _order.order_total_value
-        }
+
+class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin,  ListView):
+
+    default_sort_params = ('dnumber', 'desc')
+    http_method_names = ['get']
+    paginator_class = ExtentPaginator
+    model = Order
+    paginate_by = 10
+    template_name = 'web/checkout/order_statistic.html'
+    wait_pay_status = [Order.address_unbind, Order.waiting_for_payment]
+    paid_status = [Order.paid, Order.send, Order.closed]
+    expired_status = [Order.expired]
+
+    def get_queryset(self):
+        order_ids = list(OrderItem.objects.values_list('order', flat=True))
+        qs = Order.objects.filter(id__in=order_ids)
+        self.status = self.request.GET.get('status')
+
+        if self.status == 'waiting_for_payment':
+            qs = qs.filter(status__in=self.wait_pay_status)
+        elif self.status == 'paid':
+            qs = qs.filter(status__in=self.paid_status)
+
+        qs = self.apply_date_filter(qs)
+        return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
+
+    def filter_queryset(self, qs, filter_param):
+        filter_field, filter_value = filter_param
+        if filter_field == 'number':
+            qs = qs.filter(number__icontains=filter_value.strip())
+        else:
+            pass
+        return qs
+
+    def sort_queryset(self, qs, sort_by, order):
+        if sort_by == 'dprice':
+            qs = sorted(qs, key=lambda x: x.order_total_value, reverse=True)
+        elif sort_by == 'uprice':
+            qs = sorted(qs, key=lambda x: x.order_total_value, reverse=False)
+        elif sort_by == 'dnumber':
+            qs = qs.order_by('-number')
+        elif sort_by == 'unumber':
+            qs = qs.order_by('number')
+        elif sort_by == 'status':
+            qs = qs.order_by('-status')
+        else:
+            pass
+        return qs
+
+    def get_sum_payment(self, order_list):
+        sum = 0
+        for order in order_list:
+            if order.is_paid:
+                sum += order.order_total_value
+        return sum
+
+    def get_sum_payment_for_payment_source(self, order_list, payment_souce):
+        order_ids = list(order_list.values_list('id', flat=True))
+        logs = PaymentLog.objects.filter(payment_source=payment_souce, order_id__in=order_ids)
+        return reduce(sum_price, list(logs), 0)
+
+    def get_context_data(self, **kwargs):
+        context = super(CheckDeskOrderStatisticView, self).get_context_data(**kwargs)
+        context['status'] = self.status
+
+        paged_order_list = context['object_list']
+
+        for order in paged_order_list:
+            order_items = order.items.all()
+            order.skus = [order_item.sku for order_item in order_items]
+            order.count = order.items.all().count()
+            order.itemslist = order.items.all()[1:order.count]
+
+        order_list = self.get_queryset()
+        context['sum_payment_all'] = self.get_sum_payment(order_list)
+        context['sum_payment_wx'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.weixin_pay)
+        context['sum_payment_ali'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.ali_pay)
+        context['sum_payment_cash'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.cash)
+        context['sum_payment_credit_card'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.credit_card)
+        context['sum_payment_other'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.other)
+        return context
+
+    def apply_date_filter(self, order_list):
+        start_date = self.request.GET.get('start_date', None)
+        end_date = self.request.GET.get('end_date', None)
+
+        if start_date:
+            order_list = order_list.filter(created_datetime__gte=start_date)
+        if end_date:
+            order_list = order_list.filter(created_datetime__lte=end_date)
+
+        return order_list

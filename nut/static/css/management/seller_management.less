@@ -84,9 +84,9 @@ ul{
       text-align: center;
       vertical-align: middle;
     }
-  tr td.entity-cell{
-    text-align: left;
-  }
+    tr td.entity-cell{
+      text-align: left;
+    }
     tr.order-cell-header{
       background-color: @light-blue-bg;
       td{
@@ -94,6 +94,14 @@ ul{
         padding:15px 12px;
       }
     }
+    tr.order-cell-result{
+      background-color: darkseagreen;
+      .result-title{
+
+      }
+    }
+
+
 }
 .new-table-hover{
   tbody tr:hover{
@@ -282,6 +290,7 @@ body.seller-management{
   }
   .content{
     padding:16px 40px;
+    min-height:1200px;
   }
   #seller_management_entity_price{
     tr th.entity-search{
@@ -386,5 +395,32 @@ body.seller-management{
       padding-left:24px;
   }
 }
+   .checkdesk-payment-dialog{
+     .modal-body{
+       padding:30px;
+     }
+     .payment-type-list{
+       li{
+         height:60px;
+         line-height: 60px;
+         border-bottom: 1px solid @divider-color;
+         span{
+           margin-left:15px;
+         }
+       }
+     }
+     #payment_note{
+       width: 100%;
+       resize: none;
+       border:1px solid @new-border-gray;
+       &:focus{
+         outline: none;
+         border:1px solid @gray-light;
+       }
+     }
+   }
+}
 
+.test{
+  color:black;
 }

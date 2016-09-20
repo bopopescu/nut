@@ -13,9 +13,10 @@
     <meta name="description" content="果库热门商品，追踪当日、当周最具人气的热门商品，结合网友们对商品的喜爱及点评，按每日、每周的热度进行推荐，精选中的精选，最新、最热的懒人包，帮助你紧跟消费潮流，永不落伍。">
 {% endblock %}
 {% block title %}热门商品 | 精英消费指南 | 果库{% endblock %}
+{% block body_class %} gray-body popular-entity-page {% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container popular-entity-container">
         <div class="row">
             {% for entity in object_list %}
                 {% include 'web/main/partial/entity.html' with entity=entity %}

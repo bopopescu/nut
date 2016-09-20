@@ -23,6 +23,9 @@ class SKUForm(ModelForm):
 
     def clean_attrs(self):
         attrs = json.loads(self.cleaned_data['attrs'])
+        if len(attrs) == 0:
+            attrs = {u'默认属性':u'默认属性'}
+
         entity = self.cleaned_data['entity']
         attrs_list = [s.attrs for s in entity.skus.exclude(id=self.instance.id)]
         if attrs == {} :
@@ -32,12 +35,11 @@ class SKUForm(ModelForm):
             raise ValidationError("属性已存在")
         return attrs
 
-
     def __init__(self, *args, **kwargs):
         self.repeatstatus = 0
         super(SKUForm, self).__init__(*args, **kwargs)
-        for key , field in self.fields.items():
-            field.widget.attrs.update({'class':'form-control'})
+        for key, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control'})
 
         self.fields['entity'].widget.attrs['readonly'] = True
         self.fields['attrs'].widget = HiddenInput()
