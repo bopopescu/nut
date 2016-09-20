@@ -1754,6 +1754,11 @@ a.new-black-link:hover {
   -ms-transform: translateX(-50%);
   -o-transform: translateX(-50%);
   z-index: 100;
+  opacity: 0;
+  -webkit-animation: prevAnimation 1s ease infinite;
+  -moz-animation: prevAnimation 1s ease infinite;
+  -ms-animation: prevAnimation 1s ease infinite;
+  animation: prevAnimation 1s ease infinite;
 }
 .section {
   padding: 0 20px;
@@ -1822,4 +1827,36 @@ a.new-black-link:hover {
 }
 .section7 h1 {
   opacity: 0;
+}
+.page24 h2 {
+  font-size: 48px;
+  -webkit-transform: rotate(-15deg);
+  -ms-transform: rotate(-15deg);
+  transform: rotate(-15deg);
+}
+.page24 .fa-hand-o-up {
+  font-size: 30px;
+  -webkit-animation: myfinger 1s ease infinite;
+  animation: myfinger 1s ease infinite;
+}
+@keyframes prevAnimation {
+  0% {
+    transform: translate(0px, -10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0px, 0px);
+    opacity: 1;
+  }
+}
+@-webkit-keyframes prevAnimation {
+  /* Safari and Chrome */
+  0% {
+    -webkit-transform: translate(0px, -10px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translate(0px, 0px);
+    opacity: 1;
+  }
 }
