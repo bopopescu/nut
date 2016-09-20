@@ -34,13 +34,11 @@
     </div>
 {% endblock %}
 
-
 {% block header %}
 
 {% endblock %}
 
 {% block content %}
-
 <div id="fugu2016_container">
 	<div class="section section1" style="background-image: url({% static 'images/gk_logo.png' %})"></div>
 	<div class="section section2">
@@ -148,7 +146,6 @@
         <h1>GUOKU.COM</h1>
     </div>
 </div>
-
 {% endblock %}
 
 {% block  bottom_bar %}
@@ -160,15 +157,12 @@
 {% endblock %}
 
 {% block basic_script %}
-
     <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
     <script src="{% static 'thirdparty/fullpage/jquery.easings.min.js' %}"></script>
     <script src="{% static 'thirdparty/fullpage/jquery.slimscroll.min.js' %}"></script>
     <script src="{% static 'thirdparty/fullpage/jquery.fullPage.js' %}"></script>
     <script src="{% static 'thirdparty/move/move.min.js' %}"></script>
-
 {% endblock %}
-
 
 {% block script %}
     <script>
@@ -187,7 +181,6 @@
                 case 3:
                     break;
                 case 4:
-
                     break;
                 case 5:
                     move('.section5 .wechat-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
@@ -202,8 +195,6 @@
                     break;
                 default:
                     break;
-
-
             }
         },
 
@@ -230,16 +221,12 @@
                     break;
                 default:
                     break;
-
             }
         }
     });
 });
-
-
     </script>
 {% endblock %}
-
 
 {% block ga_script %}
     <!-- Google Analytics -->
