@@ -224,9 +224,11 @@
                     move('.section6 .shop-item-3').delay('2.2s').set('opacity',1).y(-10).duration('0.8s').end();
                     break;
                 case 7:
+{#                    move('#prev_icon').set('display','none').end();#}
                     move('.section7').delay('0.5s').set('background-color','#FFFFFF').duration('0.8s').end();
                     move('.section7 img').delay('0.5s').set('opacity',0).duration('0.8s').end();
                     move('.section7 h1').delay('1.5s').ease('out').set('opacity',1).y(-20).duration('1s').end();
+                    move('#prev_icon').set('background-color','red').end();
                     break;
                 default:
                     break;
@@ -261,6 +263,7 @@
                     move('.section6 .shop-item-3').delay('0s').set('opacity',0).y(0).end();
                     break;
                 case 7:
+{#                    move('#prev_icon').set('background-color','yellow').end();#}
                     move('.section7').delay('0s').set('background-color','aliceblue').end();
                     move('.section7 img').delay('0s').set('opacity',1).end();
                     move('.section7 h1').delay('0s').set('opacity', 0).y(0).end();
