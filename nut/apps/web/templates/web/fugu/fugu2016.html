@@ -42,19 +42,21 @@
 <div id="fugu2016_container">
 	<div class="section section1">
         <img class="fugu-logo" src="{% static 'images/gk_logo.png' %}">
-        <img class="design-week-logo" src="http://2016.bjdw.org/favicon.ico">
-        <h3>复古大会</h3>
-        <h3>GUOKU POP-UP RETRO FAIR</h3>
-        <p>
-            果库与灯塔SHOWROOM共同主办的「复古大会」，组织国内一众原创品牌，带着对过往的缅怀，强调对品质的追求，集中展出与售卖着装、配饰、
-            居家用品、家居、咖啡、骑行等单品。既有讲究品质、实用及耐穿的美式vintage复古元素，回顾上世纪的缝制，工艺；又有在大规模流水线生
-            产时代，从「中国制造」到「中国风格」的反思。现场活动，形式多样，包括复古主题沙龙、收藏展、工作坊教学、微瑕及手作限定品贩售……　
-            免费入场。　　　　
-        </p>
-        <p>
-            地址：北京市朝阳区光华路1号嘉里中心商场B1层
-            时间：9月23日至10月7日
-        </p>
+        <div class="intro-wrapper">
+            <img class="design-week-logo" src="http://2016.bjdw.org/favicon.ico">
+            <h3>复古大会</h3>
+            <h3>GUOKU POP-UP RETRO FAIR</h3>
+            <p>
+                果库与灯塔SHOWROOM共同主办的「复古大会」，组织国内一众原创品牌，带着对过往的缅怀，强调对品质的追求，集中展出与售卖着装、配饰、
+                居家用品、家居、咖啡、骑行等单品。既有讲究品质、实用及耐穿的美式vintage复古元素，回顾上世纪的缝制，工艺；又有在大规模流水线生
+                产时代，从「中国制造」到「中国风格」的反思。现场活动，形式多样，包括复古主题沙龙、收藏展、工作坊教学、微瑕及手作限定品贩售……　
+                免费入场。　　　　
+            </p>
+            <p>
+                地址：北京市朝阳区光华路1号嘉里中心商场B1层
+                时间：9月23日至10月7日
+            </p>
+        </div>
     </div>
 	<div class="section section2">
         <img class="gk-talks-logo" src="{% static 'images/gk_logo.png' %}">
@@ -181,8 +183,11 @@
         afterLoad:function(link,index){
             switch(index){
                 case 1:
+                        move('.section1 .fugu-logo').delay('0.5s').set('opacity',0).duration('0.8s').end();
+                        move('.section1').delay('0.5').set('background-color','#FFFFFF').duration('0.8s').end();
+                        move('.section1 .intro-wrapper').delay('2s').set('display','block').end();
                     break;
-                case 2:
+                case 2:''
                     break;
                 case 3:
                     break;
