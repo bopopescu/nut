@@ -1758,11 +1758,15 @@ a.new-black-link:hover {
 .section1 {
   text-align: center;
 }
+.section1 .fugu-logo {
+  z-index: 10;
+  -webkit-transform: translateY(100px);
+  -moz-transform: translateY(100px);
+  -ms-transform: translateY(100px);
+  -o-transform: translateY(100px);
+}
 .section1 .intro-wrapper {
-  width: 100%;
-  height: 100%;
-  background-color: yellow;
-  display: none;
+  opacity: 0;
   text-align: left;
   padding: 0 20px;
 }
