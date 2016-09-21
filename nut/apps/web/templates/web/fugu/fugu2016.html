@@ -108,8 +108,8 @@
             </p>
         </div>
     </div>
-    <div class="section section7">
-        <img src="{% static 'images/fugu2016/GUOKU_Shops.png' %}" style="width:169px;height:57px;">
+    <div class="section page4">
+        <img class="guoku-shops-logo" src="{% static 'images/fugu2016/GUOKU_Shops.png' %}" style="width:169px;height:57px;">
          <div class="intro-wrapper">
             <h3 class="title">果库选品商店</h3>
             <h3>GUOKU Shops</h3>
@@ -224,8 +224,8 @@
     <script>
     $(function(){
 	$('#fugu2016_container').fullpage({
-        sectionsColor: ['#FFFFFF','#2E3F8A', '#00A4E5', '#FFFFFF', '#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF','#C7302D'],
-        anchors:['page1','page2','section3','section4','section5','section6','section7'],
+        sectionsColor: ['#FFFFFF','#2E3F8A', '#00A4E5','#C7302D','#FFFFFF', '#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF'],
+        anchors:['page1','page2','page3','page4','section5','section6','page4'],
         css3:'true',
         navigation:'false',
         afterLoad:function(link,index){
@@ -243,11 +243,14 @@
                     move('.page3 .intro-wrapper').delay('2s').set('opacity',1).y(-100).duration('0.8s').end();
                     break;
                 case 4:
+                    move('.page4 guoku-shops-logo').delay('1s').set('opacity',0).duration('0.8s').end();
+                    move('.page4').delay('1s').set('background-color','#FFFFFF').duration('0.8s').end();
+                    move('.page4 .intro-wrapper').delay('2s').set('opacity',1).y(-100).duration('0.8s').end();
+                    break;
+                case 5:
                     move('.section3 .intro-wrapper').delay('0.2s').set('opacity',1).y(-100).duration('0.8s').end();
                     move('.section4 .wechat-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
                     move('.section4 .download-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
-                    break;
-                case 5:
                     move('.section5 .intro-wrapper').delay('0.2s').set('opacity',1).duration('0.8s').end();
                     break;
                 case 6:
@@ -256,9 +259,7 @@
                     move('.section6 .shop-item-3').delay('2.2s').set('opacity',1).y(-10).duration('0.8s').end();
                     break;
                 case 7:
-                    move('.section7').delay('0.5s').set('background-color','#FFFFFF').duration('0.8s').end();
-                    move('.section7 img').delay('0.5s').set('opacity',0).duration('0.8s').end();
-                    move('.section7 h1').delay('1.5s').ease('out').set('opacity',1).y(-20).duration('1s').end();
+
                     break;
                 default:
                     break;
@@ -280,11 +281,14 @@
                     move('.page3 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
                     break;
                 case 4:
-                     move('.section3 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
-                    move('.section4 .wechat-wrapper').set('opacity', 0).y(-5).end();
-                    move('.section4 .download-wrapper').set('opacity', 0).y(-5).end();
+                    move('.page4').delay('0s').set('background-color','#C7302D').end();
+                    move('.page4 guoku-shops-logo').delay('0s').set('opacity',1).end();
+                    move('.page4 .intro-wrapper').delay('0s').set('opacity', 0).y(0).end();
                     break;
                 case 5:
+                    move('.section3 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
+                    move('.section4 .wechat-wrapper').set('opacity', 0).y(-5).end();
+                    move('.section4 .download-wrapper').set('opacity', 0).y(-5).end();
                     move('.section5 .intro-wrapper').delay('0s').set('opacity',0).end();
                     break;
                 case 6:
@@ -294,9 +298,6 @@
                     break;
                 case 7:
                     move('#prev_icon').set('display','none').end();
-                    move('.section7').delay('0s').set('background-color','#C7302D').end();
-                    move('.section7 img').delay('0s').set('opacity',1).end();
-                    move('.section7 h1').delay('0s').set('opacity', 0).y(0).end();
                     break;
                 default:
                     break;
