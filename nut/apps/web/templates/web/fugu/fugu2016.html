@@ -126,7 +126,7 @@
             </p>
         </div>
     </div>
-    <div class="section section6">
+    <div class="section page5">
        <div class="intro-wrapper">
             <h3 class="title">果库选品商店</h3>
             <h3>GUOKU Shops</h3>
@@ -225,7 +225,7 @@
     $(function(){
 	$('#fugu2016_container').fullpage({
         sectionsColor: ['#FFFFFF','#2E3F8A', '#00A4E5','#C7302D','#FFFFFF', '#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF'],
-        anchors:['page1','page2','page3','page4','section5','section6','page4'],
+        anchors:['page1','page2','page3','page4','page5','section5','page4'],
         css3:'true',
         navigation:'false',
         afterLoad:function(link,index){
@@ -248,15 +248,15 @@
                     move('.page4 .intro-wrapper').delay('2s').set('opacity',1).y(-100).duration('0.8s').end();
                     break;
                 case 5:
+                    move('.page5 .shop-item-1').delay('0.2s').set('opacity',1).y(-10).duration('0.8s').end();
+                    move('.page5 .shop-item-2').delay('1.2s').set('opacity',1).y(-10).duration('0.8s').end();
+                    move('.page5 .shop-item-3').delay('2.2s').set('opacity',1).y(-10).duration('0.8s').end();
+                    break;
+                case 6:
                     move('.section3 .intro-wrapper').delay('0.2s').set('opacity',1).y(-100).duration('0.8s').end();
                     move('.section4 .wechat-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
                     move('.section4 .download-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
                     move('.section5 .intro-wrapper').delay('0.2s').set('opacity',1).duration('0.8s').end();
-                    break;
-                case 6:
-                    move('.section6 .shop-item-1').delay('0.2s').set('opacity',1).y(-10).duration('0.8s').end();
-                    move('.section6 .shop-item-2').delay('1.2s').set('opacity',1).y(-10).duration('0.8s').end();
-                    move('.section6 .shop-item-3').delay('2.2s').set('opacity',1).y(-10).duration('0.8s').end();
                     break;
                 case 7:
 
@@ -286,15 +286,17 @@
                     move('.page4 .intro-wrapper').delay('0s').set('opacity', 0).y(0).end();
                     break;
                 case 5:
+                    move('.page5 .shop-item-1').delay('0s').set('opacity',0).y(0).end();
+                    move('.page5 .shop-item-2').delay('0s').set('opacity',0).y(0).end();
+                    move('.page5 .shop-item-3').delay('0s').set('opacity',0).y(0).end();
+
+                    break;
+                case 6:
                     move('.section3 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
                     move('.section4 .wechat-wrapper').set('opacity', 0).y(-5).end();
                     move('.section4 .download-wrapper').set('opacity', 0).y(-5).end();
                     move('.section5 .intro-wrapper').delay('0s').set('opacity',0).end();
-                    break;
-                case 6:
-                    move('.section6 .shop-item-1').delay('0s').set('opacity',0).y(0).end();
-                    move('.section6 .shop-item-2').delay('0s').set('opacity',0).y(0).end();
-                    move('.section6 .shop-item-3').delay('0s').set('opacity',0).y(0).end();
+
                     break;
                 case 7:
                     move('#prev_icon').set('display','none').end();
