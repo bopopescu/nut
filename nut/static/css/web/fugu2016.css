@@ -1828,33 +1828,25 @@ a.new-black-link:hover {
   -o-transform: translateY(-10px);
 }
 .page6 {
-  background-repeat: no-repeat;
-  background-position: center 30%;
+  text-align: center;
 }
-.page6 .ad-wrapper {
-  position: absolute;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  -o-transform: translateX(-50%);
+.page6 .qrcode-wrapper {
   width: 200px;
+  margin: 0 auto;
+  margin-top: 140px;
+  margin-bottom: 50px;
 }
-.page6 .ad-wrapper .download-wrapper,
-.page6 .ad-wrapper .wechat-wrapper {
+.page6 .qrcode-wrapper .download-wrapper,
+.page6 .qrcode-wrapper .wechat-wrapper {
   display: inline-block;
   opacity: 0;
 }
-.page6 .ad-wrapper .download-wrapper img,
-.page6 .ad-wrapper .wechat-wrapper img {
+.page6 .qrcode-wrapper .download-wrapper img,
+.page6 .qrcode-wrapper .wechat-wrapper img {
   width: 80px;
   height: 80px;
 }
-.page6 .ad-wrapper .download-wrapper p,
-.page6 .ad-wrapper .wechat-wrapper p {
-  text-align: center;
-}
-.page6 .ad-wrapper .download-wrapper {
+.page6 .qrcode-wrapper .download-wrapper {
   margin-right: 30px;
 }
 .section5 .fp-tablecell {
