@@ -1745,6 +1745,10 @@ a.new-black-link:hover {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+.primary-title {
+  font-size: 18px;
+  line-height: 23px;
+}
 #fp-nav {
   display: none;
 }
@@ -1766,7 +1770,8 @@ a.new-black-link:hover {
 }
 .section {
   padding: 0 16px;
-  font-size: 14px;
+  font-size: 12px;
+  line-height: 18px;
   color: #212121;
 }
 .page3 .design-week-logo,
@@ -1801,6 +1806,7 @@ a.new-black-link:hover {
 }
 .page2 .design-week-logo {
   position: fixed;
+  right: 16px;
   opacity: 0;
 }
 .page6 {

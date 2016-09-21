@@ -17,6 +17,10 @@
     clip: rect(0,0,0,0);
     border: 0;
 }
+.primary-title{
+  font-size: @subtitle-size;
+  line-height: 23px;
+}
 #fp-nav{
   display: none;
 }
@@ -36,7 +40,8 @@
 
 .section{
   padding:0 16px;
-  font-size:14px;
+  font-size:@more-mini-size;
+  line-height: 18px;
   color:@common-text-color
 }
 .page2.fp-table,.page3.fp-table,.page5.fp-table,.section8.fp-table{
@@ -77,6 +82,7 @@
   }
   .design-week-logo{
     position: fixed;
+    right: 16px;
     opacity: 0;
   }
 }
