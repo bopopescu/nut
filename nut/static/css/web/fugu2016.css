@@ -1809,6 +1809,12 @@ a.new-black-link:hover {
   right: 16px;
   opacity: 0;
 }
+.page2 .cooperate-logo {
+  margin-left: 8px;
+}
+.page2 .more-info {
+  margin-top: 30px;
+}
 .page6 {
   background-repeat: no-repeat;
   background-position: center 30%;
