@@ -1827,6 +1827,9 @@ a.new-black-link:hover {
 .section4 .ad-wrapper .download-wrapper {
   margin-right: 30px;
 }
+.section5 .fp-tablecell {
+  vertical-align: top;
+}
 .section6 ul li {
   opacity: 0;
 }
