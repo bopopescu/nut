@@ -1800,11 +1800,11 @@ a.new-black-link:hover {
   width: 146px;
   height: 141px;
 }
-.section4 {
+.page6 {
   background-repeat: no-repeat;
   background-position: center 30%;
 }
-.section4 .ad-wrapper {
+.page6 .ad-wrapper {
   position: absolute;
   left: 50%;
   -webkit-transform: translateX(-50%);
@@ -1813,21 +1813,21 @@ a.new-black-link:hover {
   -o-transform: translateX(-50%);
   width: 200px;
 }
-.section4 .ad-wrapper .download-wrapper,
-.section4 .ad-wrapper .wechat-wrapper {
+.page6 .ad-wrapper .download-wrapper,
+.page6 .ad-wrapper .wechat-wrapper {
   display: inline-block;
   opacity: 0;
 }
-.section4 .ad-wrapper .download-wrapper img,
-.section4 .ad-wrapper .wechat-wrapper img {
+.page6 .ad-wrapper .download-wrapper img,
+.page6 .ad-wrapper .wechat-wrapper img {
   width: 80px;
   height: 80px;
 }
-.section4 .ad-wrapper .download-wrapper p,
-.section4 .ad-wrapper .wechat-wrapper p {
+.page6 .ad-wrapper .download-wrapper p,
+.page6 .ad-wrapper .wechat-wrapper p {
   text-align: center;
 }
-.section4 .ad-wrapper .download-wrapper {
+.page6 .ad-wrapper .download-wrapper {
   margin-right: 30px;
 }
 .section5 .fp-tablecell {

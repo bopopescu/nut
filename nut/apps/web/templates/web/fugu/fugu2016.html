@@ -182,7 +182,7 @@
         </ul>
         </div>
     </div>
-    <div class="section section4" style="background-image: url({% static 'images/fugu2016/guoku_icon_slogan.png' %})">
+    <div class="section page6" style="background-image: url({% static 'images/fugu2016/guoku_icon_slogan.png' %})">
         <div class="ad-wrapper">
             <div class="download-wrapper">
                 <img src="{%  static 'images/article/DL_guoku.jpg' %}" alt="应用下载" title="应用下载">
@@ -224,8 +224,8 @@
     <script>
     $(function(){
 	$('#fugu2016_container').fullpage({
-        sectionsColor: ['#FFFFFF','#2E3F8A', '#00A4E5','#C7302D','#FFFFFF', '#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF'],
-        anchors:['page1','page2','page3','page4','page5','section5','page4'],
+        sectionsColor: ['#FFFFFF','#2E3F8A', '#00A4E5','#C7302D','#FFFFFF', '#FFFFFF'],
+        anchors:['page1','page2','page3','page4','page5','page6'],
         css3:'true',
         navigation:'false',
         afterLoad:function(link,index){
@@ -253,13 +253,9 @@
                     move('.page5 .shop-item-3').delay('2.2s').set('opacity',1).y(-10).duration('0.8s').end();
                     break;
                 case 6:
-                    move('.section3 .intro-wrapper').delay('0.2s').set('opacity',1).y(-100).duration('0.8s').end();
-                    move('.section4 .wechat-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
-                    move('.section4 .download-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
-                    move('.section5 .intro-wrapper').delay('0.2s').set('opacity',1).duration('0.8s').end();
-                    break;
-                case 7:
-
+                    move('#prev_icon').set('display','none').end();
+                    move('.page6 .wechat-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
+                    move('.page6 .download-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
                     break;
                 default:
                     break;
@@ -292,14 +288,9 @@
 
                     break;
                 case 6:
-                    move('.section3 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
-                    move('.section4 .wechat-wrapper').set('opacity', 0).y(-5).end();
-                    move('.section4 .download-wrapper').set('opacity', 0).y(-5).end();
-                    move('.section5 .intro-wrapper').delay('0s').set('opacity',0).end();
-
-                    break;
-                case 7:
-                    move('#prev_icon').set('display','none').end();
+                    move('#prev_icon').set('display','block').end();
+                    move('.page6 .wechat-wrapper').set('opacity', 0).y(-5).end();
+                    move('.page6 .download-wrapper').set('opacity', 0).y(-5).end();
                     break;
                 default:
                     break;
