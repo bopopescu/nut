@@ -1862,6 +1862,14 @@ a.new-black-link:hover {
 }
 .page5 ul li {
   opacity: 0;
+  margin-bottom: 18px;
+}
+.page5 ul li:last-child {
+  margin-bottom: 0;
+}
+.page5 ul li p,
+.page5 ul li h4 {
+  margin: 0;
 }
 @keyframes prevAnimation {
   0% {
