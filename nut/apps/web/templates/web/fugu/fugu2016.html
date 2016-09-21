@@ -76,11 +76,10 @@
     </div>
 	<div class="section page3">
         <img class="gk-talks-logo" src="{% static 'images/fugu2016/GUOKU_Talks.png' %}" style="width:157px;height:63px;">
+         <img class="design-week-logo" src="{% static 'images/fugu2016/DSLDesignCommunity.png' %}" style="width:60px;height:56px;">
         <div class="intro-wrapper">
-            <img class="design-week-logo" src="{% static 'images/fugu2016/DSLDesignCommunity.png' %}" style="width:60px;height:56px;">
-            <h3>果库理想生活设计论</h3>
-            <p>如何做好自己的设计品牌</p>
-            <p>How to Design Your Ideal Life</p>
+{#            <img class="design-week-logo" src="{% static 'images/fugu2016/DSLDesignCommunity.png' %}" style="width:60px;height:56px;">#}
+            <h3 class="primary-title">果库理想生活设计论<br>How to Design Your Ideal Life</h3>
             <p>
                 用单车唤醒清晨，蓝边碗能够慰藉失落的乡愁和灵魂，老织机T恤讲的是时间与重生的故事，手工玛丽珍鞋踢踏出行走的趣味。理想的城市生活，离不开物与人。
                 成立五年的「果库」基于多年线上积累，邀请来自衣、食、行不同领域的中国设计力量，围绕与现代日常息息相关的「骑行」「器物」「复古」「摩登」 四大主题，
@@ -89,7 +88,7 @@
             <p>
                 免费报名参加。
             </p>
-            <h3>演讲嘉宾：</h3>
+            <h4 class="subtitle">演讲嘉宾：</h4>
             <ul>
                 <li>
                     张志国，国棉壹厂品牌创始人
@@ -104,10 +103,10 @@
                     柴猫君Zerolily，Truble Maaker品牌主理人
                 </li>
             </ul>
-             <p>
-                 时间：9月28日16:00起<br>
-                 地址：北京前门廊房头条 17 号劝业场 4 层多功能厅
-            </p>
+                <p class="more-info">
+                    时间：9月28日16:00起<br>
+                    地址：北京前门廊房头条 17 号劝业场 4 层多功能厅
+                </p>
         </div>
     </div>
     <div class="section page4">
@@ -243,7 +242,8 @@
                 case 3:
                     move('.page3 .gk-talks-logo').delay('1s').set('opacity',0).duration('0.8s').end();
                     move('.page3').delay('1s').set('background-color','#FFFFFF').duration('0.8s').end();
-                    move('.page3 .intro-wrapper').delay('2s').set('opacity',1).y(-100).duration('0.8s').end();
+                    move('.page3 .design-week-logo').delay('2s').set('opacity',1).duration('0.8s').end();
+                    move('.page3 .intro-wrapper').delay('2s').set('opacity',1).y(-40).duration('0.8s').end();
                     break;
                 case 4:
                     move('.page4 .guoku-shops-logo').delay('1s').set('opacity',0).duration('0.8s').end();
@@ -278,6 +278,7 @@
                 case 3:
                     move('.page3 .gk-talks-logo').delay('0s').set('opacity',1).end();
                     move('.page3').delay('0s').set('background-color','#00A4E5').end();
+                    move('.page3 .design-week-logo').delay('0s').set('opacity',0).end();
                     move('.page3 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
                     break;
                 case 4:

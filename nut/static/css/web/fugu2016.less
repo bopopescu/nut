@@ -21,6 +21,10 @@
   font-size: @subtitle-size;
   line-height: 23px;
 }
+.subtitle{
+  font-size: @more-mini-size;
+  line-height: 18px;
+}
 #fp-nav{
   display: none;
 }
@@ -66,7 +70,7 @@
 .page2 .fugu-logo,.page3 .gk-talks-logo,.page4 .guoku-shops-logo{
     .transform(translateY(100px));
 }
-.page2,.page3,.page4,.section3,.section5{
+.page2,.page3,.page4{
   .intro-wrapper{
     //width:100%;
     //height:100%;
@@ -75,21 +79,31 @@
     text-align: left;
   }
 }
-.page2{
-  .fugu-logo{
-    width:146px;
-    height:141px;
-  }
+.page2,.page3{
   .design-week-logo{
     position: fixed;
     right: 16px;
     opacity: 0;
+  }
+}
+.page2{
+  .fugu-logo{
+    width:146px;
+    height:141px;
   }
   .cooperate-logo{
     margin-left: 8px;
   }
   .more-info{
     margin-top:30px;
+  }
+}
+.page3{
+   .more-info{
+    margin-top:30px;
+  }
+  .design-week-logo{
+    .transform(translateY(-10px));
   }
 }
 .page6{
