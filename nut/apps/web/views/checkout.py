@@ -16,6 +16,7 @@ from apps.core.mixins.views import FilterMixin, SortMixin
 from apps.order.models import Order, OrderItem
 from apps.payment.models import PaymentLog
 from apps.web.forms.checkout import CheckDeskOrderPayForm
+from apps.web.views.seller_management import OrderDetailView
 
 
 def sum_price(sum, next_log):
@@ -24,7 +25,7 @@ def sum_price(sum, next_log):
 
 class CheckDeskUserTestMixin(UserPassesTestMixin):
     def test_func(self, user):
-        return getattr(user, 'is_admin', None)
+        return getattr(user, 'is_admin', None) or user.email == 'fugu@guoku.com'
 
     def no_permissions_fail(self, request=None):
         raise Http404
@@ -54,9 +55,14 @@ class CheckDeskAllOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, 
         qs = Order.objects.all()
         self.status = self.request.GET.get('status')
         if self.status == 'waiting_for_payment':
-            qs = qs.filter(status__in=[1, 2])
+            qs = qs.filter(status__in=[1, 2]).filter(status__gt=0)
         elif self.status == 'paid':
-            qs = qs.filter(status__in=[3, 4, 5, 6, 7, 8])
+            qs = qs.filter(status__in=[3, 4, 5, 6, 7, 8]).filter(status__gt=0)
+        elif self.status == 'expired':
+            qs = qs.filter(status=0)
+        else:
+            qs = qs.filter(status__gt=0)
+
         return self.sort_queryset(qs, *self.get_sort_params())
 
     def sort_queryset(self, qs, sort_by, order):
@@ -80,15 +86,15 @@ class CheckoutOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, List
     paginator_class = ExtentPaginator
     model = Order
     paginate_by = 10
-    template_name = 'web/checkout/orderlists.html'
+    template_name = 'web/checkout/allorder.html'
 
     def get_queryset(self):
         qs = Order.objects.all()
         self.status = self.request.GET.get('status')
         if self.status == 'waiting_for_payment':
-            qs = qs.filter(status__in=[1, 2])
+            qs = qs.filter(status__in=[1, 2]).filter(status__gt=0)
         elif self.status == 'paid':
-            qs = qs.filter(status__in=[3, 4, 5, 6, 7, 8])
+            qs = qs.filter(status__in=[3, 4, 5, 6, 7, 8]).filter(status__gt=0)
         return self.sort_queryset(self.filter_queryset(qs, self.get_filter_param()), *self.get_sort_params())
 
     def filter_queryset(self, qs, filter_param):
@@ -235,3 +241,19 @@ class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin
             order_list = order_list.filter(created_datetime__lte=end_date)
 
         return order_list
+
+
+class CheckoutOrderDetailView(OrderDetailView):
+
+    template_name = 'web/checkout/checkout_order_detail.html'
+
+    def test_func(self, user):
+        self.order_number = self.kwargs.get('order_number')
+
+        if user.is_admin:
+            return True
+        else:
+            return False
+
+    def no_permissions_fail(self, request=None):
+        raise Http404

@@ -12,6 +12,7 @@ ul{
 }
 
 @light-blue-bg:#F5F8FF;
+@expired-gray: #999999;
 
 //dropdown
 .seller-mng-dropdown{
@@ -94,6 +95,13 @@ ul{
         padding:15px 12px;
       }
     }
+
+    tr.order-cell-expired{
+      td{
+        background-color:#999999!important;
+      }
+    }
+
     tr.order-cell-result{
       background-color: darkseagreen;
       .result-title{
@@ -422,5 +430,5 @@ body.seller-management{
 }
 
 .test{
-  color:black;
+  color:red;
 }

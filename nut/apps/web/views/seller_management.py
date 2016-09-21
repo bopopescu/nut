@@ -86,7 +86,7 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
                 entity.buy_link = entity.buy_links.all()[0]
             except:
                 entity.buy_link = ''
-            entity.qr_info = [entity.brand, entity.title, "", entity.price, entity.buy_link]
+            entity.qr_info = [entity.brand, entity.title, "", entity.price, 'http://'+entity.buy_link]
         return render_to_response('web/seller_management/qr_image.html', {'entities': context['object_list']},
                                   context_instance=RequestContext(request)
                                   )
@@ -146,7 +146,7 @@ class QrcodeListView(IsAuthorizedSeller,  AjaxResponseMixin,  JSONResponseMixin,
         host = request.get_host()
         for entity in self.object_list:
           entity.title = entity.title[:15]
-          entity.qr_info = [entity.brand, entity.title, "", entity.price, host + entity.qrcode_url]
+          entity.qr_info = [entity.brand, entity.title, "", entity.price, 'http://' + host + entity.qrcode_url]
         return render_to_response(self.template_name, {'entities': self.object_list},
                                   context_instance=RequestContext(request)
                                   )
@@ -463,7 +463,8 @@ class SKUDeleteView(SKUUserPassesTestMixin, DeleteView):
     def get_success_url(self):
         return reverse('sku_list_management', args=[self.entity_id])
 
-class OrderDetailView(UserPassesTestMixin,DetailView):
+
+class OrderDetailView(UserPassesTestMixin, DetailView):
     pk_url_kwarg = 'order_number'
     context_object_name = 'order'
     model = Order
@@ -471,19 +472,26 @@ class OrderDetailView(UserPassesTestMixin,DetailView):
     paginator_class = ExtentPaginator
     paginate_by = 10
     template_name = 'web/seller_management/order_detail.html'
+
     def test_func(self, user):
+
         self.order_number = self.kwargs.get('order_number')
+        if user.is_admin:
+            return True
+
         order = Order.objects.get(pk=self.order_number)
+
         for i in order.items.all():
             if i.sku.entity in user.seller_entities:
                 return True
         return False
+
     def no_permissions_fail(self, request=None):
         raise Http404
+
     def get_context_data(self, **kwargs):
         context = super(OrderDetailView, self).get_context_data(**kwargs)
         context['order_item'] = context['order'].items.all().filter(sku__entity__in=self.request.user.seller_entities)
-        #context['order_item'] = context['order'].items.all()
         context['order_number']=self.order_number
         context['promo_total_price']=context['order'].promo_total_price
         context['origin_total_price']=context['order'].grand_total_price
