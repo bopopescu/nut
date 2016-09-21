@@ -1768,31 +1768,31 @@ a.new-black-link:hover {
   font-size: 14px;
   color: #212121;
 }
-.section1 .design-week-logo,
+.page2 .design-week-logo,
 .section2 .design-week-logo,
 .section3 .design-week-logo {
   position: fixed;
   right: 30px;
 }
-.section1,
+.page2,
 .section2 {
   text-align: center;
 }
-.section1 .fugu-logo,
+.page2 .fugu-logo,
 .section2 .gk-talks-logo {
   -webkit-transform: translateY(100px);
   -moz-transform: translateY(100px);
   -ms-transform: translateY(100px);
   -o-transform: translateY(100px);
 }
-.section1 .intro-wrapper,
+.page2 .intro-wrapper,
 .section2 .intro-wrapper,
 .section3 .intro-wrapper,
 .section5 .intro-wrapper {
   opacity: 0;
   text-align: left;
 }
-.section1 .fugu-logo {
+.page2 .fugu-logo {
   width: 146px;
   height: 141px;
 }

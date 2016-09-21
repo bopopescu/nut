@@ -49,7 +49,7 @@
     <div class="section page1">
         <img src="{% static 'images/fugu2016/Title_GUOKUCOM.png' %}" style="width:195px;height:109px;">
     </div>
-	<div class="section section1">
+	<div class="section page2">
         <img class="fugu-logo" src="{% static 'images/fugu2016/retro_fair_logo.png' %}">
         <div class="intro-wrapper">
             <img class="design-week-logo" src="{% static 'images/fugu2016/DesignHop_ShoppingMall.png' %}" style="width:50px;height:56px;">
@@ -225,22 +225,22 @@
     $(function(){
 	$('#fugu2016_container').fullpage({
         sectionsColor: ['#FFFFFF','#2E3F8A', '#00A4E5', '#FFFFFF', '#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF','#C7302D'],
-        anchors:['section1','section2','section3','section4','section5','section6','section7'],
+        anchors:['page1','page2','section3','section4','section5','section6','section7'],
         css3:'true',
         navigation:'false',
         afterLoad:function(link,index){
             switch(index){
                 case 1:
-                    move('.section1 .fugu-logo').delay('1.5s').set('opacity',0).duration('0.8s').end();
-                    move('.section1').delay('1.5s').set('background-color','#FFFFFF').duration('0.8s').end();
-                    move('.section1 .intro-wrapper').delay('2.5s').set('opacity',1).y(-100).duration('0.8s').end();
                     break;
                 case 2:
+                    move('.page2 .fugu-logo').delay('1.5s').set('opacity',0).duration('0.8s').end();
+                    move('.page2').delay('1.5s').set('background-color','#FFFFFF').duration('0.8s').end();
+                    move('.page2 .intro-wrapper').delay('2.5s').set('opacity',1).y(-100).duration('0.8s').end();
+                    break;
+                case 3:
                     move('.section2 .gk-talks-logo').delay('0.5s').set('opacity',0).duration('0.8s').end();
                     move('.section2').delay('0.5s').set('background-color','#FFFFFF').duration('0.8s').end();
                     move('.section2 .intro-wrapper').delay('1.5s').set('opacity',1).y(-100).duration('0.8s').end();
-                    break;
-                case 3:
                     move('.section3 .intro-wrapper').delay('0.2s').set('opacity',1).y(-100).duration('0.8s').end();
                     break;
                 case 4:
@@ -268,16 +268,16 @@
         onLeave:function(link,index){
             switch(index){
                 case 1:
-                    move('.section1 .fugu-logo').delay('0s').set('opacity',1).end();
-                    move('.section1').delay('0s').set('background-color','#2E3F8A').end();
-                    move('.section1 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
                     break;
                 case 2:
+                    move('.page2 .fugu-logo').delay('0s').set('opacity',1).end();
+                    move('.page2').delay('0s').set('background-color','#2E3F8A').end();
+                    move('.page2 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
+                    break;
+                case 3:
                     move('.section2 .gk-talks-logo').delay('0s').set('opacity',1).end();
                     move('.section2').delay('0s').set('background-color','aliceblue').end();
                     move('.section2 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
-                    break;
-                case 3:
                     move('.section3 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
                     break;
                 case 4:
