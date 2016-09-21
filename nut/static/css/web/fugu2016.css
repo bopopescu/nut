@@ -1776,11 +1776,13 @@ a.new-black-link:hover {
   right: 30px;
 }
 .page2,
-.page3 {
+.page3,
+.page4 {
   text-align: center;
 }
 .page2 .fugu-logo,
-.page3 .gk-talks-logo {
+.page3 .gk-talks-logo,
+.page4 .guoku-shops-logo {
   -webkit-transform: translateY(100px);
   -moz-transform: translateY(100px);
   -ms-transform: translateY(100px);
@@ -1788,6 +1790,7 @@ a.new-black-link:hover {
 }
 .page2 .intro-wrapper,
 .page3 .intro-wrapper,
+.page4 .intro-wrapper,
 .section3 .intro-wrapper,
 .section5 .intro-wrapper {
   opacity: 0;
