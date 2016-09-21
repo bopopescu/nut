@@ -1769,7 +1769,6 @@ a.new-black-link:hover {
   font-size: 14px;
   color: #212121;
 }
-.page2 .design-week-logo,
 .page3 .design-week-logo,
 .section3 .design-week-logo {
   position: fixed;
@@ -1799,6 +1798,10 @@ a.new-black-link:hover {
 .page2 .fugu-logo {
   width: 146px;
   height: 141px;
+}
+.page2 .design-week-logo {
+  position: fixed;
+  opacity: 0;
 }
 .page6 {
   background-repeat: no-repeat;

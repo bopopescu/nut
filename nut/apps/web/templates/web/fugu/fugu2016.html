@@ -51,8 +51,9 @@
     </div>
 	<div class="section page2">
         <img class="fugu-logo" src="{% static 'images/fugu2016/retro_fair_logo.png' %}">
+         <img class="design-week-logo" src="{% static 'images/fugu2016/DesignHop_ShoppingMall.png' %}" style="width:50px;height:56px;">
         <div class="intro-wrapper">
-            <img class="design-week-logo" src="{% static 'images/fugu2016/DesignHop_ShoppingMall.png' %}" style="width:50px;height:56px;">
+{#            <img class="design-week-logo" src="{% static 'images/fugu2016/DesignHop_ShoppingMall.png' %}" style="width:50px;height:56px;">#}
             <h3>复古大会</h3>
             <h3>GUOKU POP-UP RETRO FAIR</h3>
             <p>
@@ -235,6 +236,7 @@
                 case 2:
                     move('.page2 .fugu-logo').delay('1s').set('opacity',0).duration('0.8s').end();
                     move('.page2').delay('1s').set('background-color','#FFFFFF').duration('0.8s').end();
+                    move('.page2 .design-week-logo').delay('2s').set('opacity',1).duration('0.8s').end();
                     move('.page2 .intro-wrapper').delay('2s').set('opacity',1).y(-100).duration('0.8s').end();
                     break;
                 case 3:
@@ -269,6 +271,7 @@
                 case 2:
                     move('.page2 .fugu-logo').delay('0s').set('opacity',1).end();
                     move('.page2').delay('0s').set('background-color','#2E3F8A').end();
+                    move('.page2 .design-week-logo').delay('0s').set('opacity',0).end();
                     move('.page2 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
                     break;
                 case 3:
