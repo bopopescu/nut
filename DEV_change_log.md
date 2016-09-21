@@ -1,4 +1,6 @@
-3. order detail page do not need login. 
+5. order expire check script (script/order/expire_check.py)
+4. order status , default value is waiting for payment 
+3. checkdesk order detail page. 
 2. sku default attr handle . 
 1. special seller, (fugu@guoku.com) , in seller management , can change entity creator
 

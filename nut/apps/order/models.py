@@ -152,11 +152,19 @@ class Order(BaseModel):
     expire_in_minutes = 60
 
     (   expired, #超时订单,失效订单
-        address_unbind, #需要客户地址
+        address_unbind, #需要客户地址  , deprecate ,
+        # TODO , remove address_unbind status ,
         waiting_for_payment,#未付款
         paid, #已经付款,出库中
         send, #货物在途,
-        closed, #已经签收
+        closed, #已经签收 , tobe changed
+
+        # TODO , change this to finished ,
+        # TODO , closed will be used for abnormally finished order
+        #        1.  order is expired , then order status will be set closed
+        #        2.  order is closed by user ,
+        #        'closed' status will be set as order is for some reason close abnormally
+
         refund_submit, #收到退款申请
         refund_sku_got, #处理货品回收
         refund_done, #货款已经退回
@@ -188,11 +196,10 @@ class Order(BaseModel):
 
     customer = models.ForeignKey('core.GKUser', related_name='orders')
     number = models.CharField(max_length=128, db_index=True, unique=True)
-    status = models.IntegerField(choices=ORDER_STATUS_CHOICE, default=address_unbind)
+    status = models.IntegerField(choices=ORDER_STATUS_CHOICE, default=waiting_for_payment)
     shipping_to = models.ForeignKey(ShippingAddress, null=True, blank=True)
     created_datetime = models.DateTimeField(auto_now_add=True)
     updated_datetime = models.DateTimeField(auto_now=True)
-
 
     def __unicode__(self):
         return "<order number; {0}>".format(self.number)
