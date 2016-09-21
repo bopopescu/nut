@@ -72,7 +72,7 @@
             </p>
         </div>
     </div>
-	<div class="section section2">
+	<div class="section page3">
         <img class="gk-talks-logo" src="{% static 'images/fugu2016/GUOKU_Talks.png' %}" style="width:157px;height:63px;">
         <div class="intro-wrapper">
             <img class="design-week-logo" src="{% static 'images/fugu2016/DSLDesignCommunity.png' %}" style="width:60px;height:56px;">
@@ -233,17 +233,17 @@
                 case 1:
                     break;
                 case 2:
-                    move('.page2 .fugu-logo').delay('1.5s').set('opacity',0).duration('0.8s').end();
-                    move('.page2').delay('1.5s').set('background-color','#FFFFFF').duration('0.8s').end();
-                    move('.page2 .intro-wrapper').delay('2.5s').set('opacity',1).y(-100).duration('0.8s').end();
+                    move('.page2 .fugu-logo').delay('1s').set('opacity',0).duration('0.8s').end();
+                    move('.page2').delay('1s').set('background-color','#FFFFFF').duration('0.8s').end();
+                    move('.page2 .intro-wrapper').delay('2s').set('opacity',1).y(-100).duration('0.8s').end();
                     break;
                 case 3:
-                    move('.section2 .gk-talks-logo').delay('0.5s').set('opacity',0).duration('0.8s').end();
-                    move('.section2').delay('0.5s').set('background-color','#FFFFFF').duration('0.8s').end();
-                    move('.section2 .intro-wrapper').delay('1.5s').set('opacity',1).y(-100).duration('0.8s').end();
-                    move('.section3 .intro-wrapper').delay('0.2s').set('opacity',1).y(-100).duration('0.8s').end();
+                    move('.page3 .gk-talks-logo').delay('1s').set('opacity',0).duration('0.8s').end();
+                    move('.page3').delay('1s').set('background-color','#FFFFFF').duration('0.8s').end();
+                    move('.page3 .intro-wrapper').delay('2s').set('opacity',1).y(-100).duration('0.8s').end();
                     break;
                 case 4:
+                    move('.section3 .intro-wrapper').delay('0.2s').set('opacity',1).y(-100).duration('0.8s').end();
                     move('.section4 .wechat-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
                     move('.section4 .download-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
                     break;
@@ -275,12 +275,12 @@
                     move('.page2 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
                     break;
                 case 3:
-                    move('.section2 .gk-talks-logo').delay('0s').set('opacity',1).end();
-                    move('.section2').delay('0s').set('background-color','aliceblue').end();
-                    move('.section2 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
-                    move('.section3 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
+                    move('.page3 .gk-talks-logo').delay('0s').set('opacity',1).end();
+                    move('.page3').delay('0s').set('background-color','#00A4E5').end();
+                    move('.page3 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
                     break;
                 case 4:
+                     move('.section3 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
                     move('.section4 .wechat-wrapper').set('opacity', 0).y(-5).end();
                     move('.section4 .download-wrapper').set('opacity', 0).y(-5).end();
                     break;
