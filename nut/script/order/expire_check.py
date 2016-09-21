@@ -15,4 +15,3 @@ orders = Order.objects.filter(status__in=[Order.address_unbind, Order.waiting_fo
 for order in orders:
     if order.should_expired:
         order.set_expire()
-#
