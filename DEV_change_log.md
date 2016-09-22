@@ -1,3 +1,11 @@
+5. detail buylink fix fro seller added entity (manual)
+4. about page - lq 
+3. fugu h5  - lq 
+2. qr_code print - lq
+1. top_ad by lq 
+
+==============================================
+
 5. order expire check script (script/order/expire_check.py)
 4. order status , default value is waiting for payment 
 3. checkdesk order detail page. 
