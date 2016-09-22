@@ -21,52 +21,59 @@
             {% url 'web_links' as web_links_url %}
             {% url 'web_agreement' as web_agreement_url %}
             {% url 'web_faq' as web_faq_url %}
+            {% url 'web_shop_service' as web_shop_service_url %}
             {% url 'web_cooperate' as web_cooperate_url %}
             {% block sidebar %}
                 <ul class="nav-sidebar fs_14 fc_2">
 
-                <li class="fc_5 {% if web_about_url in request.path %}check{% endif %}">
-                    <a href="{{ web_about_url }}">
-                         <i class="fa fa-arrow-circle-right"></i>
-                        <span>ABOUT {% trans 'about' %}</span>
-                    </a>
-                </li>
-                <li class="fc_5 {% if web_faq_url in request.path %}check{% endif %}">
-                    <a href="{{ web_faq_url }}">
-                         <i class="fa fa-arrow-circle-right"></i>
-                        <span>FAQ {% trans 'faq' %}</span>
-                    </a>
-                </li>
-                <li class="fc_5 {% if web_jobs_url in request.path %}check{% endif %}">
-                    <a href="{{ web_jobs_url }}">
-                         <i class="fa fa-arrow-circle-right"></i>
-                        <span>JOBS {% trans 'jobs' %}</span>
-                    </a>
-                </li>
-                <li class="fc_5 {% if web_jobs_url in request.path %}check{% endif %}">
-                    <a href="{{ web_sitemap_url }}">
-                         <i class="fa fa-arrow-circle-right"></i>
-                        <span>SITEMAP {% trans 'sitemap' %}</span>
-                    </a>
-                </li>
-                <li class="fc_5 {% if web_links_url in request.path %}check{% endif %}">
-                    <a href="{{ web_links_url }}">
-                         <i class="fa fa-arrow-circle-right"></i>
-                        <span>LINKS {% trans 'links' %}</span>
-                    </a>
-                </li>
-                <li class="fc_5 {% if web_cooperate_url in request.path %}check{% endif %}">
-                    <a href="{{ web_cooperate_url }}">
-                         <i class="fa fa-arrow-circle-right"></i>
-                        <span>COOPERATE {% trans '果库合作' %}</span>
-                    </a>
-                </li>
-                <li class="fc_5 {% if web_agreement_url in request.path %}check{% endif %}">
-                    <a href="{{ web_agreement_url }}">
-                         <i class="fa fa-arrow-circle-right"></i>
-                        <span>AGREEMENT {% trans 'agreement' %}</span>
-                    </a>
-                </li>
+                    <li class="fc_5 {% if web_about_url in request.path %}check{% endif %}">
+                        <a href="{{ web_about_url }}">
+                            <i class="fa fa-arrow-circle-right"></i>
+                            <span>ABOUT {% trans 'about' %}</span>
+                        </a>
+                    </li>
+                    <li class="fc_5 {% if web_faq_url in request.path %}check{% endif %}">
+                        <a href="{{ web_faq_url }}">
+                            <i class="fa fa-arrow-circle-right"></i>
+                            <span>FAQ {% trans 'faq' %}</span>
+                        </a>
+                    </li>
+                    <li class="fc_5 {% if web_jobs_url in request.path %}check{% endif %}">
+                        <a href="{{ web_jobs_url }}">
+                            <i class="fa fa-arrow-circle-right"></i>
+                            <span>JOBS {% trans 'jobs' %}</span>
+                        </a>
+                    </li>
+                    <li class="fc_5 {% if web_jobs_url in request.path %}check{% endif %}">
+                        <a href="{{ web_sitemap_url }}">
+                            <i class="fa fa-arrow-circle-right"></i>
+                            <span>SITEMAP {% trans 'sitemap' %}</span>
+                        </a>
+                    </li>
+                    <li class="fc_5 {% if web_links_url in request.path %}check{% endif %}">
+                        <a href="{{ web_links_url }}">
+                            <i class="fa fa-arrow-circle-right"></i>
+                            <span>LINKS {% trans 'links' %}</span>
+                        </a>
+                    </li>
+                    <li class="fc_5 {% if web_cooperate_url in request.path %}check{% endif %}">
+                        <a href="{{ web_cooperate_url }}">
+                            <i class="fa fa-arrow-circle-right"></i>
+                            <span>COOPERATE {% trans '果库合作' %}</span>
+                        </a>
+                    </li>
+                    <li class="fc_5 {% if web_shop_service_url in request.path %}check{% endif %}">
+                        <a href="{{ web_shop_service_url }}">
+                            <i class="fa fa-arrow-circle-right"></i>
+                            <span>{% trans 'SHOPS选品服务计划' %}</span>
+                        </a>
+                    </li>
+                    <li class="fc_5 {% if web_agreement_url in request.path %}check{% endif %}">
+                        <a href="{{ web_agreement_url }}">
+                            <i class="fa fa-arrow-circle-right"></i>
+                            <span>AGREEMENT {% trans 'agreement' %}</span>
+                        </a>
+                    </li>
                 </ul>
 
 {#                <div class="contact-info-wrapper">#}

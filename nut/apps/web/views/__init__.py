@@ -31,23 +31,36 @@ class HappyNYView(TemplateView):
     #     return context
     template_name = 'web/happynewyear/happy.html'
 
+
+class FuGuView(TemplateView):
+    template_name = 'web/fugu/fugu2016.html'
+
+
 class AboutView(TemplateView):
     template_name = "web/about.html"
+
 
 class Agreement(TemplateView):
     template_name = "web/agreement.html"
 
+
 class JobsView(TemplateView):
     template_name = "web/jobs.html"
 
+
 class FaqView(TemplateView):
     template_name = "web/base_faq.html"
+
 
 class LinksView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(LinksView, self).get_context_data(**kwargs)
         return  context
     template_name = "web/links.html"
+
+
+class ShopServiceView(TemplateView):
+    template_name = 'web/shop_service.html'
 
 class CooperateView(TemplateView):
     template_name = 'web/base_cooperate.html'

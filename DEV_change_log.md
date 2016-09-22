@@ -1,8 +1,23 @@
+5. detail buylink fix fro seller added entity (manual)
+4. about page - lq 
+3. fugu h5  - lq 
+2. qr_code print - lq
+1. top_ad by lq 
+
+==============================================
+
 5. order expire check script (script/order/expire_check.py)
 4. order status , default value is waiting for payment 
 3. checkdesk order detail page. 
 2. sku default attr handle . 
 1. special seller, (fugu@guoku.com) , in seller management , can change entity creator
+
+action : 
+
+部署 crontab 脚本, 
+位置 nut/script/order/expire_check.py
+半小时一次
+
 
 ==========================================
 merged to master 9/18 

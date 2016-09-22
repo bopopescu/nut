@@ -1,6 +1,7 @@
 from django.conf.urls import url, include, patterns
 from django.views.generic import RedirectView
-from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView, CooperateView
+from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView, CooperateView\
+                           , ShopServiceView
 from apps.web.views.design_week import DesignWeekViewSet
 from apps.web.views.discover import DiscoverView, RecommendUserView
 from apps.web.views.main import SelectionEntityList, SiteMapView, IndexArticleTagView, IndexSelectionEntityTagView\
@@ -87,6 +88,7 @@ urlpatterns += patterns(
     'apps.web.views',
 
     url(r'^about/$', AboutView.as_view(), name='web_about'),
+     url(r'^shopservice/$', ShopServiceView.as_view(), name='web_shop_service'),
     url(r'^cooperate/$', CooperateView.as_view(), name='web_cooperate'),
     url(r'^jobs/$', JobsView.as_view(), name='web_jobs'),
     url(r'^agreement/$', Agreement.as_view(), name='web_agreement'),
@@ -142,11 +144,13 @@ urlpatterns += patterns('',
 # this is temp, for single page app only
 #  do not add more url here
 from apps.seller.views.web import SellerView
-from apps.web.views import HappyNYView
+from apps.web.views import HappyNYView,FuGuView
 urlpatterns += patterns('',
             url(r'^store2015/', SellerView.as_view(), name='year_store_2015'),
             # url(r'^store/', SellerView.as_view(), name='web_store'),
             url(r'^hou/', HappyNYView.as_view(), name='new_year_2015'),
+            url(r'guokuselectedshops2016/',FuGuView.as_view(),name='fu_gu_da_hui_2016')
+
         )
 
 

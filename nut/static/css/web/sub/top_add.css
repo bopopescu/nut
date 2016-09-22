@@ -1,5 +1,4 @@
 .top-ad {
-  display: none;
   height: 50px;
   width: 100%;
   background: none;
@@ -14,11 +13,10 @@
   text-align: center;
 }
 .top-ad .ad-wrapper a .top-ad-title-wrapper .top-ad-title-control {
-  height: 40px;
+  height: 35px;
   margin: 5px auto;
 }
 .top-ad .close-button {
-  dislay: none;
   position: absolute;
   right: 20px;
   height: 20px;
