@@ -212,9 +212,9 @@
     $(function(){
 	$('#fugu2016_container').fullpage({
         sectionsColor: ['#FFFFFF','#2E3F8A', '#00A4E5','#C7302D','#FFFFFF', '#FFFFFF'],
-        anchors:['page1','page2','page3','page4','page5','page6'],
+{#        if not comment the below codes,the url will with #page1....so the wechat share will show bug#}
+{#        anchors:['page1','page2','page3','page4','page5','page6'],#}
         css3:'true',
-        navigation:'false',
         afterLoad:function(link,index){
             switch(index){
                 case 1:

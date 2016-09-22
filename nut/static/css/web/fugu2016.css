@@ -1753,9 +1753,6 @@ a.new-black-link:hover {
   font-size: 12px;
   line-height: 18px;
 }
-#fp-nav {
-  display: none;
-}
 #prev_icon {
   position: fixed;
   left: 50%;
