@@ -1871,6 +1871,9 @@ a.new-black-link:hover {
 .page5 ul li h4 {
   margin: 0;
 }
+.page6 p {
+  margin: 0;
+}
 @keyframes prevAnimation {
   0% {
     transform: translate(0px, -5px);
