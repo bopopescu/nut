@@ -1778,11 +1778,6 @@ a.new-black-link:hover {
   line-height: 18px;
   color: #212121;
 }
-.page3 .design-week-logo,
-.section3 .design-week-logo {
-  position: fixed;
-  right: 30px;
-}
 .page2,
 .page3,
 .page4 {
@@ -1794,8 +1789,7 @@ a.new-black-link:hover {
   opacity: 0;
   text-align: left;
 }
-.page2 .design-week-logo,
-.page3 .design-week-logo {
+.page2 .design-week-logo {
   position: fixed;
   right: 16px;
   opacity: 0;
@@ -1824,6 +1818,8 @@ a.new-black-link:hover {
   margin-top: 30px;
 }
 .page3 .design-week-logo {
+  position: fixed;
+  right: 30px;
   -webkit-transform: translateY(-10px);
   -moz-transform: translateY(-10px);
   -ms-transform: translateY(-10px);
@@ -1834,6 +1830,17 @@ a.new-black-link:hover {
   -moz-transform: translateY(140px);
   -ms-transform: translateY(140px);
   -o-transform: translateY(140px);
+}
+.page5 ul li {
+  opacity: 0;
+  margin-bottom: 18px;
+}
+.page5 ul li:last-child {
+  margin-bottom: 0;
+}
+.page5 ul li p,
+.page5 ul li h4 {
+  margin: 0;
 }
 .page6 {
   text-align: center;
@@ -1851,25 +1858,11 @@ a.new-black-link:hover {
 }
 .page6 .qrcode-wrapper .download-wrapper img,
 .page6 .qrcode-wrapper .wechat-wrapper img {
-  width: 80px;
-  height: 80px;
+  width: 46px;
+  height: 46px;
 }
 .page6 .qrcode-wrapper .download-wrapper {
   margin-right: 30px;
-}
-.section5 .fp-tablecell {
-  vertical-align: top;
-}
-.page5 ul li {
-  opacity: 0;
-  margin-bottom: 18px;
-}
-.page5 ul li:last-child {
-  margin-bottom: 0;
-}
-.page5 ul li p,
-.page5 ul li h4 {
-  margin: 0;
 }
 .page6 p {
   margin: 0;
