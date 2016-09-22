@@ -751,7 +751,7 @@ class AddEntityFormForSeller(AddEntityForm):
                 origin_id=entity.id,
                 # cid=,
                 origin_source='guoku.com',
-                link= self.request.get_host() + entity.absolute_url,
+                link= 'http://'+self.request.get_host() + entity.absolute_url,
                 price=_price,
                 default=True,
             )

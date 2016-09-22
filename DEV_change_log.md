@@ -4,6 +4,13 @@
 2. sku default attr handle . 
 1. special seller, (fugu@guoku.com) , in seller management , can change entity creator
 
+action : 
+
+部署 crontab 脚本, 
+位置 nut/script/order/expire_check.py
+半小时一次
+
+
 ==========================================
 merged to master 9/18 
 
