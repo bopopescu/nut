@@ -25,6 +25,8 @@
                     待付款
                 {% elif status == "paid" %}
                     已完成
+                {% elif status == 'expired' %}
+                    已过期
                 {% endif %}
                 <span class="caret"></span>
             </a>
@@ -34,6 +36,8 @@
                 <li><a href="{{ current_path }}?status=waiting_for_payment">待付款</a></li>
                 <li class="divider"></li>
                 <li><a href="{{ current_path }}?status=paid">已完成</a></li>
+                <li class="divider"></li>
+                <li><a href="{{ current_path }}?status=expired">过期订单</a></li>
             </ul>
         </span>
     </section>

@@ -158,7 +158,7 @@ class OrderForUserTest(DBTestBase):
         self.the_user.add_sku_to_cart(self.sku1, 5)
         self.the_user.add_sku_to_cart(self.sku2, 12)
         order = self.the_user.checkout()
-        self.assertEqual(order.status, Order.address_unbind)
+        self.assertEqual(order.status, Order.waiting_for_payment)
         # need refresh from db
         self.assertEqual(self.sku1.stock, 9)
         self.assertEqual(self.sku2.stock, 18)
@@ -216,7 +216,7 @@ class OrderForUserTest(DBTestBase):
         self.the_user.add_sku_to_cart(self.sku1)
         order = self.the_user.checkout()
 
-        self.assertEqual(order.realtime_status, Order.address_unbind)
+        self.assertEqual(order.realtime_status, Order.waiting_for_payment)
 
         expired_time = datetime.datetime.now() - datetime.timedelta(minutes=Order.expire_in_minutes+1)
         order.created_datetime = expired_time

@@ -1512,6 +1512,9 @@ ul {
   text-align: left;
   padding: 15px 12px;
 }
+.new-table tr.order-cell-expired td {
+  background-color: #999999!important;
+}
 .new-table tr.order-cell-result {
   background-color: darkseagreen;
 }
@@ -1790,5 +1793,5 @@ body.seller-management #seller_management_entity_price .sku-save-btn {
   border: 1px solid #BDBDBD;
 }
 .test {
-  color: black;
+  color: red;
 }
