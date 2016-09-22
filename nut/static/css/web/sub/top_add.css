@@ -1,5 +1,4 @@
 .top-ad {
-  display: none;
   height: 50px;
   width: 100%;
   background: none;
@@ -18,7 +17,6 @@
   margin: 5px auto;
 }
 .top-ad .close-button {
-  dislay: none;
   position: absolute;
   right: 20px;
   height: 20px;
