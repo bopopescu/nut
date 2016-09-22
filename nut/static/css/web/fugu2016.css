@@ -1842,24 +1842,14 @@ a.new-black-link:hover {
 .page6 {
   text-align: center;
 }
-.page6 .qrcode-wrapper {
-  width: 200px;
-  margin: 0 auto;
-  margin-top: 90px;
+.page6 .wechat-wrapper {
+  opacity: 0;
+  margin-top: 120px;
   margin-bottom: 50px;
 }
-.page6 .qrcode-wrapper .download-wrapper,
-.page6 .qrcode-wrapper .wechat-wrapper {
-  display: inline-block;
-  opacity: 0;
-}
-.page6 .qrcode-wrapper .download-wrapper img,
-.page6 .qrcode-wrapper .wechat-wrapper img {
+.page6 .wechat-wrapper img {
   width: 46px;
   height: 46px;
-}
-.page6 .qrcode-wrapper .download-wrapper {
-  margin-right: 30px;
 }
 .page6 p {
   margin: 0;
