@@ -183,10 +183,10 @@
             </div>
         </div>
         <p>
-            官方网站<a class="new-blue-link" href="{% url 'web_index' %}">guoku.com</a>
+            官方网站<a class="new-blue-link" href="{% url 'web_index' %}">&nbsp;guoku.com</a>
         </p>
         <p>
-            合作联络<a class="new-blue-link" href="mailto:bd@guoku.com">bd@guoku.com</a>
+            合作联络<a class="new-blue-link" href="mailto:bd@guoku.com">&nbsp;bd@guoku.com</a>
         </p>
     </div>
 
@@ -246,8 +246,8 @@
                     break;
                 case 6:
                     move('#prev_icon').set('display','none').end();
-                    move('.page6 .wechat-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
-                    move('.page6 .download-wrapper').set('opacity', 1).y(5).duration('1.5s').end();
+                    move('.page6 .wechat-wrapper').delay('0.2s').set('opacity', 1).y(5).duration('1.5s').end();
+                    move('.page6 .download-wrapper').delay('0.2s').set('opacity', 1).y(5).duration('1.5s').end();
                     break;
                 default:
                     break;
@@ -284,8 +284,8 @@
                     break;
                 case 6:
                     move('#prev_icon').set('display','block').end();
-                    move('.page6 .wechat-wrapper').set('opacity', 0).y(-5).end();
-                    move('.page6 .download-wrapper').set('opacity', 0).y(-5).end();
+                    move('.page6 .wechat-wrapper').delay('0s').set('opacity', 0).y(-5).end();
+                    move('.page6 .download-wrapper').delay('0s').set('opacity', 0).y(-5).end();
                     break;
                 default:
                     break;
