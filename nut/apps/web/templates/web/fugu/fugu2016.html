@@ -171,18 +171,14 @@
         </div>
     </div>
     <div class="section page6">
-         <img src="{% static 'images/fugu2016/guoku_icon_slogan.png' %}" style="width:111px;height:97px;">
-        <div class="qrcode-wrapper">
-            <div class="download-wrapper">
-                <img src="{%  static 'images/fugu2016/AppDL.png' %}" alt="应用下载" title="应用下载">
-                <p>应用下载</p>
-            </div>
-            <div class="wechat-wrapper">
-                <img src="{%  static 'images/fugu2016/we_chat_follow.png' %}" alt="微信公众号" title="微信公众号">
-                <p>微信公众号</p>
-            </div>
+        <img src="{% static 'images/fugu2016/guoku_icon_slogan.png' %}" style="width:111px;height:97px;">
+        <div class="wechat-wrapper">
+            <img src="{%  static 'images/fugu2016/we_chat_follow.png' %}" alt="微信公众号" title="微信公众号">
+            <p>微信公众号</p>
         </div>
+
         <p>
+            应用下载<a class="new-blue-link" href="{% url 'web_download' %}">&nbsp;guoku.com/download/</a><br>
             官方网站<a class="new-blue-link" href="{% url 'web_index' %}">&nbsp;guoku.com</a><br>
             合作联络<a class="new-blue-link" href="mailto:bd@guoku.com">&nbsp;bd@guoku.com</a>
         </p>
@@ -245,7 +241,7 @@
                 case 6:
                     move('#prev_icon').set('display','none').end();
                     move('.page6 .wechat-wrapper').delay('0.2s').set('opacity', 1).y(5).duration('0.8s').end();
-                    move('.page6 .download-wrapper').delay('0.2s').set('opacity', 1).y(5).duration('0.8s').end();
+{#                    move('.page6 .download-wrapper').delay('0.2s').set('opacity', 1).y(5).duration('0.8s').end();#}
                     break;
                 default:
                     break;
@@ -283,7 +279,7 @@
                 case 6:
                     move('#prev_icon').set('display','block').end();
                     move('.page6 .wechat-wrapper').delay('0s').set('opacity', 0).y(-5).end();
-                    move('.page6 .download-wrapper').delay('0s').set('opacity', 0).y(-5).end();
+{#                    move('.page6 .download-wrapper').delay('0s').set('opacity', 0).y(-5).end();#}
                     break;
                 default:
                     break;
