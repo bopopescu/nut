@@ -1916,11 +1916,11 @@ a.new-black-link:hover {
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .section {
-    padding: 0 32px;
+    padding: 0 80px;
   }
 }
 @media (min-width: 991px) {
   .section {
-    padding: 0 60px;
+    padding: 0 100px;
   }
 }
