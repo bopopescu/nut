@@ -59,6 +59,9 @@ class LinksView(TemplateView):
     template_name = "web/links.html"
 
 
+class ShopServiceView(TemplateView):
+    template_name = 'web/shop_service.html'
+
 class CooperateView(TemplateView):
     template_name = 'web/base_cooperate.html'
 
