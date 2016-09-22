@@ -56,8 +56,8 @@ class SKU(BaseModel):
 
     def save(self, *args, **kwargs):
         self.discount = self.get_discount_rate()
-        self.entity.updated_time = datetime.now()
-        self.entity.save()
+        # self.entity.updated_time = datetime.now()
+        # self.entity.save()
         super(SKU, self).save(*args, **kwargs)
 
     # def toDict(self):
