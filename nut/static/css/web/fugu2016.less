@@ -67,9 +67,7 @@
 .page2,.page3,.page4{
   text-align: center;
 }
-.page2 .fugu-logo,.page3 .gk-talks-logo,.page4 .guoku-shops-logo{
-    .transform(translateY(100px));
-}
+
 .page2,.page3,.page4{
   .intro-wrapper{
     //width:100%;
@@ -90,6 +88,7 @@
   .fugu-logo{
     width:146px;
     height:141px;
+    .transform(translateY(170px));
   }
   .cooperate-logo{
     margin-left: 8px;
@@ -99,6 +98,9 @@
   }
 }
 .page3{
+   .gk-talks-logo{
+    .transform(translateY(200px));
+}
    .more-info{
     margin-top:30px;
   }
@@ -106,12 +108,15 @@
     .transform(translateY(-10px));
   }
 }
+.page4 .guoku-shops-logo{
+  .transform(translateY(140px));
+}
 .page6{
   text-align: center;
   .qrcode-wrapper{
     width:200px;
     margin:0 auto;
-    margin-top:110px;
+    margin-top:90px;
     margin-bottom: 50px;
     .download-wrapper,.wechat-wrapper{
       display: inline-block;

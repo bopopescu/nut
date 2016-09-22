@@ -1788,14 +1788,6 @@ a.new-black-link:hover {
 .page4 {
   text-align: center;
 }
-.page2 .fugu-logo,
-.page3 .gk-talks-logo,
-.page4 .guoku-shops-logo {
-  -webkit-transform: translateY(100px);
-  -moz-transform: translateY(100px);
-  -ms-transform: translateY(100px);
-  -o-transform: translateY(100px);
-}
 .page2 .intro-wrapper,
 .page3 .intro-wrapper,
 .page4 .intro-wrapper {
@@ -1811,12 +1803,22 @@ a.new-black-link:hover {
 .page2 .fugu-logo {
   width: 146px;
   height: 141px;
+  -webkit-transform: translateY(170px);
+  -moz-transform: translateY(170px);
+  -ms-transform: translateY(170px);
+  -o-transform: translateY(170px);
 }
 .page2 .cooperate-logo {
   margin-left: 8px;
 }
 .page2 .more-info {
   margin-top: 30px;
+}
+.page3 .gk-talks-logo {
+  -webkit-transform: translateY(200px);
+  -moz-transform: translateY(200px);
+  -ms-transform: translateY(200px);
+  -o-transform: translateY(200px);
 }
 .page3 .more-info {
   margin-top: 30px;
@@ -1827,13 +1829,19 @@ a.new-black-link:hover {
   -ms-transform: translateY(-10px);
   -o-transform: translateY(-10px);
 }
+.page4 .guoku-shops-logo {
+  -webkit-transform: translateY(140px);
+  -moz-transform: translateY(140px);
+  -ms-transform: translateY(140px);
+  -o-transform: translateY(140px);
+}
 .page6 {
   text-align: center;
 }
 .page6 .qrcode-wrapper {
   width: 200px;
   margin: 0 auto;
-  margin-top: 110px;
+  margin-top: 90px;
   margin-bottom: 50px;
 }
 .page6 .qrcode-wrapper .download-wrapper,
