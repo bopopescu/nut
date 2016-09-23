@@ -69,7 +69,9 @@
                         <p class="entity-title">
                             {{ entity.title|truncatechars:64}}
                         </p>
+                        <p><a href="{% url 'web_entity_sale' entity.entity_hash  %}"> 快速购买二维码</a></p>
                     </div>
+
                 </div>
             </td>
             <td class="sku-cell">
