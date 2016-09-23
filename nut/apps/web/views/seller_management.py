@@ -145,7 +145,7 @@ class QrcodeListView(IsAuthorizedSeller,  AjaxResponseMixin,  JSONResponseMixin,
 
         host = request.get_host()
         for entity in self.object_list:
-          entity.title = entity.title[:15]
+          entity.title = entity.title
           entity.qr_info = [entity.brand, entity.title, "", entity.price, 'http://' + host + entity.qrcode_url]
         return render_to_response(self.template_name, {'entities': self.object_list},
                                   context_instance=RequestContext(request)

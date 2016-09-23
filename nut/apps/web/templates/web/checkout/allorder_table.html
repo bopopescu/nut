@@ -26,7 +26,8 @@
      {% for order in object_list %}
         <tr class="order-cell-header {% if order.should_expired %} order-cell-expired {% endif %}">
             <td colspan="5">
-                订单号:{{ order.number }} &nbsp;&nbsp;创建时间:{{ order.created_datetime|date:'Y-m-d H:i:s' }}
+                订单号:{{ order.number }} &nbsp;&nbsp;创建时间:{{ order.created_datetime|date:'Y-m-d H:i:s' }}<br>
+                卖家:{{ order.customer.nick }}
             </td>
         </tr>
         <tr class="{% if order.should_expired %} order-cell-expired {% endif %}" >
