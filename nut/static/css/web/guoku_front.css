@@ -2772,6 +2772,12 @@ a:hover {
   line-height: 20px;
   font-size: 20px;
 }
+@media (max-width: 580px) {
+  .top-ad .ad-wrapper a .top-ad-title-wrapper .top-ad-title-control {
+    height: 25px;
+    margin: 12px auto;
+  }
+}
 .user-article-cell {
   padding: 0 10px;
   margin-bottom: 20px;
