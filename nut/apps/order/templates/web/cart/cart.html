@@ -1,11 +1,27 @@
-<ul>
-{% for item in cart_items %}
-    <li>
-        {{ item.sku.entity.title }} <br>
-        {{ item.volume }}<br>
-        {{ item.sku.promo_price }}<br>
-    </li>
+{% load guoku %}
+
+<table border="1">
+    <tr>
+        <td>图像</td>
+        <td>名称</td>
+        <TD>数量</TD>
+        <TD>价格</TD>
+    </tr>
+    {% for item in cart_items %}
+    <tr>
+        <TD>
+            <a href="{% url 'web_entity_sale' item.sku.entity.entity_hash %}">
+                <img src="{{ item.sku.entity.chief_image|resize:'150' }}" >
+            </a>
+        </TD>
+        <td>{{ item.sku.entity.title }}</td>
+        <td>{{ item.volume }}</td>
+        <td>{{ item.sku.promo_price }}</td>
+    </tr>
 {% endfor %}
+
+</table>
+
 
 </ul>
 <a href="{% url 'web_user_checkout' %}">
