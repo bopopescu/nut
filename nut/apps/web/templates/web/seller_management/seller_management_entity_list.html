@@ -67,16 +67,18 @@
                     </div>
                     <div class="entity-info-wrapper">
                         <p class="entity-title">
-                            {{ entity.title |truncatechars:64}}
+                            {{ entity.title|truncatechars:64}}
                         </p>
+                        <p><a href="{% url 'web_entity_sale' entity.entity_hash  %}" target="_blank"> 快速购买二维码</a></p>
                     </div>
+
                 </div>
             </td>
             <td class="sku-cell">
                  {% for sku in entity.sku_list %}
                     {% if sku.attrs_display %}
                         <div class="sku-item sku-item-border">
-                         {{ sku.attrs_display|truncatechars:25 }}
+                         {{ sku.attrs_display|truncatechars:64 }}
                         </div>
                     {% else %}
                         <div class="sku-item sku-item-border">
