@@ -34,6 +34,7 @@ TIME_FORMAT = '%Y-%m-%d 8:00:00'
 def sum_price(sum, next_log):
     return sum + next_log.order.order_total_value
 
+
 class SKUUserPassesTestMixin(UserPassesTestMixin):
     def test_func(self, user):
         self.entity_id = self.kwargs.get('entity_id')
