@@ -2106,6 +2106,9 @@ a.new-black-link:hover {
   /*add by An , temp for static page*/
   margin-bottom: 10px;
 }
+.static-page .subtitle {
+  font-weight: 600;
+}
 /* 下载页 */
 .download_bg {
   background: #F7F7F7;
