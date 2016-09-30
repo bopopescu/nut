@@ -1,3 +1,8 @@
+2. web bug fix  
+1. top_ad update  
+
+================
+
 2. seller entity list paging bug fix 
 1. top_ad update ,  
 
