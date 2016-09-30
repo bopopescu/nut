@@ -1,3 +1,15 @@
+
+1. top_ad management 
+
+action : 
+    syncdb 
+    
+    
+
+==================
+merged to master  9-29 
+==================
+
 2. web bug fix  
 1. top_ad update  
 
