@@ -11,16 +11,28 @@ class TopAdBannerQuerySet(models.query.QuerySet):
 
 
 class TopAdBannerManager(models.Manager):
+    def ios_top_banners(self):
+        return self.active_banners().filter(display_type='app_ios')
+
+    def web_top_banners(self):
+        return self.active_banners().filter(display_type='web')
+
+    def android_top_banners(self):
+        return self.active_banners().filter(display_type='app_android')
+
     def active_banners(self):
-        return self.filter(status__in=[BaseBanner.disabled, BaseBanner.enabled])
+        return self.filter(status__in=[BaseBanner.enabled])
+
+    def disabled_banners(self):
+        return self.filter(status__in=[BaseBanner.disabled])
 
 
 class TopAdBanner(BaseBanner):
 
     DISPLAY_CHOICES = (
-        ('app_ios', _('IOS移动端')),
-        ('app_android', _('安卓移动端')),
-        ('web', _('网站端'))
+        ('app_ios', _('IOS')),
+        ('app_android', _('Android')),
+        ('web', _('WEB'))
     )
 
     CONTENT_TYPE_CHOICES = (
@@ -29,8 +41,18 @@ class TopAdBanner(BaseBanner):
         ('category', _('category')),
         ('user', _('user')),
     )
-    content_type = models.CharField(max_length=64, choices=CONTENT_TYPE_CHOICES, default='entity')
-    display_type = models.CharField(max_length=64, choices=DISPLAY_CHOICES, default='app_ios')
+
+    content_type = models.CharField(max_length=64,
+                                    choices=CONTENT_TYPE_CHOICES,
+                                    default='entity',
+                                    )
+
+    display_type = models.CharField(max_length=64,
+                                    choices=DISPLAY_CHOICES,
+                                    default='app_ios',
+                                    )
+
+    objects = TopAdBannerManager()
 
     @property
     def url(self):
@@ -38,6 +60,3 @@ class TopAdBanner(BaseBanner):
             return self.applink
         _url = "guoku://%s/%s" % (self.content_type, self.applink)
         return _url
-
-
-

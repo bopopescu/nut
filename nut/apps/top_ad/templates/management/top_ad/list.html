@@ -28,13 +28,14 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="box box-info">
                     <div class="box-header">
-
+                        <a class="btn btn-primary" href="{% url 'manage_topad_list' %}">正常显示TOP BAR</a>
+                        <a class="btn btn-warning" href="{% url 'manage_disabled_topad_list' %}">Disabled TOP BAR</a>
                     </div>
 
                     <div class="box-body table-responsive">
                        <div class="">
                            <hr>
-                           <a href="{% url 'manage_sitebanners_create' %}">
+                           <a href="{% url 'manage_topad_create' %}">
                              <button class="btn btn-primary">+{{ create_text }}</button>
                            </a>
                            <hr>
@@ -62,8 +63,4 @@
 {% endblock %}
 
 {% block user_script %}
-    <script src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>
-    <script src="{% static 'js/management/util.js' %}"></script>
-    <script src="{% static 'js/management/moment.js' %}"></script>
-    <script src="{% static 'js/management/sitebanner_save.js' %}"></script>
 {% endblock %}

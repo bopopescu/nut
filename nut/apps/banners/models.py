@@ -24,9 +24,9 @@ class BaseBanner(BaseModel):
     updated_time = models.DateTimeField(auto_now=True, editable=False,
                                         db_index=True)
     link = models.CharField(max_length=255, null=False, help_text='web site link')
-    applink = models.CharField(max_length=255, null=True, blank=True , help_text='in app link')
+    applink = models.CharField(max_length=255, null=True, blank=True, help_text='in app link')
     position = models.IntegerField(null=False, default=1, blank=False)
-    status = models.IntegerField(choices=BANNER_STATUS_CHOICE,default=disabled)
+    status = models.IntegerField(choices=BANNER_STATUS_CHOICE, default=enabled)
 
     @property
     def image_url(self):
