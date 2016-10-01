@@ -1,0 +1,311 @@
+{% extends 'web/base.html' %}
+
+{% load i18n staticfiles %}
+
+{% block meta-og %}
+    <meta property="og:title" content="看看果库在 2016 北京国际设计周期间，都做了哪些事儿…" >
+    <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
+    <meta property="og:description" content="在 2016 北京国际设计周期间，果库启动了线下选品商店的服务计划，为活跃于线上的国内原创设计品牌与线下生活方式店们牵线，提出与众不同的理想生活选品组合方案，去同质化的消费场景，营造更具情怀与体验感的复合式主题店，向消费者提供独特的购物体验，为线下零售业带去惊喜变化。一方面充分诠释体验式的理想生活形态，另一方面推介植根于中国本土的原创设计力量。
+                                             如果你在打造自己的特色原创设计品牌，或者期望开设追求生活品质的复合式实体店铺，都可以通过 bd@guoku.com 联系我们。">
+{% endblock %}
+
+{% block meta-common %}
+    <meta name="title"  content="看看果库在 2016 北京国际设计周期间，都做了哪些事儿…">
+    <meta name="keywords" content="设计周,国际设计周,北京国际设计周,复古大会,设计之旅,消费商圈,嘉里中心,国棉壹厂,灯塔,上海时装周,理想生活设计论,大栅栏,北京坊,理想国,设计的准则,果库选品商店,果库精选商家,选品服务计划">
+    <meta name="description" content="在 2016 北京国际设计周期间，果库启动了线下选品商店的服务计划，为活跃于线上的国内原创设计品牌与线下生活方式店们牵线，提出与众不同的理想生活选品组合方案，去同质化的消费场景，营造更具情怀与体验感的复合式主题店，向消费者提供独特的购物体验，为线下零售业带去惊喜变化。一方面充分诠释体验式的理想生活形态，另一方面推介植根于中国本土的原创设计力量。
+                                      如果你在打造自己的特色原创设计品牌，或者期望开设追求生活品质的复合式实体店铺，都可以通过 bd@guoku.com 联系我们。">
+{% endblock %}
+
+{% block title %}看看果库在 2016 北京国际设计周期间，都做了哪些事儿…{% endblock %}
+
+{% block css_basic %}
+    <link rel="icon" type="image/ico" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/font-awesome/css/font-awesome.min.css' %}">
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/fullpage/jquery.fullPage.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/web/fugu2016.css' %}">
+{% endblock %}
+
+{% block body_class %}fugu-body{% endblock %}
+
+{% block weixin_share_img %}
+    <div id='wx_logo' style='margin:0 auto;display:none;'>
+{#         分享入口页面时展示的图片#}
+        <img src="{% static 'images/fugu2016/we_chat_share.jpg' %}"/>
+    </div>
+{% endblock %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+<div id="prev_icon">
+    <i class="fa fa-chevron-down"></i>
+</div>
+<div id="fugu2016_container">
+    <div class="section page1">
+        <img src="{% static 'images/fugu2016/Title_GUOKUCOM.png' %}" style="width:190px;height:87px;">
+    </div>
+	<div class="section page2">
+        <img class="fugu-logo" src="{% static 'images/fugu2016/retro_fair_logo.png' %}">
+         <img class="design-week-logo" src="{% static 'images/fugu2016/DesignHop_ShoppingMall.png' %}" style="width:50px;height:56px;">
+        <div class="intro-wrapper">
+{#            <img class="design-week-logo" src="{% static 'images/fugu2016/DesignHop_ShoppingMall.png' %}" style="width:50px;height:56px;">#}
+            <h3 class="primary-title">复古大会<br>GUOKU POP-UP RETRO FAIR</h3>
+            <p>
+                果库与灯塔 SHOWROOM 共同主办的「复古大会」，组织国内一众原创品牌，带着对过往的缅怀，强调对品质的追求，集中展出与售卖着装、配饰、居家用品、家具、
+                咖啡、骑行等单品。既有讲究品质、实用及耐穿的美式 vintage 复古元素，回顾上世纪的缝制、工艺；又有在大规模流水线生产时代，从「中国制造」到「中国风格」
+                的反思。现场活动，形式多样，包括复古主题沙龙、收藏展、工作坊教学、微瑕及手作限定品贩售……　　　　
+            </p>
+            <p>
+                免费入场。
+            </p>
+            <div class="more-info">
+                <p>
+                    合作伙伴：灯塔 SHOWROOM<img class="cooperate-logo" src="{% static 'images/fugu2016/dengta.png' %}" style="width:17px;height:21px;">
+                </p>
+                <p>
+                    时间：9 月 23 日至 10 月 7 日<br>
+                    地点：北京市朝阳区光华路 1 号嘉里中心商场 B1 层
+                </p>
+            </div>
+        </div>
+    </div>
+	<div class="section page3">
+        <img class="gk-talks-logo" src="{% static 'images/fugu2016/GUOKU_Talks.png' %}" style="width:157px;height:62px;">
+         <img class="design-week-logo" src="{% static 'images/fugu2016/DSLDesignCommunity.png' %}" style="width:60px;height:56px;">
+        <div class="intro-wrapper">
+{#            <img class="design-week-logo" src="{% static 'images/fugu2016/DSLDesignCommunity.png' %}" style="width:60px;height:56px;">#}
+            <h3 class="primary-title">果库理想生活设计论<br>How to Design Your Ideal Life</h3>
+            <p>
+                用单车唤醒清晨，蓝边碗能够慰藉失落的乡愁和灵魂，老织机T恤讲的是时间与重生的故事，手工玛丽珍鞋踢踏出行走的趣味。理想的城市生活，离不开物与人。
+                成立五年的「果库」基于多年线上积累，邀请来自衣、食、行不同领域的中国设计力量，围绕与现代日常息息相关的「骑行」「器物」「复古」「摩登」 四大主题，
+                探寻商品背后的城市生活意义，以及理想生活的种种可能。　　　　
+            </p>
+            <p>
+                免费报名参加。
+            </p>
+            <h4 class="subtitle">演讲嘉宾：</h4>
+            <ul>
+                <li>
+                    张志国，国棉壹厂品牌创始人
+                </li>
+                <li>
+                    高庶三，WKUP城市单车品牌创始人
+                </li>
+                <li>
+                    刘柏煦，痣品牌创始人
+                </li>
+                <li>
+                    柴猫君Zerolily，Truble Maaker品牌主理人
+                </li>
+            </ul>
+                <p class="more-info">
+                    时间：9月28日16:00起<br>
+                    地址：北京前门廊房头条 17 号劝业场 4 层多功能厅
+                </p>
+        </div>
+    </div>
+    <div class="section page4">
+        <img class="guoku-shops-logo" src="{% static 'images/fugu2016/GUOKU_Shops.png' %}" style="width:167px;height:56px;">
+         <div class="intro-wrapper">
+            <h3 class="primary-title">果库选品商店<br>GUOKU Shops</h3>
+            <p>
+                在 2016 北京国际设计周期间，果库启动了线下选品商店的服务计划，为活跃于线上的国内原创设计品牌与线下生活方式店们牵线，提出与众不同的理想生活选品
+                组合方案，去同质化的消费场景，营造更具情怀与体验感的复合式主题店，向消费者提供独特的购物体验，为线下零售业带去惊喜变化。一方面充分诠释体验式的理
+                想生活形态，另一方面推介植根于中国本土的原创设计力量。
+            </p>
+            <p>
+                如果你在打造自己的特色原创设计品牌，或者期望开设追求生活品质的复合式实体店铺，都可以通过 bd@guoku.com 联系我们。
+            </p>
+        </div>
+    </div>
+    <div class="section page5">
+       <div class="intro-wrapper">
+            <h3 class="primary-title">果库选品商店<br>GUOKU Shops</h3>
+            <p style="margin-bottom: 18px;">
+                商店列表，不断追加中……
+            </p>
+
+            <ul>
+            <li class="shop-item-1">
+                 ➊
+                 <h4 class="subtitle">
+                    CofFeel Collection 精品咖啡馆
+                </h4>
+                <p>
+                    北京朝阳区酒仙桥北路 9 号恒通国际创新园 C7 民生现代美术馆首层
+                </p>
+            </li>
+            <li class="shop-item-2">
+                    ➋
+                 <h4 class="subtitle">
+                    言YAN BOOKS
+                </h4>
+                <p>
+                    北京朝阳区青年路西里润枫水尚 8 号楼 05 号底商
+                </p>
+            </li>
+            <li class="shop-item-3">
+                    ➌
+                 <h4 class="subtitle">
+                    Sherlock House 夏洛克小屋
+                </h4>
+                <p>
+                    北京东城区鼓楼东大街 20-2 号
+                </p>
+            </li>
+             <li class="shop-item-4">
+                    ➍
+                 <h4 class="subtitle">
+                    Daily PROJECT
+                </h4>
+                <p>
+                    北京市朝阳区三里屯西五街 5 号院西五艺术中心后院
+                </p>
+            </li>
+        </ul>
+        </div>
+    </div>
+    <div class="section page6">
+{#        <div id='wx_logo' style='margin:0 auto;display:none;'>#}
+{#             分享入口页面时展示的图片#}
+{#            <img src="{% static 'images/fugu2016/we_chat_share.jpg' %}"/>#}
+{#        </div>#}
+        <img src="{% static 'images/fugu2016/guoku_icon_slogan.png' %}" style="width:111px;height:87px;">
+        <div class="wechat-wrapper">
+            <img src="{%  static 'images/fugu2016/we_chat_follow.png' %}" alt="微信公众号" title="微信公众号">
+            <p>微信公众号</p>
+        </div>
+        <p>
+            应用下载<a class="new-blue-link" href="{% url 'web_download' %}">&nbsp;guoku.com/download/</a><br>
+            官方网站<a class="new-blue-link" href="{% url 'web_index' %}">&nbsp;guoku.com</a><br>
+            合作联络<a class="new-blue-link" href="mailto:bd@guoku.com">&nbsp;bd@guoku.com</a>
+        </p>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block  bottom_bar %}
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
+
+{% block basic_script %}
+    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'thirdparty/fullpage/jquery.easings.min.js' %}"></script>
+    <script src="{% static 'thirdparty/fullpage/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'thirdparty/fullpage/jquery.fullPage.js' %}"></script>
+    <script src="{% static 'thirdparty/move/move.min.js' %}"></script>
+{% endblock %}
+
+{% block script %}
+    <script>
+    $(function(){
+	$('#fugu2016_container').fullpage({
+        sectionsColor: ['#FFFFFF','#2E3F8A', '#00A4E5','#C7302D','#FFFFFF', '#FFFFFF'],
+{#        if not comment the below codes,the url will with #page1....so the wechat share will show bug#}
+{#        anchors:['page1','page2','page3','page4','page5','page6'],#}
+        css3:'true',
+        afterLoad:function(link,index){
+            switch(index){
+                case 1:
+                    break;
+                case 2:
+                    move('.page2 .fugu-logo').delay('0.5s').set('opacity',0).duration('0.8s').end();
+                    move('.page2').delay('0.5s').set('background-color','#FFFFFF').duration('0.8s').end();
+                    move('.page2 .design-week-logo').delay('1.5s').set('opacity',1).duration('0.8s').end();
+                    move('.page2 .intro-wrapper').delay('1.5s').set('opacity',1).y(-100).duration('0.8s').end();
+                    break;
+                case 3:
+                    move('.page3 .gk-talks-logo').delay('0.5s').set('opacity',0).duration('0.8s').end();
+                    move('.page3').delay('0.5s').set('background-color','#FFFFFF').duration('0.8s').end();
+                    move('.page3 .design-week-logo').delay('1.5s').set('opacity',1).duration('0.8s').end();
+                    move('.page3 .intro-wrapper').delay('1.5s').set('opacity',1).y(-40).duration('0.8s').end();
+                    break;
+                case 4:
+                    move('.page4 .guoku-shops-logo').delay('0.5s').set('opacity',0).duration('0.8s').end();
+                    move('.page4').delay('0.5s').set('background-color','#FFFFFF').duration('0.8s').end();
+                    move('.page4 .intro-wrapper').delay('1.5s').set('opacity',1).y(-100).duration('0.8s').end();
+                    break;
+                case 5:
+                    move('.page5 .shop-item-1').delay('0.2s').set('opacity',1).y(-10).duration('0.6s').end();
+                    move('.page5 .shop-item-2').delay('1s').set('opacity',1).y(-10).duration('0.6s').end();
+                    move('.page5 .shop-item-3').delay('1.8s').set('opacity',1).y(-10).duration('0.6s').end();
+                    move('.page5 .shop-item-4').delay('2.6s').set('opacity',1).y(-10).duration('0.6s').end();
+                    break;
+                case 6:
+                    move('#prev_icon').set('display','none').end();
+                    move('.page6 .wechat-wrapper').delay('0.2s').set('opacity', 1).y(5).duration('0.8s').end();
+{#                    move('.page6 .download-wrapper').delay('0.2s').set('opacity', 1).y(5).duration('0.8s').end();#}
+                    break;
+                default:
+                    break;
+            }
+        },
+
+        onLeave:function(link,index){
+            switch(index){
+                case 1:
+                    break;
+                case 2:
+                    move('.page2 .fugu-logo').delay('0s').set('opacity',1).end();
+                    move('.page2').delay('0s').set('background-color','#2E3F8A').end();
+                    move('.page2 .design-week-logo').delay('0s').set('opacity',0).end();
+                    move('.page2 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
+                    break;
+                case 3:
+                    move('.page3 .gk-talks-logo').delay('0s').set('opacity',1).end();
+                    move('.page3').delay('0s').set('background-color','#00A4E5').end();
+                    move('.page3 .design-week-logo').delay('0s').set('opacity',0).end();
+                    move('.page3 .intro-wrapper').delay('0s').set('opacity',0).y(0).end();
+                    break;
+                case 4:
+                    move('.page4').delay('0s').set('background-color','#C7302D').end();
+                    move('.page4 .guoku-shops-logo').delay('0s').set('opacity',1).end();
+                    move('.page4 .intro-wrapper').delay('0s').set('opacity', 0).y(0).end();
+                    break;
+                case 5:
+                    move('.page5 .shop-item-1').delay('0s').set('opacity',0).y(0).end();
+                    move('.page5 .shop-item-2').delay('0s').set('opacity',0).y(0).end();
+                    move('.page5 .shop-item-3').delay('0s').set('opacity',0).y(0).end();
+                    move('.page5 .shop-item-4').delay('0s').set('opacity',0).y(0).end();
+
+                    break;
+                case 6:
+                    move('#prev_icon').set('display','block').end();
+                    move('.page6 .wechat-wrapper').delay('0s').set('opacity', 0).y(-5).end();
+{#                    move('.page6 .download-wrapper').delay('0s').set('opacity', 0).y(-5).end();#}
+                    break;
+                default:
+                    break;
+            }
+        }
+    });
+});
+    </script>
+{% endblock %}
+
+{% block ga_script %}
+    <!-- Google Analytics -->
+{#    <script language="javascript">#}
+{##}
+{#    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){#}
+{#    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),#}
+{#    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)#}
+{#    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');#}
+{##}
+{#    ga('create', 'UA-24696872-5', 'auto');#}
+{#    ga('send', 'pageview');#}
+{#    ga('set', '&uid', '412916' )#}
+{##}
+{#    </script>#}
+{% endblock %}
+

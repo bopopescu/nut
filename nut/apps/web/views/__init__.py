@@ -36,6 +36,10 @@ class FuGuView(TemplateView):
     template_name = 'web/fugu/fugu2016.html'
 
 
+class FuGuListView(TemplateView):
+    template_name = 'web/fugu/fugu2016_list.html'
+
+
 class AboutView(TemplateView):
     template_name = "web/about.html"
 
