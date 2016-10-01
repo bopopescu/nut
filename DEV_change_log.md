@@ -1,8 +1,11 @@
-
+2. guoku off line shop h5 
 1. top_ad management 
+
+ add TopAdBanner table
 
 action : 
     syncdb 
+    
     
     
 
