@@ -1775,14 +1775,30 @@ a.new-black-link:hover {
   line-height: 18px;
   color: #212121;
 }
+.section a,
+.section a:hover,
+.section a:visited {
+  text-decoration: none;
+  font-weight: 600;
+}
 .page2,
 .page3,
-.page4 {
+.page4,
+#list_cover,
+#shop1,
+#shop2,
+#shop3,
+#shops_intro {
   text-align: center;
 }
 .page2 .intro-wrapper,
 .page3 .intro-wrapper,
-.page4 .intro-wrapper {
+.page4 .intro-wrapper,
+#list_cover .intro-wrapper,
+#shop1 .intro-wrapper,
+#shop2 .intro-wrapper,
+#shop3 .intro-wrapper,
+#shops_intro .intro-wrapper {
   opacity: 0;
   text-align: left;
 }
@@ -1906,4 +1922,27 @@ a.new-black-link:hover {
   .section {
     padding: 0 100px;
   }
+}
+.shop-img-wrapper {
+  width: 100%;
+  text-align: center;
+}
+.shop-img-wrapper img {
+  display: inline-block;
+  width: 100%;
+  height: auto;
+}
+#event .gift_wrapper {
+  padding: 0px;
+  background: #ccc;
+  text-align: left ;
+  vertical-align: middle;
+  left: 0px;
+  top: 0px;
+}
+#event .gift_wrapper .guoku-gift-logo {
+  display: inline;
+}
+.test {
+  color: red;
 }
