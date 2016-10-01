@@ -1,3 +1,23 @@
+2. guoku off line shop h5 
+1. top_ad management 
+
+ add TopAdBanner table
+
+action : 
+    syncdb 
+    
+    
+    
+
+==================
+merged to master  9-29 
+==================
+
+2. web bug fix  
+1. top_ad update  
+
+================
+
 2. seller entity list paging bug fix 
 1. top_ad update ,  
 

@@ -11,6 +11,7 @@ class SiteBannerQuerySet(models.query.QuerySet):
     def inactive_banners(self):
         return self.using('slave').filter(active_status=False).order_by('position', '-updated_time')
 
+
 class SiteBannerManager(models.Manager):
     def get_queryset(self):
         return SiteBannerQuerySet(self.model, using=self._db)
@@ -29,7 +30,6 @@ class SiteBannerManager(models.Manager):
 
     def get_sidebar_banner(self):
         return self.get_active_banner().filter(web_sidebar_show_status=True)
-
 
 
 class SiteBanner(BaseBanner):

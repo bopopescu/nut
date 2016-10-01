@@ -1,7 +1,7 @@
 from django.conf.urls import url, include, patterns
 from django.views.generic import RedirectView
 from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView, CooperateView\
-                           , ShopServiceView
+                           , ShopServiceView, FuGuListView
 from apps.web.views.design_week import DesignWeekViewSet
 from apps.web.views.discover import DiscoverView, RecommendUserView
 from apps.web.views.main import SelectionEntityList, SiteMapView, IndexArticleTagView, IndexSelectionEntityTagView\
@@ -149,7 +149,8 @@ urlpatterns += patterns('',
             url(r'^store2015/', SellerView.as_view(), name='year_store_2015'),
             # url(r'^store/', SellerView.as_view(), name='web_store'),
             url(r'^hou/', HappyNYView.as_view(), name='new_year_2015'),
-            url(r'guokuselectedshops2016/',FuGuView.as_view(),name='fu_gu_da_hui_2016')
+            url(r'guokuselectedshops2016/list/', FuGuListView.as_view(), name='fu_gu_da_hui_2016_list'),
+            url(r'guokuselectedshops2016/', FuGuView.as_view(), name='fu_gu_da_hui_2016')
 
         )
 
