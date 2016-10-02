@@ -5593,6 +5593,9 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 .main-content.near-top {
   margin-top: 0px;
 }
+.mobile-body.static-body {
+  padding-top: 5px;
+}
 .guoku-app,
 .mobile-body {
   padding-bottom: 40px;
