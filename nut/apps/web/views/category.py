@@ -79,6 +79,8 @@ class NewCategoryGroupListView(JSONResponseMixin,AjaxResponseMixin, ListView):
         sub_categories_ids = list(Sub_Category.objects.filter(group=gid)\
                                        .values_list('id', flat=True))
 
+        if len(sub_categories_ids) == 0:
+            raise Http404()
 
         order_by_like = False
         if self.get_order_by() == 'olike':
@@ -86,6 +88,7 @@ class NewCategoryGroupListView(JSONResponseMixin,AjaxResponseMixin, ListView):
 
         _entity_list = Entity.objects.sort_group(gid ,category_ids=list(sub_categories_ids),
                                                  like=order_by_like,).filter(buy_links__status=2)
+
         return _entity_list
 
     def get_sub_categories(self, gid):
