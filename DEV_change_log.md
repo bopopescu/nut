@@ -1,3 +1,9 @@
+1.  update shop list h5
+
+=======================
+merged to master 10-1
+=======================
+
 2. guoku off line shop h5 
 1. top_ad management 
 
