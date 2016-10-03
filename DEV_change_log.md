@@ -1,3 +1,9 @@
+1.fix sub category empty cause 500 bug
+
+
+
+=======================
+
 1.  update shop list h5
 
 =======================
