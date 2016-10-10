@@ -111,11 +111,11 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
                 {
                     "name":"线下商店",
                     "sub_button": [
-                        {
-                            "name": "十一活动",
-                            "type": "view",
-                            "url": "http://m.guoku.com/articles/135144/"
-                        },
+                        # {
+                        #     "name": "十一活动",
+                        #     "type": "view",
+                        #     "url": "http://m.guoku.com/articles/135144/"
+                        # },
                         {
                             "name"  : "服务计划",
                             "type"  : "view",
@@ -124,7 +124,7 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
                         {
                             "name"  : "商店列表",
                             "type"  : "view",
-                            "url"   : "http://m.guoku.com/articles/134060/"
+                            "url"   : "http://m.guoku.com/articles/135791/"
                         },
 
                     ]
