@@ -409,7 +409,7 @@ class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMix
 
                 article_remark_obj = arform.save()
                 if reply_to is not None:
-                    user_reply_to = Article_Remark.objects.get(pk=reply_to.id).user.nickname
+                    user_reply_to = Article_Remark.objects.get(pk=reply_to.id).user.nick
                     user_reply_to_url = Article_Remark.objects.get(pk=reply_to.id).user.absolute_url
                 else:
                     user_reply_to = ''
@@ -417,7 +417,7 @@ class ArticleRemarkCreate(AjaxResponseMixin, LoginRequiredMixin, JSONResponseMix
 
                 res = {
                     'remark_id': article_remark_obj.id,
-                    'user': user.nickname,
+                    'user': user.nick,
                     'user_id': user.id,
                     'user_avatar': user.avatar_url,
                     'user_url': user.absolute_url,
