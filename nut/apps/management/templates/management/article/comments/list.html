@@ -1,0 +1,54 @@
+{% extends 'management/management_base.html' %}
+{% load i18n %}
+{% load i18n static %}
+{% load staticfiles i18n %}
+{% load guoku %}
+
+{% block css %}
+        <link href="{% static 'js/jquery-ui/jquery-ui.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+  <section class="content-header">
+        <h1>
+            {{ page_title }}
+            <small>{{ page_sub_title }}</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{% url 'management_dashboard' %}"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+{#            <li><a href="#">Tables</a></li>#}
+            <li class="active">{{ page_crumb_name }}</li>
+        </ol>
+    </section>
+
+
+     <section class="content">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="box box-info">
+
+                    <div class="box-body table-responsive">
+
+                        {% include "management/top_ad/partial/table.html"%}
+
+                    </div>
+
+{#                    <div class="box-footer">#}
+{#                         {% include "management/paginator.html" with objects=page_obj url=request.path %}#}
+{##}
+{#                    </div>#}
+                    <div class="box-footer">
+                        {% include "management/site_banner/paginator_banner.html" with objects=page_obj url=request.path %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
+
+{% block user_script %}
+{% endblock %}

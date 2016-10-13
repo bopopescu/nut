@@ -9,10 +9,10 @@ from apps.management.views.article import SelectionArticleList,\
     UpdateArticleView, \
     WeixinAuthorArticleList,\
     AuthorArticlePersonList,\
-    RssAuthorArticleList
-
-
-
+    RssAuthorArticleList,\
+    ArticleCommentListView,\
+    ArticleCommentUpdateView,\
+    ArticleCommentDeleteView
 
 urlpatterns = patterns(
     'apps.management.views.article',
@@ -20,21 +20,37 @@ urlpatterns = patterns(
     url(r'^draft/$', DraftArticleList.as_view(), name='management_article_draft'),
     url(r'^authorized_author/$', WeixinAuthorArticleList.as_view(), name='management_author_article_list'),
     url(r'^authorized_rss_author/$', RssAuthorArticleList.as_view(), name='management_rss_author_article_list'),
-    url(r'^authorized_author/(?P<pk>\d+)/$', AuthorArticlePersonList.as_view(), name='management_author_article_person_list'),
+    url(r'^authorized_author/(?P<pk>\d+)/$',
+        AuthorArticlePersonList.as_view(),
+        name='management_author_article_person_list'),
     url(r'^create/$', 'create', name="management_article_create"),
     url(r'^(?P<article_id>\d+)/edit/$', 'edit', name='management_article_edit'),
+    url(r'^(?P<article_id>\d+)/comments/$', ArticleCommentListView.as_view(), name='management_article_comments_list'),
+    url(r'^(?P<article_id>\d+)/comments/(?P<comment_id>\d+)/update/$', ArticleCommentUpdateView.as_view(), name='manage_article_comment_update'),
+    url(r'^(?P<article_id>\d+)/comments/(?P<comment_id>\d+)/delete/$', ArticleCommentDeleteView.as_view(), name='manage_article_comment_delete'),
 
-    url(r'^(?P<pk>\d+)/edit/new/$',UpdateArticleView.as_view(), name='management_article_edit_new'),
+    url(r'^(?P<pk>\d+)/edit/new/$', UpdateArticleView.as_view(), name='management_article_edit_new'),
 
     url(r'^(?P<article_id>\d+)/cover/upload/$', 'upload_cover', name='management_article_cover_upload'),
     url(r'^(?P<article_id>\d+)/preview/$', 'preview', name='management_article_preview'),
 
     # by An , handle selection Article
-    url(r'^selections/$', SelectionArticleList.as_view(), name='management_selection_article_list'),
-    url(r'^selections/pending/$', SelectionPendingArticleList.as_view(), name='management_selection_pending_article_list'),
-    url(r'^selections/(?P<sla_id>\d+)/edit/$', EditSelectionArticle.as_view(), name='management_selection_article_edit'),
-    url(r'^(?P<article_id>\d+)/createselection/$',CreateSelectionArticle.as_view(), name='management_create_selection_article'),
-    url(r'^(?P<selection_article_id>\d+)/removeselection/$',RemoveSelectionArticle.as_view(), name='management_remove_selection_article'),
+    url(r'^selections/$',
+        SelectionArticleList.as_view(),
+        name='management_selection_article_list'),
+    url(r'^selections/pending/$',
+        SelectionPendingArticleList.as_view(),
+        name='management_selection_pending_article_list'),
+    url(r'^selections/(?P<sla_id>\d+)/edit/$',
+        EditSelectionArticle.as_view(),
+        name='management_selection_article_edit'),
+    url(r'^(?P<article_id>\d+)/createselection/$',
+        CreateSelectionArticle.as_view(),
+        name='management_create_selection_article'),
+    url(r'^(?P<selection_article_id>\d+)/removeselection/$',
+        RemoveSelectionArticle.as_view(),
+        name='management_remove_selection_article'),
+
 
 )
 

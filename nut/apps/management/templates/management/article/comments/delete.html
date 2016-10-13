@@ -1,0 +1,59 @@
+{% extends 'management/management_base.html' %}
+{% load i18n %}
+{% load guoku %}
+{% block content %}
+    <section class="content-header">
+        <h1>
+            删除文章评论
+            <small></small>
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+            <li class="active"></li>
+        </ol>
+    </section>
+
+    <section class="content" id="create-seller">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">文章评论</h3>
+                    </div>
+                        <h4>
+                            {{ object.content }}
+
+                        </h4>
+                        <form class="form-horizontal" enctype="multipart/form-data" action="" method="post">
+                            {% csrf_token %}
+                            <div class="box-body">
+                            {% for field in form %}
+
+                                    <div class="form-group">
+                                        <label for="{{ field.id_for_label }}" class="col-sm-2 control-label">{{ field.label }}</label>
+                                        <div class="col-sm-10">
+                                            {{ field }}
+                                            <span class="help-text">{{ field.help_text }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-error">
+                                            <span class="field-errors">{{ field.errors }}</span>
+                                    </div>
+
+                            {% endfor %}
+                            </div>
+
+                            <div class="box-footer">
+                                <div class="col-xs-10 col-sm-10 col-md-10 col-md-offset-2 col-sm-offset-2 col-xs-offset-2">
+                                    <button type="submit" class="btn btn-primary btn-lg">Update</button>
+                                </div>
+                            </div>
+
+                         </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
