@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, UpdateView , CreateView, DeleteView
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms import ModelForm ,BooleanField, HiddenInput
+from django.utils.log import getLogger
+
 
 from braces.views import AjaxResponseMixin,JSONResponseMixin, UserPassesTestMixin
 
@@ -18,9 +20,12 @@ from apps.core.mixins.views import SortMixin, FilterMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
 from apps.management.forms.users import UserAuthorInfoForm , UserAuthorSetForm ,\
-                                        UserSellerSetForm, UserActiveUserSetForm
+                                        UserSellerSetForm, UserActiveUserSetForm, UserOfflineShopSetForm
 
-from django.utils.log import getLogger
+
+from apps.offline_shop.forms import OfflineShopInfoForm
+from apps.offline_shop.models import Offline_Shop_Info
+
 log = getLogger('django')
 
 from rest_framework import generics
@@ -31,9 +36,44 @@ class RESTfulUserListView(generics.ListCreateAPIView):
         serializer_class = GKUserSerializer
 
 
+class UserOfflineShopInfoEditView(UserPassesTestMixin, UpdateView):
+    template_name = 'management/users/offline_shop/edit_info.html'
+    form_class = OfflineShopInfoForm
+    pk_url_kwarg = 'user_id'
+    model = Offline_Shop_Info
+
+    def get_pk(self):
+        return self.kwargs.get(self.pk_url_kwarg, None)
+
+    def get_object(self, queryset=None):
+        user_id = self.get_pk()
+        try:
+            offline_info = Offline_Shop_Info.objects.get(shop_owner_id=user_id)
+        except Offline_Shop_Info.DoesNotExist:
+            offline_info = Offline_Shop_Info.objects.create(shop_owner_id=user_id)
+        return offline_info
+
+    def form_valid(self, form):
+        form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('management_user_edit', args=[self.get_pk()])
+
+    def test_func(self, user):
+        return user.is_admin
+
+    def get_context_data(self,*args, **kwargs):
+        context = super(UserOfflineShopInfoEditView, self).get_context_data(*args, **kwargs)
+        pk = self.get_pk()
+        _user = GKUser.objects.get(id=pk)
+        context['current_user'] = _user
+        return context
+
+
 class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):
     template_name = 'management/users/edit_author.html'
-    form_class=UserAuthorInfoForm
+    form_class = UserAuthorInfoForm
     pk_url_kwarg = 'user_id'
     model = Authorized_User_Profile
 
@@ -89,6 +129,7 @@ class UserSellerSetView(UserPassesTestMixin, JSONResponseMixin, UpdateView):
     pk_url_kwarg = 'user_id'
     form_class = UserSellerSetForm
     model = GKUser
+
     def form_valid(self, form):
         form.save()
         return self.render_json_response({'error': 0},status=200)
@@ -99,10 +140,28 @@ class UserSellerSetView(UserPassesTestMixin, JSONResponseMixin, UpdateView):
     def test_func(self, user):
         return user.is_admin
 
+
+class UserOfflineShopSetView(UserPassesTestMixin, JSONResponseMixin, UpdateView):
+    pk_url_kwarg = 'user_id'
+    form_class = UserOfflineShopSetForm
+    model = GKUser
+
+    def form_valid(self, form):
+        form.save()
+        return self.render_json_response({'error': 0}, status=200)
+
+    def form_invalid(self, form):
+        return self.render_json_response({'error': 1, 'message': 'invalid form'}, status=500)
+
+    def test_func(self, user):
+        return user.is_admin
+
+
 class UserActiveUserSetView(UserPassesTestMixin, JSONResponseMixin, UpdateView):
     pk_url_kwarg = 'user_id'
     form_class = UserActiveUserSetForm
     model = GKUser
+
     def form_valid(self, form):
         form.save()
         return self.render_json_response({'error': 0},status=200)

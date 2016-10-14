@@ -104,8 +104,6 @@
                                   </td>
                               </tr>
                           </table>
-
-
                              {% if user.is_authorized_author or user.is_authorized_seller %}
                                 <a href="{% url 'management_user_editAuthor' user.pk %}"
                                    class="btn btn-primary pull-left"> 授权用户信息编辑
@@ -128,7 +126,32 @@
                                     class="js-switch"
                                    {% if user.has_active_user_group %}checked{% endif %} />
                                   </td>
+                                  <td></td>
+                              </tr>
 
+                          </table>
+
+
+                    </div>
+                </div>
+                <div class="box box-info">
+                    <div class="box-body">
+
+                          <table class="table table-responsive">
+                              <tr>
+                                  <td>线下商店:</td>
+                                  <td>
+                                      <input type="checkbox"
+                                    data-id="{{ user.pk }}"
+                                    data-group="offline_shop"
+                                    class="js-switch"
+                                   {% if user.is_offline_shop %}checked{% endif %} />
+                                  </td>
+                                  <td>
+                                      {% if user.is_offline_shop %}
+                                          <a href="{% url 'management_user_offline_shop_info' user.pk %}"  class="btn btn-success">  管理线下店信息  </a>
+                                      {% endif %}
+                                  </td>
                               </tr>
 
                           </table>

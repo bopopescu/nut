@@ -7,6 +7,7 @@ from django.forms import ModelForm ,BooleanField, CharField, HiddenInput
 
 from apps.core.models import GKUser, Authorized_User_Profile
 from apps.shop.models import Shop
+from apps.offline_shop.models import Offline_Shop_Info
 
 
 class UserAuthorInfoForm(ModelForm):
@@ -26,7 +27,7 @@ class UserAuthorInfoForm(ModelForm):
                   'weixin_id', 'weixin_nick','weixin_qrcode_img',\
                   'author_website','rss_url',\
                   'weibo_id','weibo_nick','personal_domain_name',\
-                  'points','is_recommended_user',
+                  'points', 'is_recommended_user',
                   ]
 
     def clean_personal_domain_name(self):
@@ -59,10 +60,12 @@ class UserAuthorInfoForm(ModelForm):
 
         return person_domain
 
+
 class UserAuthorSetForm(ModelForm):
     isAuthor = BooleanField(required=False)
     # http://stackoverflow.com/questions/31349584/appending-formdata-field-with-value-as-a-boolean-false-causes-the-function-to-fa
-    def __init__(self,*args, **kwargs):
+
+    def __init__(self, *args, **kwargs):
         super(UserAuthorSetForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
@@ -73,32 +76,49 @@ class UserAuthorSetForm(ModelForm):
         model = GKUser
         fields = ['isAuthor']
 
+
+class UserOfflineShopSetForm(ModelForm):
+    isOfflineShop = BooleanField(required=False)
+
+    class Meta:
+        model = GKUser
+        fields = ['isOfflineShop']
+
+    def save(self, commit=True):
+        _user = self.instance
+        _user.setOfflineShop(self.cleaned_data.get('isOfflineShop'))
+
+
 class UserSellerSetForm(ModelForm):
     isSeller = BooleanField(required=False)
+
     class Meta:
         model = GKUser
         fields = ['isSeller']
 
-    def save(self,commit=True):
+    def save(self, commit=True):
         _user = self.instance
         _user.setSeller(self.cleaned_data.get('isSeller'))
 
+
 class UserActiveUserSetForm(ModelForm):
     isActiveUser = BooleanField(required=False)
+
     class Meta:
         model = GKUser
         fields = ['isActiveUser']
 
-    def save(self,commit=True):
+    def save(self, commit=True):
         _user = self.instance
         _user.setActiveUser(self.cleaned_data.get('isActiveUser'))
 
+
 class SellerShopForm(ModelForm):
-    owner =  CharField(required=True, widget=HiddenInput())
+    owner = CharField(required=True, widget=HiddenInput())
 
     def __init__(self, *args, **kwargs):
         super(SellerShopForm, self).__init__(*args, **kwargs)
-        for key , field in self.fields.items():
+        for key, field in self.fields.items():
             field.widget.attrs.update({'class':'form-control'})
 
     def clean_owner(self):
@@ -108,4 +128,4 @@ class SellerShopForm(ModelForm):
 
     class Meta:
         model = Shop
-        fields = ['owner','shop_title', 'shop_link', 'shop_style', 'shop_type']
+        fields = ['owner', 'shop_title', 'shop_link', 'shop_style', 'shop_type']

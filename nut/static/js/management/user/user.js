@@ -85,6 +85,10 @@ AuthorizeManager.prototype={
             data = {
                 isActiveUser: state,
             }
+        }else if(group === 'offline_shop'){
+            data = {
+                isOfflineShop: state,
+            }
         }
         else{
             throw new Error('can not determine request data');
@@ -100,7 +104,10 @@ AuthorizeManager.prototype={
             ending = '/setSeller/';
         }else if(group ==='ActiveUser' ){
             ending = '/setActiveUser/';
-        }else{
+        }else if(group == 'offline_shop'){
+            ending = '/setOfflineShop/'
+        }
+        else{
             throw new Error('can not determin request url');
         }
 
@@ -117,6 +124,7 @@ AuthorizeManager.prototype={
     },
     postFail: function(data){
         console.log('set group fail! ');
+        alert('set group fail!');
         console.log(data);
     }
 
