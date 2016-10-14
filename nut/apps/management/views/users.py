@@ -71,6 +71,22 @@ class UserOfflineShopInfoEditView(UserPassesTestMixin, UpdateView):
         return context
 
 
+class UploadOfflineShopPicsView(UserPassesTestMixin,UpdateView):
+    template_name = 'management/users/offline_shop/upload_shop_pics.html'
+
+    def test_func(self, user):
+        return user.is_admin
+
+    def get_context_data(self,*args, **kwargs):
+        context = super(UserOfflineShopInfoEditView, self).get_context_data(*args, **kwargs)
+        pk = self.get_pk()
+        _user = GKUser.objects.get(id=pk)
+        context['current_user'] = _user
+        return context
+
+
+
+
 class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):
     template_name = 'management/users/edit_author.html'
     form_class = UserAuthorInfoForm

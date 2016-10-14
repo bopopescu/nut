@@ -3,12 +3,12 @@
 {% block user_edit_block %}
     <div class="box box-info">
         <div class="box-header">
-            {% trans 'Offline Shop Info'  %}
+            {% trans '上传线下商店图片'  %}
         </div>
         <div class="box-body">
             <div class="btn-group">
-                <a class="btn btn-primary" href="{% url 'management_user_edit'  current_user.pk %}">{% trans 'Back To User Info Edit' %}</a>
-                 <a class="btn btn-success" href="{% url 'management_upload_offline_shop_pics' current_user.pk %}">{% trans '上传商店图片' %}</a>
+{#                <a class="btn btn-primary" href="{% url 'management_user_offline_shop_info'  current_user.pk %}">{% trans '去线下商店信息编辑页' %}</a>#}
+                <a class="btn btn-primary" href="">{% trans '去线下商店信息编辑页' %}</a>
             </div>
             <div class="box-pane">&nbsp;</div>
             <div >
@@ -52,38 +52,4 @@
     {#    switchery css is already in AdminLTE#}
     <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/user/user.js' %}" type="application/javascript"></script>
-
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=nINvMpu8HVgLI5O8Hw5lBsAM91WiOnFQ"></script>
-    <script type="text/javascript">
-        // 百度地图API功能
-        var map = new BMap.Map("allmap");
-        map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
-        map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
-
-        var getInputLng = $('#id_address_lng').val();
-        var getInputLat =  $('#id_address_lat').val();
-        if(getInputLng && getInputLat){
-            var point = new BMap.Point(getInputLng,getInputLat);
-            var marker = new BMap.Marker(new BMap.Point(getInputLng,getInputLat));
-            map.addOverlay(marker);
-            map.centerAndZoom(point,12);
-        }else{
-            map.centerAndZoom("北京",12);
-        }
-
-        //单击添加Marker,并获取和设置经纬度至Form
-        map.addEventListener("click",function(e){
-            map.clearOverlays(); //清除地图上所有覆盖物
-            var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat)); //创建marker点
-            map.addOverlay(marker);    //增加点
-            attribute();
-
-            function attribute(){
-                var p = marker.getPosition();  //获取marker的位置
-                $('#id_address_lng').val(p.lng);
-                $('#id_address_lat').val(p.lat);
-            }
-        });
-        console.log('baidu map api work >>>>>>');
-    </script>
 {% endblock %}
