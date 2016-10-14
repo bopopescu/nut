@@ -25,6 +25,7 @@ from apps.management.forms.users import UserAuthorInfoForm , UserAuthorSetForm ,
 
 from apps.offline_shop.forms import OfflineShopInfoForm
 from apps.offline_shop.models import Offline_Shop_Info
+from django.views.generic import TemplateView
 
 log = getLogger('django')
 
@@ -71,20 +72,8 @@ class UserOfflineShopInfoEditView(UserPassesTestMixin, UpdateView):
         return context
 
 
-class UploadOfflineShopPicsView(UserPassesTestMixin,UpdateView):
+class UploadOfflineShopPicsView(TemplateView):
     template_name = 'management/users/offline_shop/upload_shop_pics.html'
-
-    def test_func(self, user):
-        return user.is_admin
-
-    def get_context_data(self,*args, **kwargs):
-        context = super(UserOfflineShopInfoEditView, self).get_context_data(*args, **kwargs)
-        pk = self.get_pk()
-        _user = GKUser.objects.get(id=pk)
-        context['current_user'] = _user
-        return context
-
-
 
 
 class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):

@@ -36,7 +36,7 @@ urlpatterns = patterns(
         UserOfflineShopInfoEditView.as_view(),
         name='management_user_offline_shop_info'),
 
-    url(r'^(?P<user_id>\d+)/offline_shop_info/upload_shop_pics/$',
+    url(r'^(?P<user_id>\d+)/upload_shop_pics/$',
         UploadOfflineShopPicsView.as_view(),
         name='management_upload_offline_shop_pics'),
 

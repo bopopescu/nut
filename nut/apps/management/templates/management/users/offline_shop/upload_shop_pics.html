@@ -1,49 +1,13 @@
-{% extends 'management/users/user_edit_base.html' %}
+{% extends 'management/management_base.html' %}
 {% load i18n static %}
-{% block user_edit_block %}
+{% block content %}
     <div class="box box-info">
         <div class="box-header">
             {% trans '上传线下商店图片'  %}
         </div>
         <div class="box-body">
             <div class="btn-group">
-{#                <a class="btn btn-primary" href="{% url 'management_user_offline_shop_info'  current_user.pk %}">{% trans '去线下商店信息编辑页' %}</a>#}
-                <a class="btn btn-primary" href="">{% trans '去线下商店信息编辑页' %}</a>
-            </div>
-            <div class="box-pane">&nbsp;</div>
-            <div >
-                <form class="form-horizontal" enctype="multipart/form-data" action="" method="post">
-                    {% csrf_token %}
-                    {% for field in form %}
-
-                        <div class="form-group">
-                            <label for="{{ field.id_for_label }}" class="col-sm-2 control-label">{{ field.label }}</label>
-                            <div class="col-sm-10">
-                                {{ field }}<span class="field-errors">{{ field.errors }}</span>
-                            </div>
-                            {#                                        {{ field.errors }}#}
-                            {#                                        {{ field.label_tag }} {{ field }}#}
-                            {#                                        {% if field.help_text %}#}
-                            {#                                            <p class="help">{{ field.help_text|safe }}</p>#}
-                            {#                                        {% endif %}#}
-                        </div>
-                        <div class="form-error">
-
-                        </div>
-
-                    {% endfor %}
-                    <div class="box-footer">
-                        <div class="col-xs-10 col-sm-10 col-md-10 col-md-offset-2 col-sm-offset-2 col-xs-offset-2">
-                            <button type="submit" class="btn btn-primary btn-lg">Update</button>
-                        </div>
-                    </div>
-                </form>
-                <div id="allmap" style="width:100%;height:500px;">
-
-                </div>
-
-
-
+                <a class="btn btn-primary" href="{% url 'management_user_offline_shop_info' request.user.pk %}">{% trans '去线下商店信息编辑页' %}</a>
             </div>
         </div>
     </div>
