@@ -21,6 +21,9 @@ from apps.tag.models import Tags
 from apps.v4.schema.articles import ArticleSchema
 
 
+from apps.top_ad.models import TopAdBanner
+from apps.v4.schema.guoku_ad import GKADSchema
+
 from haystack.generic_views import SearchView
 from datetime import datetime, timedelta
 
@@ -28,7 +31,9 @@ from datetime import datetime, timedelta
 from django.utils.log import getLogger
 
 log = getLogger('django')
-article_schema = ArticleSchema(many=False)
+
+article_schema  = ArticleSchema(many=False)
+ad_scheme       = GKADSchema(many=True)
 
 
 def is_taobaoke_url(url):
@@ -97,7 +102,21 @@ class APIJsonSessionView(APIJsonView):
         return super(APIJsonSessionView, self).dispatch(request, *args, **kwargs)
 
 
+class GADView(APIJsonView):
+    http_method_names = ['get']
+
+    def get_data(self, context):
+        ad =  TopAdBanner.objects.ios_top_banners()
+        return ad_scheme.dump(ad).data
+
+    def get(self, request, *args, **kwargs):
+        return super(GADView, self).get(request, *args, **kwargs)
+
+
 class HomeView(APIJsonView):
+    ''' HomeView Class
+        This is /mobile/v4/home/ url func
+    '''
     http_method_names = ['get']
 
     def get_data(self, context):
@@ -155,6 +174,11 @@ class HomeView(APIJsonView):
 
 
 class DiscoverView(APIJsonView):
+    ''' DiscoverView Class
+        this is '/mobile/v4/discover/' url func
+
+    '''
+
     http_method_names = ['get']
 
     def get_data(self, context):

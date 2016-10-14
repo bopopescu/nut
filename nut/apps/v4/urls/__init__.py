@@ -1,7 +1,7 @@
 from django.conf.urls import url, patterns, include
 from apps.v4.views import DiscoverView, HomeView, \
     AuthorizedUser, UnreadView, \
-    TopPopularView, PopularView, APISearchView, APISearchHotWordView
+    TopPopularView, PopularView, APISearchView, APISearchHotWordView, GADView
 from apps.v4.views.marketing import LaunchBoardView
 
 
@@ -12,6 +12,8 @@ urlpatterns = patterns(
     url(r'^homepage/$', 'homepage', name='v4_homepage'),
     url(r'^home/$', HomeView.as_view(), name='v4_home'),
     url(r'^selection/$', 'selection', name='v4_selection'),
+
+    url(r'^ad/$', GADView.as_view(), name='v4_ad'),
 
     # TODO: popular API
     url(r'^popular/$', PopularView.as_view(), name='v4_popular'),

@@ -8,8 +8,6 @@ import json
 import re
 # from pprint import  pprint
 
-
-
 from hashlib import md5
 from datetime import datetime
 from django.core import serializers
@@ -40,7 +38,7 @@ from apps.core.utils.text import truncate
 # from apps.core.manager.account import  AuthorizedUserManager
 from haystack.query import SearchQuerySet
 
-from apps.order.exceptions import CartException, OrderException, PaymentException
+# from apps.order.exceptions import CartException, OrderException, PaymentException
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
