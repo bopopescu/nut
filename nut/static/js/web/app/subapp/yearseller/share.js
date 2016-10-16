@@ -69,7 +69,7 @@ define(['libs/Class', 'jquery', 'underscore','bootbox'], function(Class,$,_,boot
                 closeButton: true,
                 animate: true,
                 className: 'page-share-dialog',
-                message:this.share_modal_content,
+                message:this.share_modal_content
             });
 
 
