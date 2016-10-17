@@ -101,15 +101,14 @@ class OfflineShopPicsView(UserPassesTestMixin,TemplateView):
         context['offline_shop_info'] = self.get_object(self)
         return context
 
-
-def offline_shop_pics_upload(request, user_id):
-
-    if request.method == "POST":
-        log.info('shop img upload begin----')
-        file = request.FILES.get('file')
-
-    else:
-        return
+#
+# def offline_shop_pics_upload(request, user_id):
+#
+#     if request.method == "POST":
+#         file = request.FILES.get('file')
+#
+#     else:
+#         return
 
 
 class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):
