@@ -12,6 +12,7 @@ var OfflineShopManager = Class.extend({
         bootbox.hideAll();
         bootbox.dialog({
             title: '上传商店图片',
+            size: 'large',
             onEscape: true,
             backdrop:true,
             closeButton: true,
