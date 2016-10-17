@@ -58,6 +58,6 @@ var OfflineShopManager = Class.extend({
 
 (function($, window, document){
     $(function(){
-        var sku_manager = new OfflineShopManager();
+        var offline_shop_manager = new OfflineShopManager();
     });
 })(jQuery, window, document);

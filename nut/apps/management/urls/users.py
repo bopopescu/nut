@@ -8,7 +8,7 @@ from apps.management.views.users import MediaListView, \
                                         SellerShopCreateView,\
                                         SellerShopUpdateView,\
                                         SellerShopDeleteView, UserActiveUserSetView, UserOfflineShopSetView, UserOfflineShopInfoEditView,\
-                                        OfflineShopPicsView,offline_shop_pics_upload
+                                        OfflineShopPicsView
 
 urlpatterns = patterns(
     'apps.management.views.users',
@@ -40,9 +40,6 @@ urlpatterns = patterns(
         OfflineShopPicsView.as_view(),
         name='management_offline_shop_pics'),
     #  for offline shop upload image
-    url(r'^(?P<user_id>\d+)/offline_shop_pics/upload/$',
-        offline_shop_pics_upload,
-        name='management_upload_offline_shop_pics'),
 
     url(r'^(?P<user_id>\d+)/shops/new/$', SellerShopCreateView.as_view(), name='management_user_shop_create'),
     url(r'^(?P<user_id>\d+)/shops/(?P<shop_id>\d+)/update/$', SellerShopUpdateView.as_view(), name='management_user_shop_update'),

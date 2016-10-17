@@ -38,6 +38,6 @@ var DeleteShopPicManager = Class.extend({
 
 (function($, window, document){
     $(function(){
-         var sku_manager = new DeleteShopPicManager();
+         var delete_shop_pic_manager = new DeleteShopPicManager();
     });
 })(jQuery, window, document);
