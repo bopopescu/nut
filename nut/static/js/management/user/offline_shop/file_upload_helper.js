@@ -77,6 +77,8 @@ var ZXXFILE = {
 		}
 		for (var i = 0, file; file = this.fileFilter[i]; i++) {
 			(function(file) {
+				console.log('file name:'+file.name);
+				
 				var xhr = new XMLHttpRequest();
 				if (xhr.upload) {
 					// 上传中
