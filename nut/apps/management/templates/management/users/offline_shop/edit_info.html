@@ -1,5 +1,8 @@
 {% extends 'management/users/user_edit_base.html' %}
 {% load i18n static %}
+{% block css %}
+     <link href="{% static 'css/management/offline_shop.css' %}" rel="stylesheet">
+{% endblock %}
 {% block user_edit_block %}
     <div class="box box-info">
         <div class="box-header">
@@ -8,7 +11,6 @@
         <div class="box-body">
             <div class="btn-group">
                 <a class="btn btn-primary" href="{% url 'management_user_edit'  current_user.pk %}">{% trans 'Back To User Info Edit' %}</a>
-                 <a class="btn btn-success" href="{% url 'management_offline_shop_pics' current_user.pk %}">{% trans '上传线下商店图片' %}</a>
             </div>
             <div class="box-pane">&nbsp;</div>
             <div >
@@ -38,15 +40,28 @@
                         </div>
                     </div>
                 </form>
+                <div class="shop-pics-wrapper">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="add-shop-pic-btn" id="add_pic_button">
+                                <i class="fa fa-plus">添加图片</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div id="allmap" style="width:100%;height:500px;">
 
                 </div>
-
-
-
             </div>
         </div>
     </div>
+
+    <script type="text/html" id="add_pic_modal_content">
+        <div class="add-pic-modal-wrapper">
+            <input id="file_image" type="file" name="file"/>
+            <button class="btn btn-primary" type="button" data-url="" id="file_upload_btn">确认上传图片</button>
+        </div>
+    </script>
 {% endblock %}
 {% block user_script %}
     {#    switchery css is already in AdminLTE#}
@@ -58,5 +73,7 @@
 
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=nINvMpu8HVgLI5O8Hw5lBsAM91WiOnFQ"></script>
     <script src="{% static 'js/management/user/offline_shop/invoke_baidu_map.js' %}" type="application/javascript"></script>
+
+    <script src="{% static 'js/management/user/offline_shop/upload_shop_pics.js' %}" type="application/javascript"></script>
 
 {% endblock %}

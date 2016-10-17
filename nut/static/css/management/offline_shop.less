@@ -3,8 +3,22 @@
 @import '../lib/component.less';
 @import '../lib/widgets.less';
 
-.add-pic-modal-wrapper {
-  .upload_choose{
-    margin-bottom:16px;
+.shop-pics-wrapper{
+  margin-bottom: 10px;
+  &:hover{
+    cursor: pointer;
   }
+  .add-shop-pic-btn{
+    height: 0;
+    padding-bottom: 99%;
+    border:1px solid @new-border-gray;
+    text-align: center;
+  }
+  i.fa-plus{
+    margin-top: 50%;
+    .transform(translateY(-50%));
+  }
+}
+.add-pic-modal-wrapper input{
+  margin-bottom: 16px;
 }

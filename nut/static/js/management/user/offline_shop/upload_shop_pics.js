@@ -11,7 +11,7 @@ var OfflineShopManager = Class.extend({
     show_add_pic_dialog:function(e){
         bootbox.hideAll();
         bootbox.dialog({
-            title: '上传商店图片',
+            title: '上传图片',
             onEscape: true,
             backdrop:true,
             closeButton: true,
@@ -22,28 +22,28 @@ var OfflineShopManager = Class.extend({
         this.initFileUploadBtn();
     },
     initFileUploadBtn:function(){
-        $('#file_upload_btn').click(this.sendFile.bind(this));
+        $('#file_upload_btn').click(this.sendFile(this.handleUploadSuccess(url)));
     },
-    sendFile:function(e){
+    sendFile:function(callback){
+        callback = callback || function(){};
         var file = document.getElementById('file_image').files;
         var  data = new FormData();
-        var url = $(e.currentTarget).attr('data-url');
         data.append("file", file[0]);
         //console.log('file:'+file);
          $.ajax({
                 data: data,
                 type: "POST",
-                url: url,
+                url: "/management/media/upload/image/",
                 cache: false,
                 contentType: false,
                 processData: false,
                 success: function(url) {
-                    //callback(url);
-                    bootbox.hideAll();
-                    bootbox.alert('上传成功');
-                    //window.setTimeout(function(){
-                    //    bootbox.hideAll();
-                    //}, 1000);
+                    callback(url);
+                    //bootbox.hideAll();
+                    //bootbox.alert('上传成功');
+                    window.setTimeout(function(){
+                        bootbox.hideAll();
+                    }, 1000);
                 },
                 error: function(data){
                     bootbox.hideAll();
@@ -52,6 +52,9 @@ var OfflineShopManager = Class.extend({
                     //console.log('FILE UPLOAD FAIL');
                 }
             });
+    },
+    handleUploadSuccess:function(url){
+        console.log('upload success');
     }
 });
 

@@ -1436,6 +1436,25 @@ a.new-black-link:hover {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
 }
-.add-pic-modal-wrapper .upload_choose {
+.shop-pics-wrapper {
+  margin-bottom: 10px;
+}
+.shop-pics-wrapper:hover {
+  cursor: pointer;
+}
+.shop-pics-wrapper .add-shop-pic-btn {
+  height: 0;
+  padding-bottom: 99%;
+  border: 1px solid #F2F2F2;
+  text-align: center;
+}
+.shop-pics-wrapper i.fa-plus {
+  margin-top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+}
+.add-pic-modal-wrapper input {
   margin-bottom: 16px;
 }
