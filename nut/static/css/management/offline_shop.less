@@ -1,0 +1,22 @@
+@import "../lib/mixin.less";
+@import "../lib/var.less";
+@import '../lib/component.less';
+@import '../lib/widgets.less';
+
+.add-pic-modal-wrapper {
+  .upload_choose{
+    margin-bottom:16px;
+  }
+  .upload_preview{
+    overflow: hidden;
+    .upload_append_list{
+      float:left;
+      width:30%;
+      border:1px solid @new-border-gray;
+      padding:15px;
+      .upload_image{
+        width:100%;
+      }
+    }
+  }
+}
