@@ -94,6 +94,9 @@ var OfflineShopManager = Class.extend({
             },
             onSuccess: function(file, response) {
                 $("#uploadInf").append("<p>上传成功，图片地址是：" + response + "</p>");
+                setTimeout(function(){
+                     bootbox.hideAll();
+                },3000);
             },
             onFailure: function(file) {
                 $("#uploadInf").append("<p>图片" + file.name + "上传失败！</p>");
