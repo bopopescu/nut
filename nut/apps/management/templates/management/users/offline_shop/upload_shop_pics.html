@@ -28,7 +28,7 @@
 {#                                        </div>#}
 {#                                        <div class="caption">#}
 {#                                            <h3>{{ index|add:1 }}</h3>#}
-{#                                            <a class="btn btn-danger" href="" data-image="{{ image }}">{% trans 'remove' %}</a>#}
+{#                                            <a class="btn btn-danger delete-pic-btn" data-url="" data-image="{{ image }}">{% trans 'remove' %}</a>#}
 {#                                        </div>#}
 {#                                    </div>#}
 {#                                </div>#}
@@ -71,7 +71,10 @@
     <script src="{% static 'js/jquery-ui/jquery-ui.min.js' %}"></script>
     <script src="{% static 'js/management/util.js' %}"></script>
 
+    <script src="{% static 'js/management/user/offline_shop/delete_shop_pic.js' %}" type="application/javascript"></script>
+
     <script src="{% static 'js/management/user/offline_shop/file_upload_helper.js' %}" type="application/javascript"></script>
     <script src="{% static 'js/management/user/offline_shop/upload_shop_pics.js' %}" type="application/javascript"></script>
+
 
 {% endblock %}
