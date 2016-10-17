@@ -1445,8 +1445,13 @@ a.new-black-link:hover {
 .add-pic-modal-wrapper .upload_preview .upload_append_list {
   float: left;
   width: 30%;
-  border: 1px solid #F2F2F2;
   padding: 15px;
+}
+.add-pic-modal-wrapper .upload_preview .upload_append_list .img-box {
+  height: 0;
+  padding-bottom: 99%;
+  overflow: hidden;
+  text-align: center;
 }
 .add-pic-modal-wrapper .upload_preview .upload_append_list .upload_image {
   width: 100%;

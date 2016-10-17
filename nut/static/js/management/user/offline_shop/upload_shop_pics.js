@@ -52,7 +52,7 @@ var OfflineShopManager = Class.extend({
                         reader.onload = function(e) {
                             html = html + '<div id="uploadList_'+ i +'" class="upload_append_list"><p><strong>' + file.name + '</strong>'+
                                 '<a href="javascript:" class="upload_delete" title="删除" data-index="'+ i +'">删除</a><br />' +
-                                '<img id="uploadImage_' + i + '" src="' + e.target.result + '" class="upload_image" /></p>'+
+                                '<div class="img-box"><img id="uploadImage_' + i + '" src="' + e.target.result + '" class="upload_image" /></div></p>'+
                                 '<span id="uploadProgress_' + i + '" class="upload_progress"></span>' +
                                 '</div>';
 
