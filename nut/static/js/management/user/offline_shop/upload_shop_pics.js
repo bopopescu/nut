@@ -30,8 +30,8 @@ var OfflineShopManager = Class.extend({
                 var arrFiles = [];
                 for (var i = 0, file; file = files[i]; i++) {
                     if (file.type.indexOf("image") == 0) {
-                        if (file.size >= 512000) {
-                            bootbox.alert('您这张"'+ file.name +'"图片大小过大，应小于500k');
+                        if (file.size >= 2048000) {
+                            bootbox.alert('您这张"'+ file.name +'"图片大小过大，应小于2M');
                         } else {
                             arrFiles.push(file);
                         }
@@ -94,9 +94,6 @@ var OfflineShopManager = Class.extend({
             },
             onSuccess: function(file, response) {
                 $("#uploadInf").append("<p>上传成功，图片地址是：" + response + "</p>");
-                setTimeout(function(){
-                     bootbox.hideAll();
-                },3000);
             },
             onFailure: function(file) {
                 $("#uploadInf").append("<p>图片" + file.name + "上传失败！</p>");
