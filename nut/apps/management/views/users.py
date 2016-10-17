@@ -27,6 +27,9 @@ from apps.offline_shop.forms import OfflineShopInfoForm
 from apps.offline_shop.models import Offline_Shop_Info
 from django.views.generic import TemplateView
 
+
+from apps.core.utils.image import LimitedImage
+
 log = getLogger('django')
 
 from rest_framework import generics
@@ -72,8 +75,18 @@ class UserOfflineShopInfoEditView(UserPassesTestMixin, UpdateView):
         return context
 
 
-class UploadOfflineShopPicsView(TemplateView):
+class OfflineShopPicsView(TemplateView):
     template_name = 'management/users/offline_shop/upload_shop_pics.html'
+
+
+def offline_shop_pics_upload(request, shop_id):
+
+    if request.method == "POST":
+        log.info('shop img upload begin----')
+        file = request.FILES.get('file')
+
+    else:
+        return
 
 
 class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):

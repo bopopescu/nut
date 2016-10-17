@@ -32,7 +32,7 @@ var OfflineShopManager = Class.extend({
          $.ajax({
                 data: data,
                 type: "POST",
-                url: "/management/media/upload/image/",
+                url: "/management/1993502/offline_shop_pics/upload/",
                 cache: false,
                 contentType: false,
                 processData: false,
