@@ -25,8 +25,32 @@ var OfflineShopManager = Class.extend({
         $('#file_upload_btn').click(this.sendFile.bind(this));
     },
     sendFile:function(e){
-        var file = document.getElementById('file_image').files[0];
-        console.log('file:'+file);
+        var file = document.getElementById('file_image').files;
+        var  data = new FormData();
+        data.append("file", file[0]);
+        //console.log('file:'+file);
+         $.ajax({
+                data: data,
+                type: "POST",
+                url: "/management/media/upload/image/",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(url) {
+                    //callback(url);
+                    bootbox.hideAll();
+                    bootbox.alert('上传成功');
+                    //window.setTimeout(function(){
+                    //    bootbox.hideAll();
+                    //}, 1000);
+                },
+                error: function(data){
+                    bootbox.hideAll();
+                    bootbox.alert('上传失败， 请稍后再试');
+                    //console.log(data);
+                    //console.log('FILE UPLOAD FAIL');
+                }
+            });
     }
 });
 
