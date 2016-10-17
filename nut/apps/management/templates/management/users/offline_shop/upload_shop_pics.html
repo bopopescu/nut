@@ -43,20 +43,16 @@
 
         <script type="text/html" id="add_pic_modal_content">
             <div class="add-pic-modal-wrapper">
-
-                <form id="uploadForm" action="" method="post" enctype="multipart/form-data">
                     <div class="upload_box">
                         <div class="upload_main">
                             <div class="upload_choose">
-                                <input id="fileImage" type="file" size="30" name="fileselect[]" multiple />
+                                <input id="file_image" type="file" name="file"/>
                             </div>
                         </div>
                         <div class="upload_submit">
-                            <button class="btn btn-primary upload_submit_btn" type="button" id="fileSubmit">确认上传图片</button>
+                            <button class="btn btn-primary" type="button" id="file_upload_btn">确认上传图片</button>
                         </div>
                     </div>
-                </form>
-
             </div>
     </script>
 {% endblock %}

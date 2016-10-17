@@ -19,8 +19,15 @@ var OfflineShopManager = Class.extend({
             className: 'upload-pic-dialog',
             message:this.upload_pic_modal_content
         });
+        this.initFileUploadBtn();
+    },
+    initFileUploadBtn:function(){
+        $('#file_upload_btn').click(this.sendFile.bind(this));
+    },
+    sendFile:function(e){
+        var file = document.getElementById('file_image').files[0];
+        console.log('file:'+file);
     }
-
 });
 
 
