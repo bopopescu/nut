@@ -22,14 +22,14 @@ var OfflineShopManager = Class.extend({
         this.initFileUploadBtn();
     },
     initFileUploadBtn:function(){
-        $('#file_upload_btn').click(this.sendFile(this.handleUploadSuccess(url)));
+        $('#file_upload_btn').click(this.sendFile.bind(this));
     },
-    sendFile:function(callback){
-        callback = callback || function(){};
+    sendFile:function(){
+        var that = this;
         var file = document.getElementById('file_image').files;
         var  data = new FormData();
         data.append("file", file[0]);
-        //console.log('file:'+file);
+        console.log('file:'+file);
          $.ajax({
                 data: data,
                 type: "POST",
@@ -38,9 +38,7 @@ var OfflineShopManager = Class.extend({
                 contentType: false,
                 processData: false,
                 success: function(url) {
-                    callback(url);
-                    //bootbox.hideAll();
-                    //bootbox.alert('上传成功');
+                    that.handleUploadSuccess(url);
                     window.setTimeout(function(){
                         bootbox.hideAll();
                     }, 1000);
@@ -48,13 +46,11 @@ var OfflineShopManager = Class.extend({
                 error: function(data){
                     bootbox.hideAll();
                     bootbox.alert('上传失败， 请稍后再试');
-                    //console.log(data);
-                    //console.log('FILE UPLOAD FAIL');
                 }
             });
     },
     handleUploadSuccess:function(url){
-        console.log('upload success');
+        console.log('upload success' + url);
     }
 });
 
