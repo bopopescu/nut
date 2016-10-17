@@ -71,6 +71,7 @@ class UserOfflineShopInfoEditView(UserPassesTestMixin, UpdateView):
         pk = self.get_pk()
         _user = GKUser.objects.get(id=pk)
         context['current_user'] = _user
+        context['offline_shop_info'] = self.get_object(self)
         return context
 
 
