@@ -74,43 +74,6 @@ class UserOfflineShopInfoEditView(UserPassesTestMixin, UpdateView):
         return context
 
 
-class OfflineShopPicsView(UserPassesTestMixin,TemplateView):
-    template_name = 'management/users/offline_shop/upload_shop_pics.html'
-    pk_url_kwarg = 'user_id'
-    model = Offline_Shop_Info
-
-    def get_pk(self):
-        return self.kwargs.get(self.pk_url_kwarg, None)
-
-    def get_object(self, queryset=None):
-        user_id = self.get_pk()
-        try:
-            offline_info = Offline_Shop_Info.objects.get(shop_owner_id=user_id)
-        except Offline_Shop_Info.DoesNotExist:
-            offline_info = Offline_Shop_Info.objects.create(shop_owner_id=user_id)
-        return offline_info
-
-    def test_func(self, user):
-        return user.is_admin
-
-    def get_context_data(self,*args, **kwargs):
-        context = super(OfflineShopPicsView, self).get_context_data(*args, **kwargs)
-        pk = self.get_pk()
-        _user = GKUser.objects.get(id=pk)
-        context['current_user'] = _user
-        context['offline_shop_info'] = self.get_object(self)
-        return context
-
-#
-# def offline_shop_pics_upload(request, user_id):
-#
-#     if request.method == "POST":
-#         file = request.FILES.get('file')
-#
-#     else:
-#         return
-
-
 class UserAuthorInfoEditView(UserPassesTestMixin, UpdateView):
     template_name = 'management/users/edit_author.html'
     form_class = UserAuthorInfoForm
