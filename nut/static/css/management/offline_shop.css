@@ -1442,7 +1442,7 @@ a.new-black-link:hover {
 .shop-pics-wrapper:hover {
   cursor: pointer;
 }
-.shop-pics-wrapper .add-shop-pic-btn {
+.shop-pics-wrapper #add_pic_button {
   height: 0;
   padding-bottom: 99%;
   border: 1px solid #F2F2F2;

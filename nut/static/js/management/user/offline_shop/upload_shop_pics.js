@@ -38,10 +38,11 @@ var OfflineShopManager = Class.extend({
                 contentType: false,
                 processData: false,
                 success: function(url) {
+                    bootbox.hideAll();
                     that.handleUploadSuccess(url);
-                    window.setTimeout(function(){
-                        bootbox.hideAll();
-                    }, 1000);
+                    //window.setTimeout(function(){
+                    //    bootbox.hideAll();
+                    //}, 1000);
                 },
                 error: function(data){
                     bootbox.hideAll();
@@ -50,6 +51,10 @@ var OfflineShopManager = Class.extend({
             });
     },
     handleUploadSuccess:function(url){
+        if(url){
+            $('#add_pic_button_wrapper').before('<div class="col-xs-3 col-sm-2"><div class="thumbnail"> <div class="img-box">' +
+                '<img class="img-responsive" src="'+url+'"/></div></div></div>');
+        }
         console.log('upload success' + url);
     }
 });

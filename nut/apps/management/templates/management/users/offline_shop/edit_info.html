@@ -41,30 +41,26 @@
                         </div>
                     </div>
                 </form>
-                <div class="shop-pics-wrapper">
-                    <div class="row">
-                        {% if offline_shop_info.images %}
-                            {% for index, image in offline_shop_info.images|enumerate_list %}
-                                <div class="col-xs-3 col-sm-2">
-                                    <div class="thumbnail">
-                                        <div class="img-box">
-                                            <img class="img-responsive" alt="{{ offline_shop_info.title }}" src="{{ image|resize:'320' }}">
-                                        </div>
-{#                                        <div class="caption">#}
-{#                                            <h3>{{ index|add:1 }}</h3>#}
-{#                                            <a class="btn btn-danger delete-pic-btn" data-url="" data-image="{{ image }}">{% trans 'remove' %}</a>#}
-{#                                        </div>#}
+
+                <div class="row shop-pics-wrapper">
+                    {% if offline_shop_info.images %}
+                        {% for index, image in offline_shop_info.images|enumerate_list %}
+                            <div class="col-xs-3 col-sm-2">
+                                <div class="thumbnail">
+                                    <div class="img-box">
+                                        <img class="img-responsive" alt="{{ offline_shop_info.title }}" src="{{ image|resize:'320' }}">
                                     </div>
+                                    {#                                        <div class="caption">#}
+                                    {#                                            <h3>{{ index|add:1 }}</h3>#}
+                                    {#                                            <a class="btn btn-danger delete-pic-btn" data-url="" data-image="{{ image }}">{% trans 'remove' %}</a>#}
+                                    {#                                        </div>#}
                                 </div>
-                            {% endfor %}
-                        {% else %}
-                            <div class="col-xs-12">
-                                <p>暂无商店图片</p></div>
-                        {% endif %}
-                        <div class="col-xs-3 col-sm-2">
-                            <div class="add-shop-pic-btn" id="add_pic_button">
-                                <i class="fa fa-plus">添加图片</i>
                             </div>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="col-xs-3 col-sm-2" id="add_pic_button_wrapper">
+                        <div id="add_pic_button">
+                            <i class="fa fa-plus">添加图片</i>
                         </div>
                     </div>
                 </div>
