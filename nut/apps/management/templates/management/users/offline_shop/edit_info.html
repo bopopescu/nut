@@ -74,7 +74,7 @@
     <script type="text/html" id="add_pic_modal_content">
         <div class="add-pic-modal-wrapper">
             <input id="file_image" type="file" name="file"/>
-            <button class="btn btn-primary" type="button" data-url="" id="file_upload_btn">确认上传图片</button>
+            <button class="btn btn-primary" type="button" {% if offline_shop_info.images %} data-imgs="{{ offline_shop_info.images }}" {% endif %} id="file_upload_btn">确认上传图片</button>
         </div>
     </script>
 {% endblock %}

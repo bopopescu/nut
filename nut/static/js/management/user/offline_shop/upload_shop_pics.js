@@ -51,9 +51,15 @@ var OfflineShopManager = Class.extend({
             });
     },
     handleUploadSuccess:function(url){
+        //$('#file_upload_btn').attr('data-imgs') is something wrong,with u
+        //127.0.0.1/:1 Uncaught SyntaxError: Unexpected token u in JSON at position 0
+        var original_imgs = JSON.parse($('#file_upload_btn').attr('data-imgs'));
+        console.log('original imgs:'+original_imgs);
         if(url){
             $('#add_pic_button_wrapper').before('<div class="col-xs-3 col-sm-2"><div class="thumbnail"> <div class="img-box">' +
                 '<img class="img-responsive" src="'+url+'"/></div></div></div>');
+            original_imgs.push(url);
+            $('id_images').val(JSON.stringify(original_imgs));
         }
         console.log('upload success' + url);
     }
