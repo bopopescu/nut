@@ -27,12 +27,13 @@ var OfflineShopManager = Class.extend({
     sendFile:function(e){
         var file = document.getElementById('file_image').files;
         var  data = new FormData();
+        var url = $(e.currentTarget).attr('data-url');
         data.append("file", file[0]);
         //console.log('file:'+file);
          $.ajax({
                 data: data,
                 type: "POST",
-                url: "/management/1993502/offline_shop_pics/upload/",
+                url: url,
                 cache: false,
                 contentType: false,
                 processData: false,

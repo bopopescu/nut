@@ -1,5 +1,6 @@
 {% extends 'management/management_base.html' %}
 {% load i18n static %}
+{% load guoku %}
 
 {% block css %}
      <link href="{% static 'css/management/offline_shop.css' %}" rel="stylesheet">
@@ -15,28 +16,30 @@
             </div>
 {#            show shop images#}
             <section class="content">
-{#            <div class="row">#}
-{#                <div class="col-xs-12">#}
-{#                    <div class="box box-default">#}
-{#                        <div class="box-header" id="shop_images">#}
-{#                        {% if offline_shop_inco.images %}#}
-{#                            {% for index, image in offline_shop_info.images|enumerate_list %}#}
-{#                                <div class="col-xs-6 col-sm-3">#}
-{#                                    <div class="thumbnail">#}
-{#                                        <div class="img-box">#}
-{#                                            <img class="img-responsive" alt="{{ offline_shop_info.title }}" src="{{ image|resize:'320' }}">#}
-{#                                        </div>#}
-{#                                        <div class="caption">#}
-{#                                            <h3>{{ index|add:1 }}</h3>#}
-{#                                            <a class="btn btn-danger delete-pic-btn" data-url="" data-image="{{ image }}">{% trans 'remove' %}</a>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            {% endfor %}#}
-{#                        {% endif %}#}
-{#                        </div>#}
-{#                    </div>#}
-{#            </div>#}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-default">
+                        <div class="box-header" id="shop_images">
+                        {% if offline_shop_inco.images %}
+                            {% for index, image in offline_shop_info.images|enumerate_list %}
+                                <div class="col-xs-6 col-sm-3">
+                                    <div class="thumbnail">
+                                        <div class="img-box">
+                                            <img class="img-responsive" alt="{{ offline_shop_info.title }}" src="{{ image|resize:'320' }}">
+                                        </div>
+                                        <div class="caption">
+                                            <h3>{{ index|add:1 }}</h3>
+                                            <a class="btn btn-danger delete-pic-btn" data-url="" data-image="{{ image }}">{% trans 'remove' %}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                         {% else %}
+                              <p>暂无商店图片</p>
+                        {% endif %}
+                        </div>
+                    </div>
+            </div>
             </section>
         </div>
     </div>
@@ -50,7 +53,7 @@
                             </div>
                         </div>
                         <div class="upload_submit">
-                            <button class="btn btn-primary" type="button" id="file_upload_btn">确认上传图片</button>
+                            <button class="btn btn-primary" type="button" data-url="{% url 'management_upload_offline_shop_pics' current_user.pk %}" id="file_upload_btn">确认上传图片</button>
                         </div>
                     </div>
             </div>
