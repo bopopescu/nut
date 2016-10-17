@@ -1439,20 +1439,3 @@ a.new-black-link:hover {
 .add-pic-modal-wrapper .upload_choose {
   margin-bottom: 16px;
 }
-.add-pic-modal-wrapper .upload_preview {
-  overflow: hidden;
-}
-.add-pic-modal-wrapper .upload_preview .upload_append_list {
-  float: left;
-  width: 30%;
-  padding: 15px;
-}
-.add-pic-modal-wrapper .upload_preview .upload_append_list .img-box {
-  height: 0;
-  padding-bottom: 99%;
-  overflow: hidden;
-  text-align: center;
-}
-.add-pic-modal-wrapper .upload_preview .upload_append_list .upload_image {
-  width: 100%;
-}
