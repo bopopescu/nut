@@ -9,6 +9,7 @@ from apps.management.views.users import MediaListView, \
                                         SellerShopUpdateView,\
                                         SellerShopDeleteView, UserActiveUserSetView, UserOfflineShopSetView, UserOfflineShopInfoEditView
 
+
 urlpatterns = patterns(
     'apps.management.views.users',
     url(r'^$', UserManagementListView.as_view(), name='management_user_list'),

@@ -15,6 +15,7 @@ class OfflineShopInfoForm(ModelForm):
         super(OfflineShopInfoForm, self).__init__(*args, **kwargs)
         for fieldkey, field in self.fields.iteritems():
             field.widget.attrs.update({'class': 'form-control'})
+        self.fields['images'].initial = json.dumps(self.instance.images)
 
     def clean_images(self):
         images = self.cleaned_data.get('images')

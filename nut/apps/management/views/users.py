@@ -27,6 +27,9 @@ from apps.shop.models import Shop
 
 from apps.offline_shop.forms import OfflineShopInfoForm
 from apps.offline_shop.models import Offline_Shop_Info
+from django.views.generic import TemplateView
+
+
 
 log = getLogger('django')
 
@@ -70,6 +73,7 @@ class UserOfflineShopInfoEditView(UserPassesTestMixin, UpdateView):
         pk = self.get_pk()
         _user = GKUser.objects.get(id=pk)
         context['current_user'] = _user
+        context['offline_shop_info'] = self.get_object(self)
         return context
 
 
