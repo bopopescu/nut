@@ -17,8 +17,14 @@ var BaiduMapManager = Class.extend({
         });
         //左上角添加默认缩放平移控件
         var top_left_navigation = new BMap.NavigationControl();
+        //右上角,仅包含平移和缩放按钮
+        var top_right_navigation = new BMap.NavigationControl({
+            anchor:BMAP_ANCHOR_TOP_RIGHT,
+            type:BMAP_NAVIGATION_CONTROL_SMALL
+        });
         map.addControl(top_left_control);
 		map.addControl(top_left_navigation);
+        map.addControl(top_right_navigation);
 
         var getInputLng = $('#id_address_lng').val();
         var getInputLat =  $('#id_address_lat').val();
