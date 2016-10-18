@@ -1,6 +1,11 @@
+
+2.  new user group (offline user)
+1.  article comment management 
+
+
+========================
+
 1.fix sub category empty cause 500 bug
-
-
 
 =======================
 

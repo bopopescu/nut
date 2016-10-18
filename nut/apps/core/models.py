@@ -407,6 +407,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         seller_group = self.get_seller_group()
         return seller_group in self.groups.all()
 
+    def get_offline_shop_group(self):
+        offline_shop_group, created = Group.objects.get_or_create(name="OfflineShop")
+        return offline_shop_group
+
     # for active user 积极用户
     def get_active_user_group(self):
         active_user_group, created = Group.objects.get_or_create(name="ActiveUser")
@@ -420,6 +424,14 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def refresh_user_permission(self):
         # TODO:  refresh user permission cache here
         pass
+
+    def has_offline_shop_group(self):
+        offline_shop_group = self.get_offline_shop_group()
+        return offline_shop_group in self.groups.all()
+
+    @property
+    def is_offline_shop(self):
+        return self.has_offline_shop_group()
 
     @property
     def is_authorized_author(self):
@@ -438,7 +450,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         link = ''
         try:
             link = self.shops.all()[0].shop_link
-        except Exception as e :
+        except Exception as e:
             pass
         return link
 
@@ -465,6 +477,16 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         else:
             self.groups.remove(active_user_group)
         self.refresh_user_permission()
+
+    def setOfflineShop(self, isOfflineShop):
+        offline_shop_group = self.get_offline_shop_group()
+        if isOfflineShop:
+            self.groups.add(offline_shop_group)
+        else:
+            self.groups.remove(offline_shop_group)
+        self.refresh_user_permission()
+
+
     @property
     def is_authorized_user(self):
         return self.is_authorized_author or self.is_authorized_seller
@@ -565,7 +587,7 @@ class Authorized_User_Profile(BaseModel):
     personal_domain_name = models.CharField(max_length=64, null=True, blank=True)
 
     rss_url = models.URLField(max_length=255 ,null=True, blank=True)
-    points=models.IntegerField(default=0)
+    points = models.IntegerField(default=0)
     is_recommended_user = models.BooleanField(default=False, db_index=True)
 
 

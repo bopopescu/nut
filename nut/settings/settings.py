@@ -71,6 +71,7 @@ INSTALLED_APPS = (
     'apps.order',
     'apps.payment',
     'apps.top_ad',
+    'apps.offline_shop',
     'captcha',
 )
 
