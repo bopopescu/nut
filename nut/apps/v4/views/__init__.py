@@ -10,23 +10,30 @@ from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.core.models import Show_Banner, \
     Buy_Link, Selection_Entity, Entity, \
     Entity_Like, Sub_Category
+from apps.core.views import BaseJsonView, JSONResponseMixin
 
 from apps.v4.forms.pushtoken import PushForm
 from apps.v4.forms.search import APISearchForm
-
 from apps.v4.models import APIUser, APISelection_Entity, APIEntity,\
                             APICategory, APISeletion_Articles, \
                             APIArticle, APIArticle_Dig
 from apps.tag.models import Tags
+from apps.v4.schema.articles import ArticleSchema
 
-from apps.core.views import BaseJsonView, JSONResponseMixin
+
+from apps.top_ad.models import TopAdBanner
+from apps.v4.schema.guoku_ad import GKADSchema
 
 from haystack.generic_views import SearchView
 from datetime import datetime, timedelta
 
 
 from django.utils.log import getLogger
+
 log = getLogger('django')
+
+article_schema  = ArticleSchema(many=False)
+ad_scheme       = GKADSchema(many=True)
 
 
 def is_taobaoke_url(url):
@@ -95,7 +102,21 @@ class APIJsonSessionView(APIJsonView):
         return super(APIJsonSessionView, self).dispatch(request, *args, **kwargs)
 
 
+class GADView(APIJsonView):
+    http_method_names = ['get']
+
+    def get_data(self, context):
+        ad =  TopAdBanner.objects.ios_top_banners()
+        return ad_scheme.dump(ad).data
+
+    def get(self, request, *args, **kwargs):
+        return super(GADView, self).get(request, *args, **kwargs)
+
+
 class HomeView(APIJsonView):
+    ''' HomeView Class
+        This is /mobile/v4/home/ url func
+    '''
     http_method_names = ['get']
 
     def get_data(self, context):
@@ -153,6 +174,11 @@ class HomeView(APIJsonView):
 
 
 class DiscoverView(APIJsonView):
+    ''' DiscoverView Class
+        this is '/mobile/v4/discover/' url func
+
+    '''
+
     http_method_names = ['get']
 
     def get_data(self, context):
@@ -241,8 +267,10 @@ class DiscoverView(APIJsonView):
         popular_articles = APISeletion_Articles.objects.discover()[:3]
         for row in popular_articles:
             # print type(row)
+            article_schema.context['articles_list'] = da
             r = {
-                'article': row.api_article.v4_toDict(articles_list=da)
+                # 'article': row.api_article.v4_toDict(articles_list=da)
+                'article': article_schema.dump(row.api_article).data
             }
             res['articles'].append(r)
 
@@ -465,7 +493,6 @@ class APISearchView(SearchView, JSONResponseMixin):
     form_class = APISearchForm
 
     def get_data(self, context):
-        # print context
         res = context.copy()
         return res
 

@@ -1,15 +1,24 @@
+#encoding=utf-8
 from haystack.forms import SearchForm as haystackSearchForm
 from apps.core.models import Entity, GKUser, Article
 from apps.v4.schema.articles import ArticleSchema
 
 from django.utils.log import getLogger
+import re
 
 log = getLogger('django')
 
 article_schema   = ArticleSchema()
 
+regex  = re.compile('-|－')
 
 class APISearchForm(haystackSearchForm):
+
+    def clean_q(self):
+        q           = self.cleaned_data.get('q', None)
+        keyword     = regex.sub(' ', q)
+        log.info("keyword %s", keyword)
+        return keyword
 
     def search(self):
         sqs = super(APISearchForm, self).search()

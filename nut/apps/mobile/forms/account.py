@@ -61,31 +61,30 @@ class MobileUserSignInForm(GuoKuUserSignInForm):
 class MobileUserSignUpForm(GuokuUserSignUpForm):
     password = forms.CharField(
         widget=forms.PasswordInput(),
-        min_length=6,
+        min_length=8,
     )
     api_key = forms.CharField(
         widget=forms.TextInput(),
     )
 
-    image = forms.FileField(
-        widget=forms.FileInput(),
-        required=False,
-    )
+    # image = forms.FileField(
+    #     widget=forms.FileInput(),
+    #     required=False,
+    # )
 
     def save(self):
         self.api_key = self.cleaned_data.get('api_key')
         self.user_cache = super(MobileUserSignUpForm, self).save()
 
-        _avatar_file = self.cleaned_data.get('image')
-        if _avatar_file:
-            _image = HandleImage(image_file= _avatar_file)
-            avatar_path_name = _image.avatar_save()
+        # _avatar_file = self.cleaned_data.get('image')
+        # if _avatar_file:
+        #     _image = HandleImage(image_file= _avatar_file)
+        #     avatar_path_name = _image.avatar_save()
+        #
+        #     self.user_cache.profile.avatar = avatar_path_name
 
-            self.user_cache.profile.avatar = avatar_path_name
-
-            self.user_cache.profile.save()
+            # self.user_cache.profile.save()
         return self.user_cache
-
 
     def get_session(self):
         session = Session_Key.objects.generate_session(

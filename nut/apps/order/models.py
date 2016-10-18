@@ -301,7 +301,7 @@ class Order(BaseModel):
             return self
         else:
             raise OrderException('unpaid order can not be closed')
-            return self
+            # return self
 
     def _restore_sku_stock(self):
         # only can be called from  set_expired method
