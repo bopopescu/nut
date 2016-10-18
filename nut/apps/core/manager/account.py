@@ -68,7 +68,7 @@ class GKUserQuerySet(models.query.QuerySet):
 
     def offline_shops(self):
         try:
-            return Group.objects.get(name='Offline_Shop').user_ser.all()
+            return Group.objects.get(name='OfflineShop').user_set.all()
         except models.ObjectDoesNotExist as e:
             return list()
 

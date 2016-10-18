@@ -1,6 +1,14 @@
-
-2.  new user group (offline user)
+3.  management offline shop list 
+2.  new user group (offline shop)
 1.  article comment management 
+
+action : need syncdb 
+        add Offline_Shop_Info model 
+        
+
+to get all Offline_Shop: GKUser.objects.offline_shops()
+
+
 
 
 ========================
