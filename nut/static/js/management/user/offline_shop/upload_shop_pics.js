@@ -52,6 +52,9 @@ var OfflineShopManager = Class.extend({
     },
     handleUploadSuccess:function(url){
         var original_imgs = JSON.parse($('#id_images').val());
+        if(original_imgs == null){
+            original_imgs = [];
+        }
         if(url){
             $('#add_pic_button_wrapper').before('<div class="col-xs-3 col-sm-2"><div class="thumbnail"> <div class="img-box">' +
                 '<img class="img-responsive" src="'+url+'"/></div></div></div>');
