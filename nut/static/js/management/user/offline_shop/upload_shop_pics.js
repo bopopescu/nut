@@ -51,14 +51,15 @@ var OfflineShopManager = Class.extend({
             });
     },
     handleUploadSuccess:function(url){
-        var original_imgs = JSON.parse($('#file_upload_btn').attr('data-imgs'));
+        var original_imgs = JSON.parse($('#id_images').val());
         console.log('original imgs:'+original_imgs);
         if(url){
             $('#add_pic_button_wrapper').before('<div class="col-xs-3 col-sm-2"><div class="thumbnail"> <div class="img-box">' +
                 '<img class="img-responsive" src="'+url+'"/></div></div></div>');
 
             original_imgs.push(url);
-            $('id_images').val(JSON.stringify(original_imgs));
+            console.log('new imgs:'+original_imgs);
+            $('#id_images').val(original_imgs);
         }
     }
 });
