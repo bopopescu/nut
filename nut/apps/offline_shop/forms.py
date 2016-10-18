@@ -28,6 +28,13 @@ class OfflineShopInfoForm(ModelForm):
             else:
                 raise
 
+    def save(self, *args, **kwargs):
+        instance = super(OfflineShopInfoForm, self).save()
+        instance.images = self.cleaned_data.get('images')
+        instance.save()
+        return instance
+
+
 
 
     class Meta:
