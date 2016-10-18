@@ -51,8 +51,6 @@ var OfflineShopManager = Class.extend({
             });
     },
     handleUploadSuccess:function(url){
-        //$('#file_upload_btn').attr('data-imgs') is something wrong,with u
-        //127.0.0.1/:1 Uncaught SyntaxError: Unexpected token u in JSON at position 0
         var original_imgs = JSON.parse($('#file_upload_btn').attr('data-imgs'));
         console.log('original imgs:'+original_imgs);
         if(url){
