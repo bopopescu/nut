@@ -66,6 +66,13 @@ class GKUserQuerySet(models.query.QuerySet):
         except models.ObjectDoesNotExist as e:
             return list()
 
+    def offline_shops(self):
+        try:
+            return Group.objects.get(name='Offline_Shop').user_ser.all()
+        except models.ObjectDoesNotExist as e:
+            return list()
+
+
     def authorized_user(self):
         return self.filter(groups__name__in=['Author', 'Seller']).distinct()
 
@@ -117,6 +124,9 @@ class GKUserManager(BaseUserManager):
 
     def recommended_user(self):
         return self.get_queryset().recommended_user()
+
+    def offline_shops(self):
+        return self.get_queryset().offline_shops()
 
     def deactive_user_list(self):
         user_list = cache.get('deactive_user_list')
