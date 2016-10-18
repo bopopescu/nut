@@ -1,6 +1,11 @@
 from apps.mobile.models import LaunchBoard
 from apps.v4.views import APIJsonView
 from apps.mobile.models import Session_Key
+from apps.top_ad.models import TopAdBanner
+
+
+from apps.v4.schema.guoku_ad import GKADSchema
+ad_scheme       = GKADSchema(many=True)
 
 
 class LaunchBoardView(APIJsonView):
@@ -23,9 +28,14 @@ class LaunchBoardView(APIJsonView):
             res['action_title'] = launch.action_title
             res['action'] = launch.action
             res['launch_image_url'] = launch.launch_image_url
-            return res
+
+        ad = TopAdBanner.objects.ios_top_banners()
+        if ad:
+            res['ad'] = ad_scheme.dump(ad).data
+
+
+        return res
         
-        return None
 
     def get(self, request, *args, **kwargs):
         _key = request.GET.get('session', None)
