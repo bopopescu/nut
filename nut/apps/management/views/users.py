@@ -19,9 +19,11 @@ from apps.core.views import LoginRequiredMixin
 from apps.core.mixins.views import SortMixin, FilterMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 
-from apps.management.forms.users import UserAuthorInfoForm , UserAuthorSetForm ,\
+from apps.management.forms.users import UserAuthorInfoForm, UserAuthorSetForm ,\
                                         UserSellerSetForm, UserActiveUserSetForm, UserOfflineShopSetForm
 
+from apps.management.forms.users import SellerShopForm
+from apps.shop.models import Shop
 
 from apps.offline_shop.forms import OfflineShopInfoForm
 from apps.offline_shop.models import Offline_Shop_Info
@@ -195,8 +197,9 @@ class SellerShopListView(SellerContextMixin,ListView):
     def get_queryset(self):
         return self.get_user().shops.all()
 
-from apps.management.forms.users import SellerShopForm
-from apps.shop.models import Shop
+
+
+
 class SellerShopCreateView(SellerContextMixin,CreateView):
     template_name =  'management/users/shop/seller_shop_create.html'
     model = Shop
@@ -235,13 +238,11 @@ class SellerShopDeleteView(SellerContextMixin, DeleteView):
     template_name = 'management/users/shop/seller_shop_delete.html'
     model = Shop
     pk_url_kwarg = 'shop_id'
+
     def get_success_url(self):
         _user = self.get_user()
         return reverse_lazy('management_user_shop_list', kwargs={'user_id':_user.pk})
 
-
-
-#Seller shop management End ======================
 
 class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListView):
     template_name = 'management/users/list.html'
