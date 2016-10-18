@@ -6,8 +6,19 @@ var BaiduMapManager = Class.extend({
     initBaiduMap:function(){
           // 百度地图API功能
         var map = new BMap.Map("allmap");
-        map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
-        map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+        //启用滚轮放大缩小，默认禁用
+        map.enableScrollWheelZoom();
+        //启用地图惯性拖拽，默认禁用
+        map.enableContinuousZoom();
+
+         //左上角,添加比例尺
+        var top_left_control = new BMap.ScaleControl({
+            anchor:BMAP_ANCHOR_TOP_LEFT
+        });
+        //左上角添加默认缩放平移控件
+        var top_left_navigation = new BMap.NavigationControl();
+        map.addControl(top_left_control);
+		map.addControl(top_left_navigation);
 
         var getInputLng = $('#id_address_lng').val();
         var getInputLat =  $('#id_address_lat').val();
