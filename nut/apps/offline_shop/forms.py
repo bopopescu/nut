@@ -45,6 +45,7 @@ class OfflineShopInfoForm(ModelForm):
                   'shop_mobile',
                   'shop_desc',
                   'shop_address',
+                  'shop_opentime',
                   'address_lng',
                   'address_lat',
                   'images',

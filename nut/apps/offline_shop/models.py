@@ -11,6 +11,7 @@ class Offline_Shop_Info(BaseModel):
     shop_name = models.CharField(max_length=64, null=True, blank=True)
     shop_desc = models.TextField(null=True, blank=True)
     shop_address = models.CharField(max_length=256, null=True, blank=True)
+    shop_opentime = models.CharField(max_length=256, null=True, blank=True)
 
     # float baidu map lng and lat
     address_lng = models.FloatField(null=True, db_index=True)
