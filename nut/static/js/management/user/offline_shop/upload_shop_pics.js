@@ -51,9 +51,11 @@ var OfflineShopManager = Class.extend({
             });
     },
     handleUploadSuccess:function(url){
-        var original_imgs = JSON.parse($('#id_images').val());
-        if(original_imgs == null){
-            original_imgs = [];
+        var original_imgs;
+        if($('#id_images').val().length == 0){
+             original_imgs = [];
+        }else{
+            original_imgs = JSON.parse($('#id_images').val());
         }
         if(url){
             $('#add_pic_button_wrapper').before('<div class="col-xs-3 col-sm-2"><div class="thumbnail"> <div class="img-box">' +
