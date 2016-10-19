@@ -28,6 +28,18 @@ class UserForm(forms.Form):
     # user_id = forms.CharField(label=_('user_id'),
     #                           widget=forms.TextInput(attrs={'class':'form-control', 'readonly':''}),
     #                           )
+
+    location = forms.CharField(
+        widget=forms.Select(attrs={"name" : "location", "class" : "form-control location"}),
+        label=_('location'),
+        required=False
+    )
+
+    city = forms.CharField(
+        widget=forms.Select(attrs={'name' : 'city', 'class' : 'form-control city'}),
+        label=_('city'),
+        required=False
+    )
     email = forms.EmailField(label=_('email'),
                              widget=forms.TextInput(attrs={'class':'form-control', 'type':'email'}),
                              )
@@ -52,18 +64,6 @@ class UserForm(forms.Form):
     #                              choices=YES_OR_NO,
     #                              widget=forms.Select(attrs={'class':'form-control'}),
     #                              )
-
-    location = forms.CharField(
-        widget=forms.Select(attrs={"name" : "location", "class" : "form-control location"}),
-        label=_('location'),
-        required=False
-    )
-
-    city = forms.CharField(
-        widget=forms.Select(attrs={'name' : 'city', 'class' : 'form-control city'}),
-        label=_('city'),
-        required=False
-    )
 
     gender = forms.ChoiceField(label=_('gender'),
                                 choices=User_Profile.GENDER_CHOICES,
@@ -137,6 +137,8 @@ class UserForm(forms.Form):
         self.user_cache.profile.gender = self.cleaned_data['gender']
         self.user_cache.profile.website = self.cleaned_data['website']
         self.user_cache.profile.bio = self.cleaned_data['bio']
+        self.user_cache.profile.location = self.cleaned_data['location']
+        self.user_cache.profile.city = self.cleaned_data['city']
         self.user_cache.profile.save()
         self.user_cache.save()
 
