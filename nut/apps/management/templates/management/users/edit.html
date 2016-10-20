@@ -175,6 +175,10 @@
 
                     <form class="form-horizontal" method="post">
                         {% csrf_token %}
+                        <div class="form-group" style="display: none;">
+                            <p id="default_location_value">{{ user.profile.location }}</p>
+                            <p id="default_city_value">{{ user.profile.city }}</p>
+                        </div>
                         <div class="box-body">
                         {% for field in forms %}
                             {% if field.html_name == 'is_admin' %}
@@ -221,6 +225,8 @@
 
 {% block user_script %}
 {#    switchery css is already in AdminLTE#}
+     <script src="{% static 'js/web/jquery.ui.widget.js' %}"></script>
+     <script src="{% static 'js/web/account.js' %}"></script>
      <script src="{% static 'js/utils/switchery.js' %}" type="application/javascript"></script>
      <script src="{% static 'js/management/user/user.js' %}" type="application/javascript"></script>
 

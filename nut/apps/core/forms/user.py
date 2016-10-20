@@ -53,25 +53,25 @@ class UserForm(forms.Form):
     #                              widget=forms.Select(attrs={'class':'form-control'}),
     #                              )
 
-    location = forms.CharField(label=_('location'),
-                               widget=forms.TextInput(attrs={'class':'form-control'}),
-                               )
-
-    city = forms.CharField(label=_('city'),
-                               widget=forms.TextInput(attrs={'class':'form-control'}),
-                               )
-
-    # location = forms.CharField(
-    #     widget=forms.Select(attrs={"name" : "location", "class" : "form-control location"}),
-    #     label=_('location'),
-    #     required=False
-    # )
+    # location = forms.CharField(label=_('location'),
+    #                            widget=forms.TextInput(attrs={'class':'form-control'}),
+    #                            )
     #
-    # city = forms.CharField(
-    #     widget=forms.Select(attrs={'name' : 'city', 'class' : 'form-control city'}),
-    #     label=_('city'),
-    #     required=False
-    # )
+    # city = forms.CharField(label=_('city'),
+    #                            widget=forms.TextInput(attrs={'class':'form-control'}),
+    #                            )
+
+    location = forms.CharField(
+        widget=forms.Select(attrs={"name" : "location", "class" : "form-control location"}),
+        label=_('location'),
+        required=False
+    )
+
+    city = forms.CharField(
+        widget=forms.Select(attrs={'name' : 'city', 'class' : 'form-control city'}),
+        label=_('city'),
+        required=False
+    )
 
     gender = forms.ChoiceField(label=_('gender'),
                                 choices=User_Profile.GENDER_CHOICES,
