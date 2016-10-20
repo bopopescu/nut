@@ -177,25 +177,24 @@
                         {% csrf_token %}
                         <div class="box-body">
                         {% for field in forms %}
-{#                            {% if field.html_name == 'is_admin' %}#}
-{#                                 <div class="checkbox">#}
-{#                                    <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>#}
-{#                                    <div class="col-sm-10">#}
-{#                                        {{ field }}#}
-{#                                    </div>#}
-{#                                 </div>#}
-{#                            {% elif field.html_name == 'gender' %}#}
-{#                                 <div class="form-group">#}
-{#                                    <label class="col-sm-2 control-label" for="{{ field.id_for_label  }}">{{ field.label  }}</label>#}
-{#                                    <div class="col-xs-8 col-sm-4">#}
-{#                                        {{ profile_form.gender }}#}
-{#                                        {% for radio in field %}#}
-{#                                        <label class="checkbox-inline">{{ radio.choice_label }} {{ radio.tag }}&nbsp; </label>#}
-{#                                        {% endfor %}#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            {% else %}#}
-
+                            {% if field.html_name == 'is_admin' %}
+                                 <div class="checkbox">
+                                    <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                                    <div class="col-sm-10">
+                                        {{ field }}
+                                    </div>
+                                 </div>
+                            {% elif field.html_name == 'gender' %}
+                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="{{ field.id_for_label  }}">{{ field.label  }}</label>
+                                    <div class="col-xs-8 col-sm-4">
+                                        {{ profile_form.gender }}
+                                        {% for radio in field %}
+                                        <label class="checkbox-inline">{{ radio.choice_label }} {{ radio.tag }}&nbsp; </label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% else %}
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}:</label>
                                 <div class="col-sm-10">
@@ -205,7 +204,7 @@
                                     {{ field.errors }}
                                 </div>
                             </div>
-{#                            {% endif %}#}
+                            {% endif %}
                         {% endfor %}
                         </div>
                         <div class="box-footer">
@@ -213,19 +212,6 @@
                                 <button type="submit" class="btn btn-primary btn-lg">{% trans 'update' %}</button>
                             </div>
                         </div>
-                    </form>
-
-                    <form method="post">
-                        <div class="row ">
-                                    <span class="input-title col-xs-12 col-sm-3">
-                                        {{ forms.location.label }}
-                                    </span>
-                                    <span class="input-element col-xs-12 col-sm-7">
-                                         {{ forms.location }}
-                                         {{ forms.city }}
-                                    </span>
-                                </div>
-
                     </form>
                 </div>
             </div>
