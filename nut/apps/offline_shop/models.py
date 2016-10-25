@@ -4,6 +4,11 @@ from apps.core.models import GKUser
 from apps.core.extend.fields.listfield import ListObjectField
 
 
+class Offline_Shop_Info_Manager(models.Manager):
+    def active_offline_shops(self):
+        return self.filter(status=True)
+
+
 class Offline_Shop_Info(BaseModel):
     # one to one relation to GKUser
     shop_owner = models.OneToOneField(GKUser, related_name='offline_shop')
@@ -25,6 +30,9 @@ class Offline_Shop_Info(BaseModel):
     shop_tel = models.CharField(max_length=32, null=True, blank=True)
     shop_mobile = models.CharField(max_length=32, null=True, blank=True)
 
+    status = models.BooleanField(default=False)
+
+    objects = Offline_Shop_Info_Manager()
 
 
 

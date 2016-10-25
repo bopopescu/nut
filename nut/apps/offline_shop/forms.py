@@ -10,11 +10,17 @@ from apps.offline_shop.models import Offline_Shop_Info
 
 class OfflineShopInfoForm(ModelForm):
     images = forms.CharField(required=False)
+    status = forms.BooleanField(required=False)
 
     def __init__(self, *args, **kwargs):
         super(OfflineShopInfoForm, self).__init__(*args, **kwargs)
         for fieldkey, field in self.fields.iteritems():
             field.widget.attrs.update({'class': 'form-control'})
+        self.fields['status'].widget.attrs.update({'class': ''})
+        self.fields['images'].widget.attrs.update({'class': 'hidden'})
+        self.fields['address_lng'].widget.attrs.update({'class': 'hidden'})
+        self.fields['address_lat'].widget.attrs.update({'class': 'hidden'})
+
         if self.instance.images is None:
             self.fields['images'].initial = ''
         else:
@@ -50,4 +56,5 @@ class OfflineShopInfoForm(ModelForm):
                   'address_lng',
                   'address_lat',
                   'images',
+                  'status'
                   ]

@@ -1,3 +1,15 @@
+5. move baidu static code to header, remove google analytic code 
+4. fix top_ad bug
+3. add Offline_Shop view 
+2. move GKUser.offline_shops method to Offline_Shop_Info manager
+1. add status field to Offline_Shop_Info 
+
+action : 
+ALTER TABLE `core`.`offline_shop_offline_shop_info` 
+ADD COLUMN `status` TINYINT(1) NOT NULL DEFAULT 0 AFTER `shop_mobile`;
+
+
+===========================
 
 3.  management offline shop list 
 2.  new user group (offline shop)

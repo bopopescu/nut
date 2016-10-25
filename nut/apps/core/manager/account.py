@@ -13,6 +13,8 @@ from django.core.cache import cache
 from django.contrib.auth.models import Group, GroupManager
 import random
 
+from apps.offline_shop.models import Offline_Shop_Info_Manager
+
 
 class GKUserQuerySet(models.query.QuerySet):
 
