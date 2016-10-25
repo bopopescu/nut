@@ -56,5 +56,6 @@ class OfflineShopInfoForm(ModelForm):
                   'address_lng',
                   'address_lat',
                   'images',
-                  'status'
+                  'status',
+                  'position'
                   ]

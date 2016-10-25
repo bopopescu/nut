@@ -6,7 +6,7 @@ from apps.core.extend.fields.listfield import ListObjectField
 
 class Offline_Shop_Info_Manager(models.Manager):
     def active_offline_shops(self):
-        return self.filter(status=True)
+        return self.filter(status=True).order_by('position')
 
 
 class Offline_Shop_Info(BaseModel):
@@ -31,10 +31,12 @@ class Offline_Shop_Info(BaseModel):
     shop_mobile = models.CharField(max_length=32, null=True, blank=True)
 
     status = models.BooleanField(default=False)
+    position = models.IntegerField(default=0)
 
     objects = Offline_Shop_Info_Manager()
 
-
+    class Meta:
+        ordering = ['position']
 
 
 
