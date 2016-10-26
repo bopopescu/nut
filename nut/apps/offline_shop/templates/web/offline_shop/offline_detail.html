@@ -23,33 +23,35 @@
 
 {% block user_header %}
     <div class='authorized_author_info'>
-                    <div class="user-icon">
-                        <img src="{{ current_user.avatar_url|resize:'180' }}"/>
-                    </div>
-                    <div class="user-nick">
-                         <span class="nick">{{ offline_shop.shop_name }}</span>
-                         <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="official-media"/>
-                    </div>
-                    <div class="user-action" style="margin:24px;">
-                          {% if current_user.is_blocked %}
-                                <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
-                            {% elif current_user == request.user %}
-                                <a class="guoku-button new-guoku-button button-blue newest-button-blue" href="{% url 'web_user_settings' %}">
-                                    <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
-                            {% elif request.user.id in current_user.concren %}
-                                <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                            {% elif request.user.id in current_user.fans_list %}
-                                <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                            {% else %}
-                                <a class="follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
-                            {% endif %}
-                    </div>
-{#                    <div class="user-bio-wrapper">#}
-{#                        <span class="user-bio">#}
-{#                            {{ current_user.bio|truncatechars:200 }}#}
-{#                        </span>#}
-{#                    </div>#}
+        <div class="user-icon">
+            <img src="{{ current_user.avatar_url|resize:'180' }}"/>
+        </div>
+        <div class="user-nick">
+            <span class="nick">{{ offline_shop.shop_name }}</span>
+            <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="official-media"/>
+        </div>
+        {% if not isFromMobile %}
+            <div class="user-action" style="margin:24px;">
+                {% if current_user.is_blocked %}
+                    <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
+                    {% elif current_user == request.user %}
+                    <a class="guoku-button new-guoku-button button-blue newest-button-blue" href="{% url 'web_user_settings' %}">
+                        <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
+                    {% elif request.user.id in current_user.concren %}
+                    <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                    {% elif request.user.id in current_user.fans_list %}
+                    <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                {% else %}
+                    <a class="follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+                {% endif %}
             </div>
+        {% endif %}
+        {#                    <div class="user-bio-wrapper">#}
+        {#                        <span class="user-bio">#}
+        {#                            {{ current_user.bio|truncatechars:200 }}#}
+        {#                        </span>#}
+        {#                    </div>#}
+    </div>
 {% endblock %}
 
 {% block user_content_detail %}
