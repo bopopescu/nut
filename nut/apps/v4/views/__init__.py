@@ -28,12 +28,16 @@ from haystack.generic_views import SearchView
 from datetime import datetime, timedelta
 
 
+from apps.offline_shop.models import Offline_Shop_Info
+from apps.v4.schema.offline_shop import OfflineShop
+
 from django.utils.log import getLogger
 
 log = getLogger('django')
 
-article_schema  = ArticleSchema(many=False)
-ad_scheme       = GKADSchema(many=True)
+article_schema      = ArticleSchema(many=False)
+ad_schema           = GKADSchema(many=True)
+offline_shop_schema = OfflineShop(many=True)
 
 
 def is_taobaoke_url(url):
@@ -107,7 +111,7 @@ class GADView(APIJsonView):
 
     def get_data(self, context):
         ad =  TopAdBanner.objects.ios_top_banners()
-        return ad_scheme.dump(ad).data
+        return ad_schema.dump(ad).data
 
     def get(self, request, *args, **kwargs):
         return super(GADView, self).get(request, *args, **kwargs)
@@ -301,6 +305,11 @@ class DiscoverView(APIJsonView):
             }
             res['categories'].append(r)
 
+        ''' offline shop
+            Offline_Shop_Info.objects.active_offline_shops()
+        '''
+        stores          = Offline_Shop_Info.objects.active_offline_shops()
+        res['shops']    = offline_shop_schema.dump(stores).data
 
         '''
         get authorizeduser
