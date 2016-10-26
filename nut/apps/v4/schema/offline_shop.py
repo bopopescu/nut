@@ -3,12 +3,12 @@ from marshmallow import Schema, fields, pprint
 
 class OfflineShop(Schema):
 
-    shop_name       = fields.String()
-    shop_desc       = fields.String()
-    shop_link       = fields.URL(attribute='mobile_url')
-    # images          = fields.List()
-    chief_image     = fields.String(attribute='chief_image')
-    images          = fields.Method()
+    store_id        = fields.Integer(attribute='id')
+    store_name      = fields.String(attribute='shop_name')
+    store_desc       = fields.String(attribute='shop_desc')
+    store_link       = fields.URL(attribute='mobile_url')
+    chief_image     = fields.Method('get_chief_image')
+    images          = fields.Method('get_images')
 
     def get_images(self, obj):
         return obj.images
