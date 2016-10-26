@@ -309,7 +309,7 @@ class DiscoverView(APIJsonView):
             Offline_Shop_Info.objects.active_offline_shops()
         '''
         stores          = Offline_Shop_Info.objects.active_offline_shops()
-        res['shops']    = offline_shop_schema.dump(stores).data
+        res['stores']    = offline_shop_schema.dump(stores).data
 
         '''
         get authorizeduser
