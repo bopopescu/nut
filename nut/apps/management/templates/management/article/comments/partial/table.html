@@ -1,0 +1,38 @@
+{% load i18n %}
+{% load i18n static %}
+{% load guoku %}
+
+<table class="table table-bordered table-hover table-condensed" id="sellers-table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>用户</th>
+        <th>评论内容</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+                the first line datas
+    {% with comments=object_list %}
+        {% for comment in comments %}
+
+            <tr>
+                <td>{{ comment.id  }}</td>
+                <td>{{ comment.user.nick}}</td>
+                <td>
+                    {{ comment.content }}
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="{% url 'manage_article_comment_update' article.id comment.id %}" target="">
+                        编辑
+                    </a>
+                    <a class="btn btn-primary" href="{% url 'manage_article_comment_delete' article.id comment.id %}" target="">
+                        删除
+                    </a>
+
+                </td>
+            </tr>
+        {% endfor %}
+    {% endwith %}
+    </tbody>
+</table>

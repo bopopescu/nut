@@ -46,8 +46,8 @@ urlpatterns += patterns(
     'apps.web.views.entity',
     url(r'^detail/(?P<entity_hash>\w+)/$', NewEntityDetailView.as_view(), name='web_entity_detail'),
     url(r'^detail/(?P<entity_hash>\w+)/liker/$', EntityLikersView.as_view(), name='web_entity_likers_list'),
-    url(r'^detail/(?P<entity_hash>\w+)/card/$', EntityCard.as_view() , name='web_entity_card'),
-    url(r'^detail/(?P<entity_hash>\w+)/sale/$', EntitySaleView.as_view() , name='web_entity_sale'),
+    url(r'^detail/(?P<entity_hash>\w+)/card/$', EntityCard.as_view(), name='web_entity_card'),
+    url(r'^detail/(?P<entity_hash>\w+)/sale/$', EntitySaleView.as_view(), name='web_entity_sale'),
 )
 
 
@@ -121,6 +121,7 @@ urlpatterns += patterns(
     url(r'^orders/', include('apps.order.urls.order_web')),
     url(r'^checkout/',include('apps.web.urls.checkout')),
     url(r'^seller_management/', include('apps.web.urls.seller_management')),
+    url(r'^offline_shop/', include('apps.offline_shop.urls')),
     url(r'^', include(router.urls))
 )
 

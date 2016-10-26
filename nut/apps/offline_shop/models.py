@@ -1,7 +1,13 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 from apps.core.base import BaseModel
 from apps.core.models import GKUser
 from apps.core.extend.fields.listfield import ListObjectField
+
+
+class Offline_Shop_Info_Manager(models.Manager):
+    def active_offline_shops(self):
+        return self.filter(status=True).order_by('position')
 
 
 class Offline_Shop_Info(BaseModel):
@@ -25,14 +31,15 @@ class Offline_Shop_Info(BaseModel):
     shop_tel = models.CharField(max_length=32, null=True, blank=True)
     shop_mobile = models.CharField(max_length=32, null=True, blank=True)
 
+    status = models.BooleanField(default=False)
+    position = models.IntegerField(default=0)
 
+    objects = Offline_Shop_Info_Manager()
 
+    class Meta:
+        ordering = ['position']
 
-
-
-
-
-
-
-
-
+    @property
+    def mobile_url(self):
+        return 'http://m.guoku.com'+reverse('web_offline_shop_detail',
+                                             args=[self.pk])
