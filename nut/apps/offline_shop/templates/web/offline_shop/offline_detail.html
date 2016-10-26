@@ -53,11 +53,47 @@
 {% endblock %}
 
 {% block user_content_detail %}
-     {{ offline_shop.shop_tel}}
-    {{ offline_shop.shop_opentime }}
-    {{ offline_shop.shop_address }}
-    {{ offline_shop.address_lng }}
-     {{ offline_shop.address_lat }}
+    <div class="row">
+      <div class="col-xs-12">
+          <p>电话：{{ offline_shop.shop_tel }}</p>
+          <p>营业时间：{{ offline_shop.shop_opentime }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+          <p>{{ offline_shop.shop_address }}</p>
+      </div>
+    </div>
+    <div class="row">
+    <div class="col-xs-12">
+        <span>{{ offline_shop.address_lng }}</span>
+        <span> {{ offline_shop.address_lat }}</span>
+    </div>
+    </div>
+{% endblock %}
 
+{% block basic_script %}
+    <script data-main="{% static 'js/web/jsbuild/offline_detail_page_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+{% endblock %}
 
+{% block script %}
+    <script type="text/javascript">
+        (function(win,doc){
+            var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+            if (!win.alimamatk_show) {
+                s.charset = "gbk";
+                s.async = true;
+                s.src = "http://a.alimama.cn/tkapi.js";
+                h.insertBefore(s, h.firstChild);
+            }
+            var o = {
+                pid: "mm_28514026_4132785_24810648",/*推广单元ID，用于区分不同的推广渠道*/
+                appkey: "12313170",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/
+                unid: "", /*自定义统计字段*/
+                {#            type:"click"#}
+            };
+            win.alimamatk_onload = win.alimamatk_onload || [];
+            win.alimamatk_onload.push(o);
+        })(window,document);
+    </script>
 {% endblock %}
