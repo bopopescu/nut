@@ -983,12 +983,12 @@ p.boolean-false {
   background-clip: padding-box;
 }
 .user-nick-large {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 500;
   margin-right: 12px;
 }
 .user-nick-big {
-  font-size: 24px;
+  font-size: 18px;
 }
 .guoku-small-col {
   padding: 0 2px;
@@ -1691,7 +1691,7 @@ a.new-black-link:hover {
     margin-top: 20px;
   }
   .guoku-content.user-page .user-info .user-nick-block .center-wrapper .nick {
-    font-size: 24px;
+    font-size: 18px;
     margin-top: 20px;
     display: block;
     text-align: center;
@@ -1712,7 +1712,7 @@ a.new-black-link:hover {
     margin-bottom: 10px;
   }
   .guoku-content.user-page .authorized_author_info .user-nick .nick {
-    font-size: 24px;
+    font-size: 18px;
   }
   #detail_content {
     overflow: hidden;

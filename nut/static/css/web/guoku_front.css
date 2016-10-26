@@ -1343,12 +1343,12 @@ p.boolean-false {
   background-clip: padding-box;
 }
 .user-nick-large {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 500;
   margin-right: 12px;
 }
 .user-nick-big {
-  font-size: 24px;
+  font-size: 18px;
 }
 .guoku-small-col {
   padding: 0 2px;
@@ -4163,7 +4163,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   margin-top: 10px;
 }
 .user-page .authorized_author_info .user-nick .nick {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 500;
   margin-right: 12px;
 }
@@ -4260,7 +4260,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 .entity-likers-body.index-page .user-info-wrapper .user-info .user-nick-block .nick,
 .guoku-content .liker-page .user-info-wrapper .user-info .user-nick-block .nick,
 .entity-likers-body .liker-page .user-info-wrapper .user-info .user-nick-block .nick {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 500;
   margin-right: 12px;
 }
@@ -4702,6 +4702,18 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   position: relative;
   left: -18px;
   color: #212121;
+}
+.offline-detail-body .offline-basic-info {
+  border-bottom: 1px solid #F2F2F2;
+  padding-bottom: 16px;
+  color: #757575;
+  font-size: 13px;
+}
+.offline-detail-body .offline-basic-info p {
+  margin-bottom: 0;
+}
+.offline-detail-body .offline-address-info {
+  padding-top: 16px;
 }
 #top_article_tags_container {
   padding-left: 15px;
@@ -6213,7 +6225,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
     margin-top: 20px;
   }
   .guoku-content.user-page .user-info .user-nick-block .center-wrapper .nick {
-    font-size: 24px;
+    font-size: 18px;
     margin-top: 20px;
     display: block;
     text-align: center;
@@ -6234,7 +6246,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
     margin-bottom: 10px;
   }
   .guoku-content.user-page .authorized_author_info .user-nick .nick {
-    font-size: 24px;
+    font-size: 18px;
   }
   #detail_content {
     overflow: hidden;
@@ -6534,7 +6546,6 @@ body .for-mobile {
   margin-top: 40px;
 }
 .brand-page .brand-info .brand-name .nick {
-  font-size: 32px;
   font-weight: 500;
   margin-right: 12px;
   font-size: 24px;
