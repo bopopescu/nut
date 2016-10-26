@@ -66,13 +66,18 @@
     </div>
     <div class="row">
     <div class="col-xs-12">
-        <span>{{ offline_shop.address_lng }}</span>
-        <span> {{ offline_shop.address_lat }}</span>
+        <span id="address_lng">{{ offline_shop.address_lng }}</span>
+        <span id="address_lat"> {{ offline_shop.address_lat }}</span>
+        <div id="allmap" style="width:100%;height:160px;">
+
+         </div>
     </div>
     </div>
 {% endblock %}
 
 {% block basic_script %}
+{#  can't use the same ak in management edit offline info page,so apply for a new ak  #}
+     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=M6hpWoNmEMDB3PIdiFkBKTqcZGUfqcZv"></script>
     <script data-main="{% static 'js/web/jsbuild/offline_detail_page_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
 {% endblock %}
 

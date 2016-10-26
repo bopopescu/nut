@@ -1817,21 +1817,35 @@ define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(
     return UserFollow;
 });
 
+define('subapp/offline_shop/show_map',['libs/Class','jquery'], function(Class,$) {
+    var ShowMap = Class.extend({
+        init: function () {
+            console.log('show baidu map');
+        }
+    });
+    return ShowMap;
+});
+
+
+
 
 require([
         'libs/polyfills',
         'jquery',
         'subapp/topmenu',
-        'subapp/user_follow'
+        'subapp/user_follow',
+        'subapp/offline_shop/show_map'
     ],
     function(polyfill,
              jQuery,
              Menu,
-             UserFollow
+             UserFollow,
+             ShowMap
 
     ){
         var menu = new Menu();
         var user_follow = new UserFollow();
+        var show_map = new ShowMap();
     });
 
 define("offline_detail_page_app", function(){});
