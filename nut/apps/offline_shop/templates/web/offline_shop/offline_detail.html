@@ -14,8 +14,15 @@
     <meta name="description" content="{{ offline_shop.shop_name }},{{ offline_shop.shop_desc|truncatechars:'50' }}">
 {% endblock %}
 {% block title %}{{ offline_shop.shop_name }} | 精英消费指南 | 果库{% endblock %}
-        {% block user_header %}
-                <div class='authorized_author_info'>
+
+{% block header %}
+ {% if not isFromMobile %}
+    {% include "web/partial/header_new.html" %}
+ {% endif %}
+{% endblock %}
+
+{% block user_header %}
+    <div class='authorized_author_info'>
                     <div class="user-icon">
                         <img src="{{ current_user.avatar_url|resize:'180' }}"/>
                     </div>
@@ -43,7 +50,7 @@
 {#                        </span>#}
 {#                    </div>#}
             </div>
-       {% endblock %}
+{% endblock %}
 
 {% block user_content_detail %}
      {{ offline_shop.shop_tel}}
