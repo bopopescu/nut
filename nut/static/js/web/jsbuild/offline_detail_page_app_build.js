@@ -1837,7 +1837,7 @@ define('subapp/offline_shop/show_map',['libs/Class','jquery'], function(Class,$)
                 var point = new BMap.Point(getInputLng,getInputLat);
                 var marker = new BMap.Marker(new BMap.Point(getInputLng,getInputLat));
                 map.addOverlay(marker);
-                map.centerAndZoom(point,16);
+                map.centerAndZoom(point,15);
             }else{
                 map.centerAndZoom("北京",15);
             }
