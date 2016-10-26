@@ -1,9 +1,17 @@
 6. add position field to offline_shop_info
-5. move baidu static code to header, remove google analytic code  -- not done
-4. fix top_ad bug  --- not done 
-3.1 add mobile_offline_shop_url  
+
+5. 
+    move baidu static code to header, 
+    remove guoku analytic code
+    
+4. fix top_ad bug  
+
+3.1 add mobile_url property to Offline_Shop_Info model
+ 
 3. add Offline_Shop view 
+
 2. move GKUser.offline_shops method to Offline_Shop_Info manager
+
 1. add status field to Offline_Shop_Info 
 
 action : 

@@ -41,5 +41,5 @@ class Offline_Shop_Info(BaseModel):
 
     @property
     def mobile_url(self):
-        return 'http://m.guoku.com/'+reverse('web_offline_shop_detail',
+        return 'http://m.guoku.com'+reverse('web_offline_shop_detail',
                                              args=[self.pk])
