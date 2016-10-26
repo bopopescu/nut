@@ -6,9 +6,9 @@ class OfflineShopTest(DBTestBase):
     def setUp(self):
         super(OfflineShopTest, self).setUp()
         self.the_user.setOfflineShop(True)
-        shop = Offline_Shop_Info.objects.create(shop_owner_id=self.the_user.id)
-        shop.status = True
-        shop.save()
+        self.shop = Offline_Shop_Info.objects.create(shop_owner_id=self.the_user.id)
+        self.shop.status = True
+        self.shop.save()
 
     def test_Offline_Shop_Info_Manager(self):
         active_shops = Offline_Shop_Info.objects.active_offline_shops()
@@ -39,6 +39,15 @@ class OfflineShopTest(DBTestBase):
         active_shops = Offline_Shop_Info.objects.active_offline_shops()
 
         self.assertEqual(len(active_shops), 2)
+
+    def test_mobile_url(self):
+        shop = self.shop
+        print(shop.mobile_url)
+
+        self.assertIsInstance(shop.mobile_url, basestring)
+        self.assertTrue('m.guoku.com' in shop.mobile_url)
+
+
 
 
 

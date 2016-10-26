@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 from apps.core.base import BaseModel
 from apps.core.models import GKUser
@@ -38,11 +39,7 @@ class Offline_Shop_Info(BaseModel):
     class Meta:
         ordering = ['position']
 
-
-
-
-
-
-
-
-
+    @property
+    def mobile_url(self):
+        return 'http://m.guoku.com/'+reverse('web_offline_shop_detail',
+                                             args=[self.pk])
