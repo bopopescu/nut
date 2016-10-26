@@ -370,11 +370,13 @@ def edit(request, user_id, template="management/users/edit.html"):
         raise Http404
 
     data = {
-        'user_id':user.pk,
-        'email':user.email,
+        'user_id': user.pk,
+        'location': user.profile.location,
+        'city': user.profile.city,
+        'email': user.email,
         'nickname': user.profile.nickname,
-        'is_active':user.is_active,
-        'is_admin':user.is_admin,
+        'is_active': user.is_active,
+        'is_admin': user.is_admin,
         'gender': user.profile.gender,
         'bio': user.profile.bio,
         'website': user.profile.website,
