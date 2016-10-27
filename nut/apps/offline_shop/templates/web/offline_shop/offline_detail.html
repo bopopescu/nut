@@ -72,6 +72,19 @@
         </div>
     </div>
     </div>
+
+    <div class="row">
+    {% for entity in entities %}
+        {{ entity.title }}
+    {% endfor %}
+    </div>
+
+
+    <div class="row">
+    {% for article in articles %}
+        {{ article.title }}
+    {% endfor %}
+    </div>
 {% endblock %}
 
 {% block basic_script %}
