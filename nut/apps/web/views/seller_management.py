@@ -146,6 +146,11 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
         return qs
 
 
+def get_entity_from_mission(entity_hash, entity_count):
+    entity = Entity.objects.filter(entity_hash=entity_hash)
+    entities = [entity] * int(entity_count)
+    return entities
+
 class QrcodeListView(IsAuthorizedSeller,  AjaxResponseMixin,  JSONResponseMixin,  ListView):
     template_name = 'web/seller_management/qr_image.html'
 
@@ -155,7 +160,13 @@ class QrcodeListView(IsAuthorizedSeller,  AjaxResponseMixin,  JSONResponseMixin,
         if print_entities_jsonstring and print_counts_jsonstring:
             print_entities = json.loads(print_entities_jsonstring)
             print_counts = json.loads(print_counts_jsonstring)
+            mission_dic = dict(zip(print_entities, print_counts))
+            entities = []
+            for entity_hash,entity_count in mission_dic.iteritems():
+                entities.append(get_entity_from_mission(entity_hash, entity_count))
+
             self.object_list = self.get_checked_entities(print_entities)
+
         else:
             self.object_list = self.get_queryset()
 
