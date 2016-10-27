@@ -124,8 +124,7 @@
 {% endblock %}
 
 {% block basic_script %}
-{#  can't use the same ak in management edit offline info page,so apply for a new ak  #}
-     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=nINvMpu8HVgLI5O8Hw5lBsAM91WiOnFQ"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=nINvMpu8HVgLI5O8Hw5lBsAM91WiOnFQ"></script>
     <script data-main="{% static 'js/web/jsbuild/offline_detail_page_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
 {% endblock %}
 
