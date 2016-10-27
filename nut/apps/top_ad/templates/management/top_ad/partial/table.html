@@ -1,0 +1,43 @@
+{% load i18n %}
+{% load i18n static %}
+{% load guoku %}
+
+<table class="table table-bordered table-hover table-condensed" id="sellers-table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th style="max-width: 300px;width:400px;">主图</th>
+        <th> 平台</th>
+        <th >状态</th>
+        <th> 链接类型</th>
+        <th>
+             链接
+        </th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {#            the first line datas#}
+    {% with banners=object_list %}
+        {% for banner in banners %}
+
+            <tr>
+                <td>{{ banner.id  }}</td>
+                <td><img src="{{  banner.image_url|resize:'300' }}" ></td>
+                <td>{{ banner.get_display_type_display }}</td>
+                <td>{{ banner.get_status_display }}</td>
+                <td>{{ banner.get_content_type_display }}</td>
+                <td>
+                    {{ banner.url }}
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="{% url 'manage_topad_update' banner.pk %}" target="">
+                        编辑
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    {% endwith %}
+    </tbody>
+</table>
+

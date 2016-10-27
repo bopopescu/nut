@@ -34,6 +34,7 @@ TIME_FORMAT = '%Y-%m-%d 8:00:00'
 def sum_price(sum, next_log):
     return sum + next_log.order.order_total_value
 
+
 class SKUUserPassesTestMixin(UserPassesTestMixin):
     def test_func(self, user):
         self.entity_id = self.kwargs.get('entity_id')
@@ -74,6 +75,7 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
     template_name = 'web/seller_management/seller_management.html'
 
     def get(self, request, *args, **kwargs):
+        self.extra_query_dic = {}
         if request.GET.get('print') == 'true':
             return self.get_qrimage(request)
         return super(SellerManagement, self).get(self, request, *args, **kwargs)
@@ -102,15 +104,25 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
             entity.stock = entity.sku_list.aggregate(Sum('stock')).get('stock__sum', 0) or 0
             entity.title = entity.title[:15]
         context['sort_by'] = self.get_sort_params()[0]
-        context['extra_query'] = 'sort_by=' + context['sort_by']
+        # context['extra_query'] = 'sort_by=' + context['sort_by']
         context['current_url'] = self.request.get_full_path()
+        context['extra_query'] = self.get_extra_query()
 
         return context
+
+    def get_extra_query(self):
+        qs = ''
+        for key, value in self.extra_query_dic.iteritems():
+            qs = qs + key + '=' + value + '&'
+
+        return qs
 
     def filter_queryset(self, qs, filter_param):
         filter_field, filter_value = filter_param
         if filter_field == 'title':
             qs = qs.filter(title__icontains=filter_value.strip())
+            self.extra_query_dic['filtervalue'] = filter_value.strip()
+            self.extra_query_dic['filterfield'] = filter_field
         else:
             pass
         return qs
@@ -130,7 +142,9 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
             qs = sorted(qs,key=lambda x: x.total_stock, reverse=True)
         else:
             pass
+        self.extra_query_dic['sort_by'] = sort_by
         return qs
+
 
 class QrcodeListView(IsAuthorizedSeller,  AjaxResponseMixin,  JSONResponseMixin,  ListView):
     template_name = 'web/seller_management/qr_image.html'

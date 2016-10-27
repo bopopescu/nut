@@ -983,12 +983,12 @@ p.boolean-false {
   background-clip: padding-box;
 }
 .user-nick-large {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 500;
   margin-right: 12px;
 }
 .user-nick-big {
-  font-size: 24px;
+  font-size: 18px;
 }
 .guoku-small-col {
   padding: 0 2px;
@@ -2105,6 +2105,9 @@ a.new-black-link:hover {
   margin-top: 20px;
   /*add by An , temp for static page*/
   margin-bottom: 10px;
+}
+.static-page .subtitle {
+  font-weight: 600;
 }
 /* 下载页 */
 .download_bg {

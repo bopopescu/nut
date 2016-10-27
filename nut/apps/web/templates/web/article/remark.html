@@ -15,7 +15,7 @@
     {% elif request.user.id %}
         <div class="media" >
             <div class="pull-left">
-                <img class="media-object img-circle" src="{{ user.profile.avatar_url }}" alt="{{ user.profile.nickname }}" width="50" height="50">
+                <img class="media-object img-circle" src="{{ user.profile.avatar_url }}" alt="{{ user.profile.nick }}" width="50" height="50">
             </div>
             <div class="media-body post-note">
                 <form id='article_remark_form' class="form-horizontal" action="{% url 'web_article_remark' article.id %}" method="POST" role="form">
@@ -49,19 +49,19 @@
         <li class="remark-list-item-wrapper">
             <div class="remark-item">
                 <a class="pull-left" href="{% url 'web_user_index' remark.user.pk %}" target="_blank">
-                    <img class="media-object img-circle" src="{{ remark.user.avatar_url }}" alt="{{ remark.user.nickname }}" style="width:50px;height:50px;">
+                    <img class="media-object img-circle" src="{{ remark.user.avatar_url }}" alt="{{ remark.user.nick }}" style="width:50px;height:50px;">
                 </a>
 
                 <div class="remark-detail">
-                    <div class="remark-user" user_id="{{ remark.user.pk }}" user_name="{{ remark.user.nickname }}" remark_id="{{ remark.id }}">
+                    <div class="remark-user" user_id="{{ remark.user.pk }}" user_name="{{ remark.user.nick }}" remark_id="{{ remark.id }}">
                         <a class="new-blue-link" href="{% url 'web_user_index' remark.user.pk %}" target="_blank">
-                            {{ remark.user.nickname }}
+                            {{ remark.user.nick }}
                         </a>
-                        {% if remark.reply_to.user.nickname %}
+                        {% if remark.reply_to.user.nick %}
                             <span>
                                 回复
                                 <a class="new-blue-link" href="{% url 'web_user_index' remark.reply_to.user.pk %}" target="_blank">
-                                    {{ remark.reply_to.user.nickname }}
+                                    {{ remark.reply_to.user.nick }}
                                 </a>
                                 <span>:</span>
                             </span>

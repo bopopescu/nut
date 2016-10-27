@@ -1,0 +1,291 @@
+{% extends 'web/base.html' %}
+
+{% load i18n staticfiles %}
+
+{% block meta-og %}
+    <meta property="og:title" content="果库选品商店：让生活方式独一无二" >
+    <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
+    <meta property="og:description" content="在 2016 北京国际设计周期间，果库启动了线下选品商店的服务计划，为活跃于线上的国内原创设计品牌与线下生活方式店们牵线，提出与众不同的理想生活选品组合方案，去同质化的消费场景，营造更具情怀与体验感的复合式主题店，向消费者提供独特的购物体验，为线下零售业带去惊喜变化。一方面充分诠释体验式的理想生活形态，另一方面推介植根于中国本土的原创设计力量。
+                                             如果你在打造自己的特色原创设计品牌，或者期望开设追求生活品质的复合式实体店铺，都可以通过 bd@guoku.com 联系我们。">
+{% endblock %}
+
+{% block meta-common %}
+    <meta name="title"  content="果库选品商店：让生活方式独一无二">
+    <meta name="keywords" content="设计周,国际设计周,北京国际设计周,复古大会,设计之旅,消费商圈,嘉里中心,国棉壹厂,灯塔,上海时装周,言YANBOOKS,COFFEEL,民生美术馆,SHERLOCKHOUSE,夏洛克小屋,理想生活设计论,大栅栏,北京坊,理想国,设计的准则,果库选品商店,果库精选商家,选品服务计划">
+    <meta name="description" content="在 2016 北京国际设计周期间，果库启动了线下选品商店的服务计划，为活跃于线上的国内原创设计品牌与线下生活方式店们牵线，提出与众不同的理想生活选品组合方案，去同质化的消费场景，营造更具情怀与体验感的复合式主题店，向消费者提供独特的购物体验，为线下零售业带去惊喜变化。一方面充分诠释体验式的理想生活形态，另一方面推介植根于中国本土的原创设计力量。
+                                      如果你在打造自己的特色原创设计品牌，或者期望开设追求生活品质的复合式实体店铺，都可以通过 bd@guoku.com 联系我们。">
+{% endblock %}
+
+{% block title %}果库选品商店：让生活方式独一无二{% endblock %}
+
+{% block css_basic %}
+    <link rel="icon" type="image/ico" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/font-awesome/css/font-awesome.min.css' %}">
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/fullpage/jquery.fullPage.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/web/fugu2016.css' %}">
+{% endblock %}
+
+{% block body_class %}fugu-body{% endblock %}
+
+{% block weixin_share_img %}
+    <div id='wx_logo' style='margin:0 auto;display:none;'>
+        {#         分享入口页面时展示的图片#}
+        <img src="{% static 'images/fugu2016/we_chat_share.jpg' %}"/>
+    </div>
+{% endblock %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+    <div id="prev_icon">
+        <i class="fa fa-chevron-down"></i>
+    </div>
+    <div id="fugu2016_container">
+        <div class="section" id="list_cover">
+            <img class="guoku-shops-logo" src="{% static 'images/fugu2016/GUOKU_Shops.png' %}" style="width:167px;height:56px;">
+        </div>
+        <div class="section" id="shops_intro">
+            <div class="intro-wrapper">
+                <h3 class="primary-title">果库选品商店<br>GUOKU Shops</h3>
+                <p>
+                    在 2016 北京国际设计周期间，果库启动了线下选品商店的服务计划，为活跃于线上的国内原创设计品牌与线下生活方式店们牵线，提出与众不同的理想生活选品组合方案，去同质化的消费场景，营造更具情怀与体验感的复合式主题店，向消费者提供独特的购物体验，为线下零售业带去惊喜变化。一方面充分诠释体验式的理想生活形态，另一方面推介植根于中国本土的原创设计力量。
+                </p>
+                <p>
+                    如果你在打造自己的特色原创设计品牌，或者期望开设追求生活品质的复合式实体店铺，都可以通过 <a class="new-blue-link" >bd@guoku.com</a> 联系我们。
+                </p>
+                <P>
+                    点击 <a href="http://m.guoku.com/shopservice/" class='new-blue-link'>这里</a>，即刻申请加入。
+                </P>
+            </div>
+        </div>
+
+        <div class="section" id="shop1">
+            <div class="intro-wrapper">
+
+                <ul>
+                    <li class="shop-item-1">
+                        ➊
+                        <h4 class="subtitle">
+                            CofFeel Collection 精品咖啡馆
+                        </h4>
+                        <p>
+                            北京朝阳区酒仙桥北路 9 号恒通国际创新园 C7 民生现代美术馆首层
+                        </p>
+                        <p>
+                            北京首家身处美术馆内的精品咖啡馆，店内整体风格与美术馆内的艺术氛围相得益彰。店主月川为欧洲精品咖啡协会 SCAE 认证咖啡师，师承台湾名师莫阳；另一位店主 Miko 为英国葡萄酒及烈酒教育基金会认证 WSET 中级品酒师、咖啡师，她们出品的每一杯咖啡均采用 100% 阿拉比卡精品咖啡豆制成，并会定期开展咖啡教学课堂。
+                        </p>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="shop-img-wrapper">
+                <img src="http://imgcdn.guoku.com/images/400/31f770acf790a24e8932ceffcb32959f.jpeg">
+            </div>
+            <div class="shop-img-wrapper">
+                <img src="http://imgcdn.guoku.com/images/400/e5f72765f25ae43416d247c8812429ec.jpg">
+            </div>
+        </div>
+
+        <div class="section" id="shop2">
+            <div class="intro-wrapper">
+
+                <ul>
+                    <li class="shop-item-1">
+                        ➋
+                        <h4 class="subtitle">
+                            言 YAN BOOKS
+                        </h4>
+                        <p>
+                            北京朝阳区青年路西里润枫水尚 8 号楼 05 号底商
+                        </p>
+                        <p>
+                            书店邻近朝阳大悦城，选书基于艺术与设计两大主题，其中 90% 为进口书籍，正成为京城爱书年轻人的新据点。兼备咖啡及座位区，刚买到手的新书，配上手边的咖啡，再合适不过。
+                        </p>
+                    </li>
+
+                </ul>
+            </div>
+            <br>
+{#            <div class="shop-img-wrapper">#}
+{#                <img src="http://imgcdn.guoku.com/images/400/dbbe60bebba206392006b9bb7ed7fe7e.jpeg">#}
+{#            </div>#}
+            <div class="shop-img-wrapper">
+                <img src="http://imgcdn.guoku.com/images/400/d56ec96fbfa9eeeab7b6628ed81aeee2.jpeg">
+            </div>
+        </div>
+
+        <div class="section" id="shop3">
+            <div class="intro-wrapper">
+
+                <ul>
+                    <li class="shop-item-1">
+                        ➌
+                        <h4 class="subtitle">
+                            Sherlock House 夏洛克小屋
+                        </h4>
+                        <p>
+                            北京东城区鼓楼东大街 20-2 号
+                        </p>
+                        <p>
+                            北京二环内，鼓楼东大街、安定门内大街、交道口东大街、交道口南大街的交汇处，近十字路口的临街门面。Sherlock House 是一间迷你的画廊咖啡馆，除了周末的零基础绘画教室，店里还长期陈列和贩售一些绘画作品。
+                        </p>
+
+                    </li>
+
+                </ul>
+            </div>
+             <br>
+             <br>
+{#            <div class="shop-img-wrapper">#}
+{#                <img src="http://imgcdn.guoku.com/images/400/8b34a9e45856eec745437f5f8ea46ac4.jpeg">#}
+{#            </div>#}
+
+            <div class="shop-img-wrapper">
+                <img src="http://imgcdn.guoku.com/images/400/ce0d97f94aab1bcf03fcba5358069535.jpeg">
+            </div>
+        </div>
+
+        <div class="section" id="event">
+            <div class="gift-wrapper">
+                            <img class="guoku-gift-logo" src="{% static 'images/fugu2016/gift_2x.png' %}" style="width:50px;">
+                        <br><br><br>
+            </div>
+            <div class="intro-wrapper">
+                <h3 class="primary-title">去果库 Shops 赢取别致好礼</h3>
+                <p>
+                    十一期间，我们在北京城中各处的「果库 Shops」选品商店为大家准备了期间限定的惊喜活动，每位支持果库的小伙伴都有机会收获精致好礼。
+                </p>
+                <h4>
+                    活动一：我是「果库」人
+                </h4>
+                <p>
+                    凡在「果库 Shops」内购买果库精选商品满 100 元，同时出示你在果库 App 上的用户 ID，即可获得店家特别礼遇。
+                </p>
+                <h4>
+                    活动二：寻找「果库 Shops」
+                </h4>
+                <p>
+                    根据果库网站或 App 内公布的「果库 Shops 选品商店」列表，并前往商店。
+                </p>
+                <p>
+                    在店内找到「果库 Shops」贴纸，拍摄照片发到微博，加标签 #果库Shops# 并且 @果库。
+                </p>
+                <p>
+                    单条微博转发数前十的 10 位用户，将赢得「果库 Shops」为你挑选的特别礼物。
+                </p>
+                <p>
+                    具体细则参见 <a href="http://m.guoku.com/articles/135144/" class="new-blue-link">这里</a>。
+                </p>
+
+            </div>
+        </div>
+
+        <div class="section page6" id="back_cover">
+            {#        <div id='wx_logo' style='margin:0 auto;display:none;'>#}
+            {#             分享入口页面时展示的图片#}
+            {#            <img src="{% static 'images/fugu2016/we_chat_share.jpg' %}"/>#}
+            {#        </div>#}
+            <img src="{% static 'images/fugu2016/guoku_icon_slogan.png' %}" style="width:111px;height:87px;">
+            <div class="wechat-wrapper">
+                <img src="{%  static 'images/fugu2016/we_chat_follow.png' %}" alt="微信公众号" title="微信公众号">
+                <p>微信公众号</p>
+            </div>
+            <p>
+                应用下载<a class="new-blue-link" href="{% url 'web_download' %}">&nbsp;guoku.com/download/</a><br>
+                官方网站<a class="new-blue-link" href="{% url 'web_index' %}">&nbsp;guoku.com</a><br>
+                合作联络<a class="new-blue-link" >&nbsp;bd@guoku.com</a>
+            </p>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block  bottom_bar %}
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
+
+{% block basic_script %}
+    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'thirdparty/fullpage/jquery.easings.min.js' %}"></script>
+    <script src="{% static 'thirdparty/fullpage/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'thirdparty/fullpage/jquery.fullPage.js' %}"></script>
+    <script src="{% static 'thirdparty/move/move.min.js' %}"></script>
+{% endblock %}
+
+{% block script %}
+    <script>
+        $(function(){
+            $('#fugu2016_container').fullpage({
+                sectionsColor: ['#C7302D','#FFFFFF', '#FFFFFF'],
+                {#        if not comment the below codes,the url will with #page1....so the wechat share will show bug#}
+                {#        anchors:['page1','page2','page3','page4','page5','page6'],#}
+                css3:'true',
+                afterLoad:function(link,index){
+                    switch(index){
+                        case 1:
+                            break;
+                        case 2:
+                            move('#shops_intro .intro-wrapper').delay('0.2s').set('opacity',1).y(-100).duration('0.8s').end();
+                            break;
+                        case 3:
+                            move('#shop1 .intro-wrapper').delay('0.2s').set('opacity',1).y(-10).duration('0.6s').end();
+                            break;
+                        case 4:
+                            move('#shop2 .intro-wrapper').delay('0.2s').set('opacity',1).y(-10).duration('0.6s').end();
+                            break;
+                        case 5:
+                            move('#shop3 .intro-wrapper').delay('0.2s').set('opacity',1).y(-10).duration('0.6s').end();
+                            break;
+                        case 6:
+                            move('#event .intro-wrapper').delay('0.2s').set('opacity',1).y(-10).duration('0.6s').end();
+
+                            break;
+                        case 7:
+                             move('#back_cover .wechat-wrapper').delay('0.2s').set('opacity',1).y(-10).duration('0.6s').end();
+                            break;
+
+                        default:
+                            break;
+                    }
+                },
+
+                onLeave:function(link,index){
+                    switch(index){
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block ga_script %}
+    <!-- Google Analytics -->
+    {#    <script language="javascript">#}
+    {##}
+    {#    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){#}
+    {#    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),#}
+    {#    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)#}
+    {#    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');#}
+    {##}
+    {#    ga('create', 'UA-24696872-5', 'auto');#}
+    {#    ga('send', 'pageview');#}
+    {#    ga('set', '&uid', '412916' )#}
+    {##}
+    {#    </script>#}
+{% endblock %}
+

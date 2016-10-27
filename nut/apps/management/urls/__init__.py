@@ -3,7 +3,7 @@ from django.views.generic.base import RedirectView
 
 urlpatterns = patterns(
     'apps.management',
-    url(r'^$', RedirectView.as_view(url = '/management/dashboard/')),
+    url(r'^$', RedirectView.as_view(url='/management/dashboard/')),
 
     url(r'^restful/', include('apps.management.urls.restful')),
 
@@ -22,8 +22,8 @@ urlpatterns = patterns(
     url(r'^seller/', include('apps.seller.urls.management')),
 
 
-# TODO: launch image at mobile
-    url(r'^marketing/',include('apps.management.urls.marketing') ),
+    # TODO: launch image at mobile
+    url(r'^marketing/', include('apps.management.urls.marketing')),
 
 
     url(r'^brand/', include('apps.management.urls.brand')),
@@ -43,20 +43,17 @@ urlpatterns = patterns(
 
     url(r'^shop/', include('apps.shop.urls.management')),
     url(r'^wechat/', include('apps.wechat.urls.management')),
-    url(r'^order_management/',include('apps.order.urls.order_manage')),
+    url(r'^order_management/', include('apps.order.urls.order_manage')),
     url(r'^sitebanner/', include('apps.site_banner.urls.management')),
+    url(r'^top_ad/', include('apps.top_ad.urls.management')),
     url(r'^push/', include('apps.notifications.urls.management')),
     url(r'^editor_report/', include('apps.management.urls.editor_report')),
     url(r'^operation_report/', include('apps.management.urls.operation_report')),
 
-
-
-
-
-# TODO: entity recommendation from taobao
+    # TODO: entity recommendation from taobao
     url(r'^tbrecommend/', include('apps.management.urls.tbrecommend')),
 
-# TODO: statistics
+    # TODO: statistics
     url(r'^statistics/', include('apps.management.urls.statistics')),
 )
 

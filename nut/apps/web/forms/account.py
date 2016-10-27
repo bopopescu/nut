@@ -219,7 +219,7 @@ class UserSignUpBioForm(forms.Form):
     bio = forms.CharField(
         # max_length=140,
         label=_('bio'),
-        widget=forms.Textarea(attrs={'class':'form-control', 'rows':'4', 'style':'resize: none;'}),
+        widget=forms.Textarea(attrs={'class':'form-control', 'rows':'4', 'maxlength':'300','style':'resize: none;'}),
         required=False,
     )
     gender = forms.ChoiceField(

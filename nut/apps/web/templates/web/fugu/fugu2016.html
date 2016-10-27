@@ -32,7 +32,7 @@
 
 {% block weixin_share_img %}
     <div id='wx_logo' style='margin:0 auto;display:none;'>
-{#    分享入口页面时展示的图片#}
+{#         分享入口页面时展示的图片#}
         <img src="{% static 'images/fugu2016/we_chat_share.jpg' %}"/>
     </div>
 {% endblock %}
@@ -47,7 +47,7 @@
 </div>
 <div id="fugu2016_container">
     <div class="section page1">
-        <img src="{% static 'images/fugu2016/Title_GUOKUCOM.png' %}" style="width:195px;height:109px;">
+        <img src="{% static 'images/fugu2016/Title_GUOKUCOM.png' %}" style="width:190px;height:87px;">
     </div>
 	<div class="section page2">
         <img class="fugu-logo" src="{% static 'images/fugu2016/retro_fair_logo.png' %}">
@@ -75,7 +75,7 @@
         </div>
     </div>
 	<div class="section page3">
-        <img class="gk-talks-logo" src="{% static 'images/fugu2016/GUOKU_Talks.png' %}" style="width:157px;height:63px;">
+        <img class="gk-talks-logo" src="{% static 'images/fugu2016/GUOKU_Talks.png' %}" style="width:157px;height:62px;">
          <img class="design-week-logo" src="{% static 'images/fugu2016/DSLDesignCommunity.png' %}" style="width:60px;height:56px;">
         <div class="intro-wrapper">
 {#            <img class="design-week-logo" src="{% static 'images/fugu2016/DSLDesignCommunity.png' %}" style="width:60px;height:56px;">#}
@@ -110,7 +110,7 @@
         </div>
     </div>
     <div class="section page4">
-        <img class="guoku-shops-logo" src="{% static 'images/fugu2016/GUOKU_Shops.png' %}" style="width:169px;height:57px;">
+        <img class="guoku-shops-logo" src="{% static 'images/fugu2016/GUOKU_Shops.png' %}" style="width:167px;height:56px;">
          <div class="intro-wrapper">
             <h3 class="primary-title">果库选品商店<br>GUOKU Shops</h3>
             <p>
@@ -171,12 +171,15 @@
         </div>
     </div>
     <div class="section page6">
-        <img src="{% static 'images/fugu2016/guoku_icon_slogan.png' %}" style="width:111px;height:97px;">
+{#        <div id='wx_logo' style='margin:0 auto;display:none;'>#}
+{#             分享入口页面时展示的图片#}
+{#            <img src="{% static 'images/fugu2016/we_chat_share.jpg' %}"/>#}
+{#        </div>#}
+        <img src="{% static 'images/fugu2016/guoku_icon_slogan.png' %}" style="width:111px;height:87px;">
         <div class="wechat-wrapper">
             <img src="{%  static 'images/fugu2016/we_chat_follow.png' %}" alt="微信公众号" title="微信公众号">
             <p>微信公众号</p>
         </div>
-
         <p>
             应用下载<a class="new-blue-link" href="{% url 'web_download' %}">&nbsp;guoku.com/download/</a><br>
             官方网站<a class="new-blue-link" href="{% url 'web_index' %}">&nbsp;guoku.com</a><br>

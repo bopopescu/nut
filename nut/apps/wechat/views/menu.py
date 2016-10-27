@@ -101,16 +101,32 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
                             "type":"view",
                             "url":"http://guoku.com/event/",
                         },
+                        {
+                            "type": "click",
+                            "name": "我的果库",
+                            "key": "V2001_USER_LIKE",
+                        },
                     ]
                 },
                 {
-                    "name":"我的果库",
+                    "name":"线下商店",
                     "sub_button": [
+                        # {
+                        #     "name": "十一活动",
+                        #     "type": "view",
+                        #     "url": "http://m.guoku.com/articles/135144/"
+                        # },
                         {
-                        "type": "click",
-                        "name": "喜爱的商品",
-                        "key": "V2001_USER_LIKE",
-                        }
+                            "name"  : "服务计划",
+                            "type"  : "view",
+                            "url"   : "http://m.guoku.com/shopservice/"
+                        },
+                        {
+                            "name"  : "商店列表",
+                            "type"  : "view",
+                            "url"   : "http://m.guoku.com/articles/135791/"
+                        },
+
                     ]
                 },
                 {

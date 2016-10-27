@@ -58,8 +58,8 @@ def register(request):
         code = 409
 
     if request.method == "POST":
-        _forms = MobileUserSignUpForm(request=request, data=request.POST, files=request.FILES)
-        log.info(request.FILES)
+        _forms = MobileUserSignUpForm(request=request, data=request.POST)
+
         if _forms.is_valid():
             _user = _forms.save()
             log.info("user user %s" % _user.v3_toDict())
@@ -70,9 +70,7 @@ def register(request):
             return SuccessJsonResponse(res)
         log.info(_forms.errors)
         for k, v in dict(_forms.errors).items():
-            # log.info(v.as_text().split('*'))
             error_msg = v.as_text().split('*')[1]
-            # log.info(error_msg)
             return ErrorJsonResponse(status=code, data={
                 'type': k,
                 'message': error_msg.lstrip(),

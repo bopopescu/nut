@@ -27,12 +27,13 @@ class SiteBannerCreateForm(BaseBannerCreateForm):
                                                 'banner_desc','app_show_status','web_mainpage_show_status',
                                                 'web_sidebar_show_status']
 
+
 class SiteBannerUpdateForm(BaseBannerUpdateForm):
     class Meta:
         model = SiteBanner
         fields = ['link', 'applink', 'content_type', 'position', 'img_file', 'active_status', 'banner_title',
-                                                'banner_desc','app_show_status','web_mainpage_show_status',
-                                                'web_sidebar_show_status']
+                  'banner_desc', 'app_show_status', 'web_mainpage_show_status',
+                  'web_sidebar_show_status']
 
 
 class SiteBannerCreateView(StaffuserRequiredMixin,CreateView):

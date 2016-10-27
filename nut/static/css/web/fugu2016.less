@@ -42,9 +42,14 @@
   padding:0 16px;
   font-size:@more-mini-size;
   line-height: 18px;
-  color:@common-text-color
+  color:@common-text-color;
+  a, a:hover, a:visited{
+     text-decoration: none;
+     font-weight: 600;
+
+  }
 }
-.page2,.page3,.page4{
+.page2,.page3,.page4,#list_cover, #shop1, #shop2, #shop3, #shops_intro{
   text-align: center;
   .intro-wrapper{
     opacity: 0;
@@ -58,9 +63,9 @@
     opacity: 0;
   }
   .fugu-logo{
-    width:146px;
-    height:141px;
-    .transform(translateY(170px));
+    width:145px;
+    height:139px;
+    .transform(translateY(180px));
   }
   .cooperate-logo{
     margin-left: 8px;
@@ -71,7 +76,7 @@
 }
 .page3{
    .gk-talks-logo{
-    .transform(translateY(200px));
+    .transform(translateY(210px));
 }
    .more-info{
     margin-top:30px;
@@ -85,6 +90,10 @@
 .page4 .guoku-shops-logo{
   .transform(translateY(140px));
 }
+#list_cover .guoku-shops-logo{
+
+}
+
 .page5{
   ul li{
     opacity: 0;
@@ -168,3 +177,34 @@
     padding:0 100px;
   }
 }
+
+.shop-img-wrapper{
+  width:100%;
+  text-align:center;
+
+  img{
+    display:inline-block;
+    width:100%;
+    height:auto;
+  }
+}
+
+#event .gift_wrapper{
+   padding:0px;
+   background: #ccc;
+   text-align: left ;
+   vertical-align: middle;
+   left: 0px;
+   top:0px;
+  .guoku-gift-logo{
+    display: inline;
+
+  }
+
+}
+
+
+.test{
+  color:red;
+}
+

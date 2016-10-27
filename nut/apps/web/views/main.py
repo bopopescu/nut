@@ -48,16 +48,6 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin, TemplateView):
             })
         return banners
 
-    def get_banners(self):
-        shows = Show_Banner.objects.all()
-        banners = []
-        for show in shows:
-            banners.append({
-                'url': show.banner.url,
-                'img': show.banner.image_url
-            })
-        return banners
-
     def get_selection_entities(self):
         selections = Selection_Entity.objects.published_until_now()\
                                      .select_related('entity').using('slave')

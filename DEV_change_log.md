@@ -1,3 +1,84 @@
+6. add position field to offline_shop_info
+
+5. 
+    move baidu static code to header, 
+    remove guoku analytic code
+    
+4. fix top_ad bug  
+
+3.1 add mobile_url property to Offline_Shop_Info model
+ 
+3. add Offline_Shop view 
+
+2. move GKUser.offline_shops method to Offline_Shop_Info manager
+
+1. add status field to Offline_Shop_Info 
+
+action : 
+ALTER TABLE `core`.`offline_shop_offline_shop_info` 
+ADD COLUMN `status` TINYINT(1) NOT NULL DEFAULT 0 AFTER `shop_mobile`;
+
+ALTER TABLE `core`.`offline_shop_offline_shop_info` 
+ADD COLUMN `position` INT(32) NOT NULL DEFAULT 0 AFTER `status`;
+
+Offline_Shop_Info.objects.active_offline_shops() 
+TO GET ALL ACTIVE  Offline_Shop_Info instances 
+ 
+Offline_Shop_Info.mobile_url To get url of mobile page 
+
+
+===========================
+
+3.  management offline shop list 
+2.  new user group (offline shop)
+1.  article comment management 
+
+action : need syncdb 
+        add Offline_Shop_Info model 
+        
+
+to get all Offline_Shop: GKUser.objects.offline_shops()
+
+
+
+
+========================
+
+1.fix sub category empty cause 500 bug
+
+=======================
+
+1.  update shop list h5
+
+=======================
+merged to master 10-1
+=======================
+
+2. guoku off line shop h5 
+1. top_ad management 
+
+ add TopAdBanner table
+
+action : 
+    syncdb 
+    
+    
+    
+
+==================
+merged to master  9-29 
+==================
+
+2. web bug fix  
+1. top_ad update  
+
+================
+
+2. seller entity list paging bug fix 
+1. top_ad update ,  
+
+=======================
+
 5. detail buylink fix fro seller added entity (manual)
 4. about page - lq 
 3. fugu h5  - lq 
@@ -9,6 +90,7 @@
 5. order expire check script (script/order/expire_check.py)
 4. order status , default value is waiting for payment 
 3. checkdesk order detail page. 
+
 2. sku default attr handle . 
 1. special seller, (fugu@guoku.com) , in seller management , can change entity creator
 

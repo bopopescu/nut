@@ -1,0 +1,103 @@
+{% extends 'web/user/user_base_new.html' %}
+{% load i18n staticfiles%}
+{% load common guoku %}
+{% load static %}
+
+{% block meta-og %}
+    <meta property="og:title" content="{{ offline_shop.shop_name }}果库页 | 精英消费指南 | 理想生活主张" >
+    <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
+    <meta property="og:description" content="{{ offline_shop.shop_name }}">
+{% endblock %}
+{% block meta-common %}
+    <meta name="title"  content="{{ offline_shop.shop_name }} | 精英消费指南 | 果库">
+    <meta name="keywords" content="{{ offline_shop.shop_name }},精英消费指南,果库">
+    <meta name="description" content="{{ offline_shop.shop_name }},{{ offline_shop.shop_desc|truncatechars:'50' }}">
+{% endblock %}
+{% block title %}{{ offline_shop.shop_name }} | 精英消费指南 | 果库{% endblock %}
+
+{% block header %}
+ {% if not isFromMobile %}
+    {% include "web/partial/header_new.html" %}
+ {% endif %}
+{% endblock %}
+
+{% block user_header %}
+    <div class='authorized_author_info'>
+        <div class="user-icon">
+            <img src="{{ current_user.avatar_url|resize:'180' }}"/>
+        </div>
+        <div class="user-nick">
+            <span class="nick">{{ offline_shop.shop_name }}</span>
+            <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="official-media"/>
+        </div>
+        {% if not isFromMobile %}
+            <div class="user-action" style="margin:24px;">
+                {% if current_user.is_blocked %}
+                    <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
+                    {% elif current_user == request.user %}
+                    <a class="guoku-button new-guoku-button button-blue newest-button-blue" href="{% url 'web_user_settings' %}">
+                        <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
+                    {% elif request.user.id in current_user.concren %}
+                    <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                    {% elif request.user.id in current_user.fans_list %}
+                    <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                {% else %}
+                    <a class="follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+                {% endif %}
+            </div>
+        {% endif %}
+        {#                    <div class="user-bio-wrapper">#}
+        {#                        <span class="user-bio">#}
+        {#                            {{ current_user.bio|truncatechars:200 }}#}
+        {#                        </span>#}
+        {#                    </div>#}
+    </div>
+{% endblock %}
+
+{% block user_content_detail %}
+    <div class="row offline-basic-info">
+      <div class="col-xs-12">
+          <p>电话：{{ offline_shop.shop_tel }}</p>
+          <p>营业时间：{{ offline_shop.shop_opentime }}</p>
+      </div>
+    </div>
+    <div class="row offline-address-info">
+      <div class="col-xs-12">
+          <p>{{ offline_shop.shop_address }}</p>
+      </div>
+    </div>
+    <div class="row">
+    <div class="col-xs-12" style="padding:0;">
+        <div id="map" data-lng="{{ offline_shop.address_lng }}" data-lat="{{ offline_shop.address_lat }}" style="width:100%;height:160px;">
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block basic_script %}
+{#  can't use the same ak in management edit offline info page,so apply for a new ak  #}
+     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=nINvMpu8HVgLI5O8Hw5lBsAM91WiOnFQ"></script>
+    <script data-main="{% static 'js/web/jsbuild/offline_detail_page_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        (function(win,doc){
+            var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+            if (!win.alimamatk_show) {
+                s.charset = "gbk";
+                s.async = true;
+                s.src = "http://a.alimama.cn/tkapi.js";
+                h.insertBefore(s, h.firstChild);
+            }
+            var o = {
+                pid: "mm_28514026_4132785_24810648",/*推广单元ID，用于区分不同的推广渠道*/
+                appkey: "12313170",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/
+                unid: "", /*自定义统计字段*/
+                {#            type:"click"#}
+            };
+            win.alimamatk_onload = win.alimamatk_onload || [];
+            win.alimamatk_onload.push(o);
+        })(window,document);
+    </script>
+{% endblock %}

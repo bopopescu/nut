@@ -18,7 +18,6 @@ class UpdateArticleForm(ModelForm):
     )
     creator = UsernameChoiceField(queryset=GKUser.objects.author())
 
-
     class Meta:
         model = Article
         fields = ['publish', 'read_count', 'creator']

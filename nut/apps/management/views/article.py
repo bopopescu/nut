@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.forms import HiddenInput
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect, get_object_or_404
@@ -10,14 +11,13 @@ from django.utils.translation import gettext_lazy as _
 from django.db.models import Count
 
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
-from apps.core.models import Article, GKUser , Category
+from apps.core.models import Article, GKUser, Category, Article_Remark
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.management.decorators import staff_only
 
 from apps.core.mixins.views import SortMixin, FilterMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
-
-log = getLogger('django')
+from apps.management.forms.article import UpdateArticleForm
 
 from django.views.generic import ListView, View
 from apps.core.views import BaseFormView
@@ -38,10 +38,16 @@ from rest_framework import status
 from apps.api.serializers.articles import ArticleSerializer
 
 from django.views.generic.edit import UpdateView
+from django.views.generic import DeleteView
+
+from apps.management.forms.ArticleComment import ArticleCommentForm
+
+log = getLogger('django')
 
 
 class RESTfulArticleListView(APIView):
-    def get(self,request, format=None):
+
+    def get(self, request, format=None):
         articles = Article.objects.all()
         serializer = ArticleSerializer(articles, many=True)
         return Response(serializer.data)
@@ -53,7 +59,9 @@ class RESTfulArticleListView(APIView):
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class RESTfulArticleDetail(APIView):
+
     def get_object(self, pk):
         try:
             return Article.objects.get(pk=pk)
@@ -74,11 +82,12 @@ class RESTfulArticleDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-from apps.management.forms.article import UpdateArticleForm
+
 class UpdateArticleView(UpdateView):
     model = Article
     template_name = 'management/article/new_edit.html'
     form_class = UpdateArticleForm
+
     def get_initial(self):
         initial = super(UpdateArticleView, self).get_initial()
         _article = self.get_object()
@@ -94,10 +103,9 @@ class UpdateArticleView(UpdateView):
 
     # success_url = reverse('management_article_list')
 
-
-
-
 # TODO : add authorise mixin here
+
+
 class SelectionArticleList(UserPassesTestMixin,FilterMixin, SortMixin,ListView):
     template_name = 'management/article/selection_article_list.html'
     model = Selection_Article
@@ -387,7 +395,6 @@ class ArticleList(BaseManagementArticleListView):
         return qs
 
 
-
 class DraftArticleList(UserPassesTestMixin, SortMixin, ListView):
 
     def test_func(self, user):
@@ -402,29 +409,29 @@ class DraftArticleList(UserPassesTestMixin, SortMixin, ListView):
     default_sort_params = ('updated_dateime', 'desc')
 
 
-# the following function view is deprecated
-@login_required
-@staff_only
-def list(request, template="management/article/list.html"):
-
-    _page = request.GET.get('page', 1)
-    article_list = Article.objects.all()
-    paginator = ExtentPaginator(article_list, 30)
-
-    try:
-        _articles = paginator.page(_page)
-    except PageNotAnInteger:
-        _articles = paginator.page(1)
-    except EmptyPage:
-        raise Http404
-
-    return render_to_response(
-        template,
-        {
-            'articles': _articles,
-        },
-        context_instance = RequestContext(request)
-    )
+# # the following function view is deprecated
+# @login_required
+# @staff_only
+# def list(request, template="management/article/list.html"):
+#
+#     _page = request.GET.get('page', 1)
+#     article_list = Article.objects.all()
+#     paginator = ExtentPaginator(article_list, 30)
+#
+#     try:
+#         _articles = paginator.page(_page)
+#     except PageNotAnInteger:
+#         _articles = paginator.page(1)
+#     except EmptyPage:
+#         raise Http404
+#
+#     return render_to_response(
+#         template,
+#         {
+#             'articles': _articles,
+#         },
+#         context_instance=RequestContext(request)
+#     )
 
 
 @login_required
@@ -445,7 +452,7 @@ def create(request, template="management/article/create.html"):
         {
             'forms': _forms,
         },
-        context_instance = RequestContext(request)
+        context_instance=RequestContext(request)
     )
 
 
@@ -460,12 +467,60 @@ def upload_cover(request, article_id):
         raise Http404
 
     if request.method == "POST":
-        _forms =UploadCoverForms(article=_article, data=request.POST, files=request.FILES)
+        _forms = UploadCoverForms(article=_article, data=request.POST, files=request.FILES)
         if _forms.is_valid():
             cover_url = _forms.save()
             return SuccessJsonResponse(data={'cover_url':cover_url})
         log.info(_forms.errors)
     return ErrorJsonResponse(status=400)
+
+
+class ArticleCommentListView(ListView):
+    template_name = 'management/article/comments/list.html'
+
+    def get_queryset(self):
+        article_id = self.kwargs.get('article_id')
+        article = get_object_or_404(Article, pk=article_id)
+        return article.comments.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(ArticleCommentListView, self).get_context_data()
+        context['article'] = get_object_or_404(Article, pk=self.kwargs.get('article_id'))
+        context['page_title'] = '文章评论列表'
+        context['page_sub_title'] = '文章评论列表'
+        context['page_crumb_name'] = '文章评论列表'
+        return context
+
+
+class ArticleCommentUpdateView(UpdateView):
+    template_name = 'management/article/comments/update.html'
+    form_class = ArticleCommentForm
+
+    def get_article_id(self):
+        return self.kwargs.get('article_id')
+
+    def get_success_url(self):
+        return reverse('management_article_comments_list', args=[self.get_article_id()])
+
+    def get_object(self, queryset=None):
+        article_id = self.kwargs.get('article_id')
+        comment_id = self.kwargs.get('comment_id')
+        return get_object_or_404(Article_Remark, pk=comment_id, article_id=article_id)
+
+
+class ArticleCommentDeleteView(DeleteView):
+    template_name = 'management/article/comments/delete.html'
+
+    def get_article_id(self):
+        return self.kwargs.get('article_id')
+
+    def get_success_url(self):
+        return reverse('management_article_comments_list', args=[self.get_article_id()])
+
+    def get_object(self, queryset=None):
+        article_id = self.kwargs.get('article_id')
+        comment_id = self.kwargs.get('comment_id')
+        return get_object_or_404(Article_Remark, pk=comment_id, article_id=article_id)
 
 
 @login_required
@@ -478,7 +533,8 @@ def edit(request, article_id, template="management/article/edit.html"):
         log.error("Error: %s", e.message)
         raise Http404
 
-    # tids = Content_Tags.objects.filter(target_content_type=31, target_object_id=_article.id).values_list('tag_id', flat=True)
+    # tids = Content_Tags.objects.filter(target_content_type=31,
+    #                                    target_object_id=_article.id).values_list('tag_id', flat=True)
     # # print tids
     # tags = Tags.objects.filter(pk__in=tids)
     # tag_list = []
@@ -496,7 +552,6 @@ def edit(request, article_id, template="management/article/edit.html"):
     }
 
     categories = Category.objects.active()
-
 
     if request.method == "POST":
         _forms = EditArticleForms(article=_article, data=request.POST, files=request.FILES)
@@ -518,7 +573,7 @@ def edit(request, article_id, template="management/article/edit.html"):
             "tag_url": reverse_lazy('web_article_textrank',args=[_article.pk]),
             "categories": categories
         },
-        context_instance = RequestContext(request)
+        context_instance=RequestContext(request)
     )
 
 @login_required

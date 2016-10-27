@@ -54,13 +54,13 @@ class UserForm(forms.Form):
     #                              )
 
     location = forms.CharField(
-        widget=forms.Select(attrs={"name" : "location", "class" : "form-control location"}),
+        widget=forms.Select(attrs={"name": "location", "class": "form-control location"}),
         label=_('location'),
         required=False
     )
 
     city = forms.CharField(
-        widget=forms.Select(attrs={'name' : 'city', 'class' : 'form-control city'}),
+        widget=forms.Select(attrs={'name': 'city', 'class': 'form-control city'}),
         label=_('city'),
         required=False
     )
@@ -137,6 +137,8 @@ class UserForm(forms.Form):
         self.user_cache.profile.gender = self.cleaned_data['gender']
         self.user_cache.profile.website = self.cleaned_data['website']
         self.user_cache.profile.bio = self.cleaned_data['bio']
+        self.user_cache.profile.location = self.cleaned_data['location']
+        self.user_cache.profile.city = self.cleaned_data['city']
         self.user_cache.profile.save()
         self.user_cache.save()
 

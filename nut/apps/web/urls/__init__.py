@@ -1,7 +1,7 @@
 from django.conf.urls import url, include, patterns
 from django.views.generic import RedirectView
 from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView, CooperateView\
-                           , ShopServiceView
+                           , ShopServiceView, FuGuListView
 from apps.web.views.design_week import DesignWeekViewSet
 from apps.web.views.discover import DiscoverView, RecommendUserView
 from apps.web.views.main import SelectionEntityList, SiteMapView, IndexArticleTagView, IndexSelectionEntityTagView\
@@ -46,8 +46,8 @@ urlpatterns += patterns(
     'apps.web.views.entity',
     url(r'^detail/(?P<entity_hash>\w+)/$', NewEntityDetailView.as_view(), name='web_entity_detail'),
     url(r'^detail/(?P<entity_hash>\w+)/liker/$', EntityLikersView.as_view(), name='web_entity_likers_list'),
-    url(r'^detail/(?P<entity_hash>\w+)/card/$', EntityCard.as_view() , name='web_entity_card'),
-    url(r'^detail/(?P<entity_hash>\w+)/sale/$', EntitySaleView.as_view() , name='web_entity_sale'),
+    url(r'^detail/(?P<entity_hash>\w+)/card/$', EntityCard.as_view(), name='web_entity_card'),
+    url(r'^detail/(?P<entity_hash>\w+)/sale/$', EntitySaleView.as_view(), name='web_entity_sale'),
 )
 
 
@@ -121,6 +121,7 @@ urlpatterns += patterns(
     url(r'^orders/', include('apps.order.urls.order_web')),
     url(r'^checkout/',include('apps.web.urls.checkout')),
     url(r'^seller_management/', include('apps.web.urls.seller_management')),
+    url(r'^offline_shop/', include('apps.offline_shop.urls')),
     url(r'^', include(router.urls))
 )
 
@@ -149,7 +150,8 @@ urlpatterns += patterns('',
             url(r'^store2015/', SellerView.as_view(), name='year_store_2015'),
             # url(r'^store/', SellerView.as_view(), name='web_store'),
             url(r'^hou/', HappyNYView.as_view(), name='new_year_2015'),
-            url(r'guokuselectedshops2016/',FuGuView.as_view(),name='fu_gu_da_hui_2016')
+            url(r'guokuselectedshops2016/list/', FuGuListView.as_view(), name='fu_gu_da_hui_2016_list'),
+            url(r'guokuselectedshops2016/', FuGuView.as_view(), name='fu_gu_da_hui_2016')
 
         )
 

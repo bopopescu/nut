@@ -7,7 +7,8 @@ from apps.management.views.users import MediaListView, \
                                         SellerShopListView,\
                                         SellerShopCreateView,\
                                         SellerShopUpdateView,\
-                                        SellerShopDeleteView, UserActiveUserSetView
+                                        SellerShopDeleteView, UserActiveUserSetView, UserOfflineShopSetView, UserOfflineShopInfoEditView
+
 
 urlpatterns = patterns(
     'apps.management.views.users',
@@ -24,11 +25,17 @@ urlpatterns = patterns(
     url(r'^(?P<user_id>\d+)/setAuthor/$', UserAuthorSetView.as_view(), name='management_user_setAuthor'),
     url(r'^(?P<user_id>\d+)/setSeller/$', UserSellerSetView.as_view(), name='management_user_setSeller'),
     url(r'^(?P<user_id>\d+)/setActiveUser/$', UserActiveUserSetView.as_view(), name='management_user_setActiveUser'),
+    url(r'^(?P<user_id>\d+)/setOfflineShop/$', UserOfflineShopSetView.as_view(), name='management_user_setOfflineShop'),
 
     url(r'^(?P<user_id>\d+)/editAuthorInfo/$', UserAuthorInfoEditView.as_view(), name='management_user_editAuthor'),
 
     # for seller shop management
     url(r'^(?P<user_id>\d+)/shops/$', SellerShopListView.as_view(), name='management_user_shop_list'),
+    # for offline shop info update
+    url(r'^(?P<user_id>\d+)/offline_shop_info/$',
+        UserOfflineShopInfoEditView.as_view(),
+        name='management_user_offline_shop_info'),
+
     url(r'^(?P<user_id>\d+)/shops/new/$', SellerShopCreateView.as_view(), name='management_user_shop_create'),
     url(r'^(?P<user_id>\d+)/shops/(?P<shop_id>\d+)/update/$', SellerShopUpdateView.as_view(), name='management_user_shop_update'),
     url(r'^(?P<user_id>\d+)/shops/(?P<shop_id>\d+)/delete/$', SellerShopDeleteView.as_view(), name='management_user_shop_delete'),

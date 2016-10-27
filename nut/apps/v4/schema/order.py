@@ -26,14 +26,15 @@ class OrderSchema(Schema):
     order_id            = fields.Integer(attribute='id')
     customer            = fields.Nested('UserSchema', many=False)
     number              = fields.String()
-    status              = fields.Integer()
+    status              = fields.Integer(attribute='realtime_status')
     shipping_to         = fields.Nested(ShippingAddressSchema, exclude=('user',), many=False)
     order_items         = fields.Nested('OrderItemSchema', exclude=('order', 'order_item_id'),
                                         many=True, attribute='items.all')
+    order_total_value   = fields.Number(attribute='order_total_value')
     created_datetime    = fields.Method('get_created_datetime')
     updated_datetime    = fields.Method('get_updated_datetime')
 
-    wx_payment_qrcode_url   = fields.String(attribute='wx_payment_qrcode_url')
+    # wx_payment_qrcode_url   = fields.String(attribute='wx_payment_qrcode_url')
 
 
     def get_created_datetime(self, obj):
@@ -46,24 +47,19 @@ class OrderSchema(Schema):
 class OrderItemSchema(Schema):
     order_item_id       = fields.Integer(attribute='id')
     # order               = fields.Nested('OrderSchema', many=False)
-    entity_title        = fields.Method('get_entity_title')
-    entity_image        = fields.Method('get_entity_image')
+    entity_title        = fields.String(attribute='item_title')
+    entity_image        = fields.String(attribute='image')
     attr                = fields.Method('get_sku_attr')
     volume              = fields.Integer()
     add_time            = fields.DateTime()
     grand_total_price   = fields.Number()
     promo_total_price   = fields.Number()
 
-    def get_entity_title(self, obj):
-        return obj.sku.entity.title
-
-    def get_entity_image(self, obj):
-        return obj.sku.entity.chief_image
 
     def get_sku_attr(self, obj):
         attr_string = ''
 
-        for k, v in obj.sku.attrs.items():
+        for k, v in obj.attrs.items():
             attr_string += u"{0} / {1};".format(k, v)
 
         return attr_string[:-1]
