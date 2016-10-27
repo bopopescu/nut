@@ -47,7 +47,7 @@
                 {% endif %}
             </div>
             {% endif %}
-            {% if current_user.fans_count > 0 %}
+            {% if isFromMobile and current_user.fans_count > 0 %}
                 <div class="">
                     <span>{{ current_user.fans_count }}&nbsp;{% trans '人关注' %} </span>
                 </div>
