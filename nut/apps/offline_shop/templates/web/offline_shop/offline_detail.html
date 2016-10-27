@@ -14,6 +14,7 @@
     <meta name="description" content="{{ offline_shop.shop_name }},{{ offline_shop.shop_desc|truncatechars:'50' }}">
 {% endblock %}
 {% block title %}{{ offline_shop.shop_name }} | 精英消费指南 | 果库{% endblock %}
+{% block body_class %} offline-detail-body {% endblock %}
 
 {% block header %}
  {% if not isFromMobile %}

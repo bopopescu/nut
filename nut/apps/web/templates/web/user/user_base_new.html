@@ -13,7 +13,6 @@
     <meta name="description" content="{{ current_user.profile.nick }},{{ user.profile.bio|truncatechars:'50' }},喜爱过的商品、点评过的商品、撰写过的图文、为商品贴过的标签，做理想消费精英，提理想生活主张，个人兴趣爱好、消费倾向及擅长领域，做消费的自己。">
 {% endblock %}
 {% block title %}{{ current_user.profile.nick }} | 精英消费指南 | 果库{% endblock %}
-{% block body_class %} gray-body offline-detail-body {% endblock %}
 {% block content %}
 
      {% url 'web_user_followings' current_user.pk as web_user_followings_url %}
