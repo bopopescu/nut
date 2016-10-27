@@ -1,8 +1,8 @@
 from secret_settings import *
 from settings import *
 
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 STATIC_URL = 'http://static.guoku.com/static/v4/fd35103e3c4b6aae6c81fdd3e6697725a57e9b89/'
