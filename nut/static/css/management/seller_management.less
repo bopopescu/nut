@@ -179,10 +179,11 @@ ul{
 //entity cell
 .entity-container{
   .entity-wrapper{
-    width:150px;
+    width:54px;
     float:left;
   }
   .entity-info-wrapper{
+    margin-left:66px;
     max-width:200px;
   }
 }
@@ -307,7 +308,19 @@ body.seller-management{
       width:110px;
     }
     tr td.entity-cell{
-      text-align: left;
+      .entity-container{
+        .entity-wrapper{
+          float:none;
+          width:150px;
+          margin:0 auto;
+          img{
+            margin:0 auto;
+          }
+        }
+        .entity-info-wrapper{
+          margin-left:0;
+        }
+      }
     }
     tr td.sku-cell,tr td.update-time-cell{
       color:@new-text-gray;
