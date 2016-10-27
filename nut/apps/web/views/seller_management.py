@@ -102,7 +102,7 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
         for entity in context['object_list']:
             entity.sku_list = entity.skus.all()
             entity.stock = entity.sku_list.aggregate(Sum('stock')).get('stock__sum', 0) or 0
-            entity.title = entity.title[:15]
+            entity.title = entity.title
         context['sort_by'] = self.get_sort_params()[0]
         # context['extra_query'] = 'sort_by=' + context['sort_by']
         context['current_url'] = self.request.get_full_path()
