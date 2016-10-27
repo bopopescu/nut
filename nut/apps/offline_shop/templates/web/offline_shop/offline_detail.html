@@ -22,16 +22,16 @@
 {% endblock %}
 
 {% block user_header %}
-    <div class='authorized_author_info'>
-        <div class="user-icon">
-            <img src="{{ current_user.avatar_url|resize:'180' }}"/>
+    <div class='row authorized_author_info'>
+        <div class="col-xs-4 user-icon">
+            <img src="{{ offline_shop_cover|resize:'180' }}"/>
         </div>
-        <div class="user-nick">
-            <span class="nick">{{ offline_shop.shop_name }}</span>
-            <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="official-media"/>
-        </div>
-        {% if not isFromMobile %}
-            <div class="user-action" style="margin:24px;">
+        <div class=" col-xs-8 user-info ">
+            <div class="user-nick">
+                <span class="nick">{{ offline_shop.shop_name }}</span>
+            </div>
+            {% if not isFromMobile %}
+                <div class="user-action" style="margin:24px;">
                 {% if current_user.is_blocked %}
                     <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
                     {% elif current_user == request.user %}
@@ -45,19 +45,22 @@
                     <a class="follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
                 {% endif %}
             </div>
-        {% endif %}
-        {#                    <div class="user-bio-wrapper">#}
-        {#                        <span class="user-bio">#}
-        {#                            {{ current_user.bio|truncatechars:200 }}#}
-        {#                        </span>#}
-        {#                    </div>#}
+            {% endif %}
+            {% if current_user.fans_count > 0 %}
+                <div class="user-social-info">
+                    <span>{{ current_user.fans_count }}&nbsp;{% trans '人关注' %} </span>
+                </div>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
 
 {% block user_content_detail %}
     <div class="row offline-basic-info">
       <div class="col-xs-12">
-          <p>电话：{{ offline_shop.shop_tel }}</p>
+          {% if offline_shop.shop_tel %}
+              <p>联系电话：<a class="new-blue-link" href="tel:{{ offline_shop.shop_tel }}">{{ offline_shop.shop_tel }}</a></p>
+          {% endif %}
           <p>营业时间：{{ offline_shop.shop_opentime }}</p>
       </div>
     </div>

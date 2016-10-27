@@ -76,4 +76,5 @@ class OfflineShopDetailView(DetailView):
         context_data['current_user'] = context_data['object'].shop_owner
         context_data['entities'] = self.get_entities()
         context_data['articles'] = self.get_articles()
+        context_data['offline_shop_cover'] = context_data['object'].images[0]
         return context_data

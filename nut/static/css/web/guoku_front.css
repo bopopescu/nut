@@ -4712,6 +4712,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   border-radius: 50%;
 }
 .offline-detail-body .offline-basic-info {
+  border-top: 1px solid #F2F2F2;
   border-bottom: 1px solid #F2F2F2;
   padding: 16px 0;
   color: #757575;
