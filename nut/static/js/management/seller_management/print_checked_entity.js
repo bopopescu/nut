@@ -24,7 +24,7 @@ var PrintCheckedEntityManager = Class.extend({
         return [].slice.call(checked_entity_collection);
     },
      collectPrintCounts:function(){
-         var print_count_collection = $('.print-count').map(function(idx, item){
+         var print_count_collection = $('.usite-chk:checked').next('.print-count').map(function(idx, item){
             return $(item).attr('value');
         });
         return [].slice.call(print_count_collection);

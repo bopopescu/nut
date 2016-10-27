@@ -54,12 +54,8 @@
     {% for entity in object_list %}
         <tr>
             <td>
-                <label>
-                    <input class="usite-chk" type="checkbox" name="chk[]" value="{{ entity.entity_hash }}" >
-                </label>
-                <label>
-                    <input class="print-count" type="text" name="print_count" value="1" style="width: 40px;background-color: #F5F8FF;">
-                </label>
+                <input class="usite-chk" type="checkbox" name="chk[]" value="{{ entity.entity_hash }}" >
+                <input class="print-count" type="text" name="print_count" value="1" style="width: 40px;background-color: #F5F8FF;">
             </td>
             <td class="entity-cell">
                 <div class="entity-container">
