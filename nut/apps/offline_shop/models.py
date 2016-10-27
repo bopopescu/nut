@@ -3,6 +3,7 @@ from django.db import models
 from apps.core.base import BaseModel
 from apps.core.models import GKUser
 from apps.core.extend.fields.listfield import ListObjectField
+from apps.order.models import SKU
 
 
 class Offline_Shop_Info_Manager(models.Manager):
@@ -42,4 +43,29 @@ class Offline_Shop_Info(BaseModel):
     @property
     def mobile_url(self):
         return 'http://m.guoku.com'+reverse('web_offline_shop_detail',
-                                             args=[self.pk])
+                                            args=[self.pk])
+
+
+class Shop_SKU_Stock(models.Model):
+
+    shop = models.ForeignKey(Offline_Shop_Info, on_delete=models.PROTECT)
+    sku = models.ForeignKey(SKU, on_delete=models.PROTECT)
+    stock = models.IntegerField(default=0)
+    # origin price is not include Shop_SKU_stock
+    discount = models.FloatField(default=1, db_index=True)
+    promo_price = models.FloatField(default=0, db_index=True)
+
+    @property
+    def origin_price(self):
+        return self.sku.origin_price
+
+    def get_discount_rate(self):
+        if self.origin_price == 0  or self.promo_price == 0 :
+            return 1
+        return self.promo_price/(self.origin_price*1.0)
+
+    def save(self, *args, **kwargs):
+        self.discount = self.get_discount_rate()
+        # self.entity.updated_time = datetime.now()
+        # self.entity.save()
+        super(SKU, self).save(*args, **kwargs)
