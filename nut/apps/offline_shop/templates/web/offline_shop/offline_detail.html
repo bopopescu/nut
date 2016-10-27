@@ -109,7 +109,7 @@
         {% endfor %}
     </div>
 
-    <div class="row">
+    <div class="row section-title-wrapper">
       <div class="col-xs-12">
           {% trans 'Selected' %}
       </div>
@@ -117,7 +117,7 @@
 
      <div class="row" id="hot-entity-list">
         {% for entity in entities %}
-            {% include 'web/main/partial/new_entity.html' with entity=entity%}
+            {% include 'web/offline_shop/custom_new_entity.html' with entity=entity%}
         {% endfor %}
     </div>
 
