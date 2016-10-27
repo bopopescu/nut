@@ -140,6 +140,7 @@ class QrcodeListView(IsAuthorizedSeller,  AjaxResponseMixin,  JSONResponseMixin,
         print_counts_jsonstring = request.GET.get('print_counts',None)
         if print_entities_jsonstring and print_counts_jsonstring:
             print_entities = json.loads(print_entities_jsonstring)
+            print_counts = json.loads(print_counts_jsonstring)
             self.object_list = self.get_checked_entities(print_entities)
         else:
             self.object_list = self.get_queryset()
