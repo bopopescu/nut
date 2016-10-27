@@ -71,18 +71,18 @@
       </div>
     </div>
     <div class="row">
-    <div class="col-xs-12" style="padding:0;">
-        <div id="map" data-lng="{{ offline_shop.address_lng }}" data-lat="{{ offline_shop.address_lat }}" style="width:100%; {% if isFromMobile %}height:160px;{% else %}height:400px;{% endif %}">
+        <div class="col-xs-12" style="padding:0;">
+            <div id="map" data-lng="{{ offline_shop.address_lng }}" data-lat="{{ offline_shop.address_lat }}" style="width:100%; {% if isFromMobile %}height:160px;{% else %}height:400px;{% endif %}">
+            </div>
         </div>
     </div>
-    </div>
 
-    <div class="row">
+    <div class="row section-title-wrapper">
       <div class="col-xs-12">
           {% trans '在售品牌' %}
       </div>
     </div>
-    <div class="row">
+    <div class="row brand-wrapper">
         <div class="col-xs-6 col-sm-3">
            <span>痣 birthmark</span>
         </div>
@@ -97,7 +97,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row section-title-wrapper">
       <div class="col-xs-12">
            {% trans 'Articles' %}
       </div>
