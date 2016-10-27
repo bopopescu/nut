@@ -1829,6 +1829,9 @@ a.new-black-link:hover {
   .offline-detail-body .new-entity-six .img-box:hover .new-btn-like {
     display: none;
   }
+  .offline-detail-body .more-article-wrapper .title-wrapper .title {
+    white-space: normal;
+  }
   #tag-entity-list .new-entity-item {
     padding: 0;
     margin: 0;
