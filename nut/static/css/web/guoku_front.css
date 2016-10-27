@@ -4706,10 +4706,24 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 .offline-detail-body.mobile-body {
   padding-top: 32px;
 }
-.offline-detail-body.mobile-body .user-page .authorized_author_info .user-icon img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+.offline-detail-body .authorized_author_info {
+  padding-bottom: 24px;
+  text-align: left;
+}
+.offline-detail-body .authorized_author_info .offline-shop-cover-wrapper {
+  padding-right: 0;
+}
+.offline-detail-body .authorized_author_info .offline-shop-cover-wrapper .offline-shop-cover {
+  width: 100%;
+  height: 0;
+  padding-bottom: 55%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-bottom: 65%;
+}
+.offline-detail-body .authorized_author_info .user-nick {
+  margin-top: 0;
 }
 .offline-detail-body .offline-basic-info {
   border-top: 1px solid #F2F2F2;
