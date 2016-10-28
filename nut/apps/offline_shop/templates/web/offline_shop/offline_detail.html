@@ -14,6 +14,7 @@
     <meta name="description" content="{{ offline_shop.shop_name }},{{ offline_shop.shop_desc|truncatechars:'50' }}">
 {% endblock %}
 {% block title %}{{ offline_shop.shop_name }} | 精英消费指南 | 果库{% endblock %}
+{% block body_class %} offline-detail-body {% endblock %}
 
 {% block header %}
  {% if not isFromMobile %}
@@ -22,16 +23,16 @@
 {% endblock %}
 
 {% block user_header %}
-    <div class='authorized_author_info'>
-        <div class="user-icon">
-            <img src="{{ current_user.avatar_url|resize:'180' }}"/>
+    <div class='row authorized_author_info'>
+        <div class="col-xs-4 offline-shop-cover-wrapper">
+            <div class="offline-shop-cover" style="background-image: url('{{ offline_shop_cover|resize:'450' }}')"></div>
         </div>
-        <div class="user-nick">
-            <span class="nick">{{ offline_shop.shop_name }}</span>
-            <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="official-media"/>
-        </div>
-        {% if not isFromMobile %}
-            <div class="user-action" style="margin:24px;">
+        <div class=" col-xs-8 user-info ">
+            <div class="user-nick">
+                <span class="nick">{{ offline_shop.shop_name }}</span>
+            </div>
+            {% if not isFromMobile %}
+                <div class="user-action" style="margin:24px;">
                 {% if current_user.is_blocked %}
                     <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
                     {% elif current_user == request.user %}
@@ -45,19 +46,22 @@
                     <a class="follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
                 {% endif %}
             </div>
-        {% endif %}
-        {#                    <div class="user-bio-wrapper">#}
-        {#                        <span class="user-bio">#}
-        {#                            {{ current_user.bio|truncatechars:200 }}#}
-        {#                        </span>#}
-        {#                    </div>#}
+            {% endif %}
+            {% if isFromMobile and current_user.fans_count > 0 %}
+                <div class="">
+                    <span>{{ current_user.fans_count }}&nbsp;{% trans '人关注' %} </span>
+                </div>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
 
 {% block user_content_detail %}
     <div class="row offline-basic-info">
       <div class="col-xs-12">
-          <p>电话：{{ offline_shop.shop_tel }}</p>
+          {% if offline_shop.shop_tel %}
+              <p>联系电话：<a class="new-blue-link" href="tel:{{ offline_shop.shop_tel }}">{{ offline_shop.shop_tel }}</a></p>
+          {% endif %}
           <p>营业时间：{{ offline_shop.shop_opentime }}</p>
       </div>
     </div>
@@ -67,29 +71,63 @@
       </div>
     </div>
     <div class="row">
-    <div class="col-xs-12" style="padding:0;">
-        <div id="map" data-lng="{{ offline_shop.address_lng }}" data-lat="{{ offline_shop.address_lat }}" style="width:100%;height:160px;">
+        <div class="col-xs-12" style="padding:0;">
+            <div id="map" data-lng="{{ offline_shop.address_lng }}" data-lat="{{ offline_shop.address_lat }}" style="width:100%; {% if isFromMobile %}height:160px;{% else %}height:400px;{% endif %}">
+            </div>
         </div>
     </div>
+
+    <div class="row section-title-wrapper">
+      <div class="col-xs-12">
+          {% trans '在售品牌' %}
+      </div>
+    </div>
+    <div class="row brand-wrapper">
+        <div class="col-xs-6 col-sm-3">
+           <span>痣 birthmark</span>
+        </div>
+        <div class="col-xs-6 col-sm-3">
+           <span>年轮公园</span>
+        </div>
+        <div class="col-xs-6 col-sm-3">
+            <span>国棉一厂</span>
+        </div>
+        <div class="col-xs-6 col-sm-3">
+            <span>什么 design</span>
+        </div>
     </div>
 
-    <div class="row">
-    {% for entity in entities %}
-        {{ entity.title }}
-    {% endfor %}
-    </div>
+    {% if articles %}
+        <div class="row section-title-wrapper">
+            <div class="col-xs-12">
+                {% trans 'Articles' %}
+            </div>
+        </div>
+        <div class="row" id="new_selection_article_list">
+            {% for article in articles %}
+                {% include 'web/offline_shop/custom_article_item.html' %}
+            {% endfor %}
+        </div>
+    {% endif %}
 
+    {% if entities %}
+        <div class="row section-title-wrapper">
+            <div class="col-xs-12">
+                {% trans 'Selected' %}
+            </div>
+        </div>
 
-    <div class="row">
-    {% for article in articles %}
-        {{ article.title }}
-    {% endfor %}
-    </div>
+        <div class="row" id="hot-entity-list">
+            {% for entity in entities %}
+                {% include 'web/offline_shop/custom_new_entity.html' with entity=entity%}
+            {% endfor %}
+        </div>
+    {% endif %}
+
 {% endblock %}
 
 {% block basic_script %}
-{#  can't use the same ak in management edit offline info page,so apply for a new ak  #}
-     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=nINvMpu8HVgLI5O8Hw5lBsAM91WiOnFQ"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=nINvMpu8HVgLI5O8Hw5lBsAM91WiOnFQ"></script>
     <script data-main="{% static 'js/web/jsbuild/offline_detail_page_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
 {% endblock %}
 

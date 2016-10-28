@@ -541,7 +541,7 @@ ul li {
   left: 5px;
 }
 .common-bordered {
-  border: 1px solid #e6e6e6;
+  border: 1px solid #F2F2F2;
 }
 .panel {
   background-color: #fff;
@@ -4472,7 +4472,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 .entity-likers-body.index-page .content-panel .panel-content-wrapper .entity-cell .img-box,
 .guoku-content .liker-page .content-panel .panel-content-wrapper .entity-cell .img-box,
 .entity-likers-body .liker-page .content-panel .panel-content-wrapper .entity-cell .img-box {
-  border: 1px solid #e6e6e6;
+  border: 1px solid #F2F2F2;
 }
 .guoku-content.user-page .content-panel .panel-content-wrapper .note-cell,
 .entity-likers-body.user-page .content-panel .panel-content-wrapper .note-cell,
@@ -4492,7 +4492,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 .entity-likers-body.index-page .content-panel .panel-content-wrapper .note-cell .img-box,
 .guoku-content .liker-page .content-panel .panel-content-wrapper .note-cell .img-box,
 .entity-likers-body .liker-page .content-panel .panel-content-wrapper .note-cell .img-box {
-  border: 1px solid #e6e6e6;
+  border: 1px solid #F2F2F2;
 }
 .guoku-content.user-page .content-panel .panel-content-wrapper .note-cell .note-content-wrapper,
 .entity-likers-body.user-page .content-panel .panel-content-wrapper .note-cell .note-content-wrapper,
@@ -4706,12 +4706,27 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 .offline-detail-body.mobile-body {
   padding-top: 32px;
 }
-.offline-detail-body.mobile-body .user-page .authorized_author_info .user-icon img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+.offline-detail-body .authorized_author_info {
+  padding-bottom: 24px;
+  text-align: left;
+}
+.offline-detail-body .authorized_author_info .offline-shop-cover-wrapper {
+  padding-right: 0;
+}
+.offline-detail-body .authorized_author_info .offline-shop-cover-wrapper .offline-shop-cover {
+  width: 100%;
+  height: 0;
+  padding-bottom: 55%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-bottom: 65%;
+}
+.offline-detail-body .authorized_author_info .user-nick {
+  margin-top: 0;
 }
 .offline-detail-body .offline-basic-info {
+  border-top: 1px solid #F2F2F2;
   border-bottom: 1px solid #F2F2F2;
   padding: 16px 0;
   color: #757575;
@@ -4722,6 +4737,18 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 }
 .offline-detail-body .offline-address-info {
   padding-top: 16px;
+}
+.offline-detail-body .section-title-wrapper {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.offline-detail-body .brand-wrapper {
+  padding-bottom: 16px;
+  border-bottom: 1px solid #F2F2F2;
+}
+.offline-detail-body .brand-wrapper span {
+  color: #757575;
+  font-size: 13px;
 }
 #top_article_tags_container {
   padding-left: 15px;
@@ -4997,7 +5024,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   margin: 20px 0px ;
 }
 #detail_content_left .detail-pic-left .detail_img_big img {
-  border: 1px solid #e6e6e6;
+  border: 1px solid #F2F2F2;
 }
 #detail_content_left .detail-pic-left .other-pics {
   margin-top: 10px;
@@ -5007,7 +5034,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   height: 42px;
   margin-right: 10px;
   display: inline-block;
-  border: 1px solid #e6e6e6;
+  border: 1px solid #F2F2F2;
 }
 #detail_content_left .detail-pic-left .other-pics .other-pic-list a {
   display: block;
@@ -6358,6 +6385,21 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   .new-index-page .new-entity-six .img-box:hover .bg-layer,
   .new-index-page .new-entity-six .img-box:hover .new-btn-like {
     display: none;
+  }
+  .offline-detail-body .new-entity-item {
+    margin: 0;
+    padding: 0;
+  }
+  .offline-detail-body .new-entity-six {
+    box-shadow: 0 0 2px #ddd;
+    padding: 6px;
+  }
+  .offline-detail-body .new-entity-six .img-box:hover .bg-layer,
+  .offline-detail-body .new-entity-six .img-box:hover .new-btn-like {
+    display: none;
+  }
+  .offline-detail-body .more-article-wrapper .title-wrapper .title {
+    white-space: normal;
   }
   #tag-entity-list .new-entity-item {
     padding: 0;
