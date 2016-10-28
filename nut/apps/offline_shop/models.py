@@ -32,7 +32,7 @@ class Offline_Shop_Info(BaseModel):
     shop_tel = models.CharField(max_length=32, null=True, blank=True)
     shop_mobile = models.CharField(max_length=32, null=True, blank=True)
 
-    status = models.BooleanField(default=False)
+    status = models.BooleanField(default=True)
     position = models.IntegerField(default=0)
 
     objects = Offline_Shop_Info_Manager()

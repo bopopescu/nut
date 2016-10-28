@@ -23,6 +23,11 @@ from django.utils.log import getLogger
 log = getLogger('django')
 
 
+from apps.v4.schema.users import UserSchema
+
+users_schema = UserSchema(many=True)
+
+
 @check_sign
 def entity_list(request):
     log.info(request.GET)
@@ -185,35 +190,74 @@ def like_action(request, entity_id, target_status):
     return ErrorJsonResponse(status=400)
 
 
-@check_sign
-def entity_liker(request, entity_id):
-    _key = request.GET.get('session', None)
-    _page = request.GET.get('page', 1)
+# @check_sign
+# def entity_liker(request, entity_id):
+#     _key = request.GET.get('session', None)
+#     _page = request.GET.get('page', 1)
+#
+#     visitor = None
+#     try:
+#         _session = Session_Key.objects.get(session_key=_key)
+#         visitor = _session.user
+#     except Session_Key.DoesNotExist:
+#         pass
+#         # return ErrorJsonResponse(status=403)
+#     log.info(visitor)
+#     liker = Entity_Like.objects.filter(entity = entity_id)
+#     paginator = Paginator(liker, 15)
+#     try:
+#         liker_list = paginator.page(_page)
+#     except EmptyPage:
+#         return ErrorJsonResponse(status=404)
+#
+#     res = dict()
+#     res['page'] = _page
+#     res['count'] = liker.count()
+#     res['data'] = list()
+#     for row in liker_list.object_list:
+#         res['data'].append(
+#             row.user.v3_toDict(visitor=visitor)
+#         )
+#     return SuccessJsonResponse(res)
 
-    visitor = None
-    try:
-        _session = Session_Key.objects.get(session_key=_key)
-        visitor = _session.user
-    except Session_Key.DoesNotExist:
-        pass
-        # return ErrorJsonResponse(status=403)
-    log.info(visitor)
-    liker = Entity_Like.objects.filter(entity = entity_id)
-    paginator = Paginator(liker, 15)
-    try:
-        liker_list = paginator.page(_page)
-    except EmptyPage:
-        return ErrorJsonResponse(status=404)
 
-    res = dict()
-    res['page'] = _page
-    res['count'] = liker.count()
-    res['data'] = list()
-    for row in liker_list.object_list:
-        res['data'].append(
-            row.user.v3_toDict(visitor=visitor)
-        )
-    return SuccessJsonResponse(res)
+class EntityLikerView(APIJsonView):
+
+    http_method_names = ['get']
+
+    def get_data(self, context):
+        liker = Entity_Like.objects.filter(entity=self.entity_id)
+
+        paginator = Paginator(liker, 15)
+        try:
+            liker_list = paginator.page(self.page)
+        except EmptyPage:
+            return ErrorJsonResponse(status=404)
+        res             = dict()
+        res['page']     = self.page
+        res['count']    = liker.count()
+        res['data']     = list()
+        if self.session:
+            users_schema.context['visitor'] = self.session.user
+        for row in liker_list.object_list:
+            res['data'].append(
+                users_schema.dump(row.user, many=False).data
+            )
+        return res
+
+    def get(self, request, *args, **kwargs):
+        self.entity_id  = kwargs.pop('entity_id', None)
+        assert self.entity_id is not None
+        self.page       = request.GET.get('page', 1)
+        _key = request.GET.get('session', None)
+        try:
+            self.session = Session_Key.objects.get(session_key=_key)
+        except Session_Key.DoesNotExist, e:
+            self.session = None
+            log.info(e.message)
+
+
+        return super(EntityLikerView, self).get(request, *args, **kwargs)
 
 
 # @check_sign
