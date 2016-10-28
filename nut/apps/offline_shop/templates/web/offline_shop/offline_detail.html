@@ -17,9 +17,9 @@
 {% block body_class %} offline-detail-body {% endblock %}
 
 {% block header %}
- {% if not isFromMobile %}
-    {% include "web/partial/header_new.html" %}
- {% endif %}
+    {% if not isFromMobile %}
+        {% include "web/partial/header_new.html" %}
+    {% endif %}
 {% endblock %}
 
 {% block user_header %}
@@ -33,19 +33,19 @@
             </div>
             {% if not isFromMobile %}
                 <div class="user-action" style="margin:24px;">
-                {% if current_user.is_blocked %}
-                    <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
+                    {% if current_user.is_blocked %}
+                        <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
                     {% elif current_user == request.user %}
-                    <a class="guoku-button new-guoku-button button-blue newest-button-blue" href="{% url 'web_user_settings' %}">
-                        <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
+                        <a class="guoku-button new-guoku-button button-blue newest-button-blue" href="{% url 'web_user_settings' %}">
+                            <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
                     {% elif request.user.id in current_user.concren %}
-                    <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                        <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
                     {% elif request.user.id in current_user.fans_list %}
-                    <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                {% else %}
-                    <a class="follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
-                {% endif %}
-            </div>
+                        <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                    {% else %}
+                        <a class="follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+                    {% endif %}
+                </div>
             {% endif %}
             {% if isFromMobile and current_user.fans_count > 0 %}
                 <div class="">
@@ -58,17 +58,17 @@
 
 {% block user_content_detail %}
     <div class="row offline-basic-info">
-      <div class="col-xs-12">
-          {% if offline_shop.shop_tel %}
-              <p>联系电话：<a class="new-blue-link" href="tel:{{ offline_shop.shop_tel }}">{{ offline_shop.shop_tel }}</a></p>
-          {% endif %}
-          <p>营业时间：{{ offline_shop.shop_opentime }}</p>
-      </div>
+        <div class="col-xs-12">
+            {% if offline_shop.shop_tel %}
+                <p>联系电话：<a class="new-blue-link" href="tel:{{ offline_shop.shop_tel }}">{{ offline_shop.shop_tel }}</a></p>
+            {% endif %}
+            <p>营业时间：{{ offline_shop.shop_opentime }}</p>
+        </div>
     </div>
     <div class="row offline-address-info">
-      <div class="col-xs-12">
-          <p>{{ offline_shop.shop_address }}</p>
-      </div>
+        <div class="col-xs-12">
+            <p>{{ offline_shop.shop_address }}</p>
+        </div>
     </div>
     <div class="row">
         <div class="col-xs-12" style="padding:0;">
@@ -78,22 +78,32 @@
     </div>
 
     <div class="row section-title-wrapper">
-      <div class="col-xs-12">
-          {% trans '在售品牌' %}
-      </div>
+        <div class="col-xs-12">
+            {% trans '在售品牌' %}
+        </div>
     </div>
     <div class="row brand-wrapper">
         <div class="col-xs-6 col-sm-3">
-           <span>痣 birthmark</span>
+            <a href="/search?q=痣" target="_blank">
+               <span>
+                       痣 birthmark
+               </span>
+            </a>
         </div>
         <div class="col-xs-6 col-sm-3">
-           <span>年轮公园</span>
+            <a href="/search?q=年轮公园" target="_blank">
+             <span>年轮公园</span>
+             </a>
         </div>
         <div class="col-xs-6 col-sm-3">
+            <a href="/search?q=国棉" target="_blank">
             <span>国棉一厂</span>
+            </a>
         </div>
         <div class="col-xs-6 col-sm-3">
+            <a href="/search?q=什么design" target="_blank">
             <span>什么 design</span>
+            </a>
         </div>
     </div>
 
