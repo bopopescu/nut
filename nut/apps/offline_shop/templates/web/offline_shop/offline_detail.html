@@ -97,29 +97,32 @@
         </div>
     </div>
 
-    <div class="row section-title-wrapper">
-      <div class="col-xs-12">
-           {% trans 'Articles' %}
-      </div>
-    </div>
+    {% if articles %}
+        <div class="row section-title-wrapper">
+            <div class="col-xs-12">
+                {% trans 'Articles' %}
+            </div>
+        </div>
+        <div class="row" id="new_selection_article_list">
+            {% for article in articles %}
+                {% include 'web/offline_shop/custom_article_item.html' %}
+            {% endfor %}
+        </div>
+    {% endif %}
 
-     <div class="row" id="new_selection_article_list">
-         {% for article in articles %}
-             {% include 'web/offline_shop/custom_article_item.html' %}
-        {% endfor %}
-    </div>
+    {% if entities %}
+        <div class="row section-title-wrapper">
+            <div class="col-xs-12">
+                {% trans 'Selected' %}
+            </div>
+        </div>
 
-    <div class="row section-title-wrapper">
-      <div class="col-xs-12">
-          {% trans 'Selected' %}
-      </div>
-    </div>
-
-     <div class="row" id="hot-entity-list">
-        {% for entity in entities %}
-            {% include 'web/offline_shop/custom_new_entity.html' with entity=entity%}
-        {% endfor %}
-    </div>
+        <div class="row" id="hot-entity-list">
+            {% for entity in entities %}
+                {% include 'web/offline_shop/custom_new_entity.html' with entity=entity%}
+            {% endfor %}
+        </div>
+    {% endif %}
 
 {% endblock %}
 
