@@ -146,21 +146,44 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
         return qs
 
 
+def get_entity_from_mission(entity_hash, entity_count):
+    entity = Entity.objects.filter(entity_hash=entity_hash)
+    entities = [entity] * int(entity_count)
+    return entities
+
 class QrcodeListView(IsAuthorizedSeller,  AjaxResponseMixin,  JSONResponseMixin,  ListView):
     template_name = 'web/seller_management/qr_image.html'
 
     def get(self, request, *args, **kwargs):
         print_entities_jsonstring = request.GET.get('entity_ids',None)
-        if print_entities_jsonstring:
+        print_counts_jsonstring = request.GET.get('print_counts',None)
+        host = request.get_host()
+        if print_entities_jsonstring and print_counts_jsonstring:
             print_entities = json.loads(print_entities_jsonstring)
-            self.object_list = self.get_checked_entities(print_entities)
+            print_counts = json.loads(print_counts_jsonstring)
+            mission_dic = dict(zip(print_entities, print_counts))
+            entities = []
+            print_entities = []
+            for entity_hash,entity_count in mission_dic.iteritems():
+                entities.append(get_entity_from_mission(entity_hash, entity_count))
+
+            for entity_list in entities:
+              for entity_list_item in entity_list:
+                for entity in entity_list_item:
+                    entity.title = entity.title
+                    entity.qr_info = [entity.brand, entity.title, "", entity.price, 'http://' + host + entity.qrcode_url]
+                    print_entities.append(entity)
+
+            self.object_list = print_entities
+
+            # self.object_list = self.get_checked_entities(print_entities)
+
         else:
             self.object_list = self.get_queryset()
+            for entity in self.object_list:
+                entity.title = entity.title
+                entity.qr_info = [entity.brand, entity.title, "", entity.price, 'http://' + host + entity.qrcode_url]
 
-        host = request.get_host()
-        for entity in self.object_list:
-          entity.title = entity.title
-          entity.qr_info = [entity.brand, entity.title, "", entity.price, 'http://' + host + entity.qrcode_url]
         return render_to_response(self.template_name, {'entities': self.object_list},
                                   context_instance=RequestContext(request)
                                   )
