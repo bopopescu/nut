@@ -76,6 +76,11 @@
             </div>
         </div>
     </div>
+    {% if isFromMobile %}
+    <div class="row">
+      <div class="col-xs-12 mobile-section-bar"></div>
+    </div>
+    {% endif %}
 
     <div class="row section-title-wrapper">
       <div class="col-xs-12">
@@ -96,6 +101,11 @@
             <span>什么 design</span>
         </div>
     </div>
+     {% if isFromMobile %}
+    <div class="row">
+      <div class="col-xs-12 mobile-section-bar"></div>
+    </div>
+    {% endif %}
 
     {% if articles %}
         <div class="row section-title-wrapper">
@@ -108,6 +118,11 @@
                 {% include 'web/offline_shop/custom_article_item.html' %}
             {% endfor %}
         </div>
+        {% if isFromMobile %}
+            <div class="row">
+                <div class="col-xs-12 mobile-section-bar"></div>
+            </div>
+        {% endif %}
     {% endif %}
 
     {% if entities %}
