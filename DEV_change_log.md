@@ -1,3 +1,11 @@
+
+1. add static data for offline shop 
+
+
+===================================
+merged to master 10/26 
+=====================================
+
 6. add position field to offline_shop_info
 
 5. 
