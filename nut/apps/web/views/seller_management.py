@@ -267,7 +267,10 @@ def seller_management_entity_edit(request, entity_id, template='web/seller_manag
     if request.method == "POST":
         # fugu is a special seller, use for guoku op to manage offline entity list
 
-        if request.user.email == 'fugu@guoku.com':
+        # for second offline event , at chaoyang dayue city
+        # guokumk is a special seller, use for guoku op to manage offline entity list
+
+        if request.user.email == 'guokumk@guoku.com':
             _forms = ChangeCreatorEditEntityForm(
                 entity,
                 request.POST,
