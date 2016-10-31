@@ -32,7 +32,7 @@
                 <span class="nick">{{ offline_shop.shop_name }}</span>
             </div>
             {% if not isFromMobile %}
-                <div class="user-action" style="margin:24px;">
+                <div class="user-action">
                     {% if current_user.is_blocked %}
                         <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
                     {% elif current_user == request.user %}
