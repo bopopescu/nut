@@ -229,7 +229,12 @@ class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin
         context['sum_payment_cash'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.cash)
         context['sum_payment_credit_card'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.credit_card)
         context['sum_payment_other'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.other)
+        context['sum_margin_value'] = self.get_sum_margin(order_list)
         return context
+
+    def get_sum_margin(self, order_list):
+        return reduce(lambda total_margin_value, order: total_margin_value + order.total_margin_value,
+                      order_list, 0)
 
     def apply_date_filter(self, order_list):
         start_date = self.request.GET.get('start_date', None)

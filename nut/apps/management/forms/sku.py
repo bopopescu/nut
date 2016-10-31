@@ -28,7 +28,7 @@ class SKUForm(ModelForm):
 
         entity = self.cleaned_data['entity']
         attrs_list = [s.attrs for s in entity.skus.exclude(id=self.instance.id)]
-        if attrs == {} :
+        if attrs == {}:
             attrs=u''
         if attrs in attrs_list:
             self.repeatstatus = 1
@@ -51,6 +51,6 @@ class SKUForm(ModelForm):
 
     class Meta:
         model = SKU
-        fields = [ 'stock', 'origin_price', 'promo_price', 'status', 'entity', 'attrs']
+        fields = ['stock', 'origin_price', 'promo_price', 'margin', 'status', 'entity', 'attrs']
 
 

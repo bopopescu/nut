@@ -25,6 +25,9 @@
         <th style="width:160px;">
             {% trans 'price' %}
         </th>
+        <th>
+            {% trans  '佣金比率' %}
+        </th>
 
         <th style="width:170px;">{% if sort_by == 'dstock' %}
             <a class="new-blue-link" href="{% url  'web_seller_management' %}?sort_by=ustock">
@@ -105,6 +108,13 @@
                          <input type="text" data-entity-id="{{ entity.id }}" data-sku-id="{{ sku.id }}" value="{{ sku.promo_price }}">
                          <button type="submit" class="btn btn-success sku-save-btn" data-url="{% url 'web_seller_management_entity_save' entity.id %}">保存</button>
                      </div>
+                {% endfor %}
+            </td>
+            <td>
+                {% for sku in entity.sku_list %}
+                    <div class="sku-item sku-item-border">
+                        {{ sku.margin }}
+                    </div>
                 {% endfor %}
             </td>
             <td class="stock-wrapper">

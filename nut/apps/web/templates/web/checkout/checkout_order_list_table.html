@@ -35,6 +35,9 @@
         <th>
             {% trans '其他' %}
         </th>
+        <th>
+            {% trans '佣金' %}
+        </th>
     </tr>
     </thead>
     <tbody>
@@ -51,6 +54,7 @@
             <td>{{ sum_payment_credit_card }}</td>
             <td>{{ sum_payment_cash }}</td>
             <td>{{ sum_payment_other }}</td>
+            <td>{{ sum_margin_value }}</td>
     </tr>
     <tr class="">
          <td colspan="10" class="blank"></td>
@@ -96,6 +100,9 @@
                 {% else %}
 
                 {% endif %}
+            </td>
+            <td>
+                {{ order.total_margin_value }}
             </td>
         </tr>
         <tr>

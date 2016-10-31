@@ -292,7 +292,7 @@ def seller_management_entity_edit(request, entity_id, template='web/seller_manag
 
     else:
 
-        if request.user.email == 'fugu@guoku.com':
+        if request.user.email == 'guokumk@guoku.com':
             _forms = ChangeCreatorEditEntityForm(
                 entity,
                 initial=data,
@@ -602,9 +602,6 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
         order_ids = list(order_list.values_list('id', flat=True))
         logs = PaymentLog.objects.filter(payment_source=payment_souce, order_id__in=order_ids)
         return reduce(sum_price, list(logs), 0)
-
-
-
 
     def get_context_data(self, **kwargs):
         context = super(SellerManagementOrders, self).get_context_data(**kwargs)
