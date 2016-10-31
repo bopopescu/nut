@@ -1688,8 +1688,16 @@ body.seller-management #seller_management_entity_price tr th.update-time-cell,
 body.seller-management #seller_management_entity_price tr th.operation-cell {
   width: 110px;
 }
-body.seller-management #seller_management_entity_price tr td.entity-cell {
-  text-align: left;
+body.seller-management #seller_management_entity_price tr td.entity-cell .entity-container .entity-wrapper {
+  float: none;
+  width: 150px;
+  margin: 0 auto;
+}
+body.seller-management #seller_management_entity_price tr td.entity-cell .entity-container .entity-wrapper img {
+  margin: 0 auto;
+}
+body.seller-management #seller_management_entity_price tr td.entity-cell .entity-container .entity-info-wrapper {
+  margin-left: 0;
 }
 body.seller-management #seller_management_entity_price tr td.sku-cell,
 body.seller-management #seller_management_entity_price tr td.update-time-cell {

@@ -308,7 +308,19 @@ body.seller-management{
       width:110px;
     }
     tr td.entity-cell{
-      text-align: left;
+      .entity-container{
+        .entity-wrapper{
+          float:none;
+          width:150px;
+          margin:0 auto;
+          img{
+            margin:0 auto;
+          }
+        }
+        .entity-info-wrapper{
+          margin-left:0;
+        }
+      }
     }
     tr td.sku-cell,tr td.update-time-cell{
       color:@new-text-gray;
