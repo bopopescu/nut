@@ -10,6 +10,9 @@
                 <input id="usite-chk-all" type="checkbox" name="chkall" value="" >
             </label>
         </th>
+        <th>
+            {% trans '商品图片' %}
+        </th>
         <th class="entity-search">
             {% trans 'entity' %}
             <input class="guoku_search_input" data-search-field="title" type="text">
@@ -21,6 +24,9 @@
         </th>
         <th style="width:160px;">
             {% trans 'price' %}
+        </th>
+        <th>
+            {% trans  '佣金比率' %}
         </th>
 
         <th style="width:170px;">{% if sort_by == 'dstock' %}
@@ -54,17 +60,20 @@
     {% for entity in object_list %}
         <tr>
             <td>
-                <label>
-                    <input class="usite-chk" type="checkbox" name="chk[]" value="{{ entity.entity_hash }}" >
-                </label>
+                <input class="usite-chk" type="checkbox" name="chk[]" value="{{ entity.entity_hash }}" >
+                <input class="print-count" type="text" name="print_count" value="1" style="width: 40px;">
             </td>
-            <td class="entity-cell">
+             <td class="entity-cell">
                 <div class="entity-container">
                     <div class="entity-wrapper">
                         <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
-                            <img src="{{ entity.chief_image|resize:'128' }}" class="img-responsive">
+                            <img src="{{ entity.chief_image|resize:'240' }}" class="img-responsive">
                         </a>
                     </div>
+                </div>
+            </td>
+            <td class="entity-cell">
+                <div class="entity-container">
                     <div class="entity-info-wrapper">
                         <p class="entity-title">
                             {{ entity.title|truncatechars:64}}
@@ -99,6 +108,13 @@
                          <input type="text" data-entity-id="{{ entity.id }}" data-sku-id="{{ sku.id }}" value="{{ sku.promo_price }}">
                          <button type="submit" class="btn btn-success sku-save-btn" data-url="{% url 'web_seller_management_entity_save' entity.id %}">保存</button>
                      </div>
+                {% endfor %}
+            </td>
+            <td>
+                {% for sku in entity.sku_list %}
+                    <div class="sku-item sku-item-border">
+                        {{ sku.margin }}
+                    </div>
                 {% endfor %}
             </td>
             <td class="stock-wrapper">
