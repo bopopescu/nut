@@ -87,30 +87,32 @@
             {% trans '在售品牌' %}
         </div>
     </div>
+
     <div class="row brand-wrapper">
-        <div class="col-xs-6 col-sm-3">
-            <a href="/search?q=痣" target="_blank">
+    {% if offline_shop.id == 1 %}
+         <div class="col-xs-6 col-sm-3">
+            <a href="/search?q=Fete工作坊" target="_blank">
                <span>
-                       痣 birthmark
+                       Fete 工作坊
                </span>
             </a>
         </div>
         <div class="col-xs-6 col-sm-3">
-            <a href="/search?q=年轮公园" target="_blank">
-             <span>年轮公园</span>
+            <a href="/search?q=大兜/DORBEETLE" target="_blank">
+             <span>大兜 / DORBEETLE</span>
              </a>
         </div>
         <div class="col-xs-6 col-sm-3">
-            <a href="/search?q=国棉" target="_blank">
-            <span>国棉一厂</span>
+            <a href="/search?q=無未纸品实验室" target="_blank">
+               <span>
+                       無未纸品实验室
+               </span>
             </a>
         </div>
-        <div class="col-xs-6 col-sm-3">
-            <a href="/search?q=什么design" target="_blank">
-            <span>什么 design</span>
-            </a>
-        </div>
+
+    {% endif %}
     </div>
+
      {% if isFromMobile %}
     <div class="row">
       <div class="col-xs-12 mobile-section-bar"></div>
