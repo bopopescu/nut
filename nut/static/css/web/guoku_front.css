@@ -4745,7 +4745,10 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   margin-bottom: 0;
 }
 .offline-detail-body .offline-address-info {
-  padding-top: 16px;
+  padding: 16px 0;
+}
+.offline-detail-body .offline-address-info p {
+  margin-bottom: 0;
 }
 .offline-detail-body .section-title-wrapper {
   margin-top: 16px;

@@ -55,42 +55,95 @@ shop_articles = {
 }
 
 entities_hashs = [
-
-    '3b257bf4',
-    '136327af',
-    '1144afa1',
-    '34c6b61c',
-    '8240630d',
-    '8418362e',
-    '0e641501',
-
-    '3402cc9d',
-    '6e3fe109',
-    'ab975b0c',
-    'f6453176'
-
-    '708cfe53',
-    '5c646801',
-    '9a5a92b6',
-    'dfad0c16',
-
-    '76824edf',
-    '8fad39f7',
-    '17545805',
-
-    '2a1599fa',
+    ['3e9788ce',
+     'f7fc045c',
+     '999522e3',
+     '4b0a4460',
+     '56ff23a9',
+     'aae3d211',
+     '496e5041',
+     '7893125c',
+     '2b3aa24d',
+     '767e12f9',
+     'ff88ad68',
+     '9cbfd9bc',
+     'd10ae55e',
+     '00881c27',
+     '5a90e5e9',
+     'b73fe466',
+     '2ecf02f6',
+     '29f23603',
+     '418f9cbd',
+     '0b587e2f',
+     'f687f7b0',
+     '097e0319',
+     'd7792614',
+     'b320f7ed',
+     'ca429d59',
+     '8d6f38e9',
+     '3dc6381e',
+     'd7a8e799',
+     'faff856d',
+     'bf752979',
+     'cdaa9431',
+     'c161e6ed',
+     '36675e44',
+     'fe0cbdc5',
+     'ece64417'
+     ],
+    ['3b257bf4',
+     'b1840f82',
+     '136327af',
+     '1144afa1',
+     '34c6b61c',
+     '8240630d',
+     '8418362e',
+     '3402cc9d',
+     '6e3fe109',
+     'ab975b0c',
+     '6836c28a',
+     'ae82275c',
+     '17545805',
+     '76824edf',
+     '435c9221',
+     '9a5a92b6',
+     '5c646801'
+     ],
+    ['dfad0c16',
+     'b1840f82',
+     '3f4c2736',
+     '34c6b61c',
+     'd3208043',
+     '0e641501',
+     'fc58663e',
+     '8240630d',
+     '8418362e',
+     'f6453176',
+     '9a5a92b6',
+     '4c16550a',
+     '5c646801',
+     'c57a88e7',
+     '708cfe53',
+     'd3439f7b'
+     ]
 ]
 
 
 articles = [
-    '110',
-    '134058',
-    '6858',
-    '51962',
-    '134059',
-    '5482',
-    '65',
-    '320'
+    [
+        '134060',
+        '244'
+    ],
+    [
+        '134060',
+        '110'
+        '702',
+        '320',
+        '65'
+    ],
+    [
+        '135527'
+    ]
 ]
 
 
@@ -101,7 +154,8 @@ class OfflineShopDetailView(DetailView):
     context_object_name = 'offline_shop'
 
     def get_articles(self):
-        sel_articles = articles[:]
+        offline_shop_id = int(self.get_shop_id())
+        sel_articles = articles[offline_shop_id - 1]
         shuffle(sel_articles)
         return Article.objects.filter(pk__in=sel_articles[:3])
 
@@ -112,7 +166,8 @@ class OfflineShopDetailView(DetailView):
         key = 'offlineshop:entities:cache' + self.get_shop_id()
         entities = cache.get(key)
         if entities is None:
-            entities = Entity.objects.filter(entity_hash__in=entities_hashs)
+            offline_shop_id = int(self.get_shop_id())
+            entities = Entity.objects.filter(entity_hash__in=entities_hashs[offline_shop_id - 1])
             entities = list(entities)
             shuffle(entities)
             cache.set(key, entities, timeout=3600)
