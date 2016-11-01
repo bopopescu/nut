@@ -1,6 +1,6 @@
 var SKUStockUpdateManager = Class.extend({
     init: function(){
-        console.log('init sku stock and price update begin');
+        console.log('init sku stock ,margin and price update begin');
         this.initEditPencil();
         this.initSaveBtn();
     },
@@ -22,7 +22,7 @@ var SKUStockUpdateManager = Class.extend({
         //var entity_id = targetInput.attr('data-entity-id');
         var sku_id = targetInput.attr('data-sku-id');
          var inputValue =  targetInput.val();
-        var price,stock,data;
+        var price,stock,data,margin;
 
         if(targetInput.parent().hasClass('price-edit-wrapper')){
 
@@ -32,7 +32,14 @@ var SKUStockUpdateManager = Class.extend({
             'price':price
             };
 
-        }else{
+        }else if(targetInput.parent().hasClass('margin-edit-wrapper')){
+           margin = inputValue;
+           data = {
+               'sku_id' : sku_id,
+               'margin': margin
+           };
+        }
+        else{
 
             stock = inputValue;
             data = {

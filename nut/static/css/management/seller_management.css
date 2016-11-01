@@ -1567,6 +1567,7 @@ ul {
   margin-bottom: 0;
 }
 .price-wrapper .sku-item:nth-last-child(2),
+.margin-wrapper .sku-item:nth-last-child(2),
 .stock-wrapper .sku-item:nth-last-child(2) {
   margin-bottom: 0;
 }
@@ -1688,8 +1689,16 @@ body.seller-management #seller_management_entity_price tr th.update-time-cell,
 body.seller-management #seller_management_entity_price tr th.operation-cell {
   width: 110px;
 }
-body.seller-management #seller_management_entity_price tr td.entity-cell {
-  text-align: left;
+body.seller-management #seller_management_entity_price tr td.entity-cell .entity-container .entity-wrapper {
+  float: none;
+  width: 150px;
+  margin: 0 auto;
+}
+body.seller-management #seller_management_entity_price tr td.entity-cell .entity-container .entity-wrapper img {
+  margin: 0 auto;
+}
+body.seller-management #seller_management_entity_price tr td.entity-cell .entity-container .entity-info-wrapper {
+  margin-left: 0;
 }
 body.seller-management #seller_management_entity_price tr td.sku-cell,
 body.seller-management #seller_management_entity_price tr td.update-time-cell {
@@ -1717,6 +1726,28 @@ body.seller-management #seller_management_entity_price tr td.price-wrapper .pric
   display: none;
 }
 body.seller-management #seller_management_entity_price tr td.price-wrapper .price-edit-wrapper input {
+  width: 70px;
+  height: 34px;
+  line-height: 34px;
+}
+body.seller-management #seller_management_entity_price tr td.margin-wrapper {
+  padding: 0;
+  border-left: 0;
+  border-right: 0;
+}
+body.seller-management #seller_management_entity_price tr td.margin-wrapper .entity-margin i.sku-edit-pencil {
+  display: none;
+}
+body.seller-management #seller_management_entity_price tr td.margin-wrapper .entity-margin:hover {
+  cursor: pointer;
+}
+body.seller-management #seller_management_entity_price tr td.margin-wrapper .entity-margin:hover i.sku-edit-pencil {
+  display: inline;
+}
+body.seller-management #seller_management_entity_price tr td.margin-wrapper .margin-edit-wrapper {
+  display: none;
+}
+body.seller-management #seller_management_entity_price tr td.margin-wrapper .margin-edit-wrapper input {
   width: 70px;
   height: 34px;
   line-height: 34px;

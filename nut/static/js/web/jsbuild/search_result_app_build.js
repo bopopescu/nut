@@ -823,7 +823,7 @@ define('subapp/entitylike',['libs/Class','subapp/account','jquery','fastdom'],
 
 define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class, $){
 
-    var  test_url_reg = /20160508/;
+    var  test_url_reg = /20161111/;
     var visited_cookie_key = 'pop_up_store_key';
     // here we use a global var isFromMobile, which is bootstraped in base.html (template)
 

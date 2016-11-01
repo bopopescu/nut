@@ -11,6 +11,8 @@
         </div>
         <div class="box-body">
             <div class="btn-group">
+                <a class="btn btn-primary" href="{% url 'management_offline_shop_list' %}">{% trans '线下商店列表' %}</a>
+                &nbsp; &nbsp; &nbsp; &nbsp;
                 <a class="btn btn-primary" href="{% url 'management_user_edit'  current_user.pk %}">{% trans 'Back To User Info Edit' %}</a>
             </div>
             <div class="box-pane">&nbsp;</div>

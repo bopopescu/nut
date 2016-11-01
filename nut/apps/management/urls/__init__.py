@@ -48,6 +48,7 @@ urlpatterns = patterns(
     url(r'^top_ad/', include('apps.top_ad.urls.management')),
     url(r'^push/', include('apps.notifications.urls.management')),
     url(r'^editor_report/', include('apps.management.urls.editor_report')),
+    url(r'^offline_shop/', include('apps.offline_shop.urls_manage')),
     url(r'^operation_report/', include('apps.management.urls.operation_report')),
 
     # TODO: entity recommendation from taobao

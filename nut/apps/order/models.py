@@ -32,6 +32,7 @@ class SKU(BaseModel):
     discount = models.FloatField(default=1, db_index=True)
     promo_price = models.FloatField(default=0, db_index=True)
     status = models.IntegerField(choices=SKU_STATUS_CHOICE, default=enable)
+    margin = models.FloatField(default=0)
     objects = SKUManager()
 
     class Meta:
@@ -102,6 +103,7 @@ class CartItem(BaseModel):
             order_item.image = self.sku.entity.chief_image
             order_item.attrs = self.sku.attrs
             order_item.entity_link = self.sku.entity.absolute_url
+            order_item.margin = self.sku.margin
             order_item.save()
         return order_item
 
@@ -346,8 +348,13 @@ class Order(BaseModel):
     @property
     def promo_total_price(self):
         # promo price , without shipping fee
-        return reduce(lambda a,b : a + b,
-                        [item.promo_total_price for item in self.items.all()])
+        return reduce(lambda a, b: a + b,
+                      [item.promo_total_price for item in self.items.all()])
+
+    @property
+    def total_margin_value(self):
+        return reduce(lambda a, b: a + b,
+                      [item.margin_value for item in self.items.all()])
 
     @property
     def grand_total_price(self):
@@ -391,7 +398,14 @@ class OrderItem(BaseModel):
     entity_link = models.CharField(max_length=256, null=False)
     # 订单生成的时候 赋值
 
+    margin = models.FloatField(default=0)
+    # 订单生成的时候 赋值
+
     attrs = ListObjectField()
+
+    @property
+    def margin_value(self):
+        return self.promo_total_price * self.margin
 
     @property
     def attrs_json_str(self):

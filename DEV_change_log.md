@@ -1,5 +1,29 @@
+10. update offline shop 
+9. event mini logo
+8. web new top bar 
 
+7. offline shop management (list, edit)
+6. record margin in orderitem 
+5. display margin on order list page (seller and checkout )
+4. quick edit margin on entity list page 
+3. add new sku field for margin 
+2. add new user guokumk@guoku.com FOR main seller for dayuecheng event 
+   remove fugu@guoku.com 's users ability to change entity creator 
+   add guokumk@guoku.com 's user's ability to change entity creator  
+    
 1. add static data for offline shop 
+
+
+
+action : 
+
+ALTER TABLE `core`.`order_sku` 
+ADD COLUMN `margin` FLOAT NOT NULL DEFAULT 0 AFTER `discount`;
+
+ALTER TABLE `core`.`order_orderitem` 
+ADD COLUMN `margin` FLOAT NOT NULL DEFAULT 0 AFTER `attrs`;
+
+
 
 
 ===================================

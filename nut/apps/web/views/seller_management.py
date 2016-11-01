@@ -102,7 +102,7 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
         for entity in context['object_list']:
             entity.sku_list = entity.skus.all()
             entity.stock = entity.sku_list.aggregate(Sum('stock')).get('stock__sum', 0) or 0
-            entity.title = entity.title[:15]
+            entity.title = entity.title
         context['sort_by'] = self.get_sort_params()[0]
         # context['extra_query'] = 'sort_by=' + context['sort_by']
         context['current_url'] = self.request.get_full_path()
@@ -146,21 +146,44 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
         return qs
 
 
+def get_entity_from_mission(entity_hash, entity_count):
+    entity = Entity.objects.filter(entity_hash=entity_hash)
+    entities = [entity] * int(entity_count)
+    return entities
+
 class QrcodeListView(IsAuthorizedSeller,  AjaxResponseMixin,  JSONResponseMixin,  ListView):
     template_name = 'web/seller_management/qr_image.html'
 
     def get(self, request, *args, **kwargs):
         print_entities_jsonstring = request.GET.get('entity_ids',None)
-        if print_entities_jsonstring:
+        print_counts_jsonstring = request.GET.get('print_counts',None)
+        host = request.get_host()
+        if print_entities_jsonstring and print_counts_jsonstring:
             print_entities = json.loads(print_entities_jsonstring)
-            self.object_list = self.get_checked_entities(print_entities)
+            print_counts = json.loads(print_counts_jsonstring)
+            mission_dic = dict(zip(print_entities, print_counts))
+            entities = []
+            print_entities = []
+            for entity_hash,entity_count in mission_dic.iteritems():
+                entities.append(get_entity_from_mission(entity_hash, entity_count))
+
+            for entity_list in entities:
+              for entity_list_item in entity_list:
+                for entity in entity_list_item:
+                    entity.title = entity.title
+                    entity.qr_info = [entity.brand, entity.title, "", entity.price, 'http://' + host + entity.qrcode_url]
+                    print_entities.append(entity)
+
+            self.object_list = print_entities
+
+            # self.object_list = self.get_checked_entities(print_entities)
+
         else:
             self.object_list = self.get_queryset()
+            for entity in self.object_list:
+                entity.title = entity.title
+                entity.qr_info = [entity.brand, entity.title, "", entity.price, 'http://' + host + entity.qrcode_url]
 
-        host = request.get_host()
-        for entity in self.object_list:
-          entity.title = entity.title
-          entity.qr_info = [entity.brand, entity.title, "", entity.price, 'http://' + host + entity.qrcode_url]
         return render_to_response(self.template_name, {'entities': self.object_list},
                                   context_instance=RequestContext(request)
                                   )
@@ -244,7 +267,10 @@ def seller_management_entity_edit(request, entity_id, template='web/seller_manag
     if request.method == "POST":
         # fugu is a special seller, use for guoku op to manage offline entity list
 
-        if request.user.email == 'fugu@guoku.com':
+        # for second offline event , at chaoyang dayue city
+        # guokumk is a special seller, use for guoku op to manage offline entity list
+
+        if request.user.email == 'guokumk@guoku.com':
             _forms = ChangeCreatorEditEntityForm(
                 entity,
                 request.POST,
@@ -266,7 +292,7 @@ def seller_management_entity_edit(request, entity_id, template='web/seller_manag
 
     else:
 
-        if request.user.email == 'fugu@guoku.com':
+        if request.user.email == 'guokumk@guoku.com':
             _forms = ChangeCreatorEditEntityForm(
                 entity,
                 initial=data,
@@ -309,9 +335,11 @@ def delete_image(request, entity_id):
 
     return HttpResponseNotAllowed
 
+
 class SellerManagementEntitySave(JSONResponseMixin, AjaxResponseMixin, View):
     model = Entity
-    def save_update(self,sku_id, price, stock):
+
+    def save_update(self, sku_id, price, stock, margin):
         sku_id = int(json.loads(sku_id))
         sku = SKU.objects.get(id=sku_id)
         if price:
@@ -320,15 +348,19 @@ class SellerManagementEntitySave(JSONResponseMixin, AjaxResponseMixin, View):
         if stock:
             stock = int(json.loads(stock))
             sku.stock = stock
+        if margin:
+            margin = float(json.loads(margin))
+            sku.margin = margin
         sku.save()
         return
 
     def post_ajax(self, request, *args, **kwargs):
         price = request.POST.get('price', None)
         stock = request.POST.get('stock')
+        margin = request.POST.get('margin', None)
         sku_id = request.POST.get('sku_id', None)
         try:
-            self.save_update(sku_id, price, stock)
+            self.save_update(sku_id, price, stock, margin)
             return self.render_json_response({'status': '1'}, 200)
         except:
             return self.render_json_response({'status': '-1'}, 404)
@@ -577,9 +609,6 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
         logs = PaymentLog.objects.filter(payment_source=payment_souce, order_id__in=order_ids)
         return reduce(sum_price, list(logs), 0)
 
-
-
-
     def get_context_data(self, **kwargs):
         context = super(SellerManagementOrders, self).get_context_data(**kwargs)
         context['status'] = self.status
@@ -605,7 +634,13 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
         context['sum_payment_cash'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.cash)
         context['sum_payment_credit_card'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.credit_card)
         context['sum_payment_other'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.other)
+        context['sum_margin_value'] = self.get_sum_margin(order_list)
+
         return context
+
+    def get_sum_margin(self, order_list):
+        return reduce(lambda total_margin_value, order: total_margin_value + order.total_margin_value,
+                      order_list, 0)
 
     def apply_date_filter(self, order_list):
         start_date = self.request.GET.get('start_date', None)

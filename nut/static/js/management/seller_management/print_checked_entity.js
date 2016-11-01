@@ -9,8 +9,9 @@ var PrintCheckedEntityManager = Class.extend({
     },
     handlePrintQrcode:function(e) {
         var checked_entity_ids = this.collectCheckedEntity();
+        var print_count_list = this.collectPrintCounts();
         if(checked_entity_ids.length){
-            var new_url = 'qrcode_list?entity_ids=' +  JSON.stringify(checked_entity_ids);
+            var new_url = 'qrcode_list?entity_ids=' +  JSON.stringify(checked_entity_ids) + '&print_counts=' + JSON.stringify(print_count_list);
             window.open(new_url);
         }else{
             window.open('qrcode_list');
@@ -21,6 +22,12 @@ var PrintCheckedEntityManager = Class.extend({
             return $(item).attr('value');
         });
         return [].slice.call(checked_entity_collection);
+    },
+     collectPrintCounts:function(){
+         var print_count_collection = $('.usite-chk:checked').next('.print-count').map(function(idx, item){
+            return $(item).val();
+        });
+        return [].slice.call(print_count_collection);
     }
 });
 
