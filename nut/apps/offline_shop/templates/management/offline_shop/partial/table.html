@@ -1,0 +1,31 @@
+{% load i18n %}
+{% load guoku %}
+<table class="table table-bordered table-hover table-condensed" id="sellers-table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>店铺名称</th>
+        <th>店铺地址 </th>
+        <th>联系电话</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {#            the first line datas#}
+
+    {% for shop in shops %}
+
+        <tr>
+            <td>{{ shop.id  }}</td>
+            <td>{{ shop.shop_name }}</td>
+            <td>{{ shop.shop_address }}</td>
+            <td>{{ shop.shop_tel }}</td>
+            <td>
+                <a class="btn btn-success" href="{% url 'management_user_offline_shop_info' shop.shop_owner.pk %}" target="">
+                    编辑
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

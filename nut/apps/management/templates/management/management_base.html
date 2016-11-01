@@ -329,9 +329,17 @@
 
                     <li class="header">{% trans 'user manager' %}</li>
                     {% url 'management_user_list' as management_user_list_url %}
+
                     <li {% if management_user_list_url in request.path %}class="active" {% endif %}>
                         <a href="{{ management_user_list_url }}">
                             <i class="fa fa-user"></i>&nbsp;<span>{% trans 'user' %}</span>
+                        </a>
+                    </li>
+
+                    {% url 'management_offline_shop_list' as management_offline_shop_list_url %}
+                    <li {% if management_user_list_url in request.path %}class="active" {% endif %}>
+                        <a href="{{ management_offline_shop_list_url }}">
+                            <i class="fa fa-user"></i>&nbsp;<span>{% trans 'Offline_Shops' %}</span>
                         </a>
                     </li>
                     {% url 'management_editor_report' as management_editor_report %}

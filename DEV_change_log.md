@@ -1,8 +1,9 @@
 
+7. offline shop management (list, edit)
 
 6. record margin in orderitem 
 
-5. display margin on order list page 
+5. display margin on order list page (seller and checkout )
 
 4. quick edit margin on entity list page 
 
