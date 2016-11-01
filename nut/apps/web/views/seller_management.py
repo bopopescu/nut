@@ -349,7 +349,7 @@ class SellerManagementEntitySave(JSONResponseMixin, AjaxResponseMixin, View):
             stock = int(json.loads(stock))
             sku.stock = stock
         if margin:
-            margin = int(json.loads(margin))
+            margin = float(json.loads(margin))
             sku.margin = margin
         sku.save()
         return
