@@ -110,10 +110,16 @@
                      </div>
                 {% endfor %}
             </td>
-            <td>
+            <td class="margin-wrapper">
                 {% for sku in entity.sku_list %}
-                    <div class="sku-item sku-item-border">
+                    <div class="sku-item sku-item-border entity-margin" id="{{ entity.id }}" data-sku-id="{{ sku.id }}">
                         {{ sku.margin }}
+                      <i class='fa fa-pencil-square sku-edit-pencil'></i>
+                    </div>
+
+                    <div class="sku-item sku-item-border margin-edit-wrapper">
+                        <input type="text" data-entity-id="{{ entity.id }}" data-sku-id="{{ sku.id }}" value="{{  sku.margin }}">
+                        <button type="submit" class="btn btn-success sku-save-btn" data-url="{% url 'web_seller_management_entity_save' entity.id %}">保存</button>
                     </div>
                 {% endfor %}
             </td>
