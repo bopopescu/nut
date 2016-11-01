@@ -335,9 +335,11 @@ def delete_image(request, entity_id):
 
     return HttpResponseNotAllowed
 
+
 class SellerManagementEntitySave(JSONResponseMixin, AjaxResponseMixin, View):
     model = Entity
-    def save_update(self,sku_id, price, stock):
+
+    def save_update(self, sku_id, price, stock, margin):
         sku_id = int(json.loads(sku_id))
         sku = SKU.objects.get(id=sku_id)
         if price:
@@ -346,15 +348,19 @@ class SellerManagementEntitySave(JSONResponseMixin, AjaxResponseMixin, View):
         if stock:
             stock = int(json.loads(stock))
             sku.stock = stock
+        if margin:
+            margin = int(json.loads(margin))
+            sku.margin = margin
         sku.save()
         return
 
     def post_ajax(self, request, *args, **kwargs):
         price = request.POST.get('price', None)
         stock = request.POST.get('stock')
+        margin = request.POST.get('margin', None)
         sku_id = request.POST.get('sku_id', None)
         try:
-            self.save_update(sku_id, price, stock)
+            self.save_update(sku_id, price, stock, margin)
             return self.render_json_response({'status': '1'}, 200)
         except:
             return self.render_json_response({'status': '-1'}, 404)
