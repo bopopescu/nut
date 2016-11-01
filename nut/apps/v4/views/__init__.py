@@ -296,9 +296,9 @@ class DiscoverView(APIJsonView):
         get Category
         '''
         res['categories'] = list()
-        # categories = APICategory.objects.filter(status=True)
-        categories = APICategory.objects.popular()
-        log.info(categories)
+        categories = APICategory.objects.filter(status=True)
+        # categories = APICategory.objects.popular()
+        # log.info(categories)
         for row in categories:
             r = {
                 'category': row.v4_toDict(),
