@@ -7,6 +7,7 @@
 5. display margin on order list page (seller and checkout )
 4. quick edit margin on entity list page 
 3. add new sku field for margin 
+
 2. add new user guokumk@guoku.com FOR main seller for dayuecheng event 
    remove fugu@guoku.com 's users ability to change entity creator 
    add guokumk@guoku.com 's user's ability to change entity creator  
