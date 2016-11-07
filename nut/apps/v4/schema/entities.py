@@ -23,6 +23,7 @@ class EntitySchema(Schema):
     chief_image         = fields.String(attribute='chief_image')
     detail_images       = fields.Method('get_detail_images')
     price               = fields.Number()
+    status              = fields.Boolean()
 
     like_count          = fields.Integer(attribute='like_count')
     note_count          = fields.Integer(attribute='note_count')
@@ -35,6 +36,9 @@ class EntitySchema(Schema):
 
     def get_like_already(self, obj):
         like_already = 0
+        if not self.context.has_key('user_like_list'):
+            return like_already
+
         if obj.id in self.context['user_like_list']:
             like_already = 1
 

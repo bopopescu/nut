@@ -24,13 +24,15 @@ log = getLogger('django')
 
 
 from apps.v4.schema.users import UserSchema
+from apps.v4.schema.entities import EntitySchema
 
-users_schema = UserSchema(many=True)
+users_schema    = UserSchema(many=True)
+entities_schema = EntitySchema(many=True)
 
 
 @check_sign
 def entity_list(request):
-    log.info(request.GET)
+    # log.info(request.GET)
     _timestamp = request.GET.get('timestamp', None)
     if _timestamp != None:
         _timestamp = datetime.fromtimestamp(float(_timestamp))
@@ -71,49 +73,6 @@ def entity_list(request):
     return SuccessJsonResponse(res)
 
 
-# @check_sign
-# def detail(request, entity_id):
-#
-#     _key = request.GET.get('session', None)
-#     # log.info("session "_key)
-#     try:
-#         entity = APIEntity.objects.using('slave').get(pk=entity_id, status__gte=Entity.freeze)
-#     except APIEntity.DoesNotExist:
-#         return ErrorJsonResponse(status=404)
-#
-#     try:
-#         _session = Session_Key.objects.get(session_key=_key)
-#         el = Entity_Like.objects.user_like_list(user=_session.user, entity_list=[entity_id])
-#         np = Note_Poke.objects.user_poke_list(user=_session.user,  note_list=list(entity.notes.values_list('id', flat=True)))
-#         # np = Note_Poke.objects.filter(user=_session.user, note_id__in=list(entity.notes.values_list('id', flat=True))).values_list('note_id', flat=True)
-#     except Session_Key.DoesNotExist, e:
-#         log.info(e.message)
-#         el = None
-#         np = None
-#
-#     res = dict()
-#
-#     res['entity'] = entity.v4_toDict(user_like_list=el)
-#     res['note_list'] = []
-#
-#
-#     for note in entity.notes.top_or_normal():
-#         res['note_list'].append(
-#             note.v4_toDict(user_note_pokes=np)
-#         )
-#     log.info(dir(entity))
-#     res['like_user_list'] = []
-#     for liker in entity.likes.all()[0:16]:
-#         try:
-#             res['like_user_list'].append(
-#                 liker.user.v3_toDict()
-#             )
-#         except GKUser.DoesNotExist, e:
-#             log.error(e)
-#             continue
-#
-#     return SuccessJsonResponse(res)
-
 class EntityDetialView(APIJsonView):
 
     def get_data(self, context):
@@ -148,6 +107,13 @@ class EntityDetialView(APIJsonView):
             except GKUser.DoesNotExist, e:
                 log.error(e)
                 continue
+
+        rec = APIEntity.objects.guess(category_id=entity.category_id,
+                                           count=9,
+                                           exclude_id=entity.id)
+
+        res['recommendation'] = entities_schema.dump(rec).data
+        # log.info( entities_schema.dump(rec).data )
 
         return res
 
@@ -190,37 +156,6 @@ def like_action(request, entity_id, target_status):
     return ErrorJsonResponse(status=400)
 
 
-# @check_sign
-# def entity_liker(request, entity_id):
-#     _key = request.GET.get('session', None)
-#     _page = request.GET.get('page', 1)
-#
-#     visitor = None
-#     try:
-#         _session = Session_Key.objects.get(session_key=_key)
-#         visitor = _session.user
-#     except Session_Key.DoesNotExist:
-#         pass
-#         # return ErrorJsonResponse(status=403)
-#     log.info(visitor)
-#     liker = Entity_Like.objects.filter(entity = entity_id)
-#     paginator = Paginator(liker, 15)
-#     try:
-#         liker_list = paginator.page(_page)
-#     except EmptyPage:
-#         return ErrorJsonResponse(status=404)
-#
-#     res = dict()
-#     res['page'] = _page
-#     res['count'] = liker.count()
-#     res['data'] = list()
-#     for row in liker_list.object_list:
-#         res['data'].append(
-#             row.user.v3_toDict(visitor=visitor)
-#         )
-#     return SuccessJsonResponse(res)
-
-
 class EntityLikerView(APIJsonView):
 
     http_method_names = ['get']
@@ -259,22 +194,6 @@ class EntityLikerView(APIJsonView):
 
         return super(EntityLikerView, self).get(request, *args, **kwargs)
 
-
-# @check_sign
-# def guess(request):
-#
-#     res = []
-#
-#     _category_id = request.GET.get('cid', None)
-#     _entity_id = request.GET.get('eid', None)
-#     _count = int(request.GET.get('count', '5'))
-#
-#     entities = APIEntity.objects.guess(category_id=_category_id, count=_count, exclude_id=_entity_id)
-#
-#     for entity in entities:
-#         res.append(entity.v4_toDict())
-#
-#     return SuccessJsonResponse(res)
 
 
 class GuessEntityView(APIJsonView):
