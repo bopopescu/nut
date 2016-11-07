@@ -1435,6 +1435,12 @@ a.new-black-link:hover {
   body.new-index-body .new-banner-wrapper .article-intro-wrapper .article-title-wrapper a.article-title {
     font-size: 18px;
   }
+  body.new-index-body .offline-shop-title-swrapper {
+    margin-top: 5px;
+  }
+  body.new-index-body #offline_shop_container li.shop-item .shop-name {
+    font-size: 16px;
+  }
   .round-link {
     display: none!important;
   }
