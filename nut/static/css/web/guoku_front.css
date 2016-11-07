@@ -6598,6 +6598,9 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   .new-index-page .recommend-user-wrapper .slick-list {
     padding-right: 30px;
   }
+  .new-index-page .offline-shop-wrapper .slick-list {
+    padding-right: 100px;
+  }
 }
 @media (max-width: 1199px) {
   .article-list-body .container {

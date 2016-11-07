@@ -195,7 +195,7 @@
             <ul id="offline_shop_container">
                 {% for shop in offline_shops %}
                     <li class="dark-section-item shop-item">
-                        <a href="{% url 'web_offline_shop_detail' shop.pk %}">
+                        <a href="{% url 'web_offline_shop_detail' shop.pk %}" target="_blank">
                             <div class="section-panel">
                                 <div class="shop-cover" style="background-image: url('{{ shop.cover_url|resize:'200' }}')">
                                 </div>

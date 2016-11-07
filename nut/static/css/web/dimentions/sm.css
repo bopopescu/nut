@@ -28,4 +28,7 @@
   .new-index-page .recommend-user-wrapper .slick-list {
     padding-right: 30px;
   }
+  .new-index-page .offline-shop-wrapper .slick-list {
+    padding-right: 100px;
+  }
 }
