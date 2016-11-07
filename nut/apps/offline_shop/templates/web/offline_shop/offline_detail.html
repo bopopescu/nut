@@ -31,7 +31,7 @@
             <div class="user-nick">
                 <span class="nick">{{ offline_shop.shop_name }}</span>
                 {% if not isFromMobile %}
-                    <div class="user-action" style="display: inline-block;margin:0 0 0 4px;">
+                    <div class="hidden-xs user-action" style="display: inline-block;margin:0 0 0 4px;">
                         {% if current_user.is_blocked %}
                             <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
                             {% elif current_user == request.user %}
@@ -50,19 +50,21 @@
 
             <div class="offline-basic-info" style="padding:0;">
                 {% if current_user.fans_count > 0 %}
-                    <div style="margin:16px 0;">
+                    <div style="margin-top:16px;">
                         <span>{{ current_user.fans_count }}&nbsp;{% trans '人关注' %} </span>
                     </div>
                 {% endif %}
-                {% if offline_shop.shop_tel %}
-                    <p class="hidden-xs">联系电话：<a class="new-blue-link" href="tel:{{ offline_shop.shop_tel }}">{{ offline_shop.shop_tel }}</a></p>
-                {% endif %}
-                {% if offline_shop.shop_opentime %}
-                    <p class="hidden-xs">营业时间：{{ offline_shop.shop_opentime }}</p>
-                {% endif %}
-                {% if offline_shop.shop_address %}
-                    <p class="hidden-xs">详细地址：{{ offline_shop.shop_address }}</p>
-                {% endif %}
+                <div class="hidden-xs" style="margin-top:16px;">
+                    {% if offline_shop.shop_tel %}
+                        <p>联系电话：<a class="new-blue-link" href="tel:{{ offline_shop.shop_tel }}">{{ offline_shop.shop_tel }}</a></p>
+                    {% endif %}
+                    {% if offline_shop.shop_opentime %}
+                        <p>营业时间：{{ offline_shop.shop_opentime }}</p>
+                    {% endif %}
+                    {% if offline_shop.shop_address %}
+                        <p>详细地址：{{ offline_shop.shop_address }}</p>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
@@ -82,13 +84,13 @@
             <p>{{ offline_shop.shop_address }}</p>
         </div>
     </div>
-    {% if isFromMobile %}
-        <div class="row">
-            <div class="col-xs-12" style="padding:0;">
-                <div id="map" data-lng="{{ offline_shop.address_lng }}" data-lat="{{ offline_shop.address_lat }}" style="width:100%; {% if isFromMobile %}height:80px;{% else %}height:400px;{% endif %}">
-                </div>
+    <div class="hidden-sm hidden-md hidden-lg row">
+        <div class="col-xs-12" style="padding:0;">
+            <div id="map" data-lng="{{ offline_shop.address_lng }}" data-lat="{{ offline_shop.address_lat }}" style="width:100%; {% if isFromMobile %}height:80px;{% else %}height:80px;{% endif %}">
             </div>
         </div>
+    </div>
+    {% if isFromMobile %}
         <div class="row">
             <div class="col-xs-12 mobile-section-bar"></div>
         </div>
