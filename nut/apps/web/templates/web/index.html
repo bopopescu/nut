@@ -190,17 +190,17 @@
         </div>
     </div>
 
-    <div class="row new-dark-section-wrapper related-article-wrapper">
+    <div class="row dark-section-wrapper offline-shop-wrapper">
         <div class="col-sm-12">
-            <ul id="related-article-container">
+            <ul id="offline_shop_container">
                 {% for shop in offline_shops %}
-                    <li class="article-item dark-section-item">
+                    <li class="dark-section-item shop-item">
                         <a href="{% url 'web_offline_shop_detail' shop.pk %}">
                             <div class="section-panel">
-                                <div class="article-item-pic" style="background-image: url('{{ shop.cover_url|resize:'200' }}')">
+                                <div class="shop-cover" style="background-image: url('{{ shop.cover_url|resize:'200' }}')">
                                 </div>
-                                <div class="bg-layer related-article-bg-layer"></div>
-                                <div class="section-name article-title">
+                                <div class="bg-layer"></div>
+                                <div class="section-name shop-name">
                                     <p>{{ shop.shop_name }}</p>
                                 </div>
                             </div>

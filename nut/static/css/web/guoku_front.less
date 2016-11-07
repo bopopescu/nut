@@ -148,6 +148,58 @@ body.new-index-body{
   .slick-slider{
       margin-bottom:0;
   }
+  .offline-shop-wrapper{
+    margin-bottom:60px;
+  }
+  #offline_shop_container{
+    margin-left:-12px;
+    margin-right:-12px;
+    li.shop-item{
+      overflow: hidden;
+      float:left;
+      margin-left:9px;
+      margin-right:9px;
+      .shop-cover{
+        .normal-scale-bg;
+        padding-bottom: 37%;
+      }
+      .shop-name{
+        max-width:200px;
+        left:50%;
+        top:50%;
+        font-size:20px;
+        line-height:1.1;
+        font-weight:@new-font-weight;
+        text-align: center;
+      }
+
+      a:hover{
+        .bg-layer{
+          display: none;
+        }
+      }
+      .bg-layer{
+        display: block;
+      }
+    }
+    .slick-prev:before,.slick-next:before{
+      font-family: "FontAwesome";
+      font-size: @primary-size;
+      color:@common-text-color;
+    }
+    .slick-prev{
+      left:-11px;
+      &:before{
+        content:"\f053";
+      }
+    }
+    .slick-next{
+      right:-11px;
+      &:before{
+        content:"\f054";
+      }
+    }
+  }
   .latest-entity-wrapper .new-entity-item,.recommend-user-item{
     outline:0;
   }
