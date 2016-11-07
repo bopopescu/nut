@@ -181,6 +181,39 @@
             </div>
         {% endfor %}
     </div>
+
+    <div class="row new-section-title-wrapper">
+        <div class="col-sm-12">
+            <div class="section-title pull-left">
+                果库 Shops
+            </div>
+        </div>
+    </div>
+
+    <div class="row new-dark-section-wrapper related-article-wrapper">
+        <div class="col-sm-12">
+            <ul id="related-article-container">
+{#                {% for sla in article.related_articles %}#}
+{#                    {% with sla.article as r_article %}#}
+{#                        <li class="article-item dark-section-item">#}
+{#                            <a href="{% url 'web_article_page' r_article.pk %}#from=recommend">#}
+{#                                <div class="section-panel">#}
+{#                                    <div class="article-item-pic" style="background-image: url('{{ r_article.cover_url|resize:'200' }}')">#}
+{#                                    </div>#}
+{#                                    <div class="bg-layer related-article-bg-layer"></div>#}
+{#                                    <div class="section-name article-title">#}
+{#                                        <p>{{ r_article.title|truncatechars:22 }}#}
+{#                                        </p>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    {% endwith %}#}
+{#                {% endfor %}#}
+            </ul>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-sm-12 new-banner-container">
             <div class="banner-wrapper new-banner-wrapper" id="middle-page-banner">
