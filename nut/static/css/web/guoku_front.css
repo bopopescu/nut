@@ -4805,6 +4805,9 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 .offline-detail-body .offline-address-info {
   padding: 16px 0;
 }
+.offline-detail-body .offline-address-info a {
+  color: #212121;
+}
 .offline-detail-body .offline-address-info p {
   margin-bottom: 0;
 }
