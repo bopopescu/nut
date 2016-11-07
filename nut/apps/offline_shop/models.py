@@ -4,6 +4,7 @@ from apps.core.base import BaseModel
 from apps.core.models import GKUser
 from apps.core.extend.fields.listfield import ListObjectField
 from apps.order.models import SKU
+from django.conf import settings
 
 
 class Offline_Shop_Info_Manager(models.Manager):
@@ -44,6 +45,12 @@ class Offline_Shop_Info(BaseModel):
     def mobile_url(self):
         return 'http://m.guoku.com'+reverse('web_offline_shop_detail',
                                             args=[self.pk])
+
+    def cover_url(self):
+        if self.images:
+            return self.images[0]
+        else:
+            return "%s%s" % (settings.STATIC_URL, 'images/article/default_cover.jpg')
 
 
 class Shop_SKU_Stock(models.Model):
