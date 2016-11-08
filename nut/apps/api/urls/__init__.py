@@ -1,7 +1,6 @@
 from django.conf.urls import url, include, patterns
 from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
-
 from apps.api.views import user, entity, banner
 
 
@@ -30,7 +29,8 @@ urlpatterns = patterns(
     # url(r'^entities/', include('apps.api.urls.entities')),
     url(r'^', include(router.urls)),
     # url(r'^feed/', include('apps.mobile.urls.feed')),
-    url(r'^auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^ajax_auth/', user.UserAjaxAuthView.as_view(), name='rest_framework_token_auth')
 )
 # for side bar banner
 urlpatterns += patterns(
