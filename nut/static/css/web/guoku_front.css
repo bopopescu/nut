@@ -4817,6 +4817,8 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 .offline-detail-body .section-title-wrapper {
   margin-top: 16px;
   margin-bottom: 16px;
+  font-size: 20px;
+  line-height: 1.1;
 }
 .offline-detail-body .brand-wrapper {
   padding-bottom: 24px;
@@ -6466,6 +6468,9 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   .new-index-page .new-entity-six .img-box:hover .bg-layer,
   .new-index-page .new-entity-six .img-box:hover .new-btn-like {
     display: none;
+  }
+  .offline-detail-body .section-title-wrapper {
+    font-size: 16px;
   }
   .offline-detail-body .new-entity-item {
     margin: 0;

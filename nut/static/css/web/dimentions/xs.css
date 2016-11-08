@@ -1825,6 +1825,9 @@ a.new-black-link:hover {
   .new-index-page .new-entity-six .img-box:hover .new-btn-like {
     display: none;
   }
+  .offline-detail-body .section-title-wrapper {
+    font-size: 16px;
+  }
   .offline-detail-body .new-entity-item {
     margin: 0;
     padding: 0;
