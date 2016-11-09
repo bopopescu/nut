@@ -1722,7 +1722,7 @@ class Article(BaseModel):
         if res:
             return res
         else:
-            res = self.comments.count()
+            res = self.comments.filter(status=Article_Remark.normal).count()
             cache.set(key, res, timeout = 86400)
             return res
         # return self.comments.count()
