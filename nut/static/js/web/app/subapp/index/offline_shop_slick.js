@@ -21,7 +21,7 @@ define(['jquery', 'libs/Class','libs/slick'], function(
                                 settings: {
                                     slidesToShow:2,
                                     slidesToScroll:1,
-                                    autoplay:true,
+                                    autoplay:false,
                                     dots:false
                                 }
                             },
@@ -30,7 +30,7 @@ define(['jquery', 'libs/Class','libs/slick'], function(
                                 settings: {
                                     slidesToShow:1,
                                     slidesToScroll:1,
-                                    autoplay:true,
+                                    autoplay:false,
                                     dots:false
                                 }
                             }

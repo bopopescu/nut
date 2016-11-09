@@ -4821,7 +4821,7 @@ define('subapp/index/offline_shop_slick',['jquery', 'libs/Class','libs/slick'], 
                                 settings: {
                                     slidesToShow:2,
                                     slidesToScroll:1,
-                                    autoplay:true,
+                                    autoplay:false,
                                     dots:false
                                 }
                             },
@@ -4830,7 +4830,7 @@ define('subapp/index/offline_shop_slick',['jquery', 'libs/Class','libs/slick'], 
                                 settings: {
                                     slidesToShow:1,
                                     slidesToScroll:1,
-                                    autoplay:true,
+                                    autoplay:false,
                                     dots:false
                                 }
                             }
