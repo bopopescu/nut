@@ -9,6 +9,7 @@ require([
         'subapp/entitylike',
         'subapp/index/entity_category_tab',
         'subapp/index/category_tab_view',
+         'subapp/index/offline_shop_slick',
         'subapp/user_follow',
         //'subapp/index/hot_entity',
         'subapp/gotop'
@@ -25,6 +26,7 @@ require([
               AppEntityLike,
               EntityCategoryTab,
               CategoryTabView,
+              OfflineShopSlick,
               UserFollow,
               //HotEntity,
               GoTop
@@ -39,6 +41,7 @@ require([
         var app_like = new  AppEntityLike();
         var entity_category_tab = new EntityCategoryTab();
         var category_tab_view = new CategoryTabView();
+        var offline_shop_slick = new OfflineShopSlick();
         var user_follow = new UserFollow();
         //var hot_entity = new HotEntity();
         var goto = new GoTop();

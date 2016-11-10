@@ -148,6 +148,58 @@ body.new-index-body{
   .slick-slider{
       margin-bottom:0;
   }
+  .offline-shop-wrapper{
+    margin-bottom:60px;
+  }
+  #offline_shop_container{
+    margin-left:-12px;
+    margin-right:-12px;
+    li.shop-item{
+      overflow: hidden;
+      float:left;
+      margin-left:9px;
+      margin-right:9px;
+      .shop-cover{
+        .normal-scale-bg;
+        padding-bottom: 37%;
+      }
+      .shop-name{
+        max-width:200px;
+        left:50%;
+        top:50%;
+        font-size:20px;
+        line-height:1.1;
+        font-weight:@new-font-weight;
+        text-align: center;
+      }
+
+      a:hover{
+        .bg-layer{
+          display: none;
+        }
+      }
+      .bg-layer{
+        display: block;
+      }
+    }
+    .slick-prev:before,.slick-next:before{
+      font-family: "FontAwesome";
+      font-size: @primary-size;
+      color:@common-text-color;
+    }
+    .slick-prev{
+      left:-11px;
+      &:before{
+        content:"\f053";
+      }
+    }
+    .slick-next{
+      right:-11px;
+      &:before{
+        content:"\f054";
+      }
+    }
+  }
   .latest-entity-wrapper .new-entity-item,.recommend-user-item{
     outline:0;
   }
@@ -1406,9 +1458,9 @@ body.new-index-body{
 }
 .offline-detail-body.mobile-body{
   padding-top:32px;
-  #new_selection_article_list{
-     border-bottom:1px solid @new-border-gray;
-  }
+  //#new_selection_article_list{
+  //   border-bottom:1px solid @new-border-gray;
+  //}
 }
 .offline-detail-body{
   .mobile-section-bar{
@@ -1427,22 +1479,33 @@ body.new-index-body{
         padding-bottom:65%;
       }
     }
+    .user-info{
+      padding-left:32px;
+    }
     .user-nick{
       margin-top:0;
+      .nick{
+        line-height:1.3;
+      }
     }
   }
+
   .offline-basic-info{
     border-top:1px solid @new-border-gray;
     border-bottom:1px solid @new-border-gray;
     padding:16px 0;
     color:@new-text-gray;
-    font-size:@mini-size;
+    font-size:@smaller-primary;
+    line-height:21px;
     p{
       margin-bottom:0;
     }
   }
   .offline-address-info{
     padding:16px 0;
+    a{
+      color:@common-text-color;
+    }
     p{
       margin-bottom: 0;
     }
@@ -1450,13 +1513,15 @@ body.new-index-body{
   .section-title-wrapper{
     margin-top:16px;
     margin-bottom:16px;
+    font-size:20px;
+    line-height: 1.1;
   }
   .brand-wrapper{
-     padding-bottom:16px;
-     border-bottom:1px solid @new-border-gray;
+     padding-bottom:24px;
+     //border-bottom:1px solid @new-border-gray;
     span {
       color:@new-text-gray;
-      font-size:@mini-size;
+      font-size:@smaller-primary;
     }
   }
 }

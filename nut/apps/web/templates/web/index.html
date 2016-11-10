@@ -181,6 +181,39 @@
             </div>
         {% endfor %}
     </div>
+
+    {% if offline_shops %}
+        <div class="row new-section-title-wrapper offline-shop-title-swrapper">
+            <div class="col-sm-12">
+                <div class="section-title pull-left">
+                    果库 Shops
+                </div>
+            </div>
+        </div>
+        <div class="row dark-section-wrapper offline-shop-wrapper">
+            <div class="col-sm-12">
+                <ul id="offline_shop_container">
+                    {% for shop in offline_shops %}
+                        <li class="dark-section-item shop-item">
+                            <a href="{% url 'web_offline_shop_detail' shop.pk %}" target="_blank">
+                                <div class="section-panel">
+                                    <div class="shop-cover" style="background-image: url('{{ shop.cover_url|resize:'200' }}')">
+                                    </div>
+                                    <div class="bg-layer"></div>
+                                    <div class="section-name shop-name">
+                                        <p>
+                                            {{ shop.shop_name }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+
     <div class="row">
         <div class="col-sm-12 new-banner-container">
             <div class="banner-wrapper new-banner-wrapper" id="middle-page-banner">

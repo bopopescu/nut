@@ -21,6 +21,7 @@ from apps.tag.models import Tags, Content_Tags
 from apps.core.models import Entity, Entity_Like, Category
 from apps.core.models import Selection_Entity
 from apps.core.models import GKUser
+from apps.offline_shop.models import Offline_Shop_Info
 from apps.core.models import Show_Banner
 from apps.core.models import Selection_Article
 from apps.core.models import Article
@@ -72,6 +73,10 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin, TemplateView):
         _hot_entities = Entity.objects.filter(id__in=popular_list)
         return _hot_entities
 
+    def get_active_offline_shops(self):
+        active_offline_shops = Offline_Shop_Info.objects.active_offline_shops()
+        return active_offline_shops
+
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['banners'] = SiteBanner.objects.get_mainpage_banner()  # 顶部banner (link, image)
@@ -85,6 +90,7 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin, TemplateView):
         # context['articles'] = Selection_Article.objects.select_related('article').all()[:3]  # 最新精选图文
         context['articles'] = self.get_selection_articles()[:3]  # 最新精选图文
         context['recommand_users'] = GKUser.objects.recommended_user_random()[:20]  # 推荐用户
+        context['offline_shops'] = self.get_active_offline_shops()
         context['middle_banners'] = StorePageBanners.objects.filter(status=StorePageBanners.enabled)  # 中间banner
         # context['selection_entity'] = Selection_Entity.objects.select_related('entity')[:6]
         context['selection_entity'] = self.get_selection_entities()[:20]

@@ -4798,6 +4798,53 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
 
 
 
+
+define('subapp/index/offline_shop_slick',['jquery', 'libs/Class','libs/slick'], function(
+    $, Class, slick
+){
+            var OfflineShopSlick= Class.extend({
+                init: function () {
+                    this.init_slick();
+                    console.log('index offline shop init');
+                },
+                init_slick:function(){
+                    $('#offline_shop_container').slick({
+                        arrows: true,
+                        slidesToShow: 3,
+                        slidesToScroll:1,
+                        autoplay:false,
+                        dots:false,
+
+                        responsive: [
+                            {
+                                breakpoint: 992,
+                                settings: {
+                                    slidesToShow:2,
+                                    slidesToScroll:1,
+                                    autoplay:false,
+                                    dots:false
+                                }
+                            },
+                            {
+                                breakpoint: 580,
+                                settings: {
+                                    slidesToShow:1,
+                                    slidesToScroll:1,
+                                    autoplay:false,
+                                    dots:false
+                                }
+                            }
+                        ]
+                    });
+
+                }
+            });
+    return OfflineShopSlick;
+});
+
+
+
+
 define('subapp/user_follow',['libs/Class','jquery', 'subapp/account'], function(Class,$,AccountApp){
     var UserFollow = Class.extend({
         init: function () {
@@ -5019,6 +5066,7 @@ require([
         'subapp/entitylike',
         'subapp/index/entity_category_tab',
         'subapp/index/category_tab_view',
+         'subapp/index/offline_shop_slick',
         'subapp/user_follow',
         //'subapp/index/hot_entity',
         'subapp/gotop'
@@ -5035,6 +5083,7 @@ require([
               AppEntityLike,
               EntityCategoryTab,
               CategoryTabView,
+              OfflineShopSlick,
               UserFollow,
               //HotEntity,
               GoTop
@@ -5049,6 +5098,7 @@ require([
         var app_like = new  AppEntityLike();
         var entity_category_tab = new EntityCategoryTab();
         var category_tab_view = new CategoryTabView();
+        var offline_shop_slick = new OfflineShopSlick();
         var user_follow = new UserFollow();
         //var hot_entity = new HotEntity();
         var goto = new GoTop();

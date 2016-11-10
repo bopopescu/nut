@@ -30,34 +30,49 @@
         <div class=" col-xs-8 user-info ">
             <div class="user-nick">
                 <span class="nick">{{ offline_shop.shop_name }}</span>
+                {% if not isFromMobile %}
+                    <div class="hidden-xs user-action" style="display: inline-block;margin:0 0 0 4px;">
+                        {% if current_user.is_blocked %}
+                            <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
+                            {% elif current_user == request.user %}
+                            <a class="guoku-button new-guoku-button button-blue newest-button-blue" href="{% url 'web_user_settings' %}">
+                                <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
+                            {% elif request.user.id in current_user.concren %}
+                            <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                            {% elif request.user.id in current_user.fans_list %}
+                            <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
+                        {% else %}
+                            <a class="follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
             </div>
-            {% if not isFromMobile %}
-                <div class="user-action">
-                    {% if current_user.is_blocked %}
-                        <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
-                    {% elif current_user == request.user %}
-                        <a class="guoku-button new-guoku-button button-blue newest-button-blue" href="{% url 'web_user_settings' %}">
-                            <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
-                    {% elif request.user.id in current_user.concren %}
-                        <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                    {% elif request.user.id in current_user.fans_list %}
-                        <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" data-status="1" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-check fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>
-                    {% else %}
-                        <a class="follow guoku-button new-guoku-button button-blue newest-button-blue" data-status="0" data-user-id="{{ current_user.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
+
+            <div class="offline-basic-info" style="padding:0;border:none;">
+                {% if current_user.fans_count > 0 %}
+                    <div style="margin-top:16px;">
+                        <span>{{ current_user.fans_count }}&nbsp;{% trans '人关注' %} </span>
+                    </div>
+                {% endif %}
+                <div class="hidden-xs" style="margin-top:16px;">
+                    {% if offline_shop.shop_tel %}
+                        <p>联系电话：<a class="new-blue-link" href="tel:{{ offline_shop.shop_tel }}">{{ offline_shop.shop_tel }}</a></p>
+                    {% endif %}
+                    {% if offline_shop.shop_opentime %}
+                        <p>营业时间：{{ offline_shop.shop_opentime }}</p>
+                    {% endif %}
+                    {% if offline_shop.shop_address %}
+                        <p>详细地址：<a class="new-black-link" href="http://api.map.baidu.com/geocoder?location={{ offline_shop.address_lat }},{{ offline_shop.address_lng }}&output=html&src=果库" target="_blank">{{ offline_shop.shop_address }}&nbsp;<i class="fa fa-angle-right"></i></a>
+                        </p>
                     {% endif %}
                 </div>
-            {% endif %}
-            {% if isFromMobile and current_user.fans_count > 0 %}
-                <div class="">
-                    <span>{{ current_user.fans_count }}&nbsp;{% trans '人关注' %} </span>
-                </div>
-            {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}
 
 {% block user_content_detail %}
-    <div class="row offline-basic-info">
+    <div class="hidden-sm hidden-md hidden-lg row offline-basic-info">
         <div class="col-xs-12">
             {% if offline_shop.shop_tel %}
                 <p>联系电话：<a class="new-blue-link" href="tel:{{ offline_shop.shop_tel }}">{{ offline_shop.shop_tel }}</a></p>
@@ -65,21 +80,21 @@
             <p>营业时间：{{ offline_shop.shop_opentime }}</p>
         </div>
     </div>
-    <div class="row offline-address-info">
+    <div class="hidden-sm hidden-md hidden-lg row offline-address-info">
         <div class="col-xs-12">
-            <p>{{ offline_shop.shop_address }}</p>
+            <p><a class="new-black-link" href="http://api.map.baidu.com/geocoder?location={{ offline_shop.address_lat }},{{ offline_shop.address_lng }}&output=html&src=果库" target="_blank">{{ offline_shop.shop_address }}&nbsp;<i class="fa fa-angle-right"></i></a></p>
         </div>
     </div>
-    <div class="row">
+    <div class="hidden-sm hidden-md hidden-lg row">
         <div class="col-xs-12" style="padding:0;">
-            <div id="map" data-lng="{{ offline_shop.address_lng }}" data-lat="{{ offline_shop.address_lat }}" style="width:100%; {% if isFromMobile %}height:80px;{% else %}height:400px;{% endif %}">
+            <div id="map" data-lng="{{ offline_shop.address_lng }}" data-lat="{{ offline_shop.address_lat }}" style="width:100%; {% if isFromMobile %}height:80px;{% else %}height:80px;{% endif %}">
             </div>
         </div>
     </div>
     {% if isFromMobile %}
-    <div class="row">
-      <div class="col-xs-12 mobile-section-bar"></div>
-    </div>
+        <div class="row">
+            <div class="col-xs-12 mobile-section-bar"></div>
+        </div>
     {% endif %}
 
     <div class="row section-title-wrapper">

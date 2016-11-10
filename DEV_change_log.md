@@ -1,4 +1,5 @@
-
+5. 
+4. offline shop update
 3. cart item rule for discount skus 
 
 
