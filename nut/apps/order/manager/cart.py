@@ -20,12 +20,23 @@ class CartItemManager(models.Manager):
                 return False
         return True
 
+    def cart_coupon_rule_checked(self, user):
+        for cart_item in user.cart_items.all():
+            if cart_item.sku.is_coupon:
+                # see the sku.can_apply_to_user_cart
+                # this means , the coupon sku is ok for current cart
+                if not cart_item.sku.can_apply_to_user_cart(user,volume=0):
+                    return False
+        return True
+
     def checkout(self, user):
         new_order = None
         if user.cart_item_count <= 0:
             raise CartException(_('cart is empty'))
         elif not self.cart_stock_checked(user):
             raise CartException(_('some cart item is out of stock'))
+        elif not self.cart_coupon_rule_checked(user):
+            raise CartException(_('cart coupon apply not right'))
         else:
             try:
                 new_order = user.orders.create(**{
@@ -65,6 +76,20 @@ class CartItemManager(models.Manager):
     def cart_item_count_by_user(self, user):
         return self.get_queryset().filter(user=user).count()
 
+    def total_cart_promo_price(self, user):
+        total_price = 0
+        for cart_item in user.cart_items.all():
+            if not cart_item.sku.is_coupon:
+                total_price += cart_item.sku.promo_price * cart_item.volume
+        return total_price
+
+    def sku_volume(self, user, sku):
+        try:
+            cart_item = self.get(user=user, sku=sku)
+            return cart_item.volume
+        except Exception as e:
+            return 0
+
     def add_sku_to_user_cart(self, user, sku, volume=1):
         if self.cart_item_count_by_user(user) > 1000:
             raise CartException('too many item in cart ')
@@ -74,6 +99,10 @@ class CartItemManager(models.Manager):
 
         if sku.stock < volume:
             raise CartException('sku stock less than required')
+
+        if sku.is_coupon:
+            if not sku.can_apply_to_user_cart(user, volume):
+                raise CartException('coupon can not apply to cart')
 
         cart_item, created = self.get_or_create(sku=sku, user=user)
         if created:
@@ -96,10 +125,10 @@ class CartItemManager(models.Manager):
             self.filter(user=user, sku=sku).delete()
             return
 
-    def decr_sku_in_user_cart(self, user, sku):
+    def decr_sku_in_user_cart(self, user, sku, volume=1):
         try:
             cart_item = self.get(user=user, sku=sku)
-            cart_item.volume -= 1
+            cart_item.volume -= volume
             if cart_item.volume <= 0:
                 self.remove_sku_from_user_cart(user, sku)
             else:

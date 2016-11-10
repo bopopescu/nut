@@ -10,6 +10,9 @@ import re
 
 from hashlib import md5
 from datetime import datetime
+from uuslug import slugify
+
+
 from django.core import serializers
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
@@ -531,8 +534,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.cart_items.decr_sku_in_user_cart(self, sku)
 
     def remove_sku_from_cart(self, sku):
-        return self.cartcart_items.remove_sku_from_user_cart(self,sku)
+        return self.cart_items.remove_sku_from_user_cart(self,sku)
 
+    def total_cart_promo_price(self):
+        return self.cart_items.total_cart_promo_price(self)
 
     def checkout(self):
         '''
@@ -1551,6 +1556,10 @@ class Article(BaseModel):
 
     def __unicode__(self):
         return self.title
+
+    @property
+    def slug(self):
+        return slugify(self.title)
 
     def get_related_articles(self, page=1):
         return Selection_Article.objects.article_related(self, page)

@@ -258,6 +258,14 @@ class ArticleRelated(JSONResponseMixin, AjaxResponseMixin, ListView):
 
     pass
 
+
+class ArticleRedirectView(View):
+    def get(self, *args, **kwargs):
+        id = self.kwargs.get('pk')
+        article = get_object_or_404(Article, pk=id)
+        return redirect('web_article_page_slug', pk=id, slug=article.slug)
+
+
 class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
     model = Article
     context_object_name = 'article'

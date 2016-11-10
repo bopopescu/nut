@@ -43,6 +43,27 @@ class SKU(BaseModel):
             return 1
         return self.promo_price/(self.origin_price*1.0)
 
+    @property
+    def is_coupon(self):
+        # only support minus price coupon now
+        # discount coupon not supported !
+        return self.promo_price < 0
+
+    def can_apply_to_user_cart(self, user, volume=1):
+        total_price = user.total_cart_promo_price()
+        max_volume = int(total_price / 100)
+        current_volume = user.cart_items.sku_volume(user, self)
+        return max_volume >= current_volume + volume
+
+
+
+
+
+
+
+
+
+
 
     @property
     def attrs_json_str(self):

@@ -31,8 +31,8 @@ class OfflineShopTest(DBTestBase):
 
         active_shops = Offline_Shop_Info.objects.active_offline_shops()
 
-        #new shop is inactive by default
-        self.assertEqual(len(active_shops), 1)
+        #new shop is active by default
+        self.assertEqual(len(active_shops), 2)
 
         new_shop.status = True
         new_shop.save()
@@ -43,7 +43,6 @@ class OfflineShopTest(DBTestBase):
     def test_mobile_url(self):
         shop = self.shop
         print(shop.mobile_url)
-
         self.assertIsInstance(shop.mobile_url, basestring)
         self.assertTrue('m.guoku.com' in shop.mobile_url)
 
