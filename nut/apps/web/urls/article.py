@@ -26,8 +26,8 @@ urlpatterns = patterns(
     url(r'^(?P<pk>\d+)/undig/$', ArticleUndig.as_view(), name='web_article_undig'),
 
 
-    url(r'^(?P<pk>\d+)/slug/(?P<slug>.+)/$', ArticleDetail.as_view(), name='web_article_page_slug'),
-    url(r'^(?P<pk>\d+)/$', ArticleRedirectView.as_view(), name='web_article_page'),
+    # url(r'^(?P<pk>\d+)/slug/(?P<slug>.+)/$', ArticleDetail.as_view(), name='web_article_page_slug'),
+    url(r'^(?P<pk>\d+)/$', ArticleDetail.as_view(), name='web_article_page'),
     url(r'^(?P<pk>\d+)/related/$', ArticleRelated.as_view(), name='web_article_related'),
 
 
