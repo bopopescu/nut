@@ -1,5 +1,5 @@
-5. 
-4. offline shop update
+5. about page update  -- lq 
+4. offline shop update -- lq 
 3. cart item rule for discount skus 
 
 
@@ -12,9 +12,21 @@
         if rule is failed , will raise CartException 
         
 2. article slug url 
-1. add api for restframework token auth
+1. add api for restframework token auth -- not finished 
     
-
+action: 
+    -------  install  django-uuslug lib
+    
+    pip install django-uuslug 
+    
+    on test machin (48) : 
+    
+    export LC_ALL="en_US.UTF-8"
+    export LC_CTYPE="en_US.UTF-8"
+    sudo dpkg-reconfigure locales
+    sudo pip install django-uuslug 
+    
+    
 ===================================
 merged to master 11/1 
 =====================================
