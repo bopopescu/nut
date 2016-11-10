@@ -263,7 +263,7 @@ class ArticleRedirectView(View):
     def get(self, *args, **kwargs):
         id = self.kwargs.get('pk')
         article = get_object_or_404(Article, pk=id)
-        return redirect('web_article_page_slug', pk=id, slug=article.slug)
+        return redirect('web_article_page_slug', pk=id, slug=article.slug, permanent=True)
 
 
 class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
