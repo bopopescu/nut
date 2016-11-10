@@ -13,7 +13,6 @@ IMAGE_HOST = 'http://imgcdn.guoku.com/'
 
 
 #
-
 # LOCAL_IMG_DEBUG=True
 # IMAGE_HOST = 'http://127.0.0.1:9766/'
 # INTRANET_IMAGE_SERVER = 'http://nutimages.hello.new/'

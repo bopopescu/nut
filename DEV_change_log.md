@@ -1,3 +1,15 @@
+2. article slug url --- TODO 
+
+1. add api for restframework token auth
+
+
+    
+
+===================================
+merged to master 11/1 
+=====================================
+
+
 10. update offline shop 
 9. event mini logo
 8. web new top bar 
