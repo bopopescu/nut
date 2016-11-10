@@ -1,8 +1,17 @@
-2. article slug url --- TODO 
 
+3. cart item rule for discount skus 
+
+
+    a. there will be special sku for discount
+    b. scan those sku will let system try to add special sku to the cart
+    c. before the insert sku to the cart ,a rule set will be checked.    
+    d. if the rule can not apply to the current cart item combination
+        the sku_add_exception will be raised 
+    e. when user checkout , the coupon rule will be checked again
+        if rule is failed , will raise CartException 
+        
+2. article slug url 
 1. add api for restframework token auth
-
-
     
 
 ===================================
@@ -35,8 +44,6 @@ ADD COLUMN `margin` FLOAT NOT NULL DEFAULT 0 AFTER `discount`;
 
 ALTER TABLE `core`.`order_orderitem` 
 ADD COLUMN `margin` FLOAT NOT NULL DEFAULT 0 AFTER `attrs`;
-
-
 
 
 ===================================
