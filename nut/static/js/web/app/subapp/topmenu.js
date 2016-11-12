@@ -39,7 +39,7 @@ define(['bootstrap',
             this.setupScrollMenu();
             this.checkSNSBindVisit();
             this.checkEventRead();
-            this.topAd = new TopAd();
+            //this.topAd = new TopAd();
             this.bottomAd = new BottomAd();
             this.topNotification = new TopNotification();
 
