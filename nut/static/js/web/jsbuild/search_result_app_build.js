@@ -856,7 +856,7 @@ define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class,
             //}else{
             //    this.displayTopAd();
             //}
-            this.displayTopAd();
+            //this.displayTopAd();
         },
         displayTopAd: function(){
 

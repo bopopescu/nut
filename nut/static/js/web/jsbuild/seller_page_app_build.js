@@ -949,7 +949,7 @@ define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class,
 
     var TopAd = Class.extend({
         init: function(){
-            console.log('top ad begin');
+            //console.log('top ad begin');
             this.handleTrackerCookie();
             this.handleTopAdDisplay();
             this.initCloseButton();
@@ -976,7 +976,7 @@ define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class,
             //}else{
             //    this.displayTopAd();
             //}
-            this.displayTopAd();
+            //this.displayTopAd();
         },
         displayTopAd: function(){
 
