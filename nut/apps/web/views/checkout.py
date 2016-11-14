@@ -25,7 +25,7 @@ def sum_price(sum, next_log):
 
 class CheckDeskUserTestMixin(UserPassesTestMixin):
     def test_func(self, user):
-        return getattr(user, 'is_admin', None) or user.email == 'fugu@guoku.com'
+        return getattr(user, 'is_admin', None) or user.email == 'guokumk@guoku.com'
 
     def no_permissions_fail(self, request=None):
         raise Http404
