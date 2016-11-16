@@ -1,3 +1,37 @@
+
+
+1.  article slug 
+      a . add article_slug field to Article model 
+      b . generate slug for current articles 
+      c . update Article's save method , generate article_slug on the run 
+        
+ALTER TABLE `core`.`core_article` 
+ADD COLUMN `article_slug` VARCHAR(128) NULL AFTER `origin_url`,
+ADD UNIQUE INDEX `article_slug_UNIQUE` (`article_slug` ASC);
+
+    add generate_article_slug.py to script/Article_related dir
+    
+    deploy : 
+     a. on production db , run 
+        ALTER TABLE `core`.`core_article` 
+        ADD COLUMN `article_slug` VARCHAR(128) NULL AFTER `origin_url`,
+        ADD UNIQUE INDEX `article_slug_UNIQUE` (`article_slug` ASC);
+        
+        
+     b. on 10.0.2.48 :
+        python /data/www/nut/script/Article_related/generate_article_slug.py
+        
+        5 min runtime most 
+        
+        
+        
+
+        
+
+========================
+merged to master 11-11
+========================
+
 5. about page update  -- lq 
 4. offline shop update -- lq 
 3. cart item rule for discount skus 

@@ -1514,6 +1514,8 @@ class WeChat_Token(BaseModel):
 
 
 from apps.tag.models import Content_Tags
+
+
 class Article(BaseModel):
     (remove, draft, published) = xrange(3)
 
@@ -1545,8 +1547,9 @@ class Article(BaseModel):
                                               related_name='related_articles')
 
     origin_source = models.TextField(max_length=255, null=True, blank=True)
-    origin_url =   models.TextField(max_length=255, null=True, blank=True)
-    source =  models.IntegerField(choices=ARTICLE_SOURCE_CHOICES, default=from_editor, null=True, blank=True)
+    origin_url = models.TextField(max_length=255, null=True, blank=True)
+    source = models.IntegerField(choices=ARTICLE_SOURCE_CHOICES, default=from_editor, null=True, blank=True)
+    article_slug = models.CharField(max_length=128, default='')
 
 
     objects = ArticleManager()
@@ -1557,9 +1560,27 @@ class Article(BaseModel):
     def __unicode__(self):
         return self.title
 
-    @property
-    def slug(self):
-        return slugify(self.title)
+
+    def make_slug(self):
+        slug = slugify(self.title)[:50]
+        new_slug = slug
+        number = 0
+        while True:
+            try:
+                article = Article.objects.get(article_slug=new_slug)
+            except Article.MultipleObjectsReturned:
+                pass
+            except Article.DoesNotExist:
+                return new_slug
+
+            if article.id == self.id:
+                return article.article_slug
+
+            print('*' * 80)
+            print('slug found' + str(self.id))
+            number += 1
+            new_slug = slug + str(number) + str(self.id)
+
 
     def get_related_articles(self, page=1):
         return Selection_Article.objects.article_related(self, page)
@@ -1743,20 +1764,31 @@ class Article(BaseModel):
     def invalid_all_cache(self):
         self.invalid_digest_cache()
 
-
-    def save(self, *args, **kwargs):
-        self.invalid_all_cache()
-        if not kwargs.pop('skip_updatetime', False):
-            self.updated_datetime = datetime.now()
-        res = super(Article, self).save(*args, **kwargs)
-        # add article related entities,
+    def update_related_entity(self):
         hash_list = get_entity_list_from_article_content(self.content)
         entity_list = list(Entity.objects.filter(entity_hash__in=hash_list))
         if entity_list:
             self.related_entities = entity_list
         else:
             self.related_entities = []
-        return res
+        return
+
+
+    def generate_slug(self):
+        self.article_slug = self.make_slug()
+        return self
+
+    def save(self, *args, **kwargs):
+        self.invalid_all_cache()
+
+        if not kwargs.pop('skip_updatetime', False):
+            self.updated_datetime = datetime.now()
+
+        # add article related entities,
+        self.generate_slug()
+        res = super(Article, self).save(*args, **kwargs)
+        self.update_related_entity()
+        return self
 
 # TODO: model to dict
     def v4_toDict(self, articles_list=list()):
