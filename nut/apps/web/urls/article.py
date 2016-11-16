@@ -10,7 +10,7 @@ from apps.web.views.article import  EditorDraftList,\
                                     ArticleDig, ArticleUndig, \
                                     ArticleTextRankView, \
                                     ArticleRemarkCreate, ArticleRemarkDelete,\
-                                    ArticleRedirectView
+                                    ArticleRedirectView, ArticleSlugDetail
 
 urlpatterns = patterns(
     'apps.web.views.article',
@@ -26,8 +26,7 @@ urlpatterns = patterns(
     url(r'^(?P<pk>\d+)/undig/$', ArticleUndig.as_view(), name='web_article_undig'),
 
 
-    # url(r'^(?P<pk>\d+)/slug/(?P<slug>.+)/$', ArticleDetail.as_view(), name='web_article_page_slug'),
-    url(r'^(?P<pk>\d+)/$', ArticleDetail.as_view(), name='web_article_page'),
+    url(r'^(?P<pk>\d+)/$', ArticleRedirectView.as_view(), name='web_article_page'),
     url(r'^(?P<pk>\d+)/related/$', ArticleRelated.as_view(), name='web_article_related'),
 
 
@@ -35,6 +34,8 @@ urlpatterns = patterns(
 
     url(r'^(?P<pk>\d+)/remark/$', ArticleRemarkCreate.as_view(), name='web_article_remark'),
     url(r'^(?P<pk>\d+)/remark/delete/$', ArticleRemarkDelete.as_view(), name='web_article_remark_delete'),
+
+    url(r'^(?P<slug>.+)/$', ArticleSlugDetail.as_view(), name='web_article_page_slug'),
 
 )
 

@@ -263,7 +263,9 @@ class ArticleRedirectView(View):
     def get(self, *args, **kwargs):
         id = self.kwargs.get('pk')
         article = get_object_or_404(Article, pk=id)
-        return redirect('web_article_page_slug', pk=id, slug=article.slug, permanent=True)
+        return redirect('web_article_page_slug', slug=article.article_slug, permanent=True)
+
+
 
 
 class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
@@ -295,11 +297,9 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
         return obj
 
     def get_remark(self):
-        article_id = self.kwargs.get('pk')
+        article_id = self.get_object().id
         remarks = Article_Remark.objects.filter(article_id=int(article_id)).exclude(status=-1).order_by('-create_time')
         return remarks
-
-
 
     def get_context_data(self,**kwargs):
         context = super(ArticleDetail, self).get_context_data(**kwargs)
@@ -328,7 +328,7 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
 
     def get_ajax(self, request, *args, **kwargs):
         page = request.GET.get('page', 2)
-        target  = request.GET.get('target', None)
+        target = request.GET.get('target', None)
         article = self.get_object()
         related_articles = article.get_related_articles(page)
         _template = 'web/article/partial/article_related_list.html'
@@ -343,6 +343,20 @@ class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):
             'has_next_page': related_articles.has_next()
 
         })
+
+
+class ArticleSlugDetail(ArticleDetail):
+    def get_object(self, queryset=None):
+        slug = self.kwargs.get('slug', None)
+        queryset = self.get_queryset()
+        if slug is not None:
+            queryset = queryset.filter(article_slug=slug)
+        try:
+            # Get the single item from the filtered queryset
+            obj = queryset.get()
+        except ObjectDoesNotExist:
+            return None
+        return obj
 
 
 class ArticleDelete(UserPassesTestMixin, View):
