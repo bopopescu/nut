@@ -17,7 +17,6 @@ ADD UNIQUE INDEX `article_slug_UNIQUE` (`article_slug` ASC);
         ADD COLUMN `article_slug` VARCHAR(128) NULL AFTER `origin_url`,
         ADD UNIQUE INDEX `article_slug_UNIQUE` (`article_slug` ASC);
         
-        1 min run time most 
         
      b. on 10.0.2.48 :
         python /data/www/nut/script/Article_related/generate_article_slug.py
