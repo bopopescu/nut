@@ -3,7 +3,8 @@
 1.  article slug 
       a . add article_slug field to Article model 
       b . generate slug for current articles 
-      c . update Article's save method , generate article_slug on the run 
+      c . for new article,  update Article's save method , generate article_slug on the run 
+      d . update crawler method, 
         
 ALTER TABLE `core`.`core_article` 
 ADD COLUMN `article_slug` VARCHAR(128) NULL AFTER `origin_url`,
