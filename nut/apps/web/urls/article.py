@@ -35,7 +35,7 @@ urlpatterns = patterns(
     url(r'^(?P<pk>\d+)/remark/$', ArticleRemarkCreate.as_view(), name='web_article_remark'),
     url(r'^(?P<pk>\d+)/remark/delete/$', ArticleRemarkDelete.as_view(), name='web_article_remark_delete'),
 
-    url(r'^(?P<slug>.*)/$', ArticleSlugDetail.as_view(), name='web_article_page_slug'),
+    url(r'^(?P<slug>.+)/$', ArticleSlugDetail.as_view(), name='web_article_page_slug'),
 
 )
 
