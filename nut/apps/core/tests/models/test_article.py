@@ -23,16 +23,16 @@ class ArticleModelTest(DBTestBase):
             'creator': self.the_user,
             'title': 'test',
         })
-        self.assertEqual(self.article.article_slug, 'test')
-        self.assertEqual(self.article2.make_slug(), 'test1')
+        self.assertNotEqual(self.article.article_slug, self.article2.article_slug)
 
         self.article3 = Article.objects.create(**{
             'creator': self.the_user,
             'title': 'test'
         })
 
-        self.assertEqual(self.article3.article_slug, 'test2')
-
-        self.assertEqual(self.article.make_slug(), 'test')
-
+        self.assertNotEqual(self.article3.article_slug, self.article2.article_slug)
+        self.assertNotEqual(self.article3.article_slug, self.article.article_slug)
+        print(self.article.article_slug)
+        print(self.article2.article_slug)
+        print(self.article3.article_slug)
 

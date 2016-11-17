@@ -1,6 +1,8 @@
 # coding=utf-8
-
+import random
 import time
+from math import floor
+
 import requests
 import HTMLParser
 import hashlib
@@ -10,7 +12,7 @@ import re
 
 from hashlib import md5
 from datetime import datetime
-from uuslug import slugify
+from uuslug import slugify, uuslug
 
 
 from django.core import serializers
@@ -1560,9 +1562,9 @@ class Article(BaseModel):
     def __unicode__(self):
         return self.title
 
-
+    # deprecated
     def make_slug(self):
-        slug = slugify(self.title)[:50]
+        slug = slugify(self.title, max_length=50, word_boundary=True)
         new_slug = slug
         number = 0
         while True:
@@ -1575,11 +1577,10 @@ class Article(BaseModel):
 
             if article.id == self.id:
                 return article.article_slug
-
-            print('*' * 80)
-            print('slug found' + str(self.id))
+            # print('*' * 80)
+            # print('slug found' + str(self.id))
             number += 1
-            new_slug = slug + str(number) + str(self.id)
+            new_slug = slug + str(number) + str(int(floor(random.random()*10000)))
 
 
     def get_related_articles(self, page=1):
@@ -1773,7 +1774,6 @@ class Article(BaseModel):
             self.related_entities = []
         return
 
-
     def generate_slug(self):
         self.article_slug = self.make_slug()
         return self
@@ -1787,6 +1787,7 @@ class Article(BaseModel):
         # add article related entities,
         self.generate_slug()
         res = super(Article, self).save(*args, **kwargs)
+
         self.update_related_entity()
         return self
 

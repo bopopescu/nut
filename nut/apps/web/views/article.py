@@ -255,7 +255,6 @@ class EditorArticleEdit(LoginRequiredMixin, AjaxResponseMixin,JSONResponseMixin,
 
 
 class ArticleRelated(JSONResponseMixin, AjaxResponseMixin, ListView):
-
     pass
 
 
@@ -264,8 +263,6 @@ class ArticleRedirectView(View):
         id = self.kwargs.get('pk')
         article = get_object_or_404(Article, pk=id)
         return redirect('web_article_page_slug', slug=article.article_slug, permanent=True)
-
-
 
 
 class ArticleDetail(AjaxResponseMixin,JSONResponseMixin, DetailView):

@@ -313,7 +313,7 @@
                                 {% for sla in article.related_articles %}
                                      {% with sla.article as r_article %}
                                     <li class="article-item dark-section-item">
-                                        <a href="{% url 'web_article_page' r_article.pk %}#from=recommend">
+                                        <a href="{% url 'web_article_page_slug' r_article.article_slug %}#from=recommend">
                                             <div class="section-panel">
                                                 <div class="article-item-pic" style="background-image: url('{{ r_article.cover_url|resize:'200' }}')">
                                                 </div>
