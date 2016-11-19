@@ -40,6 +40,9 @@ class FuGuListView(TemplateView):
     template_name = 'web/fugu/fugu2016_list.html'
 
 
+class MarketView(TemplateView):
+    template_name = 'web/market/market2016.html'
+
 class AboutView(TemplateView):
     template_name = "web/about.html"
 
