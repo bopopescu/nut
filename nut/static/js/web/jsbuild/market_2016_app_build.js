@@ -214,7 +214,7 @@ define('subapp/market/show_modal',['libs/Class','jquery','bootbox'], function(
                     backdrop:true,
                     closeButton: true,
                     animate: true,
-                    className: 'introduce-dialog',
+                    className: 'dark-dialog-background introduce-dialog',
                     message: $('#introduce_modal_content').html()
 
                 });
@@ -226,7 +226,7 @@ define('subapp/market/show_modal',['libs/Class','jquery','bootbox'], function(
                     backdrop:true,
                     closeButton: true,
                     animate: true,
-                    className: 'brands-dialog',
+                    className: 'dark-dialog-background brands-dialog',
                     message: $('#brands_modal_content').html()
 
                 });
@@ -238,7 +238,7 @@ define('subapp/market/show_modal',['libs/Class','jquery','bootbox'], function(
                     backdrop:true,
                     closeButton: true,
                     animate: true,
-                    className: 'play-dialog',
+                    className: 'dark-dialog-background play-dialog',
                     message: $('#play_modal_content').html()
 
                 });
@@ -250,7 +250,7 @@ define('subapp/market/show_modal',['libs/Class','jquery','bootbox'], function(
                     backdrop:true,
                     closeButton: true,
                     animate: true,
-                    className: 'place-dialog',
+                    className: 'dark-dialog-background place-dialog',
                     message: $('#place_modal_content').html()
 
                 });
@@ -262,7 +262,7 @@ define('subapp/market/show_modal',['libs/Class','jquery','bootbox'], function(
                     backdrop:true,
                     closeButton: true,
                     animate: true,
-                    className: 'share-dialog',
+                    className: 'dark-dialog-background share-dialog',
                     message: $('#share_modal_content').html()
 
                 });
