@@ -84,42 +84,37 @@
   background-color: rgba(0, 0, 0, 0.3);
 }
 #gk_introduce {
-  top: 80%;
-  left: 5%;
+  top: 77%;
+  left: 3%;
   transform-origin: left top;
-  transform: rotate(-15deg);
   -webkit-animation: fadeInThenOut 300ms linear 9000ms forwards;
   animation: fadeInThenOut 300ms linear 9000ms forwards;
 }
 #gk_brands {
   top: 80%;
-  left: 35%;
+  left: 37%;
   transform-origin: left top;
-  transform: rotate(-15deg);
   -webkit-animation: fadeInThenOut 300ms linear 9300ms forwards;
   animation: fadeInThenOut 300ms linear 9300ms forwards;
 }
 #gk_play {
-  top: 80%;
-  left: 65%;
+  top: 77%;
+  left: 72%;
   transform-origin: left top;
-  transform: rotate(-15deg);
   -webkit-animation: fadeInThenOut 300ms linear 9600ms forwards;
   animation: fadeInThenOut 300ms linear 9600ms forwards;
 }
-#gk_place {
-  top: 90%;
-  left: 20%;
+#gk_share {
+  top: 88%;
+  left: 5%;
   transform-origin: left top;
-  transform: rotate(-15deg);
   -webkit-animation: fadeInThenOut 300ms linear 9900ms forwards;
   animation: fadeInThenOut 300ms linear 9900ms forwards;
 }
-#gk_share {
-  top: 90%;
+#gk_place {
+  top: 88%;
   left: 60%;
   transform-origin: left top;
-  transform: rotate(-15deg);
   -webkit-animation: fadeInThenOut 300ms linear 10200ms forwards;
   animation: fadeInThenOut 300ms linear 10200ms forwards;
 }
