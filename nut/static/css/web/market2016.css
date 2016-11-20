@@ -1,6 +1,5 @@
 .market-body {
   padding-top: 0;
-  background-color: azure;
 }
 .market-body .top-ad,
 .market-body .bottom-ad {
@@ -28,50 +27,51 @@
   opacity: 0;
 }
 #bag_01 {
-  -webkit-animation: fadeInThenOut 3000ms linear 0ms forwards;
-  animation: fadeIn 3000ms linear 0ms;
+  -webkit-animation: fadeInThenOut 1000ms linear 0ms forwards;
+  animation: fadeInThenOut 1000ms linear 0ms forwards;
 }
 #bag_02 {
-  -webkit-animation: fadeInThenOut 3000ms linear 3000ms forwards;
-  animation: fadeIn 3000ms linear 3000ms;
+  -webkit-animation: fadeInThenOut 1000ms linear 1000ms forwards;
+  animation: fadeInThenOut 1000ms linear 1000ms forwards;
 }
 #bag_03 {
-  -webkit-animation: fadeInThenOut 3000ms linear 6000ms forwards;
-  animation: fadeIn 3000ms linear 6000ms;
+  -webkit-animation: fadeInThenOut 1000ms linear 2000ms forwards;
+  animation: fadeInThenOut 1000ms linear 2000ms forwards;
 }
 #bag_04 {
-  -webkit-animation: fadeInThenOut 3000ms linear 9000ms forwards;
-  animation: fadeIn 3000ms linear 9000ms;
+  -webkit-animation: fadeInThenOut 1000ms linear 3000ms forwards;
+  animation: fadeInThenOut 1000ms linear 3000ms forwards;
 }
 #bag_05 {
-  -webkit-animation: fadeInThenOut 3000ms linear 12000ms forwards;
-  animation: fadeIn 3000ms linear 12000ms;
+  -webkit-animation: fadeInThenOut 1000ms linear 4000ms forwards;
+  animation: fadeIn 1000ms linear 4000ms forwards;
 }
 #bag_06 {
-  -webkit-animation: fadeInThenOut 3000ms linear 15000ms forwards;
-  animation: fadeIn 3000ms linear 15000ms;
+  -webkit-animation: fadeInThenOut 1000ms linear 5000ms forwards;
+  animation: fadeInThenOut 1000ms linear 5000ms forwards;
 }
 #bag_07 {
-  -webkit-animation: fadeInThenOut 3000ms linear 18000ms forwards;
-  animation: fadeIn 3000ms linear 18000ms;
+  -webkit-animation: fadeInThenOut 1000ms linear 6000ms forwards;
+  animation: fadeInThenOut 1000ms linear 6000ms forwards;
 }
 #bag_08 {
-  -webkit-animation: fadeInThenOut 3000ms linear 21000ms forwards;
-  animation: fadeIn 3000ms linear 21000ms;
+  -webkit-animation: fadeInThenOut 1000ms linear 7000ms forwards;
+  animation: fadeInThenOut 1000ms linear 7000ms forwards;
 }
 #theme_poster {
-  -webkit-animation: fadeIn 3000ms linear 24000ms forwards;
-  animation: fadeIn 3000ms linear 2400ms forwards;
+  -webkit-animation: fadeInThenOut 1000ms linear 8000ms forwards;
+  animation: fadeInThenOut 1000ms linear 8000ms forwards;
 }
 .title-rect {
+  z-index: 100;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 130px;
+  width: auto;
   height: 30px;
   line-height: 30px;
-  padding-left: 15px;
+  padding: 0 15px;
   background-color: #ffffff;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   cursor: pointer;
@@ -89,32 +89,32 @@
   left: 5%;
   transform-origin: left top;
   transform: rotate(-15deg);
-  -webkit-animation: fadeIn 300ms linear 2200ms forwards;
-  animation: fadeIn 300ms linear 2200ms forwards;
+  -webkit-animation: fadeInThenOut 300ms linear 9000ms forwards;
+  animation: fadeInThenOut 300ms linear 9000ms forwards;
 }
 #gk_play {
   top: 85%;
   left: 17%;
   transform-origin: left top;
   transform: rotate(20deg);
-  -webkit-animation: fadeIn 300ms linear 2500ms forwards;
-  animation: fadeIn 300ms linear 2500ms forwards;
+  -webkit-animation: fadeInThenOut 300ms linear 9300ms forwards;
+  animation: fadeInThenOut 300ms linear 9300ms forwards;
 }
 #gk_love {
   top: 80%;
   left: 50%;
   transform-origin: left top;
   transform: rotate(-20deg);
-  -webkit-animation: fadeIn 300ms linear 2800ms forwards;
-  animation: fadeIn 300ms linear 2800ms forwards;
+  -webkit-animation: fadeInThenOut 300ms linear 9600ms forwards;
+  animation: fadeInThenOut 300ms linear 9600ms forwards;
 }
 #gk_share {
   top: 85%;
   left: 60%;
   transform-origin: left top;
   transform: rotate(17deg);
-  -webkit-animation: fadeIn 300ms linear 3100ms forwards;
-  animation: fadeIn 300ms linear 3100ms forwards;
+  -webkit-animation: fadeInThenOut 300ms linear 9900ms forwards;
+  animation: fadeInThenOut 300ms linear 9900ms forwards;
 }
 .click-signal {
   -webkit-animation: signal 1000ms ease-in-out 2900ms infinite;
@@ -159,29 +159,13 @@
 }
 @keyframes fadeInThenOut {
   0% {
-    opacity: 0;
+    opacity: 1;
   }
   100% {
     opacity: 1;
   }
 }
 @-webkit-keyframes fadeInThenOut {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@-webkit-keyframes fadeIn {
   0% {
     opacity: 0;
   }

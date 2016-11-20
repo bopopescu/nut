@@ -3,18 +3,18 @@ define(['libs/Class','jquery'], function(
 ){
     var DeviceOrientationApp = Class.extend({
         init: function(){
-            var self = this;
-            if(window.DeviceOrientationEvent){
-                console.log('device orientation is supported');
-                window.addEventListener('deviceorientation',function(eventData){
-                    var LR = eventData.gamma;
-                    var FB = eventData.beta;
-                    var DIR = eventData.alpha;
-                    self.deviceOrientationHandler(LR,FB,DIR);
-                },false);
-            }else{
-                console.log('device orientation is not supported');
-            }
+            //var self = this;
+            //if(window.DeviceOrientationEvent){
+            //    console.log('device orientation is supported');
+            //    window.addEventListener('deviceorientation',function(eventData){
+            //        var LR = eventData.gamma;
+            //        var FB = eventData.beta;
+            //        var DIR = eventData.alpha;
+            //        self.deviceOrientationHandler(LR,FB,DIR);
+            //    },false);
+            //}else{
+            //    console.log('device orientation is not supported');
+            //}
         },
         deviceOrientationHandler:function(LR,FB,DIR){
             var titles_array = $('.title-rect');
