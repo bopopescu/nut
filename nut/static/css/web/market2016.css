@@ -11,13 +11,6 @@
 .market-body.modal-open .modal {
   overflow-y: hidden;
 }
-.market-body .modal-dialog {
-  height: 97%;
-}
-.market-body .modal-dialog .modal-content {
-  height: 100%;
-  overflow-y: scroll;
-}
 .market-body .modal-dialog .modal-content .modal-header {
   display: none;
 }
@@ -33,6 +26,15 @@
 .market-body .modal-dialog .modal-content .content-modal-wrapper ul li img {
   max-width: 100%;
   margin: 0 auto;
+}
+.market-body .brands-dialog .modal-dialog,
+.market-body .play-dialog .modal-dialog {
+  height: 97%;
+}
+.market-body .brands-dialog .modal-dialog .modal-content,
+.market-body .play-dialog .modal-dialog .modal-content {
+  height: 100%;
+  overflow-y: scroll;
 }
 .market-body .share-dialog .modal-dialog {
   width: 100%;

@@ -10,12 +10,7 @@
     overflow-y: hidden;
   }
   .modal-dialog{
-    //max-height:100%;
-    //margin:0 auto;
-    height:97%;
     .modal-content{
-      height:100%;
-      overflow-y: scroll;
       .modal-header{
         display: none;
       }
@@ -33,6 +28,15 @@
             margin:0 auto;
           }
         }
+      }
+    }
+  }
+  .brands-dialog,.play-dialog{
+    .modal-dialog{
+      height:97%;
+      .modal-content{
+        height:100%;
+        overflow-y: scroll;
       }
     }
   }
