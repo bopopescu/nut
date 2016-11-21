@@ -293,17 +293,11 @@ define('subapp/market/device_orientation',['libs/Class','jquery'], function(
         deviceOrientationHandler:function(LR,FB,DIR){
             var titles_array = $('.title-rect');
             titles_array.each(function(index,ele){
-                //if(index % 2 ==0){
-                //    ele.style.webkitTransform = "rotate("+LR+"deg)";
-                //    ele.style.transform = "rotate("+LR+"deg)";
-                //}else{
-                    ele.style.webkitTransform = "rotate("+(LR*-1)+"deg)";
-                    ele.style.transform = "rotate("+(LR*-1)+"deg)";
-                //}
+                ele.style.webkitTransform = "rotate("+(LR*-1)+"deg)";
+                ele.style.transform = "rotate("+(LR*-1)+"deg)";
             });
         }
     });
-
     return DeviceOrientationApp;
 });
 require([
