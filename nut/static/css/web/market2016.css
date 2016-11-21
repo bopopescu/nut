@@ -15,10 +15,17 @@
   display: none;
 }
 .market-body .modal-dialog .modal-content .bootbox-close-button.close {
+  width: 25px;
+  height: 25px;
+  background-color: gray;
+  border-radius: 50%;
   float: none;
   position: fixed;
   top: 20px;
   right: 20px;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 .market-body .modal-dialog .modal-content .content-modal-wrapper ul li {
   margin-bottom: 24px;
