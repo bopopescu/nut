@@ -37,6 +37,25 @@
       }
     }
   }
+  .share-dialog{
+    .modal-dialog{
+      width:100%;
+      height:auto;
+    }
+    .modal-body{
+      padding:0;
+    }
+    .modal-content{
+      width:200px;
+      height:200px;
+      position:absolute;
+      top:0;
+      right:10px;
+      background-color: transparent;
+      border:none;
+      box-shadow: none;
+    }
+  }
 }
 .animation_bg{
   width:100%;
@@ -154,29 +173,6 @@
 .click-signal{
   -webkit-animation:signal 1000ms ease-in-out 2900ms infinite;
   animation:signal 1000ms ease-in-out 2900ms infinite;
-}
-.share-dialog{
-  .modal-dialog{
-    width:100%;
-    height:auto;
-    margin:0;
-  }
-  .modal-header{
-    display: none;
-  }
-  .modal-body{
-    padding:0;
-  }
-  .modal-content{
-    width:200px;
-    height:200px;
-    position:absolute;
-    top:0;
-    right:10px;
-    background-color: transparent;
-    border:none;
-    box-shadow: none;
-  }
 }
 @keyframes signal {
   0%{

@@ -37,6 +37,23 @@
   max-width: 100%;
   margin: 0 auto;
 }
+.market-body .share-dialog .modal-dialog {
+  width: 100%;
+  height: auto;
+}
+.market-body .share-dialog .modal-body {
+  padding: 0;
+}
+.market-body .share-dialog .modal-content {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
 .animation_bg {
   width: 100%;
   height: 100%;
@@ -143,27 +160,6 @@
 .click-signal {
   -webkit-animation: signal 1000ms ease-in-out 2900ms infinite;
   animation: signal 1000ms ease-in-out 2900ms infinite;
-}
-.share-dialog .modal-dialog {
-  width: 100%;
-  height: auto;
-  margin: 0;
-}
-.share-dialog .modal-header {
-  display: none;
-}
-.share-dialog .modal-body {
-  padding: 0;
-}
-.share-dialog .modal-content {
-  width: 200px;
-  height: 200px;
-  position: absolute;
-  top: 0;
-  right: 10px;
-  background-color: transparent;
-  border: none;
-  box-shadow: none;
 }
 @keyframes signal {
   0% {
