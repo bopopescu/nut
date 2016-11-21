@@ -8,12 +8,18 @@
 .market-body .dark-dialog-background {
   background-color: rgba(0, 0, 0, 0.5);
 }
-.market-body .modal-open .modal {
+.market-body.modal-open .modal {
   overflow-y: hidden;
 }
+.market-body .modal-dialog {
+  height: 100%;
+  margin: 0 auto;
+}
 .market-body .modal-dialog .modal-content {
-  max-height: 548px;
+  height: 100%;
   overflow-y: scroll;
+  border: none;
+  border-radius: 0;
 }
 .market-body .modal-dialog .modal-content .modal-header {
   display: none;
