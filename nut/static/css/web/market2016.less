@@ -6,16 +6,23 @@
   .dark-dialog-background{
     background-color: rgba(0,0,0,0.5);
   }
+  .modal-open .modal{
+    overflow-y: hidden;
+  }
   .modal-dialog{
     .modal-content{
+      max-height:548px;
+      overflow-y: scroll;
       .modal-header{
         display: none;
       }
-      .content-modal-wrapper ul li{
-        margin-bottom:24px;
-        img{
-          max-width: 100%;
-          margin:0 auto;
+      .content-modal-wrapper ul{
+        li{
+          margin-bottom:24px;
+          img{
+            max-width: 100%;
+            margin:0 auto;
+          }
         }
       }
     }
