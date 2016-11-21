@@ -75,40 +75,40 @@
   opacity: 0;
 }
 #bag_01 {
-  -webkit-animation: fadeInThenOut 1500ms linear 0ms forwards;
-  animation: fadeInThenOut 1500ms linear 0ms forwards;
+  -webkit-animation: fadeInThenOut 1000ms linear 0ms forwards;
+  animation: fadeInThenOut 1000ms linear 0ms forwards;
 }
 #bag_02 {
-  -webkit-animation: fadeInThenOut 1500ms linear 1500ms forwards;
-  animation: fadeInThenOut 1500ms linear 1500ms forwards;
+  -webkit-animation: fadeInThenOut 1000ms linear 1000ms forwards;
+  animation: fadeInThenOut 1000ms linear 1000ms forwards;
 }
 #bag_03 {
-  -webkit-animation: fadeInThenOut 1500ms linear 3000ms forwards;
-  animation: fadeInThenOut 1500ms linear 3000ms forwards;
+  -webkit-animation: fadeInThenOut 1000ms linear 2000ms forwards;
+  animation: fadeInThenOut 1000ms linear 2000ms forwards;
 }
 #bag_04 {
-  -webkit-animation: fadeInThenOut 1500ms linear 4500ms forwards;
-  animation: fadeInThenOut 1500ms linear 4500ms forwards;
+  -webkit-animation: fadeInThenOut 1000ms linear 3000ms forwards;
+  animation: fadeInThenOut 1000ms linear 3000ms forwards;
 }
 #bag_05 {
-  -webkit-animation: fadeInThenOut 1500ms linear 6000ms forwards;
-  animation: fadeIn 1500ms linear 6000ms forwards;
+  -webkit-animation: fadeInThenOut 1000ms linear 4000ms forwards;
+  animation: fadeIn 1000ms linear 4000ms forwards;
 }
 #bag_06 {
-  -webkit-animation: fadeInThenOut 1500ms linear 7500ms forwards;
-  animation: fadeInThenOut 1500ms linear 7500ms forwards;
+  -webkit-animation: fadeInThenOut 1000ms linear 5000ms forwards;
+  animation: fadeInThenOut 1000ms linear 5000ms forwards;
 }
 #bag_07 {
-  -webkit-animation: fadeInThenOut 1500ms linear 9000ms forwards;
-  animation: fadeInThenOut 1500ms linear 10500ms forwards;
+  -webkit-animation: fadeInThenOut 1000ms linear 6000ms forwards;
+  animation: fadeInThenOut 1000ms linear 6000ms forwards;
 }
 #bag_08 {
-  -webkit-animation: fadeInThenOut 1500ms linear 10500ms forwards;
-  animation: fadeInThenOut 1500ms linear 10500ms forwards;
+  -webkit-animation: fadeInThenOut 1000ms linear 7000ms forwards;
+  animation: fadeInThenOut 1000ms linear 7000ms forwards;
 }
 #theme_poster {
-  -webkit-animation: fadeInThenOut 1000ms linear 12000ms forwards;
-  animation: fadeInThenOut 1000ms linear 12000ms forwards;
+  -webkit-animation: fadeInThenOut 1000ms linear 8000ms forwards;
+  animation: fadeInThenOut 1000ms linear 8000ms forwards;
 }
 .title-rect {
   z-index: 100;
