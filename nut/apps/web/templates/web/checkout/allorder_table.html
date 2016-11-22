@@ -62,6 +62,8 @@
                     {{ order.get_status_display }}<br>
                 {% elif order.should_expired %}
                     {% trans '订单已经过期' %}
+                    <a class="btn btn-danger order-expire-button" data-order-id="{{ order.id }}" data-url="{% url 'checkout_expire_order' %}">{% trans '放弃订单' %}</a>
+
                 {% else %}
                   <a class="btn newest-btn-green order-pay-button" data-order-id="{{ order.id }}" data-url="{% url 'checkout_done' %}">{% trans '确认已收款' %}</a>
                   <a class="btn btn-danger order-expire-button" data-order-id="{{ order.id }}" data-url="{% url 'checkout_expire_order' %}">{% trans '放弃订单' %}</a>
