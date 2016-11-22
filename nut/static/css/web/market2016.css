@@ -128,13 +128,9 @@
   -webkit-animation: fadeInThenOut 1000ms linear 6000ms forwards;
   animation: fadeInThenOut 1000ms linear 6000ms forwards;
 }
-#bag_08 {
+#theme_poster {
   -webkit-animation: fadeInThenOut 1000ms linear 7000ms forwards;
   animation: fadeInThenOut 1000ms linear 7000ms forwards;
-}
-#theme_poster {
-  -webkit-animation: fadeInThenOut 1000ms linear 8000ms forwards;
-  animation: fadeInThenOut 1000ms linear 8000ms forwards;
 }
 .title-rect {
   z-index: 100;
@@ -162,36 +158,36 @@
   top: 77%;
   left: 3%;
   transform-origin: left top;
-  -webkit-animation: fadeInThenOut 300ms linear 9000ms forwards;
-  animation: fadeInThenOut 300ms linear 9000ms forwards;
+  -webkit-animation: fadeInThenOut 300ms linear 8000ms forwards;
+  animation: fadeInThenOut 300ms linear 8000ms forwards;
 }
 #gk_brands {
   top: 80%;
   left: 37%;
   transform-origin: left top;
-  -webkit-animation: fadeInThenOut 300ms linear 9300ms forwards;
-  animation: fadeInThenOut 300ms linear 9300ms forwards;
+  -webkit-animation: fadeInThenOut 300ms linear 8300ms forwards;
+  animation: fadeInThenOut 300ms linear 8300ms forwards;
 }
 #gk_play {
   top: 77%;
   left: 68%;
   transform-origin: left top;
-  -webkit-animation: fadeInThenOut 300ms linear 9600ms forwards;
-  animation: fadeInThenOut 300ms linear 9600ms forwards;
+  -webkit-animation: fadeInThenOut 300ms linear 8600ms forwards;
+  animation: fadeInThenOut 300ms linear 8600ms forwards;
 }
 #gk_share {
   top: 88%;
   left: 5%;
   transform-origin: left top;
-  -webkit-animation: fadeInThenOut 300ms linear 9900ms forwards;
-  animation: fadeInThenOut 300ms linear 9900ms forwards;
+  -webkit-animation: fadeInThenOut 300ms linear 8900ms forwards;
+  animation: fadeInThenOut 300ms linear 8900ms forwards;
 }
 #gk_place {
   top: 88%;
   left: 60%;
   transform-origin: left top;
-  -webkit-animation: fadeInThenOut 300ms linear 10200ms forwards;
-  animation: fadeInThenOut 300ms linear 10200ms forwards;
+  -webkit-animation: fadeInThenOut 300ms linear 9200ms forwards;
+  animation: fadeInThenOut 300ms linear 9200ms forwards;
 }
 .click-signal {
   -webkit-animation: signal 1000ms ease-in-out 2900ms infinite;
