@@ -32,10 +32,6 @@
   text-shadow: none;
   z-index: 100;
 }
-.market-body .modal-dialog .modal-content .content-modal-wrapper ul {
-  height: 300px;
-  overflow-y: scroll;
-}
 .market-body .modal-dialog .modal-content .content-modal-wrapper ul li {
   margin-bottom: 24px;
 }
@@ -50,6 +46,25 @@
 .market-body .brands-dialog .modal-dialog .modal-content,
 .market-body .play-dialog .modal-dialog .modal-content {
   height: 100%;
+}
+.market-body .brands-dialog .modal-dialog .modal-content .modal-body,
+.market-body .play-dialog .modal-dialog .modal-content .modal-body {
+  height: 100%;
+  padding: 0;
+}
+.market-body .brands-dialog .modal-dialog .modal-content .modal-body .bootbox-body,
+.market-body .play-dialog .modal-dialog .modal-content .modal-body .bootbox-body {
+  height: 100%;
+}
+.market-body .brands-dialog .modal-dialog .modal-content .modal-body .bootbox-body .content-modal-wrapper,
+.market-body .play-dialog .modal-dialog .modal-content .modal-body .bootbox-body .content-modal-wrapper {
+  height: 100%;
+}
+.market-body .brands-dialog .modal-dialog .modal-content .modal-body .bootbox-body .content-modal-wrapper ul,
+.market-body .play-dialog .modal-dialog .modal-content .modal-body .bootbox-body .content-modal-wrapper ul {
+  height: 100%;
+  overflow-y: scroll;
+  padding: 15px;
 }
 .market-body .share-dialog .modal-dialog {
   width: 100%;

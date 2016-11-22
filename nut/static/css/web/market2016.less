@@ -33,8 +33,6 @@
         z-index:100;
       }
       .content-modal-wrapper ul{
-        height:300px;
-        overflow-y: scroll;
         li{
           margin-bottom:24px;
           img{
@@ -51,6 +49,21 @@
       .modal-content{
         height:100%;
         //overflow-y: scroll;
+        .modal-body{
+          height:100%;
+          padding:0;
+          .bootbox-body{
+            height:100%;
+            .content-modal-wrapper{
+              height:100%;
+              ul{
+                height:100%;
+                overflow-y: scroll;
+                padding:15px;
+              }
+            }
+          }
+        }
       }
     }
   }
