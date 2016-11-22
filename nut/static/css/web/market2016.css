@@ -35,6 +35,9 @@
 .market-body .modal-dialog .modal-content .content-modal-wrapper ul li {
   margin-bottom: 24px;
 }
+.market-body .modal-dialog .modal-content .content-modal-wrapper ul li h4 {
+  line-height: 1.3;
+}
 .market-body .modal-dialog .modal-content .content-modal-wrapper ul li img {
   max-width: 100%;
   margin: 0 auto;
