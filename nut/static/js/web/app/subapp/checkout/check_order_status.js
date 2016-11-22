@@ -11,11 +11,12 @@ var CheckoutManager = Class.extend({
         $('.btn.order-pay-button').click(this.showDialog.bind(this));
     },
     showExpireWarning: function(event){
+        var that = this;
         bootbox.confirm('将订单设为"过期"状态，请确认。', function(result){
             if (!!!result){
                 bootbox.hideAll();
             }else{
-                this.sendExpireAjax(event);
+                that.sendExpireAjax(event);
             }
         });
     },
@@ -23,8 +24,31 @@ var CheckoutManager = Class.extend({
     sendExpireAjax:function(event){
         var target = event.currentTarget;
         var order_id = $(target).attr('data-order-id');
-        var url = '';
+        var url = $(target).attr('data-url');
+        $.when($.ajax({
+            url: url,
+            method: 'POST',
+            data:{
+                order_id: order_id
+            }
+        })).then(this.setExpireSuccess.bind(this), this.setExpireFail.bind(this));
 
+    },
+
+    setExpireSuccess: function(data){
+        var that = this;
+        bootbox.hideAll();
+        bootbox.alert({
+                size: 'small',
+                message: '订单已经设为过期!',
+                callback:that.reloadCurrentPage()
+            }) ;
+
+    },
+
+    setExpireFail:function(data){
+        bootbox.hideAll();
+        bootbox.alert("设定失败");
     },
     showDialog:function(event){
         var target = event.currentTarget;

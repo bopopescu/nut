@@ -13,4 +13,4 @@ urlpatterns = patterns(
 
     url(r'^order_list/pay/$', CheckDeskPayView.as_view(), name="checkout_done"),
     url(r'^order_list/set_expire/$', SetOrderExpireView.as_view(), name="checkout_expire_order")
-)
+    )

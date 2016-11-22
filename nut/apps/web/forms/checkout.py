@@ -15,6 +15,10 @@ from apps.order.models import Order
 class CheckDeskOrderExpireForm(forms.Form):
     order_id = forms.IntegerField(required=True)
 
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(CheckDeskOrderExpireForm, self).__init__(*args, **kwargs)
+
     def clean_order_id(self,):
         try:
             order_id = self.cleaned_data.get('order_id')

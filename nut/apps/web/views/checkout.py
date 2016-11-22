@@ -124,9 +124,26 @@ class CheckoutOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, List
         return context
 
 
-class SetOrderExpireView(CheckDeskUserTestMixin, JSONResponse, AjaxResponseMixin, View):
-    form_class = CheckDeskOrderExpireForm
+# class SetOrderExpireView(CheckDeskUserTestMixin, JSONResponse, AjaxResponseMixin, View):
+#
+#     def post_ajax(self, request, *args, **kwargs):
+#         _form = CheckDeskOrderExpireForm(request.POST, request=request)
+#         if _form.is_valid():
+#             _form.save()
+#             return self.render_json_response({
+#                 'result': 1
+#             }, status=200)
+#         else:
+#             return self.render_json_resposne({
+#                 'result': 0
+#             }, status=404)
+#
+#     def get(self):
+#         return self.render_json_response({
+#             'test_return': 'fuckyou'
+#         })
 
+class SetOrderExpireView(AjaxResponseMixin, JSONResponseMixin, View):
     def post_ajax(self, request, *args, **kwargs):
         _form = CheckDeskOrderExpireForm(request.POST, request=request)
         if _form.is_valid():
@@ -138,7 +155,6 @@ class SetOrderExpireView(CheckDeskUserTestMixin, JSONResponse, AjaxResponseMixin
             return self.render_json_resposne({
                 'result': 0
             }, status=404)
-
 
 
 class CheckDeskPayView(CheckDeskUserTestMixin, JSONResponseMixin, AjaxResponseMixin, View):

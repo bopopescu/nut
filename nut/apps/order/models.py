@@ -260,6 +260,8 @@ class Order(BaseModel):
 
     @property
     def should_expired(self):
+        if self.status == Order.expired:
+            return True
         expired_time = self.created_datetime + timedelta(minutes=Order.expire_in_minutes)
         return self.status < Order.paid and datetime.now() > expired_time
 
