@@ -30,6 +30,11 @@
   color: #ffffff;
   font-weight: normal;
   text-shadow: none;
+  z-index: 100;
+}
+.market-body .modal-dialog .modal-content .content-modal-wrapper ul {
+  height: 300px;
+  overflow-y: scroll;
 }
 .market-body .modal-dialog .modal-content .content-modal-wrapper ul li {
   margin-bottom: 24px;
@@ -45,7 +50,6 @@
 .market-body .brands-dialog .modal-dialog .modal-content,
 .market-body .play-dialog .modal-dialog .modal-content {
   height: 100%;
-  overflow-y: scroll;
 }
 .market-body .share-dialog .modal-dialog {
   width: 100%;
