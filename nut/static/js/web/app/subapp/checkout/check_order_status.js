@@ -1,10 +1,30 @@
 var CheckoutManager = Class.extend({
     init: function(){
-        this.initCheckOrderStatusBtn();
+        this.initPaymentButton();
+        this.initExpireButton();
         this.dialog_html = $('#checkdesk_payment_input').html();
     },
-    initCheckOrderStatusBtn:function(){
+    initExpireButton: function(){
+        $('.btn.order-expire-button').click(this.showExpireWarning.bind(this));
+    },
+    initPaymentButton:function(){
         $('.btn.order-pay-button').click(this.showDialog.bind(this));
+    },
+    showExpireWarning: function(event){
+        bootbox.confirm('将订单设为"过期"状态，请确认。', function(result){
+            if (!!!result){
+                bootbox.hideAll();
+            }else{
+                this.sendExpireAjax(event);
+            }
+        });
+    },
+
+    sendExpireAjax:function(event){
+        var target = event.currentTarget;
+        var order_id = $(target).attr('data-order-id');
+        var url = '';
+
     },
     showDialog:function(event){
         var target = event.currentTarget;

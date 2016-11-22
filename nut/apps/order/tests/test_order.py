@@ -212,6 +212,23 @@ class OrderForUserTest(DBTestBase):
         self.sku1 = SKU.objects.get(pk=self.sku1.pk)
         self.assertEqual(self.sku1.stock, origin_stock)
 
+    def test_set_expire_on_order_by_force(self):
+        origin_stock = self.sku1.stock
+        self.the_user.add_sku_to_cart(self.sku1, 2)
+        the_order = self.the_user.checkout()
+
+        self.sku1 = SKU.objects.get(pk=self.sku1.pk)
+        self.assertEqual(self.sku1.stock, origin_stock-2)
+
+        with self.assertRaises(OrderException):
+            the_order.set_expire()
+
+        the_order.set_expire(force=True)
+        self.sku1 = SKU.objects.get(pk=self.sku1.pk)
+        self.assertEqual(self.sku1.stock, origin_stock)
+
+
+
     def test_should_expired_order_realtime_status_return_expired(self):
         self.the_user.add_sku_to_cart(self.sku1)
         order = self.the_user.checkout()

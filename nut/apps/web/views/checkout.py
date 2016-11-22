@@ -6,7 +6,7 @@ from datetime import datetime
 
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.views.generic import ListView, DeleteView, UpdateView, View
+from django.views.generic import ListView, DeleteView, UpdateView, View, FormView
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 
@@ -15,7 +15,7 @@ from apps.core.extend.paginator import ExtentPaginator
 from apps.core.mixins.views import FilterMixin, SortMixin
 from apps.order.models import Order, OrderItem
 from apps.payment.models import PaymentLog
-from apps.web.forms.checkout import CheckDeskOrderPayForm
+from apps.web.forms.checkout import CheckDeskOrderPayForm, CheckDeskOrderExpireForm
 from apps.web.views.seller_management import OrderDetailView
 
 
@@ -124,6 +124,23 @@ class CheckoutOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, List
         return context
 
 
+class SetOrderExpireView(CheckDeskUserTestMixin, JSONResponse, AjaxResponseMixin, View):
+    form_class = CheckDeskOrderExpireForm
+
+    def post_ajax(self, request, *args, **kwargs):
+        _form = CheckDeskOrderExpireForm(request.POST, request=request)
+        if _form.is_valid():
+            _form.save()
+            return self.render_json_response({
+                'result': 1
+            }, status=200)
+        else:
+            return self.render_json_resposne({
+                'result': 0
+            }, status=404)
+
+
+
 class CheckDeskPayView(CheckDeskUserTestMixin, JSONResponseMixin, AjaxResponseMixin, View):
 
     def get_order(self):
@@ -169,7 +186,7 @@ class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin
 
         if self.status == 'waiting_for_payment':
             qs = qs.filter(status__in=self.wait_pay_status)
-        elif self.status == 'paid':
+        else:
             qs = qs.filter(status__in=self.paid_status)
 
         qs = self.apply_date_filter(qs)

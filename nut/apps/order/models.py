@@ -338,8 +338,8 @@ class Order(BaseModel):
             item.sku.stock -= item.volume
             item.sku.save()
 
-    def set_expire(self):
-        if not self.should_expired:
+    def set_expire(self, force=False):
+        if (not self.should_expired) and (not force):
             raise OrderException(_('order can not be set expire'))
         self.status = Order.expired
         self._restore_sku_stock()
