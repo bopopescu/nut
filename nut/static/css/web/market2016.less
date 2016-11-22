@@ -138,9 +138,8 @@
   animation:fadeInThenOut 1000ms linear 6000ms forwards;
 }
 #theme_poster{
-  //max-width:713px;
-  -webkit-animation:fadeInThenOut 1000ms linear 7000ms forwards;
-  animation:fadeInThenOut 1000ms linear 7000ms forwards;
+  -webkit-animation:fadeIn 1000ms linear 7000ms forwards;
+  animation:fadeIn 1000ms linear 7000ms forwards;
 }
 .title-rect{
   z-index:100;
@@ -232,6 +231,22 @@
 @-webkit-keyframes fadeInThenOut {
   0%{
     opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  0%{
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeIn {
+  0%{
+    opacity: 0;
   }
   100% {
     opacity: 1;
