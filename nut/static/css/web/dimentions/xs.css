@@ -1693,6 +1693,7 @@ a.new-black-link:hover {
   .guoku-content.user-page .user-info .user-nick-block .center-wrapper {
     margin: 0 auto ;
     width: 142px;
+    text-align: center;
   }
   .guoku-content.user-page .user-info .user-nick-block .center-wrapper .action {
     display: block;
@@ -1700,7 +1701,7 @@ a.new-black-link:hover {
   }
   .guoku-content.user-page .user-info .user-nick-block .center-wrapper .nick {
     font-size: 18px;
-    margin-top: 20px;
+    margin: 20px 0 16px 0;
     display: block;
     text-align: center;
   }
