@@ -10,11 +10,15 @@ var PrintCheckedEntityManager = Class.extend({
     handlePrintQrcode:function(e) {
         var checked_entity_ids = this.collectCheckedEntity();
         var print_count_list = this.collectPrintCounts();
+        var extra_query = location.search.replace('\?', '')
         if(checked_entity_ids.length){
-            var new_url = 'qrcode_list?entity_ids=' +  JSON.stringify(checked_entity_ids) + '&print_counts=' + JSON.stringify(print_count_list);
+            var new_url = 'qrcode_list?entity_ids=' +
+                            JSON.stringify(checked_entity_ids) + '&print_counts=' +
+                            JSON.stringify(print_count_list) + '&' + extra_query;
+
             window.open(new_url);
         }else{
-            window.open('qrcode_list');
+            window.open('qrcode_list/?' + extra_query );
         }
     },
     collectCheckedEntity:function(){

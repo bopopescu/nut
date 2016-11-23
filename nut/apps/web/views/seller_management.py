@@ -71,7 +71,7 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
     http_method_names = ['get']
     paginator_class = ExtentPaginator
     model = Entity
-    paginate_by = 20
+    paginate_by = 48
     template_name = 'web/seller_management/seller_management.html'
 
     def get(self, request, *args, **kwargs):

@@ -23,6 +23,7 @@ def sum_price(sum, next_log):
     return sum + next_log.order.order_total_value
 
 
+
 class CheckDeskUserTestMixin(UserPassesTestMixin):
     def test_func(self, user):
         return getattr(user, 'is_admin', None) or user.email == 'guokumk@guoku.com'
@@ -195,6 +196,12 @@ class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin
     paid_status = [Order.paid, Order.send, Order.closed]
     expired_status = [Order.expired]
 
+    def __init__(self, *args, **kwargs):
+        self.extra_query_dic = {}
+        super(CheckDeskOrderStatisticView, self).__init__(*args, **kwargs)
+
+
+
     def get_queryset(self):
         order_ids = list(OrderItem.objects.values_list('order', flat=True))
         qs = Order.objects.filter(id__in=order_ids)
@@ -243,9 +250,16 @@ class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin
         logs = PaymentLog.objects.filter(payment_source=payment_souce, order_id__in=order_ids)
         return reduce(sum_price, list(logs), 0)
 
+    def get_extra_query(self):
+        qs = ''
+        for key, value in self.extra_query_dic.iteritems():
+            qs = qs + key + '=' + value + '&'
+        return qs
+
     def get_context_data(self, **kwargs):
         context = super(CheckDeskOrderStatisticView, self).get_context_data(**kwargs)
         context['status'] = self.status
+        context['extra_query'] = self.get_extra_query()
 
         paged_order_list = context['object_list']
 
@@ -275,8 +289,10 @@ class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin
 
         if start_date:
             order_list = order_list.filter(created_datetime__gte=start_date)
+            self.extra_query_dic['start_date'] = start_date
         if end_date:
             order_list = order_list.filter(created_datetime__lte=end_date)
+            self.extra_query_dic['end_date'] = end_date
 
         return order_list
 
