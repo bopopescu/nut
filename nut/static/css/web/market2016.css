@@ -318,7 +318,7 @@
     opacity: 1;
   }
 }
-@media (min-width: 769px) {
+@media (min-width: 768px) {
   #theme_poster .poster-top {
     width: 100%;
   }
