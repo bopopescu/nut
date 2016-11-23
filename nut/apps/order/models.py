@@ -228,6 +228,26 @@ class Order(BaseModel):
         return AliPayPayment(order=self).payment_url
 
     @property
+    def payment_source(self):
+        if not self.is_paid:
+            return None
+
+        if self.payments.count() > 0:
+            return self.payments.all()[0].get_payment_source_display()
+        else:
+            return None
+
+    @property
+    def payment_note(self):
+        if not self.is_paid:
+            return None
+        if self.payments.count() > 0:
+            return self.payments.all()[0].payment_note
+        else:
+            return None
+
+
+    @property
     def realtime_status(self):
         # a wrapper around status field
         # a lot effort and complexity is on the expire status
@@ -382,13 +402,6 @@ class Order(BaseModel):
         # final price customer need to paid
         return self.promo_total_price + self.shipping_fee
 
-    @property
-    def payment_source(self):
-        if self.payments.count():
-            return self.payments.all()[0].payment_source
-        else:
-            return None
-
 
 class OrderItem(BaseModel):
     order = models.ForeignKey(Order, related_name='items')
@@ -417,6 +430,10 @@ class OrderItem(BaseModel):
     # 订单生成的时候 赋值
 
     attrs = ListObjectField()
+
+    @property
+    def unit_price(self):
+        return self.promo_total_price/self.volume
 
     @property
     def margin_value(self):

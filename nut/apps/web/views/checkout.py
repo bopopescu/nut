@@ -1,11 +1,15 @@
 # encoding: utf-8
 import json
-import csv
+from urllib import urlencode
+
+import unicodecsv as csv
+from urlparse import urlparse, urlunparse, parse_qsl
 from braces.views import AjaxResponseMixin, UserPassesTestMixin,JSONResponseMixin
 from datetime import datetime
 
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
+from django.utils.encoding import smart_text
 from django.views.generic import ListView, DeleteView, UpdateView, View, FormView
 from django.http import Http404
 from django.shortcuts import get_object_or_404
@@ -201,27 +205,55 @@ class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin
         super(CheckDeskOrderStatisticView, self).__init__(*args, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        if request.get('csv') == 'orders':
+        if self.request.GET.get('csv') == 'orders':
             return self.get_orders_csv()
-        elif request.get('csv') == 'order_items':
+        elif self.request.GET.get('csv') == 'order_items':
             return self.get_orderitems_csv()
         else:
             return super(CheckDeskOrderStatisticView, self).get(request, *args, **kwargs)
 
     def get_orders_csv(self):
-        order_header_list = ('订单号', '下单时间', '终端账号', '订单价值', '果库佣金', )
-        item_header_list = ('订单号', '下单时间', '终端账号', '商品名称', 'SKU属性', '原价', '促销价', '佣金比率', '数量', '实收款', '果库佣金', '结账路径' ,'备注')
-
+        order_header_list = ('订单号', '下单时间', '付款时间', '终端账号',
+                             '实收款', '果库佣金',
+                             '付款路径', '备注')
         orders = self.get_queryset()
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename="orders.csv"'
         writer = csv.writer(response)
-        writer.writerow([''])
-
-        pass
+        writer.writerow(order_header_list)
+        for order in orders:
+            data = map(smart_text, [order.number, order.created_datetime, order.updated_datetime,
+                        order.customer.nick, order.order_total_value, order.total_margin_value,
+                        order.payment_source, order.payment_note
+                        ])
+            writer.writerow(data)
+        return response
 
     def get_orderitems_csv(self):
-        pass
+        orders = self.get_queryset()
+        orderitem_header_list = ('订单号', '下单时间', '付款时间',
+                                 '终端账号', '商品名称', '商品链接',
+                                 'SKU属性', '原价',
+                                 '促销价', '佣金比率',
+                                 '数量', '实收款', '果库佣金',
+                                 '结账路径','备注' )
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="order_items.csv"'
+        writer = csv.writer(response)
+        writer.writerow(orderitem_header_list)
+
+        for order in orders:
+            for item in order.items.all():
+                data = [order.number, order.created_datetime, order.updated_datetime,
+                        order.customer.nick, item.item_title, 'http://wwwguoku.com'+item.entity_link,
+                        item.attrs_display, item.sku.origin_price,
+                        item.unit_price, item.margin,
+                        item.volume, item.promo_total_price, item.margin_value,
+                        order.payment_source, order.payment_note
+                        ]
+                writer.writerow(data)
+        return response
 
     def get_queryset(self):
         order_ids = list(OrderItem.objects.values_list('order', flat=True))
@@ -298,7 +330,22 @@ class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin
         context['sum_payment_credit_card'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.credit_card)
         context['sum_payment_other'] = self.get_sum_payment_for_payment_source(order_list, PaymentLog.other)
         context['sum_margin_value'] = self.get_sum_margin(order_list)
+        context['order_csv_link'] = self.get_order_csv_link()
+        context['orderitems_csv_link'] = self.get_orderitems_csv_link()
         return context
+
+    def add_param_to_url(self, param_dic):
+        parsed_url_object = list(urlparse(self.request.build_absolute_uri()))
+        query = dict(parse_qsl(parsed_url_object[4]))
+        query.update(param_dic)
+        parsed_url_object[4] = urlencode(query)
+        return urlunparse(parsed_url_object)
+
+    def get_order_csv_link(self):
+        return self.add_param_to_url({'csv': 'orders'})
+
+    def get_orderitems_csv_link(self):
+        return self.add_param_to_url({'csv': 'order_items'})
 
     def get_sum_margin(self, order_list):
         return reduce(lambda total_margin_value, order: total_margin_value + order.total_margin_value,
