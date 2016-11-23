@@ -146,6 +146,11 @@ class RedisCounterMachine(object):
             return None
 
     @classmethod
+    def get_read_count(cls, article):
+        count = cls.get_key(cls.get_article_read_count_key_from_pk(article.pk))
+        return count
+
+    @classmethod
     def get_read_counts(cls,articles):
         keys = [cls.get_article_read_count_key_from_pk(article.pk) for article in articles]
         res = cls.get_keys_count(keys)
