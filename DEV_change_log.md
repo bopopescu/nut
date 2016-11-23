@@ -1,4 +1,12 @@
+1. download csv order data 
 
+action 
+    pip install unicodecsv
+    
+    unicodecsv already added to requirements
+
+=========================
+==========================
 
 1.  article slug 
       a . add article_slug field to Article model 
