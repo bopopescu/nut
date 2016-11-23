@@ -334,12 +334,17 @@
     <script type="text/html" id="place_modal_content">
         <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true">×</button>
         <div class="content-modal-wrapper">
-            <img class="map" src="{% static 'images/market2016/map.png' %}">
-            <p>
-                时间：2016 年 11 月 26 日至 27 日<br>
-                地点：北京朝阳大悦城后广场「悦客会」——会员体验中心<br>
-                参与方式：免费！！！
-            </p>
+            <div class="map-wrapper">
+                <img class="map" src="{% static 'images/market2016/map.png' %}">
+            </div>
+            <div class="intro-wrapper">
+                <img class="house-pic" src="{% static 'images/market2016/house.jpg' %}">
+                <p>
+                    时间：2016 年 11 月 26 日至 27 日<br>
+                    地点：北京朝阳大悦城后广场「悦客会」——会员体验中心<br>
+                    参与方式：免费！！！
+                </p>
+            </div>
         </div>
     </script>
     <script type="text/html" id="share_modal_content">

@@ -91,9 +91,33 @@
     }
   }
   .place-dialog{
-    .content-modal-wrapper .map{
-      width:100%;
-      margin-bottom: 16px;
+    .modal-content{
+      overflow: hidden;
+      .modal-body{
+        padding:0;
+      }
+      .content-modal-wrapper{
+        .map-wrapper{
+          width:100%;
+          padding:15px 15px 0 15px;
+          .map{
+            width:100%;
+            margin-bottom: 16px;
+          }
+        }
+        .intro-wrapper{
+          position:relative;
+          .house-pic{
+            width:100%;
+          }
+          p{
+            position:absolute;
+            left:0;
+            bottom:30px;
+            padding:0 15px;
+          }
+        }
+      }
     }
   }
 }
