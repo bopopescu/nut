@@ -196,63 +196,70 @@
   z-index:100;
   position:absolute;
   left:50%;
-  top:50%;
-  transform: translate(-50%,-50%);
-  width:auto;
-  height:30px;
-  line-height:30px;
+  bottom:50%;
+  transform: translateX(-50%);
+  //width:auto;
+  //height:30px;
+  //line-height:30px;
+  font-size:14px;
+  letter-spacing: 3px;
   padding:0 15px;
-  background-color:#ffffff;
-  box-shadow:2px 2px 2px rgba(0,0,0,0.2);
+  //background-color:azure;
   cursor: pointer;
   i{
-    margin-left:15px;
+    transform: translateY(-3px);
+    margin-right:10px;
     display: inline-block;
     width:5px;
     height:5px;
     border-radius: 50%;
-    background-color: rgba(0,0,0,0.3);
+    &.red-dot{
+       background-color: #E61757;
+    }
+    &.blue-dot{
+       background-color: #2169AD;
+    }
   }
 }
 #gk_introduce{
-  top:77%;
-  left:3%;
+  bottom:140px;
+  left:4%;
   transform-origin:left top;
   -webkit-animation:fadeInThenOut 300ms linear 3400ms forwards;
   animation:fadeInThenOut 300ms linear 3400ms forwards;
 }
 #gk_brands{
-  top:80%;
-  left:37%;
+  bottom:140px;
+  left:34%;
   transform-origin:left top;
   -webkit-animation:fadeInThenOut 300ms linear 3700ms forwards;
   animation:fadeInThenOut 300ms linear 3700ms forwards;
 }
 #gk_play{
- top:77%;
-  left:68%;
+  bottom:140px;
+  left:64%;
   transform-origin:left top;
   -webkit-animation:fadeInThenOut 300ms linear 4000ms forwards;
   animation:fadeInThenOut 300ms linear 4000ms forwards;
 }
 #gk_share{
-  top:88%;
-  left:5%;
+  bottom:100px;
+  left:20%;
   transform-origin:left top;
   -webkit-animation:fadeInThenOut 300ms linear 4300ms forwards;
   animation:fadeInThenOut 300ms linear 4300ms forwards;
 }
 #gk_place{
-  top:88%;
+  bottom:100px;
   left:60%;
   transform-origin:left top;
   -webkit-animation:fadeInThenOut 300ms linear 4600ms forwards;
   animation:fadeInThenOut 300ms linear 4600ms forwards;
 }
-.click-signal{
-  -webkit-animation:signal 1000ms ease-in-out 3400ms infinite;
-  animation:signal 1000ms ease-in-out 3400ms infinite;
-}
+//.click-signal{
+//  -webkit-animation:signal 1000ms ease-in-out 3400ms infinite;
+//  animation:signal 1000ms ease-in-out 3400ms infinite;
+//}
 @keyframes signal {
   0%{
     box-shadow:0 0 0 0 rgba(0,0,0,0.2) ;
