@@ -176,7 +176,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 50%;
-  max-width: 414px;
+  max-width: 330px;
 }
 #theme_poster .poster-logo {
   position: absolute;
