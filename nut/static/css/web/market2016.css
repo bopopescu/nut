@@ -93,10 +93,12 @@
 }
 .animation_bg {
   width: 100%;
-  height: 100%;
+  max-width: 718px;
+  height: auto;
   position: absolute;
-  top: 0;
-  left: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 .empty-opacity {
   opacity: 0;
@@ -130,6 +132,11 @@
   animation: fadeInThenOut 300ms linear 2800ms forwards;
 }
 #theme_poster {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
   -webkit-animation: fadeIn 300ms linear 3100ms forwards;
   animation: fadeIn 300ms linear 3100ms forwards;
 }
