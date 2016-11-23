@@ -848,7 +848,7 @@ define('libs/Class',[], function(){
 
 define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class, $){
 
-    var  test_url_reg = /20161111/;
+    var  test_url_reg = /zhe-ge-zhou-mo-lai-guo-ku-market-ti-zou-yi-lou-hao/;
     var visited_cookie_key = 'pop_up_store_key';
     // here we use a global var isFromMobile, which is bootstraped in base.html (template)
 
@@ -1576,7 +1576,7 @@ define('subapp/topmenu',['bootstrap',
             this.setupScrollMenu();
             this.checkSNSBindVisit();
             this.checkEventRead();
-            //this.topAd = new TopAd();
+            this.topAd = new TopAd();
             this.bottomAd = new BottomAd();
             this.topNotification = new TopNotification();
 

@@ -12,6 +12,35 @@ from apps.payment.models import PaymentLog
 from apps.order.models import Order
 
 
+class CheckDeskOrderExpireForm(forms.Form):
+    order_id = forms.IntegerField(required=True)
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(CheckDeskOrderExpireForm, self).__init__(*args, **kwargs)
+
+    def clean_order_id(self,):
+        try:
+            order_id = self.cleaned_data.get('order_id')
+            order = get_object_or_404(Order, pk=order_id)
+            return order_id
+        except Exception as e:
+            raise ValidationError(
+                    _('order id validation fail %s' % e.message),
+                    code='order_id_invalid',
+                    params={'order_id': order}
+            )
+
+    def get_order(self):
+        order_id = self.cleaned_data.get('order_id')
+        return get_object_or_404(Order, pk=order_id)
+
+    def save(self):
+        _order = self.get_order()
+        _order.set_expire(force=True)
+
+
+
 class CheckDeskOrderPayForm(forms.Form):
 
     def __init__(self, *args, **kwargs):

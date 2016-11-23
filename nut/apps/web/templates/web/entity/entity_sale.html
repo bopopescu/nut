@@ -25,11 +25,11 @@
 <ul>
     {% for sku in entity.skus.all %}
         <li>
-            {{ entity.title }} <br>
-            {{ sku.origin_price }} <br>
-            {{ sku.promo_price }} <br>
-            {{ sku.stock }} <br>
-            {{ sku.attrs }} <br>
+           name:  {{ entity.title }} <br>
+           price :  {{ sku.origin_price }} <br>
+           promo_price : {{ sku.promo_price }} <br>
+           stock :  {{ sku.stock }} <br>
+           attrs:  {{ sku.attrs_display }} <br>
             {% if user.is_authenticated %}
                 <button data-sku="{{ sku.id }}" class="add-cart-btn"> add to cart</button>
             {% else %}

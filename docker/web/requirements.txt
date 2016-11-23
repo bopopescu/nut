@@ -49,6 +49,7 @@ amqp==1.4.9
 librabbitmq==1.6.1
 marshmallow==2.9.1
 django-uuslug==1.1.8
+unicodecsv==0.14.0
 
 # package form github
 -e git+https://github.com/guoku/django-storages.git#egg=django-storages
