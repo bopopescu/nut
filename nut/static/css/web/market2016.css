@@ -11,6 +11,9 @@
 .market-body.modal-open .modal {
   overflow-y: hidden;
 }
+.market-body.modal-open .modal.place-dialog {
+  overflow-y: auto;
+}
 .market-body .modal-dialog .modal-content .modal-header {
   display: none;
 }
