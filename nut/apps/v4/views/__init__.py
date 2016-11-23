@@ -191,35 +191,6 @@ class DiscoverView(APIJsonView):
         da = APIArticle_Dig.objects.filter(user=self.visitor).values_list('article_id', flat=True)
 
         res = dict()
-
-        #------------ old app banner api ---------------
-
-        # shows = Show_Banner.objects.all()
-        # res['banner'] = []
-        # for row in shows:
-        #     if row.banner.url.startswith('http://m.guoku.com/articles/'):
-        #         url = row.banner.url.split('?')
-        #         uri = url[0]
-        #         article_id = uri.split('/')[-2]
-        #         article = APIArticle.objects.get(pk = article_id)
-        #
-        #
-        #         res['banner'].append(
-        #             {
-        #                 'url':row.banner.url,
-        #                 'img':row.banner.image_url,
-        #                 'article': article.v4_toDict(da)
-        #             }
-        #         )
-        #     else:
-        #
-        #         res['banner'].append(
-        #             {
-        #                 'url':row.banner.url,
-        #                 'img':row.banner.image_url
-        #             }
-        #         )
-
         #------------     old app api end ------------------
 
         # ------------------------------------ enable new sitebanner  api here ---------------
@@ -234,14 +205,11 @@ class DiscoverView(APIJsonView):
                 article_id = uri.split('/')[-2]
                 article = APIArticle.objects.get(pk = article_id)
 
-
                 res['banner'].append(
                     {
-
                         'url': row.applink,
                         'img':row.image_url,
                         'article': article.v4_toDict(da)
-
                     }
                 )
 
