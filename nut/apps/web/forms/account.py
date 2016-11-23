@@ -88,7 +88,7 @@ class UserSignInForm(forms.Form):
 
         if self.next_url:
             return self.next_url
-        return reverse('web_selection')
+        return reverse('web_index')
 
     def get_user_id(self):
         if self.user_cache:
