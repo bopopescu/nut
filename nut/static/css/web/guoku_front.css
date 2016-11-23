@@ -2760,8 +2760,7 @@ a:hover {
   text-align: center;
 }
 .top-ad .ad-wrapper a .top-ad-title-wrapper .top-ad-title-control {
-  height: 40px;
-  margin: 5px auto;
+  height: 49px;
 }
 .top-ad .close-button {
   position: absolute;
@@ -2776,8 +2775,8 @@ a:hover {
 }
 @media (max-width: 580px) {
   .top-ad .ad-wrapper a .top-ad-title-wrapper .top-ad-title-control {
-    height: 25px;
-    margin: 12px auto;
+    height: 40px;
+    margin: 5px auto;
   }
 }
 .user-article-cell {
