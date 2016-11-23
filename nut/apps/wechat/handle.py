@@ -36,7 +36,8 @@ def handle_reply(content):
         return u'合作事宜请发邮件到 bd@guoku.com'
     elif content.decode('utf-8') == u'转载':
         return u'文章转载授权请联系 alka@guoku.com'
-    # elif regex(content.lower(), u'体验师'):
+    elif regex(content.lower(), u'平壤'):
+        return u'http://www.yun-wifi.net/index.php/home/code/index/from/8'
     #     return u'「清迈旅行体验师招募｜你的工作就是玩够5天！」 ' \
     #            u'<a href="http://www.yun-wifi.net/index.php/home/code/index/from/8">►立即领抽奖码：</a>'
     elif robot_handler.can_handle(content.lower()):
