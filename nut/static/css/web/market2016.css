@@ -156,11 +156,33 @@
 #theme_poster {
   width: 100%;
   height: 100%;
+  background-color: #ffffff;
   position: absolute;
   top: 0;
   left: 0;
   -webkit-animation: fadeIn 300ms linear 3100ms forwards;
   animation: fadeIn 300ms linear 3100ms forwards;
+}
+#theme_poster .poster-top {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#theme_poster .poster-main {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  max-width: 414px;
+}
+#theme_poster .poster-logo {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 182px;
 }
 .title-rect {
   z-index: 100;
