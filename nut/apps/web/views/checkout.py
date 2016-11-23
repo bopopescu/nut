@@ -1,11 +1,11 @@
 # encoding: utf-8
 import json
-
+import csv
 from braces.views import AjaxResponseMixin, UserPassesTestMixin,JSONResponseMixin
 from datetime import datetime
 
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import ListView, DeleteView, UpdateView, View, FormView
 from django.http import Http404
 from django.shortcuts import get_object_or_404
@@ -200,7 +200,28 @@ class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin
         self.extra_query_dic = {}
         super(CheckDeskOrderStatisticView, self).__init__(*args, **kwargs)
 
+    def get(self, request, *args, **kwargs):
+        if request.get('csv') == 'orders':
+            return self.get_orders_csv()
+        elif request.get('csv') == 'order_items':
+            return self.get_orderitems_csv()
+        else:
+            return super(CheckDeskOrderStatisticView, self).get(request, *args, **kwargs)
 
+    def get_orders_csv(self):
+        order_header_list = ('订单号', '下单时间', '终端账号', '订单价值', '果库佣金', )
+        item_header_list = ('订单号', '下单时间', '终端账号', '商品名称', 'SKU属性', '原价', '促销价', '佣金比率', '数量', '实收款', '果库佣金', '结账路径' ,'备注')
+
+        orders = self.get_queryset()
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="orders.csv"'
+        writer = csv.writer(response)
+        writer.writerow([''])
+
+        pass
+
+    def get_orderitems_csv(self):
+        pass
 
     def get_queryset(self):
         order_ids = list(OrderItem.objects.values_list('order', flat=True))
