@@ -1587,7 +1587,7 @@ class Article(BaseModel):
         return Selection_Article.objects.article_related(self, page)
 
     def get_absolute_url(self):
-        return "/articles/%s/" % self.pk
+        return "/articles/%s/" % self.article_slug
 
     def get_dig_key(self):
         return 'article:dig:%d' % self.pk
