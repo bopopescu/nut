@@ -3572,11 +3572,11 @@ define('subapp/article/article_remark',[
                 user_reply_to_url:ajaxDatas['user_reply_to_url'],
                 create_time:ajaxDatas['create_time']
             };
-            if($('#remark-list .remark-list-item-wrapper').length){
-                 $(newRemarkItem(datas)).insertBefore($('#remark-list').children().first());
-            }else{
+            //if($('#remark-list .remark-list-item-wrapper').length){
+            //     $(newRemarkItem(datas)).insertBefore($('#remark-list').children().first());
+            //}else{
                 $('#remark-list').append(newRemarkItem(datas));
-            }
+            //}
         },
         postRemarkSuccess: function(result){
             var status = parseInt(result.status);
