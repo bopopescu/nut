@@ -6,7 +6,7 @@ import os, sys
 #
 # sys.path.append('/new_sand/guoku/nut/nut')
 # os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_anchen'
-#
+
 sys.path.append('/data/www/nut')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
 
@@ -74,6 +74,18 @@ def generate_update_time(created_datetime):
     return created_datetime + datetime.timedelta(minutes=minute_plus, seconds=second_plus)
 
 
+def generate_order_number(order):
+
+    key = order.created_datetime.strftime("%Y%m%d%H%M")
+    count = 1
+    number = "%s%s" % (key, count)
+    while True:
+        if Order.objects.filter(number=number).exists():
+            count += 1
+            number = "%s%s" % (key, count)
+        else:
+            return number
+
 def adjust_single_order(order):
     print('begin adjust order number : %s' % order.number)
     print('origin time %s' % order.created_datetime)
@@ -84,7 +96,9 @@ def adjust_single_order(order):
 
     order.created_datetime = generate_create_time(origin_create_time)
     order.updated_datetime = generate_update_time(order.created_datetime)
+    order.number = generate_order_number(order)
 
+    print('new order number %s' % order.number)
     print('new created_datetime %s' % order.created_datetime)
     print('new updated_datetime %s' % order.updated_datetime)
 
