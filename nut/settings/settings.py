@@ -324,6 +324,7 @@ SOGOU_USERS = ('shoemah55@superrito.com',
                'drecur44@superrito.com',
                'paboy1973@superrito.com'
                )
+
 CELERYBEAT_SCHEDULE = {
     'crawl_articles': {
         'task': 'sogou.crawl_articles',
