@@ -232,7 +232,7 @@ class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin
     def get_orderitems_csv(self):
         orders = self.get_queryset()
         orderitem_header_list = ('订单号', '下单时间', '付款时间',
-                                 '终端账号', '商品名称', '商品链接',
+                                 '终端账号', '商品名称','品牌', '商品链接',
                                  'SKU属性', '原价',
                                  '促销价', '佣金比率',
                                  '数量', '实收款', '果库佣金',
@@ -246,7 +246,7 @@ class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin
         for order in orders:
             for item in order.items.all():
                 data = [order.number, order.created_datetime, order.updated_datetime,
-                        order.customer.nick, item.item_title, 'http://wwwguoku.com'+item.entity_link,
+                        order.customer.nick, item.item_title,item.sku.entity.brand, 'http://wwwguoku.com'+item.entity_link,
                         item.attrs_display, item.sku.origin_price,
                         item.unit_price, item.margin,
                         item.volume, item.promo_total_price, item.margin_value,

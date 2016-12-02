@@ -527,6 +527,9 @@
 
 {% block basic_script %}
 {#<script data-main="{% static 'js/web/app/article_list_app.js' %}" src="{% static 'js/web/app/require.js' %}"></script>#}
+    <script language='javascript'>
+        window.counter_path='{% url 'web_article_page' article.pk  %}';
+    </script>
     <script data-main="{% static 'js/web/jsbuild/article_page_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
 {% endblock %}
 

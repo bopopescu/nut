@@ -2246,7 +2246,11 @@ define('subapp/articlepagecounter',['jquery', 'libs/Class'], function(jQuery, Cl
 
     var ArticleCounter = Class.extend({
         init: function(){
-            jQuery.when(jQuery.ajax({url:counterUrl}))
+            jQuery.when(jQuery.ajax({
+                method: 'POST',
+                url:counterUrl,
+                data:{counter_path: window.counter_path,}
+            }))
                   .then(
                         this.sendSuccess.bind(this),
                         this.sendFail.bind(this)

@@ -32,11 +32,12 @@ class Counter(JSONResponseMixin, AjaxResponseMixin, View):
         return self.render_json_response(res)
 
     def get_key(self, request):
-        referer = request.META['HTTP_REFERER']
-        path =  urlparse(referer).path
-        return  RedisCounterMachine.get_counter_key_from_path(path)
+        # referer = request.META['HTTP_REFERER']
+        path = request.POST.get('counter_path')
+        # path =  urlparse(referer).path
+        return RedisCounterMachine.get_counter_key_from_path(path)
 
-    def get_ajax(self, request , *args, **kwargs):
+    def post_ajax(self, request, *args, **kwargs):
         counter_key = None
         try:
             counter_key = self.get_key(request)

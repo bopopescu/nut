@@ -1,3 +1,8 @@
+3. fix make article slug bug
+2. change topad article link
+1. fix article counter bug 
+====================================
+
 4. h5 for da yue cheng  -- lq
 3. top bar for web  -- lq
 2. login redirect to index 
