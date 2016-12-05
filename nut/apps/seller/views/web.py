@@ -46,4 +46,9 @@ class SellerView(TemplateView):
         return context
 
 
+class NewSellerView(SellerView):
+    template_name = 'web/seller/web_seller_2016.html'
+
+
+
 
