@@ -1962,6 +1962,19 @@ ol {
 .new-seller-body .seller-page-container .download-intro-wrapper {
   margin-top: 88px;
 }
+.new-seller-body .seller-page-container .cooperate-media-wrapper {
+  text-align: center;
+}
+.new-seller-body .seller-page-container .cooperate-media-wrapper .cooperate-media-title {
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+.new-seller-body .seller-page-container .cooperate-media-wrapper .media-logo {
+  margin-right: 50px;
+}
+.new-seller-body .seller-page-container .cooperate-media-wrapper .media-logo:last-child {
+  margin-right: 0;
+}
 .page-share-dialog .modal-dialog .modal-content {
   overflow: hidden;
 }
