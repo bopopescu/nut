@@ -22,6 +22,8 @@
 
 
 {% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick-theme.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/web/web-seller-style.css' %}">
 {% endblock %}
 {#give body element a more class:seller-body#}
@@ -161,7 +163,7 @@
                 </div>
             </div>
 
-            <div class="row sections-item-sellers-wrapper">
+            <div class="row sections-item-sellers-wrapper" id="shops_slick_wrapper">
                 {% with section_sellers=food_sellers  %}
                     {% include 'web/seller/partial/section_seller_item.html' %}
                 {% endwith  %}

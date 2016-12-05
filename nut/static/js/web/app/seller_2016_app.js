@@ -4,6 +4,7 @@ require([
         'subapp/yearseller/header',
         'subapp/yearseller/linkscroll',
         'subapp/yearseller/share',
+        'subapp/yearseller/shops_slick',
         'cookie',
         'subapp/top_ad/top_ad',
         'utils/browser',
@@ -14,6 +15,7 @@ require([
              YearSellerHeader,
              AnchorScroller,
              ShareHanlder,
+             ShopsSlick,
              cookie,
              TopAd,
              browser,
@@ -24,6 +26,7 @@ require([
         var sellerHeader = new YearSellerHeader();
         var anchorScroller = new AnchorScroller('.sections-titles-wrapper li a');
         var shareHandler = new ShareHanlder();
+        var shopsSlick = new ShopsSlick();
         //var topAd = new TopAd();
         // for weixin  access redirect entity link to  app download
         if (browser.is_weixin()){

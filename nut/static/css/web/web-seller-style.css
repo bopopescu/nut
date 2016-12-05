@@ -1818,6 +1818,38 @@ ol {
   font-size: 14px;
   line-height: 24px;
 }
+.new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper {
+  overflow: hidden;
+}
+.new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-prev:before,
+.new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-next:before {
+  font-family: "FontAwesome";
+  font-size: 16px;
+  color: #212121;
+}
+.new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-prev {
+  left: 0px;
+}
+.new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-prev:before {
+  content: "\f053";
+}
+.new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-next {
+  right: 0px;
+}
+.new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-next:before {
+  content: "\f054";
+}
+.new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-list {
+  overflow: hidden!important;
+}
+.new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-list .slick-slide alink,
+.new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-list .slick-slide a:active,
+.new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-list .slick-slide a:hover,
+.new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-list .slick-slide a:focus {
+  border: none!important;
+  box-shadow: none!important;
+  outline: none;
+}
 .page-share-dialog .modal-dialog .modal-content {
   overflow: hidden;
 }

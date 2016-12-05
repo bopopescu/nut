@@ -577,6 +577,38 @@ ol{
         font-size: @smaller-primary;
         line-height: 24px;
       }
+      #shops_slick_wrapper{
+        overflow: hidden;
+        .slick-prev:before,.slick-next:before{
+          font-family: "FontAwesome";
+          font-size: @primary-size;
+          color:@common-text-color;
+        }
+        .slick-prev{
+          left:0px;
+          &:before{
+            content:"\f053";
+          }
+        }
+        .slick-next{
+          right:0px;
+          &:before{
+            content:"\f054";
+          }
+        }
+        .slick-list{
+          overflow: hidden!important;
+          .slick-slide{
+            a{
+             &link,&:active,&:hover,&:focus{
+              border: none!important;
+              box-shadow: none!important;
+              outline: none;
+            }
+            }
+          }
+        }
+      }
     }
   }
 }
