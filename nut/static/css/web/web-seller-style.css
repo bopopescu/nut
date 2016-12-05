@@ -1789,6 +1789,15 @@ ol {
   background-size: cover;
   background-position: center;
 }
+.new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .dark-bg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.1);
+}
 .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .sections-item-title {
   margin-top: 44px;
 }
