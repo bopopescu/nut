@@ -3953,6 +3953,61 @@ define('subapp/yearseller/shops_slick',['jquery', 'libs/Class','libs/slick','fas
 
 
 
+
+define('subapp/discover/recommend_user_slick',['jquery', 'libs/Class','libs/slick','fastdom'], function(
+    $, Class, slick , fastdom
+){
+            var RecommendUserSlick= Class.extend({
+                init: function () {
+                    this.init_slick();
+                    console.log('recommend user slick in discover page begin');
+                },
+                init_slick:function(){
+                    $('.recommend-user-list,.user-panel-container,.new-seller-body .opinions-wrapper').slick({
+                        arrows: true,
+                        slidesToShow: 6,
+                        slidesToScroll:4,
+                        autoplay:false,
+                        dots:false,
+
+                        responsive: [
+                             {
+                                breakpoint: 992,
+                                settings: {
+                                    slidesToShow:3,
+                                    slidesToScroll:3,
+                                    autoplay:false,
+                                    dots:false
+                                }
+                            },
+                            {
+                                breakpoint: 768,
+                                settings: {
+                                    slidesToShow:8,
+                                    slidesToScroll:3,
+                                    autoplay:false,
+                                    dots:false
+                                }
+                            },
+                             {
+                                breakpoint: 580,
+                                settings: {
+                                    slidesToShow:5,
+                                    slidesToScroll:2,
+                                    autoplay:false,
+                                    dots:false
+                                }
+                            }
+                        ]
+                    });
+                }
+            });
+    return RecommendUserSlick;
+});
+
+
+
+
 /*!
  * jQuery Cookie Plugin v1.4.1
  * https://github.com/carhartl/jquery-cookie
@@ -5008,6 +5063,7 @@ require([
         'subapp/yearseller/linkscroll',
         'subapp/yearseller/share',
         'subapp/yearseller/shops_slick',
+        'subapp/discover/recommend_user_slick',
         'cookie',
         'subapp/top_ad/top_ad',
         'utils/browser',
@@ -5019,6 +5075,7 @@ require([
              AnchorScroller,
              ShareHanlder,
              ShopsSlick,
+             RecommendUserSlick,
              cookie,
              TopAd,
              browser,
@@ -5030,6 +5087,7 @@ require([
         var anchorScroller = new AnchorScroller('.sections-titles-wrapper li a');
         var shareHandler = new ShareHanlder();
         var shopsSlick = new ShopsSlick();
+        var recommendUserSlick = new RecommendUserSlick();
         //var topAd = new TopAd();
         // for weixin  access redirect entity link to  app download
         if (browser.is_weixin()){

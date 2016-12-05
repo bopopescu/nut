@@ -567,6 +567,10 @@ ol{
             height:auto;
             margin-top:16px;
           }
+          img.subtitle-pic{
+            width:auto;
+            height:64px;
+          }
         }
       }
       .shops-intro-wrapper p{
@@ -577,7 +581,7 @@ ol{
         font-size: @smaller-primary;
         line-height: 24px;
       }
-      #shops_slick_wrapper{
+      #shops_slick_wrapper,.opinions-wrapper{
         overflow: hidden;
         .slick-prev:before,.slick-next:before{
           font-family: "FontAwesome";
@@ -599,13 +603,41 @@ ol{
         .slick-list{
           overflow: hidden!important;
           .slick-slide{
-            a{
-             &link,&:active,&:hover,&:focus{
+            &:active,&:focus,&:hover{
               border: none!important;
               box-shadow: none!important;
               outline: none;
             }
+            a{
+              &link,&:active,&:hover,&:focus{
+                border: none!important;
+                box-shadow: none!important;
+                outline: none;
+              }
             }
+          }
+        }
+      }
+      .opinions-wrapper{
+        .opinion-cell{
+          padding-top:24px;
+          a{
+            color:@common-text-color;
+          }
+          .logo-wrapper{
+            img{
+              width:80px;
+              height:80px;
+              border-radius: 50%;
+              margin:0 auto;
+            }
+          }
+          p.name{
+            margin:20px 0;
+            font-size:20px;
+            line-height:24px;
+            text-align: center;
+            .single-text-overflow;
           }
         }
       }
