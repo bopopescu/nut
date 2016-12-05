@@ -1716,6 +1716,10 @@ a.new-black-link {
 a.new-black-link:hover {
   color: #212121;
 }
+a.new-download-link {
+  color: #4188DC;
+  text-decoration: none;
+}
 .common-bg-layer {
   position: absolute;
   top: 0;

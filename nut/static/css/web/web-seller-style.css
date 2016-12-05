@@ -1356,6 +1356,10 @@ a.new-black-link {
 a.new-black-link:hover {
   color: #212121;
 }
+a.new-download-link {
+  color: #4188DC;
+  text-decoration: none;
+}
 .common-bg-layer {
   position: absolute;
   top: 0;
@@ -1781,6 +1785,9 @@ ol {
 .new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li:last-child {
   margin-right: 0;
 }
+.new-seller-body .seller-page-container {
+  background-color: #ffffff;
+}
 .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper {
   height: 200px;
   margin-bottom: 0;
@@ -1813,6 +1820,9 @@ ol {
 .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .sections-item-title img.subtitle-pic {
   width: auto;
   height: 64px;
+}
+.new-seller-body .seller-page-container .sections-item-wrapper .shops-intro-wrapper {
+  background-color: #F8F8F8;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .shops-intro-wrapper p {
   width: 60%;
@@ -1959,8 +1969,9 @@ ol {
 .new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .more-info-wrapper .time {
   color: #757575;
 }
-.new-seller-body .seller-page-container .download-intro-wrapper {
-  margin-top: 88px;
+.new-seller-body .seller-page-container .bottom-info-container {
+  padding: 60px 0 90px;
+  background-color: #F8F8F8;
 }
 .new-seller-body .seller-page-container .cooperate-media-wrapper {
   text-align: center;
@@ -1974,6 +1985,9 @@ ol {
 }
 .new-seller-body .seller-page-container .cooperate-media-wrapper .media-logo:last-child {
   margin-right: 0;
+}
+.new-seller-body #guoku_footer {
+  margin-top: 0;
 }
 .page-share-dialog .modal-dialog .modal-content {
   overflow: hidden;

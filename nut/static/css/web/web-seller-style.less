@@ -544,6 +544,7 @@ ol{
     }
   }
   .seller-page-container{
+    background-color: #ffffff;
     .sections-item-wrapper{
       .sections-item-intro-wrapper{
         height:200px;
@@ -573,14 +574,17 @@ ol{
           }
         }
       }
-      .shops-intro-wrapper p{
-        width: 60%;
-        max-width:780px;
-        padding:42px 0;
-        margin:0 auto;
-        font-size: @smaller-primary;
-        line-height: 24px;
-      }
+      .shops-intro-wrapper{
+        background-color: @very-light-gray;
+        p{
+          width: 60%;
+          max-width:780px;
+          padding:42px 0;
+          margin:0 auto;
+          font-size: @smaller-primary;
+          line-height: 24px;
+        }
+      } 
       #shops_slick_wrapper,.opinions-wrapper{
         overflow: hidden;
         .slick-prev:before,.slick-next:before{
@@ -698,9 +702,10 @@ ol{
         }
       }
     }
-     .download-intro-wrapper{
-        margin-top:88px;
-      }
+    .bottom-info-container{
+      padding:60px 0 90px;
+      background-color: @very-light-gray;
+    }
     .cooperate-media-wrapper{
       text-align: center;
       .cooperate-media-title{
@@ -714,6 +719,9 @@ ol{
         margin-right:0;
       }
     }
+  }
+  #guoku_footer{
+    margin-top:0;
   }
 }
 
