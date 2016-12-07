@@ -8,7 +8,7 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                     console.log('shops slick begin');
                 },
                 init_slick:function(){
-                    $('#shops_slick_wrapper').slick({
+                    $('#shops .shops-slick-wrapper').slick({
                         arrows: true,
                         slidesToShow: 4,
                         slidesToScroll:3,

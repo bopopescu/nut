@@ -3908,7 +3908,7 @@ define('subapp/yearseller/shops_slick',['jquery', 'libs/Class','libs/slick','fas
                     console.log('shops slick begin');
                 },
                 init_slick:function(){
-                    $('#shops_slick_wrapper').slick({
+                    $('#shops .shops-slick-wrapper').slick({
                         arrows: true,
                         slidesToShow: 4,
                         slidesToScroll:3,
