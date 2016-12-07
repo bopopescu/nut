@@ -2220,6 +2220,12 @@ ol {
   .seller-body .seller-page-container .sections-item-wrapper .sections-item-sellers-wrapper .sellers-wrapper .sellers-share-visible {
     display: block;
   }
+  .new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper {
+    margin-top: 30px;
+  }
+  .new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li {
+    margin-right: 18px;
+  }
 }
 @media screen and (min-width: 768px) and (max-width: 992px) {
   .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item {
