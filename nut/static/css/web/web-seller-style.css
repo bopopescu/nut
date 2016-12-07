@@ -2235,6 +2235,16 @@ ol {
   .new-seller-body .seller-page-container .shops-slick-wrapper .slick-list {
     padding-right: 90px;
   }
+  .new-seller-body .seller-page-container .opinions-wrapper .slick-list {
+    padding-right: 30px;
+  }
+  .new-seller-body .seller-page-container .opinions-wrapper .slick-list .opinion-cell .logo-wrapper img {
+    width: 45px;
+    height: 45px;
+  }
+  .new-seller-body .seller-page-container .opinions-wrapper .slick-list .opinion-cell p.name {
+    font-size: 16px;
+  }
 }
 @media screen and (min-width: 768px) and (max-width: 992px) {
   .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item {
@@ -2253,6 +2263,9 @@ ol {
   .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-logo-wrapper {
     margin: 0 auto;
     margin-top: 10px;
+  }
+  .new-seller-body .seller-page-container .opinions-wrapper .slick-list {
+    padding-right: 110px;
   }
 }
 @media screen and (min-width: 580px) and (max-width: 768px) {
