@@ -2226,6 +2226,10 @@ ol {
   .new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li {
     margin-right: 18px;
   }
+  .new-seller-body .seller-page-container .sections-item-wrapper .shops-intro-wrapper p {
+    width: 100%;
+    padding: 16px 0;
+  }
 }
 @media screen and (min-width: 768px) and (max-width: 992px) {
   .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item {
