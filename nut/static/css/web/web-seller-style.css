@@ -1823,8 +1823,8 @@ ol {
   text-align: center;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .new-sections-item-intro-wrapper img.subtitle-pic {
-  width: auto;
-  height: 64px;
+  width: 100%;
+  max-width: 780px;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .shops-intro-wrapper {
   background-color: #F8F8F8;
@@ -1908,7 +1908,6 @@ ol {
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .shops-slick-wrapper {
   margin-top: 40px;
-  margin-bottom: 69px;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .shops-slick-wrapper .sellers-wrapper .score ol li i {
   color: #9D9E9F;
@@ -2229,6 +2228,9 @@ ol {
   .new-seller-body .seller-page-container .sections-item-wrapper .shops-intro-wrapper p {
     width: 100%;
     padding: 16px 0;
+  }
+  .new-seller-body .seller-page-container .sections-item-wrapper .new-sections-item-intro-wrapper {
+    margin: 0;
   }
   .new-seller-body .seller-page-container .shops-slick-wrapper .slick-list {
     padding-right: 90px;
