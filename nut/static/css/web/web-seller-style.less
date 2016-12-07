@@ -585,7 +585,7 @@ ol{
           line-height: 24px;
         }
       } 
-      #shops_slick_wrapper,.opinions-wrapper{
+      #shops_slick_wrapper,.opinions-wrapper,.columns-wrapper{
         overflow: hidden;
         .slick-prev:before,.slick-next:before{
           font-family: "FontAwesome";
@@ -593,13 +593,13 @@ ol{
           color:@common-text-color;
         }
         .slick-prev{
-          left:0px;
+          left:0;
           &:before{
             content:"\f053";
           }
         }
         .slick-next{
-          right:0px;
+          right:0;
           &:before{
             content:"\f054";
           }
@@ -646,6 +646,9 @@ ol{
         }
       }
       .columns-wrapper{
+        .slick-prev:before,.slick-next:before{
+          font-size:48px;
+        }
         .column-cell-wrapper{
           .column-cell{
             margin:0 auto;
@@ -672,7 +675,7 @@ ol{
                     color: @new-text-gray;
                     font-size:@smaller-primary;
                     line-height: 22px;
-                     .multiple-text-overflow(4);
+                    .multiple-text-overflow(4);
                   }
                 }
               }
@@ -680,7 +683,7 @@ ol{
                 width:50%;
                 float:right;
                 .article-cover{
-                   .normal-scale-bg;
+                  .normal-scale-bg;
                 }
               }
             }
@@ -690,15 +693,15 @@ ol{
           width:100%;
           height:40px;
           line-height:40px;
-           .author-logo{
-             width:40px;
-             height:40px;border-radius: 50%;
-             display: inline-block;
-             margin-right:14px;
-           }
-         .time{
-           color:@new-text-gray;
-         }
+          .author-logo{
+            width:40px;
+            height:40px;border-radius: 50%;
+            display: inline-block;
+            margin-right:14px;
+          }
+          .time{
+            color:@new-text-gray;
+          }
         }
       }
     }

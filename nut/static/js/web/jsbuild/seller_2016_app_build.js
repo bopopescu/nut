@@ -3954,6 +3954,31 @@ define('subapp/yearseller/shops_slick',['jquery', 'libs/Class','libs/slick','fas
 
 
 
+define('subapp/yearseller/columns_slick',['jquery', 'libs/Class','libs/slick','fastdom'], function(
+    $, Class, slick , fastdom
+){
+            var ColumnsSlick= Class.extend({
+                init: function () {
+                    this.init_slick();
+                    console.log('columns slick begin');
+                },
+                init_slick:function(){
+                    $('#columns .columns-wrapper').slick({
+                        arrows: true,
+                        slidesToShow: 1,
+                        slidesToScroll:1,
+                        autoplay:false,
+                        dots:false
+                    });
+                }
+            });
+    return ColumnsSlick;
+});
+
+
+
+
+
 define('subapp/discover/recommend_user_slick',['jquery', 'libs/Class','libs/slick','fastdom'], function(
     $, Class, slick , fastdom
 ){
@@ -5063,6 +5088,7 @@ require([
         'subapp/yearseller/linkscroll',
         'subapp/yearseller/share',
         'subapp/yearseller/shops_slick',
+        'subapp/yearseller/columns_slick',
         'subapp/discover/recommend_user_slick',
         'cookie',
         'subapp/top_ad/top_ad',
@@ -5075,6 +5101,7 @@ require([
              AnchorScroller,
              ShareHanlder,
              ShopsSlick,
+             ColumnsSlick,
              RecommendUserSlick,
              cookie,
              TopAd,
@@ -5087,6 +5114,7 @@ require([
         var anchorScroller = new AnchorScroller('.sections-titles-wrapper li a');
         var shareHandler = new ShareHanlder();
         var shopsSlick = new ShopsSlick();
+        var columnsSlick = new ColumnsSlick();
         var recommendUserSlick = new RecommendUserSlick();
         //var topAd = new TopAd();
         // for weixin  access redirect entity link to  app download

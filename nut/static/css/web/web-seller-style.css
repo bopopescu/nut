@@ -1833,55 +1833,70 @@ ol {
   line-height: 24px;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper,
-.new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper {
+.new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper,
+.new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper {
   overflow: hidden;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-prev:before,
 .new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-prev:before,
+.new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .slick-prev:before,
 .new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-next:before,
-.new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-next:before {
+.new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-next:before,
+.new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .slick-next:before {
   font-family: "FontAwesome";
   font-size: 16px;
   color: #212121;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-prev,
-.new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-prev {
-  left: 0px;
+.new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-prev,
+.new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .slick-prev {
+  left: 0;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-prev:before,
-.new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-prev:before {
+.new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-prev:before,
+.new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .slick-prev:before {
   content: "\f053";
 }
 .new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-next,
-.new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-next {
-  right: 0px;
+.new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-next,
+.new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .slick-next {
+  right: 0;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-next:before,
-.new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-next:before {
+.new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-next:before,
+.new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .slick-next:before {
   content: "\f054";
 }
 .new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-list,
-.new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-list {
+.new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-list,
+.new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .slick-list {
   overflow: hidden!important;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-list .slick-slide:active,
 .new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-list .slick-slide:active,
+.new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .slick-list .slick-slide:active,
 .new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-list .slick-slide:focus,
 .new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-list .slick-slide:focus,
+.new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .slick-list .slick-slide:focus,
 .new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-list .slick-slide:hover,
-.new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-list .slick-slide:hover {
+.new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-list .slick-slide:hover,
+.new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .slick-list .slick-slide:hover {
   border: none!important;
   box-shadow: none!important;
   outline: none;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-list .slick-slide alink,
 .new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-list .slick-slide alink,
+.new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .slick-list .slick-slide alink,
 .new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-list .slick-slide a:active,
 .new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-list .slick-slide a:active,
+.new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .slick-list .slick-slide a:active,
 .new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-list .slick-slide a:hover,
 .new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-list .slick-slide a:hover,
+.new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .slick-list .slick-slide a:hover,
 .new-seller-body .seller-page-container .sections-item-wrapper #shops_slick_wrapper .slick-list .slick-slide a:focus,
-.new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-list .slick-slide a:focus {
+.new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .slick-list .slick-slide a:focus,
+.new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .slick-list .slick-slide a:focus {
   border: none!important;
   box-shadow: none!important;
   outline: none;
@@ -1906,6 +1921,10 @@ ol {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .slick-prev:before,
+.new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .slick-next:before {
+  font-size: 48px;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .column-cell-wrapper .column-cell {
   margin: 0 auto;
