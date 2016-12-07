@@ -1931,6 +1931,9 @@ ol {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper {
+  margin-bottom: 88px;
+}
 .new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .slick-prev:before,
 .new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .slick-next:before {
   font-size: 48px;
