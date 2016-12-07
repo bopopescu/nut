@@ -2230,6 +2230,9 @@ ol {
     width: 100%;
     padding: 16px 0;
   }
+  .new-seller-body .seller-page-container .shops-slick-wrapper .slick-list {
+    padding-right: 90px;
+  }
 }
 @media screen and (min-width: 768px) and (max-width: 992px) {
   .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item {

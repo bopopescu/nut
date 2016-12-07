@@ -6612,8 +6612,10 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 @media (max-width: 992px) {
   #discover_container .slick-prev:before,
   .new-index-page .slick-prev:before,
+  .new-seller-body .slick-prev:before,
   #discover_container .slick-next:before,
-  .new-index-page .slick-next:before {
+  .new-index-page .slick-next:before,
+  .new-seller-body .slick-next:before {
     display: none;
   }
   .new-index-page .latest-entity-wrapper .slick-list {
