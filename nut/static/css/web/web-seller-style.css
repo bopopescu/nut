@@ -2155,6 +2155,12 @@ ol {
   .seller-page-container .popular-shops-wrapper {
     margin: 0 auto;
   }
+  .new-seller-body #seller_2016_nav .logo-wrapper {
+    margin-right: 32px;
+  }
+  .new-seller-body #seller_2016_nav .nav-wrapper ul li {
+    margin-right: 16px;
+  }
 }
 @media screen and (min-width: 1200px) {
   .seller-body .seller-cross-screen {
@@ -2315,6 +2321,9 @@ ol {
   }
   .new-seller-body .seller-page-container .opinions-wrapper .slick-list {
     padding-right: 110px;
+  }
+  .new-seller-body #seller_2016_nav .logo-wrapper {
+    margin-right: 32px;
   }
 }
 @media screen and (min-width: 580px) and (max-width: 768px) {
