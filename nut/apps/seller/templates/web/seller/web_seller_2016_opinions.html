@@ -1,0 +1,277 @@
+{% extends 'web/base.html' %}
+{% load i18n staticfiles %}
+{% load common guoku %}
+
+{% block meta-og %}
+    <meta property="og:title" content="果库 2016 最受欢迎淘宝店铺 100 家 | 年度消费报告 | 精英消费指南 | 理想生活主张" >
+    <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
+    <meta property="og:description" content="果库用户最喜爱的淘宝店铺100家，果库精心进行了店主访问，精选了他们的产品列表。这里荟萃了中国最优秀的零售创新力量，带你了解他们的经营理念，人生哲学，让我们一起欣赏他们给世界带来的便利和美好。">
+{% endblock %}
+
+{% block meta-common %}
+    <meta name="title"  content="果库 2016 最受欢迎淘宝店铺 100 家 | 年度消费报告">
+    <meta name="keywords" content="淘宝店铺精选, 最值得逛淘宝店铺,top , TOP 100, 精选商品,精选,尽收世上好物,果库、guoku、果库网、果库应用、精英消费指南、消费指南、精品导购应用、导购、购物指南、购物分享、淘宝网购物、淘宝网精选、精品推荐">
+    <meta name="description" content="果库用户最喜爱的淘宝店铺100家，果库精心进行了店主访问，精选了他们的产品列表。这里荟萃了中国最优秀的零售创新力量，带你了解他们的经营理念，人生哲学，让我们一起欣赏他们给世界带来的便利和美好。">
+{% endblock %}
+
+{% load i18n %}
+
+{% block title %}Opinions{% endblock %}
+
+{% block h1 %}Opinions{% endblock %}
+
+
+{% block css %}
+     <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick-theme.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/web/web-seller-style.css' %}">
+{% endblock %}
+{#give body element a more class:seller-body#}
+{% block body_class %} gray-body seller-body new-seller-body {% endblock %}
+
+{% block weixin_share_img %}
+{#    must be first img in body #}
+    <div id='wx_logo' style='margin:0 auto;display:none;'>
+        <img src="{% static 'images/year-seller/weibo_share_300.jpg' %}" />
+    </div>
+
+{% endblock %}
+
+{#    remove the header from the base template#}
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+    {#big banner#}
+    <div id="top" class="seller-cross-screen" style="background-image: url({% static 'images/year-seller-2016/banner_bg.png' %})">
+        <div class="row seller-banner-wrapper">
+            <div class="col-xs-12 banner-bgpic-wrapper">
+                <img src="{% static 'images/year-seller-2016/banner_title.png' %}" class="img-responsive img-control">
+            </div>
+
+            <div class="col-xs-12 sections-titles-wrapper detach_nav hidden_nav detach">
+                <div class="sections-titles-nav">
+                    <ul>
+                        <li>
+                            <a class="section-title" href="#top">Top</a>
+                        </li>
+                        <li>
+                            <a class="section-title" href="#shops">好店<span class="hidden-xs">SHOPS</span></a>
+
+                        </li>
+                        <li>
+                            <a class="section-title" href="#opinions">作者<span class="hidden-xs">OPINIONS</span></a>
+
+                        </li>
+                        <li>
+                            <a class="section-title" href="#topics">话题<span class="hidden-xs">TOPICS</span></a>
+                        </li>
+                         <li>
+                            <a class="section-title" href="#columns">专栏<span class="hidden-xs">COLUMNS</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-xs-12 sections-titles-wrapper">
+                <div class="sections-titles-nav">
+                    <ul>
+                        <li>
+                            <a class="section-title" href="#top">Top</a>
+                        </li>
+                        <li>
+                            <a class="section-title" href="#shops">好店<span class="hidden-xs">SHOPS</span></a>
+
+                        </li>
+                        <li>
+                            <a class="section-title" href="#opinions">作者<span class="hidden-xs">OPINIONS</span></a>
+
+                        </li>
+                        <li>
+                            <a class="section-title" href="#topics">话题<span class="hidden-xs">TOPICS</span></a>
+                        </li>
+                         <li>
+                            <a class="section-title" href="#columns">专栏<span class="hidden-xs">COLUMNS</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container seller-page-container">
+
+        <div class="sections-item-wrapper" id="opinions">
+
+            <div class="row new-sections-item-intro-wrapper">
+                <div class="col-xs-12 sections-item-title">
+                    <img class="subtitle-pic" src="{% static 'images/year-seller-2016/opinions_logo.png' %}">
+                </div>
+            </div>
+
+            <div class="row opinions-wrapper">
+                <div class="col-sm-2">
+                    <div class="opinion-cell">
+                        <a class="new-black-link" href="" target="_blank">
+                            <div class="logo-wrapper">
+                                <img src="{% static 'images/year-seller-2016/avatar_1.jpg' %}">
+                            </div>
+                            <p class="name">FAKESHIONFAKESHIONFAKESHION</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="opinion-cell">
+                        <a class="new-black-link" href="" target="_blank">
+                            <div class="logo-wrapper">
+                                <img src="{% static 'images/year-seller-2016/avatar_2.jpg' %}">
+                            </div>
+                            <p class="name">FAKESHION</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="opinion-cell">
+                        <a class="new-black-link" href="" target="_blank">
+                            <div class="logo-wrapper">
+                                <img src="{% static 'images/year-seller-2016/avatar_1.jpg' %}">
+                            </div>
+                            <p class="name">FAKESHIONFAKESHIONFAKESHION</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="opinion-cell">
+                        <a class="new-black-link" href="" target="_blank">
+                            <div class="logo-wrapper">
+                                <img src="{% static 'images/year-seller-2016/avatar_2.jpg' %}">
+                            </div>
+                            <p class="name">FAKESHION</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="opinion-cell">
+                        <a class="new-black-link" href="" target="_blank">
+                            <div class="logo-wrapper">
+                                <img src="{% static 'images/year-seller-2016/avatar_1.jpg' %}">
+                            </div>
+                            <p class="name">FAKESHIONFAKESHIONFAKESHION</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="opinion-cell">
+                        <a class="new-black-link" href="" target="_blank">
+                            <div class="logo-wrapper">
+                                <img src="{% static 'images/year-seller-2016/avatar_2.jpg' %}">
+                            </div>
+                            <p class="name">FAKESHION</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="opinion-cell">
+                        <a class="new-black-link" href="" target="_blank">
+                            <div class="logo-wrapper">
+                                <img src="{% static 'images/year-seller-2016/avatar_1.jpg' %}">
+                            </div>
+                            <p class="name">FAKESHIONFAKESHIONFAKESHION</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="opinion-cell">
+                        <a class="new-black-link" href="" target="_blank">
+                            <div class="logo-wrapper">
+                                <img src="{% static 'images/year-seller-2016/avatar_2.jpg' %}">
+                            </div>
+                            <p class="name">FAKESHION</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row bottom-info-container">
+            <div class="col-xs-12 download-intro-wrapper">
+                <div class="download-intro">
+                    <p>2016，感谢有你陪伴！ 2017，果库更多精彩!</p>
+                </div>
+            </div>
+            <div class="col-xs-12 download-guoku-qrcode-wrapper">
+                <img src="{% static 'images/year-seller/DL_guoku.jpg' %}" class="download-guoku-qrcode">
+            </div>
+            <div class="col-xs-12 download-app-intro-wrapper">
+                <p class="download-app-intro">免费下载「果库」客户端，生活不一样</p>
+            </div>
+            <div class="col-xs-12 download-app-addr-wrapper">
+                <div class="download-app-addr">
+                    <ul>
+                        <li>
+                            <a class="new-download-link" href="http://itunes.apple.com/cn/app/id477652209?mt=8">
+                                iPhone
+                            </a>
+                            <span>·</span>
+                        </li>
+
+                        <li>
+                            <a class="new-download-link" href="http://itunes.apple.com/cn/app/id450507565?mt=8">
+                                iPad
+                            </a>
+                            <span>·</span>
+                        </li>
+
+                        <li>
+                            <a class="new-download-link" href="http://app.guoku.com/download/android/guoku-release.apk">
+                                Android
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-12 cooperate-media-wrapper">
+                <div class="cooperate-media-title">协办方</div>
+                <div>
+                    <img class="media-logo" src={% static 'images/year-seller-2016/media_1.png' %}>
+                    <img class="media-logo" src="{% static 'images/year-seller-2016/media_2.png' %}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block basic_script %}
+    <script type="text/javascript">
+        (function(win,doc){
+            var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+            if (!win.alimamatk_show) {
+                s.charset = "gbk";
+                s.async = true;
+                s.src = "http://a.alimama.cn/tkapi.js";
+                h.insertBefore(s, h.firstChild);
+            }
+            var o = {
+                pid: "mm_28514026_4132785_24810648",/*推广单元ID，用于区分不同的推广渠道*/
+                appkey: "12313170",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/
+                unid: "", /*自定义统计字段*/
+                {#            type:"click"#}
+            };
+            win.alimamatk_onload = win.alimamatk_onload || [];
+            win.alimamatk_onload.push(o);
+        })(window,document);
+    </script>
+
+    <script language="javascript">
+        var share_pic = '{% static 'images/year-seller/share_weibo.jpg' %}';
+    </script>
+    <script data-main="{% static 'js/web/jsbuild/seller_2016_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+
+{% endblock %}
+
+{% block ga_script %}
+    <!-- Google Analytics -->
+    <!--- remove ga for load speed -->
+
+{% endblock %}
