@@ -2,6 +2,7 @@
 {% load common guoku %}
 {% url 'year_store_2016_opinions' as opinions_url  %}
 {% url 'year_store_2016_columns' as columns_url  %}
+{% url 'year_store_2016_topics' as topics_url %}
 
 <div class="col-md-12 tips">
     <div class="category-breadcrumb-wrapper">
@@ -16,7 +17,11 @@
                 </li>
             {% elif columns_url == request.path  %}
                 <li>
-                    专栏COLUMNS
+                    专栏 COLUMNS
+                </li>
+            {% elif topics_url == request.path %}
+                <li>
+                    话题 TOPICS
                 </li>
             {% endif %}
         </ul>

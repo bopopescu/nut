@@ -62,6 +62,10 @@ class ColumnsView(SellerView):
     template_name = 'web/seller/web_seller_2016_columns.html'
 
 
+class TopicsView(SellerView):
+    template_name = 'web/seller/web_seller_2016_topics.html'
+
+
 
 
 
