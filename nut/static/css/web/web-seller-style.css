@@ -1775,6 +1775,11 @@ ol {
 .new-seller-body.new-seller-body-control {
   padding-top: 50px;
 }
+.new-seller-body.new-seller-body-control .category-sort-wrapper {
+  margin-top: 7px;
+  margin-bottom: 23px;
+  box-shadow: none;
+}
 .new-seller-body #seller_2016_nav {
   backface-visibility: hidden;
   -webkit-transform: translate3d(0, 0, 0);
@@ -1960,6 +1965,7 @@ ol {
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .opinion-cell {
   padding-top: 24px;
+  text-align: center;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .opinion-cell a {
   color: #212121;
@@ -2343,6 +2349,9 @@ ol {
   .seller-body .seller-page-container .popular-shops-wrapper .popular-shop-item-wrapper .popular-shop-item .popular-shop-logo-wrapper {
     margin: 0 auto;
     margin-top: 10px;
+  }
+  .new-seller-body #seller_2016_nav .nav-wrapper ul li {
+    margin-right: 24px;
   }
   .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control {
     padding-top: 37%;
