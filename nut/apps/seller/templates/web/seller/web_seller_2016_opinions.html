@@ -27,7 +27,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/web/web-seller-style.css' %}">
 {% endblock %}
 {#give body element a more class:seller-body#}
-{% block body_class %} gray-body seller-body new-seller-body {% endblock %}
+{% block body_class %}seller-body new-seller-body {% endblock %}
 
 {% block weixin_share_img %}
 {#    must be first img in body #}
@@ -39,77 +39,13 @@
 
 {#    remove the header from the base template#}
 {% block header %}
-
+  {% include "web/seller/partial/seller_2016_header.html" %}
 {% endblock %}
 
 {% block content %}
-    {#big banner#}
-    <div id="top" class="seller-cross-screen" style="background-image: url({% static 'images/year-seller-2016/banner_bg.png' %})">
-        <div class="row seller-banner-wrapper">
-            <div class="col-xs-12 banner-bgpic-wrapper">
-                <img src="{% static 'images/year-seller-2016/banner_title.png' %}" class="img-responsive img-control">
-            </div>
-
-            <div class="col-xs-12 sections-titles-wrapper detach_nav hidden_nav detach">
-                <div class="sections-titles-nav">
-                    <ul>
-                        <li>
-                            <a class="section-title" href="#top">Top</a>
-                        </li>
-                        <li>
-                            <a class="section-title" href="#shops">好店<span class="hidden-xs">SHOPS</span></a>
-
-                        </li>
-                        <li>
-                            <a class="section-title" href="#opinions">作者<span class="hidden-xs">OPINIONS</span></a>
-
-                        </li>
-                        <li>
-                            <a class="section-title" href="#topics">话题<span class="hidden-xs">TOPICS</span></a>
-                        </li>
-                         <li>
-                            <a class="section-title" href="#columns">专栏<span class="hidden-xs">COLUMNS</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-xs-12 sections-titles-wrapper">
-                <div class="sections-titles-nav">
-                    <ul>
-                        <li>
-                            <a class="section-title" href="#top">Top</a>
-                        </li>
-                        <li>
-                            <a class="section-title" href="#shops">好店<span class="hidden-xs">SHOPS</span></a>
-
-                        </li>
-                        <li>
-                            <a class="section-title" href="#opinions">作者<span class="hidden-xs">OPINIONS</span></a>
-
-                        </li>
-                        <li>
-                            <a class="section-title" href="#topics">话题<span class="hidden-xs">TOPICS</span></a>
-                        </li>
-                         <li>
-                            <a class="section-title" href="#columns">专栏<span class="hidden-xs">COLUMNS</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="container seller-page-container">
-
-        <div class="sections-item-wrapper" id="opinions">
-
-            <div class="row new-sections-item-intro-wrapper">
-                <div class="col-xs-12 sections-item-title">
-                    <img class="subtitle-pic" src="{% static 'images/year-seller-2016/opinions_logo.png' %}">
-                </div>
-            </div>
-
+        <div class="sections-item-wrapper">
             <div class="row opinions-wrapper">
                 <div class="col-sm-2">
                     <div class="opinion-cell">
@@ -194,51 +130,6 @@
             </div>
         </div>
 
-        <div class="row bottom-info-container">
-            <div class="col-xs-12 download-intro-wrapper">
-                <div class="download-intro">
-                    <p>2016，感谢有你陪伴！ 2017，果库更多精彩!</p>
-                </div>
-            </div>
-            <div class="col-xs-12 download-guoku-qrcode-wrapper">
-                <img src="{% static 'images/year-seller/DL_guoku.jpg' %}" class="download-guoku-qrcode">
-            </div>
-            <div class="col-xs-12 download-app-intro-wrapper">
-                <p class="download-app-intro">免费下载「果库」客户端，生活不一样</p>
-            </div>
-            <div class="col-xs-12 download-app-addr-wrapper">
-                <div class="download-app-addr">
-                    <ul>
-                        <li>
-                            <a class="new-download-link" href="http://itunes.apple.com/cn/app/id477652209?mt=8">
-                                iPhone
-                            </a>
-                            <span>·</span>
-                        </li>
-
-                        <li>
-                            <a class="new-download-link" href="http://itunes.apple.com/cn/app/id450507565?mt=8">
-                                iPad
-                            </a>
-                            <span>·</span>
-                        </li>
-
-                        <li>
-                            <a class="new-download-link" href="http://app.guoku.com/download/android/guoku-release.apk">
-                                Android
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-xs-12 cooperate-media-wrapper">
-                <div class="cooperate-media-title">协办方</div>
-                <div>
-                    <img class="media-logo" src={% static 'images/year-seller-2016/media_1.png' %}>
-                    <img class="media-logo" src="{% static 'images/year-seller-2016/media_2.png' %}">
-                </div>
-            </div>
-        </div>
     </div>
 
 {% endblock %}
