@@ -1974,6 +1974,7 @@ ol {
   width: 80px;
   height: 80px;
   border-radius: 50%;
+  border: 1px solid #e6e6e6;
   margin: 0 auto;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .opinion-cell p.name {
