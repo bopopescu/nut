@@ -1772,6 +1772,49 @@ ol {
   padding: 0 3px;
   color: #9D9E9F;
 }
+.new-seller-body.new-seller-body-control {
+  padding-top: 50px;
+}
+.new-seller-body #seller_2016_nav {
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  background: #fff;
+  z-index: 1000;
+  -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 1px 3px #e6e6e6;
+}
+.new-seller-body #seller_2016_nav .logo-wrapper {
+  display: inline-block;
+  margin-right: 98px;
+}
+.new-seller-body #seller_2016_nav .nav-wrapper {
+  display: inline-block;
+  text-align: center;
+}
+.new-seller-body #seller_2016_nav .nav-wrapper ul li {
+  display: inline-block;
+  margin-right: 60px;
+}
+.new-seller-body #seller_2016_nav .nav-wrapper ul li:last-child {
+  margin-right: 0;
+}
+.new-seller-body #seller_2016_nav .nav-wrapper ul li .section-title {
+  color: #212121;
+}
+.new-seller-body #seller_2016_nav .nav-wrapper ul li .section-title a:hover {
+  cursor: pointer;
+}
 .new-seller-body .seller-cross-screen {
   padding-top: 94px;
   padding-bottom: 0;
