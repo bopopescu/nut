@@ -144,8 +144,8 @@ urlpatterns += patterns('',
 # for seller 2015 page and happy new year page
 # this is temp, for single page app only
 #  do not add more url here
-from apps.seller.views.web import SellerView,NewSellerView,ShopsView,OpinionsView,ColumnsView,TopicsView
-from apps.web.views import HappyNYView,FuGuView,MarketView
+from apps.seller.views.web import SellerView, NewSellerView, ShopsView, OpinionsView, ColumnsView, TopicsView
+from apps.web.views import HappyNYView, FuGuView, MarketView
 urlpatterns += patterns('',
             url(r'^store2015/', SellerView.as_view(), name='year_store_2015'),
             url(r'^store2016/', NewSellerView.as_view(), name='year_store_2016'),
