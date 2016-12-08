@@ -50,5 +50,12 @@ class NewSellerView(SellerView):
     template_name = 'web/seller/web_seller_2016.html'
 
 
+class ShopsView(SellerView):
+    template_name = 'web/seller/web_seller_2016_shops.html'
+
+
+
+
+
 
 
