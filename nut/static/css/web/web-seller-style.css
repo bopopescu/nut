@@ -2362,6 +2362,12 @@ ol {
   .new-seller-body #seller_2016_nav .nav-wrapper ul li {
     margin-right: 24px;
   }
+  .new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .column-cell-wrapper .column-cell {
+    padding: 0 9px 18px;
+  }
+  .new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .column-cell-wrapper .column-cell .column-main-content .article-introduce-wrapper .article-title-wrapper {
+    font-size: 18px;
+  }
   .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control {
     padding-top: 37%;
     margin-bottom: 14%;
