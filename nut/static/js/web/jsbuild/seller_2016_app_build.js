@@ -744,9 +744,9 @@ define('subapp/yearseller/header',['jquery','libs/Class','fastdom'], function($,
             return window.innerHeight || document.documentElement.clientHeight;
         },
         handleNavDisplay: function(){
-              if (!this._navEle[0]){
-                return ;
-              }
+              //if (!this._navEle[0]){
+              //  return ;
+              //}
             this._clear();
             this._read = fastdom.read(this.readValues.bind(this));
             this._write = fastdom.write(this.writeChange.bind(this));
