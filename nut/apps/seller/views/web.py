@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView, ListView
 from apps.seller.models import Seller_Profile
-from apps.core.models import Entity, Article , GKUser
+from apps.core.models import Entity, Article, GKUser, Selection_Article
+from apps.tag.models import Tags
 
 
 
@@ -62,8 +63,16 @@ class ColumnsView(SellerView):
     template_name = 'web/seller/web_seller_2016_columns.html'
 
 
-class TopicsView(SellerView):
+class TopicsView(ListView):
     template_name = 'web/seller/web_seller_2016_topics.html'
+    model = Selection_Article
+    context_object_name = 'selection_articles'
+
+    def get_context_data(self, **kwargs):
+        context = super(TopicsView, self).get_context_data(**kwargs)
+        context['top_article_tags'] = Tags.objects.top_article_tags()
+
+        return context
 
 
 
