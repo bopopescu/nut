@@ -1,6 +1,11 @@
 {% load i18n staticfiles %}
 {#{% load notifications_tags %}#}
 {% load common %}
+{% url 'year_store_2016' as store_2016_url %}
+{% url 'year_store_2016_shops' as shops_url %}
+{% url 'year_store_2016_opinions' as opinions_url %}
+{% url 'year_store_2016_topics' as topics_url %}
+{% url 'year_store_2016_columns' as columns_url %}
 
 <header id="seller_2016_nav" role="navigation">
     <div class="container">
@@ -9,19 +14,19 @@
         </div>
         <div class="nav-wrapper">
             <ul>
-                <li>
+                <li {% if store_2016_url == request.path %}class="active"{% endif %}>
                     <a class="section-title" href="{% url 'year_store_2016' %}">Top</a>
                 </li>
-                <li>
+                <li {% if shops_url == request.path %}class="active"{% endif %}>
                     <a class="section-title" href="{% url 'year_store_2016_shops' %}">好店<span class="hidden-xs hidden-sm"> SHOPS</span></a>
                 </li>
-                <li>
+                <li {% if opinions_url == request.path %}class="active"{% endif %}>
                     <a class="section-title" href="{% url 'year_store_2016_opinions' %}">作者<span class="hidden-xs hidden-sm"> OPINIONS</span></a>
                 </li>
-                <li>
+                <li {% if topics_url == request.path %}class="active"{% endif %}>
                     <a class="section-title" href="{% url 'year_store_2016_topics' %}">话题<span class="hidden-xs hidden-sm"> TOPICS</span></a>
                 </li>
-                <li>
+                <li {% if columns_url == request.path %}class="active"{% endif %}>
                     <a class="section-title" href="{% url 'year_store_2016_columns' %}">专栏<span class="hidden-xs hidden-sm"> COLUMNS</span></a>
                 </li>
             </ul>

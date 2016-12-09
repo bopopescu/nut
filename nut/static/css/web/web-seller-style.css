@@ -1814,11 +1814,21 @@ ol {
 .new-seller-body #seller_2016_nav .nav-wrapper ul li:last-child {
   margin-right: 0;
 }
-.new-seller-body #seller_2016_nav .nav-wrapper ul li .section-title {
+.new-seller-body #seller_2016_nav .nav-wrapper ul li.active {
+  -webkit-box-shadow: 0 2px 0 0 #212121;
+  -moz-box-shadow: 0 2px 0 0 #212121;
+  box-shadow: 0 2px 0 0 #212121;
+}
+.new-seller-body #seller_2016_nav .nav-wrapper ul li.active .section-title {
   color: #212121;
 }
-.new-seller-body #seller_2016_nav .nav-wrapper ul li .section-title a:hover {
+.new-seller-body #seller_2016_nav .nav-wrapper ul li .section-title {
+  color: #757575;
+  text-decoration: none;
+}
+.new-seller-body #seller_2016_nav .nav-wrapper ul li .section-title:hover {
   cursor: pointer;
+  color: #212121;
 }
 .new-seller-body .seller-cross-screen {
   padding-top: 94px;
