@@ -75,6 +75,21 @@ class TopicsView(ListView):
         return context
 
 
+class TopicArticlesView(ListView):
+    http_method_names = ['get']
+    template_name = 'web/seller/web_seller_2016_topics.html'
+    model = Selection_Article
+    context_object_name = 'selection_articles'
+
+    def get_context_data(self, **kwargs):
+        context = super(TopicArticlesView, self).get_context_data(**kwargs)
+        context['top_article_tags'] = Tags.objects.top_article_tags()
+
+        return context
+
+
+
+
 
 
 
