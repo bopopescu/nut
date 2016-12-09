@@ -57,22 +57,23 @@
             <div class="col-xs-12 sections-titles-wrapper detach_nav hidden_nav detach">
                 <div class="sections-titles-nav">
                     <ul>
-                        <li>
-                            <a class="section-title" href="#top">Top</a>
+                        {% url 'year_store_2016' as store_2016_url %}
+                        <li {% if store_2016_url == request.path %}class="active"{% endif %}>
+                            <a class="section-title" href="{% url 'year_store_2016' %}">Top</a>
                         </li>
                         <li>
-                            <a class="section-title" href="#shops">好店<span class="hidden-xs">SHOPS</span></a>
+                            <a class="section-title" href="{% url 'year_store_2016_shops' %}" target="_blank">好店<span class="hidden-xs">SHOPS</span></a>
 
                         </li>
                         <li>
-                            <a class="section-title" href="#opinions">作者<span class="hidden-xs">OPINIONS</span></a>
+                            <a class="section-title" href="{% url 'year_store_2016_opinions' %}" target="_blank">作者<span class="hidden-xs">OPINIONS</span></a>
 
                         </li>
                         <li>
-                            <a class="section-title" href="#topics">话题<span class="hidden-xs">TOPICS</span></a>
+                            <a class="section-title" href="{% url 'year_store_2016_topics' %}" target="_blank">话题<span class="hidden-xs">TOPICS</span></a>
                         </li>
                          <li>
-                            <a class="section-title" href="#columns">专栏<span class="hidden-xs">COLUMNS</span></a>
+                            <a class="section-title" href="{% url 'year_store_2016_columns' %}" target="_blank">专栏<span class="hidden-xs">COLUMNS</span></a>
                         </li>
                     </ul>
                 </div>
@@ -81,22 +82,22 @@
             <div class="col-xs-12 sections-titles-wrapper">
                 <div class="sections-titles-nav">
                     <ul>
-                        <li>
-                            <a class="section-title" href="#top">Top</a>
+                        <li {% if store_2016_url == request.path %}class="active"{% endif %}>
+                            <a class="section-title" href="{% url 'year_store_2016' %}">Top</a>
                         </li>
                         <li>
-                            <a class="section-title" href="#shops">好店<span class="hidden-xs">SHOPS</span></a>
+                            <a class="section-title" href="{% url 'year_store_2016_shops' %}" target="_blank">好店<span class="hidden-xs">SHOPS</span></a>
 
                         </li>
                         <li>
-                            <a class="section-title" href="#opinions">作者<span class="hidden-xs">OPINIONS</span></a>
+                            <a class="section-title" href="{% url 'year_store_2016_opinions' %}" target="_blank">作者<span class="hidden-xs">OPINIONS</span></a>
 
                         </li>
                         <li>
-                            <a class="section-title" href="#topics">话题<span class="hidden-xs">TOPICS</span></a>
+                            <a class="section-title" href="{% url 'year_store_2016_topics' %}" target="_blank">话题<span class="hidden-xs">TOPICS</span></a>
                         </li>
                          <li>
-                            <a class="section-title" href="#columns">专栏<span class="hidden-xs">COLUMNS</span></a>
+                            <a class="section-title" href="{% url 'year_store_2016_columns' %}" target="_blank">专栏<span class="hidden-xs">COLUMNS</span></a>
                         </li>
                     </ul>
                 </div>

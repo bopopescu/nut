@@ -588,6 +588,16 @@ ol{
         .sections-titles-nav ul{
           li{
           margin-right:60px;
+            .section-title{
+              text-decoration: none;
+              color:@new-text-gray;
+            }
+            &.active{
+              .box-shadow(0 2px 0 0 rgba(33, 33, 33, 1));
+              .section-title{
+                color:@common-text-color;
+              }
+            }
           }
           li:last-child{
             margin-right:0;

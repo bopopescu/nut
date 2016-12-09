@@ -1840,6 +1840,18 @@ ol {
 .new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li {
   margin-right: 60px;
 }
+.new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li .section-title {
+  text-decoration: none;
+  color: #757575;
+}
+.new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li.active {
+  -webkit-box-shadow: 0 2px 0 0 #212121;
+  -moz-box-shadow: 0 2px 0 0 #212121;
+  box-shadow: 0 2px 0 0 #212121;
+}
+.new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li.active .section-title {
+  color: #212121;
+}
 .new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li:last-child {
   margin-right: 0;
 }
