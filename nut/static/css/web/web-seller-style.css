@@ -2329,7 +2329,8 @@ ol {
     padding: 16px 0;
   }
   .new-seller-body .seller-page-container .sections-item-wrapper .new-sections-item-intro-wrapper {
-    margin: 0;
+    margin-top: 0;
+    margin-bottom: 16px;
   }
   .new-seller-body .seller-page-container .shops-slick-wrapper .slick-list {
     padding-right: 90px;
