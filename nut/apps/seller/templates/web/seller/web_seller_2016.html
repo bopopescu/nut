@@ -268,18 +268,110 @@
 
             <div class="row new-sections-item-intro-wrapper">
                 <div class="col-xs-12 sections-item-title">
-                   <img class="subtitle-pic" src="{% static 'images/year-seller-2016/topics_logo.png' %}">
+                    <img class="subtitle-pic" src="{% static 'images/year-seller-2016/topics_logo.png' %}">
                 </div>
             </div>
 
-
-{#            <div class="row selection-article-container" id="custom_selection_article_list" >#}
+            <div class="row" id="top_article_tags_container">
+                <div class="top-article-tag">
+                    <a href="/articles/">
+                        <div class="tag-element tag-current">
+                            全部
+                        </div>
+                    </a>
+                </div>
+                {% for top_tag in top_article_tags %}
+                    <div class="top-article-tag">
+                        <a href="{% url 'topic_articles_url' top_tag.quoted_tag_name %}">
+                            <div class="tag-element {% if tag.name == top_tag.name %}tag-current{% endif %}">
+                                {{ top_tag.name }}
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row selection-article-container" id="custom_selection_article_list" >
 {#                {% for sla in culture_sellers %}#}
 {#                    {% with sla.article as article %}#}
 {#                        {% include 'web/article/partial/article_item_new.html' %}#}
 {#                    {% endwith %}#}
 {#                {% endfor %}#}
-{#            </div>#}
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
+                <div class="article-panel">
+                    <a class="img-link" href="">
+                        <div class="img-holder" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
+                    </a>
+
+                    <div class="article-info-wrapper">
+                        <div class="article-title">
+                            <a  href="">
+                                了解荞麦面的这些门道，才是真正的日本美食达人
+                            </a>
+                        </div>
+                        <div class="article-intro">
+                            {% autoescape off %}
+                            日本最有代表性的面？看着我们周围日式餐厅的招牌，很多人会不假思索地回答「拉面」。然而对日本人民来说，荞麦面才是最有国民性...
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                    <div class="article-info">
+                 <span class="create-time">
+                     昨天
+                 </span>
+                    </div>
+                </div>
+            </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
+                <div class="article-panel">
+                    <a class="img-link" href="">
+                        <div class="img-holder" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
+                    </a>
+
+                    <div class="article-info-wrapper">
+                        <div class="article-title">
+                            <a  href="">
+                                了解荞麦面的这些门道，才是真正的日本美食达人
+                            </a>
+                        </div>
+                        <div class="article-intro">
+                            {% autoescape off %}
+                            日本最有代表性的面？看着我们周围日式餐厅的招牌，很多人会不假思索地回答「拉面」。然而对日本人民来说，荞麦面才是最有国民性...
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                    <div class="article-info">
+                 <span class="create-time">
+                     昨天
+                 </span>
+                    </div>
+                </div>
+            </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
+                <div class="article-panel">
+                    <a class="img-link" href="">
+                        <div class="img-holder" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
+                    </a>
+
+                    <div class="article-info-wrapper">
+                        <div class="article-title">
+                            <a  href="">
+                                了解荞麦面的这些门道，才是真正的日本美食达人
+                            </a>
+                        </div>
+                        <div class="article-intro">
+                            {% autoescape off %}
+                            日本最有代表性的面？看着我们周围日式餐厅的招牌，很多人会不假思索地回答「拉面」。然而对日本人民来说，荞麦面才是最有国民性...
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                    <div class="article-info">
+                 <span class="create-time">
+                     昨天
+                 </span>
+                    </div>
+                </div>
+            </div>
+            </div>
         </div>
 
         <div class="sections-item-wrapper" id="columns">

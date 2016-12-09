@@ -50,6 +50,12 @@ class SellerView(TemplateView):
 class NewSellerView(SellerView):
     template_name = 'web/seller/web_seller_2016.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(NewSellerView, self).get_context_data(**kwargs)
+        context['top_article_tags'] = Tags.objects.top_article_tags()
+
+        return context
+
 
 class ShopsView(SellerView):
     template_name = 'web/seller/web_seller_2016_shops.html'

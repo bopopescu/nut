@@ -2092,6 +2092,9 @@ ol {
 .new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .more-info-wrapper .time {
   color: #757575;
 }
+.new-seller-body .seller-page-container .sections-item-wrapper #top_article_tags_container {
+  margin-bottom: 40px;
+}
 .new-seller-body .seller-page-container .bottom-info-container {
   padding: 60px 0 90px;
   background-color: #F8F8F8;
@@ -2219,14 +2222,17 @@ ol {
   }
   .seller-page-container .sections-item-wrapper .sections-item-sellers-wrapper {
     width: 1170px;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
   }
   .seller-page-container .sections-item-wrapper .sections-item-sellers-wrapper .sellers-wrapper .sellers-logo {
     max-width: 245px;
   }
   .seller-page-container .popular-shops-wrapper,
   .seller-page-container .opinions-wrapper,
-  .seller-page-container .columns-wrapper {
+  .seller-page-container .columns-wrapper,
+  .seller-page-container #top_article_tags_container,
+  .seller-page-container .selection-article-container {
     max-width: 1170px;
     margin: 0 auto;
   }
