@@ -22,6 +22,7 @@
 
 
 {% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/web/web-seller-style.css' %}">
 {% endblock %}
 {#give body element a more class:seller-body#}
@@ -48,10 +49,32 @@
             </div>
         </div>
     </div>
-    <div class="container seller-page-container">
-
-            topics articles
-
+    <div class="container">
+        <div class="row" id="top_article_tags_container">
+            <div class="top-article-tag">
+                <a href="/articles/">
+                    <div class="tag-element tag-current">
+                        全部
+                    </div>
+                </a>
+            </div>
+            {% for top_tag in top_article_tags %}
+                <div class="top-article-tag">
+                    <a href="{% url 'tag_articles_url' top_tag.quoted_tag_name %}">
+                        <div class="tag-element {% if tag.name == top_tag.name %}tag-current{% endif %}">
+                            {{ top_tag.name }}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row selection-article-container" id="custom_selection_article_list">
+            {% for sla in selection_articles %}
+                {% with sla.article as article %}
+                    {% include 'web/article/partial/article_item_new.html' %}
+                {% endwith %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
 {% block basic_script %}
