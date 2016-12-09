@@ -1836,6 +1836,11 @@ ol {
 }
 .new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper {
   margin-top: 124px;
+  height: 50px;
+  line-height: 50px;
+}
+.new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper.detach {
+  padding: 0;
 }
 .new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li {
   margin-right: 60px;
