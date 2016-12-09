@@ -45,7 +45,7 @@ define(['libs/Class', 'jquery', 'underscore','bootbox'], function(Class,$,_,boot
                 '2': '文艺漫游',
                 '3': '美味佳肴',
                 '4': '生活榜样'
-            }
+            };
 
             this.setupShareTrigger();
             this.setupShareBox();

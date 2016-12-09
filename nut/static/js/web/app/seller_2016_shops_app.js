@@ -2,7 +2,7 @@ require([
         'libs/polyfills',
         'jquery',
         'subapp/yearseller/header',
-        'subapp/yearseller/share',
+        'subapp/yearseller/yearseller_2016/share_2016',
         'cookie',
         'subapp/top_ad/top_ad',
         'utils/browser',
@@ -26,7 +26,4 @@ require([
             $('a.seller-entity-link').attr('href','http://www.guoku.com/download/');
         }
         FastClick.attach(document.body);
-
-        console.log('in year seller 2016 shops app.');
-
     });

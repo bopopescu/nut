@@ -3,7 +3,7 @@ require([
         'jquery',
         'subapp/yearseller/header',
         //'subapp/yearseller/linkscroll',
-        'subapp/yearseller/share',
+        'subapp/yearseller/yearseller_2016/share_2016',
         'subapp/yearseller/shops_slick',
         'subapp/yearseller/columns_slick',
         'subapp/discover/recommend_user_slick',
@@ -39,7 +39,5 @@ require([
             $('a.seller-entity-link').attr('href','http://www.guoku.com/download/');
         }
         FastClick.attach(document.body);
-
-        console.log('in year seller 2016 app');
 
     });
