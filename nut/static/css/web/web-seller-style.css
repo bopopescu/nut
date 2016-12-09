@@ -1849,6 +1849,9 @@ ol {
   text-decoration: none;
   color: #757575;
 }
+.new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li .section-title span {
+  padding: 0;
+}
 .new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li.active {
   -webkit-box-shadow: 0 2px 0 0 #212121;
   -moz-box-shadow: 0 2px 0 0 #212121;
