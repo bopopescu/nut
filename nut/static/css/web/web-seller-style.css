@@ -1841,6 +1841,7 @@ ol {
 }
 .new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper.detach {
   padding: 0;
+  z-index: 1000;
 }
 .new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li {
   margin-right: 60px;
