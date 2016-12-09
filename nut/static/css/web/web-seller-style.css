@@ -2232,7 +2232,7 @@ ol {
   .seller-page-container .opinions-wrapper,
   .seller-page-container .columns-wrapper,
   .seller-page-container #top_article_tags_container,
-  .seller-page-container .selection-article-container {
+  .seller-page-container #new_selection_article_list {
     max-width: 1170px;
     margin: 0 auto;
   }
