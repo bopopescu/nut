@@ -1854,7 +1854,13 @@ ol {
   background-color: rgba(0, 0, 0, 0.1);
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper .sections-item-title {
-  margin-top: 44px;
+  margin-top: 0;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper .sections-item-title .title img {
   width: 310px;
