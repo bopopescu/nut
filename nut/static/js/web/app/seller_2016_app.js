@@ -7,6 +7,7 @@ require([
         'subapp/yearseller/shops_slick',
         'subapp/yearseller/columns_slick',
         'subapp/discover/recommend_user_slick',
+        'subapp/index/category_tab_view',
         'cookie',
         'subapp/top_ad/top_ad',
         'utils/browser',
@@ -20,6 +21,7 @@ require([
              ShopsSlick,
              ColumnsSlick,
              RecommendUserSlick,
+             CategoryTabView,
              cookie,
              TopAd,
              browser,
@@ -33,6 +35,7 @@ require([
         var shopsSlick = new ShopsSlick();
         var columnsSlick = new ColumnsSlick();
         var recommendUserSlick = new RecommendUserSlick();
+        var category_tab_view = new CategoryTabView();
         //var topAd = new TopAd();
         // for weixin  access redirect entity link to  app download
         if (browser.is_weixin()){

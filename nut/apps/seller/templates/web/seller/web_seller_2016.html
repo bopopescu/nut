@@ -273,15 +273,15 @@
             </div>
 
             <div class="row hidden-xs" id="top_article_tags_container">
-                <div class="top-article-tag">
+                <div class="top-article-tag" data-value="all_article">
                     <a href="/articles/">
-                        <div class="tag-element tag-current">
+                        <div class="tag-element">
                             全部
                         </div>
                     </a>
                 </div>
                 {% for top_tag in top_article_tags %}
-                    <div class="top-article-tag">
+                    <div class="top-article-tag" data-value="{{ top_tag.id }}">
                         <a href="{% url 'topic_articles_url' top_tag.quoted_tag_name %}">
                             <div class="tag-element {% if tag.name == top_tag.name %}tag-current{% endif %}">
                                 {{ top_tag.name }}

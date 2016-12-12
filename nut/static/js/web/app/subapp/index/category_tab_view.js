@@ -11,8 +11,7 @@ define(['jquery', 'libs/Class'], function(
             console.log('category tab view begin');
         },
         initHoverCategory:function(){
-            $('#article_category_wrapper .category-list-item').mouseenter(this.handleHoverCategory.bind(this));
-
+            $('#article_category_wrapper .category-list-item, #top_article_tags_container .top-article-tag').mouseenter(this.handleHoverCategory.bind(this));
         },
         handleHoverCategory:function(event){
             var dataValue = $(event.currentTarget).attr('data-value');

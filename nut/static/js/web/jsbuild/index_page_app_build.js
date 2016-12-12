@@ -4455,7 +4455,7 @@ define('subapp/discover/recommend_user_slick',['jquery', 'libs/Class','libs/slic
                     console.log('recommend user slick in discover page begin');
                 },
                 init_slick:function(){
-                    $('.recommend-user-list,.user-panel-container').slick({
+                    $('.recommend-user-list,.user-panel-container,.new-seller-body .opinions-wrapper').slick({
                         arrows: true,
                         slidesToShow: 6,
                         slidesToScroll:4,
@@ -4731,8 +4731,7 @@ define('subapp/index/category_tab_view',['jquery', 'libs/Class'], function(
             console.log('category tab view begin');
         },
         initHoverCategory:function(){
-            $('#article_category_wrapper .category-list-item').mouseenter(this.handleHoverCategory.bind(this));
-
+            $('#article_category_wrapper .category-list-item, #top_article_tags_container .top-article-tag').mouseenter(this.handleHoverCategory.bind(this));
         },
         handleHoverCategory:function(event){
             var dataValue = $(event.currentTarget).attr('data-value');
