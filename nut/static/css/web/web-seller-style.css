@@ -2332,6 +2332,9 @@ ol {
     margin-top: 0;
     margin-bottom: 16px;
   }
+  .new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper {
+    margin-bottom: 0;
+  }
   .new-seller-body .seller-page-container .shops-slick-wrapper .slick-list {
     padding-right: 90px;
   }
