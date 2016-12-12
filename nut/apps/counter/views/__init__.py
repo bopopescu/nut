@@ -1,5 +1,7 @@
 from urlparse import urlparse
 from django.http import HttpResponse
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from django.core.cache import cache
 from braces.views import JSONResponseMixin, AjaxResponseMixin
@@ -11,6 +13,9 @@ from apps.counter.utils.data import RedisCounterMachine, FeedCounterBridge
 log = getLogger('django')
 
 class Counter(JSONResponseMixin, AjaxResponseMixin, View):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(Counter, self).dispatch(request, *args, **kwargs)
 
     def get(self, request):
         # dummy :)
