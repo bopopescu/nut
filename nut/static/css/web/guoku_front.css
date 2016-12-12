@@ -2746,6 +2746,7 @@ a:hover {
   color: #4057A7;
 }
 .top-ad {
+  display: none;
   height: 50px;
   width: 100%;
   background: none;
