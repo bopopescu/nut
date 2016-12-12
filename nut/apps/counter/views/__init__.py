@@ -37,6 +37,9 @@ class Counter(JSONResponseMixin, AjaxResponseMixin, View):
         # path =  urlparse(referer).path
         return RedisCounterMachine.get_counter_key_from_path(path)
 
+    def post(self, request, *args, **kwargs):
+        return self.post_ajax(request, *args, **kwargs)
+
     def post_ajax(self, request, *args, **kwargs):
         counter_key = None
         try:
