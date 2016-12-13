@@ -136,7 +136,7 @@
             <ul class="user-icon-list recommend-user-list">
                 {% for user in recommand_users %}
                     <li>
-                        <a href="{{ user.absolute_url }}" target="_blank">
+                        <a href="{{ user.absolute_url }}" target="_blank" title="{{ user.nickname }}">
                             <div class="img-responsive img-frame img-circle" style="background-image: url({{ user.avatar_url|resize:'128' }});margin-bottom:18px;">
                             </div>
 {#                            <img class="img-responsive img-frame" alt="" style="background-image: url({{ user.avatar_url|resize:'128' }})"/>#}
@@ -153,7 +153,7 @@
             <div class="col-sm-4 col-md-2 guoku-middle-col recommend-user-item">
               <div class="recommend-user-panel">
                   <div class="user-icon-wrapper">
-                      <a href="{{ user.absolute_url }}" target="_blank">
+                      <a href="{{ user.absolute_url }}" target="_blank" title="{{ user.nickname }}">
                           <img class="img-circle" src="{{ user.avatar_url|resize:'128' }}" alt="{{ user.nickname }}"/>
                       </a>
                   </div>
