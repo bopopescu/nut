@@ -49,7 +49,7 @@
     <div class="row" id="category-container">
         {% for category in categories %}
             <div class="col-xs-2 col-sm-1 guoku-middle-col category-item-wrapper">
-                <a href="{% url 'web_category_group' category.id %}" target="_blank">
+                <a href="{% url 'web_category_group' category.id %}" target="_blank" title="{{ category.title_cn }}">
                     <div class="category-item-pic" style="background-image: url('{{ static_url }}images/category-icon/{{ category.id }}.png')">
                     </div>
                     <div class="category-name">
