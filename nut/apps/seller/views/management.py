@@ -19,6 +19,8 @@ from apps.core.models import GKUser
 
 # TODO : seller is a GKUser,
 #        make the connection in UI
+from core.mixins.views import ExtraQueryMixin
+
 
 class SellerForm(ModelForm):
     # seller_user_id = IntegerField(required=False)
@@ -42,6 +44,8 @@ class SellerForm(ModelForm):
         self.fields['business_section'].widget.attrs.update({'class':'form-control'})
         self.fields['gk_stars'].widget.attrs.update({'class':'form-control'})
         self.fields['related_article_url'].widget.attrs.update({'class':'form-control'})
+        # self.fields['is2016store'].widget.attrs.update({'class':'form-control'})
+        # self.fields['is2015store'].widget.attrs.update({'class':'form-control'})
 
     class Meta:
         model = Seller_Profile
@@ -49,7 +53,7 @@ class SellerForm(ModelForm):
                 # 'seller_user_id',\
                   'seller_name','seller_logo_image','seller_category_logo_image',\
                   'shop_title','shop_link', 'shop_desc', 'status', 'business_section',\
-                  'gk_stars', 'related_article_url'
+                  'gk_stars', 'related_article_url', 'is2016store', 'is2015store'
                   ]
 
 
@@ -143,14 +147,26 @@ class SellerCreateView(CreateView):
     template_name = 'management/seller/create.html'
     model = Seller_Profile
 
-class SellerListView(ListView):
+
+class SellerListView(ExtraQueryMixin, ListView):
     paginate_by = 25
     paginator_class = ExtentPaginator
     model = Seller_Profile
     template_name = 'management/seller/list.html'
     context_object_name = 'sellers'
+
+
     def get_queryset(self):
-        return Seller_Profile.objects.all()
+        year = self.request.GET.get('year')
+        if year == '2015':
+            self.extra_query_dic['year'] = 2015
+            return Seller_Profile.objects.filter(is2015store=True)
+        elif year == '2016':
+            self.extra_query_dic['year'] = 2016
+            return Seller_Profile.objects.filter(is2016store=True)
+        else:
+            self.extra_query_dic['year'] = 'all'
+            return Seller_Profile.objects.all()
 
 
 class SellerUpdateView(UpdateView):

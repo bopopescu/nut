@@ -1,5 +1,28 @@
 from django.core.exceptions import ImproperlyConfigured
 
+
+class ExtraQueryMixin(object):
+    def __init__(self, *args, **kwargs):
+        self.extra_query_dic = {}
+        return super(ExtraQueryMixin, self).__init__(*args, **kwargs)
+
+    def get_extra_query(self):
+        if self.extra_query_dic is None:
+            return ''
+
+        qs = ''
+        for key, value in self.extra_query_dic.iteritems():
+            qs = qs + key + '=' + str(value) + '&'
+
+        return qs
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ExtraQueryMixin, self).get_context_data(*args, **kwargs)
+        context['extra_query'] = self.get_extra_query()
+        context['extra_query_dic'] = self.extra_query_dic
+        return context
+
+
 class FilterMixin(object):
     """
     View mixin which provides filtering for ListView.

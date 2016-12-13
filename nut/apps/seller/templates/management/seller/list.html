@@ -21,9 +21,9 @@
                 <div class="box box-info">
                     <div class="box-header">
                         <ul class="nav nav-pills" role="tablist">
-                            <li class="active"><a href="">所有</a></li>
-{#                            <li><a href="">正常卖家</a></li>#}
-{#                            <li><a href="">冻结卖家</a></li>#}
+                            <li class=""><a href="{% url 'management_seller_list' %}?year=all" class="btn btn-success {% if extra_query_dic.year == 'all' %} btn-danger {% endif %}">所有</a></li>
+                            <li><a href="{% url 'management_seller_list' %}?year=2015" class="btn btn-success {% if extra_query_dic.year == 2015 %} btn-danger {% endif %}">2015 卖家</a></li>
+                            <li><a href="{% url 'management_seller_list' %}?year=2016" class="btn btn-success {% if extra_query_dic.year == 2016 %} btn-danger {% endif %}">2016 卖家 </a></li>
                         </ul>
                     </div>
 

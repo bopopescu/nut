@@ -9,8 +9,11 @@ class SellerView(TemplateView):
 
     template_name = 'web/seller/web_seller.html'
 
+    def get_base_sellers(self):
+        return Seller_Profile.objects.seller_2015()
+
     def get_seller_by_business_section(self,section):
-        return Seller_Profile.objects.ordered_profile().filter(business_section=section).select_related('related_article__url')
+        return self.get_base_sellers().ordered_profile().filter(business_section=section).select_related('related_article__url')
 
     def get_seller_entities(self, seller_queryset):
         article_list = Article.objects.filter(related_seller__in=seller_queryset)
@@ -41,7 +44,7 @@ class SellerView(TemplateView):
         context['blank_sellers'] = self.get_seller_by_business_section(Seller_Profile.blank)
         context['blank_entities'] = self.get_seller_section_entities(Seller_Profile.blank)
 
-        context['sellers'] = Seller_Profile.objects.ordered_all_profile()
+        context['sellers'] = self.get_base_sellers().ordered_all_profile()
         context['star_range'] = xrange(5)
 
         return context
@@ -49,6 +52,9 @@ class SellerView(TemplateView):
 
 class NewSellerView(SellerView):
     template_name = 'web/seller/web_seller_2016.html'
+
+    def get_base_sellers(self):
+        return Seller_Profile.objects.seller_2016()
 
     def get_context_data(self, **kwargs):
         context = super(NewSellerView, self).get_context_data(**kwargs)

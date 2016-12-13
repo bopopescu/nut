@@ -8,16 +8,44 @@ from apps.core.models import BaseModel, GKUser, Article
 
 image_host = getattr(settings, 'IMAGE_HOST', None)
 
+class Seller_Profile_Queryset(models.query.QuerySet):
+    def active_seller(self):
+        return self.filter(status=1)
 
-class Seller_Profile_Manager(models.Manager):
+    def seller_2016(self):
+        return self.filter(is2016store=True)
+
+    def seller_2015(self):
+        return self.filter(is2015store=True)
+
     def ordered_profile(self):
         return self.extra(select={'converted_title': 'CONVERT(shop_title USING gbk)'},
                           order_by=['converted_title'])
 
-
     def ordered_all_profile(self):
         return self.extra(select={'converted_title': 'CONVERT(shop_title USING gbk)'},
                           order_by=['-gk_stars','converted_title'])
+
+
+class Seller_Profile_Manager(models.Manager):
+
+    def get_queryset(self):
+        return Seller_Profile_Queryset(self.model, using = self._db)
+
+    def active_seller(self):
+        return self.get_queryset().filter(status=1)
+
+    def seller_2016(self):
+        return self.get_queryset().seller_2016()
+
+    def seller_2015(self):
+        return self.get_queryset().seller_2015()
+
+    def ordered_profile(self):
+        return self.get_queryset().ordered_profile()
+
+    def ordered_all_profile(self):
+        return self.get_queryset().ordered_all_profile()
 
 
 
@@ -56,6 +84,8 @@ class Seller_Profile(BaseModel):
     business_section = models.IntegerField(choices=BUS_SECTION_CHOICE, default=blank)
     gk_stars = models.IntegerField(choices=GKSTAR_CHOICE, default=5)
     related_article = models.OneToOneField(Article, related_name='related_seller',null=True, blank=True)
+    is2016store = models.BooleanField(default=True)
+    is2015store = models.BooleanField(default=True)
 
     objects = Seller_Profile_Manager()
 
@@ -69,6 +99,3 @@ class Seller_Profile(BaseModel):
     @property
     def category_logo_url(self):
         return '%s%s' %(image_host, self.category_logo)
-
-
-
