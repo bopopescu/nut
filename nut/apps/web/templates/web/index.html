@@ -36,10 +36,10 @@
                 {% for banner in banners %}
                     <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}">
                         <a href="{{ banner.link }}" target="_blank">
-                            <div class="banner-image-wrapper" style="background-image: url('{{ banner.image_url|resize:'1024' }}')">
+                            <b class="banner-image-wrapper" style="display:block;background-image: url('{{ banner.image_url|resize:'1024' }}')">
                                  <div class="banner-image-cell-scrim">
                                  </div>
-                            </div>
+                            </b>
                         </a>
                     </div>
                 {% endfor %}
