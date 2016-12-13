@@ -86,7 +86,6 @@ HAYSTACK_CONNECTIONS = {
 }
 # HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
-
 HAYSTACK_CUSTOM_HIGHLIGHTER = 'apps.web.highlighter.MyHighlighter'
 
 MIDDLEWARE_CLASSES = (
@@ -325,6 +324,7 @@ SOGOU_USERS = ('shoemah55@superrito.com',
                'drecur44@superrito.com',
                'paboy1973@superrito.com'
                )
+
 CELERYBEAT_SCHEDULE = {
     'crawl_articles': {
         'task': 'sogou.crawl_articles',

@@ -36,7 +36,9 @@ class APISearchForm(haystackSearchForm):
                 log.info(e.message)
 
         # TODO Articles search result
-        article_list = sqs.models(Article).filter(content=self.cleaned_data['q'], is_selection=True).order_by('-enter_selection_time')
+        article_list = sqs.models(Article).\
+            filter(content=self.cleaned_data['q'], is_selection=True).\
+            order_by('-enter_selection_time')
         articles = list()
         for row in article_list[:10]:
             try:
@@ -47,7 +49,7 @@ class APISearchForm(haystackSearchForm):
                 log.error(e.message)
 
         # TODO Users search result
-        user_list = sqs.models(GKUser).filter(content=self.cleaned_data['q']).order_by('date_joined')
+        user_list = sqs.models(GKUser).filter(content=self.cleaned_data['q']).order_by('-fans_count')
         users = list()
         for row in user_list[:20]:
             try:

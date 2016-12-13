@@ -1,6 +1,13 @@
+
+2. remove da yue cheng pop up 
+1. try to fix counter bug (m.guoku.com article page , post couter fail )
+
+=============================
 3. fix make article slug bug
 2. change topad article link
 1. fix article counter bug 
+
+====================================
 ====================================
 
 4. h5 for da yue cheng  -- lq

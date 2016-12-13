@@ -861,7 +861,7 @@ define("bootstrap", ["jquery"], function(){});
 
 define('subapp/top_ad/top_ad',['libs/Class', 'jquery','cookie'], function(Class, $){
 
-    var  test_url_reg = /zhe-ge-zhou-mo-lai-guo-ku-market-ti-zou-yi-lou-hao/;
+    var  test_url_reg = /142641/;
     var visited_cookie_key = 'pop_up_store_key';
     // here we use a global var isFromMobile, which is bootstraped in base.html (template)
 
@@ -3576,11 +3576,11 @@ define('subapp/article/article_remark',[
                 user_reply_to_url:ajaxDatas['user_reply_to_url'],
                 create_time:ajaxDatas['create_time']
             };
-            if($('#remark-list .remark-list-item-wrapper').length){
-                 $(newRemarkItem(datas)).insertBefore($('#remark-list').children().first());
-            }else{
+            //if($('#remark-list .remark-list-item-wrapper').length){
+            //     $(newRemarkItem(datas)).insertBefore($('#remark-list').children().first());
+            //}else{
                 $('#remark-list').append(newRemarkItem(datas));
-            }
+            //}
         },
         postRemarkSuccess: function(result){
             var status = parseInt(result.status);
