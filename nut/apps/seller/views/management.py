@@ -1,19 +1,21 @@
 import re
 
-from django.views.generic import CreateView, UpdateView, ListView, DeleteView
+from django.views.generic import CreateView, UpdateView, ListView, DeleteView, TemplateView
+from django import forms
 from django.forms import ModelForm, TextInput
 from django.forms.fields import IntegerField,ImageField, URLField
 from django.forms.widgets import TextInput
 from django.core.exceptions import ValidationError, ImproperlyConfigured
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
+from django.utils.translation import ugettext_lazy as _
 
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, InvalidPage
 
 
 from apps.core.models import Article
 from apps.core.utils.image import HandleImage
-from apps.seller.models import Seller_Profile
+from apps.seller.models import Seller_Profile,IndexPageMeta
 from apps.core.models import GKUser
 
 
@@ -176,6 +178,40 @@ class SellerUpdateView(UpdateView):
     model = Seller_Profile
     template_name = 'management/seller/edit.html'
 
+
+
+class Index2016ContentForm(ModelForm):
+    writer_list = forms.CharField(
+        label = _("writer_list"),
+        widget= forms.Textarea()
+    )
+    topic_tag_list = forms.CharField(
+        label= _("topic_tag_list"),
+        widget= forms.Textarea
+    )
+
+    column_article_tag_list = forms.CharField(
+        label= _("topic_tag_list"),
+        widget= forms.Textarea
+    )
+
+    class Meta:
+        model = IndexPageMeta
+        fields = ['writer_list', 'topic_tag_list', 'column_article_tag_list']
+
+
+class Store2016IndexManageView(UpdateView):
+    template_name = 'management/seller/meta_2016.html'
+    form_class = Index2016ContentForm
+    model = IndexPageMeta
+
+    def get_object(self, queryset=None):
+        obj, created = IndexPageMeta.objects.get_or_create(year='2016')
+        return obj
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(Store2016IndexManageView, self).get_context_data(*args, **kwargs)
+        return context
 
 # class SellerDeleteView(DeleteView):
 #     model = Seller_Profile

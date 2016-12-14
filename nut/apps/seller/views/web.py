@@ -4,9 +4,7 @@ from apps.core.models import Entity, Article, GKUser, Selection_Article
 from apps.tag.models import Tags
 
 
-
 class SellerView(TemplateView):
-
     template_name = 'web/seller/web_seller.html'
 
     def get_base_sellers(self):
@@ -50,20 +48,44 @@ class SellerView(TemplateView):
         return context
 
 
-class NewSellerView(SellerView):
+class Base2016SellerView(SellerView):
+    def get_base_sellers(self):
+        return Seller_Profile.objects.seller_2016()
+
+
+class NewSellerView(TemplateView):
     template_name = 'web/seller/web_seller_2016.html'
 
     def get_base_sellers(self):
         return Seller_Profile.objects.seller_2016()
 
     def get_context_data(self, **kwargs):
-        context = super(NewSellerView, self).get_context_data(**kwargs)
+        context = {}
+        context['sellers'] = self.get_top_sellers()
+        context['writers'] = self.get_top_writers()
+        context['opinions_tags'] = self.get_get_opinions_tags()
+        context['opinion_articles'] = self.get_opinions_articles()
+        context['column_articles'] = self.get_column_articles()
         context['top_article_tags'] = Tags.objects.top_article_tags()
-
         return context
 
+    def get_top_sellers(self):
+        return Seller_Profile.objects.random_sellers()
 
-class ShopsView(SellerView):
+    def get_top_writers(self):
+        pass
+
+    def get_get_opinions_tags(self):
+        pass
+
+    def get_column_articles(self):
+        pass
+
+    def get_opinions_articles(self):
+        pass
+
+
+class ShopsView(Base2016SellerView):
     template_name = 'web/seller/web_seller_2016_shops.html'
 
 
@@ -75,7 +97,7 @@ class ColumnsView(SellerView):
     template_name = 'web/seller/web_seller_2016_columns.html'
 
 
-class TopicsView(ListView):
+class TopicsView(SellerView):
     template_name = 'web/seller/web_seller_2016_topics.html'
     model = Selection_Article
     context_object_name = 'selection_articles'

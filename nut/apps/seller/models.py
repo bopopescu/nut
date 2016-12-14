@@ -1,8 +1,15 @@
 # coding=utf-8
 from django.conf import settings
-from django.db import models
+from django.core.cache import cache
+from django.db.models.aggregates import Count
+from random import randint
 
+
+from django.db import models
 from django.utils.translation import ugettext_lazy as _
+
+from apps.core.extend.fields.listfield import ListObjectField
+
 from apps.core.models import BaseModel, GKUser, Article
 
 
@@ -18,6 +25,10 @@ class Seller_Profile_Queryset(models.query.QuerySet):
     def seller_2015(self):
         return self.filter(is2015store=True)
 
+    def random_sellers(self, count=10):
+        #works only on small number records  : < 1000
+        return self.seller_2016().order_by('?')[:count]
+
     def ordered_profile(self):
         return self.extra(select={'converted_title': 'CONVERT(shop_title USING gbk)'},
                           order_by=['converted_title'])
@@ -31,6 +42,17 @@ class Seller_Profile_Manager(models.Manager):
 
     def get_queryset(self):
         return Seller_Profile_Queryset(self.model, using = self._db)
+
+    def random_sellers(self, count=10):
+        key = 'seller_profile:random:%s' % count
+        res = cache.get(key)
+        if res is None:
+            res = self.get_queryset().random_sellers(count=count)
+            cache.set(key, res,  timeout=10)
+            return res
+        else:
+            return res
+
 
     def active_seller(self):
         return self.get_queryset().filter(status=1)
@@ -99,3 +121,10 @@ class Seller_Profile(BaseModel):
     @property
     def category_logo_url(self):
         return '%s%s' %(image_host, self.category_logo)
+
+
+class IndexPageMeta(models.Model):
+    year = models.CharField(max_length=32)
+    writer_list = ListObjectField()
+    topic_tag_list = ListObjectField()
+    column_article_tag_list = ListObjectField()
