@@ -3219,6 +3219,7 @@ body.new-index-body #offline_shop_container li.shop-item .shop-cover {
   padding-bottom: 37%;
 }
 body.new-index-body #offline_shop_container li.shop-item .shop-name {
+  margin: 0;
   max-width: 200px;
   left: 50%;
   top: 50%;
