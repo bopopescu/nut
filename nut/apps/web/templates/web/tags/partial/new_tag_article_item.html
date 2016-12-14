@@ -3,7 +3,7 @@
 
 <div class="hidden-xs col-sm-4 col-md-4 col-lg-4 guoku-middle-col new-selection-article-item new-event-article-item" >
     <div class="article-panel">
-        <a class="img-link" href="{% url 'web_article_page_slug' article.article_slug   %}">
+        <a class="img-link" href="{% url 'web_article_page_slug' article.article_slug   %}" title="{{ article.title|truncatechars:32 }}">
             <div class="img-holder" style="background-image: url({{ article.cover_url|resize:'450' }})"></div>
         </a>
 
