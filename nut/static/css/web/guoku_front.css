@@ -3148,14 +3148,17 @@ body.new-index-body .recommend-user-panel .user-info-wrapper {
   box-shadow: 0px 0px 2px #ddd;
 }
 body.new-index-body .recommend-user-panel .user-info-wrapper .user-name {
-  display: block;
+  margin: 0;
+  font-weight: normal;
   font-size: 20px;
   line-height: 24px;
-  color: #212121;
-  text-decoration: none;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+body.new-index-body .recommend-user-panel .user-info-wrapper .user-name a {
+  color: #212121;
+  text-decoration: none;
 }
 body.new-index-body .recommend-user-panel .user-info-wrapper .user-intro {
   width: 100%;

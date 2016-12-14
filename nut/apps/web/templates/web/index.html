@@ -141,7 +141,7 @@
                             </div>
 {#                            <img class="img-responsive img-frame" alt="" style="background-image: url({{ user.avatar_url|resize:'128' }})"/>#}
 {#                            <img class="img-responsive img-circle" src="{{ user.avatar_url|resize:'128' }}" alt="{{ user.nickname }}"/>#}
-                            <span class="user-name">{{ user.nickname }}</span>
+                            <h3 class="user-name">{{ user.nickname }}</h3>
                         </a>
                     </li>
                 {% endfor %}
@@ -158,15 +158,17 @@
                       </a>
                   </div>
                   <div class="user-info-wrapper">
-                    <a class="user-name" href="{{ user.absolute_url }}" target="_blank">
-                        {{ user.nickname }}
-                    </a>
+                      <h3 class="user-name">
+                          <a href="{{ user.absolute_url }}" target="_blank">
+                              {{ user.nickname }}
+                          </a>
+                      </h3>
                       <p class="user-intro">{{ user.profile.bio|truncatechars:'50' }}</p>
                       <div class="action-wrapper">
                           {% if user.is_blocked %}
                           <a  class="guoku-button button-disabled" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
                           {% elif user == request.user %}
-                          <a class="guoku-button new-guoku-button button-blue newest-button-blue" href="{% url 'web_user_settings' %}">
+                          <a class="guoku-button new-guoku-button button-blue newest-button-blue" rel="nofollow" href="{% url 'web_user_settings' %}">
                               <i class="fa fa-cog fa-lg"></i>&nbsp;{% trans _('Edit Profile') %}</a>
                           {% elif request.user.id in user.concren %}
                           <a class="follow guoku-button new-guoku-button btn-cancel new-btn-cancel" rel="nofollow" data-status="1" data-user-id="{{ user.id }}" href="javascript:;"><i class="fa fa-exchange fa-lg"></i>&nbsp; {% trans 'Unfollow' %}</a>

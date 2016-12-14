@@ -110,12 +110,16 @@ body.new-index-body{
       padding:36px 10px 16px 10px;
       .box-shadow(@panel-shaddow);
       .user-name{
-        display: block;
+        margin:0;
+        font-weight:normal;
+        //display: block;
         font-size:20px;
         line-height:24px;
-        color:@common-text-color;
-        text-decoration: none;
         .single-text-overflow;
+        a{
+           color:@common-text-color;
+           text-decoration: none;
+        }
       }
       .user-intro{
         width:100%;
