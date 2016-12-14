@@ -3277,12 +3277,13 @@ body.new-index-body .new-section-title-wrapper {
   margin-bottom: 16px;
   line-height: 1.3;
 }
-body.new-index-body .new-section-title-wrapper .section-title {
+body.new-index-body .new-section-title-wrapper h2.section-title {
+  margin: 0;
   font-size: 20px;
   line-height: 22px;
   font-weight: 500;
 }
-body.new-index-body .new-section-title-wrapper .section-title a {
+body.new-index-body .new-section-title-wrapper h2.section-title a {
   color: #212121;
   text-decoration: none;
 }
