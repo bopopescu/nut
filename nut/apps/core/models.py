@@ -1562,7 +1562,12 @@ class Article(BaseModel):
     def __unicode__(self):
         return self.title
 
-    # deprecated
+    def read_count_realtime(self):
+        articl_id_path = reverse('web_article_page', args=[self.pk])
+        # counter_key =  RedisCounterMachine.get_counter_key_from_path(articl_id_path)
+        # return RedisCounterMachine.get_key(counter_key)
+        pass
+
     def make_slug(self):
         slug = slugify(self.title, max_length=50, word_boundary=True)
         new_slug = slug
@@ -1570,13 +1575,13 @@ class Article(BaseModel):
         while True:
             try:
                 article = Article.objects.get(article_slug=new_slug)
+                if article.id == self.id:
+                    return article.article_slug
             except Article.MultipleObjectsReturned:
                 pass
             except Article.DoesNotExist:
                 return new_slug
 
-            if article.id == self.id:
-                return article.article_slug
             # print('*' * 80)
             # print('slug found' + str(self.id))
             number += 1

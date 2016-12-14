@@ -227,7 +227,7 @@ class RedisCounterMachine(object):
         try:
             res = r_server.get_many(hashed_keys)
             # return res
-        except :
+        except:
             raise CounterException('can not mget keys ')
         finally:
             return res

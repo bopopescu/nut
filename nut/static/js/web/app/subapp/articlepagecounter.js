@@ -7,7 +7,11 @@ define(['jquery', 'libs/Class'], function(jQuery, Class){
 
     var ArticleCounter = Class.extend({
         init: function(){
-            jQuery.when(jQuery.ajax({url:counterUrl}))
+            jQuery.when(jQuery.ajax({
+                method: 'POST',
+                url:counterUrl,
+                data:{counter_path: window.counter_path,}
+            }))
                   .then(
                         this.sendSuccess.bind(this),
                         this.sendFail.bind(this)

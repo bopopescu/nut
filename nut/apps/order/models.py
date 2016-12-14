@@ -228,6 +228,13 @@ class Order(BaseModel):
         return AliPayPayment(order=self).payment_url
 
     @property
+    def payment_source_digital(self):
+        if self.payments.count():
+            return self.payments.all()[0].payment_source
+        else:
+            return None
+
+    @property
     def payment_source(self):
         if not self.is_paid:
             return None
