@@ -220,22 +220,23 @@
                 {% for banner in middle_banners %}
                     <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}">
                         <a href="{{ banner.link }}" target="_blank" title="{{ banner.banner_title }}">
-                            <div class="banner-image-wrapper" style="background-image: url('{{ banner.image_url|resize:'1024' }}')">
+                            <strong class="banner-image-wrapper" style="display:block;background-image: url('{{ banner.image_url|resize:'1024' }}')">
                                 <div class="banner-image-cell-scrim">
 
                                 </div>
-                            </div>
+                            </strong>
 
                             <div class="article-intro-wrapper">
                                 <div class="article-title-wrapper">
-                                    <a class="article-title" href="{{ banner.link }}" target="_blank">
-                                        {{ banner.banner_title }}
-                                    </a>
-                                    <div class="article-desc">
+                                    <h2 class="article-title">
+                                        <a href="{{ banner.link }}" target="_blank">
+                                            {{ banner.banner_title }}
+                                        </a>
+                                    </h2>
+                                    <p class="article-desc">
                                         {{ banner.banner_desc }}
-                                    </div>
+                                    </p>
                                 </div>
-
                             </div>
                         </a>
                     </div>

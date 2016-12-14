@@ -1435,7 +1435,7 @@ a.new-black-link:hover {
     padding-left: 0;
     padding-right: 0;
   }
-  body.new-index-body .new-banner-wrapper .article-intro-wrapper .article-title-wrapper a.article-title {
+  body.new-index-body .new-banner-wrapper .article-intro-wrapper .article-title-wrapper .article-title {
     font-size: 18px;
   }
   body.new-index-body .offline-shop-title-swrapper {
