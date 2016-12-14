@@ -1,3 +1,4 @@
+2. add IndexMeta2016 model for index content management 
 1. add is2016store and is2015store to Seller_Profile
 
 ALTER TABLE `core`.`seller_seller_profile` 
@@ -5,6 +6,11 @@ ADD COLUMN `is2016store` TINYINT(1) NOT NULL DEFAULT 1 AFTER `related_article_id
 
 ALTER TABLE `core`.`seller_seller_profile` 
 ADD COLUMN `is2015store` TINYINT(1) NOT NULL DEFAULT 1 AFTER `is2016store`;
+
+NEED SYNCDB
+
+add model IndexMeta2016 in seller app
+
 
 
 =========================

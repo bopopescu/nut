@@ -1,0 +1,70 @@
+{% extends 'management/management_base.html' %}
+{% load i18n staticfiles %}
+{% load guoku %}
+{% block content %}
+
+ <section class="content-header">
+        <h1>
+            2016 Store Index Index management
+            <small>2016</small>
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+            <li class="active">2016 Store Index</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                <div class="box box-info">
+                    <div class="box-header">
+                        作者
+                    </div>
+
+                    <div class="box-body table-responsive writer-body">
+                        {{ form.writer_list }}
+                    </div>
+
+                    <div class="box-footer">
+                        <a class="btn btn-success" id="update_writer">更新</a>
+                    </div>
+                </div>
+                 <div class="box box-info">
+                    <div class="box-header">
+                        话题标签
+                    </div>
+
+                    <div class="box-body table-responsive topic-body">
+                        {{ form.topic_tag_list }}
+                    </div>
+
+                    <div class="box-footer">
+                       <a class="btn btn-success" id="update_topic">更新</a>
+                    </div>
+                </div>
+                <div class="box box-info">
+                    <div class="box-header">
+                        专栏文章 标签
+                    </div>
+
+                    <div class="box-body table-responsive column-body">
+                        {{ form.column_article_tag_list }}
+                    </div>
+
+                    <div class="box-footer">
+                       <a class="btn btn-success" id="update_column">更新</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block user_script %}
+<script language="javascript" src="{% static 'js/management/seller/store2016manage.js' %}"></script>
+{% endblock %}
