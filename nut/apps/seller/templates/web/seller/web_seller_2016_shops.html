@@ -65,7 +65,6 @@
             </div>
         </div>
          <div class="sections-item-wrapper" id="delicacy">
-
             <div class="row sections-item-intro-wrapper">
 
                 <div class="section-intro-bg-layer" style="background-image: url({% static 'images/year-seller/delicacy.jpg' %})">
@@ -82,34 +81,14 @@
                 </div>
 
             </div>
-
-            <div class="row sections-item-goods-wrapper">
-
-                <div class="col-xs-12 goods-container">
-                    <ul>
-
-                        {% with section_entities=food_entities %}
-                            {% include 'web/seller/partial/section_entity_item.html' %}
-                        {% endwith %}
-
-                        {# TODO : put all entity in js for random display #}
-                 </ul>
-
-
-                </div>
-
-            </div>
-
             <div class="row sections-item-sellers-wrapper">
                 {% with section_sellers=food_sellers  %}
                     {% include 'web/seller/partial/section_seller_item.html' %}
                 {% endwith  %}
-
             </div>
         </div>
 
         <div class="sections-item-wrapper" id="culture">
-
             <div class="row sections-item-intro-wrapper">
 
                 <div class="section-intro-bg-layer" style="background-image: url({% static 'images/year-seller/culture.jpg' %})">
@@ -125,18 +104,6 @@
                     </p>
                   </div>
             </div>
-
-            <div class="row sections-item-goods-wrapper">
-                <div class="col-xs-12 goods-wrapper">
-                    <div class="goods-container">
-                        <ul>
-                            {% with section_entities=culture_entities %}
-                                {% include 'web/seller/partial/section_entity_item.html' %}
-                            {% endwith %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
             <div class="row sections-item-sellers-wrapper">
                 {% with section_sellers=culture_sellers  %}
                     {% include 'web/seller/partial/section_seller_item.html' %}
@@ -145,7 +112,6 @@
         </div>
 
         <div class="sections-item-wrapper" id="looks">
-
             <div class="row sections-item-intro-wrapper">
 
                 <div class="section-intro-bg-layer" style="background-image: url({% static 'images/year-seller/looks.jpg' %})">
@@ -162,18 +128,6 @@
                 </div>
 
             </div>
-
-            <div class="row sections-item-goods-wrapper">
-                <div class="col-xs-12 goods-wrapper">
-                    <div class="goods-container">
-                        <ul>
-                            {% with section_entities=cloth_entities %}
-                                {% include 'web/seller/partial/section_entity_item.html' %}
-                            {% endwith %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
             <div class="row sections-item-sellers-wrapper">
                 {% with section_sellers=cloth_sellers  %}
                     {% include 'web/seller/partial/section_seller_item.html' %}
@@ -182,7 +136,6 @@
         </div>
 
         <div class="sections-item-wrapper" id="life">
-
             <div class="row sections-item-intro-wrapper">
 
                 <div class="section-intro-bg-layer" style="background-image: url({% static 'images/year-seller/lifestyle.jpg' %})">
@@ -199,19 +152,6 @@
                 </div>
 
             </div>
-
-            <div class="row sections-item-goods-wrapper">
-                <div class="col-xs-12 goods-wrapper">
-                    <div class="goods-container">
-                        <ul>
-                            {% with section_entities=life_entities %}
-                                {% include 'web/seller/partial/section_entity_item.html' %}
-                            {% endwith %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
             <div class="row sections-item-sellers-wrapper">
                 {% with section_sellers=life_sellers  %}
                     {% include 'web/seller/partial/section_seller_item.html' %}
