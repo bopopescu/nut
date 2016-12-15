@@ -1994,11 +1994,8 @@ ol {
 .new-seller-body .seller-page-container .sections-item-wrapper .shops-slick-wrapper {
   margin-top: 40px;
 }
-.new-seller-body .seller-page-container .sections-item-wrapper .shops-slick-wrapper .sellers-wrapper .score ol li i {
-  color: #9D9E9F;
-}
 .new-seller-body .seller-page-container .sections-item-wrapper .shops-slick-wrapper .sellers-wrapper .sellers-share ul li a i {
-  color: #D8D8D8;
+  color: #9D9E9F;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .opinion-cell {
   padding-top: 24px;
