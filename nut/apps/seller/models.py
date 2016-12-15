@@ -95,7 +95,7 @@ class Seller_Profile(BaseModel):
                 (5, "5星"),
             ]
 
-    user = models.OneToOneField(GKUser, related_name='seller_profile', null=True)
+    user = models.ForeignKey(GKUser, related_name='seller_profile', null=True)
     shop_title = models.CharField(max_length=255, db_index=True)
     shop_link = models.URLField(max_length=255)
     seller_name = models.CharField(max_length=255, db_index=True)
@@ -105,7 +105,7 @@ class Seller_Profile(BaseModel):
     category_logo = models.CharField(max_length=255, blank=True)
     business_section = models.IntegerField(choices=BUS_SECTION_CHOICE, default=blank)
     gk_stars = models.IntegerField(choices=GKSTAR_CHOICE, default=5)
-    related_article = models.OneToOneField(Article, related_name='related_seller',null=True, blank=True)
+    related_article = models.ForeignKey(Article, related_name='related_seller',null=True, blank=True)
     is2016store = models.BooleanField(default=True)
     is2015store = models.BooleanField(default=True)
 

@@ -9,6 +9,13 @@ ADD COLUMN `is2015store` TINYINT(1) NOT NULL DEFAULT 1 AFTER `is2016store`;
 
 NEED SYNCDB
 
+=== remove user_id and related_article_id index 
+
+ALTER TABLE `core`.`seller_seller_profile` 
+DROP INDEX `related_article_id` ,
+DROP INDEX `user_id` ;
+
+
 add model IndexMeta2016 in seller app
 
 
