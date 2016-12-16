@@ -1871,7 +1871,17 @@ ol {
   height: 200px;
   margin-bottom: 0;
 }
+.new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper #index_shops_bg_wrapper {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper #index_shops_bg_wrapper .slick-prev:before,
+.new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper #index_shops_bg_wrapper .slick-next:before {
+  display: none;
+}
 .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper .section-intro-bg-layer {
+  height: 200px;
   background-size: cover;
   background-position: center;
 }
