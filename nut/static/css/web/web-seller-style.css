@@ -1911,6 +1911,15 @@ ol {
   width: 100%;
   max-width: 780px;
 }
+.new-seller-body .seller-page-container .sections-item-wrapper .new-sections-item-intro-wrapper img.subtitle-pic.see-all-visible {
+  display: none;
+}
+.new-seller-body .seller-page-container .sections-item-wrapper .new-sections-item-intro-wrapper .sections-item-title:hover img.subtitle-pic.hidden-subtitle {
+  display: none;
+}
+.new-seller-body .seller-page-container .sections-item-wrapper .new-sections-item-intro-wrapper .sections-item-title:hover img.subtitle-pic.see-all-visible {
+  display: inline-block;
+}
 .new-seller-body .seller-page-container .sections-item-wrapper .shops-intro-wrapper {
   background-color: #F8F8F8;
 }

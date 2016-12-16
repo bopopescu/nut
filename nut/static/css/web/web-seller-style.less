@@ -654,7 +654,20 @@ ol{
           img.subtitle-pic{
             width:100%;
             max-width:780px;
+            &.see-all-visible{
+              display: none;
+            }
           }
+        .sections-item-title:hover{
+          img.subtitle-pic{
+            &.hidden-subtitle{
+              display: none;
+            }
+            &.see-all-visible{
+              display: inline-block;
+            }
+          }
+        }
       }
       .shops-intro-wrapper{
         background-color: @very-light-gray;
