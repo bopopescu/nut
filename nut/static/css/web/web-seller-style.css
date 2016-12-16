@@ -1880,10 +1880,20 @@ ol {
 .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper #index_shops_bg_wrapper .slick-next:before {
   display: none;
 }
-.new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper .section-intro-bg-layer {
+.new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper #index_shops_bg_wrapper .shops-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 140%;
   height: 200px;
-  background-size: cover;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
   background-position: center;
+  background-size: 150%;
+  background-repeat: no-repeat;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper .dark-bg-layer {
   position: absolute;

@@ -1,7 +1,7 @@
 require([
         'libs/polyfills',
         'jquery',
-        //'subapp/yearseller/header',
+        'subapp/yearseller/header',
         'subapp/yearseller/yearseller_2016/index_bg_slick',
         //'subapp/yearseller/linkscroll',
         'subapp/yearseller/yearseller_2016/share_2016',
@@ -16,7 +16,7 @@ require([
     ],
     function(polyfill,
              $,
-             //YearSellerHeader,
+             YearSellerHeader,
              IndexBgSlick,
              //AnchorScroller,
              ShareHanlder,
@@ -31,7 +31,7 @@ require([
 
     ){
 
-        //var sellerHeader = new YearSellerHeader();
+        var sellerHeader = new YearSellerHeader();
         var indexBgSlick = new IndexBgSlick();
         //var anchorScroller = new AnchorScroller('.sections-titles-wrapper li a');
         var shareHandler = new ShareHanlder();
