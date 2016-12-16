@@ -26,7 +26,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick-theme.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/web/web-seller-style.css' %}">
 {% endblock %}
-{#give body element a more class:seller-body#}
+
 {% block body_class %} gray-body seller-body new-seller-body {% endblock %}
 
 {% block weixin_share_img %}
@@ -37,13 +37,10 @@
 
 {% endblock %}
 
-{#    remove the header from the base template#}
 {% block header %}
-
 {% endblock %}
 
 {% block content %}
-    {#big banner#}
     <div id="top" class="seller-cross-screen" style="background-image: url({% static 'images/year-seller-2016/banner_bg.png' %})">
         <div class="row seller-banner-wrapper">
             <div class="col-xs-12 banner-bgpic-wrapper">
@@ -105,7 +102,6 @@
         </div>
     </div>
 
-    {#    fixed share sidebar#}
     <div class="seller-sidebar-wrapper seller-sidebar-hidden">
         <div class="seller-sidebar">
             <ul>
@@ -129,10 +125,6 @@
             </ul>
         </div>
     </div>
-
-    {#    fixed share sidebar end --- #}
-
-    {#    main-content#}
 
     <div class="container seller-page-container">
 
