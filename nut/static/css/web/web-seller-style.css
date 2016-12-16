@@ -2020,11 +2020,9 @@ ol {
   box-shadow: none!important;
   outline: none;
 }
-.new-seller-body .seller-page-container .sections-item-wrapper .shops-slick-wrapper {
+.new-seller-body .seller-page-container .sections-item-wrapper .shops-slick-wrapper,
+.new-seller-body .seller-page-container .sections-item-wrapper .shops-wrapper {
   margin-top: 40px;
-}
-.new-seller-body .seller-page-container .sections-item-wrapper .shops-slick-wrapper .sellers-wrapper .sellers-share ul li a i {
-  color: #9D9E9F;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .opinion-cell {
   padding-top: 24px;

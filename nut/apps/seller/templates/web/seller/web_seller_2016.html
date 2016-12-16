@@ -163,11 +163,15 @@
                 </div>
             </div>
 
-            <div class="row sections-item-sellers-wrapper shops-slick-wrapper">
+            <div class="row sections-item-sellers-wrapper shops-slick-wrapper hidden-xs">
                 {% with section_sellers=sellers  %}
                     {% include 'web/seller/partial/new_section_seller_item.html' %}
                 {% endwith  %}
-
+            </div>
+            <div class="row sections-item-sellers-wrapper shops-wrapper hidden-sm hidden-md hidden-lg">
+                {% with section_sellers=sellers  %}
+                    {% include 'web/seller/partial/new_section_seller_item.html' %}
+                {% endwith  %}
             </div>
         </div>
 
