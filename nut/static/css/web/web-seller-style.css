@@ -1554,8 +1554,8 @@ ol {
 }
 .seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper .section-intro-bg-layer {
   position: absolute;
-  left: 0px;
-  top: 0px;
+  left: 0;
+  top: 0;
   width: 140%;
   height: 200%;
   backface-visibility: hidden;
