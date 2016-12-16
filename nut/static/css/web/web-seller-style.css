@@ -1892,7 +1892,7 @@ ol {
   -ms-transform: translate3d(0, 0, 0);
   -o-transform: translate3d(0, 0, 0);
   background-position: center;
-  background-size: 150%;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper .dark-bg-layer {
