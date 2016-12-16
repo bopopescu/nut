@@ -3846,7 +3846,7 @@ define('subapp/yearseller/columns_slick',['jquery', 'libs/Class','libs/slick','f
                     console.log('columns slick begin');
                 },
                 init_slick:function(){
-                    $('#columns .columns-wrapper').slick({
+                    $('#columns .columns-wrapper.hidden-xs').slick({
                         arrows: true,
                         slidesToShow: 1,
                         slidesToScroll:1,
