@@ -426,7 +426,6 @@
         <div class="sections-item-wrapper" id="columns">
 
             <div class="row new-sections-item-intro-wrapper">
-
                 <div class="col-xs-12 sections-item-title">
                     <a href="{% url 'year_store_2016_columns' %}" target="_blank">
                         <img class="subtitle-pic hidden-subtitle" src="{% static 'images/year-seller-2016/columns_logo.png' %}">
@@ -439,11 +438,82 @@
                  {% include "web/seller/partial/seller_2016_column_item.html" %}
                  {% include "web/seller/partial/seller_2016_column_item.html" %}
             </div>
-            <div class="row columns-wrapper hidden-sm hidden-md hidden-lg">
-                 {% include "web/seller/partial/seller_2016_column_item.html" %}
-                 {% include "web/seller/partial/seller_2016_column_item.html" %}
-                 {% include "web/seller/partial/seller_2016_column_item.html" %}
-            </div>
+            <div class="row selection-article-container hidden-sm hidden-md hidden-lg" id="custom_selection_article_list">
+{#                {% for sla in selection_articles %}#}
+{#                    {% with sla.article as article %}#}
+{#                        {% include 'web/article/partial/article_item_new.html' %}#}
+{#                    {% endwith %}#}
+{#                {% endfor %}#}
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
+                    <div class="article-panel">
+                        <a class="img-link" href="">
+                            <div class="img-holder" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
+                        </a>
+
+                        <div class="article-info-wrapper">
+                            <div class="article-title">
+                                <a  href="">
+                                    日本最好的企业文化志《花椿》遗憾停刊
+                                </a>
+                            </div>
+                            <div class="article-intro">
+                                 面世将近 80 个年头的资生堂内刊《花椿》，最近宣布将在 2016 年停止纸本出版，转而将重心移至网络平台上。那些习惯在每月 5 日前往资生堂门店免费索取当...
+                            </div>
+                        </div>
+                        <div class="article-info">
+                 <span class="create-time">
+                     1小时前
+                 </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
+                    <div class="article-panel">
+                        <a class="img-link" href="">
+                            <div class="img-holder" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
+                        </a>
+
+                        <div class="article-info-wrapper">
+                            <div class="article-title">
+                                <a  href="">
+                                    日本最好的企业文化志《花椿》遗憾停刊
+                                </a>
+                            </div>
+                            <div class="article-intro">
+                                 面世将近 80 个年头的资生堂内刊《花椿》，最近宣布将在 2016 年停止纸本出版，转而将重心移至网络平台上。那些习惯在每月 5 日前往资生堂门店免费索取当...
+                            </div>
+                        </div>
+                        <div class="article-info">
+                 <span class="create-time">
+                     1小时前
+                 </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
+                    <div class="article-panel">
+                        <a class="img-link" href="">
+                            <div class="img-holder" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
+                        </a>
+
+                        <div class="article-info-wrapper">
+                            <div class="article-title">
+                                <a  href="">
+                                    日本最好的企业文化志《花椿》遗憾停刊
+                                </a>
+                            </div>
+                            <div class="article-intro">
+                                 面世将近 80 个年头的资生堂内刊《花椿》，最近宣布将在 2016 年停止纸本出版，转而将重心移至网络平台上。那些习惯在每月 5 日前往资生堂门店免费索取当...
+                            </div>
+                        </div>
+                        <div class="article-info">
+                 <span class="create-time">
+                     1小时前
+                 </span>
+                        </div>
+                    </div>
+                </div>
+        </div>
         </div>
 
         <div class="row bottom-info-container">
