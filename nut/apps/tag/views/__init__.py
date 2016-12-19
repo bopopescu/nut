@@ -5,6 +5,7 @@ import urllib
 from datetime import datetime
 from django.http import Http404
 from django.db.models import Count
+from django.utils.encoding import smart_str
 from django.utils.log import getLogger
 from django.views.generic import ListView
 from django.shortcuts import get_object_or_404
@@ -222,7 +223,8 @@ class ArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
     def get_tag_name(self):
         tag_name = self.kwargs.pop('tag_name', None)
         # return urllib.unquote(str(tag_name))
-        return urllib.unquote(str(tag_name)).decode('utf-8')
+        return urllib.unquote(smart_str(tag_name))
+        # return urllib.unquote(str(tag_name)).decode('utf-8')
 
     def get_refresh_time(self):
         refresh_time = self.request.GET \

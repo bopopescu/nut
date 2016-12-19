@@ -21,7 +21,7 @@ from apps.core.models import GKUser
 
 # TODO : seller is a GKUser,
 #        make the connection in UI
-from core.mixins.views import ExtraQueryMixin
+from apps.core.mixins.views import ExtraQueryMixin
 
 
 class SellerForm(ModelForm):
