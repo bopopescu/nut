@@ -54,9 +54,7 @@ class TaobaoOpenIsvUID():
 
         try:
             resp = self.req.getResponse()
-            # print resp
         except Exception, e:
-            print e
             raise
 
         if (resp.has_key('opensecurity_isv_uid_get_response')):
