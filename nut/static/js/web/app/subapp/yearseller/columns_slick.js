@@ -8,7 +8,7 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                     console.log('columns slick begin');
                 },
                 init_slick:function(){
-                    $('#columns .columns-wrapper').slick({
+                    $('#columns .columns-wrapper.hidden-xs').slick({
                         arrows: true,
                         slidesToShow: 1,
                         slidesToScroll:1,

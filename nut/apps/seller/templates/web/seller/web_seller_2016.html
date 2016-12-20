@@ -26,7 +26,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick-theme.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/web/web-seller-style.css' %}">
 {% endblock %}
-{#give body element a more class:seller-body#}
+
 {% block body_class %} gray-body seller-body new-seller-body {% endblock %}
 
 {% block weixin_share_img %}
@@ -37,17 +37,14 @@
 
 {% endblock %}
 
-{#    remove the header from the base template#}
 {% block header %}
-
 {% endblock %}
 
 {% block content %}
-    {#big banner#}
     <div id="top" class="seller-cross-screen" style="background-image: url({% static 'images/year-seller-2016/banner_bg.png' %})">
         <div class="row seller-banner-wrapper">
             <div class="col-xs-12 banner-bgpic-wrapper">
-                <img src="{% static 'images/year-seller-2016/banner_title.png' %}" class="img-responsive img-control">
+                <img src="{% static 'images/year-seller-2016/banner_title.png' %}" class="img-responsive img-control" title="果库2016年度消费报告" alt="果库2016年度消费报告">
             </div>
 
 {#            <div class="col-xs-12 share-btn-wrapper">#}
@@ -105,7 +102,6 @@
         </div>
     </div>
 
-    {#    fixed share sidebar#}
     <div class="seller-sidebar-wrapper seller-sidebar-hidden">
         <div class="seller-sidebar">
             <ul>
@@ -130,25 +126,28 @@
         </div>
     </div>
 
-    {#    fixed share sidebar end --- #}
-
-    {#    main-content#}
-
     <div class="container seller-page-container">
 
         <div class="sections-item-wrapper" id="shops">
             <div class="row sections-item-intro-wrapper shops-section-bg-wrapper">
-
-                <div class="section-intro-bg-layer" style="background-image: url({% static 'images/year-seller-2016/shops_section_bg.jpg' %})">
+                <div id="index_shops_bg_wrapper">
+                    <div class="shops-bg" style="background-image: url({% static 'images/year-seller-2016/shops_section_bg_1.jpg' %})">
+                    </div>
+                    <div class="shops-bg" style="background-image: url({% static 'images/year-seller-2016/shops_section_bg_2.jpg' %})">
+                    </div>
+                    <div class="shops-bg" style="background-image: url({% static 'images/year-seller-2016/shops_section_bg_3.jpg' %})">
+                    </div>
+                    <div class="shops-bg" style="background-image: url({% static 'images/year-seller-2016/shops_section_bg_4.jpg' %})">
+                    </div>
                 </div>
                 <div class="dark-bg-layer"></div>
                 <div class="col-xs-12 sections-item-title">
                     <div class="title">
-                        <img src="{% static 'images/year-seller-2016/shops_logo.png' %}">
+                        <img src="{% static 'images/year-seller-2016/shops_logo.png' %}" title="果库 2016 最受欢迎淘宝店铺" alt="果库 2016 最受欢迎淘宝店铺">
                     </div>
                     <div class="see-all">
-                        <a href="" target="_blank">
-                            <img src="{% static 'images/year-seller-2016/see_all_rect.png' %}">
+                        <a href="{% url 'year_store_2016_shops' %}" target="_blank">
+                            <img src="{% static 'images/year-seller-2016/see_all_rect.png' %}" title="果库 2016 最受欢迎淘宝店铺 100 家" alt="果库 2016 最受欢迎淘宝店铺 100 家">
                         </a>
                     </div>
                 </div>
@@ -164,11 +163,15 @@
                 </div>
             </div>
 
-            <div class="row sections-item-sellers-wrapper shops-slick-wrapper">
-                {% with section_sellers=food_sellers  %}
-                    {% include 'web/seller/partial/section_seller_item.html' %}
+            <div class="row sections-item-sellers-wrapper shops-slick-wrapper hidden-xs">
+                {% with section_sellers=sellers  %}
+                    {% include 'web/seller/partial/new_section_seller_item.html' %}
                 {% endwith  %}
-
+            </div>
+            <div class="row sections-item-sellers-wrapper shops-wrapper hidden-sm hidden-md hidden-lg">
+                {% with section_sellers=sellers  %}
+                    {% include 'web/seller/partial/new_section_seller_item.html' %}
+                {% endwith  %}
             </div>
         </div>
 
@@ -176,7 +179,10 @@
 
             <div class="row new-sections-item-intro-wrapper">
                 <div class="col-xs-12 sections-item-title">
-                    <img class="subtitle-pic" src="{% static 'images/year-seller-2016/opinions_logo.png' %}">
+                    <a href="{% url 'year_store_2016_opinions' %}" target="_blank">
+                        <img class="subtitle-pic hidden-subtitle" src="{% static 'images/year-seller-2016/opinions_logo.png' %}" alt="作者 OPINIONS" title="作者 OPINIONS">
+                        <img class="subtitle-pic see-all-visible" src="{% static 'images/year-seller-2016/see_all.png' %}" alt="查看全部" title="查看全部">
+                    </a>
                 </div>
             </div>
 
@@ -268,7 +274,10 @@
 
             <div class="row new-sections-item-intro-wrapper">
                 <div class="col-xs-12 sections-item-title">
-                    <img class="subtitle-pic" src="{% static 'images/year-seller-2016/topics_logo.png' %}">
+                    <a href="{% url 'year_store_2016_topics' %}" target="_blank">
+                        <img class="subtitle-pic hidden-subtitle" src="{% static 'images/year-seller-2016/topics_logo.png' %}">
+                        <img class="subtitle-pic see-all-visible" src="{% static 'images/year-seller-2016/see_all.png' %}" alt="查看全部" title="查看全部">
+                    </a>
                 </div>
             </div>
 
@@ -417,80 +426,94 @@
         <div class="sections-item-wrapper" id="columns">
 
             <div class="row new-sections-item-intro-wrapper">
-
                 <div class="col-xs-12 sections-item-title">
-                    <img class="subtitle-pic" src="{% static 'images/year-seller-2016/columns_logo.png' %}">
+                    <a href="{% url 'year_store_2016_columns' %}" target="_blank">
+                        <img class="subtitle-pic hidden-subtitle" src="{% static 'images/year-seller-2016/columns_logo.png' %}">
+                        <img class="subtitle-pic see-all-visible" src="{% static 'images/year-seller-2016/see_all.png' %}" alt="查看全部" title="查看全部">
+                    </a>
                 </div>
             </div>
-            <div class="row columns-wrapper">
-                <div class="col-xs-12 column-cell-wrapper">
-                    <div class="column-cell">
-                       <div class="column-main-content">
-                           <div class="article-introduce-wrapper">
-                               <div class="article-title-wrapper">
-                                   <a class="article-title new-black-link" href="" target="_blank">
-                                       日本最好的企业文化志《花椿》遗憾停刊
-                                   </a>
-                               </div>
-                               <div class="article-summary-wrapper hidden-xs">
-                                   <p class="article-summary">
-                                       面世将近 80 个年头的资生堂内刊《花椿》，最近宣布将在 2016 年停止纸本出版，转而将重心移至网络平台上。那些习惯在每月 5 日前往资生堂门店免费索取当...
-                                   </p>
-                               </div>
-                           </div>
-                           <div class="article-cover-wrapper">
-                               <a href="" target="_blank">
-                                   <div class="article-cover" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
-                               </a>
-
-                           </div>
-                       </div>
-                        <div class="more-info-wrapper">
-                            <a class="new-blue-link" href="" target="_blank">
-                                <img class="author-logo" src="{% static 'images/year-seller-2016/avatar_1.jpg' %}">
-                                <span>Hoooray</span>
-                            </a>
-                            <span class="time">发表于 2016.06.14</span>
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="col-xs-12 column-cell-wrapper">
-                    <div class="column-cell">
-                       <div class="column-main-content">
-                           <div class="article-introduce-wrapper">
-                               <div class="article-title-wrapper">
-                                   <a class="article-title new-black-link" href="" target="_blank">
-                                       title
-                                   </a>
-                               </div>
-                               <div class="article-summary-wrapper hidden-xs">
-                                   <p class="article-summary">
-                                       面世将近 80 个年头的资生堂内刊《花椿》，最近宣布将在 2016 年停止纸本出版，转而将重心移至网络平台上。那些习惯在每月 5 日前往资生堂门店免费索取当...
-                                   </p>
-                               </div>
-                           </div>
-                           <div class="article-cover-wrapper">
-                               <a href="" target="_blank">
-                                   <div class="article-cover" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
-                               </a>
-
-                           </div>
-                       </div>
-                        <div class="more-info-wrapper">
-                            <a class="new-blue-link" href="" target="_blank">
-                                <img class="author-logo" src="{% static 'images/year-seller-2016/avatar_1.jpg' %}">
-                                <span>Hoooray</span>
-                            </a>
-                            <span class="time">发表于 2016.06.14</span>
-                        </div>
-
-                    </div>
-
-                </div>
-
+            <div class="row columns-wrapper hidden-xs">
+                 {% include "web/seller/partial/seller_2016_column_item.html" %}
+                 {% include "web/seller/partial/seller_2016_column_item.html" %}
+                 {% include "web/seller/partial/seller_2016_column_item.html" %}
             </div>
+            <div class="row selection-article-container hidden-sm hidden-md hidden-lg" id="custom_selection_article_list">
+{#                {% for sla in selection_articles %}#}
+{#                    {% with sla.article as article %}#}
+{#                        {% include 'web/article/partial/article_item_new.html' %}#}
+{#                    {% endwith %}#}
+{#                {% endfor %}#}
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
+                    <div class="article-panel">
+                        <a class="img-link" href="">
+                            <div class="img-holder" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
+                        </a>
+
+                        <div class="article-info-wrapper">
+                            <div class="article-title">
+                                <a  href="">
+                                    日本最好的企业文化志《花椿》遗憾停刊
+                                </a>
+                            </div>
+                            <div class="article-intro">
+                                 面世将近 80 个年头的资生堂内刊《花椿》，最近宣布将在 2016 年停止纸本出版，转而将重心移至网络平台上。那些习惯在每月 5 日前往资生堂门店免费索取当...
+                            </div>
+                        </div>
+                        <div class="article-info">
+                 <span class="create-time">
+                     1小时前
+                 </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
+                    <div class="article-panel">
+                        <a class="img-link" href="">
+                            <div class="img-holder" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
+                        </a>
+
+                        <div class="article-info-wrapper">
+                            <div class="article-title">
+                                <a  href="">
+                                    日本最好的企业文化志《花椿》遗憾停刊
+                                </a>
+                            </div>
+                            <div class="article-intro">
+                                 面世将近 80 个年头的资生堂内刊《花椿》，最近宣布将在 2016 年停止纸本出版，转而将重心移至网络平台上。那些习惯在每月 5 日前往资生堂门店免费索取当...
+                            </div>
+                        </div>
+                        <div class="article-info">
+                 <span class="create-time">
+                     1小时前
+                 </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
+                    <div class="article-panel">
+                        <a class="img-link" href="">
+                            <div class="img-holder" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
+                        </a>
+
+                        <div class="article-info-wrapper">
+                            <div class="article-title">
+                                <a  href="">
+                                    日本最好的企业文化志《花椿》遗憾停刊
+                                </a>
+                            </div>
+                            <div class="article-intro">
+                                 面世将近 80 个年头的资生堂内刊《花椿》，最近宣布将在 2016 年停止纸本出版，转而将重心移至网络平台上。那些习惯在每月 5 日前往资生堂门店免费索取当...
+                            </div>
+                        </div>
+                        <div class="article-info">
+                 <span class="create-time">
+                     1小时前
+                 </span>
+                        </div>
+                    </div>
+                </div>
+        </div>
         </div>
 
         <div class="row bottom-info-container">

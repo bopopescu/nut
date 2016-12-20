@@ -230,15 +230,15 @@ ol{
        .section-intro-bg-layer{
 //         transition: all 0.5s;
          position: absolute;
-         left: 0px;
-         top: 0px;
+         left: 0;
+         top: 0;
          width: 140%;
          height: 200%;
          .acc-layer;
          background-position: center;
          background-size:150%;
          background-repeat: no-repeat;
-         background-position-y: 0px;
+         //background-position-y: 0px;
        }
 
 
@@ -622,9 +622,24 @@ ol{
         &.shops-section-bg-wrapper{
           height:200px;
           margin-bottom:0;
-          .section-intro-bg-layer{
-            background-size: cover;
-            background-position: center;
+          #index_shops_bg_wrapper{
+            width:100%;
+            height:100%;
+            margin:0;
+            .slick-prev:before, .slick-next:before {
+              display: none;
+            }
+            .shops-bg{
+              position: absolute;
+              left: 0;
+              top: 0;
+              width: 140%;
+              height:200px;
+              .acc-layer;
+              background-position: center;
+              background-size:cover;
+              background-repeat: no-repeat;
+            }
           }
           .dark-bg-layer{
             .custom-bg-layer;
@@ -654,7 +669,20 @@ ol{
           img.subtitle-pic{
             width:100%;
             max-width:780px;
+            &.see-all-visible{
+              display: none;
+            }
           }
+        .sections-item-title:hover{
+          img.subtitle-pic{
+            &.hidden-subtitle{
+              display: none;
+            }
+            &.see-all-visible{
+              display: inline-block;
+            }
+          }
+        }
       }
       .shops-intro-wrapper{
         background-color: @very-light-gray;
@@ -704,17 +732,8 @@ ol{
           }
         }
       }
-      .shops-slick-wrapper{
+      .shops-slick-wrapper,.shops-wrapper{
         margin-top:40px;
-        //margin-bottom:69px;
-        .sellers-wrapper{
-          .score ol li i{
-            color:@common-gray;
-          }
-          .sellers-share ul li a i{
-            color:#D8D8D8;
-          }
-        }
       }
       .opinions-wrapper{
         .opinion-cell{

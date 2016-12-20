@@ -10,20 +10,20 @@
         <div class="sellers-desc">
             <p>{{ seller.shop_desc }}</p>
         </div>
-        <div class="score score-hidden">
-            <ol>
-                {% for star in star_range %}
-                    <li>
-                    {% if forloop.counter >  seller.gk_stars %}
-                         <i class="fa fa-star-o fa-star-o-size"></i>
-                    {% else %}
-                        <i class="fa fa-star"></i>
-                    {% endif %}
-                    </li>
-                {% endfor %}
-            </ol>
-        </div>
-        <div class="sellers-share sellers-share-visible">
+{#        <div class="score score-hidden">#}
+{#            <ol>#}
+{#                {% for star in star_range %}#}
+{#                    <li>#}
+{#                    {% if forloop.counter >  seller.gk_stars %}#}
+{#                         <i class="fa fa-star-o fa-star-o-size"></i>#}
+{#                    {% else %}#}
+{#                        <i class="fa fa-star"></i>#}
+{#                    {% endif %}#}
+{#                    </li>#}
+{#                {% endfor %}#}
+{#            </ol>#}
+{#        </div>#}
+        <div class="sellers-share">
             <ul>
                 <li>
                     <a class="share-btn-wx" rel="nofollow">
