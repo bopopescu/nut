@@ -5,7 +5,7 @@ from settings import *
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-STATIC_URL = 'http://static.guoku.com/static/v4/7627a86a9eb2b24c08e2a3643687431241178190/'
+STATIC_URL = 'http://scdn.guoku.com/static/v4/7627a86a9eb2b24c08e2a3643687431241178190/'
 
 LANGUAGE_CODE = 'zh-cn'
 
@@ -100,5 +100,7 @@ CONFIG_REDIS_DB     = 10
 
 
 SITE_HOST = 'http://www.guoku.com'
+
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 __author__ = 'edison7500'
