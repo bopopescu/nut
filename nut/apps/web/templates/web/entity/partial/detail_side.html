@@ -28,7 +28,7 @@
                             </a>
 
                             {% if article.creator.is_authorized_author %}
-                                <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="sidebar-writer-authorized"/>
+                                <img src="{{ global_static_url_prefix }}images/author/official_media.png" width="16px" height="16px" class="sidebar-writer-authorized"/>
                             {% endif %}
 
                             <div class="writer-bio">
@@ -192,7 +192,7 @@
             </div>
             <div class="icon-holder">
                 <a >
-                    <div class="img-frame" style="background-image:url({% static "images/side_bar/QRcode64.jpg" %})"></div>
+                    <div class="img-frame" style="background-image:url({{ global_static_url_prefix }}images/side_bar/QRcode64.jpg)"></div>
                     {#                <img width="64px" src="{% static "images/side_bar/QRcode64.jpg" %}"/>#}
                 </a>
             </div>
@@ -213,7 +213,7 @@
             </div>
             <div class="icon-holder">
                 <a href="{% url "web_download" %}">
-                    <div class="img-frame" style="background-image:url({% static "images/side_bar/icon64.png" %})"></div>
+                    <div class="img-frame" style="background-image:url({{ global_static_url_prefix }}images/side_bar/icon64.png)"></div>
                     {#                    <img width="64px" src="{% static "images/side_bar/icon64.png" %}"/>#}
                 </a>
             </div>
