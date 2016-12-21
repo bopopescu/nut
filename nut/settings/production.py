@@ -101,4 +101,6 @@ CONFIG_REDIS_DB     = 10
 
 SITE_HOST = 'http://www.guoku.com'
 
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 __author__ = 'edison7500'
