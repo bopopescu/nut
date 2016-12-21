@@ -16,9 +16,9 @@
 
 {% block title %}{%  if entity.brand|length != 0 %}{{ entity.brand }} - {% endif %}{{ entity.title }}  {% if not entity.category.title == '+' %}- {{ entity.category }} {% endif %}- {{ entity.category.group }} | 精英消费指南 | 果库{% endblock %}
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick-theme.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{{ global_static_url_prefix }}css/web/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ global_static_url_prefix }}thirdparty/slick/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ global_static_url_prefix }}thirdparty/slick/slick/slick-theme.css"/>
 {% endblock %}
 
 {% block body_class %}
@@ -259,7 +259,7 @@
 
 {% block basic_script %}
     {#<script data-main="{% static 'js/web/app/article_list_app.js' %}" src="{% static 'js/web/app/require.js' %}"></script>#}
-    <script data-main="{% static 'js/web/jsbuild/entity_detail_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+    <script data-main="{{ global_static_url_prefix }}js/web/jsbuild/entity_detail_app_build.js" src="{{ global_static_url_prefix }}js/web/app/require.js"></script>
 {% endblock %}
 
 

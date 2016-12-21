@@ -118,8 +118,6 @@ class NewEntityDetailView(EntityDetailMixin, DetailView):
     template_name = 'web/entity/detail.html'
     context_object_name = 'entity'
 
-
-
     def get_context_data(self, **kwargs):
         context = super(NewEntityDetailView,self).get_context_data()
         context['like_status'] = self.get_like_status(context)
