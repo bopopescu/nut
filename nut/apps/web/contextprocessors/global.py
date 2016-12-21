@@ -23,6 +23,11 @@ def lastslug(request):
     }
 
 def browser(request):
+    static_url = settings.STATIC_URL
+
+    if request.is_secure():
+        static_url = static_url.replace('http://', 'https://')
+
     try :
         agent_string = request.META['HTTP_USER_AGENT']
     except KeyError:
@@ -33,6 +38,7 @@ def browser(request):
         'isWechat': 'MicroMessenger' in  agent_string,
         'isMobileSafari': ('iPhone' in agent_string) and ('Mobile' in agent_string) and ('Safari' in agent_string),
         'isAndroid': ('guoku-client' in agent_string),
+        'global_static_url_prefix': static_url
     }
 
 def isFromMobile(request):

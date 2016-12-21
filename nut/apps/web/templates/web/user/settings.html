@@ -15,8 +15,8 @@
 
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/web/jquery.fileupload.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{{ global_static_url_prefix }}css/web/jquery.fileupload.css">
+    <link rel="stylesheet" type="text/css" href="{{ global_static_url_prefix }}css/web/style.css">
 {% endblock %}
 
 {% block content %}
@@ -159,13 +159,13 @@
 
 {% block script %}
 {#    <script src="https://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>#}
-    <script src="{% static 'js/web/jquery.ui.widget.js' %}"></script>
-    <script src="{% static 'js/web/jquery.iframe-transport.js' %}"></script>
-    <script src="{% static 'js/web/jquery.fileupload.js' %}"></script>
-    <script src="{% static 'js/bootbox.js' %}"></script>
-    <script src="{% static 'js/web/account.js' %}"></script>
-     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-     <script data-main="{% static 'js/web/jsbuild/user_settings_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+    <script src="{{ global_static_url_prefix }}js/web/jquery.ui.widget.js"></script>
+    <script src="{{ global_static_url_prefix }}js/web/jquery.iframe-transport.js"></script>
+    <script src="{{ global_static_url_prefix }}js/web/jquery.fileupload.js"></script>
+    <script src="{{ global_static_url_prefix }}js/bootbox.js"></script>
+    <script src="{{ global_static_url_prefix }}js/web/account.js"></script>
+     <script src="{{ global_static_url_prefix }}js/bootstrap.min.js"></script>
+     <script data-main="{{ global_static_url_prefix }}js/web/jsbuild/user_settings_app_build.js" src="{{ global_static_url_prefix }}js/web/app/require.js"></script>
     <script>
 $(function () {
     $('#fileupload').fileupload({

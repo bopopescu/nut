@@ -17,9 +17,9 @@
 {% block title %}{{ article.title }} {% if not isFromMobile  %}| 精英消费指南 | 果库 {% endif %}{% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick-theme.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{{ global_static_url_prefix }}css/web/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ global_static_url_prefix }}thirdparty/slick/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ global_static_url_prefix }}thirdparty/slick/slick/slick-theme.css"/>
 {% endblock %}
 
 {% block body_class %}
@@ -107,8 +107,8 @@
                                     <li class="list-item dig-item">
                                         <div class="dig-wrapper">
                                             <span class="{% if dig_status %} digged {% else %} undigged {% endif %} dig-action" data-article-id="{{ article.pk }}">
-                                                <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >
-                                                <img class="dig-img undig" src="{% static 'images/article/undig.png' %}" >
+                                                <img class="dig-img dig" src="{{ global_static_url_prefix }}images/article/dig.png" >
+                                                <img class="dig-img undig" src="{{ global_static_url_prefix }}images/article/undig.png" >
                                             </span>
                                             <span class="dig-info">
                                                 <span class="dig-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>
@@ -123,7 +123,7 @@
                                     <li class="list-item remark-item">
                                         <div class="remark-wrapper">
                                             <a href="#article-remark-title" class="remark-info">
-                                                <img class="remark-icon" src="{% static 'images/article/comment.png' %}" >
+                                                <img class="remark-icon" src="{{ global_static_url_prefix }}images/article/comment.png" >
                                                 <span class="remark-count">{% if remark_count %}{{ remark_count }}{% endif %}</span>
                                                 <span class="remark-word">
                                                     {% if not remark_count %}
@@ -212,7 +212,7 @@
                                         </a>
                                         {#  认证图标:需要判断一下用户是不是认证用户,是就显示认证图标,不是就隐藏咯  #}
                                         {% if article.creator.is_authorized_author %}
-                                          <img src="{% static 'images/author/official_media.png' %}" width="16px" height="16px" class="writer-authorized"/>
+                                          <img src="{{ global_static_url_prefix }}images/author/official_media.png" width="16px" height="16px" class="writer-authorized"/>
                                         {% endif %}
 
                                     </div>
@@ -352,7 +352,7 @@
                             <a class="gk-download">
                                 <i class="fa fa-mobile fa-lg" style="font-size:28px;"></i>
                                 <div class="qrcode-wrapper download-qrcode-wrapper display-toggle">
-                                    <img src="{%  static 'images/article/DL_guoku.jpg' %}" class="qrcode-img">
+                                    <img src="{{ global_static_url_prefix }}images/article/DL_guoku.jpg" class="qrcode-img">
                                     <div class="qr-text">下载应用</div>
                                     <span class="bottom-bot"></span>
                                 </div>
@@ -362,7 +362,7 @@
                             <a class="gk-wechat-share">
                                 <i class="fa fa-wechat"></i>
                                 <div class="qrcode-wrapper wechat-qrcode-wrapper display-toggle">
-                                    <img src="{%  static 'images/footer/QR-code.jpg' %}" class="qrcode-img">
+                                    <img src="{{ global_static_url_prefix }}images/footer/QR-code.jpg" class="qrcode-img">
                                     <div class="qr-text">微信公众平台</div>
                                     <span class="bottom-bot"></span>
                                 </div>
@@ -417,8 +417,8 @@
                                     <li class="list-item dig-item">
                                         <div class="dig-wrapper">
                                             <span class="{% if dig_status %} digged {% else %} undigged {% endif %} dig-action" data-article-id="{{ article.pk }}">
-                                                <img class="dig-img dig" src="{% static 'images/article/dig.png' %}" >
-                                                <img class="dig-img undig" src="{% static 'images/article/undig.png' %}" >
+                                                <img class="dig-img dig" src="{{ global_static_url_prefix }}images/article/dig.png" >
+                                                <img class="dig-img undig" src="{{ global_static_url_prefix }}images/article/undig.png" >
                                             </span>
                                             <span class="dig-info">
                                                 <span class="dig-count">{% if article.dig_count %}{{ article.dig_count }}{% endif %}</span>
@@ -433,7 +433,7 @@
                                     <li class="list-item remark-item">
                                         <div class="remark-wrapper">
                                             <a href="#article-remark-title" class="remark-info">
-                                                <img class="remark-icon" src="{% static 'images/article/comment.png' %}" >
+                                                <img class="remark-icon" src="{{ global_static_url_prefix }}images/article/comment.png" >
                                                 <span class="remark-count">{% if remark_count %}{{ remark_count }}{% endif %}</span>
                                                 <span class="remark-word">
                                                     {% if not remark_count %}
@@ -530,12 +530,9 @@
     <script language='javascript'>
         window.counter_path='{% url 'web_article_page' article.pk  %}';
     </script>
-    <script data-main="{% static 'js/web/jsbuild/article_page_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+    <script data-main="{{ global_static_url_prefix }}js/web/jsbuild/article_page_app_build.js" src="{{ global_static_url_prefix }}js/web/app/require.js"></script>
 {% endblock %}
 
-{#{% block counter_script %}#}
-{#        <script src="{% static 'js/counter/counter.js' %}"></script>#}
-{#{% endblock %}#}
 
     {% block ga_script %}
         {% if not isFromMobile %}
@@ -557,34 +554,6 @@
     {% endblock %}
 
 {% block script %}
-
-{#    {% if not isFromMobile %}#}
-{#    <script type="text/javascript">#}
-{#        var jiathis_config = {#}
-{#            url: "http://m.guoku.com{{ request.path }}",#}
-{#            title: "{{ article.title }}：",#}
-{#            appkey:{#}
-{#                "tsina":'2830558576',#}
-{#            },#}
-{#            imageWidth:150,#}
-{#            marginTop:150,#}
-{#            pic:"{{ article.cover_url }}",#}
-{#        {% autoescape off %}#}
-{#            summary:"{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}} （分享自 @果库）",#}
-{#        {% endautoescape %}#}
-{#            data_track_clickback:'true',#}
-{##}
-{#        };#}
-{#    </script>#}
-{#    <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2038803" charset="utf-8"></script>#}
-{#    {% endif %}#}
-    {#    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>#}
-    {#    <script>#}
-    {#        wx.config({#}
-    {#            debug: false,#}
-    {#            jsApiList: []#}
-    {#        });#}
-    {#    </script>#}
 
 
 {% endblock %}

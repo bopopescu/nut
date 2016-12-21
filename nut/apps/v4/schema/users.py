@@ -64,7 +64,9 @@ class UserSchema(Schema):
         return obj.profile.website
 
     def get_avatar_url(self, obj):
-        return obj.profile.avatar_url
+        _avatar_url     = obj.profile.avatar_url
+        # _avatar_url.
+        return _avatar_url.replace('http', 'https')
 
     def get_relation(self, obj):
         relation = 0

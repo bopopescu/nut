@@ -15,6 +15,8 @@ from apps.core.models import Entity, Buy_Link, Note, \
 from apps.core.models import Selection_Article, Article, Article_Dig, Article_Remark
 from apps.order.models import CartItem
 
+import re
+
 from django.conf import settings
 imghost = getattr(settings, 'IMAGE_HOST')
 
@@ -210,12 +212,20 @@ class APIBuyLink(Buy_Link):
         proxy = True
 
     def v4_toDict(self):
-        res = self.toDict()
+        res             = self.toDict()
         res.pop('link', None)
         res['buy_link'] = "http://api.guoku.com%s?type=mobile" % reverse('v4_visit_item', args=[self.origin_id])
-        res['price'] = int(self.price)
+        res['price']    = int(self.price)
+        res['seller']   = self.store_id
         return res
 
+    @property
+    def store_id(self):
+        if self.origin_source == 'taobao.com':
+            m = re.match('http://shop(\d+)\.taobao\.com', self.shop_link)
+            if m:
+                return m.group(1)
+        return ''
 
 class APINote(Note):
 
