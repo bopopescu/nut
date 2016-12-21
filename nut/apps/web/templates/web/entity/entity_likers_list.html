@@ -16,7 +16,7 @@
 
 {% block title %}{%  if entity.brand|length != 0 %}{{ entity.brand }} - {% endif %}{{ entity.title }} 喜爱用户列表 - {{ entity.category }} - {{ entity.category.group }} | 精英消费指南 | 果库{% endblock %}
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{{ global_static_url_prefix }}css/web/style.css">
 {% endblock %}
 
 {% block body_class %}
