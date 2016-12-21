@@ -39,6 +39,9 @@ LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
 # Application definition
 
+'''
+    https header forwarded
+'''
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 INSTALLED_APPS = (
