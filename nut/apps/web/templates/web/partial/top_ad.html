@@ -1,9 +1,9 @@
 {% load i18n staticfiles %}
 <div class="top-ad">
-    <div class="ad-wrapper" style="background-image:url('{% static 'images/market2016/market_entrance.jpg' %}')">
+    <div class="ad-wrapper" style="background-image:url('{{ global_static_url_prefix }}images/market2016/market_entrance.jpg')">
         <a href="http://www.guoku.com/articles/142641/" target="_blank" >
             <div class="top-ad-title-wrapper">
-                <img src="{% static 'images/market2016/market_title.gif' %}" alt="" class="top-ad-title-control">
+                <img src="{{ global_static_url_prefix }}images/market2016/market_title.gif" alt="" class="top-ad-title-control">
             </div>
         </a>
     </div>
