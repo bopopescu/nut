@@ -1,7 +1,7 @@
-
+4. image https adaption for article page 
 3. add article real time counter property , article.read_count_realtime
 2. add IndexMeta2016 model for index content management 
-1. add is2016store and is2015store to Seller_Profile
+1. add is2016store and is2015store field to Seller_Profile
 
 
 
