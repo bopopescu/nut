@@ -2373,14 +2373,14 @@ ol {
     padding-right: 90px;
   }
   .new-seller-body .seller-page-container .opinions-wrapper .slick-list {
-    padding-right: 30px;
+    padding-right: 75px;
   }
   .new-seller-body .seller-page-container .opinions-wrapper .slick-list .opinion-cell .logo-wrapper img {
     width: 45px;
     height: 45px;
   }
   .new-seller-body .seller-page-container .opinions-wrapper .slick-list .opinion-cell p.name {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 992px) {
