@@ -1678,12 +1678,12 @@ ol {
   padding-bottom: 40px;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper.sellers-wrapper-control .sellers-desc p {
-  display: block;
-  height: auto;
+  height: 50px;
   text-align: center;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 .seller-body .seller-page-container .popular-shops-title-wrapper {
   margin-top: 60px;
