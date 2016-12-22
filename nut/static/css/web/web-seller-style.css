@@ -2050,8 +2050,7 @@ ol {
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .opinions-wrapper .opinion-cell p.name {
   margin: 20px 0;
-  font-size: 20px;
-  line-height: 24px;
+  line-height: 1.2;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
@@ -2446,7 +2445,7 @@ ol {
     margin-right: 24px;
   }
   .new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .column-cell-wrapper .column-cell {
-    padding: 0 9px 18px;
+    padding: 0 9px 32px;
   }
   .new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .column-cell-wrapper .column-cell .column-main-content .article-introduce-wrapper .article-title-wrapper {
     font-size: 18px;
