@@ -44,6 +44,7 @@ from apps.core.utils.text import truncate
 from haystack.query import SearchQuerySet
 
 # from apps.order.exceptions import CartException, OrderException, PaymentException
+from apps.counter.utils.data import RedisCounterMachine, CounterException
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -1562,11 +1563,18 @@ class Article(BaseModel):
     def __unicode__(self):
         return self.title
 
+    @property
     def read_count_realtime(self):
         articl_id_path = reverse('web_article_page', args=[self.pk])
-        # counter_key =  RedisCounterMachine.get_counter_key_from_path(articl_id_path)
-        # return RedisCounterMachine.get_key(counter_key)
-        pass
+        counter_key =  RedisCounterMachine.get_counter_key_from_path(articl_id_path)
+        try:
+            res = RedisCounterMachine.get_key(counter_key)
+            if res is None or res == 0:
+                return self.read_count
+            return int(res)
+        except CounterException as e:
+            return self.read_count
+
 
     def make_slug(self):
         slug = slugify(self.title, max_length=50, word_boundary=True)
