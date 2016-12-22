@@ -1673,6 +1673,18 @@ ol {
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .sellers-share ul li a i.fa-wechat:hover.wechat-hover {
   color: #51C332;
 }
+.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper.sellers-wrapper-control {
+  padding-top: 18px;
+  padding-bottom: 40px;
+}
+.seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper.sellers-wrapper-control .sellers-desc p {
+  display: block;
+  height: auto;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .seller-body .seller-page-container .popular-shops-title-wrapper {
   margin-top: 60px;
   margin-bottom: 50px;

@@ -338,11 +338,7 @@ ol{
            margin:0 auto;
            //solve several lines'texts overflow
            //only support webkit browser
-           display: -webkit-box;
-           -webkit-line-clamp: 3;
-           -webkit-box-orient: vertical;
-           overflow: hidden;
-
+           .multiple-text-overflow(3);
          }
 
        }
@@ -400,7 +396,18 @@ ol{
            }
          }
        }
-
+     }
+     .sellers-wrapper{
+       &.sellers-wrapper-control{
+         padding-top:18px;
+         padding-bottom:40px;
+         .sellers-desc p{
+           display: block;
+           height:auto;
+           text-align: center;
+           .single-text-overflow;
+         }
+       }
      }
    }
 
