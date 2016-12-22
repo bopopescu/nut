@@ -86,7 +86,7 @@
                         </div>
                        {% if article.showcover %}
                         <div class="cover-wrapper">
-                            <img class="article-cover img-responsive" itemprop="image" src="{{ article.cover_url }}" alt="{{ article.title }}" />
+                            <img class="article-cover img-responsive" itemprop="image" src="{{ article.cover_url|smart_scheme:is_secure }}" alt="{{ article.title }}" />
                         </div>
                        {% endif %}
                         <div class="content-wrapper" itemprop="articleBody">
@@ -150,12 +150,12 @@
                                         </a>
                                     </li>
                                     <li class="list-item list-item-weibo">
-                                        <a target="_blank" class="share-btn-weibo normal-share-btn" data_article_title="{{ article.title }}" data_article_summary="{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}}" data_article_cover="{{ article.cover_url }}">
+                                        <a target="_blank" class="share-btn-weibo normal-share-btn" data_article_title="{{ article.title }}" data_article_summary="{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}}" data_article_cover="{{ article.cover_url|smart_scheme:is_secure }}">
                                             <i class="fa fa-weibo"></i>
                                         </a>
                                     </li>
                                     <li class="list-item list-item-qq">
-                                        <a target="_blank" class="share-btn-qq normal-share-btn" data_article_title="{{ article.title }}" data_article_summary="{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}}" data_article_cover="{{ article.cover_url }}">
+                                        <a target="_blank" class="share-btn-qq normal-share-btn" data_article_title="{{ article.title }}" data_article_summary="{{ article.digest|striptags|truncatechars:50|trim|cut:' '|cut:'\n'|cut:'\r'}}" data_article_cover="{{ article.cover_url|smart_scheme:is_secure }}">
                                             <i class="fa fa-qq"></i>
                                         </a>
                                     </li>
