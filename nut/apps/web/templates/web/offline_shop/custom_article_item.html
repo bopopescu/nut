@@ -4,7 +4,7 @@
 <div class="hidden-xs col-sm-4 col-md-4 col-lg-4 guoku-middle-col new-selection-article-item new-event-article-item" >
     <div class="article-panel">
         <a class="img-link" href="{% url 'web_article_page' article.pk   %}">
-            <div class="img-holder" style="background-image: url({{ article.cover_url|resize:'450' }})"></div>
+            <div class="img-holder" style="background-image: url({{ article.cover_url|resize:'450'|smart_scheme:is_secure }})"></div>
         </a>
 
         <div class="article-info-wrapper">
