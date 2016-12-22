@@ -6636,7 +6636,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   #selection_article_list .selection-article-item .article-title,
   #custom_selection_article_list .selection-article-item .article-title {
     font-size: 18px!important;
-    font-weight: 600;
+    font-weight: 500;
   }
   #new_selection_article_list .new-selection-article-item .article-title {
     font-size: 18px!important;
