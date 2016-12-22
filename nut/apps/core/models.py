@@ -1680,6 +1680,12 @@ class Article(BaseModel):
     def status(self):
         return self.publish
 
+    # @property
+    # user template to decide where to display https
+    # def cover_url(self):
+    #     return self._cover_url.replace('http://', 'https://')
+    #     return self._cover_url.replace('http://', 'https://')
+
     @property
     def cover_url(self):
         if self.cover:

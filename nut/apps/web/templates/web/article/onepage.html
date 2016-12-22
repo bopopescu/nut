@@ -38,7 +38,7 @@
 {% block content %}
     <div class="container goods_detail near-top article-onepage">
         <h2 class="sr-only">{{ article.content|striptags|truncatewords:150 }}</h2>
-        <div id="share_img" style="display:none"><img src="{{ article.cover_url }}"></div>
+        <div id="share_img" style="display:none"><img src="{{ article.cover_url|smart_scheme:is_secure }}"></div>
 {#     <div class="row" id="detail_breadcrumb">#}
 {#         {% include "web/article/partial/article_breadcrumb.html" %}#}
 {#     </div>#}
@@ -91,7 +91,11 @@
                        {% endif %}
                         <div class="content-wrapper" itemprop="articleBody">
                             {% autoescape off %}
-                            {{ article.content }}
+                                {% if is_secure %}
+                                    {{ article.content|httpsImageCDN }}
+                                {% else %}
+                                    {{ article.content }}
+                                {% endif %}
                             {% endautoescape %}
                         </div>
 
@@ -197,10 +201,10 @@
                                 <div class="writer-avatar col-xs-2 col-sm-2">
                                     <div class="avatar-wrapper">
                                         <a href="{% url 'web_user_index' article.creator.pk %}" class="for-browser">
-                                            <img class="user-avatar" src="{{ article.creator.profile.avatar_url|resize:'180' }}" />
+                                            <img class="user-avatar" src="{{ article.creator.profile.avatar_url|resize:'180'|smart_scheme:is_secure }}" />
                                         </a>
                                          <a href="{{ article.creator.mobile_url }}" class="for-mobile mobile-user-link">
-                                            <img class="user-avatar" src="{{ article.creator.profile.avatar_url|resize:'180' }}" />
+                                            <img class="user-avatar" src="{{ article.creator.profile.avatar_url|resize:'180'|smart_scheme:is_secure }}" />
                                         </a>
                                     </div>
                                 </div>
@@ -315,7 +319,7 @@
                                     <li class="article-item dark-section-item">
                                         <a href="{% url 'web_article_page' r_article.pk %}#from=recommend">
                                             <div class="section-panel">
-                                                <div class="article-item-pic" style="background-image: url('{{ r_article.cover_url|resize:'200' }}')">
+                                                <div class="article-item-pic" style="background-image: url('{{ r_article.cover_url|resize:'200'|smart_scheme:is_secure }}')">
                                                 </div>
                                                 <div class="bg-layer related-article-bg-layer"></div>
                                                 <div class="section-name article-title">
@@ -536,18 +540,18 @@
 
     {% block ga_script %}
         {% if not isFromMobile %}
-          <script language="javascript">
-
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-            ga('create', 'UA-24696872-5', 'auto');
-            ga('send', 'pageview');
-            ga('set', '&uid', '412916' )
-
-            </script>
+{#          <script language="javascript">#}
+{##}
+{#            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){#}
+{#            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),#}
+{#            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)#}
+{#            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');#}
+{##}
+{#            ga('create', 'UA-24696872-5', 'auto');#}
+{#            ga('send', 'pageview');#}
+{#            ga('set', '&uid', '412916' )#}
+{##}
+{#            </script>#}
         {% else %}
             <!--  no ga for app user -->
         {% endif %}

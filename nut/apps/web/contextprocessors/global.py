@@ -38,7 +38,8 @@ def browser(request):
         'isWechat': 'MicroMessenger' in  agent_string,
         'isMobileSafari': ('iPhone' in agent_string) and ('Mobile' in agent_string) and ('Safari' in agent_string),
         'isAndroid': ('guoku-client' in agent_string),
-        'global_static_url_prefix': static_url
+        'global_static_url_prefix': static_url,
+        'is_secure': request.is_secure()
     }
 
 def isFromMobile(request):
