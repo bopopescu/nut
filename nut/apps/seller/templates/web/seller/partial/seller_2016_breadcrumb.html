@@ -25,11 +25,7 @@
                 <li>
                     专栏 COLUMNS
                 </li>
-            {% elif topics_url == request.path %}
-                <li>
-                    话题 TOPICS
-                </li>
-            {% elif topic_articles_url == request.path  %}
+            {% elif topics_url == request.path or topic_articles_url == request.path%}
                 <li>
                     话题 TOPICS
                 </li>
