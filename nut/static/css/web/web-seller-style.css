@@ -1905,6 +1905,11 @@ ol {
   background-size: cover;
   background-repeat: no-repeat;
 }
+.new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper .section-intro-bg-layer {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
 .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper .dark-bg-layer {
   position: absolute;
   top: 0;

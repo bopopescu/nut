@@ -1,7 +1,7 @@
 require([
         'libs/polyfills',
         'jquery',
-        'subapp/yearseller/header',
+        //'subapp/yearseller/header',
         'subapp/yearseller/yearseller_2016/share_2016',
         'cookie',
         'subapp/top_ad/top_ad',
@@ -10,7 +10,7 @@ require([
     ],
     function(polyfill,
              $,
-             YearSellerHeader,
+             //YearSellerHeader,
              ShareHanlder,
              cookie,
              TopAd,
@@ -18,7 +18,7 @@ require([
              FastClick
 
     ){
-        var sellerHeader = new YearSellerHeader();
+        //var sellerHeader = new YearSellerHeader();
         var shareHandler = new ShareHanlder();
         //var topAd = new TopAd();
         // for weixin  access redirect entity link to  app download
