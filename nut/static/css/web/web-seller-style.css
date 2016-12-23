@@ -2059,6 +2059,14 @@ ol {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.new-seller-body .seller-page-container .sections-item-wrapper .opinions-section {
+  margin-bottom: 40px;
+}
+.new-seller-body .seller-page-container .sections-item-wrapper .opinions-section .opinions-section-title {
+  font-size: 20px;
+  line-height: 1.1;
+  font-weight: 500;
+}
 .new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper {
   margin-bottom: 88px;
 }
