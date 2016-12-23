@@ -4,6 +4,7 @@
 {% url 'year_store_2016_opinions' as opinions_url  %}
 {% url 'year_store_2016_columns' as columns_url  %}
 {% url 'year_store_2016_topics' as topics_url %}
+{% url 'topic_articles_url' as topic_articles_url %}
 
 <div class="col-md-12 tips">
     <div class="category-breadcrumb-wrapper">
@@ -25,6 +26,10 @@
                     专栏 COLUMNS
                 </li>
             {% elif topics_url == request.path %}
+                <li>
+                    话题 TOPICS
+                </li>
+            {% elif topic_articles_url == request.path  %}
                 <li>
                     话题 TOPICS
                 </li>
