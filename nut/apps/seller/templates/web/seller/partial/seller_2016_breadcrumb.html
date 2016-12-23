@@ -1,5 +1,6 @@
 {% load i18n staticfiles %}
 {% load common guoku %}
+{% url 'year_store_2016_shops' as shops_url  %}
 {% url 'year_store_2016_opinions' as opinions_url  %}
 {% url 'year_store_2016_columns' as columns_url  %}
 {% url 'year_store_2016_topics' as topics_url %}
@@ -14,6 +15,10 @@
             {% if opinions_url == request.path  %}
                 <li>
                     作者 OPINIONS
+                </li>
+             {% elif shops_url == request.path  %}
+                <li>
+                    好店 SHOPS
                 </li>
             {% elif columns_url == request.path  %}
                 <li>

@@ -1937,6 +1937,16 @@ ol {
   height: auto;
   margin-top: 16px;
 }
+.new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper .shops-breadcrumb-container {
+  margin-top: 24px;
+}
+.new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper .shops-breadcrumb-container #sort_header-wrapper .category-breadcrumb-wrapper a {
+  color: #ffffff;
+}
+.new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper .shops-breadcrumb-container #sort_header-wrapper .category-breadcrumb-wrapper ul li,
+.new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper .shops-breadcrumb-container #sort_header-wrapper .category-breadcrumb-wrapper .fa {
+  color: #BDBDBD;
+}
 .new-seller-body .seller-page-container .sections-item-wrapper .new-sections-item-intro-wrapper {
   margin-top: 80px;
   margin-bottom: 40px;
