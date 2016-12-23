@@ -4484,7 +4484,7 @@ define('subapp/discover/recommend_user_slick',['jquery', 'libs/Class','libs/slic
                              {
                                 breakpoint: 580,
                                 settings: {
-                                    slidesToShow:5,
+                                    slidesToShow:2,
                                     slidesToScroll:2,
                                     autoplay:false,
                                     dots:false
