@@ -2178,6 +2178,10 @@ ol {
 .new-seller-body .seller-page-container .cooperate-media-wrapper .media-logo:last-child {
   margin-right: 0;
 }
+.new-seller-body .topic-tag-desc-wrapper .tag-desc {
+  font-size: 12px;
+  color: #757575;
+}
 .new-seller-body #guoku_footer {
   margin-top: 0;
   background-color: #1D192D;
