@@ -262,6 +262,7 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
   min-height: 40px;
   max-height: 40px;
 }
@@ -1766,6 +1767,7 @@ a.new-download-link {
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 .tag-page-container .hot-tag-section-wrapper {
   overflow: hidden;
@@ -3036,6 +3038,7 @@ a:hover {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 .article-section-title {

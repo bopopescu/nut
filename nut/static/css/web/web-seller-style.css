@@ -262,6 +262,7 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
   min-height: 40px;
   max-height: 40px;
 }
@@ -1638,6 +1639,7 @@ ol {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 .seller-body .seller-page-container .sections-item-wrapper .sellers-wrapper .score {
   text-align: center;
@@ -1680,6 +1682,7 @@ ol {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 .seller-body .seller-page-container .popular-shops-title-wrapper {
   margin-top: 60px;
@@ -2085,6 +2088,7 @@ ol {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .column-cell-wrapper .column-cell .column-main-content .article-introduce-wrapper .article-title-wrapper a {
   color: #212121;
@@ -2097,6 +2101,7 @@ ol {
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .column-cell-wrapper .column-cell .column-main-content .article-cover-wrapper {
   width: 50%;
