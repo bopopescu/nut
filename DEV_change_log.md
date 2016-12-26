@@ -1,3 +1,9 @@
+3. minor https compat adjust 
+2. add writer list data to 2016 store page 
+1. 2016 store edit management page update
+========================
+
+
 4. image https adaption for article page 
 3. add article real time counter property , article.read_count_realtime
 2. add IndexMeta2016 model for index content management 
