@@ -2385,6 +2385,10 @@ ol {
   .seller-body .seller-page-container .sections-item-wrapper .sections-item-sellers-wrapper .sellers-wrapper .sellers-share-visible {
     display: block;
   }
+  .new-seller-body .seller-cross-screen {
+    background-size: 122%;
+    background-position: 50% 0;
+  }
   .new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper {
     margin-top: 30px;
   }
@@ -2480,6 +2484,15 @@ ol {
     margin: 0 auto;
     margin-top: 10px;
   }
+  .new-seller-body .seller-cross-screen {
+    padding-top: 35px;
+  }
+  .new-seller-body .seller-cross-screen .seller-banner-wrapper .banner-bgpic-wrapper img.img-control {
+    width: 222px;
+  }
+  .new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper {
+    margin-top: 0;
+  }
   .new-seller-body #seller_2016_nav .nav-wrapper ul li {
     margin-right: 24px;
   }
@@ -2488,6 +2501,16 @@ ol {
   }
   .new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper .column-cell-wrapper .column-cell .column-main-content .article-introduce-wrapper .article-title-wrapper {
     font-size: 18px;
+  }
+  .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper {
+    height: 80px;
+  }
+  .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper .sections-item-title .title img {
+    width: 124px;
+  }
+  .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper .sections-item-title .see-all img {
+    width: 44px;
+    margin-top: 0;
   }
   .page-share-dialog .modal-dialog .modal-content .modal-body .share-modal-wrapper.share-modal-wrapper-control {
     padding-top: 37%;
