@@ -2505,6 +2505,12 @@ ol {
   .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper {
     height: 80px;
   }
+  .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper .shops-breadcrumb-container {
+    margin-top: 8px;
+  }
+  .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper .shops-breadcrumb-container #sort_header-wrapper .category-breadcrumb-wrapper {
+    font-size: 11px;
+  }
   .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper .sections-item-title .title img {
     width: 124px;
   }
