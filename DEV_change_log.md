@@ -14,6 +14,10 @@ ALTER TABLE `core`.`seller_seller_profile`
 DROP INDEX `related_article_id` ,
 DROP INDEX `user_id` ;
 
+
+ALTER TABLE `core`.`seller_seller_profile` 
+DROP INDEX `related_article_id` ;
+
 === remove user_id and related_article_id index 
 2. add 2 field to seller_profile 
 
