@@ -77,6 +77,7 @@ class NewSellerView(TemplateView):
         context = {}
         context['sellers'] = self.get_top_sellers()
         context['writers'] = self.get_top_writers()
+        context['topic_tags'] = self.get_topic_tags()
         context['opinions_tags'] = self.get_get_opinions_tags()
         context['opinion_articles'] = self.get_opinions_articles()
         context['column_articles'] = self.get_column_articles()
@@ -109,6 +110,9 @@ class NewSellerView(TemplateView):
         pass
 
     def get_opinions_articles(self):
+        pass
+
+    def get_topic_tags(self):
         pass
 
 
