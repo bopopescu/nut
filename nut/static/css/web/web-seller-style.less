@@ -338,11 +338,7 @@ ol{
            margin:0 auto;
            //solve several lines'texts overflow
            //only support webkit browser
-           display: -webkit-box;
-           -webkit-line-clamp: 3;
-           -webkit-box-orient: vertical;
-           overflow: hidden;
-
+           .multiple-text-overflow(3);
          }
 
        }
@@ -400,7 +396,17 @@ ol{
            }
          }
        }
-
+     }
+     .sellers-wrapper{
+       &.sellers-wrapper-control{
+         //padding-top:18px;
+         //padding-bottom:40px;
+         .sellers-desc p{
+           height:50px;
+           text-align: center;
+           .multiple-text-overflow(2);
+         }
+       }
      }
    }
 
@@ -641,6 +647,11 @@ ol{
               background-repeat: no-repeat;
             }
           }
+          .section-intro-bg-layer{
+            width:100%;
+            height:100%;
+            background-size: cover;
+          }
           .dark-bg-layer{
             .custom-bg-layer;
             background-color: rgba(0,0,0,0.1);
@@ -658,6 +669,19 @@ ol{
               width:96px;
               height:auto;
               margin-top:16px;
+            }
+          }
+          .shops-breadcrumb-container{
+            margin-top:24px;
+            #sort_header-wrapper{
+              .category-breadcrumb-wrapper{
+                a{
+                  color:#ffffff;
+                }
+                ul li,.fa{
+                  color:@gray-light;
+                }
+              }
             }
           }
         }
@@ -686,6 +710,9 @@ ol{
       }
       .shops-intro-wrapper{
         background-color: @very-light-gray;
+        &.section-intro-wrapper{
+          background-color: @panel-background-color;
+        }
         p{
           width: 60%;
           max-width:780px;
@@ -695,7 +722,7 @@ ol{
           line-height: 24px;
         }
       } 
-      .shops-slick-wrapper,.opinions-wrapper,.columns-wrapper{
+      .shops-slick-wrapper,.opinions-slick-wrapper,.columns-wrapper{
         overflow: hidden;
         .slick-prev:before,.slick-next:before{
           font-family: "FontAwesome";
@@ -753,11 +780,19 @@ ol{
           }
           p.name{
             margin:20px 0;
-            font-size:20px;
-            line-height:24px;
+            //font-size:20px;
+            line-height:1.2;
             text-align: center;
             .single-text-overflow;
           }
+        }
+      }
+      .opinions-section{
+        margin-bottom:40px;
+        .opinions-section-title{
+          font-size:20px;
+          line-height:1.1;
+          font-weight:@new-font-weight;
         }
       }
       .columns-wrapper{
@@ -809,6 +844,7 @@ ol{
           width:100%;
           height:40px;
           line-height:40px;
+          font-size:@smaller-primary;
           .author-logo{
             width:40px;
             height:40px;border-radius: 50%;
@@ -844,6 +880,12 @@ ol{
       .media-logo:last-child{
         margin-right:0;
       }
+    }
+  }
+  .topic-tag-desc-wrapper{
+    .tag-desc{
+      font-size:@more-mini-size;
+      color:@new-text-gray;
     }
   }
   #guoku_footer{
@@ -1027,7 +1069,7 @@ ol{
         }
       }
     }
-    .popular-shops-wrapper,.opinions-wrapper,.columns-wrapper,#top_article_tags_container,#new_selection_article_list{
+    .popular-shops-wrapper,.opinions-wrapper,.opinions-section-title-wrapper,.columns-wrapper,#top_article_tags_container,#new_selection_article_list{
       max-width: 1170px;
       margin:0 auto;
     }
@@ -1221,6 +1263,16 @@ ol{
       }
       .seller-page-container{
         .sections-item-wrapper{
+          .sections-item-intro-wrapper{
+            &.shops-section-bg-wrapper{
+              height:150px;
+              .sections-item-title{
+                .title img{
+                  width:220px;
+                }
+              }
+            }
+          }
           .shops-intro-wrapper p{
             width:100%;
             padding:16px 0;
@@ -1238,15 +1290,15 @@ ol{
             padding-right:90px;
           }
         }
-        .opinions-wrapper .slick-list{
-          padding-right:30px;
+        .opinions-slick-wrapper .slick-list{
+          padding-right:75px;
           .opinion-cell{
             .logo-wrapper img{
               width:45px;
               height:45px;
             }
             p.name{
-              font-size:@primary-size;
+              font-size:@smaller-primary;
             }
           }
         }
@@ -1387,7 +1439,7 @@ ol{
     .seller-page-container{
       .sections-item-wrapper{
         .columns-wrapper .column-cell-wrapper .column-cell{
-          padding:0 9px 18px;
+          padding:0 9px 32px;
           .column-main-content .article-introduce-wrapper .article-title-wrapper{
             font-size:@subtitle-size;
           }

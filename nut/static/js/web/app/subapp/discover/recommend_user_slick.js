@@ -8,7 +8,7 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                     console.log('recommend user slick in discover page begin');
                 },
                 init_slick:function(){
-                    $('.recommend-user-list,.user-panel-container,.new-seller-body .opinions-wrapper').slick({
+                    $('.recommend-user-list,.user-panel-container,.new-seller-body .opinions-wrapper.opinions-slick-wrapper').slick({
                         arrows: true,
                         slidesToShow: 6,
                         slidesToScroll:4,
@@ -37,7 +37,7 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                              {
                                 breakpoint: 580,
                                 settings: {
-                                    slidesToShow:5,
+                                    slidesToShow:2,
                                     slidesToScroll:2,
                                     autoplay:false,
                                     dots:false

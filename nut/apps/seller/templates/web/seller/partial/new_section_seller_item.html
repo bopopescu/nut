@@ -1,28 +1,12 @@
 {% load common guoku %}
 {% for seller in section_sellers %}
-    <div class="col-xs-6 col-sm-3 col-md-3 sellers-wrapper">
-
-
+    <div class="col-xs-6 col-sm-3 col-md-3 sellers-wrapper sellers-wrapper-control">
         <a href="{{ seller.related_article.url }}" target="_blank" class="recommendation-item">
             <img class="img-responsive sellers-logo" src="{{ seller.logo_url}}" alt="{{ seller.shop_title }}" title="{{ seller.shop_title }}">
         </a>
-
         <div class="sellers-desc">
             <p>{{ seller.shop_desc }}</p>
         </div>
-{#        <div class="score score-hidden">#}
-{#            <ol>#}
-{#                {% for star in star_range %}#}
-{#                    <li>#}
-{#                    {% if forloop.counter >  seller.gk_stars %}#}
-{#                         <i class="fa fa-star-o fa-star-o-size"></i>#}
-{#                    {% else %}#}
-{#                        <i class="fa fa-star"></i>#}
-{#                    {% endif %}#}
-{#                    </li>#}
-{#                {% endfor %}#}
-{#            </ol>#}
-{#        </div>#}
         <div class="sellers-share">
             <ul>
                 <li>

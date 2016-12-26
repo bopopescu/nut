@@ -4455,7 +4455,7 @@ define('subapp/discover/recommend_user_slick',['jquery', 'libs/Class','libs/slic
                     console.log('recommend user slick in discover page begin');
                 },
                 init_slick:function(){
-                    $('.recommend-user-list,.user-panel-container,.new-seller-body .opinions-wrapper').slick({
+                    $('.recommend-user-list,.user-panel-container,.new-seller-body .opinions-wrapper.opinions-slick-wrapper').slick({
                         arrows: true,
                         slidesToShow: 6,
                         slidesToScroll:4,
@@ -4484,7 +4484,7 @@ define('subapp/discover/recommend_user_slick',['jquery', 'libs/Class','libs/slic
                              {
                                 breakpoint: 580,
                                 settings: {
-                                    slidesToShow:5,
+                                    slidesToShow:2,
                                     slidesToScroll:2,
                                     autoplay:false,
                                     dots:false

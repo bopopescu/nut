@@ -52,21 +52,35 @@
     <div class="container">
         <div class="row" id="top_article_tags_container">
             <div class="top-article-tag">
-                <a href="/articles/">
+                <a href="/articles/" alt="强迫症一旦患上，很难根治，甚至会让患者苦恼不堪。" title="强迫症一旦患上，很难根治，甚至会让患者苦恼不堪。">
                     <div class="tag-element tag-current">
-                        全部
+                        专治强迫症
                     </div>
                 </a>
             </div>
             {% for top_tag in top_article_tags %}
                 <div class="top-article-tag">
-                    <a href="{% url 'topic_articles_url' top_tag.quoted_tag_name %}">
+                    <a href="{% url 'topic_articles_url' top_tag.quoted_tag_name %}" alt="强迫症。" title="强迫症">
                         <div class="tag-element {% if tag.name == top_tag.name %}tag-current{% endif %}">
                             {{ top_tag.name }}
                         </div>
                     </a>
                 </div>
             {% endfor %}
+             {% for top_tag in top_article_tags %}
+                <div class="top-article-tag">
+                    <a href="{% url 'topic_articles_url' top_tag.quoted_tag_name %}" alt="强迫症一旦患上，很难根治，甚至会让患者苦恼不堪。" title="强迫症一旦患上，很难根治，甚至会让患者苦恼不堪。">
+                        <div class="tag-element {% if tag.name == top_tag.name %}tag-current{% endif %}">
+                            {{ top_tag.name }}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row topic-tag-desc-wrapper hidden-sm hidden-md hidden-lg">
+            <div class="col-xs-12">
+                <p class="tag-desc">强迫症一旦患上，很难根治，甚至会让患者苦恼不堪。</p>
+            </div>
         </div>
         <div class="row selection-article-container" id="custom_selection_article_list">
 {#            {% for sla in selection_articles %}#}
