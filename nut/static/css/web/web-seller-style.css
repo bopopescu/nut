@@ -2391,6 +2391,12 @@ ol {
   .new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper .sections-titles-nav ul li {
     margin-right: 18px;
   }
+  .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper {
+    height: 150px;
+  }
+  .new-seller-body .seller-page-container .sections-item-wrapper .sections-item-intro-wrapper.shops-section-bg-wrapper .sections-item-title .title img {
+    width: 220px;
+  }
   .new-seller-body .seller-page-container .sections-item-wrapper .shops-intro-wrapper p {
     width: 100%;
     padding: 16px 0;
