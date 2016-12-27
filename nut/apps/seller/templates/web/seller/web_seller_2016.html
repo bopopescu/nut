@@ -216,36 +216,8 @@
             </div>
             <div class="row" id="new_selection_article_list">
                 {% for article in topic_articles %}
-{#                    {% with article_item.article as article %}#}
-                        {% include 'web/tags/partial/new_tag_article_item.html' %}
-{#                    {% endwith %}#}
+                    {% include 'web/tags/partial/new_tag_article_item.html' %}
                 {% endfor %}
-
-
-{#                {% for article in topic_articles %}#}
-{#                <div class="hidden-xs col-sm-4 col-md-4 col-lg-4  new-selection-article-item new-event-article-item" >#}
-{#                    <div class="article-panel">#}
-{#                        <a class="img-link" href="">#}
-{#                            <div class="img-holder" style="background-image: url('{{ article.cover_url|resize:'350'|smart_scheme:is_secure }}')"></div>#}
-{#                        </a>#}
-{##}
-{#                        <div class="article-info-wrapper">#}
-{#                            <div class="article-title">#}
-{#                                <a  href="{{ article.url }}">#}
-{#                                    {{ article.title }}#}
-{#                                </a>#}
-{#                            </div>#}
-{#                            <div class="article-intro">#}
-{#                                {% autoescape off %}#}
-{#                                    {{ article.short_digest }}#}
-{#                                {% endautoescape %}#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-
-{#                {% endfor %}#}
-
             </div>
         </div>
 
@@ -260,9 +232,9 @@
                 </div>
             </div>
             <div class="row columns-wrapper hidden-xs">
+              {% for article in column_articles %}
                  {% include "web/seller/partial/seller_2016_column_item.html" %}
-                 {% include "web/seller/partial/seller_2016_column_item.html" %}
-                 {% include "web/seller/partial/seller_2016_column_item.html" %}
+              {% endfor %}
             </div>
             <div class="row selection-article-container hidden-sm hidden-md hidden-lg" id="custom_selection_article_list">
 {#               {% for article in column_articles  %}

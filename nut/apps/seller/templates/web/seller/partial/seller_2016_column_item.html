@@ -1,5 +1,5 @@
 {% load i18n staticfiles %}
-{% load common %}
+{% load common guoku %}
 
 <div class="col-xs-12 column-cell-wrapper">
     <div class="column-cell">
@@ -7,18 +7,21 @@
             <div class="article-introduce-wrapper">
                 <div class="article-title-wrapper">
                     <a class="article-title new-black-link" href="" target="_blank">
-                        日本最好的企业文化志《花椿》遗憾停刊
+                        {{ article.title|truncatechars:32 }}
                     </a>
                 </div>
                 <div class="article-summary-wrapper hidden-xs">
                     <p class="article-summary">
-                        面世将近 80 个年头的资生堂内刊《花椿》，最近宣布将在 2016 年停止纸本出版，转而将重心移至网络平台上。那些习惯在每月 5 日前往资生堂门店免费索取当...
+                        {% autoescape off %}
+                        {# {{ article.content|at_digest|striptags|truncatechars:54 }} #}
+                        {{ article.short_digest }}
+                        {% endautoescape %}
                     </p>
                 </div>
             </div>
             <div class="article-cover-wrapper">
                 <a href="" target="_blank">
-                    <div class="article-cover" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
+                    <div class="article-cover" style="background-image: url('{{ article.cover_url|resize:'450'|smart_scheme:is_secure }}')"></div>
                 </a>
 
             </div>
