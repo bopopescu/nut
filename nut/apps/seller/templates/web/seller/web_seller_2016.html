@@ -204,9 +204,9 @@
             </div>
             <div class="row hidden-xs" id="top_article_tags_container">
                 {% for top_tag in topic_tags %}
-                    <div class="top-article-tag" data-value="{{ top_tag.id }}">
-                        <a href="{% url 'topic_articles_url' top_tag.quoted_tag_name %}" title="{{ top_tag.info }}">
-                            <div class="tag-element {% if tag.name == top_tag.name %}tag-current{% endif %}">
+                    <div class="top-article-tag">
+                        <a href="{% url 'topic_articles_url' top_tag.quoted_tag_name %}" title="{{ top_tag.info }}" target="_blank">
+                            <div class="tag-element">
                                 {{ top_tag.name }}
                             </div>
                         </a>
