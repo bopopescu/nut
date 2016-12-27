@@ -1,7 +1,7 @@
 require([
         'libs/polyfills',
         'jquery',
-        'subapp/discover/recommend_user_slick'
+        'subapp/yearseller/yearseller_2016/new_recommend_user_slick'
     ],
     function(polyfill,
              $,

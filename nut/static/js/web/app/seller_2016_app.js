@@ -6,7 +6,7 @@ require([
         'subapp/yearseller/yearseller_2016/share_2016',
         'subapp/yearseller/shops_slick',
         'subapp/yearseller/columns_slick',
-        'subapp/discover/recommend_user_slick',
+        'subapp/yearseller/yearseller_2016/new_recommend_user_slick',
         'cookie',
         'subapp/top_ad/top_ad',
         'utils/browser',
