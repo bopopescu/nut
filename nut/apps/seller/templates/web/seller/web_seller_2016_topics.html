@@ -22,8 +22,8 @@
 
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/web/web-seller-style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{{ global_static_url_prefix }}css/web/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ global_static_url_prefix }}css/web/web-seller-style.css">
 {% endblock %}
 {#give body element a more class:seller-body#}
 {% block body_class %}seller-body new-seller-body new-seller-body-control {% endblock %}
@@ -31,7 +31,7 @@
 {% block weixin_share_img %}
 {#    must be first img in body #}
     <div id='wx_logo' style='margin:0 auto;display:none;'>
-        <img src="{% static 'images/year-seller/weibo_share_300.jpg' %}" />
+        <img src="{{ global_static_url_prefix }}images/year-seller/weibo_share_300.jpg" />
     </div>
 
 {% endblock %}
@@ -53,7 +53,7 @@
         <div class="row" id="top_article_tags_container">
             <div class="top-article-tag">
                     <a href="{% url 'year_store_2016_topics' %}">
-                        <div class="tag-element {% if tag.name == top_tag.name %}tag-current{% endif %}">
+                        <div class="tag-element {% if current_tag_name == top_tag.name %}tag-current{% endif %}">
                             全部
                         </div>
                     </a>
@@ -72,7 +72,11 @@
         </div>
         <div class="row topic-tag-desc-wrapper hidden-sm hidden-md hidden-lg">
             <div class="col-xs-12">
-                <p class="tag-desc">{{ current_tag_name }} desc</p>
+                <p class="tag-desc">
+                    {% if current_tag_name %}
+                        {{ current_tag_name }} desc
+                    {% endif %}
+                </p>
             </div>
         </div>
         <div class="row selection-article-container" id="custom_selection_article_list">
@@ -104,7 +108,7 @@
     </script>
 
     <script language="javascript">
-        var share_pic = '{% static 'images/year-seller/share_weibo.jpg' %}';
+        var share_pic = '{{ global_static_url_prefix }}images/year-seller/share_weibo.jpg';
     </script>
 
 {% endblock %}
