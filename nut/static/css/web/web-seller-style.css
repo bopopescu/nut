@@ -2081,6 +2081,8 @@ ol {
   font-size: 20px;
   line-height: 1.1;
   font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .new-seller-body .seller-page-container .sections-item-wrapper .columns-wrapper {
   margin-bottom: 88px;
