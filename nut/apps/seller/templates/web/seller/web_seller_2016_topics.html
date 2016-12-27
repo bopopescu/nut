@@ -61,8 +61,8 @@
 
             {% for top_tag in topic_tags %}
                 <div class="top-article-tag">
-                    <a href="{% url 'topic_articles_url' top_tag.quoted_tag_name %}" alt="{{ top_tag.info }}" title="{{ top_tag.info  }}">
-                        <div class="tag-element {% if tag.name == top_tag.name %}tag-current{% endif %}">
+                    <a href="{% url 'topic_articles_url' top_tag.quoted_tag_name %}" alt="{{ top_tag.info }}" title="{{ top_tag.info  }}" target="_blank">
+                        <div class="tag-element {% if current_tag_name == top_tag.name %}tag-current{% endif %}">
                             {{ top_tag.name }}
                         </div>
                     </a>
@@ -72,43 +72,13 @@
         </div>
         <div class="row topic-tag-desc-wrapper hidden-sm hidden-md hidden-lg">
             <div class="col-xs-12">
-                <p class="tag-desc">这些品牌换了 logo，除了更扁平，还意味着什么？</p>
+                <p class="tag-desc">{{ current_tag_name }} desc</p>
             </div>
         </div>
         <div class="row selection-article-container" id="custom_selection_article_list">
-{#            {% for sla in selection_articles %}#}
-{#                {% with sla.article as article %}#}
-{#                    {% include 'web/article/partial/article_item_new.html' %}#}
-{#                {% endwith %}#}
-{#            {% endfor %}#}
             {% for article in articles %}
-                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
-                    <div class="article-panel">
-                        <a class="img-link" href="">
-                            <div class="img-holder" style="background-image: url('{{ article.cover_url|resize:'360'|smart_scheme:is_secure }}')"></div>
-                        </a>
-
-                        <div class="article-info-wrapper">
-                            <div class="article-title">
-                                <a  href="{{ article.url }}">
-                                    {{ article.title }}
-                                </a>
-                            </div>
-                            <div class="article-intro">
-                                {% autoescape off %}
-                                    {{ article.short_digest }}
-                                {% endautoescape %}
-                            </div>
-                        </div>
-                        <div class="article-info">
-                     <span class="create-time">
-                         {{ article.updated_datetime }}
-                     </span>
-                        </div>
-                    </div>
-                </div>
+                {% include 'web/article/partial/article_item_new.html' %}
             {% endfor %}
-
         </div>
     </div>
 {% endblock %}
