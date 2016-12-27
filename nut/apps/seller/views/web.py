@@ -113,7 +113,7 @@ class NewSellerView(TemplateView):
 
     def get_top_writers(self):
         writers_ids = self.get_writers_ids()
-        ids = random.sample(writers_ids, 3)
+        ids = random.sample(writers_ids, 8)
         return GKUser.objects.filter(pk__in=ids)
 
     def get_topic_tags(self):
