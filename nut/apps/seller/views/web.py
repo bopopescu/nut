@@ -1,7 +1,7 @@
 # coding=utf-8
 
 import random
-
+from braces.views import AjaxResponseMixin
 from django.http import Http404
 from django.views.generic import TemplateView, ListView
 from apps.seller.models import Seller_Profile
@@ -68,19 +68,19 @@ writer_list = {
 }
 
 topic_tags ={
-    '进击的扁平化':'这些品牌换了 logo，除了更扁平，还意味着什么？',
-    '科技生活零距离':'VR 元年，全民直播，科技正在成为人体的一部分',
-    '消费升级':'人人都谈消费升级的年代，这些事儿正在影响你的花钱质量。',
-    '吃得更讲究':'米其林都来中国了，「吃货崇拜」这病还会越来越流行。',
-    '开店新时髦': '实体店唱衰的时代，只开几天的店铺成了新时髦。',
-    '城市生活可能性':'这些事情话你知，好的生活有太多可能了。',
-    '这杯咖啡必须买':'连锁制霸的时代早就过去了，喝咖啡和卖咖啡正在变得越来越有看头。',
-    '你我他':'2016，这些名字值得记住。',
-    '这些单品不好买':'我们没法替你排队，只好替你总结。',
-    '霓虹新印象':'奥运会东京接棒，此时以及未来的日本，会是什么样？'
+    u'进击的扁平化': u'这些品牌换了 logo，除了更扁平，还意味着什么？',
+    u'科技生活零距离': u'VR 元年，全民直播，科技正在成为人体的一部分',
+    u'消费升级': u'人人都谈消费升级的年代，这些事儿正在影响你的花钱质量。',
+    u'吃得更讲究': u'米其林都来中国了，「吃货崇拜」这病还会越来越流行。',
+    u'开店新时髦': u'实体店唱衰的时代，只开几天的店铺成了新时髦。',
+    u'城市生活可能性': u'这些事情话你知，好的生活有太多可能了。',
+    u'这杯咖啡必须买': u'连锁制霸的时代早就过去了，喝咖啡和卖咖啡正在变得越来越有看头。',
+    u'你我他': u'2016，这些名字值得记住。',
+    u'这些单品不好买': u'我们没法替你排队，只好替你总结。',
+    u'霓虹新印象': u'奥运会东京接棒，此时以及未来的日本，会是什么样？'
 }
 
-column_tag_name = '专栏2016'
+column_tag_name = '年度专栏2016'
 
 
 class NewSellerView(TemplateView):
@@ -116,12 +116,6 @@ class NewSellerView(TemplateView):
         ids = random.sample(writers_ids, 10)
         return GKUser.objects.filter(pk__in=ids)
 
-
-
-
-    def get_opinions_articles(self):
-        pass
-
     def get_topic_tags(self):
         tag_names = topic_tags.keys()
         tag_list = Tags.objects.filter(name__in=tag_names)
@@ -136,12 +130,11 @@ class NewSellerView(TemplateView):
                                         .values_list('target_object_id', flat=True)
             return Article.objects.filter(pk__in=artilcle_ids)
         else:
-            raise Http404
-
+            return []
     def get_topic_articles(self):
         tags = self.get_topic_tags()
-        article_ids = Content_Tags.objects.filter(target_content_type_id=31, tag__in=tags)\
-                                  .values_list('target_object_id', flat=True)
+        article_ids = list(Content_Tags.objects.filter(target_content_type_id=31, tag__in=tags)\
+                                  .values_list('target_object_id', flat=True))
         random.shuffle(article_ids)
         return Article.objects.filter(pk__in=article_ids)
 
