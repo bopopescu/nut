@@ -22,7 +22,7 @@
 
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/web/web-seller-style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{{ global_static_url_prefix }}css/web/web-seller-style.css">
 {% endblock %}
 {#give body element a more class:seller-body#}
 {% block body_class %}seller-body new-seller-body new-seller-body-control {% endblock %}
@@ -30,7 +30,7 @@
 {% block weixin_share_img %}
 {#    must be first img in body #}
     <div id='wx_logo' style='margin:0 auto;display:none;'>
-        <img src="{% static 'images/year-seller/weibo_share_300.jpg' %}" />
+        <img src="{{ global_static_url_prefix }}images/year-seller/weibo_share_300.jpg" />
     </div>
 
 {% endblock %}
@@ -51,9 +51,9 @@
     <div class="container seller-page-container">
         <div class="sections-item-wrapper" id="columns">
             <div class="row columns-wrapper">
-                {% include "web/seller/partial/seller_2016_column_item.html" %}
-                {% include "web/seller/partial/seller_2016_column_item.html" %}
-                {% include "web/seller/partial/seller_2016_column_item.html" %}
+                {% for article in articles %}
+                    {% include "web/seller/partial/seller_2016_column_item.html" %}
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -80,7 +80,7 @@
     </script>
 
     <script language="javascript">
-        var share_pic = '{% static 'images/year-seller/share_weibo.jpg' %}';
+        var share_pic = '{{ global_static_url_prefix }}images/year-seller/share_weibo.jpg';
     </script>
 
 {% endblock %}
