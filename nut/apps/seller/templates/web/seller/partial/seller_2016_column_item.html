@@ -6,7 +6,7 @@
         <div class="column-main-content">
             <div class="article-introduce-wrapper">
                 <div class="article-title-wrapper">
-                    <a class="article-title new-black-link" href="" target="_blank">
+                    <a class="article-title new-black-link" href="{% url 'web_article_page_slug' article.article_slug %}" target="_blank">
                         {{ article.title|truncatechars:32 }}
                     </a>
                 </div>
@@ -20,18 +20,17 @@
                 </div>
             </div>
             <div class="article-cover-wrapper">
-                <a href="" target="_blank">
+                <a href="{% url 'web_article_page_slug' article.article_slug %}" target="_blank" title="{{ article.title }}">
                     <div class="article-cover" style="background-image: url('{{ article.cover_url|resize:'450'|smart_scheme:is_secure }}')"></div>
                 </a>
-
             </div>
         </div>
         <div class="more-info-wrapper">
-            <a class="new-blue-link" href="" target="_blank">
-                <img class="author-logo" src="{% static 'images/year-seller-2016/avatar_1.jpg' %}">
-                <span>丹丹朱的青年厨房</span>
+            <a class="new-blue-link" href="{% url 'web_user_index' article.creator.pk %}" target="_blank">
+                <img class="author-logo" src="{{ article.creator.profile.avatar_url|resize:'180'|smart_scheme:is_secure }}">
+                <span>{{ article.creator.profile.nickname }}</span>
             </a>
-            <span class="time">发表于 2016.06.14</span>
+            <span class="time">发表于 {{article.created_datetime|date:"Y-m-d"}}</span>
         </div>
     </div>
 </div>
