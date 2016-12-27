@@ -237,37 +237,11 @@
               {% endfor %}
             </div>
             <div class="row selection-article-container hidden-sm hidden-md hidden-lg" id="custom_selection_article_list">
-
-{#               {% for article in column_articles  %}
-                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
-                            <div class="article-panel">
-                                <a class="img-link" href="">
-                                    <div class="img-holder" style="background-image: url('{{ article.cover_url|resize:'360'|smart_scheme:is_secure }}')"></div>
-                                </a>
-
-                                <div class="article-info-wrapper">
-                                    <div class="article-title">
-                                        <a  href="{{ article.url }}" >
-                                            {{ article }}
-                                        </a>
-                                    </div>
-                                    <div class="article-intro">
-                                         {% autoescape off %}
-                                            {{ article.short_digest }}
-                                        {% endautoescape %}
-                                    </div>
-                                </div>
-                                <div class="article-info">
-                                    <span class="create-time">
-                                        {{ article.updated_datetime }}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                {% for article in column_articles %}
+                    {% include 'web/article/partial/article_item_new.html' %}
                 {% endfor %}
-
+            </div>
         </div>
-
 
         <div class="row bottom-info-container">
             <div class="col-xs-12 download-intro-wrapper">
@@ -334,7 +308,6 @@
 
         </div>
     </script>
-
     <script type="text/html" id="share_weixin_modal_content">
         <div class="share-modal-wrapper share-modal-wrapper-control">
             <div class="qr-code-wrapper qr-code-control">
@@ -342,7 +315,6 @@
             </div>
         </div>
     </script>
-
 
 {% endblock %}
 {% block basic_script %}
