@@ -60,66 +60,20 @@
                     </div>
                 </div>
                 <div class="hidden-xs row opinions-wrapper">
-                    <div class="col-xs-6 col-sm-2">
-                        <div class="opinion-cell">
-                            <a class="new-black-link" href="" target="_blank">
-                                <div class="logo-wrapper">
-                                    <img src="{% static 'images/year-seller-2016/avatar_1.jpg' %}">
-                                </div>
-                                <p class="name">sugarandspice</p>
-                            </a>
+
+                    {% for writer in fashion_writer  %}
+                        <div class="col-xs-6 col-sm-2">
+                            <div class="opinion-cell">
+                                <a class="new-black-link" href="{{ writer.absolute_url }}" target="_blank">
+                                    <div class="logo-wrapper">
+                                        <img src="{{ writer.avatar_url|resize:'180'|smart_scheme:is_secure }}">
+                                    </div>
+                                    <p class="name">{{ writer.nick }}</p>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-2">
-                        <div class="opinion-cell">
-                            <a class="new-black-link" href="" target="_blank">
-                                <div class="logo-wrapper">
-                                    <img src="{% static 'images/year-seller-2016/avatar_2.jpg' %}">
-                                </div>
-                                <p class="name">slowboy</p>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-2">
-                        <div class="opinion-cell">
-                            <a class="new-black-link" href="" target="_blank">
-                                <div class="logo-wrapper">
-                                    <img src="{% static 'images/year-seller-2016/avatar_1.jpg' %}">
-                                </div>
-                                <p class="name">fakeshion</p>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-2">
-                        <div class="opinion-cell">
-                            <a class="new-black-link" href="" target="_blank">
-                                <div class="logo-wrapper">
-                                    <img src="{% static 'images/year-seller-2016/avatar_1.jpg' %}">
-                                </div>
-                                <p class="name">X分子</p>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-2">
-                        <div class="opinion-cell">
-                            <a class="new-black-link" href="" target="_blank">
-                                <div class="logo-wrapper">
-                                    <img src="{% static 'images/year-seller-2016/avatar_2.jpg' %}">
-                                </div>
-                                <p class="name">CKverymuch</p>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-2">
-                        <div class="opinion-cell">
-                            <a class="new-black-link" href="" target="_blank">
-                                <div class="logo-wrapper">
-                                    <img src="{% static 'images/year-seller-2016/avatar_1.jpg' %}">
-                                </div>
-                                <p class="name">HYPEBEAST</p>
-                            </a>
-                        </div>
-                    </div>
+                    {% endfor %}
+
                 </div>
                 <div class="hidden-sm hidden-md hidden-lg row opinions-wrapper opinions-slick-wrapper">
                     <div class="col-xs-6 col-sm-2">

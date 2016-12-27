@@ -1,8 +1,10 @@
 # coding=utf-8
 
 import random
+import urllib
 from braces.views import AjaxResponseMixin
 from django.http import Http404
+from django.utils.encoding import smart_str
 from django.views.generic import TemplateView, ListView
 from apps.seller.models import Seller_Profile
 from apps.core.models import Entity, Article, GKUser, Selection_Article
@@ -59,12 +61,12 @@ class Base2016SellerView(SellerView):
 
 
 writer_list = {
-    'FASHION ': [2025777, 2025778, 1995042, 2025779, 2006725, 2025780],
-    'FOOD': [2025782, 2025783, 2025786, 2025787, 2025788],
-    'CULTURE': [2025789, 2025790, 1993297, 2025791, 2025792],
-    'LIFESTYLE': [2025794, 1992722, 2025795, 2025796, 2025797, 2023605, 2003684],
-    'TECH': [2025798, 2025799, 2025800],
-    'BEAUTY': [2025804, 2025801, 2025802, 2025803]
+    u'FASHION': [2025777, 2025778, 1995042, 2025779, 2006725, 2025780],
+    u'FOOD': [2025782, 2025783, 2025786, 2025787, 2025788],
+    u'CULTURE': [2025789, 2025790, 1993297, 2025791, 2025792],
+    u'LIFESTYLE': [2025794, 1992722, 2025795, 2025796, 2025797, 2023605, 2003684],
+    u'TECH': [2025798, 2025799, 2025800],
+    u'BEAUTY': [2025804, 2025801, 2025802, 2025803]
 }
 
 topic_tags ={
@@ -113,7 +115,7 @@ class NewSellerView(TemplateView):
 
     def get_top_writers(self):
         writers_ids = self.get_writers_ids()
-        ids = random.sample(writers_ids, 8)
+        ids = random.sample(writers_ids, 10)
         return GKUser.objects.filter(pk__in=ids)
 
     def get_topic_tags(self):
@@ -131,24 +133,51 @@ class NewSellerView(TemplateView):
             return Article.objects.filter(pk__in=artilcle_ids)
         else:
             return []
+
     def get_topic_articles(self):
         tags = self.get_topic_tags()
         article_ids = list(Content_Tags.objects.filter(target_content_type_id=31, tag__in=tags)\
                                   .values_list('target_object_id', flat=True))
         random.shuffle(article_ids)
-        return Article.objects.filter(pk__in=article_ids)
+        return Article.objects.filter(pk__in=article_ids[:3])
 
 
 class ShopsView(Base2016SellerView):
     template_name = 'web/seller/web_seller_2016_shops.html'
 
 
-class OpinionsView(SellerView):
+class OpinionsView(TemplateView):
     template_name = 'web/seller/web_seller_2016_opinions.html'
+    def get_context_data(self, *args, **kwargs):
+        context = super(OpinionsView, self).get_context_data(*args, **kwargs)
+        context['fashion_writer'] = self.get_writer_by_category(u'FASHION')
+        context['food_writer'] = self.get_writer_by_category(u'FOOD')
+        context['culture_writer'] = self.get_writer_by_category(u'CULTURE')
+        context['life_writer'] = self.get_writer_by_category(u'LIFESTYLE')
+        context['tech_writer'] = self.get_writer_by_category(u'TECH')
+        context['beauty_writer'] = self.get_writer_by_category(u'BEAUTY')
+        return context
+
+    def get_writer_by_category(self, cate):
+        w_list = writer_list[cate]
+        return GKUser.objects.filter(pk__in=w_list)
 
 
-class ColumnsView(SellerView):
+class ColumnsView(TemplateView):
     template_name = 'web/seller/web_seller_2016_columns.html'
+    def get_context_data(self, *args, **kwargs):
+        context = super(ColumnsView, self).get_context_data(*args, **kwargs)
+        context['articles'] = self.get_column_articles()
+        return context
+
+    def get_column_articles(self):
+        c_tag = Tags.objects.filter(name=column_tag_name)
+        if c_tag.exists():
+            artilcle_ids = Content_Tags.objects.filter(target_content_type_id=31, tag__name=column_tag_name)\
+                                        .values_list('target_object_id', flat=True)
+            return Article.objects.filter(pk__in=artilcle_ids)
+        else:
+            return []
 
 
 class TopicsView(SellerView):
@@ -169,11 +198,46 @@ class TopicArticlesView(ListView):
     model = Selection_Article
     context_object_name = 'selection_articles'
 
-    def get_context_data(self, **kwargs):
-        context = super(TopicArticlesView, self).get_context_data(**kwargs)
-        context['top_article_tags'] = Tags.objects.top_article_tags()
+    def get_article_tag(self):
+        tag_name =  self.kwargs.get('tag_name')
+        if tag_name is None:
+            return None
+        return urllib.unquote(str(tag_name)).decode('utf-8')
 
+    def get_context_data(self,*args, **kwargs):
+        context = super(TopicArticlesView, self).get_context_data(*args, **kwargs)
+        context['articles'] = self.get_articles()
+        context['topic_tags'] = self.get_all_topic_tags()
+        context['current_tag_name'] = self.get_article_tag()
         return context
+
+    def get_articles(self):
+        tag_name = self.get_article_tag()
+        if tag_name is None:
+            return self.get_all_topic_articles()
+        else:
+            return self.get_topic_articles(tag_name)
+
+
+    def get_all_topic_articles(self):
+        tags = self.get_all_topic_tags()
+        article_ids = list(Content_Tags.objects.filter(target_content_type_id=31, tag__in=tags)\
+                                  .values_list('target_object_id', flat=True))
+        # random.shuffle(article_ids)
+        return Article.objects.filter(pk__in=article_ids[:3])
+
+    def get_all_topic_tags(self):
+        tag_names = topic_tags.keys()
+        tag_list = Tags.objects.filter(name__in=tag_names)
+        for tag in tag_list:
+            tag.info = topic_tags[tag.name]
+        return tag_list
+
+    def get_topic_articles(self, tag_name):
+        tag_list = Tags.objects.filter(name=smart_str(tag_name))
+        article_ids = Content_Tags.objects.filter(target_content_type_id=31, tag__in=tag_list)\
+                                  .values_list('target_object_id', flat=True)
+        return Article.objects.filter(pk__in=article_ids)
 
 
 
