@@ -13,8 +13,8 @@
                 <div class="article-summary-wrapper hidden-xs">
                     <p class="article-summary">
                         {% autoescape off %}
-                        {# {{ article.content|at_digest|striptags|truncatechars:54 }} #}
-                        {{ article.short_digest }}
+                         {{ article.content|at_digest|striptags|truncatechars:54 }}
+{#                        {{ article.short_digest }}#}
                         {% endautoescape %}
                     </p>
                 </div>
