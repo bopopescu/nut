@@ -3,7 +3,10 @@ from django.core.cache import cache
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.log import getLogger
 
-from apps.core.models import Article
+# avoid circle reference
+# from apps.core.models import Article
+
+from django.db.models.loading import get_model
 
 log = getLogger('django')
 
@@ -38,6 +41,7 @@ class FeedCounterBridge(object):
 
     @classmethod
     def get_feed_count_value_from_sql(cls, id):
+        Article = get_model('core', 'Article')
         try :
             article = Article.objects.get(pk=id)
             count = article.feed_read_count
@@ -49,6 +53,7 @@ class FeedCounterBridge(object):
 
     @classmethod
     def save_feed_count_value_to_sql(cls, id, count):
+        Article = get_model('core', 'Article')
         article = Article.objects.get(pk=id)
         article.feed_read_count = count
         return
@@ -191,7 +196,7 @@ class RedisCounterMachine(object):
         except ValueError:
             # cache this value forever
             try:
-                count = cls.get_count_value_from_mysql_by_key(key)
+                count = cls.get_count_value_from_mysql_by_key(key) + 1
             except Exception as e :
                 count = 1
             counter_store.set(key, count ,timeout=None)
@@ -202,6 +207,7 @@ class RedisCounterMachine(object):
 
     @classmethod
     def get_count_value_from_mysql_by_key(cls,key):
+        Article = get_model('core', 'Article')
         pk = cls.get_article_pk_from_counter_key(key)
         article = Article.objects.get(pk=pk)
         if article.read_count is None:

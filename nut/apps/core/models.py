@@ -29,7 +29,7 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, Group
-from django.shortcuts import  get_object_or_404
+# from django.shortcuts import  get_object_or_404
 from django.utils.html import _strip_once
 
 from apps.core.base import BaseModel
@@ -44,6 +44,7 @@ from apps.core.utils.text import truncate
 from haystack.query import SearchQuerySet
 
 # from apps.order.exceptions import CartException, OrderException, PaymentException
+from apps.counter.utils.data import RedisCounterMachine, CounterException
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -1562,11 +1563,18 @@ class Article(BaseModel):
     def __unicode__(self):
         return self.title
 
+    @property
     def read_count_realtime(self):
         articl_id_path = reverse('web_article_page', args=[self.pk])
-        # counter_key =  RedisCounterMachine.get_counter_key_from_path(articl_id_path)
-        # return RedisCounterMachine.get_key(counter_key)
-        pass
+        counter_key =  RedisCounterMachine.get_counter_key_from_path(articl_id_path)
+        try:
+            res = RedisCounterMachine.get_key(counter_key)
+            if res is None or res == 0:
+                return self.read_count
+            return int(res)
+        except CounterException as e:
+            return self.read_count
+
 
     def make_slug(self):
         slug = slugify(self.title, max_length=50, word_boundary=True)
@@ -1671,6 +1679,12 @@ class Article(BaseModel):
     @property
     def status(self):
         return self.publish
+
+    # @property
+    # user template to decide where to display https
+    # def cover_url(self):
+    #     return self._cover_url.replace('http://', 'https://')
+    #     return self._cover_url.replace('http://', 'https://')
 
     @property
     def cover_url(self):

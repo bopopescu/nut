@@ -3,7 +3,7 @@
 {% load  common guoku %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{{ global_static_url_prefix }}css/web/style.css">
 {% endblock %}
  {% block meta-og %}
     <meta property="og:title" content="果库精选图文 | 精英消费指南 | 理想生活主张" >
@@ -78,7 +78,7 @@
 
 {% block basic_script %}
 {#<script data-main="{% static 'js/web/app/article_list_app.js' %}" src="{% static 'js/web/app/require.js' %}"></script>#}
-    <script data-main="{% static 'js/web/jsbuild/article_list_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+    <script data-main="{{ global_static_url_prefix }}js/web/jsbuild/article_list_app_build.js" src="{{ global_static_url_prefix }}js/web/app/require.js"></script>
 {% endblock %}
 
 {% block script %}

@@ -60,7 +60,7 @@ class Counter(JSONResponseMixin, AjaxResponseMixin, View):
             return self.response_error_message(e.message)
 
         res = {
-            'count':count,
+            'count': count,
         }
         return self.response_sucess_obj(res)
 

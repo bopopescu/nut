@@ -19,11 +19,17 @@ class Seller_Profile_Queryset(models.query.QuerySet):
     def active_seller(self):
         return self.filter(status=1)
 
-    def seller_2016(self):
+    def all_seller_2016(self):
         return self.filter(is2016store=True)
 
-    def seller_2015(self):
+    def all_seller_2015(self):
         return self.filter(is2015store=True)
+
+    def seller_2016(self):
+        return self.active_seller().filter(is2016store=True)
+
+    def seller_2015(self):
+        return self.active_seller().filter(is2015store=True)
 
     def random_sellers(self, count=10):
         #works only on small number records  : < 1000
@@ -63,14 +69,17 @@ class Seller_Profile_Manager(models.Manager):
     def seller_2015(self):
         return self.get_queryset().seller_2015()
 
+    def all_seller_2016(self):
+        return self.get_queryset().all_seller_2016()
+
+    def all_seller_2015(self):
+        return self.get_queryset().all_seller_2015()
+
     def ordered_profile(self):
         return self.get_queryset().ordered_profile()
 
     def ordered_all_profile(self):
         return self.get_queryset().ordered_all_profile()
-
-
-
 
 class Seller_Profile(BaseModel):
     (active,deactive) = (1,0)
@@ -95,7 +104,7 @@ class Seller_Profile(BaseModel):
                 (5, "5星"),
             ]
 
-    user = models.OneToOneField(GKUser, related_name='seller_profile', null=True)
+    user = models.ForeignKey(GKUser, related_name='seller_profile', null=True)
     shop_title = models.CharField(max_length=255, db_index=True)
     shop_link = models.URLField(max_length=255)
     seller_name = models.CharField(max_length=255, db_index=True)
@@ -105,7 +114,7 @@ class Seller_Profile(BaseModel):
     category_logo = models.CharField(max_length=255, blank=True)
     business_section = models.IntegerField(choices=BUS_SECTION_CHOICE, default=blank)
     gk_stars = models.IntegerField(choices=GKSTAR_CHOICE, default=5)
-    related_article = models.OneToOneField(Article, related_name='related_seller',null=True, blank=True)
+    related_article = models.ForeignKey(Article, related_name='related_seller',null=True, blank=True)
     is2016store = models.BooleanField(default=True)
     is2015store = models.BooleanField(default=True)
 

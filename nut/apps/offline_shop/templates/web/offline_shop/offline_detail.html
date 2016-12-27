@@ -25,7 +25,7 @@
 {% block user_header %}
     <div class='row authorized_author_info'>
         <div class="col-xs-4 offline-shop-cover-wrapper">
-            <div class="offline-shop-cover" style="background-image: url('{{ offline_shop_cover|resize:'450' }}')"></div>
+            <div class="offline-shop-cover" style="background-image: url('{{ offline_shop_cover|resize:'450'|smart_scheme:is_secure }}')"></div>
         </div>
         <div class=" col-xs-8 user-info ">
             <div class="user-nick">
@@ -209,28 +209,28 @@
 {% endblock %}
 
 {% block basic_script %}
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=nINvMpu8HVgLI5O8Hw5lBsAM91WiOnFQ"></script>
-    <script data-main="{% static 'js/web/jsbuild/offline_detail_page_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=nINvMpu8HVgLI5O8Hw5lBsAM91WiOnFQ&s=1"></script>
+    <script data-main="{{ global_static_url_prefix }}js/web/jsbuild/offline_detail_page_app_build.js" src="{{ global_static_url_prefix }}js/web/app/require.js"></script>
 {% endblock %}
 
 {% block script %}
-    <script type="text/javascript">
-        (function(win,doc){
-            var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
-            if (!win.alimamatk_show) {
-                s.charset = "gbk";
-                s.async = true;
-                s.src = "http://a.alimama.cn/tkapi.js";
-                h.insertBefore(s, h.firstChild);
-            }
-            var o = {
-                pid: "mm_28514026_4132785_24810648",/*推广单元ID，用于区分不同的推广渠道*/
-                appkey: "12313170",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/
-                unid: "", /*自定义统计字段*/
+{#    <script type="text/javascript">#}
+{#        (function(win,doc){#}
+{#            var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];#}
+{#            if (!win.alimamatk_show) {#}
+{#                s.charset = "gbk";#}
+{#                s.async = true;#}
+{#                s.src = "https://a.alimama.cn/tkapi.js";#}
+{#                h.insertBefore(s, h.firstChild);#}
+{#            }#}
+{#            var o = {#}
+{#                pid: "mm_28514026_4132785_24810648",/*推广单元ID，用于区分不同的推广渠道*/#}
+{#                appkey: "12313170",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/#}
+{#                unid: "", /*自定义统计字段*/#}
                 {#            type:"click"#}
-            };
-            win.alimamatk_onload = win.alimamatk_onload || [];
-            win.alimamatk_onload.push(o);
-        })(window,document);
-    </script>
+{#            };#}
+{#            win.alimamatk_onload = win.alimamatk_onload || [];#}
+{#            win.alimamatk_onload.push(o);#}
+{#        })(window,document);#}
+{#    </script>#}
 {% endblock %}

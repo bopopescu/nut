@@ -125,7 +125,7 @@
 {% endblock %}
 
 {% block basic_script %}
-    <script data-main="{% static 'js/web/jsbuild/tag_entities_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+    <script data-main="{{ global_static_url_prefix }}js/web/jsbuild/tag_entities_app_build.js" src="{{ global_static_url_prefix }}js/web/app/require.js"></script>
 {% endblock %}
 
 {% block script %}

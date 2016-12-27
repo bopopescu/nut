@@ -61,7 +61,8 @@ class ArticleSitemap(Sitemap):
     # template_name = 'web/sitemap/sitemap.xhtml'
 
     def items(self):
-        return Article.objects.filter(publish=Article.published).order_by('-updated_datetime').using('slave')
+        return Article.objects.filter(publish=Article.published).\
+            order_by('-updated_datetime').using('slave')
 
     def location(self, obj):
         return obj.get_absolute_url()

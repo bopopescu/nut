@@ -7,7 +7,7 @@
         <div class="img-box">
             {% if entity.entity_hash %}
                 <a class="img-link" href="{% if not isFromMobile %}{% url 'web_entity_detail' entity.entity_hash %}{% else %}{{ entity.mobile_url }}{% endif %}" target="_blank">
-                    <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|resize:'310' }}">
+                    <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|resize:'310'|smart_scheme:is_secure }}">
                 </a>
                 <a href="{% if not isFromMobile %}{% url 'web_entity_detail' entity.entity_hash %}{% else %}{{ entity.mobile_url }}{% endif %}" target="_blank">
                    <div class="bg-layer"></div>

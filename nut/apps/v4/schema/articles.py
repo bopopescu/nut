@@ -1,5 +1,7 @@
 from marshmallow import Schema, fields, pprint
 from apps.v4.schema.users import UserSchema
+import random
+
 
 class ArticleSchema(Schema):
 
@@ -14,7 +16,7 @@ class ArticleSchema(Schema):
     url                 = fields.Method('get_url')
     is_dig              = fields.Method('check_is_dig')
 
-    read_count          = fields.Integer()
+    read_count          = fields.Method('get_read_count')
     comment_count       = fields.Integer(attribute='comment_count')
     digest              = fields.String(attribute='digest')
     dig_count           = fields.Integer(attribute='dig_count')
@@ -26,6 +28,9 @@ class ArticleSchema(Schema):
 
     def get_tag_list(self, obj):
         return obj.tag_list
+
+    def get_read_count(self, obj):
+        return obj.read_count + 2501
 
     def selection_pub_time(self, obj):
         pub_time     = None

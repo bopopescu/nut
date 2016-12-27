@@ -10,7 +10,7 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
-# STATIC_URL = 'http://static.guoku.com/static/v4/d6d8bc3600a44816fbf1ebcfacd2de45c32cc359/'
+# STATIC_URL = 'http://scdn.guoku.com/static/v4/7627a86a9eb2b24c08e2a3643687431241178190/'
 
 
 LANGUAGE_CODE = 'zh-cn'
@@ -19,7 +19,7 @@ TIME_ZONE = 'Asia/Shanghai'
 
 USE_TZ = False
 
-DATABASES = TESTING_DATABASE
+DATABASES = PRODUCTION_DATABASES
 
 # CELERY #################################
 BROKER_URL = 'redis://localhost:6379/0'

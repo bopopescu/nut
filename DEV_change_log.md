@@ -1,5 +1,31 @@
+3. minor https compat adjust 
+2. add writer list data to 2016 store page 
+1. 2016 store edit management page update
+========================
+
+
+4. image https adaption for article page 
+3. add article real time counter property , article.read_count_realtime
 2. add IndexMeta2016 model for index content management 
-1. add is2016store and is2015store to Seller_Profile
+1. add is2016store and is2015store field to Seller_Profile
+
+
+
+5. run /data/www/nut/script/seller2016/copy_shop_2016.py 
+
+4. backup seller_profile table
+
+3. 
+ALTER TABLE `core`.`seller_seller_profile` 
+DROP INDEX `related_article_id` ,
+DROP INDEX `user_id` ;
+
+
+ALTER TABLE `core`.`seller_seller_profile` 
+DROP INDEX `related_article_id` ;
+
+=== remove user_id and related_article_id index 
+2. add 2 field to seller_profile 
 
 ALTER TABLE `core`.`seller_seller_profile` 
 ADD COLUMN `is2016store` TINYINT(1) NOT NULL DEFAULT 1 AFTER `related_article_id`;
@@ -7,8 +33,7 @@ ADD COLUMN `is2016store` TINYINT(1) NOT NULL DEFAULT 1 AFTER `related_article_id
 ALTER TABLE `core`.`seller_seller_profile` 
 ADD COLUMN `is2015store` TINYINT(1) NOT NULL DEFAULT 1 AFTER `is2016store`;
 
-NEED SYNCDB
-
+1. NEED SYNCDB for IndexMeta2016 model 
 add model IndexMeta2016 in seller app
 
 

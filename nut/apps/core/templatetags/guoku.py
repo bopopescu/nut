@@ -19,6 +19,19 @@ def enumerate_list(value):
 register.filter(enumerate_list)
 
 
+def smart_scheme(value, is_secure=False):
+    if not is_secure:
+        return value
+    else:
+        return value.replace('http://', 'https://')
+register.filter(smart_scheme)
+
+
+def httpsImageCDN(value):
+    return value.replace('http://imgcdn.guoku.com', 'https://imgcdn.guoku.com')
+register.filter(httpsImageCDN)
+
+
 def resize(value, size=None):
     host = image_host
     # log.info(value)
