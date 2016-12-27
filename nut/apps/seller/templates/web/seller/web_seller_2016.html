@@ -189,7 +189,7 @@
                 {% for writer in writers %}
                 <div class="col-sm-2 guoku-middle-col">
                     <div class="opinion-cell">
-                        <a class="new-black-link" href="" target="_blank">
+                        <a class="new-black-link" href="{{ writer.absolute_url }}" target="_blank">
                             <div class="logo-wrapper">
                                 <img src="{{ writer.avatar_url|resize:'128'|smart_scheme:is_secure }}">
                             </div>
