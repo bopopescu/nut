@@ -56,6 +56,23 @@
             <div class="opinions-section">
                 <div class="row opinions-section-title-wrapper">
                     <div class="col-xs-12">
+                        <h2 class="opinions-section-title">LIFESTYLE</h2>
+                    </div>
+                </div>
+                <div class="hidden-xs row opinions-wrapper">
+                    {% for writer in life_writer  %}
+                        {% include "web/seller/partial/seller_2016_opinion_item.html" %}
+                    {% endfor %}
+                </div>
+                <div class="hidden-sm hidden-md hidden-lg row opinions-wrapper opinions-slick-wrapper">
+                    {% for writer in life_writer  %}
+                        {% include "web/seller/partial/seller_2016_opinion_item.html" %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="opinions-section">
+                <div class="row opinions-section-title-wrapper">
+                    <div class="col-xs-12">
                         <h2 class="opinions-section-title">FASHION</h2>
                     </div>
                 </div>
@@ -73,16 +90,16 @@
             <div class="opinions-section">
                 <div class="row opinions-section-title-wrapper">
                     <div class="col-xs-12">
-                         <h2 class="opinions-section-title">FOOD</h2>
+                        <h2 class="opinions-section-title">BEAUTY</h2>
                     </div>
                 </div>
                 <div class="hidden-xs row opinions-wrapper">
-                    {% for writer in food_writer  %}
+                    {% for writer in beauty_writer  %}
                         {% include "web/seller/partial/seller_2016_opinion_item.html" %}
                     {% endfor %}
                 </div>
                 <div class="hidden-sm hidden-md hidden-lg row opinions-wrapper opinions-slick-wrapper">
-                    {% for writer in food_writer  %}
+                    {% for writer in beauty_writer  %}
                         {% include "web/seller/partial/seller_2016_opinion_item.html" %}
                     {% endfor %}
                 </div>
@@ -90,7 +107,7 @@
             <div class="opinions-section">
                 <div class="row opinions-section-title-wrapper">
                     <div class="col-xs-12">
-                         <h2 class="opinions-section-title">CULTURE</h2>
+                        <h2 class="opinions-section-title">CULTURE</h2>
                     </div>
                 </div>
                 <div class="hidden-xs row opinions-wrapper">
@@ -107,16 +124,16 @@
             <div class="opinions-section">
                 <div class="row opinions-section-title-wrapper">
                     <div class="col-xs-12">
-                         <h2 class="opinions-section-title">LIFESTYLE</h2>
+                        <h2 class="opinions-section-title">FOOD</h2>
                     </div>
                 </div>
                 <div class="hidden-xs row opinions-wrapper">
-                    {% for writer in life_writer  %}
+                    {% for writer in food_writer  %}
                         {% include "web/seller/partial/seller_2016_opinion_item.html" %}
                     {% endfor %}
                 </div>
                 <div class="hidden-sm hidden-md hidden-lg row opinions-wrapper opinions-slick-wrapper">
-                    {% for writer in life_writer  %}
+                    {% for writer in food_writer  %}
                         {% include "web/seller/partial/seller_2016_opinion_item.html" %}
                     {% endfor %}
                 </div>
@@ -124,7 +141,7 @@
             <div class="opinions-section">
                 <div class="row opinions-section-title-wrapper">
                     <div class="col-xs-12">
-                         <h2 class="opinions-section-title">TECH</h2>
+                        <h2 class="opinions-section-title">TECH</h2>
                     </div>
                 </div>
                 <div class="hidden-xs row opinions-wrapper">
@@ -134,23 +151,6 @@
                 </div>
                 <div class="hidden-sm hidden-md hidden-lg row opinions-wrapper opinions-slick-wrapper">
                     {% for writer in tech_writer  %}
-                        {% include "web/seller/partial/seller_2016_opinion_item.html" %}
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="opinions-section">
-                <div class="row opinions-section-title-wrapper">
-                    <div class="col-xs-12">
-                         <h2 class="opinions-section-title">BEAUTY</h2>
-                    </div>
-                </div>
-                <div class="hidden-xs row opinions-wrapper">
-                    {% for writer in beauty_writer  %}
-                        {% include "web/seller/partial/seller_2016_opinion_item.html" %}
-                    {% endfor %}
-                </div>
-                <div class="hidden-sm hidden-md hidden-lg row opinions-wrapper opinions-slick-wrapper">
-                    {% for writer in beauty_writer  %}
                         {% include "web/seller/partial/seller_2016_opinion_item.html" %}
                     {% endfor %}
                 </div>
