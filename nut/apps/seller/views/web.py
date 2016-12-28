@@ -5,11 +5,21 @@ import urllib
 from braces.views import AjaxResponseMixin
 from django.http import Http404
 from django.utils.encoding import smart_str
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, RedirectView
 from apps.seller.models import Seller_Profile
 from apps.core.models import Entity, Article, GKUser, Selection_Article
 from apps.tag.models import Tags, Content_Tags
 
+
+class TrendRedirectView(RedirectView):
+    permanent = False
+    query_string = True
+    pattern_name = 'year_store_2016'
+
+class Seller2015RedirectView(RedirectView):
+    permanent = True
+    query_string = True
+    pattern_name = 'trend-2015'
 
 class SellerView(TemplateView):
     template_name = 'web/seller/web_seller.html'
