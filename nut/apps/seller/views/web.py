@@ -136,10 +136,10 @@ class NewSellerView(TemplateView):
         return tag_list
 
     def get_column_articles(self):
-        c_tag = list(Tags.objects.filter(name=column_tag_name))
+        c_tag = Tags.objects.filter(name=column_tag_name)
         if c_tag.exists():
-            artilcle_ids = Content_Tags.objects.filter(target_content_type_id=31, tag__name=column_tag_name)\
-                                        .values_list('target_object_id', flat=True)
+            artilcle_ids = list(Content_Tags.objects.filter(target_content_type_id=31, tag__name=column_tag_name)\
+                                        .values_list('target_object_id', flat=True))
             return Article.objects.filter(pk__in=artilcle_ids[:10])
         else:
             return []
@@ -245,8 +245,8 @@ class TopicArticlesView(ListView):
 
     def get_topic_articles(self, tag_name):
         tag_list = list(Tags.objects.filter(name=smart_str(tag_name)))
-        article_ids = Content_Tags.objects.filter(target_content_type_id=31, tag__in=tag_list)\
-                                  .values_list('target_object_id', flat=True)
+        article_ids = list(Content_Tags.objects.filter(target_content_type_id=31, tag__in=tag_list)\
+                                  .values_list('target_object_id', flat=True))
         return Article.objects.filter(pk__in=article_ids)
 
 
