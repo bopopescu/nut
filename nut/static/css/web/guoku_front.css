@@ -714,7 +714,6 @@ ul li {
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  border: 1px solid #e6e6e6;
   padding: 1px 8px;
   height: 22px;
   line-height: 20px;
@@ -4850,7 +4849,6 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  border: 1px solid #e6e6e6;
   padding: 1px 8px;
   height: 22px;
   line-height: 20px;
