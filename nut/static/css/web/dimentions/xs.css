@@ -354,6 +354,7 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
+  border: 1px solid #e6e6e6;
   padding: 1px 8px;
   height: 22px;
   line-height: 20px;
@@ -1571,7 +1572,8 @@ a.new-download-link {
   }
   #top_article_tags_container .top-article-tag,
   #top_article_tags_container .tag-element {
-    margin: 0;
+    margin-left: 0;
+    margin-bottom: 5px;
   }
   .guoku-card .entity-image-wrapper {
     padding: 0px!important;
