@@ -1,7 +1,7 @@
 {% load common guoku %}
 {% for seller in section_sellers %}
     <div class="col-xs-6 col-sm-3 col-md-3 sellers-wrapper sellers-wrapper-control">
-        <a href="{{ seller.related_article.url }}" target="_blank" class="recommendation-item">
+        <a href="{% if seller.related_article %}{{ seller.related_article.url }}{% else %}{{ seller.shop_link }}{% endif %}" target="_blank" class="recommendation-item">
             <img class="img-responsive sellers-logo" src="{{ seller.logo_url|resize:'450'|smart_scheme:is_secure }}" alt="{{ seller.shop_title }}" title="{{ seller.shop_title }}">
         </a>
         <div class="sellers-desc">
