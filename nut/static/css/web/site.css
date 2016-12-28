@@ -1574,6 +1574,14 @@ a.new-download-link {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.user-icon-list.recommend-user-list li h3.user-name {
+  margin: 0;
+  font-weight: normal;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .user-icon-list.recommend-user-list .all-users {
   height: 120px;
 }
