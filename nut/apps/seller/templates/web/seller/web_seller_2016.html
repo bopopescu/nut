@@ -232,50 +232,7 @@
         </div>
 
         <div class="row bottom-info-container">
-            <div class="col-xs-12 download-intro-wrapper">
-                <div class="download-intro">
-                    <p>2016，感谢有你陪伴！ 2017，果库更多精彩!</p>
-                </div>
-            </div>
-            <div class="col-xs-12 download-guoku-qrcode-wrapper">
-                <img src="{{ global_static_url_prefix }}images/year-seller/DL_guoku.jpg" class="download-guoku-qrcode">
-            </div>
-            <div class="col-xs-12 download-app-intro-wrapper">
-                <p class="download-app-intro">免费下载「果库」客户端，生活不一样</p>
-            </div>
-            <div class="col-xs-12 download-app-addr-wrapper">
-                <div class="download-app-addr">
-                    <ul>
-                        <li>
-                            <a class="new-download-link" href="http://itunes.apple.com/cn/app/id477652209?mt=8">
-                                iPhone
-                            </a>
-                            <span>·</span>
-                        </li>
-
-                        <li>
-                            <a class="new-download-link" href="http://itunes.apple.com/cn/app/id450507565?mt=8">
-                                iPad
-                            </a>
-                            <span>·</span>
-                        </li>
-
-                        <li>
-                            <a class="new-download-link" href="http://app.guoku.com/download/android/guoku-release.apk">
-                                Android
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-xs-12 cooperate-media-wrapper">
-                <div class="cooperate-media-title">协办方</div>
-                <div>
-                    <img class="media-logo" src="{{ global_static_url_prefix }}images/year-seller-2016/jiemian_logo2.png" alt="界面新闻" title="界面新闻" style="height:30px;">
-                    <img class="media-logo" src="{{ global_static_url_prefix }}images/year-seller-2016/liangcang_logo2.png" alt="良仓" title="良仓" style="height:25px;">
-                    <img class="media-logo" src="{{ global_static_url_prefix }}images/year-seller-2016/yaqu_logo2.png" alt="雅趣Ejoy" title="雅趣Ejoy" style="height:30px;">
-                </div>
-            </div>
+            {% include 'web/seller/partial/seller_2016_bottom_info.html' %}
         </div>
     </div>
 
