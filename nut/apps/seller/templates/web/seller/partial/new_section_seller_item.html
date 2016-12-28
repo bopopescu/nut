@@ -2,7 +2,7 @@
 {% for seller in section_sellers %}
     <div class="col-xs-6 col-sm-3 col-md-3 sellers-wrapper sellers-wrapper-control">
         <a href="{{ seller.related_article.url }}" target="_blank" class="recommendation-item">
-            <img class="img-responsive sellers-logo" src="{{ seller.logo_url}}" alt="{{ seller.shop_title }}" title="{{ seller.shop_title }}">
+            <img class="img-responsive sellers-logo" src="{{ seller.logo_url|resize:'450'|smart_scheme:is_secure }}" alt="{{ seller.shop_title }}" title="{{ seller.shop_title }}">
         </a>
         <div class="sellers-desc">
             <p>{{ seller.shop_desc }}</p>
@@ -15,10 +15,10 @@
                     </a>
                 </li>
                 <li>
-                    <a class="share-btn-wb" rel="nofollow" data_shop_desc="{{ seller.shop_desc|truncatechars:45 }}" data_shop_pic="{{ seller.logo_url  }}"  data_shop_title="{{ seller.shop_title }}" data_shop_section="{{ seller.business_section }}" target="_blank"><i class="fa fa-weibo weibo-hover"></i></a>
+                    <a class="share-btn-wb" rel="nofollow" data_shop_desc="{{ seller.shop_desc|truncatechars:45 }}" data_shop_pic="{{ seller.logo_url|smart_scheme:is_secure  }}"  data_shop_title="{{ seller.shop_title }}" data_shop_section="{{ seller.business_section }}" target="_blank"><i class="fa fa-weibo weibo-hover"></i></a>
                 </li>
                 <li>
-                    <a class="share-btn-qq" rel="nofollow" data_shop_desc="{{ seller.shop_desc|truncatechars:45 }}" data_shop_pic="{{ seller.logo_url  }}"  data_shop_title="{{ seller.shop_title }}" data_shop_section="{{ seller.business_section }}"  target="_blank">
+                    <a class="share-btn-qq" rel="nofollow" data_shop_desc="{{ seller.shop_desc|truncatechars:45 }}" data_shop_pic="{{ seller.logo_url|smart_scheme:is_secure  }}"  data_shop_title="{{ seller.shop_title }}" data_shop_section="{{ seller.business_section }}"  target="_blank">
                         <i class="fa fa-qq qq-hover"></i>
                     </a>
                 </li>

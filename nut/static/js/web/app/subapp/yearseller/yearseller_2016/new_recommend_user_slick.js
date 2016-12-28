@@ -2,13 +2,13 @@
 define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
     $, Class, slick , fastdom
 ){
-            var RecommendUserSlick= Class.extend({
+            var NewRecommendUserSlick= Class.extend({
                 init: function () {
                     this.init_slick();
                     console.log('recommend user slick in discover page begin');
                 },
                 init_slick:function(){
-                    $('.recommend-user-list,.user-panel-container').slick({
+                    $('.new-seller-body .opinions-wrapper.opinions-slick-wrapper').slick({
                         arrows: true,
                         slidesToShow: 6,
                         slidesToScroll:4,
@@ -37,7 +37,7 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                              {
                                 breakpoint: 580,
                                 settings: {
-                                    slidesToShow:5,
+                                    slidesToShow:2,
                                     slidesToScroll:2,
                                     autoplay:false,
                                     dots:false
@@ -47,7 +47,7 @@ define(['jquery', 'libs/Class','libs/slick','fastdom'], function(
                     });
                 }
             });
-    return RecommendUserSlick;
+    return NewRecommendUserSlick;
 });
 
 

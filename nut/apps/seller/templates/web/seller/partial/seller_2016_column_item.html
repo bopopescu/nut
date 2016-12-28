@@ -1,34 +1,36 @@
 {% load i18n staticfiles %}
-{% load common %}
+{% load common guoku %}
 
 <div class="col-xs-12 column-cell-wrapper">
     <div class="column-cell">
         <div class="column-main-content">
             <div class="article-introduce-wrapper">
                 <div class="article-title-wrapper">
-                    <a class="article-title new-black-link" href="" target="_blank">
-                        日本最好的企业文化志《花椿》遗憾停刊
+                    <a class="article-title new-black-link" href="{% url 'web_article_page_slug' article.article_slug %}" target="_blank">
+                        {{ article.title|truncatechars:32 }}
                     </a>
                 </div>
                 <div class="article-summary-wrapper hidden-xs">
                     <p class="article-summary">
-                        面世将近 80 个年头的资生堂内刊《花椿》，最近宣布将在 2016 年停止纸本出版，转而将重心移至网络平台上。那些习惯在每月 5 日前往资生堂门店免费索取当...
+                        {% autoescape off %}
+                         {{ article.content|at_digest|striptags|truncatechars:100 }}
+{#                        {{ article.short_digest }}#}
+                        {% endautoescape %}
                     </p>
                 </div>
             </div>
             <div class="article-cover-wrapper">
-                <a href="" target="_blank">
-                    <div class="article-cover" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
+                <a href="{% url 'web_article_page_slug' article.article_slug %}" target="_blank" title="{{ article.title }}">
+                    <div class="article-cover" style="background-image: url('{{ article.cover_url|resize:'450'|smart_scheme:is_secure }}')"></div>
                 </a>
-
             </div>
         </div>
         <div class="more-info-wrapper">
-            <a class="new-blue-link" href="" target="_blank">
-                <img class="author-logo" src="{% static 'images/year-seller-2016/avatar_1.jpg' %}">
-                <span>丹丹朱的青年厨房</span>
+            <a class="new-blue-link" href="{% url 'web_user_index' article.creator.pk %}" target="_blank">
+                <img class="author-logo" src="{{ article.creator.profile.avatar_url|resize:'180'|smart_scheme:is_secure }}">
+                <span>{{ article.creator.profile.nickname }}</span>
             </a>
-            <span class="time">发表于 2016.06.14</span>
+            <span class="time">发表于 {{article.created_datetime|date:"Y-m-d"}}</span>
         </div>
     </div>
 </div>

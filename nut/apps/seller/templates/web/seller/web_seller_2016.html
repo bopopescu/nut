@@ -22,9 +22,9 @@
 
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'thirdparty/slick/slick/slick-theme.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/web/web-seller-style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{{ global_static_url_prefix }}thirdparty/slick/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ global_static_url_prefix }}thirdparty/slick/slick/slick-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ global_static_url_prefix }}css/web/web-seller-style.css">
 {% endblock %}
 
 {% block body_class %} gray-body seller-body new-seller-body {% endblock %}
@@ -32,7 +32,7 @@
 {% block weixin_share_img %}
 {#    must be first img in body #}
     <div id='wx_logo' style='margin:0 auto;display:none;'>
-        <img src="{% static 'images/year-seller/weibo_share_300.jpg' %}" />
+        <img src="{{ global_static_url_prefix }}images/year-seller/weibo_share_300.jpg" />
     </div>
 
 {% endblock %}
@@ -41,16 +41,11 @@
 {% endblock %}
 
 {% block content %}
-    <div id="top" class="seller-cross-screen" style="background-image: url({% static 'images/year-seller-2016/banner_bg.jpg' %})">
+    <div id="top" class="seller-cross-screen" style="background-image: url({{ global_static_url_prefix }}images/year-seller-2016/banner_bg.jpg)">
         <div class="row seller-banner-wrapper">
             <div class="col-xs-12 banner-bgpic-wrapper">
-                <img src="{% static 'images/year-seller-2016/banner_title_2016.png' %}" class="img-responsive img-control" title="Best of the Year 果库2016年度消费报告" alt="Best of the Year 果库2016年度消费报告">
+                <img src="{{ global_static_url_prefix }}images/year-seller-2016/banner_title_2016.png" class="img-responsive img-control" title="Best of the Year 果库2016年度消费报告" alt="Best of the Year 果库2016年度消费报告">
             </div>
-
-{#            <div class="col-xs-12 share-btn-wrapper">#}
-{#                <a class="share-btn">点击分享</a>#}
-{#            </div>#}
-
             <div class="col-xs-12 sections-titles-wrapper detach_nav hidden_nav detach">
                 <div class="sections-titles-nav">
                     <ul>
@@ -131,23 +126,23 @@
         <div class="sections-item-wrapper" id="shops">
             <div class="row sections-item-intro-wrapper shops-section-bg-wrapper">
                 <div id="index_shops_bg_wrapper">
-                    <div class="shops-bg" style="background-image: url({% static 'images/year-seller-2016/shops_section_bg_1.jpg' %})">
+                    <div class="shops-bg" style="background-image: url({{ global_static_url_prefix }}images/year-seller-2016/shops_section_bg_1.jpg)">
                     </div>
-                    <div class="shops-bg" style="background-image: url({% static 'images/year-seller-2016/shops_section_bg_2.jpg' %})">
+                    <div class="shops-bg" style="background-image: url({{ global_static_url_prefix }}images/year-seller-2016/shops_section_bg_2.jpg)">
                     </div>
-                    <div class="shops-bg" style="background-image: url({% static 'images/year-seller-2016/shops_section_bg_3.jpg' %})">
+                    <div class="shops-bg" style="background-image: url({{ global_static_url_prefix }}images/year-seller-2016/shops_section_bg_3.jpg)">
                     </div>
-                    <div class="shops-bg" style="background-image: url({% static 'images/year-seller-2016/shops_section_bg_4.jpg' %})">
+                    <div class="shops-bg" style="background-image: url({{ global_static_url_prefix }}images/year-seller-2016/shops_section_bg_4.jpg)">
                     </div>
                 </div>
                 <div class="dark-bg-layer"></div>
                 <div class="col-xs-12 sections-item-title">
                     <div class="title">
-                        <img src="{% static 'images/year-seller-2016/shops_logo.png' %}" title="果库 2016 最受欢迎淘宝店铺" alt="果库 2016 最受欢迎淘宝店铺">
+                        <img src="{{ global_static_url_prefix }}images/year-seller-2016/shops_logo.png" title="果库 2016 最受欢迎淘宝店铺" alt="果库 2016 最受欢迎淘宝店铺">
                     </div>
                     <div class="see-all">
                         <a href="{% url 'year_store_2016_shops' %}" target="_blank">
-                            <img src="{% static 'images/year-seller-2016/see_all_rect.png' %}" title="果库 2016 最受欢迎淘宝店铺 100 家" alt="果库 2016 最受欢迎淘宝店铺 100 家">
+                            <img src="{{ global_static_url_prefix }}images/year-seller-2016/see_all_rect.png" title="果库 2016 最受欢迎淘宝店铺 100 家" alt="果库 2016 最受欢迎淘宝店铺 100 家">
                         </a>
                     </div>
                 </div>
@@ -161,7 +156,6 @@
                     </p>
                 </div>
             </div>
-
             <div class="row sections-item-sellers-wrapper shops-slick-wrapper hidden-xs">
                 {% with section_sellers=sellers  %}
                     {% include 'web/seller/partial/new_section_seller_item.html' %}
@@ -175,56 +169,35 @@
         </div>
 
         <div class="sections-item-wrapper" id="opinions">
-
             <div class="row new-sections-item-intro-wrapper">
                 <div class="col-xs-12 sections-item-title">
                     <a href="{% url 'year_store_2016_opinions' %}" target="_blank">
-                        <img class="subtitle-pic hidden-subtitle" src="{% static 'images/year-seller-2016/opinions_logo.png' %}" alt="作者 OPINIONS" title="作者 OPINIONS">
-                        <img class="subtitle-pic see-all-visible" src="{% static 'images/year-seller-2016/see_all.png' %}" alt="查看全部" title="查看全部">
+                        <img class="subtitle-pic hidden-subtitle" src="{{ global_static_url_prefix }}images/year-seller-2016/opinions_logo.png" alt="作者 OPINIONS" title="作者 OPINIONS">
+                        <img class="subtitle-pic see-all-visible" src="{{ global_static_url_prefix }}images/year-seller-2016/see_all.png" alt="查看全部" title="查看全部">
                     </a>
                 </div>
             </div>
-
             <div class="row opinions-wrapper opinions-slick-wrapper">
                 {% for writer in writers %}
-                <div class="col-sm-2 guoku-middle-col">
-                    <div class="opinion-cell">
-                        <a class="new-black-link" href="{{ writer.absolute_url }}" target="_blank">
-                            <div class="logo-wrapper">
-                                <img src="{{ writer.avatar_url|resize:'128'|smart_scheme:is_secure }}">
-                            </div>
-                            <p class="name">{{ writer.nick }}</p>
-                        </a>
-                    </div>
-                </div>
+                    {% include "web/seller/partial/seller_2016_opinion_item.html" %}
                 {% endfor %}
-
             </div>
         </div>
 
         <div class="sections-item-wrapper" id="topics">
-
             <div class="row new-sections-item-intro-wrapper">
                 <div class="col-xs-12 sections-item-title">
                     <a href="{% url 'year_store_2016_topics' %}" target="_blank">
-                        <img class="subtitle-pic hidden-subtitle" src="{% static 'images/year-seller-2016/topics_logo.png' %}">
-                        <img class="subtitle-pic see-all-visible" src="{% static 'images/year-seller-2016/see_all.png' %}" alt="查看全部" title="查看全部">
+                        <img class="subtitle-pic hidden-subtitle" src="{{ global_static_url_prefix }}images/year-seller-2016/topics_logo.png">
+                        <img class="subtitle-pic see-all-visible" src="{{ global_static_url_prefix }}images/year-seller-2016/see_all.png" alt="查看全部" title="查看全部">
                     </a>
                 </div>
             </div>
-
             <div class="row hidden-xs" id="top_article_tags_container">
-{#                <div class="top-article-tag" data-value="all_article">#}
-{#                    <a href="/articles/">#}
-{#                        <div class="tag-element">#}
-{#                            全部#}
-{#                        </div>#}
-{#                    </a>#}
-{#                </div>#}
                 {% for top_tag in topic_tags %}
-                    <div class="top-article-tag" data-value="{{ top_tag.id }}">
-                        <a href="{% url 'topic_articles_url' top_tag.quoted_tag_name %}">
-                            <div class="tag-element {% if tag.name == top_tag.name %}tag-current{% endif %}">
+                    <div class="top-article-tag">
+                        <a href="{% url 'topic_articles_url' top_tag.quoted_tag_name %}" title="{{ top_tag.info }}" target="_blank">
+                            <div class="tag-element">
                                 {{ top_tag.name }}
                             </div>
                         </a>
@@ -232,85 +205,31 @@
                 {% endfor %}
             </div>
             <div class="row" id="new_selection_article_list">
-                {#                {% for article_item in articles %}#}
-                {#                    {% with article_item.article as article %}#}
-                {#                        {% include 'web/tags/partial/new_tag_article_item.html' %}#}
-                {#                    {% endwith %}#}
-                {#                {% endfor %}#}
-
-
                 {% for article in topic_articles %}
-                <div class="hidden-xs col-sm-4 col-md-4 col-lg-4  new-selection-article-item new-event-article-item" >
-                    <div class="article-panel">
-                        <a class="img-link" href="">
-                            <div class="img-holder" style="background-image: url('{{ article.cover_url|resize:'350'|smart_scheme:is_secure }}')"></div>
-                        </a>
-
-                        <div class="article-info-wrapper">
-                            <div class="article-title">
-                                <a  href="{{ article.url }}">
-                                    {{ article.title }}
-                                </a>
-                            </div>
-                            <div class="article-intro">
-                                {% autoescape off %}
-                                    {{ article.short_digest }}
-                                {% endautoescape %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                    {% include 'web/tags/partial/new_tag_article_item.html' %}
                 {% endfor %}
-
             </div>
         </div>
 
         <div class="sections-item-wrapper" id="columns">
-
             <div class="row new-sections-item-intro-wrapper">
                 <div class="col-xs-12 sections-item-title">
                     <a href="{% url 'year_store_2016_columns' %}" target="_blank">
-                        <img class="subtitle-pic hidden-subtitle" src="{% static 'images/year-seller-2016/columns_logo.png' %}">
-                        <img class="subtitle-pic see-all-visible" src="{% static 'images/year-seller-2016/see_all.png' %}" alt="查看全部" title="查看全部">
+                        <img class="subtitle-pic hidden-subtitle" src="{{ global_static_url_prefix }}images/year-seller-2016/columns_logo.png">
+                        <img class="subtitle-pic see-all-visible" src="{{ global_static_url_prefix }}images/year-seller-2016/see_all.png" alt="查看全部" title="查看全部">
                     </a>
                 </div>
             </div>
             <div class="row columns-wrapper hidden-xs">
+              {% for article in column_articles %}
                  {% include "web/seller/partial/seller_2016_column_item.html" %}
-                 {% include "web/seller/partial/seller_2016_column_item.html" %}
-                 {% include "web/seller/partial/seller_2016_column_item.html" %}
+              {% endfor %}
             </div>
             <div class="row selection-article-container hidden-sm hidden-md hidden-lg" id="custom_selection_article_list">
-{#               {% for article in column_articles  %}
-                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
-                            <div class="article-panel">
-                                <a class="img-link" href="">
-                                    <div class="img-holder" style="background-image: url('{{ article.cover_url|resize:'360'|smart_scheme:is_secure }}')"></div>
-                                </a>
-
-                                <div class="article-info-wrapper">
-                                    <div class="article-title">
-                                        <a  href="{{ article.url }}" >
-                                            {{ article }}
-                                        </a>
-                                    </div>
-                                    <div class="article-intro">
-                                         {% autoescape off %}
-                                            {{ article.short_digest }}
-                                        {% endautoescape %}
-                                    </div>
-                                </div>
-                                <div class="article-info">
-                                    <span class="create-time">
-                                        {{ article.updated_datetime }}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                {% for article in column_articles %}
+                    {% include 'web/article/partial/article_item_new.html' %}
                 {% endfor %}
-
-        </div>
+            </div>
         </div>
 
         <div class="row bottom-info-container">
@@ -320,7 +239,7 @@
                 </div>
             </div>
             <div class="col-xs-12 download-guoku-qrcode-wrapper">
-                <img src="{% static 'images/year-seller/DL_guoku.jpg' %}" class="download-guoku-qrcode">
+                <img src="{{ global_static_url_prefix }}images/year-seller/DL_guoku.jpg" class="download-guoku-qrcode">
             </div>
             <div class="col-xs-12 download-app-intro-wrapper">
                 <p class="download-app-intro">免费下载「果库」客户端，生活不一样</p>
@@ -353,18 +272,19 @@
             <div class="col-xs-12 cooperate-media-wrapper">
                 <div class="cooperate-media-title">协办方</div>
                 <div>
-                    <img class="media-logo" src={% static 'images/year-seller-2016/media_1.png' %}>
-                    <img class="media-logo" src="{% static 'images/year-seller-2016/media_2.png' %}">
+                    <img class="media-logo" src="{{ global_static_url_prefix }}images/year-seller-2016/jiemian_logo2.png" alt="界面新闻" title="界面新闻" style="height:30px;">
+                    <img class="media-logo" src="{{ global_static_url_prefix }}images/year-seller-2016/liangcang_logo2.png" alt="良仓" title="良仓" style="height:25px;">
+                    <img class="media-logo" src="{{ global_static_url_prefix }}images/year-seller-2016/yaqu_logo2.png" alt="雅趣Ejoy" title="雅趣Ejoy" style="height:30px;">
                 </div>
             </div>
         </div>
     </div>
 
     <script type="text/html" id="share_modal_content">
-        <div class="share-modal-wrapper share-modal-wrapper-control" style="background-image:url({% static 'images/year-seller/share_bg.jpg' %})">
+        <div class="share-modal-wrapper share-modal-wrapper-control" style="background-image:url({{ global_static_url_prefix }}images/year-seller/share_bg.jpg)">
 
             <div class="qr-code-wrapper qr-code-control">
-                <img src="{% static 'images/year-seller/store2015_QRcode.jpg' %}" width="200px" height="200px"/>
+                <img src="{{ global_static_url_prefix }}images/year-seller/store2015_QRcode.jpg" width="200px" height="200px"/>
             </div>
 
             <div class="share-btn-wrapper weibo-share-btn-wrapper-control">
@@ -378,15 +298,13 @@
 
         </div>
     </script>
-
     <script type="text/html" id="share_weixin_modal_content">
         <div class="share-modal-wrapper share-modal-wrapper-control">
             <div class="qr-code-wrapper qr-code-control">
-                <img src="{% static 'images/year-seller/store2015_QRcode.jpg' %}" width="200px" height="200px"/>
+                <img src="{{ global_static_url_prefix }}images/year-seller/store2015_QRcode.jpg" width="200px" height="200px"/>
             </div>
         </div>
     </script>
-
 
 {% endblock %}
 {% block basic_script %}
@@ -411,9 +329,9 @@
     </script>
 
     <script language="javascript">
-        var share_pic = '{% static 'images/year-seller/share_weibo.jpg' %}';
+        var share_pic = '{{ global_static_url_prefix }}images/year-seller/share_weibo.jpg';
     </script>
-    <script data-main="{% static 'js/web/jsbuild/seller_2016_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+    <script data-main="{{ global_static_url_prefix }}js/web/jsbuild/seller_2016_app_build.js" src="{{ global_static_url_prefix }}js/web/app/require.js"></script>
 
 {% endblock %}
 
