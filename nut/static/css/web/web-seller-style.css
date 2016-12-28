@@ -1790,6 +1790,33 @@ ol {
   margin-bottom: 7px;
   box-shadow: none;
 }
+.new-seller-body #top_article_tags_container .top-article-tag {
+  margin-bottom: 5px;
+}
+.new-seller-body #top_article_tags_container .tag-element {
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  padding: 0 10px;
+  height: 32px;
+  line-height: 32px;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid #e6e6e6;
+  color: #757575;
+  font-size: 16px;
+}
+.new-seller-body #top_article_tags_container .tag-element a {
+  color: #757575;
+}
+.new-seller-body #top_article_tags_container .tag-element:hover,
+.new-seller-body #top_article_tags_container .tag-element.current {
+  color: #212121;
+  background-color: #f1f1f1;
+}
 .new-seller-body #seller_2016_nav {
   backface-visibility: hidden;
   -webkit-transform: translate3d(0, 0, 0);
