@@ -1,3 +1,14 @@
+
+
+1. 2016 year roundup minisite
+
+
+action : 
+need translation update
+./manage.py compilemessages
+
+=================================
+
 3. minor https compat adjust 
 2. add writer list data to 2016 store page 
 1. 2016 store edit management page update
