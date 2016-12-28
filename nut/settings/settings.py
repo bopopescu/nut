@@ -60,6 +60,8 @@ INSTALLED_APPS = (
     'djcelery',
     # 'notifications',
 
+    'captcha', #验证码
+
     'apps.core',
     'apps.management',
     'apps.web',
@@ -77,7 +79,6 @@ INSTALLED_APPS = (
     'apps.payment',
     'apps.top_ad',
     'apps.offline_shop',
-    'captcha',
 )
 
 HAYSTACK_CONNECTIONS = {
@@ -301,8 +302,14 @@ CELERY_ROUTES = {
 
 
 # for django-simple-captcha
-CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs','captcha.helpers.noise_dots',)
+CAPTCHA_FOREGROUND_COLOR = '#212121' # 验证码字体颜色
+CAPTCHA_BACKGROUND_COLOR = '#f8f8f8' # 验证码背景颜色
+CAPTCHA_NOISE_FUNCTIONS = (
+    'captcha.helpers.noise_arcs',
+    'captcha.helpers.noise_dots',
+)
 CAPTCHA_LENGTH = 5
+
 # for debug server popular  category test
 DEFAULT_POPULAR_SCALE = 7
 

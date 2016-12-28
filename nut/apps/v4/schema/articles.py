@@ -30,7 +30,7 @@ class ArticleSchema(Schema):
         return obj.tag_list
 
     def get_read_count(self, obj):
-        return obj.read_count + 2501
+        return obj.read_count_realtime + 2501
 
     def selection_pub_time(self, obj):
         pub_time     = None
