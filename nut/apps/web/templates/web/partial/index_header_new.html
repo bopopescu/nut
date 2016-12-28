@@ -89,6 +89,10 @@
                         <a href="{{ store_url }}" class="">{% trans 'Store' %}</a>
                     </li>
 
+                    {% url 'web_trend' as trend_url %}
+                    <li {% if trend_url in request.path %}class="active" {% endif %}>
+                        <a href="{{ trend_url }}" class="">{% trans '趋势' %}</a>
+                    </li>
                 </ul>
 
                 {% url 'web_login' as web_login_url %}
