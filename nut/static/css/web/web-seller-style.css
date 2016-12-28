@@ -2203,6 +2203,7 @@ ol {
 }
 .new-seller-body .seller-page-container .cooperate-media-wrapper .media-logo {
   margin-right: 50px;
+  text-decoration: none;
 }
 .new-seller-body .seller-page-container .cooperate-media-wrapper .media-logo:last-child {
   margin-right: 0;
