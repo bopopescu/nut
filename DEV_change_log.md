@@ -1,3 +1,20 @@
+
+
+1. 2016 year roundup minisite
+
+
+action : 
+need translation update
+./manage.py compilemessages
+
+=================================
+
+3. minor https compat adjust 
+2. add writer list data to 2016 store page 
+1. 2016 store edit management page update
+========================
+
+
 4. image https adaption for article page 
 3. add article real time counter property , article.read_count_realtime
 2. add IndexMeta2016 model for index content management 
@@ -13,6 +30,10 @@
 ALTER TABLE `core`.`seller_seller_profile` 
 DROP INDEX `related_article_id` ,
 DROP INDEX `user_id` ;
+
+
+ALTER TABLE `core`.`seller_seller_profile` 
+DROP INDEX `related_article_id` ;
 
 === remove user_id and related_article_id index 
 2. add 2 field to seller_profile 

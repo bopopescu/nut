@@ -16,6 +16,8 @@
     </section>
 
     <section class="content">
+    <form class="form-horizontal" enctype="multipart/form-data" action="" method="post">
+ {% csrf_token %}
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
@@ -29,7 +31,7 @@
                     </div>
 
                     <div class="box-footer">
-                        <a class="btn btn-success" id="update_writer">更新</a>
+{#                        <a class="btn btn-success" id="update_writer">更新</a>#}
                     </div>
                 </div>
                  <div class="box box-info">
@@ -42,7 +44,7 @@
                     </div>
 
                     <div class="box-footer">
-                       <a class="btn btn-success" id="update_topic">更新</a>
+{#                       <a class="btn btn-success" id="update_topic">更新</a>#}
                     </div>
                 </div>
                 <div class="box box-info">
@@ -55,12 +57,19 @@
                     </div>
 
                     <div class="box-footer">
-                       <a class="btn btn-success" id="update_column">更新</a>
+{#                       <a class="btn btn-success" id="update_column">更新</a>#}
                     </div>
+                </div>
+
+                <div>
+
+                 <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+
                 </div>
 
             </div>
         </div>
+        </form>
     </section>
 
 {% endblock %}

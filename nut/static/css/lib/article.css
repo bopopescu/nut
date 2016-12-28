@@ -262,6 +262,7 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
   min-height: 40px;
   max-height: 40px;
 }
@@ -2062,6 +2063,7 @@ a.new-download-link {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
   line-height: 1.3;
   font-weight: 500;
   left: 0;

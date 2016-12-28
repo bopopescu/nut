@@ -151,7 +151,7 @@ class SellerCreateView(CreateView):
 
 
 class SellerListView(ExtraQueryMixin, ListView):
-    paginate_by = 25
+    paginate_by = 100
     paginator_class = ExtentPaginator
     model = Seller_Profile
     template_name = 'management/seller/list.html'
@@ -162,13 +162,13 @@ class SellerListView(ExtraQueryMixin, ListView):
         year = self.request.GET.get('year')
         if year == '2015':
             self.extra_query_dic['year'] = 2015
-            return Seller_Profile.objects.filter(is2015store=True)
+            return Seller_Profile.objects.filter(is2015store=True).order_by('-id')
         elif year == '2016':
             self.extra_query_dic['year'] = 2016
-            return Seller_Profile.objects.filter(is2016store=True)
+            return Seller_Profile.objects.filter(is2016store=True).order_by('-id')
         else:
             self.extra_query_dic['year'] = 'all'
-            return Seller_Profile.objects.all()
+            return Seller_Profile.objects.all().order_by('-id')
 
 
 class SellerUpdateView(UpdateView):
@@ -195,6 +195,15 @@ class Index2016ContentForm(ModelForm):
         widget= forms.Textarea
     )
 
+    def clean_writer_list(self):
+        return [1, 2, 3]
+
+    def save(self):
+        ins = super(Index2016ContentForm, self).save()
+        ins.writer_list = [1, 2, 3]
+        ins.save()
+
+
     class Meta:
         model = IndexPageMeta
         fields = ['writer_list', 'topic_tag_list', 'column_article_tag_list']
@@ -204,6 +213,9 @@ class Store2016IndexManageView(UpdateView):
     template_name = 'management/seller/meta_2016.html'
     form_class = Index2016ContentForm
     model = IndexPageMeta
+
+    def get_success_url(self):
+        return reverse('management_2016_store_index')
 
     def get_object(self, queryset=None):
         obj, created = IndexPageMeta.objects.get_or_create(year='2016')

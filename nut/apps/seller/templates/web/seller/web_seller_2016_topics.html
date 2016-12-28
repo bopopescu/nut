@@ -3,27 +3,27 @@
 {% load common guoku %}
 
 {% block meta-og %}
-    <meta property="og:title" content="果库 2016 最受欢迎淘宝店铺 100 家 | 年度消费报告 | 精英消费指南 | 理想生活主张" >
+    <meta property="og:title" content="最具影响十大消费话题 | 果库 2016 年度消费报告 | 精英消费指南 | 理想生活主张" >
     <meta property="og:url"   content="{{ request.build_absolute_uri }}" >
     <meta property="og:description" content="果库用户最喜爱的淘宝店铺100家，果库精心进行了店主访问，精选了他们的产品列表。这里荟萃了中国最优秀的零售创新力量，带你了解他们的经营理念，人生哲学，让我们一起欣赏他们给世界带来的便利和美好。">
 {% endblock %}
 
 {% block meta-common %}
-    <meta name="title"  content="果库 2016 最受欢迎淘宝店铺 100 家 | 年度消费报告">
+    <meta name="title"  content="最具影响十大消费话题 | 果库 2016 年度消费报告">
     <meta name="keywords" content="淘宝店铺精选, 最值得逛淘宝店铺,top , TOP 100, 精选商品,精选,尽收世上好物,果库、guoku、果库网、果库应用、精英消费指南、消费指南、精品导购应用、导购、购物指南、购物分享、淘宝网购物、淘宝网精选、精品推荐">
     <meta name="description" content="果库用户最喜爱的淘宝店铺100家，果库精心进行了店主访问，精选了他们的产品列表。这里荟萃了中国最优秀的零售创新力量，带你了解他们的经营理念，人生哲学，让我们一起欣赏他们给世界带来的便利和美好。">
 {% endblock %}
 
 {% load i18n %}
 
-{% block title %}话题 TOPICS{% endblock %}
+{% block title %}最具影响十大消费话题 | 果库 2016 年度消费报告{% endblock %}
 
-{% block h1 %}话题 TOPICS{% endblock %}
+{% block h1 %}最具影响十大消费话题 | 果库 2016 年度消费报告{% endblock %}
 
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/web/style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/web/web-seller-style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{{ global_static_url_prefix }}css/web/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ global_static_url_prefix }}css/web/web-seller-style.css">
 {% endblock %}
 {#give body element a more class:seller-body#}
 {% block body_class %}seller-body new-seller-body new-seller-body-control {% endblock %}
@@ -31,7 +31,7 @@
 {% block weixin_share_img %}
 {#    must be first img in body #}
     <div id='wx_logo' style='margin:0 auto;display:none;'>
-        <img src="{% static 'images/year-seller/weibo_share_300.jpg' %}" />
+        <img src="{{ global_static_url_prefix }}images/year-seller/weibo_share_300.jpg" />
     </div>
 
 {% endblock %}
@@ -52,178 +52,37 @@
     <div class="container">
         <div class="row" id="top_article_tags_container">
             <div class="top-article-tag">
-                <a href="/articles/">
-                    <div class="tag-element tag-current">
-                        全部
-                    </div>
-                </a>
-            </div>
-            {% for top_tag in top_article_tags %}
+                    <a href="{% url 'year_store_2016_topics' %}">
+                        <div class="tag-element {% if current_tag_name == top_tag.name %}tag-current{% endif %}">
+                            全部
+                        </div>
+                    </a>
+                </div>
+
+            {% for top_tag in topic_tags %}
                 <div class="top-article-tag">
-                    <a href="{% url 'topic_articles_url' top_tag.quoted_tag_name %}">
-                        <div class="tag-element {% if tag.name == top_tag.name %}tag-current{% endif %}">
+                    <a href="{% url 'topic_articles_url' top_tag.quoted_tag_name %}" alt="{{ top_tag.info }}" title="{{ top_tag.info  }}" target="_blank">
+                        <div class="tag-element {% if current_tag_name == top_tag.name %}tag-current{% endif %}">
                             {{ top_tag.name }}
                         </div>
                     </a>
                 </div>
             {% endfor %}
+
+        </div>
+        <div class="row topic-tag-desc-wrapper hidden-sm hidden-md hidden-lg">
+            <div class="col-xs-12">
+                <p class="tag-desc">
+                    {% if current_tag_name %}
+                        {{ current_tag_name }} desc
+                    {% endif %}
+                </p>
+            </div>
         </div>
         <div class="row selection-article-container" id="custom_selection_article_list">
-{#            {% for sla in selection_articles %}#}
-{#                {% with sla.article as article %}#}
-{#                    {% include 'web/article/partial/article_item_new.html' %}#}
-{#                {% endwith %}#}
-{#            {% endfor %}#}
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
-                <div class="article-panel">
-                    <a class="img-link" href="">
-                        <div class="img-holder" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
-                    </a>
-
-                    <div class="article-info-wrapper">
-                        <div class="article-title">
-                            <a  href="">
-                                了解荞麦面的这些门道，才是真正的日本美食达人
-                            </a>
-                        </div>
-                        <div class="article-intro">
-                            {% autoescape off %}
-                            日本最有代表性的面？看着我们周围日式餐厅的招牌，很多人会不假思索地回答「拉面」。然而对日本人民来说，荞麦面才是最有国民性...
-                            {% endautoescape %}
-                        </div>
-                    </div>
-                    <div class="article-info">
-                 <span class="create-time">
-                     昨天
-                 </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
-                <div class="article-panel">
-                    <a class="img-link" href="">
-                        <div class="img-holder" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
-                    </a>
-
-                    <div class="article-info-wrapper">
-                        <div class="article-title">
-                            <a  href="">
-                                了解荞麦面的这些门道，才是真正的日本美食达人
-                            </a>
-                        </div>
-                        <div class="article-intro">
-                            {% autoescape off %}
-                            日本最有代表性的面？看着我们周围日式餐厅的招牌，很多人会不假思索地回答「拉面」。然而对日本人民来说，荞麦面才是最有国民性...
-                            {% endautoescape %}
-                        </div>
-                    </div>
-                    <div class="article-info">
-                 <span class="create-time">
-                     昨天
-                 </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
-                <div class="article-panel">
-                    <a class="img-link" href="">
-                        <div class="img-holder" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
-                    </a>
-
-                    <div class="article-info-wrapper">
-                        <div class="article-title">
-                            <a  href="">
-                                了解荞麦面的这些门道，才是真正的日本美食达人
-                            </a>
-                        </div>
-                        <div class="article-intro">
-                            {% autoescape off %}
-                            日本最有代表性的面？看着我们周围日式餐厅的招牌，很多人会不假思索地回答「拉面」。然而对日本人民来说，荞麦面才是最有国民性...
-                            {% endautoescape %}
-                        </div>
-                    </div>
-                    <div class="article-info">
-                 <span class="create-time">
-                     昨天
-                 </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
-                <div class="article-panel">
-                    <a class="img-link" href="">
-                        <div class="img-holder" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
-                    </a>
-
-                    <div class="article-info-wrapper">
-                        <div class="article-title">
-                            <a  href="">
-                                了解荞麦面的这些门道，才是真正的日本美食达人
-                            </a>
-                        </div>
-                        <div class="article-intro">
-                            {% autoescape off %}
-                            日本最有代表性的面？看着我们周围日式餐厅的招牌，很多人会不假思索地回答「拉面」。然而对日本人民来说，荞麦面才是最有国民性...
-                            {% endautoescape %}
-                        </div>
-                    </div>
-                    <div class="article-info">
-                 <span class="create-time">
-                     昨天
-                 </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
-                <div class="article-panel">
-                    <a class="img-link" href="">
-                        <div class="img-holder" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
-                    </a>
-
-                    <div class="article-info-wrapper">
-                        <div class="article-title">
-                            <a  href="">
-                                了解荞麦面的这些门道，才是真正的日本美食达人
-                            </a>
-                        </div>
-                        <div class="article-intro">
-                            {% autoescape off %}
-                            日本最有代表性的面？看着我们周围日式餐厅的招牌，很多人会不假思索地回答「拉面」。然而对日本人民来说，荞麦面才是最有国民性...
-                            {% endautoescape %}
-                        </div>
-                    </div>
-                    <div class="article-info">
-                 <span class="create-time">
-                     昨天
-                 </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
-                <div class="article-panel">
-                    <a class="img-link" href="">
-                        <div class="img-holder" style="background-image: url('{% static 'images/year-seller-2016/article_cover.png' %}')"></div>
-                    </a>
-
-                    <div class="article-info-wrapper">
-                        <div class="article-title">
-                            <a  href="">
-                                了解荞麦面的这些门道，才是真正的日本美食达人
-                            </a>
-                        </div>
-                        <div class="article-intro">
-                            {% autoescape off %}
-                            日本最有代表性的面？看着我们周围日式餐厅的招牌，很多人会不假思索地回答「拉面」。然而对日本人民来说，荞麦面才是最有国民性...
-                            {% endautoescape %}
-                        </div>
-                    </div>
-                    <div class="article-info">
-                 <span class="create-time">
-                     昨天
-                 </span>
-                    </div>
-                </div>
-            </div>
+            {% for article in articles %}
+                {% include 'web/seller/partial/common_article_item_new.html' %}
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
@@ -248,9 +107,7 @@
         })(window,document);
     </script>
 
-    <script language="javascript">
-        var share_pic = '{% static 'images/year-seller/share_weibo.jpg' %}';
-    </script>
+     <script data-main="{{ global_static_url_prefix }}js/web/jsbuild/seller_2016_topics_app_build.js" src="{{ global_static_url_prefix }}js/web/app/require.js"></script>
 
 {% endblock %}
 

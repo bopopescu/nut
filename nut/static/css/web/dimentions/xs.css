@@ -262,6 +262,7 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
   min-height: 40px;
   max-height: 40px;
 }
@@ -1439,7 +1440,7 @@ a.new-download-link {
     padding-left: 0;
     padding-right: 0;
   }
-  body.new-index-body .new-banner-wrapper .article-intro-wrapper .article-title-wrapper a.article-title {
+  body.new-index-body .new-banner-wrapper .article-intro-wrapper .article-title-wrapper .article-title {
     font-size: 18px;
   }
   body.new-index-body .offline-shop-title-swrapper {
@@ -1570,7 +1571,8 @@ a.new-download-link {
   }
   #top_article_tags_container .top-article-tag,
   #top_article_tags_container .tag-element {
-    margin: 0;
+    margin-left: 0;
+    margin-bottom: 5px;
   }
   .guoku-card .entity-image-wrapper {
     padding: 0px!important;
@@ -1786,6 +1788,7 @@ a.new-download-link {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    text-overflow: ellipsis;
   }
   .new-index-page .more-article-wrapper .title-wrapper {
     padding-top: 0;
@@ -1807,6 +1810,7 @@ a.new-download-link {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    text-overflow: ellipsis;
   }
   .new-index-page .new-banner-wrapper .banner-image-cell.banner-image-cell-control {
     padding: 0;

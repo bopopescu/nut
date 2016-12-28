@@ -5,7 +5,7 @@ import os,sys
 # os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev_anchen'
 
 sys.path.append('/data/www/nut')
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.stage'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.production'
 
 
 #only need run once

@@ -144,17 +144,23 @@ urlpatterns += patterns('',
 # for seller 2015 page and happy new year page
 # this is temp, for single page app only
 #  do not add more url here
-from apps.seller.views.web import SellerView, NewSellerView, ShopsView, OpinionsView, ColumnsView, TopicsView, TopicArticlesView
+from apps.seller.views.web import SellerView,Seller2015RedirectView
 from apps.web.views import HappyNYView, FuGuView, MarketView
+
 urlpatterns += patterns('',
-            url(r'^store2015/', SellerView.as_view(), name='year_store_2015'),
+            url(r'^trends/', include('apps.seller.urls.web')),
+)
+
+
+urlpatterns += patterns('',
+            url(r'^store2015/', Seller2015RedirectView.as_view(), name='year_store_2015_old'),
             # url(r'^store2016/', NewSellerView.as_view(), name='year_store_2016'),
             # url(r'^shops2016/', ShopsView.as_view(), name='year_store_2016_shops'),
             # url(r'^opinions2016/', OpinionsView.as_view(), name='year_store_2016_opinions'),
-            # url(r'^topics2016/', TopicsView.as_view(), name='year_store_2016_topics'),
-            # url(r'^topics2016/(?P<tag_name>.*)/$', TopicArticlesView.as_view(), name='topic_articles_url'),
+            # url(r'^topics2016/$', TopicArticlesView.as_view(), name='year_store_2016_topics'),
+            # url(r'^topics2016/(?P<tag_name>.*?)/$', TopicArticlesView.as_view(), name='topic_articles_url'),
             # url(r'^columns2016/', ColumnsView.as_view(), name='year_store_2016_columns'),
-            url(r'^store/', SellerView.as_view(), name='web_store'),
+            # url(r'^store/', SellerView.as_view(), name='web_store'),
             url(r'^hou/', HappyNYView.as_view(), name='new_year_2015'),
             url(r'guokuselectedshops2016/list/', FuGuListView.as_view(), name='fu_gu_da_hui_2016_list'),
             url(r'guokuselectedshops2016/', FuGuView.as_view(), name='fu_gu_da_hui_2016'),

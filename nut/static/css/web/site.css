@@ -262,6 +262,7 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
   min-height: 40px;
   max-height: 40px;
 }
@@ -1573,6 +1574,14 @@ a.new-download-link {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.user-icon-list.recommend-user-list li h3.user-name {
+  margin: 0;
+  font-weight: normal;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .user-icon-list.recommend-user-list .all-users {
   height: 120px;
 }
@@ -1681,7 +1690,7 @@ a.new-download-link {
 }
 #sort_header-wrapper .category-breadcrumb-wrapper ul li:last-child,
 #sort_header-wrapper .category-breadcrumb-wrapper .fa {
-  color: #9D9E9F;
+  color: #757575;
 }
 #sort_header-wrapper .select-sort-wrapper {
   font-size: 14px;
@@ -1766,6 +1775,7 @@ a.new-download-link {
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 .tag-page-container .hot-tag-section-wrapper {
   overflow: hidden;
@@ -3036,6 +3046,7 @@ a:hover {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 .article-section-title {
