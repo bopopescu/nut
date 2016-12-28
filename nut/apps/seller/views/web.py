@@ -19,7 +19,7 @@ class TrendRedirectView(RedirectView):
 class Seller2015RedirectView(RedirectView):
     permanent = True
     query_string = True
-    pattern_name = 'trend-2015'
+    pattern_name = 'year_store_2015'
 
 class SellerView(TemplateView):
     template_name = 'web/seller/web_seller.html'
@@ -27,7 +27,7 @@ class SellerView(TemplateView):
     def get_base_sellers(self):
         return Seller_Profile.objects.seller_2015()
 
-    def get_seller_by_business_section(self,section):
+    def get_seller_by_business_section(self, section):
         return self.get_base_sellers().ordered_profile().filter(business_section=section).select_related('related_article__url')
 
     def get_seller_entities(self, seller_queryset):
@@ -130,17 +130,17 @@ class NewSellerView(TemplateView):
 
     def get_topic_tags(self):
         tag_names = topic_tags.keys()
-        tag_list = Tags.objects.filter(name__in=tag_names)
+        tag_list = list(Tags.objects.filter(name__in=tag_names))
         for tag in tag_list:
             tag.info = topic_tags[tag.name]
         return tag_list
 
     def get_column_articles(self):
-        c_tag = Tags.objects.filter(name=column_tag_name)
+        c_tag = list(Tags.objects.filter(name=column_tag_name))
         if c_tag.exists():
             artilcle_ids = Content_Tags.objects.filter(target_content_type_id=31, tag__name=column_tag_name)\
                                         .values_list('target_object_id', flat=True)
-            return Article.objects.filter(pk__in=artilcle_ids)
+            return Article.objects.filter(pk__in=artilcle_ids[:10])
         else:
             return []
 
@@ -234,7 +234,7 @@ class TopicArticlesView(ListView):
         article_ids = list(Content_Tags.objects.filter(target_content_type_id=31, tag__in=tags)\
                                   .values_list('target_object_id', flat=True))
         # random.shuffle(article_ids)
-        return Article.objects.filter(pk__in=article_ids[:3])
+        return Article.objects.filter(pk__in=article_ids)
 
     def get_all_topic_tags(self):
         tag_names = topic_tags.keys()
@@ -244,7 +244,7 @@ class TopicArticlesView(ListView):
         return tag_list
 
     def get_topic_articles(self, tag_name):
-        tag_list = Tags.objects.filter(name=smart_str(tag_name))
+        tag_list = list(Tags.objects.filter(name=smart_str(tag_name)))
         article_ids = Content_Tags.objects.filter(target_content_type_id=31, tag__in=tag_list)\
                                   .values_list('target_object_id', flat=True)
         return Article.objects.filter(pk__in=article_ids)
