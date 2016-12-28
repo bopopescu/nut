@@ -2522,6 +2522,9 @@ ol {
   .new-seller-body .seller-cross-screen .seller-banner-wrapper .sections-titles-wrapper {
     margin-top: 0;
   }
+  .new-seller-body #top_article_tags_container {
+    margin-bottom: 0;
+  }
   .new-seller-body #seller_2016_nav .nav-wrapper ul li {
     margin-right: 24px;
   }
