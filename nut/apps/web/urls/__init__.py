@@ -144,11 +144,12 @@ urlpatterns += patterns('',
 # for seller 2015 page and happy new year page
 # this is temp, for single page app only
 #  do not add more url here
-from apps.seller.views.web import SellerView,Seller2015RedirectView
+from apps.seller.views.web import TrendRedirectView, SellerView,Seller2015RedirectView
 from apps.web.views import HappyNYView, FuGuView, MarketView
 
 urlpatterns += patterns('',
             url(r'^trends/', include('apps.seller.urls.web')),
+            url(r'^trend/', TrendRedirectView.as_view(), name='trend_redirect_alter'),
 )
 
 
