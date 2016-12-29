@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="more-info-wrapper">
-            <a class="new-blue-link" href="{% url 'web_user_index' article.creator.pk %}" target="_blank">
+            <a class="new-blue-link" href="{% if not isFromMobile %}{% url 'web_user_index' article.creator.pk %}{% else %}{{ article.creator.mobile_url }}{% endif %}" target="_blank">
                 <img class="author-logo" src="{{ article.creator.profile.avatar_url|resize:'180'|smart_scheme:is_secure }}">
                 <span>{{ article.creator.profile.nickname }}</span>
             </a>
