@@ -1,5 +1,10 @@
 
 
+2. m.guoku.com link adjust 
+1. iphone4/5 screen adaption
+
+========================
+
 1. 2016 year roundup minisite
 
 
