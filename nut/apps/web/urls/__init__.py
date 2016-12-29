@@ -148,7 +148,7 @@ from apps.seller.views.web import SellerView,Seller2015RedirectView
 from apps.web.views import HappyNYView, FuGuView, MarketView
 
 urlpatterns += patterns('',
-            url(r'^trend/', include('apps.seller.urls.web')),
+            url(r'^trends/', include('apps.seller.urls.web')),
 )
 
 

@@ -3879,7 +3879,7 @@ define('subapp/yearseller/yearseller_2016/new_recommend_user_slick',['jquery', '
                              {
                                 breakpoint: 992,
                                 settings: {
-                                    slidesToShow:3,
+                                    slidesToShow:6,
                                     slidesToScroll:3,
                                     autoplay:false,
                                     dots:false
@@ -3888,7 +3888,7 @@ define('subapp/yearseller/yearseller_2016/new_recommend_user_slick',['jquery', '
                             {
                                 breakpoint: 768,
                                 settings: {
-                                    slidesToShow:8,
+                                    slidesToShow:6,
                                     slidesToScroll:3,
                                     autoplay:false,
                                     dots:false
@@ -3897,9 +3897,9 @@ define('subapp/yearseller/yearseller_2016/new_recommend_user_slick',['jquery', '
                              {
                                 breakpoint: 580,
                                 settings: {
-                                    slidesToShow:2,
+                                    slidesToShow:3,
                                     slidesToScroll:2,
-                                    autoplay:false,
+                                    autoplay:true,
                                     dots:false
                                 }
                             }
