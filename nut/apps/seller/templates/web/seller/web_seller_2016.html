@@ -16,9 +16,9 @@
 
 {% load i18n %}
 
-{% block title %}果库 2016 年度消费报告{% endblock %}
+{% block title %}果库 2016 年度消费报告：好店、话题、自媒体全搜罗{% endblock %}
 
-{% block h1 %}果库 2016 年度消费报告{% endblock %}
+{% block h1 %}果库 2016 年度消费报告：好店、话题、自媒体全搜罗{% endblock %}
 
 
 {% block css %}
@@ -50,9 +50,9 @@
                 <div class="sections-titles-nav">
                     <ul>
                         {% url 'year_store_2016' as store_2016_url %}
-                        <li {% if store_2016_url == request.path %}class="active"{% endif %}>
-                            <a class="section-title" href="{% url 'year_store_2016' %}">TOP</a>
-                        </li>
+{#                        <li {% if store_2016_url == request.path %}class="active"{% endif %}>#}
+{#                            <a class="section-title" href="{% url 'year_store_2016' %}">TOP</a>#}
+{#                        </li>#}
                         <li>
                             <a class="section-title" href="{% url 'year_store_2016_shops' %}" target="_blank">好店<span class="hidden-xs"> SHOPS</span></a>
 
@@ -74,9 +74,9 @@
             <div class="col-xs-12 sections-titles-wrapper">
                 <div class="sections-titles-nav">
                     <ul>
-                        <li {% if store_2016_url == request.path %}class="active"{% endif %}>
-                            <a class="section-title" href="{% url 'year_store_2016' %}">TOP</a>
-                        </li>
+{#                        <li {% if store_2016_url == request.path %}class="active"{% endif %}>#}
+{#                            <a class="section-title" href="{% url 'year_store_2016' %}">TOP</a>#}
+{#                        </li>#}
                         <li>
                             <a class="section-title" href="{% url 'year_store_2016_shops' %}" target="_blank">好店<span class="hidden-xs"> SHOPS</span></a>
 
@@ -126,13 +126,13 @@
         <div class="sections-item-wrapper" id="shops">
             <div class="row sections-item-intro-wrapper shops-section-bg-wrapper">
                 <div id="index_shops_bg_wrapper">
-                    <div class="shops-bg" style="background-image: url({{ global_static_url_prefix }}images/year-seller-2016/shops_section_bg_1.jpg)">
-                    </div>
-                    <div class="shops-bg" style="background-image: url({{ global_static_url_prefix }}images/year-seller-2016/shops_section_bg_2.jpg)">
-                    </div>
-                    <div class="shops-bg" style="background-image: url({{ global_static_url_prefix }}images/year-seller-2016/shops_section_bg_3.jpg)">
-                    </div>
-                    <div class="shops-bg" style="background-image: url({{ global_static_url_prefix }}images/year-seller-2016/shops_section_bg_4.jpg)">
+{#                    <div class="shops-bg" style="background-image: url({{ global_static_url_prefix }}images/year-seller-2016/shops_section_bg_1.jpg)">#}
+{#                    </div>#}
+{#                    <div class="shops-bg" style="background-image: url({{ global_static_url_prefix }}images/year-seller-2016/shops_section_bg_2.jpg)">#}
+{#                    </div>#}
+{#                    <div class="shops-bg" style="background-image: url({{ global_static_url_prefix }}images/year-seller-2016/shops_section_bg_3.jpg)">#}
+{#                    </div>#}
+                    <div class="shops-bg" style="background-image: url({{ global_static_url_prefix }}images/year-seller-2016/shops_2016_bg.jpg)">
                     </div>
                 </div>
                 <div class="dark-bg-layer"></div>
