@@ -1,4 +1,11 @@
+2. friendly link page bug fix 
+1. topic page background replace 
+=======================
 
+2. m.guoku.com link adjust 
+1. iphone4/5 screen adaption
+
+========================
 
 1. 2016 year roundup minisite
 
