@@ -1646,6 +1646,13 @@ class Article(BaseModel):
         return _tag_list
 
     @property
+    def first_tag(self):
+        if len(self.tag_list):
+            return self.tag_list[0].tag
+        else:
+            return None
+
+    @property
     def tags_string(self):
         return ','.join(self.tag_list)
 
