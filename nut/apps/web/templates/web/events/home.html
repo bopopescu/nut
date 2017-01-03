@@ -21,7 +21,7 @@
 {#{% block description %}果库专题，超实用的网络购物专辑，发现好物更便捷，闪购商品更迅速。品质生活，你值得拥有。{% endblock %}#}
 {% block global_links %}
     {% url 'web_event_list' as event_list_url %}
-        <a href="{{ event_list_url }}"><img class="img-responsive guoku-weixin" src="{% static 'images/event/event_enter.png' %}"></a>
+        <a href="{{ event_list_url }}"><img class="img-responsive guoku-weixin" src="{{ global_static_url_prefix }}images/event/event_enter.png"></a>
 
 {% endblock %}
 {% block h1 %}{{ tag_text }}{% endblock %}
