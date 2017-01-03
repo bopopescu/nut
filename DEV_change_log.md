@@ -1,6 +1,8 @@
 
 2. https compat update
 1. replace bg pic for store2016
+
+
 ===============================
 
 2. friendly link page bug fix 
