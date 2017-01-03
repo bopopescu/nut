@@ -6,7 +6,7 @@
         <div class="img-box">
             {% if sle.entity.entity_hash %}
                 <a class="img-link" href="{{ sle.entity.absolute_url }}" target="_blank">
-                    <img class="img-responsive" alt="{{ sle.entity.title }}" title="{{ sle.entity.title }}" src="{{ sle.entity.chief_image|resize:'310' }}">
+                    <img class="img-responsive" alt="{{ sle.entity.title }}" title="{{ sle.entity.title }}" src="{{ sle.entity.chief_image|resize:'310'|smart_scheme:is_secure }}">
                 </a>
                 <a href="{{ sle.entity.absolute_url }}" target="_blank">
                      <div class="bg-layer"></div>

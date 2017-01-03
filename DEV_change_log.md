@@ -1,6 +1,16 @@
+
+2. https compat update
+1. replace bg pic for store2016
+
+
+===============================
+
 2. friendly link page bug fix 
 1. topic page background replace 
 =======================
+
+
+===========================
 
 2. m.guoku.com link adjust 
 1. iphone4/5 screen adaption

@@ -9,7 +9,7 @@
         <div class="section-content">
             <ul class="following-list user-icon-list">
                 {% for f in followings %}
-                    <li><a href="{% url 'web_user_index' f.followee.id  %}"><img class="img-responsive" src="{{ f.followee.avatar_url|resize:'50'  }}"></a></li>
+                    <li><a href="{% url 'web_user_index' f.followee.id  %}"><img class="img-responsive" src="{{ f.followee.avatar_url|resize:'50'|smart_scheme:is_secure }}"></a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -21,7 +21,7 @@
         <div class="section-content">
             <ul class="fans-list user-icon-list">
                 {% for f in fans %}
-                    <li><a href="{% url 'web_user_index' f.follower.id %}"><img class="img-responsive" src="{{ f.follower.avatar_url|resize:'50'  }}"></a></li>
+                    <li><a href="{% url 'web_user_index' f.follower.id %}"><img class="img-responsive" src="{{ f.follower.avatar_url|resize:'50'|smart_scheme:is_secure }}"></a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -73,8 +73,8 @@
             </div>
             <div class="icon-holder">
                 <a href="{% url "web_download" %}">
-                    <div class="img-frame" style="background-image:url({% static "images/side_bar/icon64.png" %})"></div>
-{#                    <img width="64px" src="{% static "images/side_bar/icon64.png" %}"/>#}
+                    <div class="img-frame" style="background-image:url({{ global_static_url_prefix }}images/side_bar/icon64.png)"></div>
+{#                    <img width="64px" src="{{ global_static_url_prefix }}images/side_bar/icon64.png"/>#}
                 </a>
             </div>
         </div>
