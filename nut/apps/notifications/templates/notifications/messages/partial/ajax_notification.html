@@ -32,7 +32,7 @@
     {#            </div>#}
     {#            <div class="media-body">#}
     {#                <p class="media-heading">#}
-    {#                    <img src="{{ row.actor.profile.avatar_url|resize:'50' }}" width="25" height="25">#}
+    {#                    <img src="{{ row.actor.profile.avatar_url|resize:'50'|smart_scheme:is_secure }}" width="25" height="25">#}
     {#                    <a target="_blank" href="{% url 'web_user_entity_like' row.actor.id %}">{{ row.actor.profile.nickname }}</a>&nbsp; <strong>开始关注你了</strong>#}
     {#                </p>#}
     {##}
@@ -47,7 +47,7 @@
             <div class="row imgs">
                     <div class="col-xs-4 col-sm-4 col-md-3">
                         <a target="_blank" href="{% url 'web_entity_detail' row.target.entity_hash %}">
-                            <img src="{{ row.target.chief_image|resize:'240' }}" alt="{{ row.target.title }}" />
+                            <img src="{{ row.target.chief_image|resize:'240'|smart_scheme:is_secure }}" alt="{{ row.target.title }}" />
                         </a>
                     </div>
             </div>
@@ -59,7 +59,7 @@
             <div class="row imgs">
                     <div class="col-xs-4 col-sm-4 col-md-3">
                         <a target="_blank" href="{% url 'web_entity_detail' row.target.entity_hash %}">
-                            <img src="{{ row.target.chief_image|resize:'240' }}" alt="{{ row.target.title }}" />
+                            <img src="{{ row.target.chief_image|resize:'240'|smart_scheme:is_secure }}" alt="{{ row.target.title }}" />
                         </a>
                     </div>
             </div>
@@ -70,7 +70,7 @@
     {#            <div class="media-body">#}
     {#                <p class="media-heading"><a target="_blank" href="{% url 'web_user_entity_like' row.actor.id %}">{{ row.actor.profile.nickname }}</a>&nbsp; 点评了你推荐的商品</p>#}
     {#                <p>#}
-    {#                    <a target="_blank" href="{% url 'web_entity_detail' row.target.entity_hash %}"><img class="img-responsive message-image"  src="{{ row.target.chief_image|resize:'240' }}" width="120" height="120"></a>#}
+    {#                    <a target="_blank" href="{% url 'web_entity_detail' row.target.entity_hash %}"><img class="img-responsive message-image"  src="{{ row.target.chief_image|resize:'240'|smart_scheme:is_secure }}" width="120" height="120"></a>#}
     {#                </p>#}
     {#                <p>{{ row.action_object.note }}</p>#}
     {#                <p class="message-time">{{ row.timestamp|format_time }}</p>#}
@@ -84,7 +84,7 @@
                 <div class="row imgs">
                     <div class="col-xs-4 col-sm-4 col-md-3">
                         <a target="_blank" href="{% url 'web_entity_detail' row.target.entity.entity_hash %}">
-                            <img src="{{ row.target.entity.chief_image|resize:'240' }}" alt="{{ row.target.entity.title }}" />
+                            <img src="{{ row.target.entity.chief_image|resize:'240'|smart_scheme:is_secure }}" alt="{{ row.target.entity.title }}" />
                         </a>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
     {#                </p>#}
     {#                <p>#}
     {#                    <a target="_blank" href="{% url 'web_entity_detail' row.target.entity.entity_hash %}">#}
-    {#                        <img class="img-responsive message-image" src="{{ row.target.entity.chief_image|resize:'240' }}" width="120" height="120">#}
+    {#                        <img class="img-responsive message-image" src="{{ row.target.entity.chief_image|resize:'240'|smart_scheme:is_secure }}" width="120" height="120">#}
     {#                    </a>#}
     {#                </p>#}
     {#                <p class="message-time">{{ row.timestamp|format_time }}</p>#}
@@ -115,7 +115,7 @@
                         <p>{{ row.target.note }}</p>
                         <div class="media message">
                             <a class="pull-left" target="_blank" href="{% url 'web_entity_detail' row.target.entity.entity_hash %}">
-                                <img class="media-object message-image" src="{{ row.target.entity.chief_image|resize:'240' }}" width="120" height="120">
+                                <img class="media-object message-image" src="{{ row.target.entity.chief_image|resize:'240'|smart_scheme:is_secure }}" width="120" height="120">
                             </a>
                             <div class="media-body">
                                 <strong class="media-heading">回复</strong>
@@ -133,7 +133,7 @@
             <div class="row imgs">
                     <div class="col-xs-4 col-sm-4 col-md-3">
                         <a target="_blank" href="{% url 'web_article_page' row.target.pk %}">
-                            <img src="{{ row.target.cover_url|resize:'240' }}" alt="{{ row.target.title }}" />
+                            <img src="{{ row.target.cover_url|resize:'240'|smart_scheme:is_secure }}" alt="{{ row.target.title }}" />
                         </a>
                     </div>
                 </div>
@@ -146,7 +146,7 @@
                 <div class="row imgs">
                     <div class="col-xs-4 col-sm-4 col-md-3">
                         <a target="_blank" href="{% url 'web_entity_detail' row.target.entity_hash %}">
-                            <img src="{{ row.target.chief_image|resize:'240' }}" alt="{{ row.target.title }}" />
+                            <img src="{{ row.target.chief_image|resize:'240'|smart_scheme:is_secure }}" alt="{{ row.target.title }}" />
                         </a>
                     </div>
                 </div>
@@ -159,7 +159,7 @@
     {#                <p class="media-heading"><a target="_blank" href="{% url 'web_user_entity_like' row.actor.id %}"><strong>{{ row.actor.profile.nickname }}</strong></a>&nbsp;喜爱了你添加的商品</p>#}
     {#                <p>#}
     {#                    <a target="_blank" href="{% url 'web_entity_detail' row.target.entity_hash %}">#}
-    {#                        <img class="img-responsive message-image" src="{{ row.target.chief_image|resize:'240' }}" width="120" height="120">#}
+    {#                        <img class="img-responsive message-image" src="{{ row.target.chief_image|resize:'240'|smart_scheme:is_secure }}" width="120" height="120">#}
     {#                    </a>#}
     {#                </p>#}
     {#                <p class="message-time">{{ row.timestamp|date:'Y-m-d H:i:s' }}</p>#}
