@@ -7,7 +7,7 @@
        {% include 'web/partial/top_ad.html' %}
         <div class="container">
             <div class="top-search-wrapper">
-                <img src="{% static 'images/top_search_logo.png' %}" alt="{% trans 'guoku' %}" title="{% trans 'guoku' %}" style="width:64px;height:40px;vertical-align:top;">
+                <img src="{{ global_static_url_prefix }}images/top_search_logo.png" alt="{% trans 'guoku' %}" title="{% trans 'guoku' %}" style="width:64px;height:40px;vertical-align:top;">
                  <form class="navbar-form search-form" action="{% url 'web_search' %}" method="get" role="form">
                     <div class="input-group search">
                         <input class="form-control top-search-input"
@@ -38,10 +38,10 @@
                 </button>
 
                 <a class="navbar-brand" href="{% url 'web_index' %}">
-{#                    <img alt="{% trans 'guoku' %}" class="visible-xs"  src="{% static 'images/logo2.png' %}" width="46"  style="margin-top: 2px">#}
-{#                    <img alt="{% trans 'guoku' %}" class="guoku-logo" src="{% static 'images/xmas_logo.png' %}" width="52" >#}
-                      <img alt="{% trans 'guoku' %}" class="" src="{% static 'images/top_search_logo.png' %}" width="42" >
-{#                    <img src="{% static 'images/wap_logo.png' %}" style="height:30px;padding-left:5px;">#}
+{#                    <img alt="{% trans 'guoku' %}" class="visible-xs"  src="{{ global_static_url_prefix }}images/logo2.png" width="46"  style="margin-top: 2px">#}
+{#                    <img alt="{% trans 'guoku' %}" class="guoku-logo" src="{{ global_static_url_prefix }}images/xmas_logo.png" width="52" >#}
+                      <img alt="{% trans 'guoku' %}" class="" src="{{ global_static_url_prefix }}images/top_search_logo.png" width="42" >
+{#                    <img src="{{ global_static_url_prefix }}images/wap_logo.png" style="height:30px;padding-left:5px;">#}
                 </a>
             </div>
             <div class="navbar-collapse collapse search-collapse">
@@ -79,7 +79,7 @@
 {#                        <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;<span class="round"></span></a>#}
                         <a href="{{ web_event_home_url }}">{% trans 'Event' %}&nbsp;
 {#                            <span class="b_day">#}
-{#                            <img src="{% static 'images/event/1111.gif' %}">#}
+{#                            <img src="{{ global_static_url_prefix }}images/event/1111.gif">#}
 {#                            </span>#}
                         </a>
                     </li>
@@ -120,7 +120,7 @@
                                  <span class="tip"></span>
                                  <ul class="notification-drop-list">
                                      <li class="notification-loading-icon">
-                                         <img src="{% static 'images/widgets/loading.gif' %}" height="32px" width="32px">
+                                         <img src="{{ global_static_url_prefix }}images/widgets/loading.gif" height="32px" width="32px">
                                      </li>
                                      {% include "web/account/partial/ajax_notification_droplist.html" %}
                                  </ul>
