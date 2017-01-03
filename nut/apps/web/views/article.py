@@ -166,7 +166,7 @@ class EditorDraftList(UserPassesTestMixin,ListView):
     context_object_name = 'articles'
 
     def get_queryset(self):
-        return Article.objects.filter(creator=self.request.user,publish=Article.draft)
+        return Article.objects.filter(creator=self.request.user, publish=Article.draft)
 
 
 class EditorArticleCreate(UserPassesTestMixin, View):
