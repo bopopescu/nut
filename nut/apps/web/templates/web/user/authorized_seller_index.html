@@ -19,11 +19,11 @@
         {% block user_header %}
             <div class='authorized_author_info'>
                     <div class="user-icon">
-                        <img src="{{ current_user.avatar_url|resize:'180' }}"/>
+                        <img src="{{ current_user.avatar_url|resize:'180'|smart_scheme:is_secure }}"/>
                     </div>
                     <div class="user-nick">
                          <span class="nick">{{ current_user.nickname }}</span>
-                         <img src="{% static 'images/author/seller.png' %}" width="16px" height="24px" class="official-media seller-media"/>
+                         <img src="{{ global_static_url_prefix }}images/author/seller.png" width="16px" height="24px" class="official-media seller-media"/>
                     </div>
                     <div class="user-action">
                           {% if current_user.is_blocked %}
@@ -117,7 +117,7 @@
                 <div class="new-thumbnail entity-four">
                     <div class="img-box">
                         <a href="{{ entity.absolute_url }}" target="_blank">
-                            <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|resize:'310'}}">
+                            <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|resize:'310'|smart_scheme:is_secure }}">
                         </a>
                     </div>
                     <div class="entity-four-info">
@@ -184,7 +184,7 @@
 {% endblock %}
 
 {% block basic_script %}
-    <script data-main="{% static 'js/web/jsbuild/seller_page_app_build.js' %}" src="{% static 'js/web/app/require.js' %}"></script>
+    <script data-main="{{ global_static_url_prefix }}js/web/jsbuild/seller_page_app_build.js" src="{{ global_static_url_prefix }}js/web/app/require.js"></script>
 {% endblock %}
 
 {% block script %}
