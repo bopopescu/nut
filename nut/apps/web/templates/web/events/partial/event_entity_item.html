@@ -9,11 +9,11 @@
             <div class="img-box img-box-control">
                 {% if isFromMobile %}
                     <a  href="{{ entity.mobile_url }}" >
-                       <img class="img-responsive" alt=" {{ entity.title }}" title="{{ entity.selection_hover_word }}" src="{{ entity.chief_image|resize:'310' }}">
+                       <img class="img-responsive" alt=" {{ entity.title }}" title="{{ entity.selection_hover_word }}" src="{{ entity.chief_image|resize:'310'|smart_scheme:is_secure }}">
                    </a>
                 {% else %}
                     <a  href="{% url 'web_entity_detail' entity.entity_hash %}" >
-                        <img class="img-responsive" alt=" {{ entity.title }}" title="{{ entity.selection_hover_word }}" src="{{ entity.chief_image|resize:'310' }}">
+                        <img class="img-responsive" alt=" {{ entity.title }}" title="{{ entity.selection_hover_word }}" src="{{ entity.chief_image|resize:'310'|smart_scheme:is_secure }}">
                     </a>
                 {% endif %}
             </div>

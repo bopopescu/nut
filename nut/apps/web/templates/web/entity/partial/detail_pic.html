@@ -2,7 +2,7 @@
 {% load common guoku %}
 
 <div id="buy-btn-img" class="detail-img-big">
-    <span class="v-helper"></span><img itemprop="image" class="main-img" src="{{ entity.chief_image|resize:"310" }}"
+    <span class="v-helper"></span><img itemprop="image" class="main-img" src="{{ entity.chief_image|resize:"310"|smart_scheme:is_secure }}"
          alt="{{ entity_context.title }}" title="{{ entity_context.title }}">
 </div>
 {##}

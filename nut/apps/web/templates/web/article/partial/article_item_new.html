@@ -35,7 +35,7 @@
 {##}
 {#            <div class="cover-wrapper">#}
 {#                <a  href="{% url 'web_article_page' article.pk  %}" target="_blank" >#}
-{#                    <img class="article-cover img-responsive" src="{{ article.cover_url|resize:'750' }}" />#}
+{#                    <img class="article-cover img-responsive" src="{{ article.cover_url|resize:'750'|smart_scheme:is_secure }}" />#}
 {#                </a>#}
 {#            </div>#}
 {#            <div class="content-digest">#}
