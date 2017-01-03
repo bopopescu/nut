@@ -1,5 +1,7 @@
 # coding=utf-8
 import random
+from urllib import quote
+
 import time
 from math import floor
 
@@ -1648,7 +1650,14 @@ class Article(BaseModel):
     @property
     def first_tag(self):
         if len(self.tag_list):
-            return self.tag_list[0].tag
+            return self.tag_list[0]
+        else:
+            return None
+
+    @property
+    def first_tag_quoted(self):
+        if len(self.tag_list):
+            return quote(self.tag_list[0].encode('utf-8'))
         else:
             return None
 
