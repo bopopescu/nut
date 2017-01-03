@@ -1,0 +1,62 @@
+<html>
+<header>
+
+</header>
+
+<body>
+
+
+
+url : <input type="text" name="url" id="url_input"> <br>
+<button id="start"> start </button>
+<button id="stop"> stop </button>
+
+
+<script language="javascript">
+ new_window = null ;
+ running = true;
+ name_count = 0
+
+
+function fire_click(){
+    var event = new MouseEvent('click', {
+    'view': window,
+    'bubbles': true,
+    'cancelable': true
+  });
+    open_bt = document.getElementById('url_input');
+    open_bt.dispatchEvent(event);
+
+}
+
+function handle_click(){
+
+        if(new_window){
+            if(new_window) new_window.close();
+        }
+        url = document.getElementById('url_input').value;
+        new_window = window.open(url, '_blank', 'width=200,height=100');
+
+        if(running){
+
+              window.setTimeout(fire_click, 2000)
+        }
+
+    }
+    start_bt = document.getElementById('start');
+    stop_bt = document.getElementById('stop');
+
+    start_bt.onclick = handle_click;
+
+
+    stop_bt.onclick = function(){
+        running = !running;
+    }
+
+
+
+</script>
+
+</body>
+
+</html>
