@@ -172,7 +172,6 @@ class ArticlesFeeds(Feed):
     feed_copyright = "2010-2015 果库. All rights reserved."
     description = '果库消费图文汇集全网秉持理想生活哲学的消费类文章，开拓精英视野与生活想象，涵盖品牌相关报道、卖家创业者专访、潮流资讯、消费见解主张、生活场景清单、购物经验心得分享等。'
 
-
     # description_template = "web/feeds/article_description.html"
 
     # def get_object(self, request, *args, **kwargs):

@@ -72,10 +72,13 @@ sitemaps = {
     'article': ArticleSitemap,
 }
 
+from django.views.decorators.cache import cache_page
+from django.contrib.sitemaps import views as sitemap_views
+
 urlpatterns += patterns(
     'django.contrib.sitemaps.views',
-    url(r'^sitemap\.xml$', 'index', {'sitemaps': sitemaps}),
-    url(r'^sitemap-(?P<section>.+)\.xml$', 'sitemap', {'sitemaps': sitemaps}),
+    url(r'^sitemap\.xml$', cache_page(86400)(sitemap_views.index), {'sitemaps': sitemaps}),
+    url(r'^sitemap-(?P<section>.+)\.xml$', cache_page(86400)(sitemap_views.sitemap), {'sitemaps': sitemaps}),
 
     url(r'^feed/selection/$', SelectionFeeds()),
     url(r'^feed/articles/$', ArticlesFeeds()),
