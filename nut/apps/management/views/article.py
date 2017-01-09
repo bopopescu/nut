@@ -13,7 +13,7 @@ from django.db.models import Count
 from apps.core.extend.paginator import ExtentPaginator, PageNotAnInteger, EmptyPage
 from apps.core.models import Article, GKUser, Category, Article_Remark
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.management.decorators import staff_only
+from apps.management.decorators import staff_only, staff_and_editor
 
 from apps.core.mixins.views import SortMixin, FilterMixin
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
@@ -435,7 +435,7 @@ class DraftArticleList(UserPassesTestMixin, SortMixin, ListView):
 
 
 @login_required
-@staff_only
+@staff_and_editor
 def create(request, template="management/article/create.html"):
 
     if request.method == "POST":
@@ -458,7 +458,7 @@ def create(request, template="management/article/create.html"):
 
 @csrf_exempt
 @login_required
-@staff_only
+@staff_and_editor
 def upload_cover(request, article_id):
     try:
         _article = Article.objects.get(pk = article_id)
@@ -524,7 +524,7 @@ class ArticleCommentDeleteView(DeleteView):
 
 
 @login_required
-@staff_only
+@staff_and_editor
 def edit(request, article_id, template="management/article/edit.html"):
 
     try:
@@ -577,7 +577,7 @@ def edit(request, article_id, template="management/article/edit.html"):
     )
 
 @login_required
-@staff_only
+@staff_and_editor
 def preview(request, article_id, template="management/article/preview.html"):
 
     try:

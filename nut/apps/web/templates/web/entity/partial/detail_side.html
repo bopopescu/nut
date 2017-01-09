@@ -68,7 +68,7 @@
 {#entity like user list -- end#}
 
 <ul class="section-list">
-    {% if request.user.is_staff  and is_entity_detail %}
+    {% if request.user.is_editor  and is_entity_detail %}
         <li class="section need-bottom-border">
             <div class="section-content">
                 <a href="{% url 'management_entity_edit' entity.id %}" target=_blank>
@@ -79,7 +79,7 @@
         </li>
     {% endif %}
 
-    {% if request.user.is_staff  and  is_article_detail %}
+    {% if request.user.is_editor  and  is_article_detail %}
         <li class="section need-bottom-border">
             <div class="section-content">
                 <a href="{% url 'web_editor_article_edit' article.pk %}" target=_blank>
