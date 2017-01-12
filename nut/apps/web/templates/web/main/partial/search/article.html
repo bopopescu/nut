@@ -5,7 +5,7 @@
         <div class="article-panel">
             <a class="img-link" href="{% url 'web_article_page' obj.article_id %}">
 {#                {{ obj.object }}#}
-            <div class="img-holder" style="background-image: url({{ obj.object.cover_url|resize:'450' }})"></div>
+            <div class="img-holder" style="background-image: url({{ obj.object.cover_url|resize:'450'|smart_scheme:is_secure }})"></div>
             </a>
 
             <div class="article-title">

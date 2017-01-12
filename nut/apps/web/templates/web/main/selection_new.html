@@ -31,7 +31,7 @@
         </div>
         <div class="row" >
             <div class="col-xs-12 loading-icon">
-                <img src="{% static 'images/widgets/loading.gif' %}" height="32px" width="32px">
+                <img src="{{ global_static_url_prefix }}images/widgets/loading.gif" height="32px" width="32px">
             </div>
 
         </div>
@@ -51,6 +51,6 @@
 {% endblock %}
 
 {% block basic_script %}
-{#    <script data-main="{% static 'js/web/app/selection_entity_app.js' %}" src="{% static 'js/web/app/require.js' %}"></script>#}
+{#    <script data-main="{{ global_static_url_prefix }}js/web/app/selection_entity_app.js" src="{{ global_static_url_prefix }}js/web/app/require.js"></script>#}
     <script data-main="{{ global_static_url_prefix }}js/web/jsbuild/selection_entity_app_build.js" src="{{ global_static_url_prefix }}js/web/app/require.js"></script>
 {% endblock %}

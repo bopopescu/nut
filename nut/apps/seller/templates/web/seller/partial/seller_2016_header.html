@@ -11,13 +11,16 @@
     <div class="container">
         <div class="logo-wrapper hidden-xs">
             <a href="{% url 'year_store_2016' %}">
-                <img src="{% static 'images/year-seller-2016/logo.png' %}" style="height:32px;">
+                <img src="{{ global_static_url_prefix }}images/year-seller-2016/new_logo.png" style="height:32px;">
             </a>
         </div>
         <div class="nav-wrapper">
             <ul>
                 <li {% if store_2016_url == request.path %}class="active"{% endif %}>
-                    <a class="section-title" href="{% url 'year_store_2016' %}">TOP</a>
+                    <a class="section-title hidden-xs" href="{% url 'year_store_2016' %}">TOP</a>
+                    <a class="section-title hidden-sm hidden-md hidden-lg" href="{% url 'year_store_2016' %}">
+                        <img src="{{ global_static_url_prefix }}images/year-seller-2016/small_logo.png" style="height:25px;">
+                    </a>
                 </li>
                 <li {% if shops_url == request.path %}class="active"{% endif %}>
                     <a class="section-title" href="{% url 'year_store_2016_shops' %}">好店<span class="hidden-xs hidden-sm"> SHOPS</span></a>

@@ -110,12 +110,16 @@ body.new-index-body{
       padding:36px 10px 16px 10px;
       .box-shadow(@panel-shaddow);
       .user-name{
-        display: block;
+        margin:0;
+        font-weight:normal;
+        //display: block;
         font-size:20px;
         line-height:24px;
-        color:@common-text-color;
-        text-decoration: none;
         .single-text-overflow;
+        a{
+           color:@common-text-color;
+           text-decoration: none;
+        }
       }
       .user-intro{
         width:100%;
@@ -164,6 +168,7 @@ body.new-index-body{
         padding-bottom: 37%;
       }
       .shop-name{
+        margin:0;
         max-width:200px;
         left:50%;
         top:50%;
@@ -229,7 +234,8 @@ body.new-index-body{
     margin-top:40px;
     margin-bottom: 16px;
     line-height: 1.3;
-    .section-title{
+    h2.section-title{
+      margin:0;
       font-size:20px;
       line-height:22px;
       font-weight:500;
@@ -407,7 +413,8 @@ body.new-index-body{
       padding:0 32px 16px 32px;
       margin-left:5px;
       margin-right:5px;
-      .article-desc{
+      p.article-desc{
+        margin:0;
         font-size: @more-mini-size;
         line-height:1.9;
         color:#ffffff;
@@ -415,13 +422,15 @@ body.new-index-body{
         overflow: hidden;
         white-space: nowrap;
       }
+      .article-title{
+        margin:0;
+        font-size:@big-title-size;
+        color: #ffffff;
+        font-weight: 600;
+        line-height: 1.3;
+      }
       a{
-        &.article-title{
-           font-size:@big-title-size;
-           color: #ffffff;
-           font-weight: 600;
-           line-height: 1.3;
-        }
+        color:#ffffff;
         &:hover{
           cursor: pointer;
           text-decoration: none;
@@ -2743,6 +2752,10 @@ from {
         margin-top:24px;
         min-height:140px;
         max-height:140px;
+        h3.article-title{
+          margin:0;
+          font-weight: normal;
+        }
         .article-title{
         font-size: @big-title-size;
         color:@common-text-color;

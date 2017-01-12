@@ -1,0 +1,29 @@
+{% load i18n staticfiles %}
+{% load common guoku %}
+
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item">
+        <div class="article-panel">
+            <a class="img-link" href="{% url 'web_article_page_slug' article.article_slug  %}">
+                <div class="img-holder" style="background-image: url({{ article.cover_url|resize:'450'|smart_scheme:is_secure }})"></div>
+            </a>
+
+            <div class="article-info-wrapper">
+                <div class="article-title">
+                    <a  href="{% url 'web_article_page_slug' article.article_slug  %}">
+                      {{ article.title|truncatechars:32 }}
+                    </a>
+                </div>
+                <div class="article-intro">
+                    {% autoescape off %}
+                    {{ article.short_digest }}...
+                    {% endautoescape %}
+                </div>
+            </div>
+            <div class="article-info">
+                 <span class="create-time">
+{#                    <i class="fa fa-clock-o"></i>#}
+                     {{ article.created_datetime|format_time}}
+                 </span>
+            </div>
+        </div>
+    </div>

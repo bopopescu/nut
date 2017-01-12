@@ -1,0 +1,32 @@
+{% load i18n staticfiles %}
+{% load common guoku %}
+
+{% if not isFromMobile %}
+    <div class="col-sm-2 guoku-middle-col">
+        <div class="opinion-cell">
+            <a class="new-black-link" href="{% if writer.authorized_profile.weixin_id %}{{ writer.absolute_url }}{% else %}{{ writer.authorized_profile.author_website }}{% endif %}" target="_blank">
+                <div class="logo-wrapper">
+                    <img src="{{ writer.avatar_url|resize:'128'|smart_scheme:is_secure }}" alt="{{ writer.nick }}" title="{{ writer.nick }}">
+                </div>
+                <p class="name">{{ writer.nick }}</p>
+            </a>
+        </div>
+    </div>
+{% endif %}
+
+{% if isFromMobile %}
+     <div class="col-sm-2 guoku-middle-col">
+        <div class="opinion-cell">
+            <a class="new-black-link" href="{% if writer.authorized_profile.weixin_id %}{{ writer.mobile_url }}{% else %}{{ writer.authorized_profile.author_website }}{% endif %}" target="_blank">
+                <div class="logo-wrapper">
+                    <img src="{{ writer.avatar_url|resize:'128'|smart_scheme:is_secure }}" alt="{{ writer.nick }}" title="{{ writer.nick }}">
+                </div>
+                <p class="name">{{ writer.nick }}</p>
+            </a>
+        </div>
+    </div>
+{% endif %}
+
+
+
+

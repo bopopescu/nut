@@ -21,7 +21,7 @@
        {% block user_header %}
         <div class="row user-info-wrapper">
             <div class="col-xs-12 col-sm-3 user-icon">
-                <img src="{{ current_user.avatar_url|resize:'180' }}"/>
+                <img src="{{ current_user.avatar_url|resize:'180'|smart_scheme:is_secure }}"/>
             </div>
             <div class="col-xs-12 col-sm-9 user-info">
                 <div class="user-nick-block">

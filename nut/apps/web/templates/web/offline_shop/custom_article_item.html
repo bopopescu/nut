@@ -35,7 +35,7 @@
         <div class="cover-wrapper">
             <a href="{% url 'web_article_page' article.pk %}#from=recommend">
 {#                <img  src="{{ article.cover_url|resize:'450' }}">#}
-                 <div class="img-holder img-holder-control" style="background-image: url({{ article.cover_url|resize:'450' }})"></div>
+                 <div class="img-holder img-holder-control" style="background-image: url({{ article.cover_url|resize:'450'|smart_scheme:is_secure }})"></div>
 
             </a>
         </div>

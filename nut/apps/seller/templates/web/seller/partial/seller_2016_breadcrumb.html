@@ -1,8 +1,10 @@
 {% load i18n staticfiles %}
 {% load common guoku %}
+{% url 'year_store_2016_shops' as shops_url  %}
 {% url 'year_store_2016_opinions' as opinions_url  %}
 {% url 'year_store_2016_columns' as columns_url  %}
 {% url 'year_store_2016_topics' as topics_url %}
+{% url 'topic_articles_url' as topic_articles_url %}
 
 <div class="col-md-12 tips">
     <div class="category-breadcrumb-wrapper">
@@ -15,11 +17,15 @@
                 <li>
                     作者 OPINIONS
                 </li>
+             {% elif shops_url == request.path  %}
+                <li>
+                    好店 SHOPS
+                </li>
             {% elif columns_url == request.path  %}
                 <li>
                     专栏 COLUMNS
                 </li>
-            {% elif topics_url == request.path %}
+            {% else %}
                 <li>
                     话题 TOPICS
                 </li>
