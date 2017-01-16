@@ -1,0 +1,41 @@
+{% load i18n %}
+{% load i18n static %}
+{% load guoku %}
+
+{% block css %}
+{% endblock %}
+
+
+
+<table class="table table-bordered table-hover table-condensed" id="sellers-table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th style="max-width: 200px">推荐商品名称</th>
+        <th>图片</th>
+        <th>排名/位置</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {#            the first line datas#}
+
+    {% for promo_entity in promo_entities %}
+
+        <tr>
+            <td>{{ promo_entity.id  }}</td>
+            <td>{{ promo_entity.entity.title }}</td>
+            <td class="max-width:200"><img src="{{  promo_entity.entity.chief_image|resize:'100' }}" ></td>
+            <td>
+                {{ promo_entity.pos }}
+            </td>
+            <td>
+                <a class="btn btn-danger" href="{% url 'manage_entity_promo_index_top_delete' promo_entity.pk %}" target="">
+                    删除
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+

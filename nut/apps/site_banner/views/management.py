@@ -2,7 +2,7 @@
 
 
 from urlparse import urlparse, parse_qs
-from apps.site_banner.models import SiteBanner
+from apps.site_banner.models import SiteBanner, Entity_Promotion
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, View, FormView
@@ -18,6 +18,8 @@ from apps.banners.forms import BaseBannerForm,\
 
 from braces.views import StaffuserRequiredMixin
 from django.views.generic.list import MultipleObjectMixin, MultipleObjectTemplateResponseMixin
+
+from apps.site_banner.forms import IndexTopEntityPromotionForm
 
 
 class SiteBannerCreateForm(BaseBannerCreateForm):
@@ -183,3 +185,26 @@ class SiteBannerInactiveListView(StaffuserRequiredMixin,ListView):
     context_object_name = 'banners'
     def get_queryset(self):
         return SiteBanner.objects.get_inactive_banner()
+
+
+class IndexTopEntityPromotionList(StaffuserRequiredMixin,  ListView):
+    template_name = 'management/site_banner/promo_entity_list.html'
+    context_object_name = 'promo_entities'
+    def get_queryset(self):
+        return Entity_Promotion.objects.index_top_entities()
+
+
+class IndexTopEntityPromotionCreate(CreateView):
+    model = Entity_Promotion
+    form_class = IndexTopEntityPromotionForm
+    template_name = 'management/site_banner/promo_entity_create.html'
+
+    def get_success_url(self):
+        return reverse_lazy('manage_entity_promo_index_top_list')
+
+class IndexTopEntityPromotionDelete(DeleteView):
+    template_name = 'management/site_banner/entity_promotion_delete.html'
+    model = Entity_Promotion
+
+    def get_success_url(self):
+        return reverse_lazy('manage_entity_promo_index_top_list')

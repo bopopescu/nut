@@ -1,0 +1,67 @@
+{% extends 'management/management_base.html' %}
+{% load i18n %}
+{% load i18n static %}
+{% load staticfiles i18n %}
+{% load guoku %}
+
+{% block css %}
+{% endblock %}
+
+{% block content %}
+
+  <section class="content-header">
+        <h1>
+            {% trans '首页上部商品推荐' %}
+            <small>{% trans '首页上部商品推荐' %}</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{% url 'management_dashboard' %}"><i class="fa fa-dashboard"></i>{% trans 'home' %}</a></li>
+{#            <li><a href="#">Tables</a></li>#}
+            <li class="active">{% trans 'event' %}</li>
+        </ol>
+    </section>
+
+
+     <section class="content">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <ul class="nav nav-pills" role="tablist">
+
+                        </ul>
+                    </div>
+
+                    <div class="box-body table-responsive">
+                       <div class="">
+                           <hr>
+                           <a href="{% url 'manage_entity_promo_index_top_create' %}">
+                             <button class="btn btn-primary">+ 添加推荐商品</button>
+                           </a>
+                           <hr>
+                       </div>
+
+                        {% include "management/site_banner/partial/entity_table.html"%}
+
+
+                    </div>
+
+{#                    <div class="box-footer">#}
+{#                         {% include "management/paginator.html" with objects=page_obj url=request.path %}#}
+{##}
+{#                    </div>#}
+                    <div class="box-footer">
+                        {% include "management/site_banner/paginator_banner.html" with objects=page_obj url=request.path %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
+
+{% block user_script %}
+
+{% endblock %}
