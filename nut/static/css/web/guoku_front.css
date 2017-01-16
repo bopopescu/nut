@@ -4302,6 +4302,7 @@ body.new-index-body #new_selection_article_list .new-event-article-item {
 .guoku-content .liker-page .user-info-wrapper,
 .entity-likers-body .liker-page .user-info-wrapper {
   margin-bottom: 40px;
+  width: auto;
 }
 .guoku-content.user-page .user-info-wrapper .user-icon img,
 .entity-likers-body.user-page .user-info-wrapper .user-icon img,
