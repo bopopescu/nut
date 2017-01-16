@@ -12,8 +12,6 @@ import MySQLdb.cursors
 
 class OriginIdPipeline(object):
     def process_item(self, item, spider):
-        # print "KOKOKOKOKO",item
-        # if item.has_key('origin_id'):
         if len(item['origin_id']) > 0:
 
             return item

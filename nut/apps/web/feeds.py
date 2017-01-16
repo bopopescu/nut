@@ -184,8 +184,7 @@ class ArticlesFeeds(Feed):
         return escape(item.article.title)
 
     def item_link(self, item):
-
-        return reverse('web_article_page', args=[item.article.pk])+'?from=feed'
+        return reverse('web_article_page', args=[item.article.slug])+'?from=feed'
 
     def item_author_name(self, item):
         return escape(item.article.creator.profile.nick)
