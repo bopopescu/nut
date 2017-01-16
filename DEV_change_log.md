@@ -1,4 +1,15 @@
 
+3. add entity_promotion
+    a. add new entity promotion management 
+    b. add promo entity into index page top entity list  
+2. article page breadcrumb
+1. update bootstrap 
+
+
+action : 
+        need syncdb 
+
+===================================
 2. https compat update
 1. replace bg pic for store2016
 

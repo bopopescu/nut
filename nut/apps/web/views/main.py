@@ -17,7 +17,7 @@ from django.conf import settings
 
 from apps.core.tasks.recorder import record_search
 from apps.core.utils.commons import get_client_ip, get_user_agent
-from apps.tag.models import Tags, Content_Tags
+from apps.tag.models import Tags
 from apps.core.models import Entity, Entity_Like, Category
 from apps.core.models import Selection_Entity
 from apps.core.models import GKUser
@@ -30,7 +30,7 @@ from apps.core.utils.http import JSONResponse
 from apps.core.extend.paginator import ExtentPaginator as Jpaginator
 from apps.core.models import Sub_Category
 from apps.shop.models import StorePageBanners
-from apps.site_banner.models import SiteBanner
+from apps.site_banner.models import SiteBanner, Entity_Promotion
 from haystack.query import SearchQuerySet
 
 log = getLogger('django')
@@ -53,6 +53,12 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin, TemplateView):
         selections = Selection_Entity.objects.published_until_now()\
                                      .select_related('entity').using('slave')
         return selections
+
+    def get_top_promo_entity_list(self):
+        promotions = list(Entity_Promotion.objects.index_top_entities())
+        selections = list(self.get_selection_entities()[:15])
+        return promotions + selections
+
 
     def get_selection_articles(self):
         articles = Selection_Article.objects.published_until()
@@ -94,6 +100,7 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin, TemplateView):
         context['middle_banners'] = StorePageBanners.objects.filter(status=StorePageBanners.enabled)  # 中间banner
         # context['selection_entity'] = Selection_Entity.objects.select_related('entity')[:6]
         context['selection_entity'] = self.get_selection_entities()[:20]
+        context['top_promotion_entities'] = self.get_top_promo_entity_list()
         context['static_url'] = settings.STATIC_URL
 
         _entities = context['entities']
@@ -195,9 +202,20 @@ class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
 
 
 class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
+
+    def get_selection_entities(self):
+        selections = Selection_Entity.objects.published_until_now()\
+                                     .select_related('entity').using('slave')
+        return selections
+
+    def get_top_promo_entity_list(self):
+        promotions = list(Entity_Promotion.objects.index_top_entities())
+        selections = list(self.get_selection_entities()[:15])
+        return promotions + selections
+
     def get_queryset(self):
         if self.category_id == 'all_entity':
-            qs = Selection_Entity.objects.published_until_now()[:20]
+            qs = self.get_top_promo_entity_list()
         else:
             sub_categories_ids = list(Sub_Category.objects.filter(group=self.category_id) \
                                       .values_list('id', flat=True))
@@ -207,11 +225,11 @@ class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView
 
     def get_context_data(self, **kwargs):
         context = super(IndexSelectionEntityTagView, self).get_context_data(**kwargs)
-        if self.request.user.is_authenticated():
-            popular_list = Entity_Like.objects.popular_random()
-            context['user_entity_likes'] = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=
-                list(Entity.objects.filter(id__in=popular_list).values_list('id', flat=True)) +
-                list(context['object_list'].values_list('entity_id', flat=True)))
+        # if self.request.user.is_authenticated():
+        #     popular_list = Entity_Like.objects.popular_random()
+        #     context['user_entity_likes'] = Entity_Like.objects.user_like_list(user=self.request.user, entity_list=
+        #         list(Entity.objects.filter(id__in=popular_list).values_list('id', flat=True)) +
+        #         list(context['object_list'].values_list('entity_id', flat=True)))
         return context
 
     def get_ajax(self, request, *args, **kwargs):

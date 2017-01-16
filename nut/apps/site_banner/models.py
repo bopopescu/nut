@@ -1,7 +1,10 @@
 # coding=utf-8
+from django.utils.translation import gettext as _
 
 from apps.banners.models import BaseBanner
 from django.db import models
+
+from apps.core.models import Entity
 
 
 class SiteBannerQuerySet(models.query.QuerySet):
@@ -75,6 +78,28 @@ class SiteBanner(BaseBanner):
     class Meta:
         db_table = 'sitebanner'
 
+
+class Entity_Promotion_Manager(models.Manager):
+    def index_top_entities(self):
+        return self.get_queryset().filter(area='index_top').order_by('pos')
+
+    def index_popular_entities(self):
+        return self.get_queryset().filter(area='index_popular').order_by('pos')
+
+
+class Entity_Promotion(models.Model):
+    AREA_CHOICES = (
+        ('index_top', _('area_index_top')),
+        ('index_popular', _('area_index_popular')),
+    )
+    entity = models.ForeignKey(Entity, related_name='promotions',null=True, blank=True)
+    area = models.CharField(choices=AREA_CHOICES, max_length=32)
+    pos = models.IntegerField(default=0)
+
+    objects = Entity_Promotion_Manager()
+
+    class Meta:
+        ordering = ['pos']
 
 
 

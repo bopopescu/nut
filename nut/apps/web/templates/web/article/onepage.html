@@ -39,9 +39,9 @@
     <div class="container goods_detail near-top article-onepage">
         <h2 class="sr-only">{{ article.content|striptags|truncatewords:150 }}</h2>
         <div id="share_img" style="display:none"><img src="{{ article.cover_url|smart_scheme:is_secure }}"></div>
-{#     <div class="row" id="detail_breadcrumb">#}
-{#         {% include "web/article/partial/article_breadcrumb.html" %}#}
-{#     </div>#}
+        <div class="row" id="detail_breadcrumb">
+            {% include "web/article/partial/article_breadcrumb.html" %}
+        </div>
         <div class="row" id="detail_content" >
             <div class="container-fluid main-article-control col-lg-8 col-md-8 col-sm-12  col-xs-12 " itemscope itemtype="http://schema.org/NewsArticle">
                 <div class="main-article" id="main_article">
