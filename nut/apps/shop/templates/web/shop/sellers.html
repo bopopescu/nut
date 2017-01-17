@@ -163,7 +163,7 @@
                 <ul id="recommend-entity-wrapper">
                     {% for entity in recent_entities %}
                     <li class="recommend-entity-item dark-section-item">
-                        <a href="{{   entity.absolute_url }}" target="_blank">
+                        <a href="{{   entity.absolute_url }}" target="_blank" title="{{ entity.title }}">
                             <div class="section-panel">
                                 <div class="entity-pic" style="background-image: url('{{ entity.chief_image |resize:'240'|smart_scheme:is_secure }}')">
                                 </div>
