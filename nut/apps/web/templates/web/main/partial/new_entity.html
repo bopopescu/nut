@@ -6,18 +6,18 @@
     <div class="new-entity-six">
         <div class="img-box">
             {% if entity.entity_hash %}
-                <a class="img-link" href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
+                <a class="img-link" href="{% url 'web_entity_detail' entity.entity_hash %}" title="{{ entity.title }}" target="_blank">
                     <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|resize:'310'|smart_scheme:is_secure }}">
                 </a>
-                <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
+                <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank" title="{{ entity.title }}">
                    <div class="bg-layer"></div>
                 </a>
             {% endif %}
             {% if entity.id in user_entity_likes %}
-                <a class="new-btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
+                <a class="new-btn-like" href="javascript:;" rel="nofollow" title="{{ entity.title }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ entity.title }}']);">
                 <i class="fa fa-heart"></i>
             {% else %}
-                <a class="new-btn-like" href="javascript:;" rel="nofollow" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
+                <a class="new-btn-like" href="javascript:;" rel="nofollow"   title="{{ entity.title }}" data-entity="{{ entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ entity.title }}']);">
                 <i class="fa fa-heart-o"></i>
             {% endif %}
             </a>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="title">
                     {% if entity.entity_hash %}
-                    <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
+                    <a href="{% url 'web_entity_detail' entity.entity_hash %}" title="{{ entity.title }}" target="_blank">
                         {{ entity.title|truncatechars:20 }}
                     </a>
                     {% endif %}
