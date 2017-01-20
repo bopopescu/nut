@@ -2,6 +2,7 @@
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
 # from django.utils.feedgenerator import Atom1Feed
+from django.utils.encoding import smart_str
 from django.utils.translation import gettext_lazy as _
 from django.utils.feedgenerator import Rss201rev2Feed
 # from django.shortcuts import get_object_or_404
@@ -138,8 +139,7 @@ class ArticlesInterviewFeeds(Feed):
         return escape(article.title)
 
     def item_link(self, article):
-
-        return reverse('web_article_page', args=[article.pk])+'?from=feed'
+        return reverse('web_article_page_slug', args=[article.article_slug])+'?from=feed'
 
     def item_author_name(self, article):
         return escape(article.creator.profile.nick)
@@ -184,7 +184,11 @@ class ArticlesFeeds(Feed):
         return escape(item.article.title)
 
     def item_link(self, item):
+<<<<<<< HEAD
         return reverse('web_article_page', args=[item.article.slug])+'?from=feed'
+=======
+        return reverse('web_article_page_slug', args=[item.article.article_slug])+'?from=feed'
+>>>>>>> 72a853aee7f98cb3a55afdd226fc49c2fea34971
 
     def item_author_name(self, item):
         return escape(item.article.creator.profile.nick)
@@ -203,7 +207,8 @@ class ArticlesFeeds(Feed):
         # extra = super(ArticlesFeeds, self).item_extra_kwargs(item)
         extra = {
                 # 'content_encoded': "<![CDATA[%s]]>" % item.article.content,
-                'content_encoded': ("<![CDATA[%s]]>" % item.article.feed_content.encode('utf8')),
+                # 'content_encoded': ("<![CDATA[%s]]>" % item.article.feed_content.encode('utf8')),
+                'content_encoded': ("<![CDATA[%s]]>" % smart_str(item.article.feed_content)),
                 # 'content_encoded': "<![CDATA[%s]]>" % u'<p>test</p>',
                 }
         return extra
