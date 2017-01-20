@@ -184,11 +184,7 @@ class ArticlesFeeds(Feed):
         return escape(item.article.title)
 
     def item_link(self, item):
-<<<<<<< HEAD
-        return reverse('web_article_page', args=[item.article.slug])+'?from=feed'
-=======
         return reverse('web_article_page_slug', args=[item.article.article_slug])+'?from=feed'
->>>>>>> 72a853aee7f98cb3a55afdd226fc49c2fea34971
 
     def item_author_name(self, item):
         return escape(item.article.creator.profile.nick)
