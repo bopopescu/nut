@@ -42,6 +42,9 @@ def resize(value, size=None):
         value = value+'_'+size+'x'+size+'.jpg'
         return value
 
+    if 'guoku.com/static' in value:
+        return value
+
     if host not in value:
         return value
 

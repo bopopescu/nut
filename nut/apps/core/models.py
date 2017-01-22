@@ -1705,6 +1705,9 @@ class Article(BaseModel):
     @property
     def cover_url(self):
         if self.cover:
+            # monkey patch the default cover
+            if 'static.guoku.com' in self.cover:
+                return self.cover
             if image_host in self.cover:
                 return self.cover
             return "%s%s" % (image_host, self.cover)
