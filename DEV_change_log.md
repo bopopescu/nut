@@ -1,3 +1,7 @@
+2. add 2016 report link to 好店 
+1. 2016 report remove from  top bar 
+
+=================
 
 3. add entity_promotion
     a. add new entity promotion management 
