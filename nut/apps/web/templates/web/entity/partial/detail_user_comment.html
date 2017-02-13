@@ -1,3 +1,4 @@
+{% load common guoku %}
 {% if request.user.is_blocked %}
     <div class="media" style="padding: 15px" class="blocked-user-notice">
         <div class="pull-left ">
@@ -19,7 +20,7 @@
                     {% csrf_token %}
                     <fieldset>
                         {% for field in note_forms %}
-                            {{ field }}
+                            {{ field|safe_note }}
                         {% endfor %}
                     </fieldset>
                     <div class="action pull-right" style="margin-top:10px;">

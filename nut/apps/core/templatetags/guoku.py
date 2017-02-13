@@ -6,8 +6,10 @@ from django.conf import settings
 import time
 import qrcode
 import StringIO
+import bleach
 # import base64
 
+ALLOWED_NOTE_TAGS = []
 
 register = template.Library()
 log = getLogger('django')
@@ -25,6 +27,11 @@ def smart_scheme(value, is_secure=False):
     else:
         return value.replace('http://', 'https://')
 register.filter(smart_scheme)
+
+
+def safe_note(value):
+    return bleach.clean(value, tags=ALLOWED_NOTE_TAGS)
+register.filter(safe_note)
 
 
 def httpsImageCDN(value):

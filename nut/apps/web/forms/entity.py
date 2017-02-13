@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import bleach
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.utils.translation import gettext_lazy as _
@@ -26,6 +27,7 @@ from django.utils.log import getLogger
 
 log = getLogger('django')
 
+ALLOWED_TAGS =['a']
 
 # from apps.core.models import Buy_Link
 
@@ -253,7 +255,7 @@ class CreateEntityForm(forms.Form):
     def clean_note_text(self):
 
         _note_text = self.cleaned_data.get('note_text')
-        return _note_text.strip()
+        return bleach.clean(_note_text.strip(), tags=ALLOWED_TAGS)
 
     def __init__(self, request, *args, **kwargs):
         self.request = request
