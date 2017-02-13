@@ -8,7 +8,7 @@ define(['jquery','libs/Class'],function(
             this.BrandAndTitle();
             //createNewEntity.changeChiefImage();
             this.postNewEntity();
-            console.log('create new entity begin');
+            console.log('create new entity begin!!!!!!!');
         },
         createEntity: function () {
             var form = $('.create-entity form');
@@ -214,7 +214,8 @@ define(['jquery','libs/Class'],function(
 
             newEntityForm.on("submit", function (e) {
                 var text = $.trim(newEntityForm.find("textarea[name='note_text']").val());
-                if (text.length > 0) {
+                var hasScript = /^\<script/.test(text);
+                if (text.length > 0 && !hasScript){
                     var brand = $(".add-entity input[name='brand']").val();
                     var title = $(".add-entity input[name='title']").val();
                     $('<input type="hidden" name="brand" value="' + brand + '">').appendTo(newEntityForm);
