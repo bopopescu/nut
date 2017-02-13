@@ -10,7 +10,6 @@ class ArticleRemarkForm(ModelForm):
         content = self.cleaned_data.get('content')
         return bleach.clean(content, tags=ALLOWED_REMARK_TAGS)
 
-
     class Meta:
         model = Article_Remark
         fields = ['content', 'reply_to']
