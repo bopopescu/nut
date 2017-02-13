@@ -138,8 +138,10 @@ class NewEntityDetailView(EntityDetailMixin, DetailView):
         _user_post_note = True
         try:
             _entity.notes.get(user=self.request.user)
-        except Note.DoesNotExist:
+        except Note.DoesNotExist as e:
             _user_post_note = False
+        except Note.MultipleObjectsReturned as e:
+            _user_post_note = True
         return _user_post_note
 
     def get_like_status(self, context):
