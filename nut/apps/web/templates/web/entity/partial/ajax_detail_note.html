@@ -1,4 +1,4 @@
-{% load common %}
+{% load common guoku %}
 
 
 <li>
@@ -9,7 +9,7 @@
         <div class="user_name">
             <a href="{% url 'web_user_index' note.user.pk %}" target="_blank">{{ note.user.profile.nick }}</a>
         </div>
-        <span class="comment_word with-tag content">{{ note.note|escape }}</span>
+        <span class="comment_word with-tag content">{{ note.note|escape|safe_note }}</span>
         <div class="comment_operate">
                 {% if note.user == request.user %}
                     <form class="form-horizontal update-note-form" action="{% url 'web_update_entity_note' note.pk %}" method="POST" style="display: none;">
