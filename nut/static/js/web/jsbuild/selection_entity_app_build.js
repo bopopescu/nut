@@ -5453,7 +5453,6 @@ require([
         'subapp/gotop',
         'subapp/tracker',
         'subapp/scrollview_selection',
-        'subapp/tracker',
         'masonry',
         'jquery_bridget',
         'images_loaded'
