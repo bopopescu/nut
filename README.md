@@ -1,5 +1,5 @@
 <p align="center">
-  <img title="backbone marionette" src='http://tp4.sinaimg.cn/2179686555/50/5657509044/1' />
+  <img title="guoku" src='http://ww1.sinaimg.cn/crop.0.0.180.180.50/81eb609bjw1e8qgp5bmzyj2050050aa8.jpg' />
 </p>
 
 <p align="center">The Django framework</p>
@@ -81,8 +81,9 @@ deploy/
 
 ```
 pip install fabric
-cd deploy/
-sh update_online_code.sh
+cd deployo/
+fab -f upload_static.py deploy_static
+fab -f upload_code.py uploac_code
 ```
 
 ## Models 与 Cache 之间的关系
@@ -128,6 +129,31 @@ class EntityLikeManager(models.Manager):
 ```
 /opt/mysql5/bin/mysqldump --single-transaction --flush-logs -u root core --ignore-table=core.core_entity_like --ignore-table=core.notifications_notification > core.sql
 ```
+## 发布服务器 
+* 使用 keepalived 健康性检查
+* 10.0.2.49 (master)
+* 10.0.2.46 (backup)
+
+## 数据缓存服务
+* 10.0.2.46
+* 10.0.2.120
+* 10.0.2.115
+
+## 图片处理服务器 [相关代码](https://github.com/guoku/rambutan)
+* 10.0.2.110
+* 10.0.2.115
+
+
+## 数据库服务器
+* 10.0.2.90 (master)
+* 10.0.2.95 (slave) read only
+
+## solr 服务器
+* solr 主要运行在 docker 容器中
+* 10.0.2.115
+* 10.0.2.110 (backup)
+
+
 
 ### Email
  <jiaxin@guoku.com>
