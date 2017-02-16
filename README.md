@@ -134,6 +134,10 @@ class EntityLikeManager(models.Manager):
 * 10.0.2.49 (master)
 * 10.0.2.46 (backup)
 
+## application server
+* 10.0.2.46
+* 10.0.2.47
+
 ## 数据缓存服务
 * 10.0.2.46
 * 10.0.2.120
@@ -142,6 +146,16 @@ class EntityLikeManager(models.Manager):
 ## 图片处理服务器 [相关代码](https://github.com/guoku/rambutan)
 * 10.0.2.110
 * 10.0.2.115
+
+## 图片缓存服务器
+*  10.0.2.110
+*  10.0.2.115
+
+## 图片存储服务器
+* 10.0.2.50 (tracker)
+* 10.0.2.48
+* 10.0.2.125
+* 10.0.2.200 
 
 
 ## 数据库服务器
@@ -152,6 +166,10 @@ class EntityLikeManager(models.Manager):
 * solr 主要运行在 docker 容器中
 * 10.0.2.115
 * 10.0.2.110 (backup)
+
+
+## 消息队列服务器
+* 10.0.2.125 （rabbitmq）
 
 
 
