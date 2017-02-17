@@ -1,3 +1,8 @@
+
+2. add tracking for banner click index page 
+1. fix https 淘客 API SUPPORT 
+====================================
+
 2. add 2016 report link to 好店 
 1. 2016 report remove from  top bar 
 
