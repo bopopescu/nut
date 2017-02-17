@@ -12,7 +12,8 @@ require([
          'subapp/index/offline_shop_slick',
         'subapp/user_follow',
         //'subapp/index/hot_entity',
-        'subapp/gotop'
+        'subapp/gotop',
+        'subapp/tracker'
 
     ],
 
@@ -29,7 +30,8 @@ require([
               OfflineShopSlick,
               UserFollow,
               //HotEntity,
-              GoTop
+              GoTop,
+              Tracker
               ) {
 // TODO : check if csrf work --
 // TODO : make sure bind is usable
@@ -45,4 +47,24 @@ require([
         var user_follow = new UserFollow();
         //var hot_entity = new HotEntity();
         var goto = new GoTop();
+        var tracker_list = [
+            {
+                selector : '.banner-image-cell',
+                trigger: 'click',
+                category: 'index-top-banner',
+                action: 'visit',
+                label: 'data-banner-value',
+                value: 'data-banner',
+                wrapper: '#index-banners'
+            }, {
+                selector: '.banner-image-cell',
+                trigger: 'click',
+                category: 'index-middle-banner',
+                action: 'visit',
+                label: 'data-banner-title',
+                value: 'data-banner',
+                wrapper: '#middle-page-banner'
+            }
+        ];
+        var tracker = new Tracker(tracker_list);
     });
