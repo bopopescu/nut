@@ -1780,7 +1780,7 @@ define('subapp/entity/create_new_entity',['jquery','libs/Class'],function(
 
             newEntityForm.on("submit", function (e) {
                 var text = $.trim(newEntityForm.find("textarea[name='note_text']").val());
-                if (text.length > 0) {
+                if (text.length > 0){
                     var brand = $(".add-entity input[name='brand']").val();
                     var title = $(".add-entity input[name='title']").val();
                     $('<input type="hidden" name="brand" value="' + brand + '">').appendTo(newEntityForm);
