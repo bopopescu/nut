@@ -61,7 +61,7 @@ require([
                 trigger: 'click',
                 category: 'index-middle-banner',
                 action: 'visit',
-                label: 'data-banner-title',
+                label: 'data-banner-value',
                 value: 'data-banner',
                 wrapper: '#middle-page-banner'
             }
