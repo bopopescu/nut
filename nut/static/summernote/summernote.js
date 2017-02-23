@@ -6,7 +6,7 @@
  * Copyright 2013-2015 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2016-04-15T09:33Z
+ * Date: 2017-02-20T07:38Z
  */
 (function (factory) {
   /* global define */
@@ -3021,6 +3021,25 @@
       this.toggleList('UL');
     };
 
+      /**
+       * @method removeFormat
+       *
+       * remove format list
+       *
+       * @type command
+       */
+
+     this.removeFormat = function(){
+         var rng = range.create().wrapBodyInlineWithPara();
+         var paras = rng.nodes(dom.isPara, {includeAncestor: true});
+         for(var i = 0 ;i< paras.length ; i++){
+             dom.walkChildren(paras[i], function(node){
+                 $(node).attr('style', '');
+             });
+         }
+     };
+
+
     /**
      * @method indent
      *
@@ -3675,7 +3694,7 @@
     // native commands(with execCommand), generate function for execCommand
     var commands = ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript',
                     'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull',
-                    'formatBlock', 'removeFormat',
+                    'formatBlock',
                     'backColor', 'foreColor', 'insertHorizontalRule', 'fontName'];
 
     for (var idx = 0, len = commands.length; idx < len; idx ++) {
@@ -3689,6 +3708,23 @@
       })(commands[idx]);
     }
     /* jshint ignore:end */
+
+
+      /**
+       * @method removeFormat
+       *
+       * handle remove format
+       *
+       * @param {jQuery} $editable
+       * @param {Object} options
+       */
+
+     this.removeFormat  = function($editable, value){
+         beforeCommand($editable);
+         bullet.removeFormat();
+         document.execCommand('removeFormat', false, value);
+         afterCommand($editable);
+     };
 
     /**
      * @method tab
@@ -6985,6 +7021,7 @@
 
       //031. create codable
       $('<textarea class="note-codable"></textarea>').prependTo($editor);
+
         // done Title input here : by An .
         var titleInput = $('<div class=""><input class="title-input" name="article-title" placeholder="标题" maxlength="64"></div>')
             .prependTo($editor);
