@@ -1,3 +1,10 @@
+2. article editor js update, (clear format button update)
+    
+1 . COMPLEX CAPTCHA 
+    math challenge
+    font change 
+================
+
 
 2. add tracking for banner click index page 
 1. fix https 淘客 API SUPPORT 
