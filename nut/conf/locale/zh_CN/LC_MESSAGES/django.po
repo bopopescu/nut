@@ -2953,7 +2953,7 @@ msgstr "验证码不正确"
 
 #: apps/web/fields/__init__.py:30
 msgid "Captcha Code"
-msgstr "验证码"
+msgstr "验证码算式结果"
 
 #: apps/web/forms/account.py:30 apps/web/forms/account.py:31
 msgid "Email"
