@@ -3,6 +3,13 @@
 1 . COMPLEX CAPTCHA 
     math challenge
     font change 
+    
+    
+action : 
+     有翻译更新， 执行
+     ./manage.py compilemessages
+     
+     
 ================
 
 
