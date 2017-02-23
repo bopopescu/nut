@@ -303,13 +303,13 @@ CELERY_ROUTES = {
 
 # for django-simple-captcha
 CAPTCHA_FOREGROUND_COLOR = '#333333' # 验证码字体颜色
-CAPTCHA_BACKGROUND_COLOR = '#aa77aa' # 验证码背景颜色
+CAPTCHA_BACKGROUND_COLOR = '#212121' # 验证码背景颜色
 CAPTCHA_NOISE_FUNCTIONS = (
     'captcha.helpers.noise_arcs',
     'captcha.helpers.noise_dots',
 )
 CAPTCHA_LETTER_ROTATION = (-35, 90)
-CAPTCHA_LENGTH = 6
+CAPTCHA_LENGTH = 5
 
 # for debug server popular  category test
 DEFAULT_POPULAR_SCALE = 7
