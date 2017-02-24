@@ -14,8 +14,8 @@ define(['libs/Class'], function (Class) {
                                   var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
                                   var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
                                    //闭包
-                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
-                                  console.log('<'+category+','+action+','+opt_label+','+opt_value);
+                                 _hmt.push(['_trackEvent', category, action, encodeURIComponent(opt_label), opt_value]);
+                                  console.log('<'+category);
                           })();
 
                       });
@@ -28,8 +28,8 @@ define(['libs/Class'], function (Class) {
                                   var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
                                   var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
                                    //闭包
-                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
-                                 console.log('> '+category+','+action+','+opt_label+','+opt_value);
+                                 _hmt.push(['_trackEvent', category, action, encodeURIComponent(opt_label), opt_value]);
+                                 console.log('>'+category);
                           })();
 
                       });
