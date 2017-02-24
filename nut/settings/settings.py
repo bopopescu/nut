@@ -303,6 +303,11 @@ CELERY_ROUTES = {
 # for django-simple-captcha
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_arcs','captcha.helpers.noise_dots',)
 CAPTCHA_LENGTH = 5
+CAPTCHA_LETTER_ROTATION = (-10, 10)
+CAPTCHA_FONT_PATH = 'fonts/planetbe.ttf'
+CAPTCHA_FONT_SIZE = 28
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
+
 # for debug server popular  category test
 DEFAULT_POPULAR_SCALE = 7
 
