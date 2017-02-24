@@ -15,6 +15,7 @@ define(['libs/Class'], function (Class) {
                                   var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
                                    //闭包
                                  _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
+                                  console.log('<'+category+','+action+','+opt_label+','+opt_value);
                           })();
 
                       });
@@ -28,6 +29,7 @@ define(['libs/Class'], function (Class) {
                                   var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
                                    //闭包
                                  _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
+                                 console.log('> '+category+','+action+','+opt_label+','+opt_value);
                           })();
 
                       });
