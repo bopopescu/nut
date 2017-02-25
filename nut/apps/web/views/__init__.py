@@ -7,14 +7,40 @@ from django.shortcuts import redirect,render
 from django.views.defaults import server_error
 from django.views.defaults import page_not_found
 from django.utils.log import getLogger
+from django import http
 
 log = getLogger('django')
 
+from django.template import  loader, TemplateDoesNotExist, Template, RequestContext
+
 def page_error(request):
-    return server_error(request, template_name='web/500.html')
+    template_name = 'web/500.html'
+
+    # safe init a context
+    r_context = None
+    try:
+        r_context = RequestContext(request, {'request_path': request.path})
+    except Exception as e:
+        pass
+
+    # try to load template
+    try:
+        template = loader.get_template(template_name)
+        content_type = None             # Django will use DEFAULT_CONTENT_TYPE
+    except TemplateDoesNotExist:
+        template = Template(
+              '<h1>Server Error</h1>'
+              '<p></p>')
+        content_type = 'text/html'
+
+    # put them together
+    body = template.render(r_context)
+    return http.HttpResponseServerError(body, content_type=content_type)
+
 
 def webpage_not_found(request):
     return page_not_found(request, template_name='web/404.html')
+
 
 def permission_denied(request):
     return page_not_found(request, template_name='web/403.html')

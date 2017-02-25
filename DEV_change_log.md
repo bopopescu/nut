@@ -1,3 +1,8 @@
+3. update banner click tracker js 
+2. 500 page css js lost bug fix 
+1. fix authorized_author no record bug 
+
+===========================
 
 2. article editor js update, (clear format button update)
     

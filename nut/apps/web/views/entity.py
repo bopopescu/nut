@@ -129,6 +129,7 @@ class NewEntityDetailView(EntityDetailMixin, DetailView):
         context['tags'] = self.get_entity_tags(context)
         context['entity_brand'] = self.get_entity_brand(context)
         context = add_side_bar_context_data(context)
+        raise Exception()
         return context
 
     def get_is_user_post_note(self,context):
