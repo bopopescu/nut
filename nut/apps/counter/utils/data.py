@@ -1,3 +1,6 @@
+from random import random
+
+import math
 from django.conf import settings
 from django.core.cache import cache
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -192,8 +195,8 @@ class RedisCounterMachine(object):
         counter_store = cls.get_store()
         key = cls._hash_key(key)
         try:
-            count = counter_store.incr(key)
-        except ValueError:
+            count = counter_store.incr(key, int(math.floor(random()*5))+1)
+        except ValueError as e:
             # cache this value forever
             try:
                 count = cls.get_count_value_from_mysql_by_key(key) + 1

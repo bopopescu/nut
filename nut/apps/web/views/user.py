@@ -623,8 +623,14 @@ class UserIndex(UserPageMixin, DetailView):
 
     def get_authorized_user_info(self):
         if self._current_user.is_authorized_author:
-            authorized_user_info = Authorized_User_Profile.objects.get(user_id=self._current_user.pk)
+            try:
+                authorized_user_info = Authorized_User_Profile.objects.get(user_id=self._current_user.pk)
+                return authorized_user_info
+            except Authorized_User_Profile.DoesNotExist as e:
+                return None
             return authorized_user_info
+        else:
+            return None
 
     def get_context_data(self,**kwargs):
         context_data = super(UserIndex, self).get_context_data(**kwargs)
