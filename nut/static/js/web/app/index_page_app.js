@@ -51,7 +51,7 @@ require([
             {
                 selector : '.banner-image-cell',
                 trigger: 'click',
-                category: 'index-top-banner',
+                category: 'banner',
                 action: 'visit',
                 label: 'data-banner-value',
                 value: 'data-banner',
@@ -59,9 +59,9 @@ require([
             }, {
                 selector: '.banner-image-cell',
                 trigger: 'click',
-                category: 'index-middle-banner',
+                category: 'banner',
                 action: 'visit',
-                label: 'data-banner-title',
+                label: 'data-banner-value',
                 value: 'data-banner',
                 wrapper: '#middle-page-banner'
             }

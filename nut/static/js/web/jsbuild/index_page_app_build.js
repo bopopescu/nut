@@ -5070,7 +5070,8 @@ define('subapp/tracker',['libs/Class'], function (Class) {
                                   var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
                                   var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
                                    //闭包
-                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
+                                 _hmt.push(['_trackEvent', category, action, encodeURIComponent(opt_label), opt_value]);
+                                  console.log('<'+category);
                           })();
 
                       });
@@ -5083,7 +5084,8 @@ define('subapp/tracker',['libs/Class'], function (Class) {
                                   var opt_label = $(target).attr(ele.label) || $(target).parent().attr(ele.label);
                                   var opt_value = $(target).attr(ele.value) || $(target).parent().attr(ele.value);
                                    //闭包
-                                 _hmt.push('_trackEvent', category, action, encodeURIComponent(opt_label), opt_value);
+                                 _hmt.push(['_trackEvent', category, action, encodeURIComponent(opt_label), opt_value]);
+                                 console.log('>'+category);
                           })();
 
                       });
@@ -5149,7 +5151,7 @@ require([
             {
                 selector : '.banner-image-cell',
                 trigger: 'click',
-                category: 'index-top-banner',
+                category: 'banner',
                 action: 'visit',
                 label: 'data-banner-value',
                 value: 'data-banner',
@@ -5157,9 +5159,9 @@ require([
             }, {
                 selector: '.banner-image-cell',
                 trigger: 'click',
-                category: 'index-middle-banner',
+                category: 'banner',
                 action: 'visit',
-                label: 'data-banner-title',
+                label: 'data-banner-value',
                 value: 'data-banner',
                 wrapper: '#middle-page-banner'
             }
