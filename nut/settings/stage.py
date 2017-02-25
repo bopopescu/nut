@@ -3,14 +3,14 @@ from settings import *
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-# STATICFILES_DIRS = (
-#     os.path.join(os.getcwd(), 'static'),
-#     # Put strings here, like "/home/html/static" or "C:/www/django/static".
-#     # Always use forward slashes, even on Windows.
-#     # Don't forget to use absolute paths, not relative paths.
-# )
+STATICFILES_DIRS = (
+    os.path.join(os.getcwd(), 'static'),
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
 
-STATIC_URL = 'http://scdn.guoku.com/static/v4/7627a86a9eb2b24c08e2a3643687431241178190/'
+# STATIC_URL = 'http://scdn.guoku.com/static/v4/878dd7f1527dac902ec6210810e62919f717e1eb/'
 
 
 LANGUAGE_CODE = 'zh-cn'
