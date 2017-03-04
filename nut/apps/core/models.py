@@ -1579,8 +1579,14 @@ class Article(BaseModel):
 
 
     def make_slug(self):
+
         slug = slugify(self.title, max_length=50, word_boundary=True)
         new_slug = slug
+
+        if len(self.article_slug) > 1 and new_slug in self.article_slug:
+            # already generated
+            return self.article_slug
+
         number = 0
         while True:
             try:
@@ -1595,7 +1601,7 @@ class Article(BaseModel):
             # print('*' * 80)
             # print('slug found' + str(self.id))
             number += 1
-            new_slug = slug + str(number) + str(int(floor(random.random()*10000)))
+            new_slug = slug + str(number)
 
 
     def get_related_articles(self, page=1):
