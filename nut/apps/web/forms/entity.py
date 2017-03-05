@@ -6,6 +6,8 @@ from django.utils.translation import gettext_lazy as _
 
 from django.core.cache import cache
 
+from captcha.fields import CaptchaField
+
 from apps.core.models import Entity, Note, Buy_Link
 from apps.core.utils.fetch.taobao import TaoBao
 from apps.core.utils.fetch.jd import JD
@@ -58,7 +60,6 @@ def cal_entity_hash(hash_string):
             break
     return _hash
 
-from captcha.fields import CaptchaField
 class EntityURLFrom(forms.Form):
     cand_url = forms.URLField(
         label=_('links'),
@@ -66,7 +67,7 @@ class EntityURLFrom(forms.Form):
             'past the product link here')}),
     )
 
-    # captcha = CaptchaField()
+    captcha = CaptchaField()
 
     def __init__(self, request, *args, **kwargs):
         self.request = request

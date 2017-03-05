@@ -9,6 +9,9 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.core.cache import cache
 
+from captcha.models import CaptchaStore
+from captcha.helpers import captcha_image_url
+
 from apps.core.utils.http import JSONResponse
 from apps.core.views import BaseJsonView
 
@@ -23,7 +26,7 @@ from apps.web.utils.viewtools import add_side_bar_context_data
 from apps.tag.models import Content_Tags
 
 from django.views.generic.detail import DetailView
-from django.views.generic import RedirectView, ListView
+from django.views.generic import RedirectView, ListView, View
 from braces.views import AjaxResponseMixin, JSONResponseMixin
 
 from django.conf import settings
@@ -491,6 +494,21 @@ def entity_create(request, template="web/entity/new.html"):
 
 def get_user_load_key(user):
     return 'timer:user:load_entity_url:%s' % user.id
+
+
+class CaptchaRefreshView(AjaxResponseMixin, JSONResponseMixin, View):
+    def post_ajax(self, request, *args, **kwargs):
+        return self.render_json_object_response({
+            'captcha_0': 'no',
+            'captcha_1': 'no',
+            'captcha_img_url':'noting'
+        })
+
+@login_required
+def entity_captcha_refresh(request):
+    pass
+
+
 @login_required
 def entity_load(request):
     key = get_user_load_key(request.user)

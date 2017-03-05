@@ -1,5 +1,5 @@
 from django.conf.urls import url, patterns
-from apps.web.views.entity import gotoBuyView, TaobaoRecommendationView
+from apps.web.views.entity import gotoBuyView, TaobaoRecommendationView, CaptchaRefreshView
 
 
 urlpatterns = patterns(
@@ -16,6 +16,7 @@ urlpatterns = patterns(
 
     url(r'^new/$', 'entity_create', name='web_entity_create'),
     url(r'^load/item/', 'entity_load', name='web_load_item_info'),
+    url(r'^load/item/captcha/', CaptchaRefreshView.as_view() , name='web_entity_create_captcha_refresh'),
     url(r'^(?P<eid>\d+)/report/$', 'report', name='web_entity_report'),
     url(r'^go/(?P<buy_id>\d+)/', gotoBuyView.as_view(), name='web_entity_buy_url'),
 

@@ -180,7 +180,22 @@
                             }
             },
             update_captcha: function () {
+                var capt_refresh_url = '/entity/load/item/captcha/';
+                $.when($.ajax({
+                    url: capt_refresh_url,
+                    method: 'POST',
+                    data:{}
+                })).then(
+                    this.update_captcha_success.bind(this),
+                    this.update_captcha_fail.bind(this)
+                )
 
+            },
+            update_captcha_success: function(data){
+                console.log(data);
+            },
+            update_captcha_fail: function(data){
+                console.log(data);
             },
             url_post_fail:function(data){
                 console.log('url load fail ');
