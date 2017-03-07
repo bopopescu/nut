@@ -1,3 +1,9 @@
+3.  user reg captcha field update  
+2.  user need verify email before create entity 
+1.  user create entity need captcha
+ 
+============================
+
 3. update banner click tracker js 
 2. 500 page css js lost bug fix 
 1. fix authorized_author no record bug 

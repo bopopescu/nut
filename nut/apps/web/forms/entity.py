@@ -6,6 +6,8 @@ from django.utils.translation import gettext_lazy as _
 
 from django.core.cache import cache
 
+from captcha.fields import CaptchaField
+
 from apps.core.models import Entity, Note, Buy_Link
 from apps.core.utils.fetch.taobao import TaoBao
 from apps.core.utils.fetch.jd import JD
@@ -58,7 +60,6 @@ def cal_entity_hash(hash_string):
             break
     return _hash
 
-from captcha.fields import CaptchaField
 class EntityURLFrom(forms.Form):
     cand_url = forms.URLField(
         label=_('links'),
@@ -66,7 +67,7 @@ class EntityURLFrom(forms.Form):
             'past the product link here')}),
     )
 
-    # captcha = CaptchaField()
+    captcha = CaptchaField()
 
     def __init__(self, request, *args, **kwargs):
         self.request = request
@@ -252,6 +253,8 @@ class CreateEntityForm(forms.Form):
         widget=forms.Textarea(),
     )
 
+    captcha = CaptchaField()
+
     def clean_note_text(self):
 
         _note_text = self.cleaned_data.get('note_text')
@@ -260,6 +263,12 @@ class CreateEntityForm(forms.Form):
     def __init__(self, request, *args, **kwargs):
         self.request = request
         super(CreateEntityForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super(CreateEntityForm, self).clean()
+        if not self.request.user.is_verified:
+            raise forms.ValidationError(_('请您验证邮箱后再来添加商品。'), code=_('mail_verify'))
+        return cleaned_data
 
     def save(self):
         # _taobao_id = self.cleaned_data.get('taobao_id')

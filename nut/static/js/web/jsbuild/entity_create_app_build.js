@@ -1564,59 +1564,71 @@ define('subapp/topmenu',['bootstrap',
     return  Menu;
 
 });
-define('subapp/entity/create_new_entity',['jquery','libs/Class'],function(
-    $,Class
+/**
+ * bootbox.js v4.4.0
+ *
+ * http://bootboxjs.com/license.txt
+ */
+!function(a,b){"use strict";"function"==typeof define&&define.amd?define('bootbox',["jquery"],b):"object"==typeof exports?module.exports=b(require("jquery")):a.bootbox=b(a.jQuery)}(this,function a(b,c){"use strict";function d(a){var b=q[o.locale];return b?b[a]:q.en[a]}function e(a,c,d){a.stopPropagation(),a.preventDefault();var e=b.isFunction(d)&&d.call(c,a)===!1;e||c.modal("hide")}function f(a){var b,c=0;for(b in a)c++;return c}function g(a,c){var d=0;b.each(a,function(a,b){c(a,b,d++)})}function h(a){var c,d;if("object"!=typeof a)throw new Error("Please supply an object of options");if(!a.message)throw new Error("Please specify a message");return a=b.extend({},o,a),a.buttons||(a.buttons={}),c=a.buttons,d=f(c),g(c,function(a,e,f){if(b.isFunction(e)&&(e=c[a]={callback:e}),"object"!==b.type(e))throw new Error("button with key "+a+" must be an object");e.label||(e.label=a),e.className||(e.className=2>=d&&f===d-1?"btn-primary":"btn-default")}),a}function i(a,b){var c=a.length,d={};if(1>c||c>2)throw new Error("Invalid argument length");return 2===c||"string"==typeof a[0]?(d[b[0]]=a[0],d[b[1]]=a[1]):d=a[0],d}function j(a,c,d){return b.extend(!0,{},a,i(c,d))}function k(a,b,c,d){var e={className:"bootbox-"+a,buttons:l.apply(null,b)};return m(j(e,d,c),b)}function l(){for(var a={},b=0,c=arguments.length;c>b;b++){var e=arguments[b],f=e.toLowerCase(),g=e.toUpperCase();a[f]={label:d(g)}}return a}function m(a,b){var d={};return g(b,function(a,b){d[b]=!0}),g(a.buttons,function(a){if(d[a]===c)throw new Error("button key "+a+" is not allowed (options are "+b.join("\n")+")")}),a}var n={dialog:"<div class='bootbox modal' tabindex='-1' role='dialog'><div class='modal-dialog'><div class='modal-content'><div class='modal-body'><div class='bootbox-body'></div></div></div></div></div>",header:"<div class='modal-header'><h4 class='modal-title'></h4></div>",footer:"<div class='modal-footer'></div>",closeButton:"<button type='button' class='bootbox-close-button close' data-dismiss='modal' aria-hidden='true'>&times;</button>",form:"<form class='bootbox-form'></form>",inputs:{text:"<input class='bootbox-input bootbox-input-text form-control' autocomplete=off type=text />",textarea:"<textarea class='bootbox-input bootbox-input-textarea form-control'></textarea>",email:"<input class='bootbox-input bootbox-input-email form-control' autocomplete='off' type='email' />",select:"<select class='bootbox-input bootbox-input-select form-control'></select>",checkbox:"<div class='checkbox'><label><input class='bootbox-input bootbox-input-checkbox' type='checkbox' /></label></div>",date:"<input class='bootbox-input bootbox-input-date form-control' autocomplete=off type='date' />",time:"<input class='bootbox-input bootbox-input-time form-control' autocomplete=off type='time' />",number:"<input class='bootbox-input bootbox-input-number form-control' autocomplete=off type='number' />",password:"<input class='bootbox-input bootbox-input-password form-control' autocomplete='off' type='password' />"}},o={locale:"en",backdrop:"static",animate:!0,className:null,closeButton:!0,show:!0,container:"body"},p={};p.alert=function(){var a;if(a=k("alert",["ok"],["message","callback"],arguments),a.callback&&!b.isFunction(a.callback))throw new Error("alert requires callback property to be a function when provided");return a.buttons.ok.callback=a.onEscape=function(){return b.isFunction(a.callback)?a.callback.call(this):!0},p.dialog(a)},p.confirm=function(){var a;if(a=k("confirm",["cancel","confirm"],["message","callback"],arguments),a.buttons.cancel.callback=a.onEscape=function(){return a.callback.call(this,!1)},a.buttons.confirm.callback=function(){return a.callback.call(this,!0)},!b.isFunction(a.callback))throw new Error("confirm requires a callback");return p.dialog(a)},p.prompt=function(){var a,d,e,f,h,i,k;if(f=b(n.form),d={className:"bootbox-prompt",buttons:l("cancel","confirm"),value:"",inputType:"text"},a=m(j(d,arguments,["title","callback"]),["cancel","confirm"]),i=a.show===c?!0:a.show,a.message=f,a.buttons.cancel.callback=a.onEscape=function(){return a.callback.call(this,null)},a.buttons.confirm.callback=function(){var c;switch(a.inputType){case"text":case"textarea":case"email":case"select":case"date":case"time":case"number":case"password":c=h.val();break;case"checkbox":var d=h.find("input:checked");c=[],g(d,function(a,d){c.push(b(d).val())})}return a.callback.call(this,c)},a.show=!1,!a.title)throw new Error("prompt requires a title");if(!b.isFunction(a.callback))throw new Error("prompt requires a callback");if(!n.inputs[a.inputType])throw new Error("invalid prompt type");switch(h=b(n.inputs[a.inputType]),a.inputType){case"text":case"textarea":case"email":case"date":case"time":case"number":case"password":h.val(a.value);break;case"select":var o={};if(k=a.inputOptions||[],!b.isArray(k))throw new Error("Please pass an array of input options");if(!k.length)throw new Error("prompt with select requires options");g(k,function(a,d){var e=h;if(d.value===c||d.text===c)throw new Error("given options in wrong format");d.group&&(o[d.group]||(o[d.group]=b("<optgroup/>").attr("label",d.group)),e=o[d.group]),e.append("<option value='"+d.value+"'>"+d.text+"</option>")}),g(o,function(a,b){h.append(b)}),h.val(a.value);break;case"checkbox":var q=b.isArray(a.value)?a.value:[a.value];if(k=a.inputOptions||[],!k.length)throw new Error("prompt with checkbox requires options");if(!k[0].value||!k[0].text)throw new Error("given options in wrong format");h=b("<div/>"),g(k,function(c,d){var e=b(n.inputs[a.inputType]);e.find("input").attr("value",d.value),e.find("label").append(d.text),g(q,function(a,b){b===d.value&&e.find("input").prop("checked",!0)}),h.append(e)})}return a.placeholder&&h.attr("placeholder",a.placeholder),a.pattern&&h.attr("pattern",a.pattern),a.maxlength&&h.attr("maxlength",a.maxlength),f.append(h),f.on("submit",function(a){a.preventDefault(),a.stopPropagation(),e.find(".btn-primary").click()}),e=p.dialog(a),e.off("shown.bs.modal"),e.on("shown.bs.modal",function(){h.focus()}),i===!0&&e.modal("show"),e},p.dialog=function(a){a=h(a);var d=b(n.dialog),f=d.find(".modal-dialog"),i=d.find(".modal-body"),j=a.buttons,k="",l={onEscape:a.onEscape};if(b.fn.modal===c)throw new Error("$.fn.modal is not defined; please double check you have included the Bootstrap JavaScript library. See http://getbootstrap.com/javascript/ for more details.");if(g(j,function(a,b){k+="<button data-bb-handler='"+a+"' type='button' class='btn "+b.className+"'>"+b.label+"</button>",l[a]=b.callback}),i.find(".bootbox-body").html(a.message),a.animate===!0&&d.addClass("fade"),a.className&&d.addClass(a.className),"large"===a.size?f.addClass("modal-lg"):"small"===a.size&&f.addClass("modal-sm"),a.title&&i.before(n.header),a.closeButton){var m=b(n.closeButton);a.title?d.find(".modal-header").prepend(m):m.css("margin-top","-10px").prependTo(i)}return a.title&&d.find(".modal-title").html(a.title),k.length&&(i.after(n.footer),d.find(".modal-footer").html(k)),d.on("hidden.bs.modal",function(a){a.target===this&&d.remove()}),d.on("shown.bs.modal",function(){d.find(".btn-primary:first").focus()}),"static"!==a.backdrop&&d.on("click.dismiss.bs.modal",function(a){d.children(".modal-backdrop").length&&(a.currentTarget=d.children(".modal-backdrop").get(0)),a.target===a.currentTarget&&d.trigger("escape.close.bb")}),d.on("escape.close.bb",function(a){l.onEscape&&e(a,d,l.onEscape)}),d.on("click",".modal-footer button",function(a){var c=b(this).data("bb-handler");e(a,d,l[c])}),d.on("click",".bootbox-close-button",function(a){e(a,d,l.onEscape)}),d.on("keyup",function(a){27===a.which&&d.trigger("escape.close.bb")}),b(a.container).append(d),d.modal({backdrop:a.backdrop?"static":!1,keyboard:!1,show:!1}),a.show&&d.modal("show"),d},p.setDefaults=function(){var a={};2===arguments.length?a[arguments[0]]=arguments[1]:a=arguments[0],b.extend(o,a)},p.hideAll=function(){return b(".bootbox").modal("hide"),p};var q={bg_BG:{OK:"Ок",CANCEL:"Отказ",CONFIRM:"Потвърждавам"},br:{OK:"OK",CANCEL:"Cancelar",CONFIRM:"Sim"},cs:{OK:"OK",CANCEL:"Zrušit",CONFIRM:"Potvrdit"},da:{OK:"OK",CANCEL:"Annuller",CONFIRM:"Accepter"},de:{OK:"OK",CANCEL:"Abbrechen",CONFIRM:"Akzeptieren"},el:{OK:"Εντάξει",CANCEL:"Ακύρωση",CONFIRM:"Επιβεβαίωση"},en:{OK:"OK",CANCEL:"Cancel",CONFIRM:"OK"},es:{OK:"OK",CANCEL:"Cancelar",CONFIRM:"Aceptar"},et:{OK:"OK",CANCEL:"Katkesta",CONFIRM:"OK"},fa:{OK:"قبول",CANCEL:"لغو",CONFIRM:"تایید"},fi:{OK:"OK",CANCEL:"Peruuta",CONFIRM:"OK"},fr:{OK:"OK",CANCEL:"Annuler",CONFIRM:"D'accord"},he:{OK:"אישור",CANCEL:"ביטול",CONFIRM:"אישור"},hu:{OK:"OK",CANCEL:"Mégsem",CONFIRM:"Megerősít"},hr:{OK:"OK",CANCEL:"Odustani",CONFIRM:"Potvrdi"},id:{OK:"OK",CANCEL:"Batal",CONFIRM:"OK"},it:{OK:"OK",CANCEL:"Annulla",CONFIRM:"Conferma"},ja:{OK:"OK",CANCEL:"キャンセル",CONFIRM:"確認"},lt:{OK:"Gerai",CANCEL:"Atšaukti",CONFIRM:"Patvirtinti"},lv:{OK:"Labi",CANCEL:"Atcelt",CONFIRM:"Apstiprināt"},nl:{OK:"OK",CANCEL:"Annuleren",CONFIRM:"Accepteren"},no:{OK:"OK",CANCEL:"Avbryt",CONFIRM:"OK"},pl:{OK:"OK",CANCEL:"Anuluj",CONFIRM:"Potwierdź"},pt:{OK:"OK",CANCEL:"Cancelar",CONFIRM:"Confirmar"},ru:{OK:"OK",CANCEL:"Отмена",CONFIRM:"Применить"},sq:{OK:"OK",CANCEL:"Anulo",CONFIRM:"Prano"},sv:{OK:"OK",CANCEL:"Avbryt",CONFIRM:"OK"},th:{OK:"ตกลง",CANCEL:"ยกเลิก",CONFIRM:"ยืนยัน"},tr:{OK:"Tamam",CANCEL:"İptal",CONFIRM:"Onayla"},zh_CN:{OK:"OK",CANCEL:"取消",CONFIRM:"确认"},zh_TW:{OK:"OK",CANCEL:"取消",CONFIRM:"確認"}};return p.addLocale=function(a,c){return b.each(["OK","CANCEL","CONFIRM"],function(a,b){if(!c[b])throw new Error("Please supply a translation for '"+b+"'")}),q[a]={OK:c.OK,CANCEL:c.CANCEL,CONFIRM:c.CONFIRM},p},p.removeLocale=function(a){return delete q[a],p},p.setLocale=function(a){return p.setDefaults("locale",a)},p.init=function(c){return a(c||b)},p});
+    define('subapp/entity/create_new_entity',['jquery','libs/Class', 'bootbox'],function(
+        $,Class,bootbox
 
-){
-    var CreateNewEntity = Class.extend({
-        init: function () {
-            this.createEntity();
-            this.BrandAndTitle();
-            //createNewEntity.changeChiefImage();
-            this.postNewEntity();
-            console.log('create new entity begin');
-        },
-        createEntity: function () {
-            var form = $('.create-entity form');
-            var entityExist = $(".entity-exist");
-            var addEntity = $(".add-entity");
-            var addEntityNote = $(".add-entity-note");
-            var imageThumbails = $(".image-thumbnails");
-            //  console.log(entityExist);
-            form.on('submit', function (e) {
-                // have to add tool function here ,
-                // TODO : refactor the whole script ! by an
-                //
-                function getCookie(name) {
-                    var cookieValue = null;
-                    if (document.cookie && document.cookie != '') {
-                        var cookies = document.cookie.split(';');
-                        for (var i = 0; i < cookies.length; i++) {
-                            var cookie = jQuery.trim(cookies[i]);
-                            // Does this cookie string begin with the name we want?
-                            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                break;
+    ){
+        var CreateNewEntity = Class.extend({
+
+            init: function () {
+                this.setup_ajax();
+                this.setup_url_form();
+                this.BrandAndTitle();
+                this.postNewEntity();
+                console.log('create new entity begin');
+            },
+
+            setup_ajax: function(){
+                  function getCookie(name) {
+                        var cookieValue = null;
+                        if (document.cookie && document.cookie != '') {
+                            var cookies = document.cookie.split(';');
+                            for (var i = 0; i < cookies.length; i++) {
+                                var cookie = jQuery.trim(cookies[i]);
+                                // Does this cookie string begin with the name we want?
+                                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                    break;
+                                }
                             }
                         }
+                        return cookieValue;
                     }
-                    return cookieValue;
-                }
 
-                var csrftoken = getCookie('csrftoken');
-                function csrfSafeMethod(method) {
-                    // these HTTP methods do not require CSRF protection
-                    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-                }
-                $.ajaxSetup({
-                    beforeSend: function(xhr, settings) {
-                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    var csrftoken = getCookie('csrftoken');
+                    function csrfSafeMethod(method) {
+                        // these HTTP methods do not require CSRF protection
+                        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+                    }
+                    $.ajaxSetup({
+                        beforeSend: function(xhr, settings) {
+                            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                            }
                         }
-                    }
-                });
+                    });
+            },
 
-                function valid_url_support(url) {
+            setup_url_form: function(){
+                var form = $('.create-entity form');
+                form.on('submit', this.handle_url_post.bind(this));
+            },
+
+            clear_create_form: function () {
+                var addEntity = $(".add-entity");
+                addEntity.find(".title").text("");
+                addEntity.find("input[name=title]").val("");
+            },
+
+            check_url_support: function(){
+                 var form = $('.create-entity form');
+                 function valid_url_support(url) {
                     var reg = /\b(jd|360buy|tmall|taobao|95095|amazon)\.(cn|com|hk)/i;
                     return reg.test(url);
 
@@ -1635,170 +1647,318 @@ define('subapp/entity/create_new_entity',['jquery','libs/Class'],function(
                 }
 
                 hide_url_not_support_message();
+
                 var entity_url = form.find("input[name='cand_url']").val();
                 if (!valid_url_support(entity_url)) {
                     show_url_not_support_message();
                     remove_current_user_input();
                     return false;
+                };
+                return true
+            },
+
+            get_url_post_address: function () {
+                return  $('.create-entity form').attr('action');
+            },
+            handle_url_post: function(e){
+                e.preventDefault();
+                this.clear_create_form();
+                if (!!!this.check_url_support()){
+                    return false;
                 }
-                ;
+                url_post_address = this.get_url_post_address()
 
+                function get_captcha_value(){
+                        return $('.create-entity form #id_captcha_1').val();
+                    }
 
-                //console.log(this.action);
-                addEntity.find(".title").text("");
-                addEntity.find("input[name=title]").val("");
+                function get_captcha_key(){
+                        return $('.create-entity form #id_captcha_0').val();
+                    }
 
-                $.ajax({
-                    type: 'post',
-                    url: this.action,
-                    data: {cand_url: entity_url},
+                var form = $('.create-entity form');
+                var entity_url = form.find("input[name='cand_url']").val();
+
+                bootbox.alert('正在获取商品数据.....');
+                $.when($.ajax({
+                    method:'POST',
+                    url:url_post_address,
+                    data: {
+                                 cand_url: entity_url,
+                                 captcha_1: get_captcha_value(),
+                                 captcha_0: get_captcha_key(),
+                              },
                     dataType: "json",
-                    success: function (data) {
 
-                        if (data.status == "EXIST") {
-                            entityExist.find('a').attr("href", "/detail/" + data.data.entity_hash);
-                            entityExist.slideDown();
-                        } else {
-                            entityExist.slideUp();
+                })).then(
+                    this.url_post_success.bind(this),
+                    this.url_post_fail.bind(this)
+                );
 
-                            //console.log(data.data.user_context);
-                            addEntityNote.find("a img").attr("src", data.data.user_avatar);
-                            // addEntityNote.find('.media-heading').html(data.data.user_context.nickname);
+            },
 
-                            var title = $.trim(data.data.title);
-                            var brand = $.trim(data.data.brand);
-                            addEntity.find(".title").text(title);
-                            addEntity.find("input[name=title]").val(title);
-                            addEntity.find("input[name=brand]").val(brand);
-                            //                if (data.data.taobao_id == undefined) {
-                            //                    title = $.trim(data.data.jd_title);
-                            //                    var brand = $.trim(data.data.brand);
-                            //                    addEntity.find(".title").text(title);
-                            //                    addEntity.find("input[name=title]").val(title);
-                            //                    addEntity.find("input[name=brand]").val(brand);
-                            //                } else {
-                            //                    $(".detail_title span:eq(1)").text(data.data.taobao_title);
-                            ////  $(".detail_title_input").val(data.data.taobao_title);
-                            //                    title = $.trim(data.data.taobao_title);
-                            //                    addEntity.find(".title").text(title);
-                            //                    addEntity.find("input[name=title]").val(title);
-                            //                }
-                            addEntity.find(".entity-chief-img").attr('src', data.data.chief_image_url);
-                            imageThumbails.html("");
-                            var html_string = "";
-                            for (var i = 0; i < data.data.thumb_images.length; i++) {
-                                //  console.log(data.data.thumb_images[i]);
-                                var fix = data.data.taobao_id == undefined ? "" : "_64x64.jpg";
-                                if (i == 0) {
-                                    html_string = "<div class='col-xs-3 col-sm-2'><div class='current-image thumbnail'><img class='img-responsive' src="
-                                        + data.data.thumb_images[i] + fix + "></div></div>";
-                                    //  imageThumbails.append(html_string);
-                                    $(html_string).appendTo(imageThumbails);
+            hide_url_form: function () {
+                $('#url_post_form').hide();
+            },
 
-                                } else {
-                                    html_string = "<div class='col-xs-3 col-sm-2'><div class='thumbnail'><img class='img-responsive' src="
-                                        + data.data.thumb_images[i] + fix + "></div></div>";
-                                    $(html_string).appendTo(imageThumbails);
-                                    //imageThumbails.append(html_string);
-                                    //createNewEntity.changeChiefImage($(html_string));
-                                    //console.log("okokoko");
+            update_create_captcha_success: function(data){
+                $('#create_captcha_key').val(data['captcha_0']);
+                $('#create_captcha_img').attr('src', data['captcha_img_url']);
+            },
+            update_create_captcha_fail : function(data){
+
+            },
+            update_create_captcha: function(){
+
+                var capt_refresh_url = '/entity/load/item/captcha/';
+                $.when($.ajax({
+                    url: capt_refresh_url,
+                    method: 'POST',
+                    data:{method_name:'get_captcha'}
+                })).then(
+                    this.update_create_captcha_success.bind(this),
+                    this.update_create_captcha_fail.bind(this)
+                )
+
+                console.log('update create captcha here');
+            },
+            url_post_success: function(data){
+                bootbox.hideAll();
+                this.hide_url_form();
+                var entityExist = $(".entity-exist");
+                var addEntity = $(".add-entity");
+                var addEntityNote = $(".add-entity-note");
+                var imageThumbails = $(".image-thumbnails");
+                 if (data.status == "EXIST") {
+                                entityExist.find('a').attr("href", "/detail/" + data.data.entity_hash);
+                                entityExist.slideDown();
+                            } else {
+                                entityExist.slideUp();
+                                this.update_create_captcha()
+
+                                addEntityNote.find("a img").attr("src", data.data.user_avatar);
+
+                                var title = $.trim(data.data.title);
+                                var brand = $.trim(data.data.brand);
+                                addEntity.find(".title").text(title);
+                                addEntity.find("input[name=title]").val(title);
+                                addEntity.find("input[name=brand]").val(brand);
+                                addEntity.find(".entity-chief-img").attr('src', data.data.chief_image_url);
+                                imageThumbails.html("");
+                                var html_string = "";
+                                for (var i = 0; i < data.data.thumb_images.length; i++) {
+                                    var fix = data.data.taobao_id == undefined ? "" : "_64x64.jpg";
+                                    if (i == 0) {
+                                        html_string = "<div class='col-xs-3 col-sm-2'><div class='current-image thumbnail'><img class='img-responsive' src="
+                                            + data.data.thumb_images[i] + fix + "></div></div>";
+                                        $(html_string).appendTo(imageThumbails);
+
+                                    } else {
+                                        html_string = "<div class='col-xs-3 col-sm-2'><div class='thumbnail'><img class='img-responsive' src="
+                                            + data.data.thumb_images[i] + fix + "></div></div>";
+                                        $(html_string).appendTo(imageThumbails);
+                                    }
+
+                                    $('<input name="thumb_images" type="hidden" value=' + data.data.thumb_images[i] + '>').appendTo($(".add-entity-note form"));
                                 }
 
-                                $('<input name="thumb_images" type="hidden" value=' + data.data.thumb_images[i] + '>').appendTo($(".add-entity-note form"));
+                                $(
+                                    '<input type="hidden" name="origin_id" value="' + data.data.origin_id + '">' +
+                                    '<input type="hidden" name="origin_source" value="' + data.data.origin_source + '">' +
+                                    '<input type="hidden" name="shop_link" value="' + data.data.shop_link + '">' +
+                                    '<input type="hidden" name="shop_nick" value="' + data.data.shop_nick + '">' +
+                                    '<input type="hidden" name="url" value="' + data.data.cand_url + '">' +
+                                    '<input type="hidden" name="price" value="' + data.data.price + '">' +
+                                    '<input type="hidden" name="chief_image_url" value="' + data.data.chief_image_url + '">' +
+                                    '<input type="hidden" name="cid" value="' + data.data.cid + '">' +
+                                        //'<input type="hidden" name="selected_category_id" value="'+data.data.selected_category_id+'">' +
+                                    '<input type="hidden" name="cand_url" value="' + data.data.cand_url + '">' +
+                                    '<input name="user_id" type="hidden" value="' + data.data.user_id + '">').appendTo($(".add-entity-note form")
+                                );
+                                addEntity.slideDown();
+                                addEntityNote.slideDown();
                             }
-                            //createNewEntity.changeChiefImage(imageThumbails);
+            },
 
-                            //if(data.data.taobao_id == undefined){
-                            //$('<input type="hidden" name="origin_id" value="'+data.data.origin_id+'">').appendTo($(".add-entity-note form"));
-                            //  '<input type="hidden" name="jd_title" value="'+data.data.jd_title+'">').appendTo($(".add-entity-note form"));
-                            //$(".detail_taobao_brand").val(data.data.brand);
-                            //                } else {
-                            //                    $('<input type="hidden" name="taobao_id" value="'+data.data.taobao_id+'">' ).appendTo($(".add-entity-note form"));
-                            ////'<input type="hidden" name="taobao_title" value="'+data.data.taobao_title+'">').appendTo($(".add-entity-note form"));
-                            //                }
-                            $(
-                                '<input type="hidden" name="origin_id" value="' + data.data.origin_id + '">' +
-                                '<input type="hidden" name="origin_source" value="' + data.data.origin_source + '">' +
-                                '<input type="hidden" name="shop_link" value="' + data.data.shop_link + '">' +
-                                '<input type="hidden" name="shop_nick" value="' + data.data.shop_nick + '">' +
-                                '<input type="hidden" name="url" value="' + data.data.cand_url + '">' +
-                                '<input type="hidden" name="price" value="' + data.data.price + '">' +
-                                '<input type="hidden" name="chief_image_url" value="' + data.data.chief_image_url + '">' +
-                                '<input type="hidden" name="cid" value="' + data.data.cid + '">' +
-                                    //'<input type="hidden" name="selected_category_id" value="'+data.data.selected_category_id+'">' +
-                                '<input type="hidden" name="cand_url" value="' + data.data.cand_url + '">' +
-                                '<input name="user_id" type="hidden" value="' + data.data.user_id + '">').appendTo($(".add-entity-note form")
-                            );
-                            addEntity.slideDown();
-                            addEntityNote.slideDown();
-                        }
-                    },
-                    error: function (error) {
-                        console.log(error);
+
+            update_url_captcha: function () {
+
+                var capt_refresh_url = '/entity/load/item/captcha/';
+                $.when($.ajax({
+                    url: capt_refresh_url,
+                    method: 'POST',
+                    data:{method_name:'get_captcha'}
+                })).then(
+                    this.update_url_captcha_success.bind(this),
+                    this.update_url_captcha_fail.bind(this)
+                );
+
+            },
+            update_url_captcha_success: function(data){
+                console.log(data);
+                var url_post_form = $('#url_post_form');
+                var key_ele = url_post_form.find('#id_captcha_0');
+                var img_ele = url_post_form.find("img.captcha");
+                key_ele.val(data['captcha_0']);
+                img_ele.attr('src', data['captcha_img_url']);
+                return
+
+            },
+            update_url_captcha_fail: function(data){
+                console.log(data);
+            },
+            url_post_fail:function(data){
+                bootbox.hideAll();
+                function show_url_not_support_message() {
+                    $('#url_error_msg').html('请输入淘宝、天猫、亚马逊或京东的商品链接, 并确保验证码正确。不要频繁提交。');
+                }
+                show_url_not_support_message();
+                console.log('url load fail ');
+                console.log(data);
+                this.update_url_captcha()
+            },
+
+            BrandAndTitle: function () {
+                var addEntity = $(".add-entity");
+                addEntity.find("input[name='brand']").on('input propertychange', function () {
+                    var brand = $(this).val();
+                    if (brand.length > 0) {
+                        addEntity.find(".brand").html(brand + " -");
+                    } else {
+                        addEntity.find(".brand").html(brand);
                     }
                 });
-                e.preventDefault();
-            });
-        },
-        BrandAndTitle: function () {
-            var addEntity = $(".add-entity");
-            addEntity.find("input[name='brand']").on('input propertychange', function () {
-                var brand = $(this).val();
-                if (brand.length > 0) {
-                    addEntity.find(".brand").html(brand + " -");
-                } else {
-                    addEntity.find(".brand").html(brand);
+                addEntity.find("input[name='title']").on('input propertychange', function () {
+                    var title = $(this).val();
+                    addEntity.find(".title").html(title);
+                });
+            },
+            changeChiefImage: function (object) {
+                // console.log(object);
+                var image = object.find(".thumbnail");
+
+
+                image.on('click', function () {
+                    //     console.log($(this));
+                    if (!$(this).hasClass('current-image')) {
+                        object.find(".current-image").removeClass('current-image');
+                        $(this).addClass('current-image');
+                        var image_url = $(this).find('img').attr('src');
+                        //    console.log(image_url.replace('64x64', '310x310'));
+                        var origin_image_url = image_url.replace('_64x64.jpg', '');
+                        //    console.log(big_image_url);
+                        $('.entity-chief-img').attr('src', origin_image_url);
+                        //    console.log($(".add-entity-note form input[name='chief_image_url']"));
+                        $(".add-entity-note form input[name='chief_image_url']").val(origin_image_url);
+                    }
+                });
+            },
+
+            fill_create_form: function () {
+                var newEntityForm = $(".add-entity-note form");
+                var brand = $(".add-entity input[name='brand']").val();
+                var title = $(".add-entity input[name='title']").val();
+
+                if (newEntityForm.find('#create_brand').length === 0){
+                    $('<input type="hidden" id="create_brand" name="brand" value="' + brand + '">').appendTo(newEntityForm);
                 }
-            });
-            addEntity.find("input[name='title']").on('input propertychange', function () {
-                var title = $(this).val();
-                addEntity.find(".title").html(title);
-            });
-        },
-        changeChiefImage: function (object) {
-            // console.log(object);
-            var image = object.find(".thumbnail");
+                newEntityForm.find('#create_brand').val(brand);
 
-
-            image.on('click', function () {
-                //     console.log($(this));
-                if (!$(this).hasClass('current-image')) {
-                    object.find(".current-image").removeClass('current-image');
-                    $(this).addClass('current-image');
-                    var image_url = $(this).find('img').attr('src');
-                    //    console.log(image_url.replace('64x64', '310x310'));
-                    var origin_image_url = image_url.replace('_64x64.jpg', '');
-                    //    console.log(big_image_url);
-                    $('.entity-chief-img').attr('src', origin_image_url);
-                    //    console.log($(".add-entity-note form input[name='chief_image_url']"));
-                    $(".add-entity-note form input[name='chief_image_url']").val(origin_image_url);
+                if(newEntityForm.find('#create_title').length === 0){
+                    $('<input type="hidden" id="create_title" name="title" value="' + title + '">').appendTo(newEntityForm);
                 }
-            });
-        },
-        postNewEntity: function () {
-            var newEntityForm = $(".add-entity-note form");
+                newEntityForm.find('#create_title').val(title)
 
-            newEntityForm.on("submit", function (e) {
+                return
+
+            },
+
+            check_note_text: function () {
+
+                var newEntityForm = $(".add-entity-note form");
                 var text = $.trim(newEntityForm.find("textarea[name='note_text']").val());
                 if (text.length > 0){
-                    var brand = $(".add-entity input[name='brand']").val();
-                    var title = $(".add-entity input[name='title']").val();
-                    $('<input type="hidden" name="brand" value="' + brand + '">').appendTo(newEntityForm);
-                    $('<input type="hidden" name="title" value="' + title + '">').appendTo(newEntityForm);
-                    return true;
-                } else {
+                    return true
+                }else{
                     $(".add-entity-note form textarea[name='note_text']").focus();
                     return false;
                 }
-            });
+            },
+
+            post_create_form: function () {
+                var newEntityForm = $(".add-entity-note form");
+                var ajax_create_url = '/entity/ajax_create/'
+                $.when($.ajax({
+                    method: 'POST',
+                    url: ajax_create_url,
+                    data: newEntityForm.serialize(),
+                })).then(
+                    this.create_entity_success.bind(this),
+                    this.create_entity_fail.bind(this)
+                );
+
+            },
+            create_entity_success:function(data){
+                console.log('create_success');
+                console.log(data);
+                bootbox.hideAll();
+                bootbox.alert('添加成功，跳转中......');
+                location.href = data['entity_url'];
+            },
+            create_entity_fail : function(data){
+                console.log('create fail ');
+                console.log(data);
+                this.update_create_captcha();
+                var error_str = '';
+
+                var errors = data.responseJSON.error_desc;
+                for(var key in errors){
+                    error_str += ' <p> '+ key +'</p><p> '+ errors[key][0] + '</p><br>';
+                }
+
+                bootbox.hideAll();
+                bootbox.alert({
+                    title: '出错了',
+                    message: error_str,
+
+                });
+            },
+
+            handle_create_entity : function(e){
+                e.preventDefault();
+                if(!!!this.check_note_text()){
+                    return false;
+                }
+                this.fill_create_form();
+                this.post_create_form();
+                return false;
+            },
+            postNewEntity: function () {
+                var newEntityForm = $(".add-entity-note form");
+
+                newEntityForm.on("submit", this.handle_create_entity.bind(this));
+                newEntityForm.on("submit", function (e) {
+
+                    var text = $.trim(newEntityForm.find("textarea[name='note_text']").val());
+                    if (text.length > 0){
+                        var brand = $(".add-entity input[name='brand']").val();
+                        var title = $(".add-entity input[name='title']").val();
+                        $('<input type="hidden" id="create_brand" name="brand" value="' + brand + '">').appendTo(newEntityForm);
+                        $('<input type="hidden" id="create_title" name="title" value="' + title + '">').appendTo(newEntityForm);
+                        return true;
+                    } else {
+                        $(".add-entity-note form textarea[name='note_text']").focus();
+                        return false;
+                    }
+                });
 
 
-        }
+            }
+        });
+
+        return CreateNewEntity;
+
     });
-
-    return CreateNewEntity;
-
-});
 require(
     [
         'jquery',
