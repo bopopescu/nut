@@ -1,5 +1,5 @@
-    define(['jquery','libs/Class'],function(
-        $,Class
+    define(['jquery','libs/Class', 'bootbox'],function(
+        $,Class,bootbox
 
     ){
         var CreateNewEntity = Class.extend({
@@ -107,7 +107,7 @@
                 var form = $('.create-entity form');
                 var entity_url = form.find("input[name='cand_url']").val();
 
-
+                bootbox.alert('正在获取商品数据.....');
                 $.when($.ajax({
                     method:'POST',
                     url:url_post_address,
@@ -125,7 +125,34 @@
 
             },
 
+            hide_url_form: function () {
+                $('#url_post_form').hide();
+            },
+
+            update_create_captcha_success: function(data){
+                $('#create_captcha_key').val(data['captcha_0']);
+                $('#create_captcha_img').attr('src', data['captcha_img_url']);
+            },
+            update_create_captcha_fail : function(data){
+
+            },
+            update_create_captcha: function(){
+
+                var capt_refresh_url = '/entity/load/item/captcha/';
+                $.when($.ajax({
+                    url: capt_refresh_url,
+                    method: 'POST',
+                    data:{method_name:'get_captcha'}
+                })).then(
+                    this.update_create_captcha_success.bind(this),
+                    this.update_create_captcha_fail.bind(this)
+                )
+
+                console.log('update create captcha here');
+            },
             url_post_success: function(data){
+                bootbox.hideAll();
+                this.hide_url_form();
                 var entityExist = $(".entity-exist");
                 var addEntity = $(".add-entity");
                 var addEntityNote = $(".add-entity-note");
@@ -135,6 +162,7 @@
                                 entityExist.slideDown();
                             } else {
                                 entityExist.slideUp();
+                                this.update_create_captcha()
 
                                 addEntityNote.find("a img").attr("src", data.data.user_avatar);
 
@@ -179,28 +207,43 @@
                                 addEntityNote.slideDown();
                             }
             },
-            update_captcha: function () {
+
+
+            update_url_captcha: function () {
+
                 var capt_refresh_url = '/entity/load/item/captcha/';
                 $.when($.ajax({
                     url: capt_refresh_url,
                     method: 'POST',
-                    data:{}
+                    data:{method_name:'get_captcha'}
                 })).then(
-                    this.update_captcha_success.bind(this),
-                    this.update_captcha_fail.bind(this)
-                )
+                    this.update_url_captcha_success.bind(this),
+                    this.update_url_captcha_fail.bind(this)
+                );
 
             },
-            update_captcha_success: function(data){
+            update_url_captcha_success: function(data){
                 console.log(data);
+                var url_post_form = $('#url_post_form');
+                var key_ele = url_post_form.find('#id_captcha_0');
+                var img_ele = url_post_form.find("img.captcha");
+                key_ele.val(data['captcha_0']);
+                img_ele.attr('src', data['captcha_img_url']);
+                return
+
             },
-            update_captcha_fail: function(data){
+            update_url_captcha_fail: function(data){
                 console.log(data);
             },
             url_post_fail:function(data){
+                bootbox.hideAll();
+                function show_url_not_support_message() {
+                    $('#url_error_msg').html('请输入淘宝、天猫、亚马逊或京东的商品链接, 并确保验证码正确。不要频繁提交。');
+                }
+                show_url_not_support_message();
                 console.log('url load fail ');
                 console.log(data);
-                this.update_captcha()
+                this.update_url_captcha()
             },
 
             BrandAndTitle: function () {
@@ -238,16 +281,97 @@
                     }
                 });
             },
+
+            fill_create_form: function () {
+                var newEntityForm = $(".add-entity-note form");
+                var brand = $(".add-entity input[name='brand']").val();
+                var title = $(".add-entity input[name='title']").val();
+
+                if (newEntityForm.find('#create_brand').length === 0){
+                    $('<input type="hidden" id="create_brand" name="brand" value="' + brand + '">').appendTo(newEntityForm);
+                }
+                newEntityForm.find('#create_brand').val(brand);
+
+                if(newEntityForm.find('#create_title').length === 0){
+                    $('<input type="hidden" id="create_title" name="title" value="' + title + '">').appendTo(newEntityForm);
+                }
+                newEntityForm.find('#create_title').val(title)
+
+                return
+
+            },
+
+            check_note_text: function () {
+
+                var newEntityForm = $(".add-entity-note form");
+                var text = $.trim(newEntityForm.find("textarea[name='note_text']").val());
+                if (text.length > 0){
+                    return true
+                }else{
+                    $(".add-entity-note form textarea[name='note_text']").focus();
+                    return false;
+                }
+            },
+
+            post_create_form: function () {
+                var newEntityForm = $(".add-entity-note form");
+                var ajax_create_url = '/entity/ajax_create/'
+                $.when($.ajax({
+                    method: 'POST',
+                    url: ajax_create_url,
+                    data: newEntityForm.serialize(),
+                })).then(
+                    this.create_entity_success.bind(this),
+                    this.create_entity_fail.bind(this)
+                );
+
+            },
+            create_entity_success:function(data){
+                console.log('create_success');
+                console.log(data);
+                bootbox.hideAll();
+                bootbox.alert('添加成功，跳转中......');
+                location.href = data['entity_url'];
+            },
+            create_entity_fail : function(data){
+                console.log('create fail ');
+                console.log(data);
+                var error_str = '';
+
+                var errors = data.responseJSON.error_desc;
+                for(var key in errors){
+                    error_str += ' <p> '+ key +'</p><p> '+ errors[key][0] + '</p><br>';
+                }
+
+                bootbox.hideAll();
+                bootbox.alert({
+                    title: '出错了',
+                    message: error_str,
+
+                });
+            },
+
+            handle_create_entity : function(e){
+                e.preventDefault();
+                if(!!!this.check_note_text()){
+                    return false;
+                }
+                this.fill_create_form();
+                this.post_create_form();
+                return false;
+            },
             postNewEntity: function () {
                 var newEntityForm = $(".add-entity-note form");
 
+                newEntityForm.on("submit", this.handle_create_entity.bind(this));
                 newEntityForm.on("submit", function (e) {
+
                     var text = $.trim(newEntityForm.find("textarea[name='note_text']").val());
                     if (text.length > 0){
                         var brand = $(".add-entity input[name='brand']").val();
                         var title = $(".add-entity input[name='title']").val();
-                        $('<input type="hidden" name="brand" value="' + brand + '">').appendTo(newEntityForm);
-                        $('<input type="hidden" name="title" value="' + title + '">').appendTo(newEntityForm);
+                        $('<input type="hidden" id="create_brand" name="brand" value="' + brand + '">').appendTo(newEntityForm);
+                        $('<input type="hidden" id="create_title" name="title" value="' + title + '">').appendTo(newEntityForm);
                         return true;
                     } else {
                         $(".add-entity-note form textarea[name='note_text']").focus();
