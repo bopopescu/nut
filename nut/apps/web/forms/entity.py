@@ -253,6 +253,8 @@ class CreateEntityForm(forms.Form):
         widget=forms.Textarea(),
     )
 
+    captcha = CaptchaField()
+
     def clean_note_text(self):
 
         _note_text = self.cleaned_data.get('note_text')

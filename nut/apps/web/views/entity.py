@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.template import loader
 from django.contrib.auth.decorators import login_required
+from django.utils.encoding import smart_str
 from django.views.decorators.csrf import csrf_exempt
 from django.core.cache import cache
 
@@ -27,7 +28,7 @@ from apps.tag.models import Content_Tags
 
 from django.views.generic.detail import DetailView
 from django.views.generic import RedirectView, ListView, View
-from braces.views import AjaxResponseMixin, JSONResponseMixin
+from braces.views import AjaxResponseMixin, JSONResponseMixin, LoginRequiredMixin
 
 from django.conf import settings
 from django.utils.log import getLogger
@@ -201,82 +202,6 @@ class NewEntityDetailView(EntityDetailMixin, DetailView):
         if _entity.brand_id and _entity.brand_id != 'NOT_FOUND':
             brand = Brand.objects.get(id=_entity.brand_id)
         return brand
-
-#  prepare to delete  following function view !!!
-# def entity_detail(request, entity_hash, templates='web/entity/detail.html'):
-#     _entity_hash = entity_hash
-#
-#     _user = None
-#     _note_forms = None
-#     _user_pokes = list()
-#
-#     try:
-#         _entity = Entity.objects.prefetch_related('notes').get(entity_hash=_entity_hash,
-#                                      status__gte=Entity.freeze)\
-#
-#
-#     except Entity.DoesNotExist:
-#         raise Http404
-#
-#     nid_list = _entity.notes.all().values_list('id', flat=True)
-#     if request.user.is_authenticated():
-#         _user = request.user
-#         # pop up a note form if there is a note in entity's notes submit by current user .
-#         # add by an , for user posted note pop up
-#         _notes = Note.objects.filter(user=_user, entity=_entity)
-#
-#         if len(_notes) > 0:
-#             _note_forms = NoteForm(instance=_notes[0])
-#         else:
-#             _note_forms = NoteForm()
-#         _user_pokes = Note_Poke.objects.filter(note_id__in=list(nid_list),
-#                                                user=request.user).values_list(
-#             'note_id', flat=True)
-#         # log.info(_user_pokes)
-#
-#     # tags = Content_Tags.objects.filter(target_object_id__in=list(nid_list))[:10]
-#
-#     tags = Content_Tags.objects.entity_tags(list(nid_list))[:10]
-#
-#     _user_post_note = True
-#     try:
-#         _entity.notes.get(user=_user)
-#     except Note.DoesNotExist:
-#         _user_post_note = False
-#
-#     like_status = 0
-#     try:
-#         _entity.likes.get(user=_user)
-#         like_status = 1
-#     except Entity_Like.DoesNotExist:
-#         pass
-#
-#     _guess_entities = Entity.objects.guess(category_id=_entity.category_id,
-#                                            count=9, exclude_id=_entity.pk)
-#     brand = None
-#     if _entity.brand_id and _entity.brand_id != 'NOT_FOUND':
-#         brand = Brand.objects.get(id=_entity.brand_id)
-#     context = {
-#         'entity': _entity,
-#         'like_status': like_status,
-#         # 'user':_user,
-#         'user_pokes': _user_pokes,
-#         'user_post_note': _user_post_note,
-#         'note_forms': _note_forms or NoteForm(),
-#         'guess_entities': _guess_entities,
-#         # 'likers': _entity.likes.all()[:13],
-#         'is_entity_detail': True,
-#         'tags': tags,
-#         'entity_brand': brand,
-#         # 'entity_brand': get_entity_brand(_entity),
-#         # 'pop_tags' : _pop_tags
-#     }
-#     context = add_side_bar_context_data(context)
-#     return render_to_response(
-#         templates,
-#         context,
-#         context_instance=RequestContext(request),
-#     )
 
 
 def wap_entity_detail(request, entity_hash, template='wap/detail.html'):
@@ -465,6 +390,7 @@ def entity_unlike(request, eid):
         # return HttpResponseNotAllowed
 
 
+
 @login_required
 def entity_create(request, template="web/entity/new.html"):
     if request.method == 'POST':
@@ -479,7 +405,7 @@ def entity_create(request, template="web/entity/new.html"):
             return HttpResponseRedirect(
                 reverse('web_entity_detail', args=[entity.entity_hash, ]))
         log.info(_forms.errors)
-        raise 500
+        raise Exception('')
     else:
         _url_froms = EntityURLFrom(request)
 
@@ -492,21 +418,39 @@ def entity_create(request, template="web/entity/new.html"):
         )
 
 
-def get_user_load_key(user):
-    return 'timer:user:load_entity_url:%s' % user.id
-
-
-class CaptchaRefreshView(AjaxResponseMixin, JSONResponseMixin, View):
+class EntityCreateView(LoginRequiredMixin, AjaxResponseMixin, JSONResponseMixin, View):
     def post_ajax(self, request, *args, **kwargs):
-        return self.render_json_object_response({
-            'captcha_0': 'no',
-            'captcha_1': 'no',
-            'captcha_img_url':'noting'
-        })
+        _forms = CreateEntityForm(request=request, data=request.POST)
+        if _forms.is_valid():
+            entity = _forms.save()
+            return self.render_json_response({
+                'entity_url':entity.absolute_url,
+                'errors': 0
+            })
+
+        else:
+            return self.render_json_response({
+                'errors': 1,
+                'error_desc': _forms.errors
+            }, 403)
+
+
+
+class CaptchaRefreshView(LoginRequiredMixin, AjaxResponseMixin, JSONResponseMixin, View):
+    # this need to be refactored into a micro service
+    def post_ajax(self, request, *args, **kwargs):
+        to_json_response = {}
+        to_json_response['captcha_0'] = CaptchaStore.generate_key()
+        to_json_response['captcha_img_url'] = captcha_image_url(to_json_response['captcha_0'])
+        return self.render_json_response(to_json_response)
 
 @login_required
 def entity_captcha_refresh(request):
     pass
+
+def get_user_load_key(user):
+    return 'timer:user:load_entity_url:%s' % user.id
+
 
 
 @login_required
@@ -517,7 +461,8 @@ def entity_load(request):
     if loading:
         return JSONResponse(data={'error':'too many request'}, status=403)
     else :
-        cache.set(key ,True , timeout=7)
+        # after captcha , block user in 2 seconds
+        cache.set(key ,True , timeout=2)
         pass
     #debouncing end
 

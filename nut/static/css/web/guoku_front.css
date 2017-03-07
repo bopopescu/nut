@@ -6740,6 +6740,9 @@ body .for-mobile {
   font-size: 14px;
   text-align: left;
 }
+.user-add-entity-body #create_captcha_img {
+  padding-left: 40px;
+}
 .highlighted {
   color: #5976c1;
 }
