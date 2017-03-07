@@ -264,6 +264,12 @@ class CreateEntityForm(forms.Form):
         self.request = request
         super(CreateEntityForm, self).__init__(*args, **kwargs)
 
+    def clean(self):
+        cleaned_data = super(CreateEntityForm, self).clean()
+        if not self.request.user.is_verified:
+            raise forms.ValidationError(_('请您验证邮箱后再来添加商品。'), code=_('mail_verify'))
+        return cleaned_data
+
     def save(self):
         # _taobao_id = self.cleaned_data.get('taobao_id')
         # _jd_id = self.cleaned_data.get('jd_id')

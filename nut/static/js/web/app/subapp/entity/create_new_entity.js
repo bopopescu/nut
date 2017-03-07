@@ -336,6 +336,7 @@
             create_entity_fail : function(data){
                 console.log('create fail ');
                 console.log(data);
+                this.update_create_captcha();
                 var error_str = '';
 
                 var errors = data.responseJSON.error_desc;
