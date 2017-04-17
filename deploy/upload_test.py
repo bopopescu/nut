@@ -16,14 +16,9 @@ root_dir = os.path.join(os.getcwd(), '..')
 env.hosts = ['114.113.154.48']
 
 env.user = Config.get('global', 'user')
-env.password = 'jessie1@#'
 
 env.local_root = os.path.join(root_dir, Config.get('local', 'project_dir'))
 env.project_root = Config.get('server', 'project_dir')
-
-
-def update_code():
-    local('git pull origin dev')
 
 
 @parallel
