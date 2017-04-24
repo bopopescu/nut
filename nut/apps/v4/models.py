@@ -221,7 +221,7 @@ class APIBuyLink(Buy_Link):
 
     @property
     def store_id(self):
-        if self.origin_source == 'taobao.com':
+        if self.origin_source == 'taobao.com' and self.shop_link:
             m = re.match('http://shop(\d+)\.taobao\.com', self.shop_link)
             if m:
                 return m.group(1)
