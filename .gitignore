@@ -40,7 +40,6 @@ coverage.xml
 
 # Translations
 #*.mo
-*.csv
 
 # Mr Developer
 .mr.developer.cfg
@@ -81,7 +80,6 @@ dev_home.py
 
 nut/db.sqlite3
 
-log.txt
 =======
 # Vim stuff
 *.swp
@@ -90,12 +88,7 @@ log.txt
 *.rdb
 
 # spider
-spider/log.txt
 spider/dbs/
 spider/items/
 *.pid
-
-deploy/upload_188.py
-deploy/config_188.ini
-
 
