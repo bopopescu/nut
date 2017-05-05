@@ -5,20 +5,13 @@
     <div class="new-entity-six new-entity-six-control">
         <div class="img-box">
             {% if sle.entity.entity_hash %}
-                <a class="img-link" href="{{ sle.entity.absolute_url }}" target="_blank" title="{{ sle.entity.title }}">
+                <a class="img-link" href="{{ sle.entity.absolute_url }}?from=index_selected_entity" target="_blank" title="{{ sle.entity.title }}">
                     <img class="img-responsive" alt="{{ sle.entity.title }}" title="{{ sle.entity.title }}" src="{{ sle.entity.chief_image|resize:'310'|smart_scheme:is_secure }}">
                 </a>
-                <a href="{{ sle.entity.absolute_url }}" target="_blank" title="{{ sle.entity.title }}">
+                <a href="{{ sle.entity.absolute_url }}?from=index_selected_entity" target="_blank" title="{{ sle.entity.title }}">
                      <div class="bg-layer"></div>
                 </a>
             {% endif %}
-{#            {% if sle.entity.id in user_entity_likes %}#}
-{#                <a class="new-btn-like" href="javascript:;" rel="nofollow" data-entity="{{ sle.entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'unlike', '{{ sle.entity.title }}']);">#}
-{#                <i class="fa fa-heart"></i>#}
-{#            {% else %}#}
-{#                <a class="new-btn-like" href="javascript:;" rel="nofollow" data-entity="{{ sle.entity.id }}" onclick="_hmt.push(['_trackEvent', 'entity', 'like', '{{ sle.entity.title }}']);">#}
-{#                <i class="fa fa-heart-o"></i>#}
-{#            {% endif %}#}
             </a>
         </div>
         <div class="new-entity-six-info">
@@ -28,7 +21,7 @@
                 </div>
                 <div class="title">
                     {% if sle.entity.entity_hash %}
-                        <a href="{{ sle.entity.absolute_url }}" target="_blank" title="{{ sle.entity.title }}">
+                        <a href="{{ sle.entity.absolute_url }}?from=index_selected_entity" target="_blank" title="{{ sle.entity.title }}">
                             {{ sle.entity.title|truncatechars:20 }}
                         </a>
                     {% endif %}
