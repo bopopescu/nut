@@ -110,7 +110,7 @@
                     <div class="pop-entity-wrapper">
                         <div class="entity-content">
                             <div class="entity-name">
-                                <a href="{% url 'web_entity_detail' ent.entity_hash %}">
+                                <a href="{% url 'web_entity_detail' ent.entity_hash %}?from=entity_detail_sidebar_pop_entities">
                                     {{ ent.title|truncatechars:20 }}
                                 </a>
                             </div>
@@ -151,7 +151,7 @@
                             <div class="article-content">
 
                                 <div class="article-title">
-                                    <a href="{% url 'web_article_page' h_article.pk %}">
+                                    <a href="{% url 'web_article_page' h_article.pk %}?from=entity_detail_sidebar_pop_article">
                                         {{ h_article.title|truncatechars:32 }}
                                     </a>
                                 </div>
@@ -162,7 +162,7 @@
                                 {#                                </div>#}
                             </div>
                             <div class="img-holder">
-                                <a href="{% url 'web_article_page' h_article.pk %}">
+                                <a href="{% url 'web_article_page' h_article.pk %}?from=entity_detail_sidebar_pop_article">
                                     <div class="img-frame" style="background-image:url({{ h_article.cover_url|resize:'200'|smart_scheme:is_secure }})"></div>
                                     {#                                    <img width="269"  src="{{ h_article.cover|resize:'270' }}"/>#}
                                 </a>
@@ -177,7 +177,7 @@
     {% for banner in sidebar_banners %}
         <li class="section banner-holder">
             <div class="section-banner">
-                <a class="banner-link" href="{{ banner.link }}">
+                <a class="banner-link" href="{{ banner.link }}?from=entity_detail_sidebar_banner">
                     <img class="img-responsive" src="{{ banner.image_url|resize:'320'|smart_scheme:is_secure }}">
                 </a>
             </div>
