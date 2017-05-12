@@ -35,7 +35,7 @@
             <div class="banner-wrapper new-banner-wrapper" id="index-banners">
                 {% for banner in banners %}
                     <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}" data-banner="{{ banner.id }}" data-banner-value="{{ banner.link }}">
-                        <a href="{{ banner.link }}?from=index_banner" target="_blank" title="{{ banner.banner_title }}">
+                        <a href="{{ banner.link }}?from=index_banner&_position={{ forloop.counter }}" target="_blank" title="{{ banner.banner_title }}">
                             <b class="banner-image-wrapper" style="display:block;background-image: url('{{ banner.image_url|resize:'1024'|smart_scheme:is_secure }}')">
                                  <div class="banner-image-cell-scrim">
                                  </div>
