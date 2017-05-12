@@ -49,7 +49,7 @@
                     <div class="banner-wrapper" id="index-banners">
                         {% for banner in banners %}
                             <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}">
-                                <a href="{{ banner.link }}?from=store_banner&_position={{ forloop.counter }}" target="_blank">
+                                <a href="{{ banner.link }}?from=store_banner&_position={{ forloop.counter }}" target="_blank" onclick="_hmt.push(['_trackEvent', 'entity', 'buy-to-taobao', '{{ entity.title }}-taobao'])">
                                     <div class="banner-image-wrapper" style="background-image: url({{ banner.image_url }})">
                                         <div class="banner-image-cell-scrim">
 
