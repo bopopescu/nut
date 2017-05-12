@@ -5,10 +5,10 @@
     <div class="new-entity-six new-entity-six-control">
         <div class="img-box">
             {% if sle.entity.entity_hash %}
-                <a class="img-link" href="{{ sle.entity.absolute_url }}?from=index_selected_entity" target="_blank" title="{{ sle.entity.title }}">
+                <a class="img-link" href="{{ sle.entity.absolute_url }}?from=index_selected_entity&_position={{ forloop.counter }}" target="_blank" title="{{ sle.entity.title }}">
                     <img class="img-responsive" alt="{{ sle.entity.title }}" title="{{ sle.entity.title }}" src="{{ sle.entity.chief_image|resize:'310'|smart_scheme:is_secure }}">
                 </a>
-                <a href="{{ sle.entity.absolute_url }}?from=index_selected_entity" target="_blank" title="{{ sle.entity.title }}">
+                <a href="{{ sle.entity.absolute_url }}?from=index_selected_entity&_position={{ forloop.counter }}" target="_blank" title="{{ sle.entity.title }}">
                      <div class="bg-layer"></div>
                 </a>
             {% endif %}
@@ -21,7 +21,7 @@
                 </div>
                 <div class="title">
                     {% if sle.entity.entity_hash %}
-                        <a href="{{ sle.entity.absolute_url }}?from=index_selected_entity" target="_blank" title="{{ sle.entity.title }}">
+                        <a href="{{ sle.entity.absolute_url }}?from=index_selected_entity&_position={{ forloop.counter }}" target="_blank" title="{{ sle.entity.title }}">
                             {{ sle.entity.title|truncatechars:20 }}
                         </a>
                     {% endif %}

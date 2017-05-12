@@ -49,7 +49,7 @@
                     <div class="banner-wrapper" id="index-banners">
                         {% for banner in banners %}
                             <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}">
-                                <a href="{{ banner.link }}?from=store_banner" target="_blank">
+                                <a href="{{ banner.link }}?from=store_banner&_position={{ forloop.counter }}" target="_blank">
                                     <div class="banner-image-wrapper" style="background-image: url({{ banner.image_url }})">
                                         <div class="banner-image-cell-scrim">
 
@@ -57,14 +57,13 @@
                                     </div>
                                     <div class="user-latest-article-intro-wrapper">
                                         <div class="user-latest-article-title-wrapper">
-                                            <a class="user-latest-article-title" href="{{ banner.link }}?from=store_banner" target="_blank">
+                                            <a class="user-latest-article-title" href="{{ banner.link }}?from=store_banner&_position={{ forloop.counter }}" target="_blank">
                                                 {{ banner.banner_title }}
                                             </a>
                                             <div class="user-info-section-title">
                                                 {{ banner.banner_desc }}
                                             </div>
                                         </div>
-
                                     </div>
                                 </a>
                             </div>
@@ -104,7 +103,7 @@
                 <ul id="recommend-entity-wrapper">
                     {% for entity in recent_entities %}
                     <li class="recommend-entity-item dark-section-item">
-                        <a href="{{   entity.absolute_url }}" target="_blank" title="{{ entity.title }}">
+                        <a href="{{   entity.absolute_url }}?from=store_recommend_entity&_position={{ forloop.counter }}" target="_blank" title="{{ entity.title }}">
                             <div class="section-panel">
                                 <div class="entity-pic" style="background-image: url('{{ entity.chief_image |resize:'240'|smart_scheme:is_secure }}')">
                                 </div>

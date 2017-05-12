@@ -10,7 +10,7 @@
                data-entity-id="{{ entity.id }}"
                title="{{ entity.title }}"
                data-entity-title="{{ entity.title }}"
-               href="{% url 'web_entity_detail' entity.entity_hash %}?from=selected_page"
+               href="{% url 'web_entity_detail' entity.entity_hash %}?from=selected_page&_position={{ forloop.counter }}"
                target="_blank">
                 <img class="img-responsive" alt=" {{ entity.title }}"
                      title="{{ entity.selection_hover_word }}"
