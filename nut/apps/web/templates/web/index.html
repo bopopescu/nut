@@ -136,7 +136,7 @@
             <ul class="user-icon-list recommend-user-list">
                 {% for user in recommand_users %}
                     <li>
-                        <a href="{{ user.absolute_url }}?from=index_selected_user" target="_blank" title="{{ user.nickname }}">
+                        <a href="{{ user.absolute_url }}?from=index_selected_user&_position={{ forloop.counter }}" target="_blank" title="{{ user.nickname }}">
                             <div class="img-responsive img-frame img-circle" style="background-image: url({{ user.avatar_url|resize:'128'|smart_scheme:is_secure }});margin-bottom:18px;">
                             </div>
                             <h3 class="user-name">{{ user.nickname }}</h3>
@@ -151,13 +151,13 @@
             <div class="col-sm-4 col-md-2 guoku-middle-col recommend-user-item">
               <div class="recommend-user-panel">
                   <div class="user-icon-wrapper">
-                      <a href="{{ user.absolute_url }}?from=index_selected_user" target="_blank" title="{{ user.nickname }}">
+                      <a href="{{ user.absolute_url }}?from=index_selected_user&_position={{ forloop.counter }}" target="_blank" title="{{ user.nickname }}">
                           <img class="img-circle" src="{{ user.avatar_url|resize:'128'|smart_scheme:is_secure }}" alt="{{ user.nickname }}"/>
                       </a>
                   </div>
                   <div class="user-info-wrapper">
                       <h3 class="user-name">
-                          <a href="{{ user.absolute_url }}?from=index_selected_user" target="_blank">
+                          <a href="{{ user.absolute_url }}?from=index_selected_user&_position={{ forloop.counter }}" target="_blank">
                               {{ user.nickname }}
                           </a>
                       </h3>
