@@ -1,3 +1,6 @@
+# coding=utf-8
+from urlparse import urljoin
+
 from apps.core.models import Entity, GKUser, Entity_Like
 from django.core.paginator import Paginator
 from rest_framework import serializers, pagination
@@ -49,3 +52,40 @@ class WebEntitySerializer(serializers.ModelSerializer):
         serializer = PaginatedEntityLikeSerializer(current_page)
 
         return serializer.data
+
+
+class SkuSerializer(serializers.ModelSerializer):
+    sku_id = serializers.CharField(source='id')
+    tp_src = serializers.SerializerMethodField()
+    source = serializers.SerializerMethodField()
+    is_on_sale = serializers.SerializerMethodField()
+    name = serializers.CharField(source='title')
+    desc = serializers.CharField(source='intro')
+    img = serializers.CharField(source='chief_image')
+    price = serializers.SerializerMethodField()
+    mprice = serializers.SerializerMethodField()
+    promotion_url = serializers.SerializerMethodField()
+
+    def get_tp_src(self, obj):
+        return 'zzz'
+
+    def get_source(self, obj):
+        return u'淘宝'
+
+    def get_price(self, obj):
+        return int(obj.price * 100)
+
+    def get_mprice(self, obj):
+        return int(obj.price * 100)
+
+    def get_is_on_sale(self, obj):
+        return True
+
+    def get_promotion_url(self, obj):
+
+        return urljoin('http://www.guoku.com', obj.absolute_url)
+
+    class Meta:
+        model = Entity
+        fields = ('sku_id', 'tp_src', 'source', 'is_on_sale', 'name', 'desc', 'img', 'price', 'mprice',
+                  'promotion_url',)
