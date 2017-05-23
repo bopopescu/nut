@@ -55,7 +55,7 @@ class WebEntitySerializer(serializers.ModelSerializer):
 
 
 class SkuSerializer(serializers.ModelSerializer):
-    sku_id = serializers.CharField(source='id')
+    sku_id = serializers.CharField(source='entity_hash')
     tp_src = serializers.SerializerMethodField()
     source = serializers.SerializerMethodField()
     is_on_sale = serializers.SerializerMethodField()
@@ -67,7 +67,7 @@ class SkuSerializer(serializers.ModelSerializer):
     promotion_url = serializers.SerializerMethodField()
 
     def get_tp_src(self, obj):
-        return 'zzz'
+        return 'guocool'
 
     def get_source(self, obj):
         return u'淘宝'
