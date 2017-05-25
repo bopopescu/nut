@@ -847,7 +847,7 @@ class EntityImageForm(forms.Form):
         label=_('chief image'),
         choices=YES_OR_NO,
         widget=forms.Select(attrs={'class': 'form-control'}),
-        initial=0,
+        initial=1,
         help_text=_('set entity cheif Image'),
     )
 
@@ -892,7 +892,6 @@ class EntityImageForm(forms.Form):
             images.append(image_name)
         self.entity.images = images
         self.entity.save()
-
 
 # TODO:
 '''
