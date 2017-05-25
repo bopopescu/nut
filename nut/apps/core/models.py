@@ -939,7 +939,7 @@ class Entity(BaseModel):
     images = ListObjectField()
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
-    status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=new, db_index=True)
+    status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=selection, db_index=True)
 
     # sku_attributes = ListObjectField()
 
@@ -1319,7 +1319,7 @@ class Note(BaseModel):
     post_time = models.DateTimeField(auto_now_add=True, editable=False,
                                      db_index=True)
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
-    status = models.IntegerField(choices=NOTE_STATUS_CHOICES, default=normal)
+    status = models.IntegerField(choices=NOTE_STATUS_CHOICES, default=top)
 
     objects = NoteManager()
 
