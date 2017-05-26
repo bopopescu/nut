@@ -99,13 +99,8 @@
                             {% endautoescape %}
                         </div>
 
-{#                        <div class="disclaimer">#}
-{#                                本文系作者授权果库发表，未经许可，不得转载。#}
-{#                        </div>#}
-
-                        <div class="share-wrapper share-wrapper-short share-wrapper-control">
-
-{#                            add article share button begin#}
+                        {% if not isBaiduApp%}
+                            <div class="share-wrapper share-wrapper-short share-wrapper-control">
                             <div class="article-share for-browser ">
                                 <ul class="share-bt-list">
                                     <li class="list-item dig-item">
@@ -161,42 +156,11 @@
                                     </li>
                                 </ul>
                             </div>
-{#                            article share button end#}
                         </div>
+                        {% endif %}
                         <div class="divider article-divider divider-control"></div>
                         <div class="writer-wrapper writer-wrapper-control">
-{#                            <div class="row">#}
-{#                                <div class="write-pre col-xs-12 col-sm-12">#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            {% if article.creator.is_authorized_author %}#}
-{#                                <div class="author-info">#}
-{#                                 <div class="user-icon">#}
-{#                                        <a href="{% url 'web_user_index' article.creator.pk %}" class="for-browser">#}
-{#                                           <img src="{{ article.creator.avatar_url|resize:'120' }}"/>#}
-{#                                        </a>#}
-{##}
-{#                                         <a href="{{ article.creator.mobile_url }}" class="for-mobile mobile-user-link">#}
-{#                                          <img src="{{ article.creator.avatar_url|resize:'120' }}"/>#}
-{#                                        </a>#}
-{#                                 </div>#}
-{#                                 <div class="user-title">#}
-{#                                       <span class="for-browser" >#}
-{#                                           <a href="{% url 'web_user_index' article.creator.pk %}">#}
-{#                                           {{ article.creator.nickname }}#}
-{#                                            </a>#}
-{#                                       </span>#}
-{#                                       <span class="for-mobile" >#}
-{#                                           <a href="{{ article.creator.mobile_url }}" class="mobile-user-link">#}
-{#                                           {{ article.creator.nickname }}#}
-{#                                           </a>#}
-{#                                       </span>#}
-{#                                 </div>#}
-{#                                 <div class="user-bio">#}
-{#                                     <span class="bio-block">{{ article.creator.bio }}</span>#}
-{#                                 </div>#}
-{#                                </div>#}
-{#                            {% else %}#}
+
                             <div class="row">
                                 <div class="writer-avatar col-xs-2 col-sm-2">
                                     <div class="avatar-wrapper">
@@ -241,7 +205,6 @@
 
 
                             </div>
-                            {#                                        关注按钮#}
                             {% if article.creator.is_blocked %}
                                 <a  class="guoku-button button-disabled for-browser" href="#"><i class="fa fa-exclamation-triangle"></i>&nbsp;{% trans 'Blocked User' %} </a>
                                 {% elif article.creator == request.user %}
@@ -258,7 +221,6 @@
                                 <a class="hidden-xs follow article-user-follow guoku-button new-guoku-button button-blue newest-button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i>&nbsp; {% trans 'Follow' %}</a>
                                 <a class="hidden-sm hidden-md hidden-lg mobile-follow article-user-follow guoku-button new-guoku-button button-blue newest-button-blue for-browser" data-status="0" data-user-id="{{ article.creator.id }}" href="javascript:;"><i class="fa fa-plus" ></i></a>
                             {% endif %}
-{#                            {% endif %}#}
 
                         </div>
                     </div>
@@ -299,18 +261,6 @@
                         <div class="info-text">相关推荐</div>
                     </div>
                 {% endif %}
-                    {#                    {% for sla in article.related_articles %}#}
-                    {#                        {% with sla.article as r_article %}#}
-                    {#                            {% include 'web/article/partial/article_recommend_item.html' %}#}
-                    {#                        {% endwith %}#}
-                    {#                    {% endfor %}#}
-                    {##}
-                    {#                    <div class="row" id="main_loading_indicator">#}
-                    {#                        <div class="col-xs-12 loading-icon">#}
-                    {#                            <img src="{% static 'images/widgets/loading.gif' %}" height="32px" width="32px">#}
-                    {#                        </div>#}
-                    {##}
-                    {#                    </div>#}
                     <div class="row new-dark-section-wrapper related-article-wrapper">
                         <div class="col-sm-12">
                             <ul id="related-article-container">
@@ -324,7 +274,6 @@
                                                 <div class="bg-layer related-article-bg-layer"></div>
                                                 <div class="section-name article-title">
                                                     <p>{{ r_article.title|truncatechars:22 }}
-{#                                                    <span>{{ category.title_en }}</span>#}
                                                     </p>
                                                 </div>
                                             </div>
@@ -409,8 +358,7 @@
             </ul>
         </div>
     </div>
-    {#    fixed share sidebar end --- #}
-    {% if not isFromMobile %}
+    {% if not isFromMobile and not isBaiduApp %}
         <div class="bottom-article-share-wrapper">
          <div class="container">
             <div class="row">
@@ -450,13 +398,6 @@
                                     <li class="list-item list-item-weixin">
                                         <a class="logo-wechat normal-share-btn">
                                             <i class="fa fa-wechat"></i>
-{#                                            <div class="wechat-qrcode-wrapper display-toggle">#}
-{#                                                <div id="qr_code">#}
-{##}
-{#                                                </div>#}
-{##}
-{#                                                <span class="bottom-bot"></span>#}
-{#                                            </div>#}
                                         </a>
                                     </li>
                                     <li class="list-item list-item-weibo">
@@ -537,24 +478,8 @@
     <script data-main="{{ global_static_url_prefix }}js/web/jsbuild/article_page_app_build.js" src="{{ global_static_url_prefix }}js/web/app/require.js"></script>
 {% endblock %}
 
-
     {% block ga_script %}
-        {% if not isFromMobile %}
-{#          <script language="javascript">#}
-{##}
-{#            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){#}
-{#            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),#}
-{#            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)#}
-{#            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');#}
-{##}
-{#            ga('create', 'UA-24696872-5', 'auto');#}
-{#            ga('send', 'pageview');#}
-{#            ga('set', '&uid', '412916' )#}
-{##}
-{#            </script>#}
-        {% else %}
-            <!--  no ga for app user -->
-        {% endif %}
+
     {% endblock %}
 
 {% block script %}

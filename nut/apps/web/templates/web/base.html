@@ -111,7 +111,7 @@ window.location.href = url;</script><![endif]-->
 
 {% block  bottom_bar %}
 
-    {% if not isFromMobile %}
+    {% if not isFromMobile and not isBaiduApp %}
      {% include 'web/partial/bottom_ad_layer.html' %}
     {% endif %}
 {% endblock %}

@@ -75,7 +75,9 @@
                             {% include "web/entity/partial/detail_info_center.html" %}
                         </div>
                     </div>
-                    <div class="share-wrapper share-wrapper-short share-wrapper-control">
+
+                    {% if not isBaiduApp %}
+                        <div class="share-wrapper share-wrapper-short share-wrapper-control">
                         <div class="report-wrapper" id="report_trigger" report-url="/entity/{{ entity.pk }}/report/">
                             <i class="fa fa-flag-o"></i>
                         </div>
@@ -118,6 +120,7 @@
 
 {#                        <span class="share-intro-entity">分享到&nbsp;&nbsp;</span>#}
                     </div>
+                    {% endif %}
                     <div class="divider"></div>
 
                     {#                    {% if entity_brand and entity_brand.intro %}#}

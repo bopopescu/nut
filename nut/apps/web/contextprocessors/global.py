@@ -37,7 +37,7 @@ def browser(request):
         'isWechat': 'micromessenger' in ua,
         'isMobileSafari': ('iphone' in ua) and ('mobile' in ua) and ('safari' in ua),
         'isAndroid': 'guoku-client' in ua,
-        'isBaiduApp': 'baidu' in ua,
+        'isBaiduApp': 'baiduboxapp' in ua or 'dev.guoku.com' in request.META.get('HTTP_HOST', ''),
         'global_static_url_prefix': static_url,
         'is_secure': request.is_secure()
     }
