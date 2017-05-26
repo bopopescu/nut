@@ -192,9 +192,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     #add by an , for event slug insert into every page.
     # see document for reason,
     # modified base.html (template) for this processor to take effect
-    'apps.web.contextprocessors.global.lastslug',
+    'apps.web.contextprocessors.global.last_slug',
     'apps.web.contextprocessors.global.browser',
-    'apps.web.contextprocessors.global.isFromMobile',
+    'apps.web.contextprocessors.global.is_from_mobile',
 )
 
 
