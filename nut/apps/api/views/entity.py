@@ -73,7 +73,13 @@ class UploadArticleView(APIView):
 
     def post(self, request):
         article_id = request.data.get('article_id')
-        article = Article.objects.get(pk=article_id)
+        article_slug = request.data.get('article_slug', '')
+        abstract = request.data.get('abstract', u'')
+        domain = request.data.get('domain', u'1')
+        if article_id:
+            article = Article.objects.get(pk=article_id)
+        elif article_slug:
+            article = Article.objects.get(article_slug=article_slug)
         soup = BeautifulSoup(article.content)
         cards = soup.find_all(class_='guoku-card')
         entity_hash_list = [card['data_entity_hash'] for card in cards]
@@ -89,9 +95,9 @@ class UploadArticleView(APIView):
             'app_id': u'1555485749942141',
             'tp_src': u'guocool',
             'v': u'1.0',
-            'domain': u'1',
+            'domain': domain,
             'origin_url': urljoin(u'http://www.guoku.com', article.url).encode('utf-8'),
-            'abstract': article.title,
+            'abstract': abstract or article.title,
             'content': unicode(soup),
             'cover_layout': u'one',
             'cover_images': json.dumps([article.cover_url]).encode('utf-8'),
