@@ -194,7 +194,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     # modified base.html (template) for this processor to take effect
     'apps.web.contextprocessors.global.last_slug',
     'apps.web.contextprocessors.global.browser',
-    'apps.web.contextprocessors.global.is_from_mobile',
+    'apps.web.contextprocessors.global.check_is_from_mobile',
 )
 
 

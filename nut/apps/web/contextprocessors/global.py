@@ -43,18 +43,18 @@ def browser(request):
         'isAndroid': ('guoku-client' in agent_string),
         'global_static_url_prefix': static_url,
         'is_secure': request.is_secure()
+
     }
 
 
-def is_from_mobile(request):
-    if hasattr(settings, 'ANT_SIMULATE_MOBILE') and settings.ANT_SIMULATE_MOBILE:
-        res = True
+def check_is_from_mobile(request):
+    """
+    判断请求是否来自于果库手机app
+    # TODO: 完善判断依据，从host改为user agent
+    """
+    if getattr(settings, 'ANT_SIMULATE_MOBILE', False):
+        is_from_mobile = True
     else:
-        try:
-            host_str = request.META['HTTP_HOST']
-        except KeyError:
-            host_str = ''
+        is_from_mobile = 'm.guoku.com' in request.META.get('HTTP_HOST', '')
 
-        res = 'm.guoku.com' in host_str
-
-    return {'isFromMobile': res}
+    return {'isFromMobile': is_from_mobile}
