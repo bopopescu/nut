@@ -1319,7 +1319,7 @@ class Note(BaseModel):
     post_time = models.DateTimeField(auto_now_add=True, editable=False,
                                      db_index=True)
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
-    status = models.IntegerField(choices=NOTE_STATUS_CHOICES, default=top)
+    status = models.IntegerField(choices=NOTE_STATUS_CHOICES, default=normal)
 
     objects = NoteManager()
 
