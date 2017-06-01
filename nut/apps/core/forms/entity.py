@@ -295,21 +295,12 @@ class EntityForm(forms.Form):
 
         self.entity = entity
 
-        if self.entity.has_top_note:
-            self.fields['status'] = forms.ChoiceField(label=_('status'),
-                                                      choices=Entity.ENTITY_STATUS_CHOICES,
-                                                      widget=forms.Select(
-                                                          attrs={
-                                                              'class': 'form-control'}),
-                                                      help_text=_(''))
-        else:
-            self.fields['status'] = forms.ChoiceField(label=_('status'),
-                                                      choices=Entity.NO_SELECTION_ENTITY_STATUS_CHOICES,
-                                                      widget=forms.Select(
-                                                          attrs={
-                                                              'class': 'form-control', }),
-                                                      help_text=_(''))
-
+        self.fields['status'] = forms.ChoiceField(label=_('status'),
+                                                  choices=Entity.ENTITY_STATUS_CHOICES,
+                                                  widget=forms.Select(
+                                                      attrs={
+                                                          'class': 'form-control'}),
+                                                  help_text=_(''))
         if len(self.entity.images) > 1:
             # position_list = list()
             # for position in xrange(len(self.entity.images)):
