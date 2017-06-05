@@ -105,6 +105,8 @@ class UploadArticleView(APIView):
         url = u'http://hoteltest.baidu.com/business/article_publish'
         token = u'spdtkn_test12'
 
+        content = unicode(soup).replace('\n', '')
+
         payload = {
             'app_id': u'1555485749942141',
             'tp_src': u'guocool',
@@ -113,7 +115,7 @@ class UploadArticleView(APIView):
             'origin_url': urljoin(u'http://www.guoku.com', article.url).encode('utf-8'),
             'title': title or article.title,
             'abstract': abstract or '',
-            'content': unicode(soup),
+            'content': content,
             'cover_layout': u'one',
             'cover_images': json.dumps([article.cover_url]).encode('utf-8'),
             'service_type': u'1',
