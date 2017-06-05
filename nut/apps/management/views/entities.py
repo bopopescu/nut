@@ -1,45 +1,34 @@
-from apps.core.views import BaseFormView
-from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect, \
-    HttpResponse
-from django.shortcuts import render_to_response, get_object_or_404, render
-from django.template import RequestContext
-from django.core.urlresolvers import reverse, reverse_lazy
-# from django.core.paginator import Paginator, EmptyPage, InvalidPage
-from django.utils.log import getLogger
-# from django.core.files.storage import default_storage
-from django.views.decorators.csrf import csrf_exempt
-from django.core.cache import cache
-from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist
-from django.views.generic import ListView,DeleteView, CreateView, UpdateView,View
-
-from apps.management.decorators import staff_only, staff_and_editor
-
-from apps.core.models import Entity, Buy_Link, GKUser
-from apps.core.forms.entity import EditEntityForm, EntityImageForm, \
-    CreateEntityForm, load_entity_info, BuyLinkForm, EditBuyLinkForm, AddEntityForm
-from apps.core.extend.paginator import ExtentPaginator, EmptyPage, \
-    PageNotAnInteger
-from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
-from apps.core.tasks.entity import fetch_image
-
-# for entity list view class
-from django.conf import settings
-from django.views.generic.list import ListView
-from django.views.generic import TemplateView, View
-from apps.core.mixins.views import SortMixin, FilterMixin
-from apps.core.extend.paginator import ExtentPaginator as Jpaginator
-
-from apps.management.mixins.auth import EditorRequiredMixin
-from apps.management.forms.sku import SKUForm
+from hashlib import md5
 
 import requests
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.core.cache import cache
+from django.core.urlresolvers import reverse
+from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect, HttpResponse
+from django.shortcuts import render_to_response, get_object_or_404, render
+from django.template import RequestContext
+from django.utils.log import getLogger
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import DeleteView, CreateView, UpdateView
+from django.views.generic import View
+from django.views.generic.list import ListView
 
-# from django.utils import timezone
-from hashlib import md5
+from apps.core.extend.paginator import ExtentPaginator as Jpaginator
+from apps.core.forms.entity import EditEntityForm, EntityImageForm, \
+    CreateEntityForm, load_entity_info, BuyLinkForm, EditBuyLinkForm, AddEntityForm
+from apps.core.mixins.views import FilterMixin
+from apps.core.models import Entity, Buy_Link, GKUser
+from apps.core.tasks.entity import fetch_image
+from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
+from apps.management.decorators import staff_and_editor
+from apps.management.forms.sku import SKUForm
+from apps.management.mixins.auth import EditorRequiredMixin
+from apps.order.models import SKU
+
+
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
-
 
 
 class EntityListView(FilterMixin, ListView):
@@ -50,26 +39,25 @@ class EntityListView(FilterMixin, ListView):
     paginator_class = Jpaginator
 
     def get_amazon_entities(self, qs):
-        amazon_entity_ids = Buy_Link.objects\
-                                    .filter(origin_source__icontains='amazon')\
-                                    .values_list('entity_id', flat=True)
+        amazon_entity_ids = Buy_Link.objects \
+            .filter(origin_source__icontains='amazon') \
+            .values_list('entity_id', flat=True)
         return qs.filter(pk__in=amazon_entity_ids)
 
-
     def get_queryset(self):
-        qs = super(EntityListView,self).get_queryset()
-        status =  self.request.GET.get('status', None)
+        qs = super(EntityListView, self).get_queryset()
+        status = self.request.GET.get('status', None)
         if status is None:
             return qs
         elif status == '999':
-            entity_list  = self.get_amazon_entities(qs)
+            entity_list = self.get_amazon_entities(qs)
         elif status == '888':
             entity_list = self.get_editor_frozen_entities(qs)
         elif status == '666':
             entity_list = self.get_active_user_entities(qs)
         else:
             entity_list = qs.filter(status=int(status)).order_by('-updated_time')
-        return  entity_list
+        return entity_list
 
     def get_active_user_entities(self, qs):
         active_users = GKUser.objects.active_user()
@@ -78,11 +66,11 @@ class EntityListView(FilterMixin, ListView):
             .order_by('-updated_time')
         return entity_list
 
-    def get_editor_frozen_entities(self,qs):
+    def get_editor_frozen_entities(self, qs):
         editors = GKUser.objects.editor()
-        entity_frozen = Entity.objects\
-                              .filter(status=Entity.freeze, user__in=editors)\
-                              .order_by('-updated_time')
+        entity_frozen = Entity.objects \
+            .filter(status=Entity.freeze, user__in=editors) \
+            .order_by('-updated_time')
         return entity_frozen
 
     # TODO: need clear input  in filter Mixin
@@ -98,45 +86,12 @@ class EntityListView(FilterMixin, ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(EntityListView, self).get_context_data(*args, **kwargs)
-        context['status'] =  self.request.GET.get('status', None)
+        context['status'] = self.request.GET.get('status', None)
         return context
 
     @staff_and_editor
     def dispatch(self, request, *args, **kwargs):
         return super(EntityListView, self).dispatch(request, *args, **kwargs)
-# entity list view class end
-
-
-
-# @login_required
-# @staff_only
-# def list(request, template='management/entities/list.html'):
-#     status = request.GET.get('status', None)
-#     page = request.GET.get('page', 1)
-#
-#     if status is None:
-#         entity_list  = Entity.objects.all()
-#     else:
-#         entity_list = Entity.objects.filter(status=int(status)).order_by('-updated_time')
-#
-#     paginator = ExtentPaginator(entity_list, 30)
-#
-#     try:
-#         entities = paginator.page(page)
-#     except PageNotAnInteger:
-#         entities = paginator.page(1)
-#     except EmptyPage:
-#         raise Http404
-#     # log.info(paginator.page_range)
-#     return render_to_response(
-#         template,
-#         {
-#             'entities': entities,
-#             # 'page_range': paginator.page_range_ext,
-#             'status': status,
-#         },
-#         context_instance=RequestContext(request)
-#     )
 
 
 @login_required
@@ -148,7 +103,6 @@ def edit(request, entity_id, template='management/entities/edit.html'):
     except Entity.DoesNotExist:
         raise Http404
 
-
     data = {
         # 'id':entity.pk,
         'creator': entity.user.profile.nickname,
@@ -159,8 +113,6 @@ def edit(request, entity_id, template='management/entities/edit.html'):
         'category': entity.category.group_id,
         'sub_category': entity.category_id,
     }
-
-
 
     if request.method == "POST":
         _forms = EditEntityForm(
@@ -243,8 +195,10 @@ def create(request, template='management/entities/new.html'):
         context_instance=RequestContext(request)
     )
 
-class Import_entity(View):
-    def __init__(self, template='management/entities/new.html', entity_edit_url='management_entity_edit', form=CreateEntityForm):
+
+class ImportEntity(View):
+    def __init__(self, template='management/entities/new.html', entity_edit_url='management_entity_edit',
+                 form=CreateEntityForm):
         self.template = template
         self.entity_edit_url = entity_edit_url
         self.form = form
@@ -276,36 +230,32 @@ class Import_entity(View):
     def post(self, request, *args, **kwargs):
         res = self.get_res(request)
         _forms = self.form(request=request, data=request.POST,
-                                  initial=res)
+                           initial=res)
         if _forms.is_valid():
             entity = _forms.save()
             return HttpResponseRedirect(
                 reverse(self.entity_edit_url, args=[entity.pk]))
 
+
 class Add_local(View):
-        template_name = 'management/entities/add.html'
-        form_class = AddEntityForm
-        def get(self, request, *args, **kwargs):
-            form = self.form_class(request)
-            return render(request, self.template_name, {'forms': form})
-        def post(self, request, *args, **kwargs):
-            form = self.form_class(request, data=request.POST, files=request.FILES)
-            if form.is_valid():
-                form.save()
-                return HttpResponseRedirect(reverse('management_entity_list'))
-            return render(request, self.template_name, {'forms': form})
+    template_name = 'management/entities/add.html'
+    form_class = AddEntityForm
 
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(request)
+        return render(request, self.template_name, {'forms': form})
 
-# TODO:
-'''
-    Handle Entity Buy Link
-'''
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request, data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('management_entity_list'))
+        return render(request, self.template_name, {'forms': form})
 
 
 @login_required
 @staff_and_editor
 def buy_link(request, entity_id, template='management/entities/buy_link.html'):
-    # _buy_link_list = Buy_Link.objects.filter(entity_id = entity_id)
     try:
         _entity = Entity.objects.get(pk=entity_id)
     except Entity.DoesNotExist:
@@ -313,7 +263,6 @@ def buy_link(request, entity_id, template='management/entities/buy_link.html'):
 
     if request.method == 'POST':
         _forms = BuyLinkForm(entity=_entity, data=request.POST)
-        # log.info(request.POST)
         if _forms.is_valid():
             _forms.save()
             return HttpResponseRedirect(
@@ -326,7 +275,6 @@ def buy_link(request, entity_id, template='management/entities/buy_link.html'):
         {
             'entity': _entity,
             'forms': _forms,
-            # 'buy_link_list': _buy_link_list,
         },
         context_instance=RequestContext(request)
     )
@@ -379,36 +327,12 @@ def remove_buy_link(request, bid):
     return SuccessJsonResponse()
 
 
-# @csrf_exempt
-# @login_required
-# @staff_only
-# def check_buy_link(request, bid):
-#     try:
-#         b = Buy_Link.objects.get(pk=bid)
-#     except Buy_Link.DoesNotExist:
-#         return ErrorJsonResponse(status=404)
-#
-#     # def crawl(item_id):
-#     data = {
-#         'project': 'default',
-#         'spider': 'taobao',
-#         'setting': 'DOWNLOAD_DELAY=2',
-#         'item_id': b.origin_id,
-#     }
-#     res = requests.post('http://10.0.2.49:6800/schedule.json', data=data)
-#     if res.status_code == 200:
-#     # return res.json()
-#         return SuccessJsonResponse(data=res.json())
-#     else:
-#         raise Http404
-
 class CheckBuyLinkView(View):
-
     # http_method_names = ['GET']
 
     def get_context_data(self, **kwargs):
         try:
-            b = Buy_Link.objects.get(pk = self.bid)
+            b = Buy_Link.objects.get(pk=self.bid)
         except Buy_Link.DoesNotExist:
             raise Http404
 
@@ -432,7 +356,6 @@ class CheckBuyLinkView(View):
     @staff_and_editor
     def dispatch(self, request, *args, **kwargs):
         return super(CheckBuyLinkView, self).dispatch(request, *args, **kwargs)
-
 
 
 # TODO:
@@ -509,10 +432,10 @@ def delete_image(request, entity_id):
 
     return HttpResponseNotAllowed
 
-from apps.order.models import SKU
 
-class EntitySKUListView(EditorRequiredMixin,ListView):
+class EntitySKUListView(EditorRequiredMixin, ListView):
     template_name = 'management/entities/entity_sku_list.html'
+
     def get_queryset(self):
         entity = self.get_entity()
         return entity.skus.all()
@@ -522,43 +445,43 @@ class EntitySKUListView(EditorRequiredMixin,ListView):
 
     def get_context_data(self, **kwargs):
         context = super(EntitySKUListView, self).get_context_data(**kwargs)
-        context['entity']= self.get_entity()
+        context['entity'] = self.get_entity()
         return context
-
 
 
 class EntitySKUCreateView(EditorRequiredMixin, CreateView):
     model = SKU
     form_class = SKUForm
     template_name = 'management/entities/create_sku.html'
+
     def get_success_url(self):
         return reverse('management_entity_skus', args=[self.get_entity().id])
 
     def get_initial(self):
         entity = self.get_entity()
         return {
-            'entity':entity.id
+            'entity': entity.id
         }
 
     def get_entity(self):
-        entity_id =  self.kwargs.get('entity_id')
+        entity_id = self.kwargs.get('entity_id')
         entity = get_object_or_404(Entity, id=entity_id)
         return entity
 
     def get_context_data(self, **kwargs):
         context = super(EntitySKUCreateView, self).get_context_data(**kwargs)
         context['entity'] = self.get_entity()
-        context['entity_id']=self.get_entity().id
+        context['entity_id'] = self.get_entity().id
         return context
 
 
-class EntitySKUUpdateView(EditorRequiredMixin,UpdateView):
+class EntitySKUUpdateView(EditorRequiredMixin, UpdateView):
     model = SKU
     form_class = SKUForm
     template_name = 'management/entities/update_sku.html'
 
     def get_entity(self):
-        entity_id =  self.kwargs.get('entity_id')
+        entity_id = self.kwargs.get('entity_id')
         entity = get_object_or_404(Entity, id=entity_id)
         return entity
 
@@ -566,6 +489,7 @@ class EntitySKUUpdateView(EditorRequiredMixin,UpdateView):
         context = super(EntitySKUUpdateView, self).get_context_data(**kwargs)
         context['entity_id'] = self.get_entity().id
         return context
+
     def get_success_url(self):
         return reverse('management_entity_skus', args=[self.get_entity().id])
 
@@ -586,8 +510,6 @@ class EntitySKUDeleteView(EditorRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse('management_entity_skus', args=[self.get_entity().id])
-
-
 
 
 __author__ = 'edison7500'
