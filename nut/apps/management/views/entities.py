@@ -198,43 +198,43 @@ def create(request, template='management/entities/new.html'):
 
 class ImportEntity(View):
     def __init__(self, template='management/entities/new.html', entity_edit_url='management_entity_edit',
-                 form=CreateEntityForm):
+                 form=CreateEntityForm, **kwargs):
         self.template = template
         self.entity_edit_url = entity_edit_url
         self.form = form
+        super(ImportEntity, self).__init__(**kwargs)
 
-    def get_res(self, request):
+    @staticmethod
+    def get_res(request):
         _url = request.GET.get('url')
         if _url is None:
             raise Http404
-        res = load_entity_info(_url)
-        return res
+        return load_entity_info(_url)
 
     def get(self, request, *args, **kwargs):
-        res = self.get_res(request)
-        if res.has_key('entity_id'):
-            return HttpResponseRedirect(
-                reverse(self.entity_edit_url, args=[res['entity_id']]))
-        if len(res) == 0:
+        res = ImportEntity.get_res(request)
+        if not res:
             return HttpResponse('not support')
-        key_string = "%s%s" % (res['cid'], res['origin_source'])
-        key = md5(key_string.encode('utf-8')).hexdigest()
-        category_id = cache.get(key)
-        if category_id:
-            res['category_id'] = category_id
+        if 'entity_id' in res:
+            # entity already exists
+            return HttpResponseRedirect(reverse(self.entity_edit_url, args=[res['entity_id']]))
         else:
-            res['category_id'] = 300
-        _forms = self.form(request=request, initial=res)
-        return render(request, self.template, {'res': res, 'forms': _forms})
+            key_string = "%s%s" % (res['cid'], res['origin_source'])
+            key = md5(key_string.encode('utf-8')).hexdigest()
+            category_id = cache.get(key)
+            if category_id:
+                res['category_id'] = category_id
+            else:
+                res['category_id'] = 300
+            _forms = self.form(request=request, initial=res)
+            return render(request, self.template, {'res': res, 'forms': _forms})
 
     def post(self, request, *args, **kwargs):
-        res = self.get_res(request)
-        _forms = self.form(request=request, data=request.POST,
-                           initial=res)
+        res = ImportEntity.get_res(request)
+        _forms = self.form(request=request, data=request.POST, initial=res)
         if _forms.is_valid():
             entity = _forms.save()
-            return HttpResponseRedirect(
-                reverse(self.entity_edit_url, args=[entity.pk]))
+            return HttpResponseRedirect(reverse(self.entity_edit_url, args=[entity.pk]))
 
 
 class Add_local(View):
