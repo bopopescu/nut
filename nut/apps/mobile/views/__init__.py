@@ -148,6 +148,9 @@ def selection(request):
     res = list()
 
     for selection in selections:
+        # TODO： 解决entity可能没有top_note的问题
+        if not selection.entity.top_note:
+            continue
         r = {
             'entity':selection.entity.v3_toDict(user_like_list=el),
             'note':selection.entity.top_note.v3_toDict(),
