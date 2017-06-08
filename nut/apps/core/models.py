@@ -1,52 +1,40 @@
 # coding=utf-8
-import random
-from urllib import quote
-
-import time
-from math import floor
-
-import requests
 import HTMLParser
 import hashlib
-import json
 import re
-# from pprint import  pprint
-
-from hashlib import md5
+import time
 from datetime import datetime
-from uuslug import slugify, uuslug
+from hashlib import md5
+from urllib import quote
 
-
+import requests
+from django.conf import settings
+from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin, Group
 from django.core import serializers
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
-from django.dispatch import receiver
-from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
-from django.utils.log import getLogger
 from django.db import models
 from django.db.models import Count
-from django.db.models.signals import post_save, pre_save
-from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth.models import AbstractBaseUser
-from django.contrib.auth.models import PermissionsMixin, Group
-# from django.shortcuts import  get_object_or_404
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.utils import timezone
 from django.utils.html import _strip_once
+from django.utils.log import getLogger
+from django.utils.translation import ugettext_lazy as _
+from haystack.query import SearchQuerySet
+from uuslug import slugify
 
 from apps.core.base import BaseModel
-from apps.notifications import notify
-from apps.core.utils.image import HandleImage
-from apps.core.utils.articlecontent import contentBleacher
 from apps.core.extend.fields.listfield import ListObjectField
-from apps.web.utils.datatools import get_entity_list_from_article_content
 from apps.core.manager import *
+from apps.core.utils.articlecontent import contentBleacher
+from apps.core.utils.image import HandleImage
 from apps.core.utils.text import truncate
-# from apps.core.manager.account import  AuthorizedUserManager
-from haystack.query import SearchQuerySet
-
-# from apps.order.exceptions import CartException, OrderException, PaymentException
 from apps.counter.utils.data import RedisCounterMachine, CounterException
+from apps.notifications import notify
+from apps.tag.models import Content_Tags
+from apps.web.utils.datatools import get_entity_list_from_article_content
 
 log = getLogger('django')
 image_host = getattr(settings, 'IMAGE_HOST', None)
@@ -55,8 +43,7 @@ click_host = getattr(settings, 'CLICK_HOST', "http://www.click.guoku.com")
 # if define avatar_host , then use avata_host , for local development .
 avatar_host = getattr(settings, 'AVATAR_HOST', image_host)
 
-feed_img_counter_host =  getattr(settings, 'IMG_COUNTER_HOST' , None)
-
+feed_img_counter_host = getattr(settings, 'IMG_COUNTER_HOST', None)
 
 
 class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
@@ -69,7 +56,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         (remove, _("remove")),
     ]
     email = models.EmailField(max_length=255, unique=True)
-    # is_active = models.BooleanField(_('active'), default=True)
     is_active = models.IntegerField(choices=USER_STATUS_CHOICES, default=active)
     is_admin = models.BooleanField(default=False)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now())
@@ -89,21 +75,21 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.profile.nickname
 
     def has_guoku_assigned_email(self):
-        return ('@guoku.com' in self.email ) and (len(self.email) > 29)
+        return ('@guoku.com' in self.email) and (len(self.email) > 29)
 
-    def has_sku(self,sku):
+    def has_sku(self, sku):
         return sku.entity.user.id == self.id
 
-    def has_entity(self,entity):
+    def has_entity(self, entity):
         return entity.user.id == self.id
 
     @property
     def need_verify_mail(self):
-        return (not self.profile.email_verified ) and (not self.need_change_mail)
+        return (not self.profile.email_verified) and (not self.need_change_mail)
 
     @property
     def need_change_mail(self):
-        return ('@guoku.com' in self.email ) and (len(self.email) > 29)
+        return ('@guoku.com' in self.email) and (len(self.email) > 29)
 
     @property
     def has_published_article(self):
@@ -150,10 +136,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def is_verified(self):
         return self.profile.email_verified
 
-    # @property
-    # def digged_articles(self):
-    #     return self.digs
-
     @property
     def published_articles(self):
         return self.articles.filter(publish=Article.published)
@@ -172,7 +154,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def absolute_url(self):
-        return reverse('web_user_index' , args=[self.pk])
+        return reverse('web_user_index', args=[self.pk])
 
     @property
     def mobile_url(self):
@@ -210,13 +192,13 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         try:
             cache.incr(key)
         except ValueError:
-            cache.set(key,self.digs.count())
+            cache.set(key, self.digs.count())
 
     def decr_dig(self):
         key = self.get_user_dig_key()
         try:
             cache.decr(key)
-        except :
+        except:
             cache.set(key, self.digs.count())
 
     def incr_like(self):
@@ -295,23 +277,22 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     @property
     def entity_liked_categories(self):
-        _category_id_list = Entity_Like.objects.select_related('entity__category__group')\
-                            .filter(user=self, entity__status__gte=Entity.freeze)\
-                            .annotate(category_count=Count('entity__category__group'))\
-                            .values_list('entity__category__group', flat=True)
+        _category_id_list = Entity_Like.objects.select_related('entity__category__group') \
+            .filter(user=self, entity__status__gte=Entity.freeze) \
+            .annotate(category_count=Count('entity__category__group')) \
+            .values_list('entity__category__group', flat=True)
 
         _category_list = Category.objects.using('slave').filter(pk__in=_category_id_list)
         return set(_category_list)
 
     @property
     def recent_likes(self):
-        _key = 'user:likes:recent:%s'%self.id
+        _key = 'user:likes:recent:%s' % self.id
         _rlikes = cache.get(_key, None)
         if _rlikes is None:
             _rlikes = Entity_Like.objects.active_entity_likes().filter(user=self).order_by('-created_time')[:3]
-            cache.set(_key, _rlikes, 3600*24)
+            cache.set(_key, _rlikes, 3600 * 24)
         return _rlikes
-
 
     @property
     def avatar_url(self):
@@ -347,8 +328,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
                 res['website'] = self.profile.website
                 res['avatar_large'] = self.profile.avatar_url
                 res['avatar_small'] = self.profile.avatar_url
-
-                # res['verified'] = self.profile.email_verified
                 res['relation'] = 0
             except Exception, e:
                 log.error("Error: user id %s %s", (self.id, e.message))
@@ -394,9 +373,8 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
     # for set user as authorized author
     # see docs : 授权图文用户
-
     def get_author_group(self):
-        author_group, created =  Group.objects.get_or_create(name="Author")
+        author_group, created = Group.objects.get_or_create(name="Author")
         return author_group
 
     def has_author_group(self):
@@ -404,7 +382,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         return author_group in self.groups.all()
 
     # for set user as authorized seller
-
     def get_seller_group(self):
         seller_group, created = Group.objects.get_or_create(name="Seller")
         return seller_group
@@ -425,7 +402,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def has_active_user_group(self):
         active_user_group = self.get_active_user_group()
         return active_user_group in self.groups.all()
-
 
     def refresh_user_permission(self):
         # TODO:  refresh user permission cache here
@@ -492,7 +468,6 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             self.groups.remove(offline_shop_group)
         self.refresh_user_permission()
 
-
     @property
     def is_authorized_user(self):
         return self.is_authorized_author or self.is_authorized_seller
@@ -507,10 +482,8 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
 
         for shop in self.shops.all():
             if shop.common_shop_link:
-                eids += list(Buy_Link.objects
-                             .filter(shop_link=shop.common_shop_link)
-                             .values_list('entity_id', flat=True)
-                             )
+                eids += list(
+                    Buy_Link.objects.filter(shop_link=shop.common_shop_link).values_list('entity_id', flat=True))
         return eids
 
     @property
@@ -520,13 +493,11 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
         add_entity_ids = list(self.entities.active().values_list('id', flat=True))
         shop_entity_ids = self._get_seller_shop_entities()
         ids = list(set(add_entity_ids + shop_entity_ids))
-        return Entity.objects.active().filter(id__in=ids,)
-
+        return Entity.objects.active().filter(id__in=ids, )
 
     @property
     def jpush_rids(self):
         return self.jpush_token.all().values_list('rid', flat=True)
-
 
     @property
     def cart_item_count(self):
@@ -535,24 +506,24 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def add_sku_to_cart(self, sku, volume=1):
         return self.cart_items.add_sku_to_user_cart(self, sku, volume)
 
-    def decr_sku_in_cart(self,sku):
+    def decr_sku_in_cart(self, sku):
         return self.cart_items.decr_sku_in_user_cart(self, sku)
 
     def remove_sku_from_cart(self, sku):
-        return self.cart_items.remove_sku_from_user_cart(self,sku)
+        return self.cart_items.remove_sku_from_user_cart(self, sku)
 
     def total_cart_promo_price(self):
         return self.cart_items.total_cart_promo_price(self)
 
     def checkout(self):
-        '''
+        """
         this method can not be moved into cartitem manager
         because of circular reference problem
 
         TODO : check cartitem's sku , if sku stock is less than cartitem stock ,
                , handle stock
         :return:
-        '''
+        """
         return self.cart_items.checkout(self)
 
     def clear_cart(self):
@@ -562,13 +533,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def order_count(self):
         return self.orders.count()
 
-
-
     def save(self, *args, **kwargs):
-        #TODO  @huanghuang refactor following email related lines into a subroutine
-        #
         from apps.core.tasks import send_activation_mail
         from apps.core.tasks.edm import delete_user_from_list
+        # TODO  @huanghuang refactor following email related lines into a subroutine
         if self.pk is not None:
             user = GKUser.objects.get(pk=self.pk)
             if user.email != self.email:
@@ -594,7 +562,7 @@ class Authorized_User_Profile(BaseModel):
     weibo_nick = models.CharField(max_length=255, null=True, blank=True)
     personal_domain_name = models.CharField(max_length=64, null=True, blank=True)
 
-    rss_url = models.URLField(max_length=255 ,null=True, blank=True)
+    rss_url = models.URLField(max_length=255, null=True, blank=True)
     points = models.IntegerField(default=0)
     is_recommended_user = models.BooleanField(default=False, db_index=True)
 
@@ -619,7 +587,6 @@ class User_Profile(BaseModel):
     website = models.CharField(max_length=1024, null=True, blank=True)
     avatar = models.CharField(max_length=255)
     email_verified = models.BooleanField(default=False)
-
 
     @property
     def weibo_link(self):
@@ -744,8 +711,6 @@ class Show_Banner(BaseModel):
         ordering = ['id']
 
 
-# Banner for side bar
-
 class Sidebar_Banner(BaseModel):
     (removed, disabled, enabled) = xrange(3)
     SB_BANNER_STATUS_CHOICE = [
@@ -846,8 +811,6 @@ class Sub_Category(BaseModel):
 
     def v3_toDict(self):
         res = dict()
-        # res = self.toDict()
-        # res.pop('status', None)
         res['status'] = int(self.status)
         res['group_id'] = self.group_id
         res['category_icon_large'] = self.icon_large_url
@@ -860,7 +823,7 @@ class Sub_Category(BaseModel):
         return res
 
     def __unicode__(self):
-       return self.title
+        return self.title
 
 
 # TODO: Production Brand
@@ -881,7 +844,7 @@ class Brand(BaseModel):
     national = models.CharField(max_length=100, null=True, default=None)
     intro = models.TextField()
     status = models.IntegerField(choices=BRAND_STATUS_CHOICES, default=pending)
-    score =  models.IntegerField(default=0, null=False, blank=False)
+    score = models.IntegerField(default=0, null=False, blank=False)
     created_date = models.DateTimeField(auto_now=True, db_index=True)
 
     class Meta:
@@ -897,17 +860,8 @@ class Brand(BaseModel):
     def entities(self):
         return SearchQuerySet().models(Entity).filter(brand=self.name)
 
-    # @property
-    # def shop_id(self):
-    # if len(self.tmall_link) > 0:
-    # o = urlparse(self.tmall_link)
-    #         qs = parse_qs(o.query)
-    #         return qs['shop_id'][0]
-    #     return ''
-
     def __unicode__(self):
         return "%s %s" % (self.name, self.alias)
-        # pass
 
 
 class Entity(BaseModel):
@@ -941,8 +895,6 @@ class Entity(BaseModel):
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
     status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=selection, db_index=True)
 
-    # sku_attributes = ListObjectField()
-
     objects = EntityManager()
 
     class Meta:
@@ -957,14 +909,14 @@ class Entity(BaseModel):
         else:
             try:
                 res = Brand.objects.get(name__iexact=self.brand, status__gt=0).id or \
-                    Brand.objects.get(alias__iexact=self.brand, status__gt=0).id
+                      Brand.objects.get(alias__iexact=self.brand, status__gt=0).id
             except Brand.DoesNotExist:
                 res = 'NOT_FOUND'
                 cache.set(key, res, timeout=86400)
                 return res
                 # for no brand
                 # save not_found for 1 day , until search again
-            cache.set(key, res, timeout=86400*14)
+            cache.set(key, res, timeout=86400 * 14)
             # for found brand , cache 2 week
             return res
 
@@ -995,28 +947,22 @@ class Entity(BaseModel):
         key = 'entity:like:%d' % self.pk
         res = cache.get(key)
         if res:
-            # log.info("hit hit")
             return res
         else:
-            # log.info("miss miss")
             res = self.likes.count()
             cache.set(key, res, timeout=86400)
             return res
-            # return self.likes.count()
 
     @property
     def note_count(self):
         key = 'entity:note:%d' % self.pk
         res = cache.get(key)
         if res:
-            # log.info("hit hit")
             return res
         else:
-            # log.info("miss miss")
             res = self.notes.count()
             cache.set(key, res, timeout=86400)
             return res
-            # return self.notes.count()
 
     @property
     def has_top_note(self):
@@ -1036,12 +982,12 @@ class Entity(BaseModel):
     def top_note(self):
         # try:
         cache_key = self.get_top_note_cache_key()
-        _tn = cache.get(cache_key,None)
+        _tn = cache.get(cache_key, None)
         if _tn is None:
             notes = self.notes.filter(status=1).order_by('-post_time')
             if len(notes) > 0:
-                _tn =  notes[0]
-                cache.set(cache_key, _tn , 24*3600)
+                _tn = notes[0]
+                cache.set(cache_key, _tn, 24 * 3600)
         return _tn
 
     @property
@@ -1057,7 +1003,7 @@ class Entity(BaseModel):
 
     @property
     def qrcode_url(self):
-        return "%s?from=qrcode"% self.absolute_url.encode('utf8')
+        return "%s?from=qrcode" % self.absolute_url.encode('utf8')
 
     @property
     def design_week_url(self):
@@ -1071,9 +1017,9 @@ class Entity(BaseModel):
 
     @property
     def selected_related_articles(self):
-        related_selection_articles = Selection_Article.objects.published().filter(article__in=self.related_articles.all())
-        return  related_selection_articles
-
+        related_selection_articles = Selection_Article.objects.published().filter(
+            article__in=self.related_articles.all())
+        return related_selection_articles
 
     def innr_like(self):
         key = 'entity:like:%d' % self.pk
@@ -1107,7 +1053,6 @@ class Entity(BaseModel):
 
     @property
     def enter_selection_time(self):
-        # _tm = None
         try:
             _tm = self.selection_entity.pub_time
         except Exception:
@@ -1127,10 +1072,7 @@ class Entity(BaseModel):
 
     def v3_toDict(self, user_like_list=None):
         key = "entity:dict:v3:%s" % self.id
-        # key = md5(key_string.encode('utf-8')).hexdigest()
         res = cache.get(key)
-        # log.info(user_like_list)
-        # res = {}
         if not res:
             res = self.toDict()
             res.pop('id', None)
@@ -1139,7 +1081,6 @@ class Entity(BaseModel):
             res.pop('rate', None)
             res['entity_id'] = self.id
             res['item_id_list'] = ['54c21867a2128a0711d970da']
-            # res['price'] = "%s" % int(self.price)
             res['weight'] = 0
             res['score_count'] = 0
             res['mark_value'] = 0
@@ -1177,11 +1118,8 @@ class Entity(BaseModel):
     def save(self, *args, **kwargs):
         super(Entity, self).save(*args, **kwargs)
         key = "entity:dict:v3:%s" % self.id
-        # key_string = "entity_v3_%s" % self.id
-        # key = md5(key_string.encode('utf-8')).hexdigest()
         cache.delete(key)
         self.invalid_top_note_cache()
-
 
     def fetch_image(self):
         image_list = list()
@@ -1205,8 +1143,8 @@ class Entity(BaseModel):
     def add_sku(self, attributes=None):
         if attributes is None:
             attributes = {}
-        sku , created = self.skus.get_or_create(entity=self,attrs=attributes)
-        if created :
+        sku, created = self.skus.get_or_create(entity=self, attrs=attributes)
+        if created:
             sku.entity = self
             sku.attributes = attributes
             sku.save()
@@ -1215,6 +1153,7 @@ class Entity(BaseModel):
     @property
     def sku_count(self):
         return self.skus.filter(status=1).count()
+
 
 class Selection_Entity(BaseModel):
     entity = models.OneToOneField(Entity, unique=True)
@@ -1300,9 +1239,6 @@ class Entity_Brand(BaseModel):
     entity = models.OneToOneField(Entity, related_name='brand_link')
     brand = models.ForeignKey(Brand, related_name='entities_link')
     brand_order = models.IntegerField(default=9999)
-    class Meta:
-        pass
-        # unique_together = ('entity','brand')
 
 
 class Note(BaseModel):
@@ -1325,7 +1261,6 @@ class Note(BaseModel):
 
     class Meta:
         ordering = ['-status', 'post_time']
-        # unique_together = ('entity', 'user')
 
     def __unicode__(self):
         return self.note
@@ -1366,9 +1301,7 @@ class Note(BaseModel):
 
     def v3_toDict(self, user_note_pokes=None, visitor=None, has_entity=False):
         key = "note:v3:%s" % self.id
-        # key = md5(key_string.encode('utf-8')).hexdigest()
         res = cache.get(key)
-        # if res:
 
         if not res:
             res = self.toDict()
@@ -1382,9 +1315,7 @@ class Note(BaseModel):
             res['is_selected'] = self.status
             res['poker_id_list'] = list(self.poke_list)
             cache.set(key, res, timeout=86400)
-            # log.info("miss miss")
-        # log.info(user_note_pokes)
-        # log.info(visitor)
+
         res['poke_count'] = self.poke_count
         res['comment_count'] = self.comment_count
         res['creator'] = self.user.v3_toDict(visitor)
@@ -1400,6 +1331,7 @@ class Note(BaseModel):
 
         return res
 
+
 class Note_Comment(BaseModel):
     note = models.ForeignKey(Note, related_name='comments')
     user = models.ForeignKey(GKUser, related_name='note_comment')
@@ -1407,7 +1339,6 @@ class Note_Comment(BaseModel):
     replied_comment_id = models.IntegerField(default=None, null=True)
     replied_user_id = models.IntegerField(default=None, null=True)
     post_time = models.DateTimeField(auto_now=True, db_index=True)
-    # updated_time = models.DateTimeField(auto_now = True, db_index = True)
 
     objects = CommentManager()
 
@@ -1419,9 +1350,8 @@ class Note_Comment(BaseModel):
 
     @property
     def replied_user_nick(self):
-        profile = User_Profile.objects.get(user_id = self.replied_user_id)
+        profile = User_Profile.objects.get(user_id=self.replied_user_id)
         return profile.nickname
-
 
     def v3_toDict(self):
         res = self.toDict()
@@ -1429,7 +1359,6 @@ class Note_Comment(BaseModel):
         res.pop('replied_user_id', None)
         res.pop('id', None)
         res['creator'] = self.user.v3_toDict()
-        # res['created_time'] = "%s" % self.post_time
         res['created_time'] = time.mktime(self.post_time.timetuple())
         res['comment_id'] = self.id
         try:
@@ -1451,10 +1380,6 @@ class Note_Poke(models.Model):
         ordering = ['-created_time']
         unique_together = ('note', 'user')
 
-        # def save(self, *args, **kwargs):
-        #
-        #     super(Note_Poke, self).save(*args, **kwargs)
-        #     notify.send(self.user, recipient=self.note.user, action_object=self, verb="poke note", target=self.note)
 
 class Sina_Token(BaseModel):
     user = models.OneToOneField(GKUser, related_name='weibo')
@@ -1518,9 +1443,6 @@ class WeChat_Token(BaseModel):
         return md5(code_string.encode('utf-8')).hexdigest()
 
 
-from apps.tag.models import Content_Tags
-
-
 class Article(BaseModel):
     (remove, draft, published) = xrange(3)
 
@@ -1530,8 +1452,8 @@ class Article(BaseModel):
         (remove, _("remove")),
     ]
 
-    (from_editor, from_weixin , from_rss ) = xrange(3)
-    ARTICLE_SOURCE_CHOICES =[
+    (from_editor, from_weixin, from_rss) = xrange(3)
+    ARTICLE_SOURCE_CHOICES = [
         (from_editor, _("from editor")),
         (from_weixin, _("from weixin")),
         (from_rss, _("from rss"))
@@ -1556,7 +1478,6 @@ class Article(BaseModel):
     source = models.IntegerField(choices=ARTICLE_SOURCE_CHOICES, default=from_editor, null=True, blank=True)
     article_slug = models.CharField(max_length=128, default='')
 
-
     objects = ArticleManager()
 
     class Meta:
@@ -1567,8 +1488,8 @@ class Article(BaseModel):
 
     @property
     def read_count_realtime(self):
-        articl_id_path = reverse('web_article_page', args=[self.pk])
-        counter_key =  RedisCounterMachine.get_counter_key_from_path(articl_id_path)
+        article_id_path = reverse('web_article_page', args=[self.pk])
+        counter_key = RedisCounterMachine.get_counter_key_from_path(article_id_path)
         try:
             res = RedisCounterMachine.get_key(counter_key)
             if res is None or res == 0:
@@ -1576,7 +1497,6 @@ class Article(BaseModel):
             return int(res)
         except CounterException as e:
             return self.read_count
-
 
     def make_slug(self):
 
@@ -1598,11 +1518,8 @@ class Article(BaseModel):
             except Article.DoesNotExist:
                 return new_slug
 
-            # print('*' * 80)
-            # print('slug found' + str(self.id))
             number += 1
             new_slug = slug + str(number)
-
 
     def get_related_articles(self, page=1):
         return Selection_Article.objects.article_related(self, page)
@@ -1620,8 +1537,8 @@ class Article(BaseModel):
         title = self.title
         created_datetime = self.created_datetime
         user_id = self.creator.id
-        title_hash =  hashlib.sha1(title.encode('utf-8')).hexdigest()
-        return '%s_%s_%s ' % (user_id,title_hash,created_datetime)
+        title_hash = hashlib.sha1(title.encode('utf-8')).hexdigest()
+        return '%s_%s_%s ' % (user_id, title_hash, created_datetime)
 
     @property
     def dig_count(self):
@@ -1631,7 +1548,7 @@ class Article(BaseModel):
             return res
         else:
             res = self.digs.count()
-            cache.set(key, res, timeout = 86400)
+            cache.set(key, res, timeout=86400)
             return res
 
     def incr_dig(self):
@@ -1639,14 +1556,14 @@ class Article(BaseModel):
         try:
             cache.incr(key)
         except ValueError:
-            cache.set(key, self.digs.count(), timeout = 864000)
+            cache.set(key, self.digs.count(), timeout=864000)
 
     def decr_dig(self):
         key = self.get_dig_key()
-        try :
+        try:
             cache.decr(key)
         except Exception:
-            cache.set(key, self.digs.count(), timeout = 864000)
+            cache.set(key, self.digs.count(), timeout=864000)
 
     @property
     def tag_list(self):
@@ -1680,7 +1597,7 @@ class Article(BaseModel):
     def feed_content(self):
         feed_count_img_url = feed_img_counter_host + reverse('article_image_count', args=[self.pk])
         feed_count_img_html = '<div>&nbsp;</div><img src="%s">' % feed_count_img_url
-        return  self.bleached_content + feed_count_img_html
+        return self.bleached_content + feed_count_img_html
 
     @property
     def digest(self):
@@ -1688,25 +1605,19 @@ class Article(BaseModel):
 
     @property
     def short_digest(self, length=60):
-        key = 'Article:digest:cache:%s'%self.pk
+        key = 'Article:digest:cache:%s' % self.pk
         length = int(length)
         digest = cache.get(key)
         if digest is not None:
             return digest
-        else :
-            digest =  truncate(re.sub('[\r|\n| ]','',_strip_once(self.content)),length)
-            cache.set(key , digest, 3600*24)
+        else:
+            digest = truncate(re.sub('[\r|\n| ]', '', _strip_once(self.content)), length)
+            cache.set(key, digest, 3600 * 24)
             return digest
 
     @property
     def status(self):
         return self.publish
-
-    # @property
-    # user template to decide where to display https
-    # def cover_url(self):
-    #     return self._cover_url.replace('http://', 'https://')
-    #     return self._cover_url.replace('http://', 'https://')
 
     @property
     def cover_url(self):
@@ -1767,7 +1678,7 @@ class Article(BaseModel):
 
     @property
     def enter_selection_time(self):
-        '''used for solr index'''
+        """used for solr index"""
         try:
             enter_selection_time = self.selections.filter(is_published=True) \
                                        .order_by('-pub_time') \
@@ -1798,12 +1709,11 @@ class Article(BaseModel):
             return res
         else:
             res = self.comments.filter(status=Article_Remark.normal).count()
-            cache.set(key, res, timeout = 86400)
+            cache.set(key, res, timeout=86400)
             return res
-        # return self.comments.count()
 
     def invalid_digest_cache(self):
-        key = 'Article:digest:cache:%s'%self.pk
+        key = 'Article:digest:cache:%s' % self.pk
         cache.delete(key)
 
     def invalid_all_cache(self):
@@ -1830,12 +1740,12 @@ class Article(BaseModel):
 
         # add article related entities,
         self.generate_slug()
-        res = super(Article, self).save(*args, **kwargs)
+        super(Article, self).save(*args, **kwargs)
 
         self.update_related_entity()
         return self
 
-# TODO: model to dict
+    # TODO: model to dict
     def v4_toDict(self, articles_list=list()):
         res = self.toDict()
         res.pop('id', None)
@@ -1853,15 +1763,6 @@ class Article(BaseModel):
         if self.id in articles_list:
             res['is_dig'] = True
         return res
-    # will cause circuler reference
-        # def tag_string(self):
-        #     tids = Content_Tags.objects.filter(target_content_type=31, target_object_id=self.pk).values_list('tag_id', flat=True)
-        #     tags = Tags.objects.filter(pk__in=tids)
-        #     tag_list=[]
-        #     for row in tags:
-        #         tag_list.append(row.name)
-        #     tag_string = ",".join(tag_list)
-        #     return tag_string
 
 
 class Article_Remark(BaseModel):
@@ -1906,8 +1807,6 @@ class Selection_Article(BaseModel):
     def __unicode__(self):
         return '%s- in selection at - %s' % (
             self.article.title, self.create_time)
-        # def __unicode__(self):
-        #     return self.article
 
 
 class Article_Dig(BaseModel):
@@ -2007,9 +1906,6 @@ class Event_Status(models.Model):
             self.event.slug, self.is_published, self.is_top)
 
 
-# class Event_Articles(BaseModel):
-#     event = models.ForeignKey(Event)
-
 class Event_Banner(models.Model):
     (item, shop) = (0, 1)
     BANNER_TYPE__CHOICES = [
@@ -2036,7 +1932,6 @@ class Event_Banner(models.Model):
     @property
     def image_url(self):
         return "%s%s" % (image_host, self.image)
-        # return "%s%s" % (image_host, self.image)
 
     @property
     def background_image_url(self):
@@ -2099,12 +1994,11 @@ class Editor_Recommendation(models.Model):
 
     @property
     def section(self):
-        try :
+        try:
             return self.show.section
-        except Exception as e :
+        except Exception as e:
             # default value , see Show_Editor_Recommendation
             return 'entity'
-
 
     @property
     def position(self):
@@ -2130,11 +2024,10 @@ class Editor_Recommendation(models.Model):
 
 
 class Show_Editor_Recommendation(models.Model):
-
     RECOMMENDATION_SECTION_CHOICE = [
-        ('entity','编辑推荐'),
-        ('fair','活动一览'),
-        ('shop','店铺推荐')]
+        ('entity', '编辑推荐'),
+        ('fair', '活动一览'),
+        ('shop', '店铺推荐')]
 
     recommendation = models.OneToOneField(Editor_Recommendation,
                                           related_name='show', unique=False)
@@ -2242,7 +2135,6 @@ class EDM(BaseModel):
             return "%s%s" % (image_host, cover_image)
 
 
-
 class SD_Address_List(BaseModel):
     address = models.CharField(max_length=45, unique=True)
     name = models.CharField(max_length=45)
@@ -2251,12 +2143,11 @@ class SD_Address_List(BaseModel):
     members_count = models.IntegerField(default=0)
 
 
-################################################################################
-
 @receiver(post_save, sender=User_Profile)
 def register_signal(sender, instance, created, raw, using,
-                        update_fields, **kwargs):
-    """ Send a verification email when user registers.
+                    update_fields, **kwargs):
+    """
+    Send a verification email when user registers.
     """
     from apps.core.tasks import send_activation_mail
     if created:
@@ -2272,8 +2163,6 @@ def create_or_update_entity(sender, instance, created, **kwargs):
             try:
                 selection = Selection_Entity.objects.get(entity=instance)
                 selection.entity = instance
-                # selection.is_published = False
-                # selection.pub_time = datetime.now()
                 selection.save()
             except Selection_Entity.DoesNotExist, e:
                 log.info(e.message)
@@ -2309,8 +2198,6 @@ def entity_set_to_selection(sender, instance, created, raw, using,
 
 def user_like_notification(sender, instance, created, **kwargs):
     if issubclass(sender, Entity_Like) and created:
-        # log.info(instance.user)
-        # log.info(instance.entity.user)
         if instance.user.is_active == GKUser.remove:
             return
         if instance.user != instance.entity.user and instance.user.is_active >= instance.user.blocked:
@@ -2327,22 +2214,27 @@ def user_dig_notification(sender, instance, created, **kwargs):
     if issubclass(sender, Article_Dig) and created:
         if instance.user.is_blocked:
             return
-        if instance.user !=  instance.article.creator:
-            notify.send(instance.user, recipient=instance.article.creator, \
-                        action_object=instance, verb='dig article',\
-                        target = instance.article)
+        if instance.user != instance.article.creator:
+            notify.send(instance.user,
+                        recipient=instance.article.creator,
+                        action_object=instance,
+                        verb='dig article',
+                        target=instance.article)
 
-post_save.connect(user_dig_notification, sender=Article_Dig, \
+
+post_save.connect(user_dig_notification,
+                  sender=Article_Dig,
                   dispatch_uid="user_dig_action_notification")
 
-from apps.tag.tasks import generator_tag
+
 def user_post_note_notification(sender, instance, created, **kwargs):
+
+    # TODO: 把函数提取出去，解决循环饮用的问题
+    from apps.tag.tasks import generator_tag
     data = serializers.serialize('json', [instance])
     generator_tag.delay(data=data)
-    # generator_tag(data=data)
 
     if issubclass(sender, Note) and created:
-        # log.info(instance.user)
         instance.entity.innr_note()
         if instance.user != instance.entity.user and instance.user.is_active >= instance.user.blocked:
             notify.send(instance.user, recipient=instance.entity.user,
@@ -2355,16 +2247,15 @@ post_save.connect(user_post_note_notification, sender=Note,
 
 
 def user_post_comment_notification(sender, instance, created, **kwargs):
-    # log.info(created)
     if issubclass(sender, Note_Comment) and created:
-        # log.info(instance.user)
         if instance.user.is_active == GKUser.remove:
             return
 
         notify.send(instance.user, recipient=instance.note.user,
                     verb="replied note", action_object=instance,
                     target=instance.note)
-        if (instance.replied_user_id):
+
+        if instance.replied_user_id:
             try:
                 user = GKUser.objects.get(pk=instance.replied_user_id)
                 notify.send(instance.user, recipient=user,
@@ -2385,7 +2276,6 @@ def user_poke_note_notification(sender, instance, created, **kwargs):
         notify.send(instance.user, recipient=instance.note.user,
                     action_object=instance, verb="poke note",
                     target=instance.note)
-        # pass
 
 
 post_save.connect(user_poke_note_notification, sender=Note_Poke,
@@ -2403,20 +2293,14 @@ def user_follow_notification(sender, instance, created, **kwargs):
 post_save.connect(user_follow_notification, sender=User_Follow,
                   dispatch_uid="user_follow_notification")
 
-#
-# def article_related_entity_update(sender, instance, created, **kwargs):
-#     if issubclass(sender, Article ):
-#         print(instance.content)
-#
-# post_save.connect(article_related_entity_update, sender=Article, dispatch_uid="article_related_product_update")
-
 
 def article_remark_notification(sender, instance, created, **kwargs):
     if issubclass(sender, Article_Remark) and created:
         log.info(instance)
-        notify.send(instance.user, recipient=instance.article.creator, verb=u'has remark on article', action_object=instance, target=instance.article)
+        notify.send(instance.user, recipient=instance.article.creator, verb=u'has remark on article',
+                    action_object=instance, target=instance.article)
+
 
 post_save.connect(article_remark_notification, sender=Article_Remark, dispatch_uid="article_remark_notification")
-
 
 __author__ = 'edison7500'
