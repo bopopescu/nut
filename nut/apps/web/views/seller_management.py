@@ -5,7 +5,7 @@ from apps.core.forms.entity import EntityImageForm, AddEntityForm, AddEntityForm
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.forms.entity import EditEntityForm, ChangeCreatorEditEntityForm
 from apps.core.mixins.views import FilterMixin, SortMixin
-from apps.management.views.entities import Add_local, Import_entity
+from apps.management.views.entities import Add_local, ImportEntity
 from apps.order.models import OrderItem
 from braces.views import JSONResponseMixin,AjaxResponseMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
@@ -755,7 +755,7 @@ class SellerManagementSkuSave(AjaxResponseMixin, JSONResponseMixin, View):
         return HttpResponseRedirect(reverse('web_seller_management'))
 
 
-class SellerManagementImportEntity(Import_entity):
+class SellerManagementImportEntity(ImportEntity):
     def __init__(self):
         super(SellerManagementImportEntity, self).__init__(template='web/seller_management/import_entity.html',
                                                            entity_edit_url='web_seller_management_entity_edit',
