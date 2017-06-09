@@ -1,5 +1,5 @@
 '''
-Created by auto_sdk on 2015.04.13
+Created by auto_sdk on 2015.03.26
 '''
 from top.api.base import RestApi
 class OpensecurityIsvUidGetRequest(RestApi):
