@@ -13,7 +13,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from apps.api.serializers.entity import EntitySerializer, WebEntitySerializer, SkuSerializer
-from apps.core.models import Entity, Article
+from apps.core.models import Entity, Article, PublishBaidu
 
 log = getLogger('django')
 
@@ -102,8 +102,8 @@ class UploadArticleView(APIView):
             card.replace_with(new_tag)
         goods_info = [{'sku_id': entity_hash, 'tpl_id': 'BdrainrwSpdGoodsHasPic'} for entity_hash in
                       entity_hash_list]
-        url = u'http://hoteltest.baidu.com/business/article_publish'
-        token = u'spdtkn_test12'
+        url = u'http://sfc.baidu.com/business/article_publish'
+        token = u'4484c8afa31b315ec3f21e7989e35464'
 
         content = unicode(soup).replace('\n', '')
 
@@ -128,9 +128,30 @@ class UploadArticleView(APIView):
 
         try:
             response = requests.post(url, data=payload)
-            return Response(response.json())
+            return Response(response.text)
         except Exception as e:
             return Response(unicode(e))
 
 
 upload_article_view = UploadArticleView.as_view()
+
+
+class PublishBaiduView(APIView):
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        article_url = request.data.get('article_url', '')
+        abstract = request.data.get('abstract', u'')
+        title = request.data.get('title', u'')
+        domain = request.data.get('domain', u'1')
+
+        article_slug = article_url.split('/')[-2]
+        article = Article.objects.get(article_slug=article_slug)
+
+        try:
+            PublishBaidu.objects.create(title=title, abstract=abstract, article_id=article.id, domain=domain)
+            return Response({'code': 0, 'message': '创建成功'})
+        except Exception as e:
+            return Response(unicode(e))
+
+create_publish_baidu_view = PublishBaiduView.as_view()

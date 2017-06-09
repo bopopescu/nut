@@ -2303,4 +2303,16 @@ def article_remark_notification(sender, instance, created, **kwargs):
 
 post_save.connect(article_remark_notification, sender=Article_Remark, dispatch_uid="article_remark_notification")
 
+
+class PublishBaidu(models.Model):
+    class Meta:
+        db_table = 'publish_baidu'
+
+    article = models.ForeignKey(Article)
+    title = models.CharField(max_length=32, verbose_name='title')
+    abstract = models.CharField(max_length=64)
+    domain = models.IntegerField()
+    create_time = models.DateTimeField(auto_now_add=True)
+    publish_time = models.DateTimeField()
+
 __author__ = 'edison7500'
