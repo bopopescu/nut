@@ -15,7 +15,7 @@ class Command(BaseCommand):
     help = 'publish article to baidu'
 
     def handle(self, *args, **options):
-        task_list = PublishBaidu.objects.filter(publish_time__isnull=True).order_by('id')[:2]
+        task_list = PublishBaidu.objects.filter(publish_time__isnull=True, is_error=False).order_by('id')[:2]
         for publish_task in task_list:
             article = Article.objects.get(pk=publish_task.article_id)
 
@@ -60,11 +60,11 @@ class Command(BaseCommand):
             try:
                 response = requests.post(url, data=payload)
                 result = response.json()
-                if result['errno'] == 0:
-                    publish_task.publish_time = datetime.datetime.now()
-                    publish_task.save()
-                    self.stdout.write(json.dumps(result))
-                else:
-                    self.stderr.write(json.dumps(result))
+                publish_task.publish_time = datetime.datetime.now()
+                publish_task.result = json.dumps(result)
+                # publish_task.is_error = 1 if result['error'] != 0 else 0
+                publish_task.save()
+                self.stdout.write(publish_task.result)
+
             except Exception as e:
                 self.stderr.write(e)

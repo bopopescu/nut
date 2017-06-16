@@ -302,18 +302,19 @@ CELERY_ROUTES = {
 
 
 # for django-simple-captcha
-CAPTCHA_FOREGROUND_COLOR = '#333333' # 验证码字体颜色
-CAPTCHA_BACKGROUND_COLOR = '#f8f8f8' # 验证码背景颜色
+CAPTCHA_FOREGROUND_COLOR = '#ffffff'
+CAPTCHA_BACKGROUND_COLOR = '#000000'
 CAPTCHA_NOISE_FUNCTIONS = (
     'captcha.helpers.noise_arcs',
-    'captcha.helpers.noise_dots',
+    # 'captcha.helpers.noise_dots',
 )
-# CAPTCHA_LETTER_ROTATION = (-35, 90)
-CAPTCHA_LENGTH = 5
-CAPTCHA_LETTER_ROTATION = (-10, 10)
-CAPTCHA_FONT_PATH = 'fonts/planetbe.ttf'
-CAPTCHA_FONT_SIZE = 28
-CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
+CAPTCHA_LETTER_ROTATION = (-35, 35)
+CAPTCHA_LENGTH = 8
+# CAPTCHA_FONT_PATH = 'fonts/planetbe.ttf'
+CAPTCHA_FONT_PATH = 'fonts/ccc.ttf'
+CAPTCHA_FONT_SIZE = 30
+# CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'
 
 # for debug server popular  category test
 DEFAULT_POPULAR_SCALE = 7

@@ -1198,6 +1198,9 @@ class Buy_Link(BaseModel):
 
     last_update = models.DateTimeField(auto_now=True)
 
+    taobao_open_iid = models.CharField(max_length=100)
+    taobao_data = models.TextField()
+
     class Meta:
         ordering = ['-default']
 
@@ -2314,5 +2317,36 @@ class PublishBaidu(models.Model):
     domain = models.IntegerField()
     create_time = models.DateTimeField(auto_now_add=True)
     publish_time = models.DateTimeField()
+    result = models.CharField(max_length=128)
+    is_error = models.BooleanField(default=False)
 
-__author__ = 'edison7500'
+
+class TaobaoShop(models.Model):
+    class Meta:
+        db_table = 'taobao_shop'
+
+    sid = models.CharField(max_length=32)
+    cid = models.CharField(max_length=32)
+    nick = models.CharField(max_length=64)
+    title = models.CharField(max_length=200)
+    desc = models.CharField(max_length=512)
+    pic_path = models.CharField(max_length=128)
+    bulletin = models.CharField(max_length=512)
+    created = models.DateTimeField(null=True)
+    modified = models.DateTimeField(null=True)
+    item_score = models.DecimalField(max_digits=4, decimal_places=2)
+    delivery_score = models.DecimalField(max_digits=6, decimal_places=2)
+    service_score = models.DecimalField(max_digits=6, decimal_places=2)
+
+
+class TaobaoItem(models.Model):
+    class Meta:
+        db_table = 'taobao_item'
+    buy_link = models.ForeignKey(Buy_Link, related_name='taobao_items')
+    open_iid = models.CharField(max_length=100)
+    origin_id = models.CharField(max_length=100)
+    seller_type = models.CharField(max_length=20)
+    seller_nick = models.CharField(max_length=64)
+    # shop = models.ForeignKey(TaobaoShop, null=True)
+    title = models.CharField(max_length=128)
+    json_data = models.TextField()

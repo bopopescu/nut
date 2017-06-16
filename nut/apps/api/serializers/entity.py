@@ -82,8 +82,7 @@ class SkuSerializer(serializers.ModelSerializer):
         return True
 
     def get_promotion_url(self, obj):
-
-        return urljoin('http://www.guoku.com', obj.absolute_url)
+        return urljoin('http://www.guoku.com', obj.absolute_url) + '?from=baijiahao'
 
     class Meta:
         model = Entity
