@@ -2347,6 +2347,14 @@ class TaobaoItem(models.Model):
     origin_id = models.CharField(max_length=100)
     seller_type = models.CharField(max_length=20)
     seller_nick = models.CharField(max_length=64)
-    # shop = models.ForeignKey(TaobaoShop, null=True)
     title = models.CharField(max_length=128)
     json_data = models.TextField()
+
+
+class PurchaseRecord(models.Model):
+    entity = models.ForeignKey(Entity, related_name='purchase_records')
+    user = models.ForeignKey(GKUser, related_name='purchase_records')
+    created_time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_name = 'stat_purchase_record'

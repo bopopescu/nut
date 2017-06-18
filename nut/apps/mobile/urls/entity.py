@@ -1,7 +1,6 @@
 from django.conf.urls import url, patterns
 from apps.mobile.views.entity import APIEntitySearchView
 
-
 urlpatterns = patterns(
     'apps.mobile.views.entity',
     url(r'^$', 'entity_list', name='mobile_entity_list'),
@@ -9,8 +8,8 @@ urlpatterns = patterns(
     url(r'^guess/$', 'guess', name='mobile_entity_guess'),
     url(r'^(?P<entity_id>\d+)/$', 'detail', name='mobile_entity_detail'),
     url(r'^(?P<entity_id>\d+)/like/(?P<target_status>\d+)/$', 'like_action', name='mobile_entity_like_action'),
+    url(r'^(?P<entity_id>\d+)/purchase/$', 'purchase_action', name='mobile_entity_purchase_action'),
 
-    # url(r'^note/$', 'note', name='mobile_entity_note'),
     url(r'^(?P<entity_id>\d+)/report/$', 'report', name='mobile_entity_report'),
 )
 
