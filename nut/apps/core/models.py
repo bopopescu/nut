@@ -2352,9 +2352,9 @@ class TaobaoItem(models.Model):
 
 
 class PurchaseRecord(models.Model):
+    class Meta:
+        db_table = 'stat_purchase_record'
+
     entity = models.ForeignKey(Entity, related_name='purchase_records')
     user = models.ForeignKey(GKUser, related_name='purchase_records')
     created_time = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        db_name = 'stat_purchase_record'
