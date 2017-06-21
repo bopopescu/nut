@@ -75,47 +75,42 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
         data = {
             "button": [
                 {
-                    "name": "热门精选",
+                    "name": "每日精选",
+                    "type": "view",
+                    "url": "http://guoku.com/selected/",
+                },
+                {
+                    "name": "用户活动",
                     "sub_button": [
                         {
-                            "name": "每日精选",
+                            "name": "试用活动",
                             "type": "view",
-                            "url": "http://guoku.com/selected/",
+                            "url": "http://www.guoku.com/articles/ba-xiong-ben-xiong-fang-jin-zui-li-shi-chong-shi/"
                         },
                         {
-                            "name": "热门商品",
+                            "name": "申请试用",
                             "type": "view",
-                            "url": "http://guoku.com/popular/",
-                        },
-                        {
-                            "name": "更多专题",
-                            "type": "view",
-                            "url": "http://guoku.com/event/",
-                        },
-                        {
-                            "type": "click",
-                            "name": "我的果库",
-                            "key": "V2001_USER_LIKE",
-                        },
+                            "url": "https://jinshuju.net/f/ayaLQQ"
+                        }
                     ]
                 },
                 {
-                    "name": "应用下载",
+                    "name": "App下载",
                     "sub_button": [
                         {
-                            "name": "iPhone 版",
+                            "name": "iPhone下载",
                             "type": "view",
                             "url": "https://itunes.apple.com/cn/app/guo-ku/id477652209?mt=8",
                         },
                         {
-                            "name": "iPad 版",
-                            "type": "view",
-                            "url": "https://itunes.apple.com/cn/app/guo-kuhd/id450507565?mt=8",
-                        },
-                        {
-                            "name": "Android 版",
+                            "name": "Android下载",
                             "type": "view",
                             "url": "http://www.wandoujia.com/apps/com.guoku",
+                        },
+                        {
+                            "name": "商务合作",
+                            "type": "click",
+                            "key": "CLICK_CONTACT_US"
                         }
                     ]
                 }

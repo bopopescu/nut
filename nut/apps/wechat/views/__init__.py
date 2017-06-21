@@ -79,6 +79,16 @@ class WeChatView(View):
                         },
                         mimetype="application/xml",
                     )
+                elif msg['Event'] == 'CLICK':
+                    if msg['EventKey'] == 'CLICK_CONTACT_US':
+                        return render_to_response(
+                            'wechat/replymsg.xml',
+                            {
+                                'msg': msg,
+                                'content': '商务合作请联系 bd@guoku.com',
+                                'timestamp': int(_timestamp),
+                            }
+                        )
                 _items = handle_event(msg)
                 if _items is None:
                     request.session['open_id'] = msg['FromUserName']
