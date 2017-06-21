@@ -335,18 +335,18 @@ def report(request, entity_id):
 
 
 @csrf_exempt
-@check_sign
 def purchase(request, entity_id):
     if request.method == "POST":
         _key = request.POST.get('session', None)
         try:
             _session = Session_Key.objects.get(session_key=_key)
+            user_id = _session.user_id
         except Session_Key.DoesNotExist:
-            return ErrorJsonResponse(status=403)
+            user_id = None
 
         # TODO: 改成异步处理
         device_uuid = request.POST.get('device_uuid', '')
-        record = PurchaseRecord(user_id=_session.user_id, entity_id=entity_id, device_uuid=device_uuid)
+        record = PurchaseRecord(user_id=user_id, entity_id=entity_id, device_uuid=device_uuid)
         record.save()
 
         return SuccessJsonResponse({'record_id': record.id})
