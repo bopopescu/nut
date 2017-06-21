@@ -1,10 +1,11 @@
+# coding=utf-8
 from django.views.decorators.csrf import csrf_exempt
 # from django.views.decorators.http import require_GET
 from django.core.paginator import Paginator, EmptyPage
 
 from apps.core.utils.http import SuccessJsonResponse, ErrorJsonResponse
 from apps.mobile.lib.sign import check_sign
-from apps.core.models import Entity, Entity_Like, Note_Poke, GKUser
+from apps.core.models import Entity, Entity_Like, Note_Poke, GKUser, PurchaseRecord
 # from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 # from apps.core.models import Entity_Like
 from apps.core.tasks import like_task, unlike_task
@@ -333,4 +334,21 @@ def report(request, entity_id):
     return SuccessJsonResponse({ "status" : 1 })
 
 
-__author__ = 'edison'
+@csrf_exempt
+@check_sign
+def purchase(request, entity_id):
+    if request.method == "POST":
+        _key = request.POST.get('session', None)
+        try:
+            _session = Session_Key.objects.get(session_key=_key)
+        except Session_Key.DoesNotExist:
+            return ErrorJsonResponse(status=403)
+
+        # TODO: 改成异步处理
+        device_uuid = request.POST.get('device_uuid', '')
+        record = PurchaseRecord(user_id=_session.user_id, entity_id=entity_id, device_uuid=device_uuid)
+        record.save()
+
+        return SuccessJsonResponse({'record_id': record.id})
+
+    return ErrorJsonResponse(status=400)

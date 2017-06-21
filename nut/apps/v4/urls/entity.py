@@ -17,6 +17,7 @@ urlpatterns = patterns(
 
     # url(r'^note/$', 'note', name='v4_entity_note'),
     url(r'^(?P<entity_id>\d+)/report/$', 'report', name='v4_entity_report'),
+    url(r'^(?P<entity_id>\d+)/purchase/$', 'purchase', name='v4_entity_purchase'),
 
     # entity sku url
     url(r'^sku/(?P<entity_hash>\w+)/$', EntitySKUView.as_view(), name='v4_entity_sku'),
