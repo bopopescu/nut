@@ -34,10 +34,20 @@ class Command(BaseCommand):
                           entity_hash_list]
 
             url = u'http://sfc.baidu.com/business/article_publish'
-            token = u'4484c8afa31b315ec3f21e7989e35464'
+            token = '4484c8afa31b315ec3f21e7989e35464'
 
             content = unicode(soup).replace('\n', '')
 
+            # 自定义图片处理
+            cover_images = json.loads(publish_task.cover_images) if publish_task.cover_images else [article.cover_url]
+            if 0 < len(cover_images) < 3:
+                cover_layout = u'one'
+                cover_images_json = json.dumps(cover_images[0], encoding='utf-8')
+            else:
+                cover_layout = u'three'
+                cover_images_json = json.dumps(cover_images[:3], encoding='utf-8')
+
+            cover_images_json = cover_images_json.encode('utf-8')
             payload = {
                 'app_id': u'1555485749942141',
                 'tp_src': u'guocool',
@@ -47,16 +57,15 @@ class Command(BaseCommand):
                 'title': publish_task.title or article.title,
                 'abstract': publish_task.abstract or '',
                 'content': content,
-                'cover_layout': u'one',
-                'cover_images': json.dumps([article.cover_url]).encode('utf-8'),
+                'cover_layout': cover_layout,
+                'cover_images': cover_images_json.encode('utf-8'),
                 'service_type': u'1',
                 'goods_info': json.dumps(goods_info).encode('utf-8'),
             }
-            values = u''.join(payload[key] for key in sorted(payload.iterkeys()))
+            values = u''.join(payload[key] for key in sorted(payload.iterkeys())).encode('utf-8')
             values += token
-            sign = hashlib.md5(values.encode('utf-8')).hexdigest()
+            sign = hashlib.md5(values).hexdigest()
             payload['sign'] = sign
-
             try:
                 response = requests.post(url, data=payload)
                 result = response.json()
@@ -64,7 +73,6 @@ class Command(BaseCommand):
                 publish_task.result = json.dumps(result)
                 # publish_task.is_error = 1 if result['error'] != 0 else 0
                 publish_task.save()
-                self.stdout.write(publish_task.result)
-
+                print(publish_task.result)
             except Exception as e:
-                self.stderr.write(e)
+                print(e)

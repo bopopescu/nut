@@ -2319,6 +2319,18 @@ class PublishBaidu(models.Model):
     publish_time = models.DateTimeField()
     result = models.CharField(max_length=128)
     is_error = models.BooleanField(default=False)
+    cover_images = models.TextField()
+
+
+class TaobaoCategory(models.Model):
+    class Meta:
+        db_table = 'taobao_category'
+
+    cid = models.CharField(max_length=32)
+    parent_cid = models.CharField(max_length=32)
+    name = models.CharField(max_length=128)
+    is_parent = models.BooleanField(default=False)
+    json_data = models.TextField()
 
 
 class TaobaoShop(models.Model):
