@@ -2371,3 +2371,13 @@ class PurchaseRecord(models.Model):
     user = models.ForeignKey(GKUser, related_name='purchase_records')
     device_uuid = models.CharField(max_length=100)
     created_time = models.DateTimeField(auto_now_add=True)
+
+
+class EntityViewRecord(models.Model):
+    class Meta:
+        db_table = 'stat_entity_view_record'
+
+    entity = models.ForeignKey(Entity, related_name='view_records')
+    user = models.ForeignKey(GKUser, related_name='entity_view_records')
+    device_uuid = models.CharField(max_length=100)
+    created_time = models.DateTimeField(auto_now_add=True)

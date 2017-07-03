@@ -8,7 +8,7 @@ from apps.mobile.lib.sign import check_sign
 from apps.core.models import Entity, Entity_Like, Note_Poke, GKUser, PurchaseRecord
 # from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
 # from apps.core.models import Entity_Like
-from apps.core.tasks import like_task, unlike_task
+from apps.core.tasks import like_task, unlike_task, record_entity_view_task
 from apps.mobile.models import Session_Key
 # from apps.mobile.forms.search import EntitySearchForm
 from apps.report.models import Report
@@ -130,6 +130,14 @@ class EntityDetialView(APIJsonView):
         except Session_Key.DoesNotExist, e:
             log.info(e.message)
             self.session = None
+
+        payload = {
+            'entity_id': self.entity_id,
+            'user_id': self.session.user_id if self.session else None,
+            'device_uuid': request.GET.get('device_uuid', None)
+        }
+
+        record_entity_view_task.delay(**payload)
 
         return super(EntityDetialView, self).get(request, *args, **kwargs)
 

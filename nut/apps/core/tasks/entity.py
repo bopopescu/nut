@@ -1,17 +1,19 @@
 from celery.task import task
+from celery.utils.log import get_task_logger
+
 from apps.core.tasks import BaseTask, DebugTask
 
-import urllib2
 import requests
-# from django.core.files.storage import default_storage
-# from django.core.files.base import ContentFile
 from apps.core.utils.image import HandleImage
-from apps.core.models import Entity, Entity_Like
+from apps.core.models import Entity, Entity_Like, EntityViewRecord
 
 from django.conf import settings
 
 image_path = getattr(settings, 'MOGILEFS_MEDIA_URL', 'images/')
 image_host = getattr(settings, 'IMAGE_HOST', None)
+
+
+logger = get_task_logger(__name__)
 
 
 @task(base=BaseTask)
@@ -20,7 +22,6 @@ def fetch_image(images, entity_id, *args, **kwargs):
     for image_url in images:
         if 'http' not in image_url:
             image_url = 'http:' + image_url
-        # f = urllib2.urlopen(image_url)
         if image_host in image_url:
             image_list.append(image_url)
             continue
@@ -35,7 +36,7 @@ def fetch_image(images, entity_id, *args, **kwargs):
         entity.save()
     except Entity.DoesNotExist, e:
         pass
-    # return
+
 
 @task(base=BaseTask)
 def like_task(uid, eid, **kwargs):
@@ -50,7 +51,6 @@ def like_task(uid, eid, **kwargs):
         obj.entity.innr_like()
         obj.user.incr_like()
         return obj
-    # return status
 
 
 @task(base=BaseTask)
@@ -64,5 +64,10 @@ def unlike_task(uid, eid, **kwargs):
     except Entity_Like.DoesNotExist:
         return False
 
-__author__ = 'edison'
 
+@task(base=DebugTask)
+def record_entity_view_task(entity_id, user_id, device_uuid, **kwargs):
+    try:
+        EntityViewRecord.objects.create(entity_id=entity_id, user_id=user_id, device_uuid=device_uuid)
+    except Exception as e:
+        logger.error(e)
