@@ -85,12 +85,12 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
                         {
                             "name": "试用活动",
                             "type": "view",
-                            "url": "https://mp.weixin.qq.com/s?__biz=MjM5MzA3MzQ4MA==&mid=2651214544&idx=1&sn=8d349bf60f45fabb5821b6c7db355aff&chksm=bd6e62f78a19ebe1e924614a803cb38cc2657121e9b8820345780fa81c496e0e56baf6d028db#rd"
+                            "url": "http://www.guoku.com/articles/shi-yong-fu-li-gun-xia-tian-shi-shu-yu-bai-pu-tao/"
                         },
                         {
-                            "name": "小问卷",
+                            "name": "申请试用",
                             "type": "view",
-                            "url": "https://jinshuju.net/f/osvH29"
+                            "url": "https://jinshuju.net/f/wWjUxE"
                         }
                     ]
                 },
