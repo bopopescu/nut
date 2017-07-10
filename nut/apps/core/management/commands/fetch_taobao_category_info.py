@@ -1,6 +1,5 @@
 # coding=utf-8
 import json
-from pprint import pprint
 
 from django.core.management.base import BaseCommand
 
@@ -23,10 +22,11 @@ class Command(BaseCommand):
         req.set_app_info(top.appinfo('23093827', '5a9a26e067f33eea258510e3040caf17'))
         req.fields = "cid,parent_cid,name,is_parent,features"
 
-        all_cids = Buy_Link.objects.values_list('cid', flat=True).distinct()
-        all_cids = list(all_cids)
+        all_cids = set(list(Buy_Link.objects.values_list('cid', flat=True).distinct()))
+        exists_cids = set(list(TaobaoCategory.objects.values_list('cid', flat=True)))
+        need_cids = all_cids - exists_cids
 
-        for cids in chunks(all_cids, 20):
+        for cids in chunks(list(need_cids), 20):
             req.cids = ','.join(cid for cid in cids if cid)
             print(req.cids)
             try:

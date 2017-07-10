@@ -1200,6 +1200,8 @@ class Buy_Link(BaseModel):
 
     taobao_open_iid = models.CharField(max_length=100)
     taobao_data = models.TextField()
+    # 淘宝数据获取状态： 0=未获取, 1=已获取, 2=错误
+    fetch_status = models.PositiveSmallIntegerField(default=0)
 
     class Meta:
         ordering = ['-default']

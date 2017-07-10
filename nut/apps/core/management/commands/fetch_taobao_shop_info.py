@@ -23,7 +23,6 @@ class Command(BaseCommand):
 
         for nick in nicks:
             if TaobaoShop.objects.filter(nick=nick).exists():
-                print('exists')
                 continue
 
             req.nick = nick.encode('utf-8')
