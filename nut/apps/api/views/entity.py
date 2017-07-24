@@ -144,12 +144,13 @@ class PublishBaiduView(APIView):
         abstract = request.data.get('abstract', u'')
         title = request.data.get('title', u'')
         domain = request.data.get('domain', u'1')
+        cover_images = request.data.get('cover_images', u'')
 
         article_slug = article_url.split('/')[-2]
         article = Article.objects.get(article_slug=article_slug)
 
         try:
-            PublishBaidu.objects.create(title=title, abstract=abstract, article_id=article.id, domain=domain)
+            PublishBaidu.objects.create(title=title, abstract=abstract, article_id=article.id, domain=domain, cover_images=cover_images)
             return Response({'code': 0, 'message': '创建成功'})
         except Exception as e:
             return Response(unicode(e))

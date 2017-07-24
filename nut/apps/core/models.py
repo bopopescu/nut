@@ -1174,7 +1174,7 @@ class Selection_Entity(BaseModel):
 
 
 class Buy_Link(BaseModel):
-    (remove, soldout, sale) = xrange(3)
+    sale, soldout, remove = (2, 1, 0)
     Buy_Link_STATUS_CHOICES = [
         (sale, _("sale")),
         (soldout, _("soldout")),

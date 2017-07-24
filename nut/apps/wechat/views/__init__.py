@@ -89,6 +89,15 @@ class WeChatView(View):
                                 'timestamp': int(_timestamp),
                             }
                         )
+                    elif msg['EventKey'] == 'CLICK_APPLY':
+                        return render_to_response(
+                            'wechat/replymsg.xml',
+                            {
+                                'msg': msg,
+                                'content': '哈喽，有问题欢迎加果库妹咨询哦~微信ID：guoku_com',
+                                'timestamp': int(_timestamp),
+                            }
+                        )
                 _items = handle_event(msg)
                 if _items is None:
                     request.session['open_id'] = msg['FromUserName']

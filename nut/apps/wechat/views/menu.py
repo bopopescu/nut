@@ -83,14 +83,14 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
                     "name": "用户活动",
                     "sub_button": [
                         {
-                            "name": "试用活动",
+                            "name": "果库活动",
                             "type": "view",
-                            "url": "http://www.guoku.com/articles/shi-yong-fu-li-gun-xia-tian-shi-shu-yu-bai-pu-tao/"
+                            "url": "http://m.guoku.com/event/20170719/"
                         },
                         {
-                            "name": "申请试用",
-                            "type": "view",
-                            "url": "https://jinshuju.net/f/wWjUxE"
+                            "name": "添加果库妹",
+                            "type": "click",
+                            "key": "CLICK_APPLY"
                         }
                     ]
                 },
@@ -105,12 +105,17 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
                         {
                             "name": "Android下载",
                             "type": "view",
-                            "url": "http://www.wandoujia.com/apps/com.guoku",
+                            "url": "http://a.app.qq.com/o/simple.jsp?pkgname=com.guoku",
                         },
                         {
                             "name": "商务合作",
                             "type": "click",
                             "key": "CLICK_CONTACT_US"
+                        },
+                        {
+                            "name": "添加商品须知",
+                            "type": "view",
+                            "url": "http://www.guoku.com/articles/guo-ku-jun-shuo-ni-de-shang-pin-wei-shi-yao-ru-bu/"
                         }
                     ]
                 }
