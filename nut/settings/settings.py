@@ -311,10 +311,9 @@ CAPTCHA_NOISE_FUNCTIONS = (
 CAPTCHA_LETTER_ROTATION = (-35, 35)
 CAPTCHA_LENGTH = 8
 # CAPTCHA_FONT_PATH = 'fonts/planetbe.ttf'
-CAPTCHA_FONT_PATH = 'fonts/ccc.ttf'
+CAPTCHA_FONT_PATH = 'fonts/kai.ttf'
 CAPTCHA_FONT_SIZE = 30
-# CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
-CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'
+CAPTCHA_CHALLENGE_FUNCT = 'apps.core.utils.captcha.chinese_math_challenge'
 
 # for debug server popular  category test
 DEFAULT_POPULAR_SCALE = 7
