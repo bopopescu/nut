@@ -212,11 +212,12 @@ class APIBuyLink(Buy_Link):
         proxy = True
 
     def v4_toDict(self):
-        res             = self.toDict()
+        res = self.toDict()
         res.pop('link', None)
-        res['buy_link'] = "http://api.guoku.com%s?type=mobile" % reverse('v4_visit_item', args=[self.origin_id])
-        res['price']    = int(self.price)
-        res['seller']   = self.store_id
+        origin_id = self.origin_id.split('#')[0]
+        res['buy_link'] = "http://api.guoku.com%s?type=mobile" % reverse('v4_visit_item', args=[origin_id])
+        res['price'] = int(self.price)
+        res['seller'] = self.store_id
         return res
 
     @property
