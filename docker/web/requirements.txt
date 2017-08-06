@@ -1,7 +1,7 @@
 amqp==1.4.9
 anyjson==0.3.3
 appdirs==1.4.3
-beautifulsoup4==4.3.2
+beautifulsoup4==4.6.0
 billiard==2.7.3.34
 bleach==2.0.0
 celery==3.0.25
