@@ -234,28 +234,24 @@ class APIEntitySearchView(SearchView, JSONResponseMixin):
     http_method_names = ['get']
 
     def get_data(self, context):
-        # print context
 
         res = {
-            'stat' : {
-                'all_count' : context.count(),
-                'like_count' : 0,
+            'stat': {
+                'all_count': context.count(),
+                'like_count': 0,
             },
-            'entity_list' : []
+            'entity_list': []
         }
 
         el = None
         if self.visitor:
-            _entity_id_list = map(lambda x : int(x.entity_id), context[self.offset:self.offset+self.count])
-            el = Entity_Like.objects.user_like_list(user = self.visitor, entity_list=_entity_id_list)
-            # log.info(el)
+            _entity_id_list = map(lambda x: int(x.entity_id), context[self.offset:self.offset+self.count])
+            el = Entity_Like.objects.user_like_list(user=self.visitor, entity_list=_entity_id_list)
         for row in context[self.offset:self.offset+self.count]:
             try:
-                res['entity_list'].append(
-                    row.object.v3_toDict(user_like_list=el)
-                )
-            except AttributeError, e:
-                log.error(e.message)
+                # row.object可能为None，此时跳过
+                res['entity_list'].append(row.object.v3_toDict(user_like_list=el))
+            except AttributeError:
                 continue
         if el:
             res['stat']['like_count'] = len(el)
