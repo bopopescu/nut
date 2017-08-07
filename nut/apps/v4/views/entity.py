@@ -151,7 +151,7 @@ class EntityLikerView(APIJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
-        liker = Entity_Like.objects.filter(entity=self.entity_id)
+        liker = Entity_Like.objects.filter(entity=self.entity_id, user__is_active__gte=GKUser.active)
 
         paginator = Paginator(liker, 15)
         try:
