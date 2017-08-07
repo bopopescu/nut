@@ -86,7 +86,6 @@ MOGILEFS_MEDIA_URL = 'images/'
 DEFAULT_FILE_STORAGE = 'storages.backends.mogile.MogileFSStorage'
 # DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 LOCAL_IMG_DEBUG = True
-IMAGE_HOST = 'http://imgcdn.guoku.com/'
 INTRANET_IMAGE_SERVER = 'http://localhost:5556/'
 
 Avatar_Image_Path = 'avatar/'

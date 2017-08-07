@@ -4,6 +4,8 @@ from urlparse import urljoin
 from hashlib import md5
 import re
 
+from django.conf import settings
+
 from apps.core.utils.fetch.spider import Spider
 from apps.core.utils.commons import currency_converting
 from settings import CURRENCY_SYMBOLS
@@ -168,7 +170,7 @@ class Amazon(Spider):
                 images = self.soup.select("img#imgBlkFront")[0]['data-a-dynamic-image']
                 images = [re.findall(r'(http.+?\.jpg)', images)[0]]
             except:
-                images = ['http://imgcdn.guoku.com/images/8c19d8cef88c36b0511c1b217512174d.jpeg']    # a default image for no picture
+                images = [urljoin(settings.IMAGE_HOST, 'images/8c19d8cef88c36b0511c1b217512174d.jpeg')]
         return images
 
     def get_medium_images(self):

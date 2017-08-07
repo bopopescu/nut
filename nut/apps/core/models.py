@@ -6,6 +6,7 @@ import time
 from datetime import datetime
 from hashlib import md5
 from urllib import quote
+from six.moves.urllib_parse import urljoin
 
 import requests
 from django.conf import settings
@@ -789,22 +790,20 @@ class Sub_Category(BaseModel):
         if self.icon is None:
             return None
 
-        if "images" in self.icon:
-            path = self.icon.split("/")
-            # log.info("path %s "%path)
-            return "http://imgcdn.guoku.com/%s/200/%s" % tuple(path)
-        return "http://imgcdn.guoku.com/category/large/%s" % self.icon
+        if 'images' in self.icon and '/' in self.icon:
+            path = '{0}/200/{1}'.format(*self.icon.split('/'))
+            return urljoin(settings.IMAGE_HOST, path)
+        return urljoin(settings.IMAGE_HOST, 'category/large/{}'.format(self.icon))
 
     @property
     def icon_small_url(self):
         if self.icon is None:
             return None
 
-        if "images" in self.icon:
-            path = self.icon.split("/")
-            # log.info("path %s "%path)
-            return "http://imgcdn.guoku.com/%s/100/%s" % tuple(path)
-        return "http://imgcdn.guoku.com/category/small/%s" % self.icon
+        if 'images' in self.icon and '/' in self.icon:
+            path = '{0}/100/{1}'.format(*self.icon.split('/'))
+            return urljoin(settings.IMAGE_HOST, path)
+        return urljoin(settings.IMAGE_HOST, 'category/small/{}'.format(self.icon))
 
     def get_absolute_url(self):
         return "/category/%s/" % self.id

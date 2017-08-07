@@ -34,9 +34,11 @@ def safe_note(value):
 register.filter(safe_note)
 
 
-def httpsImageCDN(value):
-    return value.replace('http://imgcdn.guoku.com', 'https://imgcdn.guoku.com')
-register.filter(httpsImageCDN)
+def https_image_cdn(value):
+    http_host = settings.IMAGE_HOST
+    https_host = http_host.replace('http://', 'https://')
+    return value.replace(http_host, https_host)
+register.filter(https_image_cdn)
 
 
 def resize(value, size=None):
