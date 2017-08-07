@@ -176,23 +176,24 @@ class EntityLikerView(APIJsonView):
         try:
             liker_list = paginator.page(self.page)
         except EmptyPage:
-            return ErrorJsonResponse(status=404)
-        res             = dict()
-        res['page']     = self.page
-        res['count']    = liker.count()
-        res['data']     = list()
+            return {
+                'page': 1,
+                'count': 0,
+                'data': []
+            }
+
         if self.session:
             users_schema.context['visitor'] = self.session.user
-        for row in liker_list.object_list:
-            res['data'].append(
-                users_schema.dump(row.user, many=False).data
-            )
-        return res
+        return {
+            'page': self.page,
+            'count': liker.count(),
+            'data': [users_schema.dump(row.user, many=False).data for row in liker_list.object_list]
+        }
 
     def get(self, request, *args, **kwargs):
-        self.entity_id  = kwargs.pop('entity_id', None)
+        self.entity_id = kwargs.pop('entity_id', None)
         assert self.entity_id is not None
-        self.page       = request.GET.get('page', 1)
+        self.page = request.GET.get('page', 1)
         _key = request.GET.get('session', None)
         try:
             self.session = Session_Key.objects.get(session_key=_key)
@@ -200,9 +201,7 @@ class EntityLikerView(APIJsonView):
             self.session = None
             log.info(e.message)
 
-
         return super(EntityLikerView, self).get(request, *args, **kwargs)
-
 
 
 class GuessEntityView(APIJsonView):
