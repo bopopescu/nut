@@ -537,20 +537,7 @@ class gotoBuyView(RedirectView):
 class TaobaoRecommendationView(BaseJsonView):
 
     def get_data(self, context):
-
-        payload = {
-            'keyword': self.keyword,
-            'mall': self.mall,
-            'count': self.count,
-        }
-        if self.user_id:
-            payload.update({'uid': self.user_id})
-        r = requests.get(taobao_recommendation_url, params=payload)
-        try:
-            data = r.json()
-        except ValueError:
-            data = {}
-        return data
+        return {}
 
     def get(self, request, *args, **kwargs):
         # self.keyword = kwargs.pop('keyword', None)
