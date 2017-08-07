@@ -74,7 +74,7 @@ def entity_list(request):
     return SuccessJsonResponse(res)
 
 
-class EntityDetialView(APIJsonView):
+class EntityDetailView(APIJsonView):
 
     def get_data(self, context):
         try:
@@ -89,35 +89,16 @@ class EntityDetialView(APIJsonView):
             np = Note_Poke.objects.user_poke_list(user=self.session.user,
                                                   note_list=list(entity.notes.values_list('id', flat=True)))
 
-        res = dict()
-
-        res['entity'] = entity.v4_toDict(user_like_list=el)
-        res['note_list'] = []
-
-        for note in entity.notes.top_or_normal():
-            res['note_list'].append(
-                note.v4_toDict(user_note_pokes=np)
-            )
-        log.info(dir(entity))
-        res['like_user_list'] = []
-        for liker in entity.likes.all()[0:16]:
-            try:
-                res['like_user_list'].append(
-                    liker.user.v3_toDict()
-                )
-            except GKUser.DoesNotExist, e:
-                log.error(e)
-                continue
+        likes = entity.likes.filter(user__is_active__gte=GKUser.active)
 
         rec = APIEntity.objects.guess(category_id=entity.category_id,
-                                           count=9,
-                                           exclude_id=entity.id)
+                                      count=9,
+                                      exclude_id=entity.id)
 
-        res['recommendation'] = entities_schema.dump(rec).data
-        # log.info( entities_schema.dump(rec).data )
-
-        return res
-
+        return {'entity': entity.v4_toDict(user_like_list=el),
+                'note_list': [note.v4_toDict(user_note_pokes=np) for note in entity.notes.top_or_normal()],
+                'like_user_list': [like.user.v3_toDict() for like in likes[:16]],
+                'recommendation': entities_schema.dump(rec).data}
 
     def get(self, request, *args, **kwargs):
         self.entity_id  = kwargs.pop('entity_id', None)
@@ -139,7 +120,7 @@ class EntityDetialView(APIJsonView):
 
         record_entity_view_task.delay(**payload)
 
-        return super(EntityDetialView, self).get(request, *args, **kwargs)
+        return super(EntityDetailView, self).get(request, *args, **kwargs)
 
 @csrf_exempt
 @check_sign

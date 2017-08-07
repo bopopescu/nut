@@ -1,5 +1,5 @@
 from django.conf.urls import url, patterns
-from apps.v4.views.entity import APIEntitySearchView, GuessEntityView, EntityDetialView, EntityLikerView
+from apps.v4.views.entity import APIEntitySearchView, GuessEntityView, EntityDetailView, EntityLikerView
 from apps.v4.views.orders.entity_sku import EntitySKUView
 
 
@@ -9,7 +9,7 @@ urlpatterns = patterns(
     url(r'^search/$', APIEntitySearchView.as_view(), name='v4_entity_search'),
     # url(r'^search/$', 'search', name='v4_entity_search'),
     url(r'^guess/$', GuessEntityView.as_view(), name='v4_entity_guess'),
-    url(r'^(?P<entity_id>\d+)/$', EntityDetialView.as_view(), name='v4_entity_detail'),
+    url(r'^(?P<entity_id>\d+)/$', EntityDetailView.as_view(), name='v4_entity_detail'),
     url(r'^(?P<entity_id>\d+)/like/(?P<target_status>\d+)/$', 'like_action', name='v4_entity_like_action'),
 
     # url(r'^(?P<entity_id>\d+)/liker/$', 'entity_liker', name='v4_entity_liker'),
