@@ -92,7 +92,7 @@
                         <div class="content-wrapper" itemprop="articleBody">
                             {% autoescape off %}
                                 {% if is_secure %}
-                                    {{ article.content|httpsImageCDN }}
+                                    {{ article.content|https_image_cdn }}
                                 {% else %}
                                     {{ article.content }}
                                 {% endif %}
