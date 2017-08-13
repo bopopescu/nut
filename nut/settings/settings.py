@@ -28,7 +28,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY =  django_secret_key
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 TESTING = False
 
 TEMPLATE_DEBUG = DEBUG
@@ -96,7 +96,6 @@ HAYSTACK_DEFAULT_OPERATOR = 'OR'
 HAYSTACK_CUSTOM_HIGHLIGHTER = 'apps.web.highlighter.MyHighlighter'
 
 MIDDLEWARE_CLASSES = (
-    'raven.contrib.django.raven_compat.middleware.Sentry404CatchMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

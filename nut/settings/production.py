@@ -1,7 +1,6 @@
 from secret_settings import *
 from settings import *
 
-# DEBUG = True
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
@@ -14,7 +13,6 @@ TIME_ZONE = 'Asia/Shanghai'
 USE_TZ = False
 
 DATABASES = PRODUCTION_DATABASES
-
 
 INSTALLED_APPS += (
     'gunicorn',
@@ -35,7 +33,6 @@ MOGILEFS_MEDIA_URL = 'images/'
 DEFAULT_FILE_STORAGE = 'storages.backends.mogile.MogileFSStorage'
 
 Avatar_Image_Path = 'avatar/'
-
 
 LOGGING = {
     'version': 1,
@@ -68,21 +65,21 @@ LOGGING = {
             'formatter': 'verbose'
         },
         'file': {
-          'level': 'ERROR',
-          'class': 'logging.FileHandler',
-          'formatter': 'verbose',
-          'filename': '/tmp/django.log',
-          'mode': 'a',
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'filename': '/tmp/django.log',
+            'mode': 'a',
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['file', 'console', 'sentry'],
+            'handlers': ['console', 'sentry'],
             'propagate': True,
             'level': 'ERROR',
         },
         'django.request': {
-            'handlers': ['file', 'sentry'],
+            'handlers': ['sentry'],
             'level': 'ERROR',
             'propagate': False,
         },
@@ -107,19 +104,13 @@ HAYSTACK_CONNECTIONS = {
     }
 }
 
-
 SINA_APP_KEY = '1459383851'
 SINA_APP_SECRET = 'bfb2e43c3fa636f102b304c485fa2110'
 SINA_BACK_URL = APP_HOST + '/sina/auth'
 
 # config of site in redis.
-CONFIG_REDIS_HOST   = '10.0.2.95'
-CONFIG_REDIS_PORT   = 6379
-CONFIG_REDIS_DB     = 10
-
+CONFIG_REDIS_HOST = '10.0.2.95'
+CONFIG_REDIS_PORT = 6379
+CONFIG_REDIS_DB = 10
 
 SITE_HOST = 'http://www.guoku.com'
-
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-__author__ = 'edison7500'
