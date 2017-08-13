@@ -1,14 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-import requests
 from celery.task import task
-from django.contrib.auth.models import AnonymousUser
-
 from apps.core.tasks import BaseTask
 
 from django.conf import settings
 from django.utils.log import getLogger
+
 log = getLogger('django')
 
 record_host = getattr(settings, 'RECORD_KEYWORD_SERVER', None)
@@ -16,27 +13,8 @@ record_host = getattr(settings, 'RECORD_KEYWORD_SERVER', None)
 
 @task(base=BaseTask, name='record_search')
 def _record_search(gk_user, key_words, ip_address, user_agent):
-    payload = dict()
-    payload.update(
-        {
-            'key': key_words,
-            'ip': ip_address,
-            'ua': user_agent,
-        }
-    )
-    if gk_user and isinstance(gk_user, AnonymousUser):
-        pass
-    else:
-        payload.update(
-            {
-                'uid': gk_user.pk,
-            }
-        )
-    url = "{0}/keywords/".format(record_host)
-    r = requests.post(url, data=payload)
-    if r.status_code == 201:
-        return r.json()
-    r.close()
+    # TODO: 部署记录服务，重新打开此部分
+    return
 
 
 def record_search(gk_user, **kwargs):
@@ -52,7 +30,6 @@ def record_search(gk_user, **kwargs):
 
     ip_address = kwargs.pop('ip_address', None)
     user_agent = kwargs.pop('user_agent', None)
-    # res = _record_search(gk_user, key_words, ip_address, user_agent)
     result = _record_search.delay(gk_user, key_words, ip_address, user_agent)
     if result.failed():
         log.warning("Recording was: %s" % result.result)
