@@ -85,7 +85,7 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
                         {
                             "name": "果库活动",
                             "type": "view",
-                            "url": "http://m.guoku.com/event/20170719/"
+                            "url": "http://m.guoku.com/event/20170809/"
                         },
                         {
                             "name": "添加果库妹",
