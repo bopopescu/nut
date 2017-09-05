@@ -1,154 +1,89 @@
 # coding=utf-8
-from django.http import HttpResponse, Http404
+import hashlib
+import time
+from datetime import datetime
+from xml.etree import ElementTree
+
+from django.conf import settings
+from django.core.exceptions import PermissionDenied
+from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.utils.encoding import smart_str
-from django.core.exceptions import PermissionDenied
-from django.views.generic import View, CreateView
 from django.views.decorators.csrf import csrf_exempt
-from django.conf import settings
-from django.utils.log import getLogger
-from datetime import datetime
-import time
-from xml.etree import ElementTree as ET
-import hashlib
+from django.views.generic import View
 
-# from apps.wechat.models import Robots
 from apps.wechat.handle import handle_reply, handle_event
+
 TOKEN = getattr(settings, 'WECHAT_TOKEN', 'guokuinwechat')
 
-log = getLogger('django')
+
+click_replies = {
+    'CLICK_CONTACT_US': u'商务合作请联系 bd@guoku.com',
+    'CLICK_APPLY': u'哈喽，有问题欢迎加果库妹咨询哦~微信ID：guoku_com'
+}
 
 
 class WeChatView(View):
     token = TOKEN
 
     def validate(self, request):
-        _signature = request.REQUEST.get('signature', None)
-        _timestamp = request.REQUEST.get('timestamp', None)
-        _nonce = request.REQUEST.get('nonce', None)
+        _signature = request.REQUEST.get('signature', '')
+        _timestamp = request.REQUEST.get('timestamp', '')
+        _nonce = request.REQUEST.get('nonce', '')
 
-        list = [self.token, _timestamp, _nonce]
-        list.sort()
         sha1 = hashlib.sha1()
-        hashcode = ''
-        try :
-            #handle none input
-            map(sha1.update, list)
-            hashcode = sha1.hexdigest()
-        except Exception as e :
-            return False
-        if hashcode == _signature:
-            return True
-        return False
+        [sha1.update(i) for i in sorted([self.token, _timestamp, _nonce])]
+        return _signature == sha1.hexdigest()
 
-    def parseMsgXml(self, rootElem):
-
-        msg = {}
-        if rootElem.tag == 'xml':
-            for child in rootElem:
-                msg[child.tag] = smart_str(child.text)
-        return msg
-
+    @staticmethod
+    def parse_msg_xml(root_elem):
+        return {child.tag: smart_str(child.text) for child in root_elem} if root_elem.tag == 'xml' else {}
 
     def get(self, request):
         if self.validate(request):
-            echostr = request.GET.get('echostr', None)
-            return HttpResponse(echostr)
+            echo_str = request.GET.get('echostr', None)
+            return HttpResponse(echo_str)
         raise PermissionDenied
 
     def post(self, request):
-        rawStr = request.body
-        log.info(rawStr)
+        raw_str = request.body
+        msg = WeChatView.parse_msg_xml(ElementTree.fromstring(raw_str))
+        _timestamp = time.mktime(datetime.now().timetuple())
+        data = {'msg': msg, 'timestamp': int(_timestamp)}
         if self.validate(request):
-            msg = self.parseMsgXml(ET.fromstring(rawStr))
-            log.info(msg)
-            _timestamp = time.mktime(datetime.now().timetuple())
-            # log.info(_timestamp)
-            # _items = Robots.objects.filter(accept__contains=msg['Content']).first()
             if msg['MsgType'] == 'voice':
-                _items = handle_reply(msg['Recognition'])
+                template = 'wechat/replyitems.xml'
+                data['content'] = [item for item in handle_reply(msg['Recognition']) if item][:5]
             elif msg['MsgType'] == "event":
                 if msg['Event'] == "subscribe":
-                    return render_to_response(
-                        'wechat/replysubscribe.xml',
-                        {
-                        'msg': msg,
-                        # 'item': _item,
-                        # 'items': _items[:5],
-                        'timestamp': int(_timestamp),
-                        },
-                        mimetype="application/xml",
-                    )
+                    template = 'wechat/replysubscribe.xml'
                 elif msg['Event'] == 'CLICK':
-                    if msg['EventKey'] == 'CLICK_CONTACT_US':
-                        return render_to_response(
-                            'wechat/replymsg.xml',
-                            {
-                                'msg': msg,
-                                'content': '商务合作请联系 bd@guoku.com',
-                                'timestamp': int(_timestamp),
-                            }
-                        )
-                    elif msg['EventKey'] == 'CLICK_APPLY':
-                        return render_to_response(
-                            'wechat/replymsg.xml',
-                            {
-                                'msg': msg,
-                                'content': '哈喽，有问题欢迎加果库妹咨询哦~微信ID：guoku_com',
-                                'timestamp': int(_timestamp),
-                            }
-                        )
-                _items = handle_event(msg)
-                if _items is None:
-                    request.session['open_id'] = msg['FromUserName']
-                    log.info("open id %s" % msg['FromUserName'])
-                    return render_to_response(
-                        'wechat/replybind.xml',
-                        {
-                            'msg': msg,
-                            'timestamp': int(_timestamp),
-                        },
-                        mimetype="application/xml",
-                    )
-
+                    template = 'wechat/replymsg.xml'
+                    data['content'] = click_replies.get(msg['EventKey'], u'【错误】未知点击事件')
+                else:
+                    _items = handle_event(msg)
+                    if _items:
+                        template = 'wechat/replyitems.xml'
+                        data['items'] = [item for item in _items if item]
+                    else:
+                        request.session['open_id'] = msg['FromUserName']
+                        template = 'wechat/replybind.xml'
             else:
-                _items = handle_reply(msg['Content'])
-                if isinstance(_items, unicode):
-                    return render_to_response(
-                        'wechat/replymsg.xml',
-                        {
-                            'msg':msg,
-                            'content': _items,
-                            'timestamp': int(_timestamp),
-                        }
-                    )
-            return render_to_response(
-                'wechat/replyitems.xml',
-                {
-                    'msg': msg,
-                    # 'item': _item,
-                    'items': _items[:5],
-                    'timestamp': int(_timestamp),
-                },
-                mimetype="application/xml",
-            )
-        else :
-            _items = u'签名检查失败'
-            msg = self.parseMsgXml(ET.fromstring(rawStr))
-            _timestamp = time.mktime(datetime.now().timetuple())
-            if isinstance(_items, unicode):
-                    return render_to_response(
-                        'wechat/replymsg.xml',
-                        {
-                            'msg':msg,
-                            'content': _items,
-                            'timestamp': int(_timestamp),
-                        }
-                    )
+                reply_content = handle_reply(msg['Content'])
+                if isinstance(reply_content, unicode):
+                    template = 'wechat/replymsg.xml'
+                    data['content'] = reply_content
+                else:
+                    template = 'wechat/replyitems.xml'
+                    # 去除可能为None的项目
+                    data['items'] = [item for item in reply_content if item][:5]
 
+        else:
+            template = 'wechat/replymsg.xml'
+            data['content'] = u'签名检查失败'
+
+        return render_to_response(template, data, mimetype="application/xml")
 
     @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         return super(WeChatView, self).dispatch(request, *args, **kwargs)
-
-__author__ = 'edison'

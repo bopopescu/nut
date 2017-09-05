@@ -1,4 +1,4 @@
-from django.views.generic import CreateView,ListView,DeleteView
+from django.views.generic import CreateView, ListView, DeleteView
 from apps.wechat.forms.management import BaseKeywordForm
 from apps.wechat.models import RobotDic
 from apps.core.extend.paginator import ExtentPaginator
@@ -10,6 +10,7 @@ class KeywordListView(ListView):
     paginator_class = ExtentPaginator
     paginate_by = 20
     context_object_name = 'keyword_list'
+
     def get_queryset(self):
         return RobotDic.objects.all().order_by('-created_datetime')
 

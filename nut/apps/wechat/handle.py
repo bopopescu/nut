@@ -1,10 +1,9 @@
 # coding=utf-8
 from apps.core.models import Entity, Selection_Entity, Entity_Like
-from apps.wechat.models import Token
+from apps.wechat.models import Token, RobotDic
 from datetime import datetime
 from django.utils.log import getLogger
 from haystack.query import SearchQuerySet
-from apps.wechat.robot import RobotHandler
 
 import re
 
@@ -17,8 +16,6 @@ auto_replies = {
 }
 
 log = getLogger('django')
-
-robot_handler = RobotHandler()
 
 
 def regex(content, pattern):
@@ -42,17 +39,17 @@ def handle_reply(raw_content):
         return entities[:5]
     elif content in auto_replies:
         return auto_replies[content]
-    elif robot_handler.can_handle(raw_content):
-        return robot_handler.handle(raw_content)
+    elif RobotDic.objects.filter(keyword=raw_content).count() == 1:
+        return RobotDic.objects.get(keyword=raw_content)
     else:
         sqs = SearchQuerySet()
         results = sqs.auto_query(content).models(Entity).order_by('-like_count')
         res = []
-        for row in results[:10]:
-            try:
-                res.append(row.object)
-            except Exception as e:
-                log.error("<Error: {0}>".format(e.message))
+        for row in results:
+            if Entity.objects.filter(pk=row.pk).exists():
+                res.append(Entity.objects.get(pk=row.pk))
+            if len(res) >= 10:
+                break
         return res
 
 

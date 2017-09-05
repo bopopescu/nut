@@ -4,32 +4,22 @@
     <ToUserName><![CDATA[{{ msg.FromUserName }}]]></ToUserName>
     <FromUserName><![CDATA[{{ msg.ToUserName }}]]></FromUserName>
     <CreateTime>{{ timestamp }}</CreateTime>
-{#    {% if item.type == 'text' %}#}
-{#        <MsgType><![CDATA[{{ item.type }}]]></MsgType>#}
-{#        <Content><![CDATA[{{ item.content }}]]></Content>#}
 
     {% if items %}
-{#        {% if item.type == "news" %}#}
             <MsgType><![CDATA[news]]></MsgType>
             <ArticleCount>{{ items|length }}</ArticleCount>
 
             <Articles>
                 {% for row in items %}
                 <item>
-{#                    <Title><![CDATA[test]]></Title>#}
-{#                    <Description><![CDATA[test test]]></Description>#}
                     <Title><![CDATA[{{ row.brand.strip }} {{ row.title.strip }}]]></Title>
                     <Description><![CDATA[{{ row.top_note }}]]></Description>
-                    <PicUrl><![CDATA[{{ row.chief_image|resize:'240' }}]]></PicUrl>
-                    <Url><![CDATA[http://www.guoku.com{% url 'web_entity_detail' row.entity_hash %}]]></Url>
+                    <PicUrl><![CDATA[{{ row.chief_image|oss_resize:'240' }}]]></PicUrl>
+                    <Url><![CDATA[http://www.guoku.com/detail/{{ row.entity_hash }}]]></Url>
                 </item>
                 {% endfor %}
             </Articles>
 
-{#        {% else %}#}
-{#            <MsgType><![CDATA[{{ item.type }}]]></MsgType>#}
-{#            <Content><![CDATA[{{ item.content }}]]></Content>#}
-{#        {% endif %}#}
     {% else %}
         <MsgType><![CDATA[text]]></MsgType>
         <Content><![CDATA[给不了你想要的，但又舍不得放你走。换个角度，再试一次。]]></Content>

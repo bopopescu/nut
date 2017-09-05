@@ -1,18 +1,15 @@
-# -*- coding: utf-8 -*-
+# coding=utf-8
 import json
-
-from django.http import HttpResponse
-from django.views.generic.base import View, TemplateResponseMixin, ContextMixin
-from django.utils.log import getLogger
-from django.core.cache import cache
 import time
+
 import requests
 from django.conf import settings
+from django.core.cache import cache
+from django.http import HttpResponse
+from django.views.generic.base import View, TemplateResponseMixin, ContextMixin
 
 AppID = getattr(settings, 'WECHAT_APP_ID', None)
 AppSecret = getattr(settings, 'WECHAT_APP_SECRET', None)
-
-log = getLogger('django')
 
 
 class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
@@ -22,7 +19,6 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
         'secret': AppSecret,
         'grant_type': 'client_credential',
     }
-    log.info(parameters)
     _access_token = None
     _expires_in = None
 
@@ -50,7 +46,6 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
         r = requests.get("https://api.weixin.qq.com/cgi-bin/token", params=self.parameters)
 
         res = r.json()
-        log.info(res)
         self.access_token = res['access_token']
         self.expires_in = res['expires_in']
         cache.set('wechat_access_token', self.access_token, 7200)
@@ -58,7 +53,6 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
 
     def post_menu(self, access_token, body):
         json_string = json.dumps(body, ensure_ascii=False)
-        log.info(json_string)
         headers = {'content-type': 'application/json'}
         r = requests.post(
             'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s' % access_token,
@@ -123,8 +117,4 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
         }
 
         res = self.post_menu(access_token=access_token, body=data)
-        log.info(res)
         return HttpResponse(res)
-
-
-__author__ = 'edison7500'

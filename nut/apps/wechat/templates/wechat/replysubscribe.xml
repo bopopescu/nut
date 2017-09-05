@@ -4,11 +4,6 @@
     <ToUserName><![CDATA[{{ msg.FromUserName }}]]></ToUserName>
     <FromUserName><![CDATA[{{ msg.ToUserName }}]]></FromUserName>
     <CreateTime>{{ timestamp }}</CreateTime>
-{#    {% if item.type == 'text' %}#}
-{#        <MsgType><![CDATA[{{ item.type }}]]></MsgType>#}
-{#        <Content><![CDATA[{{ item.content }}]]></Content>#}
-
-
     <MsgType><![CDATA[text]]></MsgType>
     <Content><![CDATA[【最新消息】回复你想要的商品关键词，输入文字或者语音，得到果库君的贴身提示。]]></Content>
 </xml>

@@ -13,36 +13,31 @@ class WeChatBindForm(forms.Form):
         'invalid_login': _('email or password wrong'),
         'inactive': _("This account is inactive."),
         'password_error': _('password error'),
-        # 'no_cookies': _('no cookies'),
     }
 
     email = forms.CharField(
         label=_('email'),
-        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder':_('email')}),
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': _('email')}),
     )
     password = forms.CharField(
         label=_('password'),
-        widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':_('password')}),
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': _('password')}),
     )
-    # open_id = forms.CharField(
-    #     widget=forms.HiddenInput(),
-    # )
+
     def __init__(self, *args, **kwargs):
 
-        # self.request = request
         self.user_cache = None
 
         super(WeChatBindForm, self).__init__(*args, **kwargs)
-        UserModel = get_user_model()
+        user_model = get_user_model()
 
-        self.username_field = UserModel._meta.get_field(UserModel.USERNAME_FIELD)
+        self.username_field = user_model._meta.get_field(user_model.USERNAME_FIELD)
         if not self.fields['email'].label:
             self.fields['email'].label = self.username_field.verbose_name
 
     def clean(self):
         email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
-        # self.next_url = self.cleaned_data.get('next')
 
         if email and password:
             self.user_cache = authenticate(username=email,
@@ -62,15 +57,11 @@ class WeChatBindForm(forms.Form):
         log.info("open id %s" % open_id)
 
         try:
-            token = Token.objects.get(open_id = open_id)
+            token = Token.objects.get(open_id=open_id)
         except Token.DoesNotExist:
             token = Token(
-                user = self.user_cache,
-                open_id = open_id
+                user=self.user_cache,
+                open_id=open_id
             )
             token.save()
         return token
-
-
-
-__author__ = 'edison7500'
