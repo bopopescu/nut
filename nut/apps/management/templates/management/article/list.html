@@ -31,7 +31,7 @@
                                     <li>
                                         <div class="user-block">
                                             <a href="{% url 'management_author_article_person_list' author.pk %}">
-                                                <img class="img-circle" src="{{ author.avatar_url|resize:'100' }}" alt="user image">
+                                                <img class="img-circle" src="{{ author.avatar_url|oss_resize:'100' }}" alt="user image">
                                                 <span class="username"> {{ author.nickname }} </span></a>
                                             </a>
                                         </div>
@@ -96,7 +96,7 @@
                                     <td>{{ row.pk }}</td>
                                     <td>
                                         <a href="{% url 'web_article_page' row.pk %}" target="_blank">
-                                            <img src="{{ row.cover_url|resize:'100' }}"/>
+                                            <img src="{{ row.cover_url|oss_resize:'100' }}"/>
                                         </a>
                                     </td>
                                     <td>
@@ -105,7 +105,7 @@
                                     </td>
                                     <td >
                                         <a class="user-block" href="{% url 'management_user_edit' row.creator_id %}" target="_blank">
-                                            {#                                            <img src='{{ row.creator.avatar_url|resize:'128' }}' class="img-circle img-bordered-sm"/>#}
+                                            {#                                            <img src='{{ row.creator.avatar_url|oss_resize:'128' }}' class="img-circle img-bordered-sm"/>#}
 
                                             {{ row.creator.profile.nickname }}
                                         </a>

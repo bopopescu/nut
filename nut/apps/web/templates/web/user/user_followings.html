@@ -40,7 +40,7 @@
                             <div class="clearfix user-item" >
                                 <div class="media clearfix">
                                     <a class="pull-left user-icon" href="{% url 'web_user_index' f.followee_id %}" target="_blank">
-                                        <img class="media-object img-circle" src="{{ f.followee.profile.avatar_url|resize:'180'|smart_scheme:is_secure }}">
+                                        <img class="media-object img-circle" src="{{ f.followee.profile.avatar_url|oss_resize:'180'|smart_scheme:is_secure }}">
                                     </a>
                                     {#                    {{ reqeust.user }}#}
 
@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="entity-list clearfix">
                                         {% for entity_like in f.followee.recent_likes.all %}
-                                            <div class="entity-item" style="background-image:url('{{  entity_like.entity.chief_image|resize:'128'|smart_scheme:is_secure }}')">
+                                            <div class="entity-item" style="background-image:url('{{  entity_like.entity.chief_image|oss_resize:'128'|smart_scheme:is_secure }}')">
                                               <a href="{{ entity_like.entity.absolute_url }}" target="_blank">
                                               <img class="transparent-holder" src="{{ global_static_url_prefix }}images/trans.png" alt="{{ entity_like.entity.title }}"  title="{{ entity_like.entity.title }}" >
                                               </a>

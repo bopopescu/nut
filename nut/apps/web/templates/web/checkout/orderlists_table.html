@@ -34,7 +34,7 @@
                 <div class="entity-container">
                     <div class="entity-wrapper">
                         <a href="{% url 'web_entity_detail' order.items.all.0.sku.entity.entity_hash %}" target="_blank">
-                            <img src="{{ order.items.all.0.sku.entity.chief_image|resize:'128' }}" class="img-responsive">
+                            <img src="{{ order.items.all.0.sku.entity.chief_image|oss_resize:'128' }}" class="img-responsive">
                         </a>
                     </div>
                     <div class="entity-info-wrapper">
@@ -71,7 +71,7 @@
                     <div class="entity-container">
                         <div class="entity-wrapper">
                             <a href="{% url 'web_entity_detail' item.sku.entity.entity_hash %}" target="_blank">
-                                <img src="{{ item.sku.entity.chief_image|resize:'128' }}" class="img-responsive">
+                                <img src="{{ item.sku.entity.chief_image|oss_resize:'128' }}" class="img-responsive">
                                </a>
                         </div>
                         <div class="entity-info-wrapper">

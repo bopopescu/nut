@@ -11,7 +11,7 @@
     <tr>
         <TD>
             <a href="{% url 'web_entity_sale' item.sku.entity.entity_hash %}">
-                <img src="{{ item.sku.entity.chief_image|resize:'150' }}" >
+                <img src="{{ item.sku.entity.chief_image|oss_resize:'150' }}" >
             </a>
         </TD>
         <td>{{ item.sku.entity.title }}</td>

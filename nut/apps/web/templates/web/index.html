@@ -36,7 +36,7 @@
                 {% for banner in banners %}
                     <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}" data-banner="{{ banner.id }}" data-banner-value="{{ banner.link }}">
                         <a href="{{ banner.link }}?from=index_banner&_position={{ forloop.counter }}" target="_blank" title="{{ banner.banner_title }}">
-                            <b class="banner-image-wrapper" style="display:block;background-image: url('{{ banner.image_url|resize:'1024'|smart_scheme:is_secure }}')">
+                            <b class="banner-image-wrapper" style="display:block;background-image: url('{{ banner.image_url|oss_resize:'1024'|smart_scheme:is_secure }}')">
                                  <div class="banner-image-cell-scrim">
                                  </div>
                             </b>
@@ -137,7 +137,7 @@
                 {% for user in recommand_users %}
                     <li>
                         <a href="{{ user.absolute_url }}?from=index_selected_user&_position={{ forloop.counter }}" target="_blank" title="{{ user.nickname }}">
-                            <div class="img-responsive img-frame img-circle" style="background-image: url({{ user.avatar_url|resize:'128'|smart_scheme:is_secure }});margin-bottom:18px;">
+                            <div class="img-responsive img-frame img-circle" style="background-image: url({{ user.avatar_url|oss_resize:'128'|smart_scheme:is_secure }});margin-bottom:18px;">
                             </div>
                             <h3 class="user-name">{{ user.nickname }}</h3>
                         </a>
@@ -152,7 +152,7 @@
               <div class="recommend-user-panel">
                   <div class="user-icon-wrapper">
                       <a href="{{ user.absolute_url }}?from=index_selected_user&_position={{ forloop.counter }}" target="_blank" title="{{ user.nickname }}">
-                          <img class="img-circle" src="{{ user.avatar_url|resize:'128'|smart_scheme:is_secure }}" alt="{{ user.nickname }}"/>
+                          <img class="img-circle" src="{{ user.avatar_url|oss_resize:'128'|smart_scheme:is_secure }}" alt="{{ user.nickname }}"/>
                       </a>
                   </div>
                   <div class="user-info-wrapper">
@@ -197,7 +197,7 @@
                         <li class="dark-section-item shop-item">
                             <a href="{% url 'web_offline_shop_detail' shop.pk %}" target="_blank" title="{{ shop.shop_name }}">
                                 <div class="section-panel">
-                                    <div class="shop-cover" style="background-image: url('{{ shop.cover_url|resize:'200'|smart_scheme:is_secure }}')">
+                                    <div class="shop-cover" style="background-image: url('{{ shop.cover_url|oss_resize:'200'|smart_scheme:is_secure }}')">
                                     </div>
                                     <div class="bg-layer"></div>
                                     <h3 class="section-name shop-name">
@@ -218,7 +218,7 @@
                 {% for banner in middle_banners %}
                     <div class="banner-image-cell banner-image-cell-control {% if forloop.counter0 == 0 %}gk-slide-current {% endif %}gk-slide-{{ forloop.counter0 }}" data-banner="{{ banner.id }}" data-banner-value="{{ banner.link }}">
                         <a href="{{ banner.link }}" target="_blank" title="{{ banner.banner_title }}">
-                            <b class="banner-image-wrapper" style="display:block;background-image: url('{{ banner.image_url|resize:'1024'|smart_scheme:is_secure }}')">
+                            <b class="banner-image-wrapper" style="display:block;background-image: url('{{ banner.image_url|oss_resize:'1024'|smart_scheme:is_secure }}')">
                                 <div class="banner-image-cell-scrim">
 
                                 </div>

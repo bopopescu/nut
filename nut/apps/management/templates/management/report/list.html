@@ -47,7 +47,7 @@
                                         <td>{{ report.content_type.model }}</td>
                                         <td>
                                             {% if report.content_type.model == 'entity' %}
-                                                <a href="{% url 'management_entity_edit' report.content_object.pk %}" target="_blank"><img src="{{ report.content_object.chief_image|resize:'240' }}" width="120" height="120"></a>
+                                                <a href="{% url 'management_entity_edit' report.content_object.pk %}" target="_blank"><img src="{{ report.content_object.chief_image|oss_resize:'240' }}" width="120" height="120"></a>
                                             {% else %}
                                                 {% if report.content_object %}
                                                     <a href="{% url 'management_note_edit' report.content_object.pk %}" target="_blank">{{ report.content_object }}</a>

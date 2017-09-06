@@ -63,12 +63,12 @@
 
                          <li class="dropdown user user-menu">
                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="{{ request.user.profile.avatar_url|resize:'50' }}" class="user-image" alt="{{ request.user.profile.nick }}">
+                                <img src="{{ request.user.profile.avatar_url|oss_resize:'50' }}" class="user-image" alt="{{ request.user.profile.nick }}">
                                 <span class="hidden-xs">{{ request.user.profile.nick }}</span>
                              </a>
                              <ul class="dropdown-menu">
                                  <li class="user-header">
-                                     <img src="{{ request.user.profile.avatar_url|resize:'180' }}" class="img-circle" alt="User Image">
+                                     <img src="{{ request.user.profile.avatar_url|oss_resize:'180' }}" class="img-circle" alt="User Image">
                                      <p>
                                         {{ request.user.profile.nick }}
                                         <small>{{ request.user.profile.bio }}</small>

@@ -46,7 +46,7 @@
                                 {% for brand in brands %}
                                     <tr>
                                         <td>{{ brand.pk }}</td>
-                                        <td><img class="img-polaroid" style="max-height:150px;max-width:150px;"  src="{{ brand.icon_url|resize:100 }}"></td>
+                                        <td><img class="img-polaroid" style="max-height:150px;max-width:150px;"  src="{{ brand.icon_url|oss_resize:'100' }}"></td>
                                         <td>{{ brand.name }}</td>
                                         <td>
                                             <ul>

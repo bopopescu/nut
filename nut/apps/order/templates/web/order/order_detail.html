@@ -5,7 +5,7 @@
     <li>原总价: {{ order.grand_total_price }}</li>
     <li>促销总价: {{ order.promo_total_price }}</li>
     {% for orderitem in order.items.all %}
-    <li><img src="{{ orderitem.image|resize:'200' }}">------{{ orderitem.item_title }} -- 数量 --{{ orderitem.volume }}</li>
+    <li><img src="{{ orderitem.image|oss_resize:'200' }}">------{{ orderitem.item_title }} -- 数量 --{{ orderitem.volume }}</li>
     {% endfor %}
 </ul>
 

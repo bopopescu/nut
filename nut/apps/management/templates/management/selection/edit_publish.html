@@ -29,7 +29,7 @@
                     <div class="box-header">
                         {% for image in selection.entity.images %}
                             <div class="col-xs-6 col-sm-3 placeholder">
-                                <img class="img-responsive img-thumbnail" src="{{ image|resize:'240' }}" width="240" height="240">
+                                <img class="img-responsive img-thumbnail" src="{{ image|oss_resize:'240' }}" width="240" height="240">
                             </div>
                         {% endfor %}
                     </div>
@@ -42,7 +42,7 @@
 {#    <div class="row placeholders">#}
 {#        {% for image in selection.entity.images %}#}
 {#            <div class="col-xs-6 col-sm-3 placeholder">#}
-{#                <img class="img-responsive img-thumbnail" src="{{ image|resize:'240' }}" width="240" height="240">#}
+{#                <img class="img-responsive img-thumbnail" src="{{ image|oss_resize:'240' }}" width="240" height="240">#}
 {#            </div>#}
 {#        {% endfor %}#}
 {#    </div>#}

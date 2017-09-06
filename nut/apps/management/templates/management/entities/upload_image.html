@@ -9,7 +9,7 @@
         {% include 'management/entities/partial/entity_images.html' with image=entity.chief_image %}
 {#        {% for index, image in entity.images|enumerate_list %}#}
 {#            <div class="col-xs-6 col-sm-3 placeholder">#}
-{#                <img class="img-responsive img-thumbnail" alt="240x240" src="{{ image|resize:'600' }}" width="240" height="240">#}
+{#                <img class="img-responsive img-thumbnail" alt="240x240" src="{{ image|oss_resize:'600' }}" width="240" height="240">#}
 {#                {% if index != 0 %}#}
 {#                <span class="text-muted">#}
 {#                    <a href="{% url 'management_remove_entity_image' entity.id %}" data-image="{{ image }}">{% trans 'remove' %}</a>#}

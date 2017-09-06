@@ -24,7 +24,7 @@
      </div>
      <div class="cover-wrapper">
           <a href="{% url 'web_article_page' r_article.pk %}#from=recommend">
-             <img  src="{{ r_article.cover_url|resize:'450'|smart_scheme:is_secure }}">
+             <img  src="{{ r_article.cover_url|oss_resize:'450'|smart_scheme:is_secure }}">
          </a>
      </div>
 </div>

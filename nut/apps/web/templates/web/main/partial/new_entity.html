@@ -7,7 +7,7 @@
         <div class="img-box">
             {% if entity.entity_hash %}
                 <a class="img-link" href="{% url 'web_entity_detail' entity.entity_hash %}" title="{{ entity.title }}" target="_blank">
-                    <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|resize:'310'|smart_scheme:is_secure }}">
+                    <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|oss_resize:'310'|smart_scheme:is_secure }}">
                 </a>
                 <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank" title="{{ entity.title }}">
                    <div class="bg-layer"></div>

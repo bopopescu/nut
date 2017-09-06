@@ -2,7 +2,7 @@
 {% load guoku %}
 
 <div class="head_pic">
-        <img class="img-responsive img-circle" id='user-avatar' src="{{ user_context.profile.avatar_url|resize:"120"|smart_scheme:is_secure }}" width="120" height="120">
+        <img class="img-responsive img-circle" id='user-avatar' src="{{ user_context.profile.avatar_url|oss_resize:"120"|smart_scheme:is_secure }}" width="120" height="120">
 </div>
 <div class="change_head newest-btn-primary">
     						点击选择图片

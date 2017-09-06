@@ -18,7 +18,7 @@
                 {{ edm.title }}
             </td>
             <td class="product-brand">
-                <img src="{{ edm.cover|resize:'350' }}"/>
+                <img src="{{ edm.cover|oss_resize:'350' }}"/>
             </td>
             <td class="product-title">
                 {{ edm.publish_time|date:'Y-m-d H:i:s' }}

@@ -7,7 +7,7 @@
     <div class="row placeholders">
 {#        {% for image in sal.article.cor %}#}
             <div class="col-xs-6 col-sm-3 placeholder">
-                <img class="img-responsive img-thumbnail" src="{{ sla.article.cover_url|resize:'240' }}" width="240" height="240">
+                <img class="img-responsive img-thumbnail" src="{{ sla.article.cover_url|oss_resize:'240' }}" width="240" height="240">
             </div>
 {#        {% endfor %}#}
     </div>

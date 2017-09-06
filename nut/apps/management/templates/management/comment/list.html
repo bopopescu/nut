@@ -41,7 +41,7 @@
                             {% for comment in comments %}
                                 <tr>
                                     <td>{{ comment.id }}</td>
-                                    <td><a target="_blank" href="{% url 'web_entity_detail' comment.note.entity.entity_hash %}"><img class="img-responsive img-thumbnail" src="{{ comment.note.entity.chief_image|resize:'310' }}" style="max-height:128px;max-width:128px;"></a></td>
+                                    <td><a target="_blank" href="{% url 'web_entity_detail' comment.note.entity.entity_hash %}"><img class="img-responsive img-thumbnail" src="{{ comment.note.entity.chief_image|oss_resize:'310' }}" style="max-height:128px;max-width:128px;"></a></td>
                                     <td><a href="{% url 'management_note_edit' comment.note.pk %}">{{ comment.note }}</a></td>
                                     <td><a href="{% url 'management_user_edit' comment.user.pk %}">{{ comment.user.profile.nickname }}</a></td>
                                     <td>{{ comment.content }}</td>

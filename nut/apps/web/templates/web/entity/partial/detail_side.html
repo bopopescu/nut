@@ -17,7 +17,7 @@
                     <div class="writer-avatar col-sm-2">
                         <div class="avatar-wrapper">
                             <a href="{% url 'web_user_index' article.creator.pk %}">
-                                <img src="{{ article.creator.profile.avatar_url|resize:'180'|smart_scheme:is_secure }}">
+                                <img src="{{ article.creator.profile.avatar_url|oss_resize:'180'|smart_scheme:is_secure }}">
                             </a>
                         </div>
                     </div>
@@ -122,8 +122,8 @@
                         </div>
                         <div class="img-holder">
                             <a href="{% url 'web_entity_detail' ent.entity_hash %}">
-                                <div class="img-frame" style="background-image:url({{ ent.chief_image|resize:'128'|smart_scheme:is_secure }})"></div>
-                                {#                                <img width="52px" height="52px" src="{{ ent.chief_image|resize:'128' }}"/>#}
+                                <div class="img-frame" style="background-image:url({{ ent.chief_image|oss_resize:'128'|smart_scheme:is_secure }})"></div>
+                                {#                                <img width="52px" height="52px" src="{{ ent.chief_image|oss_resize:'128' }}"/>#}
                             </a>
                         </div>
 
@@ -163,8 +163,8 @@
                             </div>
                             <div class="img-holder">
                                 <a href="{% url 'web_article_page' h_article.pk %}?from=entity_detail_sidebar_pop_article&_position={{ forloop.counter }}">
-                                    <div class="img-frame" style="background-image:url({{ h_article.cover_url|resize:'200'|smart_scheme:is_secure }})"></div>
-                                    {#                                    <img width="269"  src="{{ h_article.cover|resize:'270' }}"/>#}
+                                    <div class="img-frame" style="background-image:url({{ h_article.cover_url|oss_resize:'200'|smart_scheme:is_secure }})"></div>
+                                    {#                                    <img width="269"  src="{{ h_article.cover|oss_resize:'270' }}"/>#}
                                 </a>
                             </div>
                         </div>
@@ -178,7 +178,7 @@
         <li class="section banner-holder">
             <div class="section-banner">
                 <a class="banner-link" href="{{ banner.link }}?from=entity_detail_sidebar_banner&_position={{ forloop.counter }}">
-                    <img class="img-responsive" src="{{ banner.image_url|resize:'320'|smart_scheme:is_secure }}">
+                    <img class="img-responsive" src="{{ banner.image_url|oss_resize:'320'|smart_scheme:is_secure }}">
                 </a>
             </div>
         </li>
@@ -230,7 +230,7 @@
     {#                {% for liker in likers %}#}
     {#                    <li>#}
     {#                        <a href="{% url 'web_user_index' liker.user_id %}" target="_blank">#}
-    {#                            <img src="{{ liker.user.profile.avatar_url|resize:'50' }}" alt="{{ liker.user.profile.nickname }}" title="{{ liker.user.profile.nickname }}" width="25" height="25">#}
+    {#                            <img src="{{ liker.user.profile.avatar_url|oss_resize:'50' }}" alt="{{ liker.user.profile.nickname }}" title="{{ liker.user.profile.nickname }}" width="25" height="25">#}
     {#                        </a>#}
     {#                    </li>#}
     {#                {% endfor %}#}
@@ -288,8 +288,8 @@
                             </div>
                             <div class="img-holder">
                                 <a href="{% url 'web_entity_detail' ent.entity_hash %}">
-                                    <div class="img-frame" style="background-image:url({{ ent.chief_image|resize:'128'|smart_scheme:is_secure }})"></div>
-                                    {#                                <img width="52px" height="52px" src="{{ ent.chief_image|resize:'128' }}"/>#}
+                                    <div class="img-frame" style="background-image:url({{ ent.chief_image|oss_resize:'128'|smart_scheme:is_secure }})"></div>
+                                    {#                                <img width="52px" height="52px" src="{{ ent.chief_image|oss_resize:'128' }}"/>#}
                                 </a>
                             </div>
 

@@ -18,7 +18,7 @@
         {% block user_header %}
             <div class='authorized_author_info'>
                     <div class="user-icon">
-                        <img src="{{ current_user.avatar_url|resize:'180'|smart_scheme:is_secure }}"/>
+                        <img src="{{ current_user.avatar_url|oss_resize:'180'|smart_scheme:is_secure }}"/>
                     </div>
                     <div class="user-nick">
                          <span class="nick">{{ current_user.nickname }}</span>
@@ -111,7 +111,7 @@
     <script type="text/html" id="share_weixin_modal_content">
         <div class="share-modal-wrapper share-modal-wrapper-control">
             <div class="qr-code-wrapper qr-code-control">
-                <img src="{{ authorized_user_info.weixin_qrcode_img|resize:'200'|smart_scheme:is_secure }}" width="200px" height="200px"/>
+                <img src="{{ authorized_user_info.weixin_qrcode_img|oss_resize:'200'|smart_scheme:is_secure }}" width="200px" height="200px"/>
             </div>
         </div>
     </script>

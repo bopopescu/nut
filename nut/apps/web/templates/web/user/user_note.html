@@ -50,7 +50,7 @@
                                        <div class="note-entity-img-wrapper">
                                            <div class="img-box">
                                                <a href="{{ noteObj.entity.absolute_url }}">
-                                                   <img class="img-responsive" src="{{ noteObj.entity.chief_image|resize:'128'|smart_scheme:is_secure }}" />
+                                                   <img class="img-responsive" src="{{ noteObj.entity.chief_image|oss_resize:'128'|smart_scheme:is_secure }}" />
                                                </a>
                                            </div>
                                        </div>

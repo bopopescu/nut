@@ -3,7 +3,7 @@
 {% for entity in entities %}
     <div class="col-xs-6 col-sm-6" style="padding:3px;">
         <div class="img-box">
-            <img class="img-responsive" src="{{ entity.chief_image|resize:"128" }}">
+            <img class="img-responsive" src="{{ entity.chief_image|oss_resize:"128" }}">
         </div>
     </div>
 {% endfor %}

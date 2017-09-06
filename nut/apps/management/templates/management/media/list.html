@@ -39,7 +39,7 @@
                                 {% for medium in media %}
                                     <tr>
                                         <td>{{ medium.pk }}</td>
-                                        <td><img class="img-polaroid img-responsive" style="max-height:150px;max-width:150px;" src="{{ medium.file_url|resize:'240' }}" width="120" height="120"></td>
+                                        <td><img class="img-polaroid img-responsive" style="max-height:150px;max-width:150px;" src="{{ medium.file_url|oss_resize:'240' }}" width="120" height="120"></td>
                                         <td>
                                             {% if medium.creator %}
                                                  <a href="{% url 'management_user_edit' medium.creator_id %}">
@@ -88,7 +88,7 @@
 {#                {% for medium in media %}#}
 {#                    <tr>#}
 {#                        <td>{{ medium.pk }}</td>#}
-{#                        <td><img class="img-polaroid img-responsive" style="max-height:150px;max-width:150px;" src="{{ medium.file_url|resize:'240' }}" width="120" height="120"></td>#}
+{#                        <td><img class="img-polaroid img-responsive" style="max-height:150px;max-width:150px;" src="{{ medium.file_url|oss_resize:'240' }}" width="120" height="120"></td>#}
 {#                        <td>#}
 {#                            {% if medium.creator %}#}
 {#                                 <a href="{% url 'management_user_edit' medium.creator_id %}">#}

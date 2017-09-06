@@ -10,7 +10,7 @@
         {% for entity_context in tag_context.entity_list %}
             <div class="col-xs-6 col-sm-6" style="padding:3px;">
                 <div class="img-box">
-                    <img class="img-responsive" src="{{ entity_context.chief_image.url|resize:"128"|smart_scheme:is_secure }}">
+                    <img class="img-responsive" src="{{ entity_context.chief_image.url|oss_resize:"128"|smart_scheme:is_secure }}">
                 </div>
             </div>
         {% endfor %}

@@ -20,7 +20,7 @@
                 {% for note in notes %}
                     <tr>
                         <td>{{ note.id }}</td>
-                        <td><a href="{% url 'management_entity_edit' note.entity_id %}" target="_blank"><img class="img-responsive img-thumbnail" src="{{ note.entity.chief_image|resize:'310' }}" style="max-height:128px;max-width:128px;"></a></td>
+                        <td><a href="{% url 'management_entity_edit' note.entity_id %}" target="_blank"><img class="img-responsive img-thumbnail" src="{{ note.entity.chief_image|oss_resize:'310' }}" style="max-height:128px;max-width:128px;"></a></td>
                         <td><a href="{% url 'management_user_edit' note.user.pk %}" target="_blank">{{ note.user.profile.nickname }}</a></td>
                         <td width="400">{{ note.note }}</td>
                         <td>{{ note.post_time|date:'Y-m-d H:i:s' }}</td>

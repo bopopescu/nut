@@ -44,7 +44,7 @@
                                 {% for row in object_list %}
                                     <tr>
 {#                                        <td>{{ row.id }}</td>#}
-                                        <td><img class="img-polaroid img-responsive" style="max-height:150px;max-width:150px;"  src="{{ row.file_url|resize:"600" }}"></td>
+                                        <td><img class="img-polaroid img-responsive" style="max-height:150px;max-width:150px;"  src="{{ row.file_url|oss_resize:'600' }}"></td>
                                         <td>{{ row.content_type }}</td>
                                         <td>{{ row.upload_datetime|date:'Y-m-d H:i:s' }}</td>
                                         <td>

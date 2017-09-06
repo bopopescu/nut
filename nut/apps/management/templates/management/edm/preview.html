@@ -69,7 +69,7 @@
                                         style="background-color: transparent; color: #428bca; text-decoration: none;"
                                         target="_blank">
                                     <img style="max-height: 98%; max-width: 98%;"
-                                        src="{{ article.cover_url|resize:'350' }}"/>
+                                        src="{{ article.cover_url|oss_resize:'350' }}"/>
                                     </a>
                                 </td>
                                 <td width="60%" height="35" valign="top">
@@ -127,7 +127,7 @@
                                             <td align="center" width="100%" style="height: 0; margin: 0; display: block; max-height: 260px;
                                             padding-bottom: 99%; overflow: hidden; text-align: center;">
                                                 <a href="http://{{ host }}{% url 'web_entity_detail' entity.entity_hash %}?from=edm" style="background-color: transparent; display: block; margin: 0; position: relative;" target="_blank">
-                                                    <img src="{{ entity.chief_image|resize:'310'}}"
+                                                    <img src="{{ entity.chief_image|oss_resize:'310'}}"
                                                          style="display: block;vertical-align: middle;height: auto;background-color: #f6f6f6; width: 100%; max-height: 100%; max-width: 100%; margin-right: auto;margin-left: auto;"/>
                                                 </a>
                                             </td>

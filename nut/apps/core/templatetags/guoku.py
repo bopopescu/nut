@@ -58,7 +58,7 @@ def oss_resize(url, size=None):
             # CDN地址，修改到阿里云规则的地址
             url = '{value}/{size}'.format(value=url, size=size)
 
-    url = url.replace('//images', '/images')
+    url = url.replace('//images', '/images') if url else url
     return url
 
 

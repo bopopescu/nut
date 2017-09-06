@@ -57,7 +57,7 @@
                                     <tr>
                                         <td>{{ like.entity.id }}</td>
                                         <td>
-                                            <img class="img-thumbnail img-responsive" src="{{ like.entity.chief_image|resize:'240' }}" width="120" height="120">
+                                            <img class="img-thumbnail img-responsive" src="{{ like.entity.chief_image|oss_resize:'240' }}" width="120" height="120">
                                         </td>
                                         <td>{{ like.entity.brand }}</td>
                                         <td>{{ like.entity.title }}</td>
@@ -114,7 +114,7 @@
 {#                    <tr>#}
 {#                        <td>{{ like.entity.id }}</td>#}
 {#                        <td>#}
-{#                            <img class="img-thumbnail img-responsive" src="{{ like.entity.chief_image|resize:'240' }}" width="120" height="120">#}
+{#                            <img class="img-thumbnail img-responsive" src="{{ like.entity.chief_image|oss_resize:'240' }}" width="120" height="120">#}
 {#                        </td>#}
 {#                        <td>{{ like.entity.brand }}</td>#}
 {#                        <td>{{ like.entity.title }}</td>#}

@@ -25,7 +25,7 @@
 {% block user_header %}
     <div class='row authorized_author_info'>
         <div class="col-xs-4 offline-shop-cover-wrapper">
-            <div class="offline-shop-cover" style="background-image: url('{{ offline_shop_cover|resize:'450'|smart_scheme:is_secure }}')"></div>
+            <div class="offline-shop-cover" style="background-image: url('{{ offline_shop_cover|oss_resize:'450'|smart_scheme:is_secure }}')"></div>
         </div>
         <div class=" col-xs-8 user-info ">
             <div class="user-nick">

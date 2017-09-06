@@ -18,7 +18,7 @@
                     <div class="dark-section-item">
                         <a href="{% url 'tag_entities_url' entity_tag.hash %}" target="_blank">
                             <div class="section-panel">
-                                <div class="bg-pic" style="background-image: url({{ image_host }}{{ entity_tag.image|resize:'450' }})">
+                                <div class="bg-pic" style="background-image: url({{ image_host }}{{ entity_tag.image|oss_resize:'450' }})">
 
                                 </div>
                                 <div class="bg-layer show"></div>

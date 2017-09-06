@@ -2,7 +2,7 @@
 
 {#{% load entity %}#}
 
-<img src="{{ obj.entity.chief_image|resize:'600' }}" alt="{{ obj.entity.title }}">
+<img src="{{ obj.entity.chief_image|oss_resize:'600' }}" alt="{{ obj.entity.title }}">
 <br />
 {{ obj.entity.top_note.note }} [来自：{{ obj.entity.top_note.user.profile.nickname }}]
 <a class="price" href="{% url 'web_entity_detail' obj.entity.entity_hash %}">

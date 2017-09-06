@@ -4,13 +4,13 @@
       {% if entity.detail_images %}
         <div class="other-pic-list">
             <a href="javascript:;" class="">
-                <img class="img-responsive" src="{{ entity.chief_image|resize:'128'|smart_scheme:is_secure }}" alt="{{ entity.title }}">
+                <img class="img-responsive" src="{{ entity.chief_image|oss_resize:'310'|smart_scheme:is_secure }}" alt="{{ entity.title }}">
             </a>
         </div>
         {% for img in entity.detail_images %}
             <div class="other-pic-list">
             <a href="javascript:;" class="">
-               <img class="img-responsive" src="{{ img|resize:'128'|smart_scheme:is_secure }}" alt="{{ entity.title }}">
+               <img class="img-responsive" src="{{ img|oss_resize:'310'|smart_scheme:is_secure }}" alt="{{ entity.title }}">
                 </a>
             </div>
         {% endfor %}

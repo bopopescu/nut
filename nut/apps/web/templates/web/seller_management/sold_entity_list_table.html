@@ -45,7 +45,7 @@
                                 <div class="entity-container">
                                     <div class="entity-wrapper">
                                         <a href="{% url 'web_entity_detail' sku.entity.entity_hash %}" target="_blank">
-                                             <img src="{{ sku.entity.chief_image|resize:'128' }}" class="img-responsive">
+                                             <img src="{{ sku.entity.chief_image|oss_resize:'128' }}" class="img-responsive">
                                          </a>
 
                                     </div>

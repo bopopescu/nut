@@ -75,7 +75,7 @@
                                         <td class="product-thumb-img">
 {#                                            {{ entity.entity_hash }}#}
                                             <a href="{% url 'web_entity_detail' entity.entity_hash %}" target="_blank">
-                                                <img class="img-thumbnail img-responsive" src="{{ entity.object.chief_image|resize:'310' }}" width="128" height="128">
+                                                <img class="img-thumbnail img-responsive" src="{{ entity.object.chief_image|oss_resize:'310' }}" width="128" height="128">
                                             </a>
                                         </td>
                                         <td class="product-status">

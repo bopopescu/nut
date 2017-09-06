@@ -25,7 +25,7 @@
         <tr>
             <td>{{ promo_entity.id  }}</td>
             <td>{{ promo_entity.entity.title }}</td>
-            <td class="max-width:200"><img src="{{  promo_entity.entity.chief_image|resize:'100' }}" ></td>
+            <td class="max-width:200"><img src="{{  promo_entity.entity.chief_image|oss_resize:'100' }}" ></td>
             <td>
                 {{ promo_entity.pos }}
             </td>

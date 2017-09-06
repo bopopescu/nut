@@ -105,7 +105,7 @@
                     <li class="recommend-entity-item dark-section-item">
                         <a href="{{   entity.absolute_url }}?from=store_recommend_entity&_position={{ forloop.counter }}" target="_blank" title="{{ entity.title }}">
                             <div class="section-panel">
-                                <div class="entity-pic" style="background-image: url('{{ entity.chief_image |resize:'240'|smart_scheme:is_secure }}')">
+                                <div class="entity-pic" style="background-image: url('{{ entity.chief_image |oss_resize:'240'|smart_scheme:is_secure }}')">
                                 </div>
                                 <span class="seller-name">
                                      {{ entity.title }}

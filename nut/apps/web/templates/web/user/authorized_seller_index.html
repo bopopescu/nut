@@ -19,7 +19,7 @@
         {% block user_header %}
             <div class='authorized_author_info'>
                     <div class="user-icon">
-                        <img src="{{ current_user.avatar_url|resize:'180'|smart_scheme:is_secure }}"/>
+                        <img src="{{ current_user.avatar_url|oss_resize:'180'|smart_scheme:is_secure }}"/>
                     </div>
                     <div class="user-nick">
                          <span class="nick">{{ current_user.nickname }}</span>
@@ -117,7 +117,7 @@
                 <div class="new-thumbnail entity-four">
                     <div class="img-box">
                         <a href="{{ entity.absolute_url }}" target="_blank">
-                            <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|resize:'310'|smart_scheme:is_secure }}">
+                            <img class="img-responsive" alt="{{ entity.title }}" title="{{ entity.title }}" src="{{ entity.chief_image|oss_resize:'310'|smart_scheme:is_secure }}">
                         </a>
                     </div>
                     <div class="entity-four-info">

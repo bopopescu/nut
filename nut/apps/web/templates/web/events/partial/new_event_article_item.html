@@ -4,7 +4,7 @@
     <div class="hidden-xs col-xs-12 col-sm-4 col-md-4 col-lg-4 selection-article-item event-article-item article-compact" >
         <div class="article-panel">
             <a class="img-link" href="{% url 'web_article_page' article.pk   %}">
-            <div class="img-holder" style="background-image: url({{ article.cover_url|resize:'450' }})"></div>
+            <div class="img-holder" style="background-image: url({{ article.cover_url|oss_resize:'450' }})"></div>
             </a>
 
             <div class="article-title">
@@ -32,7 +32,7 @@
 {##}
 {#            <div class="cover-wrapper">#}
 {#                <a  href="{% url 'web_article_page' article.pk  %}" target="_blank" >#}
-{#                    <img class="article-cover img-responsive" src="{{ article.cover_url|resize:'750' }}" />#}
+{#                    <img class="article-cover img-responsive" src="{{ article.cover_url|oss_resize:'750' }}" />#}
 {#                </a>#}
 {#            </div>#}
 {#            <div class="content-digest">#}
@@ -87,7 +87,7 @@
      </div>
      <div class="cover-wrapper">
           <a href="{% url 'web_article_page' article.pk %}#from=recommend">
-             <img  src="{{ article.cover_url|resize:'450' }}">
+             <img  src="{{ article.cover_url|oss_resize:'450' }}">
          </a>
      </div>
 </div>

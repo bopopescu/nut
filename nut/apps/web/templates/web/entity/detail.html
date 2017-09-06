@@ -57,14 +57,14 @@
                         <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
                            <ul id="xs-detail-pic-wrapper">
                                <li>
-{#                                 <img itemprop="image" class="img-responsive" src="{{ entity.chief_image|resize:"310" }}" alt="{{ entity.title }}" title="{{ entity.title }}">#}
-                                   <div class="entity-pic" style="background-image: url('{{ entity.chief_image|resize:"310"|smart_scheme:is_secure }}')"></div>
+{#                                 <img itemprop="image" class="img-responsive" src="{{ entity.chief_image|oss_resize:"310" }}" alt="{{ entity.title }}" title="{{ entity.title }}">#}
+                                   <div class="entity-pic" style="background-image: url('{{ entity.chief_image|oss_resize:"310"|smart_scheme:is_secure }}')"></div>
                                </li>
                                {% if entity.detail_images %}
                                    {% for img in entity.detail_images %}
                                        <li>
-{#                                         <img itemprop="image" class="img-responsive" src="{{ img|resize:"310" }}" alt="{{ entity.title }}" title="{{ entity.title }}">#}
-                                           <div class="entity-pic" style="background-image: url('{{ img|resize:"310"|smart_scheme:is_secure }}')"></div>
+{#                                         <img itemprop="image" class="img-responsive" src="{{ img|oss_resize:"310" }}" alt="{{ entity.title }}" title="{{ entity.title }}">#}
+                                           <div class="entity-pic" style="background-image: url('{{ img|oss_resize:"310"|smart_scheme:is_secure }}')"></div>
                                        </li>
                                    {% endfor %}
                                {% endif %}
@@ -183,7 +183,7 @@
 
                                 <div class="img-holder">
                                     <a href="{% url 'web_entity_detail' entity.entity_hash %}#from=recommend" target="_blank" class="">
-                                        <div class="img-frame" style="background-image:url({{ entity.chief_image|resize:'240'|smart_scheme:is_secure }})"></div>
+                                        <div class="img-frame" style="background-image:url({{ entity.chief_image|oss_resize:'240'|smart_scheme:is_secure }})"></div>
                                     </a>
                                 </div>
                             </div>

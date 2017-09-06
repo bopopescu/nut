@@ -33,7 +33,7 @@
                         </td>
                         <td>
 {#                          <div class="col-xs-2">#}
-                                <a href="{% url 'web_entity_detail' selection.entity.entity_hash %}" target="_blank"><img class="img-thumbnail img-responsive" src="{{ selection.entity.chief_image|resize:'128' }}" width="128" height="128"></a>
+                                <a href="{% url 'web_entity_detail' selection.entity.entity_hash %}" target="_blank"><img class="img-thumbnail img-responsive" src="{{ selection.entity.chief_image|oss_resize:'128' }}" width="128" height="128"></a>
 {#                          </div>#}
                         </td>
                         <td>{{ selection.entity.brand }}</td>

@@ -4,7 +4,7 @@
 <div class="user-article-item-wrapper user-article-cell col-xs-12 col-sm-4 col-md-4 col-lg-4">
     <div class="user-article-panel">
         <a href="{{ article.url }}" target="_blank">
-            <div class="hover-light user-article-img" style="background-image: url({{ article.cover_url|resize:'450'|smart_scheme:is_secure }})">
+            <div class="hover-light user-article-img" style="background-image: url({{ article.cover_url|oss_resize:'450'|smart_scheme:is_secure }})">
             </div>
         </a>
         <div class="user-article-title-wrapper">
