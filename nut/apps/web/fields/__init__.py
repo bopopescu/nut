@@ -1,17 +1,11 @@
-# -*- coding: utf-8 -*-
-#  for Wizard_CaptchaField -- begin --
-from django.forms import ValidationError
-from django.utils.translation import ugettext, ugettext_lazy as _
-
-from captcha.fields import CaptchaField,CaptchaTextInput
-from captcha.models import CaptchaStore,get_safe_now
+# coding=utf-8
 from captcha.conf import settings as captcha_settings
-
-from django import forms
-from django.forms import CharField
+from captcha.fields import CaptchaField, CaptchaTextInput
+from captcha.models import CaptchaStore, get_safe_now
 from django.core.cache import cache
-
-# for Wizard_CaptchaField -- end --
+from django.forms import CharField
+from django.forms import ValidationError
+from django.utils.translation import ugettext_lazy as _
 
 
 class Wizard_CaptchaField(CaptchaField):
@@ -30,11 +24,11 @@ class Wizard_CaptchaField(CaptchaField):
         kwargs['widget'] = kwargs.pop('widget', CaptchaTextInput(
             output_format=kwargs.pop('output_format', None),
             id_prefix=kwargs.pop('id_prefix', None),
-            attrs={'class':'captcha-input','placeholder':_('Captcha Code')}
+            attrs={'class': 'captcha-input', 'placeholder': _('Captcha Code')}
         ))
         self.hashKey = None
 
-        super(CaptchaField, self).__init__(fields,*args, **kwargs)
+        super(CaptchaField, self).__init__(fields, *args, **kwargs)
 
     def get_hash_key_need_delete_set(self):
         theSet = cache.get(self.hash_set_key)
@@ -45,7 +39,7 @@ class Wizard_CaptchaField(CaptchaField):
     def delete_captcha(self, hash_key):
         try:
             CaptchaStore.objects.get(hashkey=hash_key).delete()
-        except Exception as e :
+        except Exception as e:
             pass
 
     def second_time_validate_delete(self, hash_key):
@@ -58,8 +52,7 @@ class Wizard_CaptchaField(CaptchaField):
             theSet.add(hash_key)
             cache.set(self.hash_set_key, theSet, timeout=None)
 
-
-    def clean(self,value):
+    def clean(self, value):
         super(CaptchaField, self).clean(value)
         response, value[1] = (value[1] or '').strip().lower(), ''
         CaptchaStore.remove_expired()
@@ -82,9 +75,3 @@ class Wizard_CaptchaField(CaptchaField):
             except CaptchaStore.DoesNotExist:
                 raise ValidationError(getattr(self, 'error_messages', {}).get('invalid', _('Invalid CAPTCHA')))
         return value
-
-    # def __del__(self):
-    #     # https://code.google.com/p/django-simple-captcha/issues/detail?id=4
-    #     #  delete the captchaStore latter
-    #     #  django will call __del__ immediatly
-    #     pass

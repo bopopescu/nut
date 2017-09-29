@@ -1,25 +1,23 @@
 # coding=utf-8
-from django.db.models import Q
-from django.http import Http404, HttpResponse, HttpResponseRedirect
+from datetime import datetime
+from hashlib import md5
+
 from django.core.urlresolvers import reverse
+from django.db.models import Q
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.views.decorators.http import require_http_methods
 from django.template import loader
 from django.template.base import TemplateDoesNotExist
-# from django.contrib.auth.decorators import login_required
-# from datetime import datetime, timedelta
+from django.utils.log import getLogger
+from django.views.decorators.http import require_http_methods
 
 from apps.core.extend.paginator import ExtentPaginator, EmptyPage, PageNotAnInteger
-from apps.core.models import Show_Event_Banner, Show_Editor_Recommendation, Event
 from apps.core.models import Entity, Entity_Like, Note
+from apps.core.models import Show_Event_Banner, Show_Editor_Recommendation, Event
 from apps.core.utils.http import JSONResponse
 from apps.tag.models import Tags, Content_Tags
 
-from hashlib import md5
-from datetime import datetime
-
-from django.utils.log import getLogger
 
 log = getLogger('django')
 
@@ -45,9 +43,7 @@ def elist(request, template='web/events/list.html'):
     _event_list = Event.objects.filter(event_status__is_published=True).order_by('-slug')
     _event_list = _fill_banners_into_event_list(_event_list)
     return render_to_response(template,
-                              {
-                                  'event_list': _event_list,
-                              },
+                              {'event_list': _event_list},
                               context_instance=RequestContext(request))
 
 
@@ -66,8 +62,8 @@ def event(request, slug, template='web/events/home'):
     except TemplateDoesNotExist:
         template = "web/events/home.html"
 
-    hash = md5(event.tag.encode('utf-8')).hexdigest()
-    tag = Tags.objects.get(hash=hash)
+    hash_str = md5(event.tag.encode('utf-8')).hexdigest()
+    tag = Tags.objects.get(hash=hash_str)
     inner_qs = Content_Tags.objects.filter(tag=tag, target_content_type=24) \
         .values_list('target_object_id', flat=True).using('slave')
     log.info(inner_qs.query)
@@ -106,7 +102,6 @@ def event(request, slug, template='web/events/home'):
                     .filter(entity_id__in=top_entities_list, user=request.user) \
                     .values_list('entity_id', flat=True).using('slave')
 
-
         except Tags.DoesNotExist as e:
             pass
 
@@ -124,7 +119,6 @@ def event(request, slug, template='web/events/home'):
         e = _entities.object_list
         el = Entity_Like.objects.filter(entity_id__in=list(e), user=request.user).values_list('entity_id', flat=True)
         el = list(el) + list(top_entities_list_like)
-        # el =
 
     _show_event_banners = Show_Event_Banner.objects.filter(event=event, position__gt=0)
     _show_editor_recommendations = Show_Editor_Recommendation.objects.filter(event=event, position__gt=0)
@@ -167,7 +161,6 @@ def event(request, slug, template='web/events/home'):
             content_type='text/html; charset=utf-8',
         )
 
-    # log.info('tag text %s', event.tag)
     return render_to_response(
         template,
         {
@@ -177,18 +170,12 @@ def event(request, slug, template='web/events/home'):
             'tag_text': event.tag,
             'show_event_banners': _show_event_banners,
             'show_editor_recommendations': _show_editor_recommendations,
-
             'show_editor_recommendations_entity': _show_editor_recommendations_entity,
             'show_editor_recommendations_shop': _show_editor_recommendations_shop,
             'show_editor_recommendations_fair': _show_editor_recommendations_fair,
-
             'entities': _entities,
             'user_entity_likes': el,
             'from_app': request.GET.get('from', 'normal') == 'app'
-
         },
         context_instance=RequestContext(request)
     )
-
-
-__author__ = 'edison'

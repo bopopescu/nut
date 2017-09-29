@@ -16,7 +16,6 @@ avatar_path = getattr(settings, 'Avatar_Image_Path', 'avatar/')
 
 
 class UserSignInForm(forms.Form):
-
     error_messages = {
         'invalid_login': _('email or password wrong'),
         'inactive': _("This account is inactive."),
@@ -28,13 +27,12 @@ class UserSignInForm(forms.Form):
 
     email = forms.EmailField(
         label=_('Email'),
-        widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder': _('Email')}),
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': _('Email')}),
 
     )
     password = forms.CharField(
         label=_('Password'),
-        widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder': _('Password')}),
-
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': _('Password')}),
 
     )
 
@@ -50,11 +48,6 @@ class UserSignInForm(forms.Form):
         if not self.fields['email'].label:
             self.fields['email'].label = self.username_field.verbose_name
 
-    # def clean_email(self):
-    #     _email = self.cleaned_data.get('email')
-    #
-    #
-    #     return _email
     def clean(self):
         email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
@@ -100,7 +93,6 @@ class UserSignInForm(forms.Form):
 
 
 class UserSignUpForm(forms.Form):
-
     error_messages = {
         'duplicate_nickname': _("A user with that nickname already exists."),
         'duplicate_email': _("A user with that email already exists."),
@@ -110,27 +102,27 @@ class UserSignUpForm(forms.Form):
     nickname = forms.RegexField(
         error_message=_('nickname: 3 to 30 character can not start with digits'),
         label=_('nickname'),
-        regex= r"^[^0-9][\w-]{3,30}$",
-        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':_('nickname')}),
+        regex=r"^[^0-9][\w-]{3,30}$",
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('nickname')}),
         help_text=_("Required. 3-30 characters . Letters."),
     )
 
     email = forms.EmailField(
         label=_('email'),
-        widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'hi@guoku.com'}),
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'hi@guoku.com'}),
         help_text=_('Required.'),
     )
 
     password = forms.CharField(
         label=_('password'),
         min_length=8,
-        widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':_('password')}),
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': _('password')}),
         help_text=_('Required')
     )
     confirm_password = forms.CharField(
         label=_('New password confirmation'),
         min_length=8,
-        widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':_('New password confirmation')}),
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': _('New password confirmation')}),
         help_text=_("Enter the same password as above, for verification."),
     )
 
@@ -139,7 +131,7 @@ class UserSignUpForm(forms.Form):
         captcha = Wizard_CaptchaField(required=False)
     else:
         captcha = Wizard_CaptchaField()
-    agree_tos = forms.BooleanField(widget=forms.CheckboxInput(attrs={'checked' : 'checked'}), initial=True)
+    agree_tos = forms.BooleanField(widget=forms.CheckboxInput(attrs={'checked': 'checked'}), initial=True)
 
     def __init__(self, *args, **kwargs):
         super(UserSignUpForm, self).__init__(*args, **kwargs)
@@ -147,13 +139,12 @@ class UserSignUpForm(forms.Form):
     def clean_nickname(self):
         _nickname = self.cleaned_data.get('nickname')
         _nickname = clean_user_text(_nickname)
-        # print _nickname
         try:
             #  the following line will rise MultipleObjectsReturned if get return more than 1 User_Profile
             #  if this exception is not handled , the exception will simple raise above to cause "internal service error"
             #  right to the user.
             #  so handle it
-            User_Profile.objects.get(nickname = _nickname)
+            User_Profile.objects.get(nickname=_nickname)
         except User_Profile.DoesNotExist:
             return _nickname
         except User_Profile.MultipleObjectsReturned:
@@ -165,7 +156,6 @@ class UserSignUpForm(forms.Form):
 
     def clean_email(self):
         _email = self.cleaned_data.get('email')
-        # UserModel = get_user_model()
         try:
             GKUser.objects.get(email=_email)
         except GKUser.DoesNotExist:
@@ -173,9 +163,9 @@ class UserSignUpForm(forms.Form):
         except GKUser.MultipleObjectsReturned:
             pass
         raise forms.ValidationError(
-               self.error_messages['duplicate_email'],
-               code='duplicate_email',
-            )
+            self.error_messages['duplicate_email'],
+            code='duplicate_email',
+        )
 
     def clean_confirm_password(self):
         self.password = self.cleaned_data.get('password')
@@ -210,7 +200,6 @@ class UserSignUpForm(forms.Form):
 
 
 class UserSignUpBioForm(forms.Form):
-
     avatar = forms.FileField(
         label=_('avatar'),
         required=False,
@@ -219,11 +208,12 @@ class UserSignUpBioForm(forms.Form):
     bio = forms.CharField(
         # max_length=140,
         label=_('bio'),
-        widget=forms.Textarea(attrs={'class':'form-control', 'rows':'4', 'maxlength':'300','style':'resize: none;'}),
+        widget=forms.Textarea(
+            attrs={'class': 'form-control', 'rows': '4', 'maxlength': '300', 'style': 'resize: none;'}),
         required=False,
     )
     gender = forms.ChoiceField(
-        widget = forms.Select(attrs={'class':'form-control'}),
+        widget=forms.Select(attrs={'class': 'form-control'}),
         choices=User_Profile.GENDER_CHOICES,
         label=_('gender'),
 
@@ -231,12 +221,12 @@ class UserSignUpBioForm(forms.Form):
         initial=User_Profile.Man,
     )
     location = forms.CharField(
-        widget=forms.Select(attrs={"name" : "location", "class" : "form-control location"}),
+        widget=forms.Select(attrs={"name": "location", "class": "form-control location"}),
         label=_('location'),
         required=False
     )
     city = forms.CharField(
-        widget=forms.Select(attrs={'name' : 'city', 'class' : 'form-control city'}),
+        widget=forms.Select(attrs={'name': 'city', 'class': 'form-control city'}),
         label=_('city'),
         required=False
     )
@@ -249,60 +239,15 @@ class UserSignUpBioForm(forms.Form):
         _location = self.cleaned_data.get('location')
         _city = self.cleaned_data.get('city')
 
-        # log.info(_avatar)
         self.user = user
         if _avatar_file:
-            _image = HandleImage(image_file= _avatar_file)
+            _image = HandleImage(image_file=_avatar_file)
             _image.crop_square()
-            file_path = avatar_path + "%s.jpg" % (_image.name)
-            # default_storage.save(file_path, ContentFile(_image.resize(180, 180)))
             avatar = _image.avatar_save(resize=True)
-            # avatar = avatar_path + "%s.jpg" % _image.name
             self.user.profile.avatar = avatar
-        # else:
-        #     avatar = None
 
         self.user.profile.bio = _bio
         self.user.profile.gender = _gender
         self.user.profile.location = _location
         self.user.profile.city = _city
         self.user.profile.save()
-
-
-# forget password
-# class UserPasswordResetForm(PasswordResetForm):
-#     email = forms.EmailField(label=_("Email"),
-#                              max_length=254,
-#                              widget=forms.TextInput(attrs={'class':'form-control'}),
-#                              help_text=_('please register email'))
-#
-#     def __init__(self, *args, **kwargs):
-#         super(UserPasswordResetForm, self).__init__(*args, **kwargs)
-#         # UserModel = get_user_model()
-#
-#     def clean_email(self):
-#         _email = self.cleaned_data.get('email')
-#         UserModel = get_user_model()
-#         try:
-#             UserModel._default_manager.get(email=_email)
-#         except:
-#             raise forms.ValidationError(
-#                 _('email is not exist')
-#             )
-#         return _email
-#
-#
-# class UserSetPasswordForm(SetPasswordForm):
-#     new_password1 = forms.CharField(label=_("New password"),
-#                                     widget=forms.PasswordInput(attrs={'class':'form-control'}),
-#                                     help_text=_('New password'))
-#     new_password2 = forms.CharField(label=_("New password confirmation"),
-#                                     widget=forms.PasswordInput(attrs={'class':'form-control'}),
-#                                     help_text=_('New password confirmation'))
-#
-#     def __init__(self, user, *args, **kwargs):
-#
-#         super(UserSetPasswordForm, self).__init__(user, *args, **kwargs)
-
-
-__author__ = 'edison'

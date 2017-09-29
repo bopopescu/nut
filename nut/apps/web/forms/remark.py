@@ -1,9 +1,10 @@
 import bleach
-from django.forms import ModelForm, Textarea, HiddenInput, NumberInput
+from django.forms import ModelForm, Textarea, HiddenInput
+
 from apps.core.models import Article_Remark
 
+ALLOWED_REMARK_TAGS = []
 
-ALLOWED_REMARK_TAGS=[]
 
 class ArticleRemarkForm(ModelForm):
     def clean_content(self):
@@ -19,5 +20,3 @@ class ArticleRemarkForm(ModelForm):
             'content': Textarea(attrs={'class': 'form-control', 'cols': 60, 'rows': 3}),
             'reply_to': HiddenInput
         }
-
-

@@ -1,3 +1,4 @@
+# coding=utf-8
 from apps.core.tests.models.Base import DBTestBase
 
 from apps.core.models import Entity, GKUser, Buy_Link
@@ -5,10 +6,6 @@ from apps.shop.models import Shop
 
 
 class Seller_Manage_Test_Base(DBTestBase):
-    '''
-        :param none:
-
-    '''
     def setUp(self):
         super(Seller_Manage_Test_Base, self).setUp()
         self.the_user.setSeller()
@@ -17,7 +14,7 @@ class Seller_Manage_Test_Base(DBTestBase):
         self.common_user = GKUser.objects.create_user(**{
             'username': 'test_user_other',
             'email': 'anchen_test_other@guoku.com',
-            'is_active':  1,
+            'is_active': 1,
             'is_admin': False,
             'password': 'test_pass'
         })
@@ -41,7 +38,7 @@ class Seller_Manage_Test_Base(DBTestBase):
             'category': self.sub_category,
             'brand': 'guoku_test_brand',
             'title': 'test_entity_title',
-            'images':  ["http://img01.taobaocdn.com/bao/uploaded/i1/T1Rgl7XkBtXXbGKWs._111251.jpg"],
+            'images': ["http://img01.taobaocdn.com/bao/uploaded/i1/T1Rgl7XkBtXXbGKWs._111251.jpg"],
             'status': 0
         })
         # the entity is added by seller ,
@@ -75,7 +72,7 @@ class Seller_Manage_Test_Base(DBTestBase):
             'category': self.sub_category,
             'brand': 'guoku_test_brand_other',
             'title': 'test_entity_title_other',
-            'images':  ["http://img01.taobaocdn.com/bao/uploaded/i1/T1Rgl7XkBtXXbGKWs._111251.jpg"],
+            'images': ["http://img01.taobaocdn.com/bao/uploaded/i1/T1Rgl7XkBtXXbGKWs._111251.jpg"],
             'status': 0
         })
 
@@ -95,9 +92,7 @@ class Seller_Manage_Test_Base(DBTestBase):
 
 
 class Seller_Entities_Test(Seller_Manage_Test_Base):
-
     def test_seller_entities_property(self):
         self.assertEqual(self.seller.seller_entities.count(), 3)
         self.assertIn(self.shop_entity, self.seller.seller_entities)
         self.assertIn(self.entity_added, self.seller.seller_entities)
-

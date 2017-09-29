@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding=utf-8
 import bleach
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
@@ -29,28 +29,10 @@ from django.utils.log import getLogger
 
 log = getLogger('django')
 
-ALLOWED_TAGS =['a']
+ALLOWED_TAGS = ['a']
 
-# from apps.core.models import Buy_Link
-
-
-# def parse_taobao_id_from_url(url):
-# params = url.split("?")[1]
-#     for param in params.split("&"):
-#         tokens = param.split("=")
-#         if len(tokens) >= 2 and (tokens[0] == "id" or tokens[0] == "item_id"):
-#             return tokens[1]
-#     return None
-#
-# def parse_jd_id_from_url(url):
-#     ids = re.findall(r'\d+',url)
-#     if len(ids) > 0:
-#         return ids[0]
-#     else:
-#         return None
 
 def cal_entity_hash(hash_string):
-    _hash = None
     while True:
         _hash = md5((hash_string + unicode(datetime.now())).encode(
             'utf-8')).hexdigest()[0:8]
@@ -59,6 +41,7 @@ def cal_entity_hash(hash_string):
         except Entity.DoesNotExist:
             break
     return _hash
+
 
 class EntityURLFrom(forms.Form):
     cand_url = forms.URLField(
@@ -76,13 +59,11 @@ class EntityURLFrom(forms.Form):
     def load(self):
         _link = self.cleaned_data.get('cand_url')
         _hostname = urlparse(_link).hostname
-        # log.info(_hostname)
         _data = {'link_support': False}
 
         if re.search(r"\b(jd|360buy)\.com$", _hostname) is not None:
             _data['link_support'] = True
             origin_id = parse_jd_id_from_url(_link)
-            # log.info(_jd_id)
             try:
                 buy_link = Buy_Link.objects.get(origin_id=origin_id,
                                                 origin_source="jd.com", )
@@ -92,7 +73,6 @@ class EntityURLFrom(forms.Form):
             except Buy_Link.DoesNotExist:
                 j = JD(origin_id)
 
-                # print "OKOKOKOKOKO"
                 log.info(j.brand)
                 _data.update({
                     'user_id': self.request.user.id,
@@ -103,21 +83,14 @@ class EntityURLFrom(forms.Form):
                     'brand': j.brand,
                     'title': j.title,
                     'cid': j.cid,
-                    # 'taobao_title': res['desc'],
-                    # 'shop_nick': res['nick'],
                     'shop_link': j.shop_link,
                     'price': j.price,
                     'chief_image_url': j.imgs[0],
                     'thumb_images': j.imgs,
-
-                    # 'selected_category_id':
                 })
                 return _data
             except MultipleObjectsReturned as e:
                 print buy_link
-                # print _data
-                # pass
-                # return jd_info(self.request, _link)
         if re.search(r"\b(tmall)\.(com|hk)$", _hostname) is not None:
             _data['link_support'] = True
             _tmall_id = parse_taobao_id_from_url(_link)
@@ -129,9 +102,7 @@ class EntityURLFrom(forms.Form):
                     'entity_hash': buy_link.entity.entity_hash,
                 }
             except Buy_Link.DoesNotExist:
-                # log.info("OKOKOKO")
                 t = Tmall(_tmall_id)
-                # log.info(t.res())
                 res = t.res()
                 _data.update({
                     'user_id': self.request.user.id,
@@ -147,14 +118,12 @@ class EntityURLFrom(forms.Form):
                     'price': res['price'],
                     'chief_image_url': res['imgs'][0],
                     'thumb_images': res["imgs"],
-                    # 'selected_category_id':
                 })
                 return _data
 
         if re.search(r"\b(taobao|95095)\.(com|hk)$", _hostname) is not None:
             _data['link_support'] = True
             _origin_id = parse_taobao_id_from_url(_link)
-            # log.info(_taobao_id)
 
             try:
                 buy_link = Buy_Link.objects.get(origin_id=_origin_id,
@@ -271,8 +240,6 @@ class CreateEntityForm(forms.Form):
         return cleaned_data
 
     def save(self):
-        # _taobao_id = self.cleaned_data.get('taobao_id')
-        # _jd_id = self.cleaned_data.get('jd_id')
         _origin_id = self.cleaned_data.get('origin_id')
         _origin_source = self.cleaned_data.get('origin_source')
         _shop_nick = self.cleaned_data.get('shop_nick')
@@ -286,14 +253,7 @@ class CreateEntityForm(forms.Form):
         _images = self.data.getlist('thumb_images')
 
         _note_text = self.cleaned_data.get('note_text')
-        # _cand_url = self.cleaned_data.get('cand_url')
-
-        # log.info("category %s" % _cid)
-        # _entity_hash = cal_entity_hash(_origin_id+_title+_shop_nick)
         _entity_hash = cal_entity_hash(_origin_id + _title + _shop_nick)
-        # if _taobao_id:
-        #     key_string = "%s%s" % (_cid, "taobao.com")
-        # else:
         key_string = "%s%s" % (_origin_id, _origin_source)
 
         key = md5(key_string.encode('utf-8')).hexdigest()
@@ -301,18 +261,11 @@ class CreateEntityForm(forms.Form):
         category_id = cache.get(key)
         if category_id is None:
             category_id = 300
-        # try:
-        #     cate = Taobao_Item_Category_Mapping.objects.get(taobao_category_id = _cid)
-        #     category_id = cate.neo_category_id
-        # except Taobao_Item_Category_Mapping.DoesNotExist:
-        #     pass
 
         if _chief_image_url in _images:
             _images.remove(_chief_image_url)
 
         _images.insert(0, _chief_image_url)
-
-        # log.info("category %s" % _cid)
 
         entity = Entity(
             user_id=self.request.user.id,
@@ -324,10 +277,7 @@ class CreateEntityForm(forms.Form):
             images=_images,
         )
         entity.status = Entity.freeze
-        # log.info(entity.images)
-
         entity.save()
-        # log.info(entity.images)
         if not settings.DEBUG:
             fetch_image.delay(entity.images, entity.id)
 
@@ -337,7 +287,6 @@ class CreateEntityForm(forms.Form):
             note=_note_text,
         )
 
-        # _hostname = urlparse(_cand_url).hostname
         if 'taobao' in _origin_source:
             Buy_Link.objects.create(
                 entity=entity,
@@ -369,8 +318,6 @@ class ReportForms(forms.Form):
         choices=Report.TYPE,
         widget=forms.RadioSelect(),
         initial=Report.sold_out,
-        # required=False,
-        #
     )
     content = forms.CharField(
         label=_("additional remarks"),
@@ -390,5 +337,3 @@ class ReportForms(forms.Form):
                    content_object=self.entity_cache)
         r.save()
         return r
-
-__author__ = 'edison7500'

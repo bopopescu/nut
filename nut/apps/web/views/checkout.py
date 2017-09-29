@@ -1,20 +1,16 @@
 # encoding: utf-8
-import json
 from urllib import urlencode
+from urlparse import urlparse, urlunparse, parse_qsl
 
 import unicodecsv as csv
-from urlparse import urlparse, urlunparse, parse_qsl
-from braces.views import AjaxResponseMixin, UserPassesTestMixin,JSONResponseMixin
-from datetime import datetime
-
+from braces.views import AjaxResponseMixin, UserPassesTestMixin, JSONResponseMixin
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponse
-from django.utils.encoding import smart_text
-from django.views.generic import ListView, DeleteView, UpdateView, View, FormView
 from django.http import Http404
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
+from django.utils.encoding import smart_text
+from django.views.generic import ListView, View
 
-from apps.core.utils.http import JSONResponse
 from apps.core.extend.paginator import ExtentPaginator
 from apps.core.mixins.views import FilterMixin, SortMixin
 from apps.order.models import Order, OrderItem
@@ -23,9 +19,8 @@ from apps.web.forms.checkout import CheckDeskOrderPayForm, CheckDeskOrderExpireF
 from apps.web.views.seller_management import OrderDetailView
 
 
-def sum_price(sum, next_log):
-    return sum + next_log.order.order_total_value
-
+def sum_price(price, next_log):
+    return price + next_log.order.order_total_value
 
 
 class CheckDeskUserTestMixin(UserPassesTestMixin):
@@ -49,9 +44,10 @@ class CheckDeskAllOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, 
         self.status = self.request.GET.get('status')
         if number:
             if self.status:
-                return HttpResponseRedirect(reverse('checkout_order_list')+'?number='+str(number)+'&status='+self.status)
+                return HttpResponseRedirect(
+                    reverse('checkout_order_list') + '?number=' + str(number) + '&status=' + self.status)
             else:
-                return HttpResponseRedirect(reverse('checkout_order_list')+'?number='+str(number))
+                return HttpResponseRedirect(reverse('checkout_order_list') + '?number=' + str(number))
         else:
             context = self.get_context_data()
             return self.render_to_response(context)
@@ -77,7 +73,7 @@ class CheckDeskAllOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, 
 
     def get_context_data(self, **kwargs):
         context = super(CheckDeskAllOrderListView, self).get_context_data(**kwargs)
-        context['status']=self.status
+        context['status'] = self.status
         for order in context['object_list']:
             order_items = order.items.all()
             order.skus = [order_item.sku for order_item in order_items]
@@ -108,7 +104,7 @@ class CheckoutOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, List
         if filter_value and filter_value != 'all':
             qs = qs.filter(number__icontains=filter_value.strip())
         elif order_number:
-            qs=qs.filter(number__icontains=order_number.strip())
+            qs = qs.filter(number__icontains=order_number.strip())
         return qs
 
     def sort_queryset(self, qs, sort_by, order):
@@ -129,25 +125,6 @@ class CheckoutOrderListView(CheckDeskUserTestMixin, FilterMixin, SortMixin, List
         return context
 
 
-# class SetOrderExpireView(CheckDeskUserTestMixin, JSONResponse, AjaxResponseMixin, View):
-#
-#     def post_ajax(self, request, *args, **kwargs):
-#         _form = CheckDeskOrderExpireForm(request.POST, request=request)
-#         if _form.is_valid():
-#             _form.save()
-#             return self.render_json_response({
-#                 'result': 1
-#             }, status=200)
-#         else:
-#             return self.render_json_resposne({
-#                 'result': 0
-#             }, status=404)
-#
-#     def get(self):
-#         return self.render_json_response({
-#             'test_return': 'fuckyou'
-#         })
-
 class SetOrderExpireView(AjaxResponseMixin, JSONResponseMixin, View):
     def post_ajax(self, request, *args, **kwargs):
         _form = CheckDeskOrderExpireForm(request.POST, request=request)
@@ -163,7 +140,6 @@ class SetOrderExpireView(AjaxResponseMixin, JSONResponseMixin, View):
 
 
 class CheckDeskPayView(CheckDeskUserTestMixin, JSONResponseMixin, AjaxResponseMixin, View):
-
     def get_order(self):
         order_id = int(self.request.POST.get('order_id', None))
         return get_object_or_404(Order, pk=order_id)
@@ -188,8 +164,7 @@ class CheckDeskPayView(CheckDeskUserTestMixin, JSONResponseMixin, AjaxResponseMi
             )
 
 
-class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin,  ListView):
-
+class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin, ListView):
     default_sort_params = ('dnumber', 'desc')
     http_method_names = ['get']
     paginator_class = ExtentPaginator
@@ -223,20 +198,20 @@ class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin
         writer.writerow(order_header_list)
         for order in orders:
             data = map(smart_text, [order.number, order.created_datetime, order.updated_datetime,
-                        order.customer.nick, order.order_total_value, order.total_margin_value,
-                        order.payment_source, order.payment_note
-                        ])
+                                    order.customer.nick, order.order_total_value, order.total_margin_value,
+                                    order.payment_source, order.payment_note
+                                    ])
             writer.writerow(data)
         return response
 
     def get_orderitems_csv(self):
         orders = self.get_queryset()
         orderitem_header_list = ('订单号', '下单时间', '付款时间',
-                                 '终端账号', '商品名称','品牌', '商品链接',
+                                 '终端账号', '商品名称', '品牌', '商品链接',
                                  'SKU属性', '原价',
                                  '促销价', '佣金比率',
                                  '数量', '实收款', '果库佣金',
-                                 '结账路径','备注' )
+                                 '结账路径', '备注')
 
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename="order_items.csv"'
@@ -246,7 +221,8 @@ class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin
         for order in orders:
             for item in order.items.all():
                 data = [order.number, order.created_datetime, order.updated_datetime,
-                        order.customer.nick, item.item_title,item.sku.entity.brand, 'http://wwwguoku.com'+item.entity_link,
+                        order.customer.nick, item.item_title, item.sku.entity.brand,
+                        'http://wwwguoku.com' + item.entity_link,
                         item.attrs_display, item.sku.origin_price,
                         item.unit_price, item.margin,
                         item.volume, item.promo_total_price, item.margin_value,
@@ -266,7 +242,7 @@ class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin
             qs = qs.filter(status__in=self.paid_status)
 
         qs = self.apply_date_filter(qs)
-        return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
+        return self.sort_queryset(self.filter_queryset(qs, self.get_filter_param()), *self.get_sort_params())
 
     def filter_queryset(self, qs, filter_param):
         filter_field, filter_value = filter_param
@@ -366,7 +342,6 @@ class CheckDeskOrderStatisticView(CheckDeskUserTestMixin, FilterMixin, SortMixin
 
 
 class CheckoutOrderDetailView(OrderDetailView):
-
     template_name = 'web/checkout/checkout_order_detail.html'
 
     def test_func(self, user):

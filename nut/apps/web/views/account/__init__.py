@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
@@ -17,7 +18,6 @@ from apps.core.tasks.account import fetch_avatar, update_token
 
 from django.utils.log import getLogger
 from django.conf import settings
-
 
 log = getLogger('django')
 
@@ -113,8 +113,7 @@ def send_mail_finished(request,
                        template="web/account/restpassword/send_mail_finished.html"):
     return render_to_response(
         template,
-        {
-        },
+        {},
         context_instance=RequestContext(request),
     )
 
@@ -140,9 +139,6 @@ def register_mail_confirm(request,
     )
 
 
-# from three part
-
-# @require_GET
 def register_from_three_part(request,
                              template="web/account/three-part-register.html"):
     if request.method == "POST":
@@ -174,7 +170,6 @@ def register_from_three_part(request,
             return HttpResponseRedirect(reverse('web_selection'))
     else:
         screen_name = request.session.get('screen_name', None)
-        # _taobao_id = request.session.get('taobao_id', None)
         if screen_name:
             _avatar = request.session.get('avatar')
             _forms = UserSignUpForm(initial={
@@ -191,6 +186,3 @@ def register_from_three_part(request,
         },
         context_instance=RequestContext(request),
     )
-
-
-__author__ = 'edison'

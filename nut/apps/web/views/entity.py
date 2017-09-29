@@ -1,40 +1,32 @@
-# -*- coding: utf-8 -*-
+# coding=utf-8
+import requests
+from braces.views import AjaxResponseMixin, JSONResponseMixin, LoginRequiredMixin
+from captcha.helpers import captcha_image_url
+from captcha.models import CaptchaStore
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.core.cache import cache
+from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseNotAllowed, HttpResponseRedirect, \
     HttpResponse, HttpResponseForbidden
-from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.template import loader
-from django.contrib.auth.decorators import login_required
-from django.utils.encoding import smart_str
+from django.utils.log import getLogger
 from django.views.decorators.csrf import csrf_exempt
-from django.core.cache import cache
-
-from captcha.models import CaptchaStore
-from captcha.helpers import captcha_image_url
-
-from apps.core.utils.http import JSONResponse
-from apps.core.views import BaseJsonView
+from django.views.generic import RedirectView, ListView, View
+from django.views.generic.detail import DetailView
 
 from apps.core.models import Entity, Entity_Like, Note, Note_Comment, \
     Note_Poke, Brand, Buy_Link
 from apps.core.tasks.entity import like_task, unlike_task
-from apps.web.forms.comment import CommentForm
-from apps.web.forms.note import NoteForm
-from apps.web.forms.entity import EntityURLFrom, CreateEntityForm, ReportForms
-
-from apps.web.utils.viewtools import add_side_bar_context_data
+from apps.core.utils.http import JSONResponse
+from apps.core.views import BaseJsonView
 from apps.tag.models import Content_Tags
-
-from django.views.generic.detail import DetailView
-from django.views.generic import RedirectView, ListView, View
-from braces.views import AjaxResponseMixin, JSONResponseMixin, LoginRequiredMixin
-
-from django.conf import settings
-from django.utils.log import getLogger
-
-import requests
-
+from apps.web.forms.comment import CommentForm
+from apps.web.forms.entity import EntityURLFrom, CreateEntityForm, ReportForms
+from apps.web.forms.note import NoteForm
+from apps.web.utils.viewtools import add_side_bar_context_data
 
 log = getLogger('django')
 taobao_recommendation_url = getattr(settings, 'TAOBAO_RECOMMEND_URL', None)
@@ -45,12 +37,11 @@ class EntityDetailMixin(object):
         _entity_hash = self.kwargs.get('entity_hash', None)
         if _entity_hash is None:
             raise Exception('can not find hash')
-        _entity = get_object_or_404(Entity, entity_hash=_entity_hash,status__gte=Entity.freeze)
-        # _entity = Entity.objects.get(entity_hash=_entity_hash,
-        #                              status__gte=Entity.freeze)
+        _entity = get_object_or_404(Entity, entity_hash=_entity_hash, status__gte=Entity.freeze)
         return _entity
 
-class EntityLikersView(EntityDetailMixin,ListView):
+
+class EntityLikersView(EntityDetailMixin, ListView):
     template_name = 'web/entity/entity_likers_list.html'
     paginate_by = 12
     context_object_name = 'entity_likes'
@@ -69,6 +60,7 @@ class EntityLikersView(EntityDetailMixin,ListView):
 class EntitySaleView(EntityDetailMixin, DetailView):
     context_object_name = 'entity'
     template_name = 'web/entity/entity_sale.html'
+
     def get_context_data(self, **kwargs):
         context = super(EntitySaleView, self).get_context_data(**kwargs)
         context['current_host'] = settings.SITE_HOST
@@ -84,8 +76,6 @@ class EntityCard(AjaxResponseMixin, JSONResponseMixin, EntityDetailMixin, Detail
             reverse('web_entity_detail', args=[_entity_hash]))
 
     def get_ajax(self, request, *args, **kwargs):
-        _entity = None
-        data = {}
         try:
             _entity = self.get_object()
         except Exception as e:
@@ -95,7 +85,6 @@ class EntityCard(AjaxResponseMixin, JSONResponseMixin, EntityDetailMixin, Detail
             }
             return self.render_json_response(data);
 
-        # entity is ok now
         t = loader.get_template(template_name=self.template_name)
         c = RequestContext(request, {
             'entity': _entity
@@ -117,13 +106,12 @@ def get_entity_brand(entity):
     return None
 
 
-
 class NewEntityDetailView(EntityDetailMixin, DetailView):
     template_name = 'web/entity/detail.html'
     context_object_name = 'entity'
 
     def get_context_data(self, **kwargs):
-        context = super(NewEntityDetailView,self).get_context_data()
+        context = super(NewEntityDetailView, self).get_context_data()
         context['like_status'] = self.get_like_status(context)
         context['user_pokes'] = self.get_user_pokes(context)
         context['note_forms'] = self.get_note_forms(context)
@@ -135,7 +123,7 @@ class NewEntityDetailView(EntityDetailMixin, DetailView):
         context = add_side_bar_context_data(context)
         return context
 
-    def get_is_user_post_note(self,context):
+    def get_is_user_post_note(self, context):
         if not self.request.user.is_authenticated():
             return False
         _entity = context['entity']
@@ -167,14 +155,13 @@ class NewEntityDetailView(EntityDetailMixin, DetailView):
         if self.request.user.is_authenticated():
             _user = self.request.user
             _notes = Note.objects.filter(user=_user, entity=_entity)
-            if len(_notes) >0:
+            if len(_notes) > 0:
                 _note_forms = NoteForm(instance=_notes[0])
             else:
-                 _note_forms = NoteForm()
+                _note_forms = NoteForm()
             return _note_forms
-        else :
+        else:
             return NoteForm()
-
 
     def get_user_pokes(self, context):
         _entity = context['entity']
@@ -182,18 +169,17 @@ class NewEntityDetailView(EntityDetailMixin, DetailView):
         self._nid_list = nid_list
         if self.request.user.is_authenticated():
             return Note_Poke.objects.filter(note_id__in=list(nid_list),
-                                            user=self.request.user)\
-                                    .values_list('note_id', flat=True)
+                                            user=self.request.user) \
+                .values_list('note_id', flat=True)
         else:
             return list()
 
     def get_guess_entities(self, context):
         _entity = context['entity']
         return Entity.objects.guess(category_id=_entity.category_id,
-                                           count=9, exclude_id=_entity.pk)
+                                    count=9, exclude_id=_entity.pk)
 
     def get_entity_tags(self, context):
-        _entity = context['entity']
         return Content_Tags.objects.entity_tags(list(self._nid_list))[:10]
 
     def get_entity_brand(self, context):
@@ -210,7 +196,6 @@ def wap_entity_detail(request, entity_hash, template='wap/detail.html'):
 
 
 def wechat_entity_detail(request, entity_id, template='wap/detail.html'):
-    # _entity_id = int(entity_id)
     try:
         _entity = Entity.objects.get(pk=entity_id)
     except Entity.DoesNotExist:
@@ -219,8 +204,7 @@ def wechat_entity_detail(request, entity_id, template='wap/detail.html'):
         reverse('web_entity_detail', args=[_entity.entity_hash]))
 
 
-def tencent_entity_detail(request, entity_hash,
-                          template='tencent/detail.html'):
+def tencent_entity_detail(request, entity_hash, template='tencent/detail.html'):
     return HttpResponseRedirect(
         reverse('web_entity_detail', args=[entity_hash]))
 
@@ -258,15 +242,12 @@ def entity_update_note(request, nid):
         _forms = NoteForm(request.POST, user=_user, nid=nid)
         if _forms.is_valid():
             note = _forms.update()
-            return JSONResponse(data={'result': '1', 'note':note.note})
-    # else:
+            return JSONResponse(data={'result': '1', 'note': note.note})
     return HttpResponseNotAllowed
 
 
-# @login_required
 def entity_note_comment(request, nid,
                         template='web/entity/note/comment_list.html'):
-    # _user = None
     if request.method == "POST":
         if request.user.is_authenticated():
             _user = request.user
@@ -279,7 +260,6 @@ def entity_note_comment(request, nid,
             raise Http404
         _forms = CommentForm(note=note, user=_user, data=request.POST)
         if _forms.is_valid():
-            # log.info("ok ok ok ok")
 
             comment = _forms.save()
             template = 'web/entity/note/comment.html'
@@ -298,28 +278,21 @@ def entity_note_comment(request, nid,
                 },
                 content_type='text/html; charset=utf-8',
             )
-            # log.info(_forms.errors)
-            # return
     else:
         _forms = CommentForm()
 
     _comment_list = Note_Comment.objects.filter(note_id=nid).normal()
     log.info(_comment_list.query)
-    # log.info(_comment_list)
     _t = loader.get_template(template)
     _c = RequestContext(request, {
         'comment_list': _comment_list,
         'note_id': nid,
         'forms': _forms
-        # 'note_context': _note_context,
     })
     _data = _t.render(_c)
 
     return JSONResponse(
-        data={
-            'data': _data,
-            'note_id': nid
-        },
+        data={'data': _data, 'note_id': nid},
         content_type='text/html; charset=utf-8',
     )
 
@@ -344,15 +317,6 @@ def entity_like(request, eid):
     if request.is_ajax():
         _user = request.user
         try:
-            # try:
-            # Entity_Like.objects.get(user_id=_user.id, entity_id=eid)
-            # except Entity_Like.DoesNotExist, e:
-            # obj = Entity_Like.objects.create(
-            # user_id = _user.id,
-            #             entity_id = eid,
-            #         )
-            #         obj.entity.innr_like()
-            # return obj
             if settings.DEBUG:
                 el, created = Entity_Like.objects.get_or_create(
                     user=_user,
@@ -372,28 +336,28 @@ def entity_like(request, eid):
 @login_required
 @csrf_exempt
 def entity_unlike(request, eid):
-        if request.is_ajax():
-            _user = request.user
+    if request.is_ajax():
+        _user = request.user
+    else:
+        return HttpResponseNotAllowed
+    try:
+        if settings.DEBUG:
+            el = Entity_Like.objects.get(entity_id=eid, user=_user)
+
+            el.delete()
         else:
-            return HttpResponseNotAllowed
-        try:
-            if settings.DEBUG:
-                el = Entity_Like.objects.get(entity_id=eid, user=_user)
-
-                el.delete()
-            else:
-                unlike_task.delay(uid=_user.id, eid=eid)
-            return JSONResponse(data={'status': 0})
-        except Entity_Like.DoesNotExist:
-            raise Http404
-
-        # return HttpResponseNotAllowed
-
+            unlike_task.delay(uid=_user.id, eid=eid)
+        return JSONResponse(data={'status': 0})
+    except Entity_Like.DoesNotExist:
+        raise Http404
 
 
 @login_required
 def entity_create(request, template="web/entity/new.html"):
-    if request.user.is_authenticated and request.user.is_active < 1:
+    if any([not request.user.is_authenticated,
+            request.user.is_active < 1,
+            not request.user.groups.filter(name__in=['ActiveUser', 'Author', 'Seller']).exists()
+            ]):
         return HttpResponseForbidden()
     if request.method == 'POST':
 
@@ -406,12 +370,11 @@ def entity_create(request, template="web/entity/new.html"):
         log.info(_forms.errors)
         raise Exception('')
     else:
-        _url_froms = EntityURLFrom(request)
 
         return render_to_response(
             template,
             {
-                'url_forms': _url_froms
+                'url_forms': EntityURLFrom(request)
             },
             context_instance=RequestContext(request),
         )
@@ -423,7 +386,7 @@ class EntityCreateView(LoginRequiredMixin, AjaxResponseMixin, JSONResponseMixin,
         if _forms.is_valid():
             entity = _forms.save()
             return self.render_json_response({
-                'entity_url':entity.absolute_url,
+                'entity_url': entity.absolute_url,
                 'errors': 0
             })
 
@@ -434,7 +397,6 @@ class EntityCreateView(LoginRequiredMixin, AjaxResponseMixin, JSONResponseMixin,
             }, 403)
 
 
-
 class CaptchaRefreshView(LoginRequiredMixin, AjaxResponseMixin, JSONResponseMixin, View):
     # this need to be refactored into a micro service
     def post_ajax(self, request, *args, **kwargs):
@@ -443,13 +405,14 @@ class CaptchaRefreshView(LoginRequiredMixin, AjaxResponseMixin, JSONResponseMixi
         to_json_response['captcha_img_url'] = captcha_image_url(to_json_response['captcha_0'])
         return self.render_json_response(to_json_response)
 
+
 @login_required
 def entity_captcha_refresh(request):
     pass
 
+
 def get_user_load_key(user):
     return 'timer:user:load_entity_url:%s' % user.id
-
 
 
 @login_required
@@ -458,18 +421,17 @@ def entity_load(request):
     # debouncing using cache timeout
     loading = cache.get(key)
     if loading:
-        return JSONResponse(data={'error':'too many request'}, status=403)
-    else :
+        return JSONResponse(data={'error': 'too many request'}, status=403)
+    else:
         # after captcha , block user in 2 seconds
-        cache.set(key ,True , timeout=2)
+        cache.set(key, True, timeout=2)
         pass
-    #debouncing end
+    # debouncing end
 
     if request.method == "POST":
         _forms = EntityURLFrom(request=request, data=request.POST)
         if _forms.is_valid():
             _item_info = _forms.load()
-            # log.info(_item_info)
             if 'entity_hash' in _item_info:
                 _res = {
                     'status': 'EXIST',
@@ -482,7 +444,7 @@ def entity_load(request):
                 }
             return JSONResponse(data=_res)
 
-    return JSONResponse(data={'error':'request method not right'},status=403)
+    return JSONResponse(data={'error': 'request method not right'}, status=403)
 
 
 @login_required
@@ -535,12 +497,10 @@ class gotoBuyView(RedirectView):
 
 # TODO: taobao recommendation api
 class TaobaoRecommendationView(BaseJsonView):
-
     def get_data(self, context):
         return {}
 
     def get(self, request, *args, **kwargs):
-        # self.keyword = kwargs.pop('keyword', None)
         self.keyword = request.GET.get('keyword', None)
         assert self.keyword is not None
         self.mall = request.GET.get('mall', False)
@@ -549,20 +509,4 @@ class TaobaoRecommendationView(BaseJsonView):
             self.user_id = request.user.id
         else:
             self.user_id = None
-        # self.mall = kwargs.pop('mall', False)
         return super(TaobaoRecommendationView, self).get(requests, *args, **kwargs)
-
-# class DesignWeekAPIView(EntityDetailMixin, RedirectView):
-#     def get(self, request, *args, **kwargs):
-#         entity_hash = kwargs.get('entity_hash')
-#         referer = request.META.get('HTTP_REFERER')
-#         user_id = request.user.id
-#         entity_id = self.get_object().id
-#         click_record.delay(user_id, entity_id, referer)
-#         return HttpResponseRedirect(reverse('web_entity_detail', args=[entity_hash]))
-
-
-
-
-
-__author__ = 'edison'

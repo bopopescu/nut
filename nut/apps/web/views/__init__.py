@@ -1,17 +1,15 @@
-from django.views.generic import TemplateView
-from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
-from django.core.urlresolvers import reverse
-
-from django.shortcuts import redirect,render
-
-from django.views.defaults import server_error
-from django.views.defaults import page_not_found
-from django.utils.log import getLogger
+# coding=utf-8
 from django import http
+from django.core.urlresolvers import reverse
+from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
+from django.shortcuts import render
+from django.utils.log import getLogger
+from django.views.defaults import page_not_found
+from django.views.generic import TemplateView
+from django.template import loader, TemplateDoesNotExist, Template, RequestContext
 
 log = getLogger('django')
 
-from django.template import  loader, TemplateDoesNotExist, Template, RequestContext
 
 def page_error(request):
     template_name = 'web/500.html'
@@ -26,11 +24,11 @@ def page_error(request):
     # try to load template
     try:
         template = loader.get_template(template_name)
-        content_type = None             # Django will use DEFAULT_CONTENT_TYPE
+        content_type = None  # Django will use DEFAULT_CONTENT_TYPE
     except TemplateDoesNotExist:
         template = Template(
-              '<h1>Server Error</h1>'
-              '<p></p>')
+            '<h1>Server Error</h1>'
+            '<p></p>')
         content_type = 'text/html'
 
     # put them together
@@ -45,16 +43,9 @@ def webpage_not_found(request):
 def permission_denied(request):
     return page_not_found(request, template_name='web/403.html')
 
-# class TestView(TemplateView):
-#     template_name = 'web/index.html'
 
-from apps.core.utils.wechat import  get_js_sdk_signature_obj
 class HappyNYView(TemplateView):
-    # def get_context_data(self, *args, **kwargs):
-    #     context = super(HappyNYView , self).get_context_data(*args, **kwargs)
-    #     context['signature_obj'] =  get_js_sdk_signature_obj(\
-    #                                 sig_url=self.request.build_absolute_uri())
-    #     return context
+
     template_name = 'web/happynewyear/happy.html'
 
 
@@ -68,6 +59,7 @@ class FuGuListView(TemplateView):
 
 class MarketView(TemplateView):
     template_name = 'web/market/market2016.html'
+
 
 class AboutView(TemplateView):
     template_name = "web/about.html"
@@ -88,12 +80,14 @@ class FaqView(TemplateView):
 class LinksView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(LinksView, self).get_context_data(**kwargs)
-        return  context
+        return context
+
     template_name = "web/links.html"
 
 
 class ShopServiceView(TemplateView):
     template_name = 'web/shop_service.html'
+
 
 class CooperateView(TemplateView):
     template_name = 'web/base_cooperate.html'
@@ -104,16 +98,15 @@ class DownloadView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         log.info(request.META['HTTP_USER_AGENT'])
-        if  'MicroMessenger' in request.META['HTTP_USER_AGENT']:
+        if 'MicroMessenger' in request.META['HTTP_USER_AGENT']:
             if 'iPhone' in request.META['HTTP_USER_AGENT']:
-                template_name='web/jump_apple.html'
-                return  render(request,template_name)
+                template_name = 'web/jump_apple.html'
+                return render(request, template_name)
             else:
                 return HttpResponseRedirect('http://a.app.qq.com/o/simple.jsp?pkgname=com.guoku')
         elif 'iPhone' in request.META['HTTP_USER_AGENT']:
-            template_name='web/jump.html'
-            return render(request,template_name)
-            # return HttpResponseRedirect("http://itunes.apple.com/cn/app/id477652209")
+            template_name = 'web/jump.html'
+            return render(request, template_name)
         elif 'iPad' in request.META['HTTP_USER_AGENT']:
             return HttpResponseRedirect("http://itunes.apple.com/cn/app/id450507565?mt=8")
         elif 'Android' in request.META['HTTP_USER_AGENT']:
@@ -123,8 +116,4 @@ class DownloadView(TemplateView):
 
 
 def download_ios(request):
-
     return HttpResponsePermanentRedirect(reverse('web_download'))
-
-
-__author__ = 'edison7500'

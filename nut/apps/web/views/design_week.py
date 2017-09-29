@@ -1,13 +1,11 @@
 # encoding: utf-8
 from django.http import HttpResponseRedirect
-from haystack.query import SearchQuerySet
 from rest_framework import serializers
+from rest_framework import viewsets
 from rest_framework.pagination import BasePaginationSerializer
 from rest_framework.response import Response
 
-from apps.core.models import Selection_Entity, GKUser, Entity, Buy_Link
-from rest_framework import viewsets
-
+from apps.core.models import GKUser, Entity
 from apps.shop.models import Shop
 
 
@@ -16,12 +14,13 @@ class DesignWeekSerializer(serializers.ModelSerializer):
     liked = serializers.IntegerField(source='like_count', read_only=True)
     image = serializers.CharField(source='chief_image', read_only=True)
     price = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = Entity
         fields = ('title', 'price', 'image', 'url', 'liked')
 
-class DesignWeekViewSet(viewsets.ReadOnlyModelViewSet):
 
+class DesignWeekViewSet(viewsets.ReadOnlyModelViewSet):
     def __init__(self, *args, **kwargs):
         super(DesignWeekViewSet, self).__init__(**kwargs)
         self.permission_classes = ()
@@ -41,34 +40,28 @@ class DesignWeekViewSet(viewsets.ReadOnlyModelViewSet):
             serializer = self.get_serializer(instance, many=True)
         return Response(serializer.data)
 
-
     def get_queryset(self):
-        # Selection_Entity.objects.filter(entity__user__in=list(auth_seller)).order_by('pub_time')
-        # entities = Entity.objects.filter(user__in=list(auth_seller), status=1)
-        # obj = SearchQuerySet().models(Entity).filter(is_in_selection=True, user__in=auth_seller).order_by('-enter_selection_time')
-        # entity_ids = obj.values_list('entity_id', flat=True)
-        # qs = Entity.objects.filter(id__in=entity_ids)
         return get_auth_seller_entities()
-
 
     def get_pagination_serializer(self, page):
         class SerializerClass(NewPaginationSerializer):
             class Meta:
                 object_serializer_class = self.get_serializer_class()
+
         pagination_serializer_class = SerializerClass
         context = self.get_serializer_context()
         return pagination_serializer_class(instance=page, context=context)
+
 
 # 归属于认证卖家的商品
 def get_auth_seller_entities():
     auth_seller = GKUser.objects.authorized_seller()
     shop_link_list = Shop.objects.filter(owner__in=list(auth_seller)).values_list('common_shop_link', flat=True)
-    entities = Entity.objects.filter(buy_links__shop_link__in=list(shop_link_list), status=1,  buy_links__status=2)
+    entities = Entity.objects.filter(buy_links__shop_link__in=list(shop_link_list), status=1, buy_links__status=2)
     return entities
 
 
 class DesignWeekPaginationSerializer(BasePaginationSerializer):
-
     total_count = serializers.ReadOnlyField(source='paginator.count')
     page_size = serializers.SerializerMethodField('get_pagesize')
     page_offset = serializers.SerializerMethodField('get_pageoffset')
@@ -80,18 +73,7 @@ class DesignWeekPaginationSerializer(BasePaginationSerializer):
         return int(self.context['request'].query_params.get('page_offset'))
 
 
-
 class NewPaginationSerializer(DesignWeekPaginationSerializer):
-
     def __init__(self, *args, **kwargs):
         self.results_field = 'data'
         super(NewPaginationSerializer, self).__init__(*args, **kwargs)
-
-
-
-
-
-
-
-
-

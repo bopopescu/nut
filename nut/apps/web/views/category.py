@@ -1,27 +1,26 @@
 from datetime import datetime
-from django.core.urlresolvers import NoReverseMatch
-from django.core.urlresolvers import reverse
-from django.utils.log import getLogger
-from django.template import RequestContext
-from django.template import loader
-from django.http import Http404
-from django.shortcuts import render_to_response
-from django.views.decorators.http import require_GET
-from django.views.generic import ListView
-from django.views.generic import RedirectView
-from django.views.generic.base import View
-from django.views.generic.base import TemplateResponseMixin
-from django.views.generic.base import ContextMixin
+
 from braces.views import AjaxResponseMixin
 from braces.views import JSONResponseMixin
-from apps.core.models import Entity, Entity_Like, Article,Selection_Article,Selection_Entity, Sub_Category, Category
-from apps.core.extend.paginator import EmptyPage
-from apps.core.extend.paginator import PageNotAnInteger
-from apps.core.extend.paginator import ExtentPaginator
-from apps.core.extend.paginator import ExtentPaginator as Jpaginator , AnPaginator
-from apps.core.utils.http import JSONResponse
+from django.core.urlresolvers import NoReverseMatch
+from django.core.urlresolvers import reverse
+from django.http import Http404
+from django.template import RequestContext
+from django.template import loader
+from django.utils.log import getLogger
+from django.views.generic import ListView
+from django.views.generic import RedirectView
+from django.views.generic.base import ContextMixin
+from django.views.generic.base import TemplateResponseMixin
+from django.views.generic.base import View
 from haystack.query import SearchQuerySet
 
+from apps.core.extend.paginator import EmptyPage
+from apps.core.extend.paginator import ExtentPaginator
+from apps.core.extend.paginator import ExtentPaginator as Jpaginator, AnPaginator
+from apps.core.extend.paginator import PageNotAnInteger
+from apps.core.models import Entity, Entity_Like, Article, Sub_Category, Category
+from apps.core.utils.http import JSONResponse
 
 log = getLogger('django')
 
@@ -51,7 +50,7 @@ class SubCategoryListView(ListView):
         return context
 
 
-class NewCategoryGroupListView(JSONResponseMixin,AjaxResponseMixin, ListView):
+class NewCategoryGroupListView(JSONResponseMixin, AjaxResponseMixin, ListView):
     template_name = 'web/category/detail.html'
     model = Entity
     paginate_by = 36
@@ -60,10 +59,7 @@ class NewCategoryGroupListView(JSONResponseMixin,AjaxResponseMixin, ListView):
     context_object_name = 'entities'
 
     def get_refresh_time(self):
-        refresh_time = self.request.GET \
-            .get('t', datetime.now() \
-                 .strftime('%Y-%m-%d %H:%M:%S'))
-        return refresh_time
+        return self.request.GET.get('t', datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
     def get_order_by(self):
         order_by = self.kwargs.get('order_by', 'pub_time')
@@ -75,9 +71,8 @@ class NewCategoryGroupListView(JSONResponseMixin,AjaxResponseMixin, ListView):
 
     def get_queryset(self):
         gid = self.get_group_id()
-        parent_category = Category.objects.get(pk=gid)
-        sub_categories_ids = list(Sub_Category.objects.filter(group=gid)\
-                                       .values_list('id', flat=True))
+        sub_categories_ids = list(Sub_Category.objects.filter(group=gid) \
+                                  .values_list('id', flat=True))
 
         if len(sub_categories_ids) == 0:
             raise Http404()
@@ -86,8 +81,8 @@ class NewCategoryGroupListView(JSONResponseMixin,AjaxResponseMixin, ListView):
         if self.get_order_by() == 'olike':
             order_by_like = True
 
-        _entity_list = Entity.objects.sort_group(gid ,category_ids=list(sub_categories_ids),
-                                                 like=order_by_like,).filter(buy_links__status=2)
+        _entity_list = Entity.objects.sort_group(gid, category_ids=list(sub_categories_ids),
+                                                 like=order_by_like, ).filter(buy_links__status=2)
 
         return _entity_list
 
@@ -97,28 +92,24 @@ class NewCategoryGroupListView(JSONResponseMixin,AjaxResponseMixin, ListView):
             sub_categories = sub_categories[:10]
         return sub_categories
 
-
-
     def get_context_data(self, **kwargs):
         context = super(NewCategoryGroupListView, self).get_context_data()
         gid = self.get_group_id()
         entities = context['entities']
-        user_entity_likes = None
         el = []
         if self.request.user.is_authenticated():
             e = entities
-            el = Entity_Like.objects.filter(entity_id__in=tuple(e),user=self.request.user)\
-                                    .values_list('entity_id', flat=True)
+            el = Entity_Like.objects.filter(entity_id__in=tuple(e), user=self.request.user) \
+                .values_list('entity_id', flat=True)
 
         context['entities'] = context['page_obj']
         context['user_entity_likes'] = el
-        context['gid']               = gid
-        context['category']          = Category.objects.get(pk=gid)
-        context['sub_categories']    = self.get_sub_categories(gid)
-        context['sort_method']       = self.get_order_by()
-        context['refresh_datetime']  = self.get_refresh_time()
+        context['gid'] = gid
+        context['category'] = Category.objects.get(pk=gid)
+        context['sub_categories'] = self.get_sub_categories(gid)
+        context['sort_method'] = self.get_order_by()
+        context['refresh_datetime'] = self.get_refresh_time()
         return context
-
 
     def get_ajax(self, request, *args, **kwargs):
         status = 1
@@ -146,7 +137,7 @@ class NewCategoryGroupListView(JSONResponseMixin,AjaxResponseMixin, ListView):
         )
 
 
-#deprecated : ready to delete in next update
+# deprecated : ready to delete in next update
 class CategoryGroupListView(TemplateResponseMixin, ContextMixin, View):
     http_method_names = ['get']
     template_name = 'web/category/detail.html'
@@ -156,7 +147,6 @@ class CategoryGroupListView(TemplateResponseMixin, ContextMixin, View):
         return order_by
 
     def get(self, request, *args, **kwargs):
-        # log.info(kwargs)
 
         gid = kwargs.pop('gid', None)
         _page = request.GET.get('page', 1)
@@ -175,7 +165,7 @@ class CategoryGroupListView(TemplateResponseMixin, ContextMixin, View):
 
         _entity_list = Entity.objects.sort_group(
             category_ids=list(sub_categories_ids),
-            like=order_by_like,).filter(buy_links__status=2)
+            like=order_by_like, ).filter(buy_links__status=2)
 
         paginator = ExtentPaginator(_entity_list, 24)
         try:
@@ -184,7 +174,6 @@ class CategoryGroupListView(TemplateResponseMixin, ContextMixin, View):
             _entities = paginator.page(1)
         except EmptyPage:
             raise Http404
-        # log.info(entity_list)
 
         el = []
         if request.user.is_authenticated():
@@ -248,8 +237,6 @@ class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
         if self.get_order_by() == 'olike':
             order_by_like = True
         self.cid = cid
-        # e_ids = Selection_Entity.objects.published().filter(entity__category_id=cid).values_list('entity_id', flat=True)
-        # entity_list =  Entity.objects.filter(pk__in=e_ids).sort(category_id=cid,like=order_by_like)
         entity_list = Entity.objects.sort(category_id=cid,
                                           like=order_by_like).exclude(
             selection_entity__is_published=False)
@@ -283,13 +270,11 @@ class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
         order_by = self.get_order_by()
         context = super(CategoryDetailView, self).get_context_data(**kwargs)
         entities = context['page_obj']
-        el = list()
+        el = []
         sub_category = Sub_Category.objects.get(pk=self.cid)
         category = Category.objects.get(pk=sub_category.group_id)
-        # category = sub_category.group
         if self.request.user.is_authenticated():
             if order_by == 'olike':
-                # e_ids = [r[0] for r in entities.object_list.values_list('id')]
                 e_ids = list(entities.object_list.values_list('id'))
             else:
                 e_ids = list(entities.object_list.values_list('id'))

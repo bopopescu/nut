@@ -1,41 +1,45 @@
-# encoding: utf-8
+# coding=utf-8
 import json
-from django.views.decorators.csrf import csrf_exempt
-from apps.core.forms.entity import EntityImageForm, AddEntityForm, AddEntityFormForSeller, CreateEntityFormForSeller
-from apps.core.extend.paginator import ExtentPaginator
-from apps.core.forms.entity import EditEntityForm, ChangeCreatorEditEntityForm
-from apps.core.mixins.views import FilterMixin, SortMixin
-from apps.management.views.entities import Add_local, ImportEntity
-from apps.order.models import OrderItem
-from braces.views import JSONResponseMixin,AjaxResponseMixin, UserPassesTestMixin
+from datetime import datetime, timedelta
+
+from braces.views import JSONResponseMixin, AjaxResponseMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db.models import Sum
+from django.http import Http404, HttpResponseNotAllowed
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, render_to_response
 from django.shortcuts import get_object_or_404
-from apps.management.forms.sku import SKUForm,SwitchSkuStatusForm
-from apps.core.utils.http import SuccessJsonResponse
-from apps.core.models import Entity
-from apps.order.models import SKU, Order
+from django.shortcuts import render, render_to_response
 from django.template import RequestContext
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView,DetailView, View
-from django.http import Http404,HttpResponseNotAllowed
-from apps.management.decorators import staff_only, staff_and_editor
-from apps.core.utils.http import JSONResponse
-from datetime import datetime, timedelta
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView, View
 
-from apps.web.views.user import get_seller_entities
+from apps.core.extend.paginator import ExtentPaginator
+from apps.core.forms.entity import EditEntityForm, ChangeCreatorEditEntityForm
+from apps.core.forms.entity import EntityImageForm, AddEntityFormForSeller, CreateEntityFormForSeller
+from apps.core.mixins.views import FilterMixin, SortMixin
+from apps.core.models import Entity
+from apps.core.utils.http import JSONResponse
+from apps.core.utils.http import SuccessJsonResponse
+from apps.management.forms.sku import SKUForm, SwitchSkuStatusForm
+from apps.management.views.entities import Add_local, ImportEntity
+from apps.order.models import OrderItem
+from apps.order.models import SKU, Order
 from apps.payment.models import PaymentLog
 
 TIME_FORMAT = '%Y-%m-%d 8:00:00'
 
 
-def sum_price(sum, next_log):
-    return sum + next_log.order.order_total_value
+def sum_price(price, next_log):
+    return price + next_log.order.order_total_value
 
 
 class SKUUserPassesTestMixin(UserPassesTestMixin):
+
+    def __init__(self):
+        self.entity_id = None
+        self.sku_id = None
+
     def test_func(self, user):
         self.entity_id = self.kwargs.get('entity_id')
         self.sku_id = self.kwargs.get('pk')
@@ -51,8 +55,6 @@ class EntityUserPassesTestMixin(UserPassesTestMixin):
         self.entity_id = self.kwargs.get('entity_id')
         entity = Entity.objects.get(id=self.entity_id)
         return entity in user.seller_entities
-        # TODO : potential performance hit , when seller has lots of entities
-        # return user.has_entity(entity)
 
     def no_permissions_fail(self, request=None):
         raise Http404
@@ -66,7 +68,7 @@ class IsAuthorizedSeller(UserPassesTestMixin):
         raise Http404
 
 
-class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
+class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin, ListView):
     default_sort_params = ('dupdated_time', 'desc')
     http_method_names = ['get']
     paginator_class = ExtentPaginator
@@ -88,14 +90,14 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
                 entity.buy_link = entity.buy_links.all()[0]
             except:
                 entity.buy_link = ''
-            entity.qr_info = [entity.brand, entity.title, "", entity.price, 'http://'+entity.buy_link]
+            entity.qr_info = [entity.brand, entity.title, "", entity.price, 'http://' + entity.buy_link]
         return render_to_response('web/seller_management/qr_image.html', {'entities': context['object_list']},
                                   context_instance=RequestContext(request)
                                   )
 
     def get_queryset(self):
         qs = self.request.user.seller_entities
-        return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
+        return self.sort_queryset(self.filter_queryset(qs, self.get_filter_param()), *self.get_sort_params())
 
     def get_context_data(self, **kwargs):
         context = super(SellerManagement, self).get_context_data(**kwargs)
@@ -104,7 +106,6 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
             entity.stock = entity.sku_list.aggregate(Sum('stock')).get('stock__sum', 0) or 0
             entity.title = entity.title
         context['sort_by'] = self.get_sort_params()[0]
-        # context['extra_query'] = 'sort_by=' + context['sort_by']
         context['current_url'] = self.request.get_full_path()
         context['extra_query'] = self.get_extra_query()
 
@@ -128,10 +129,6 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
         return qs
 
     def sort_queryset(self, qs, sort_by, order):
-        #if sort_by == 'dprice':
-            #qs = qs.order_by('-price')
-        #elif sort_by == 'uprice':
-         #   qs = qs.order_by('price')
         if sort_by == 'dupdated_time':
             qs = qs.order_by('-updated_time')
         elif sort_by == 'uupdated_time':
@@ -139,7 +136,7 @@ class SellerManagement(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
         elif sort_by == 'ustock':
             qs = sorted(qs, key=lambda x: x.total_stock, reverse=False)
         elif sort_by == 'dstock':
-            qs = sorted(qs,key=lambda x: x.total_stock, reverse=True)
+            qs = sorted(qs, key=lambda x: x.total_stock, reverse=True)
         else:
             pass
         self.extra_query_dic['sort_by'] = sort_by
@@ -151,12 +148,13 @@ def get_entity_from_mission(entity_hash, entity_count):
     entities = [entity] * int(entity_count)
     return entities
 
-class QrcodeListView(IsAuthorizedSeller,  AjaxResponseMixin,  JSONResponseMixin,  ListView):
+
+class QrcodeListView(IsAuthorizedSeller, AjaxResponseMixin, JSONResponseMixin, ListView):
     template_name = 'web/seller_management/qr_image.html'
 
     def get(self, request, *args, **kwargs):
-        print_entities_jsonstring = request.GET.get('entity_ids',None)
-        print_counts_jsonstring = request.GET.get('print_counts',None)
+        print_entities_jsonstring = request.GET.get('entity_ids', None)
+        print_counts_jsonstring = request.GET.get('print_counts', None)
         host = request.get_host()
         if print_entities_jsonstring and print_counts_jsonstring:
             print_entities = json.loads(print_entities_jsonstring)
@@ -164,19 +162,18 @@ class QrcodeListView(IsAuthorizedSeller,  AjaxResponseMixin,  JSONResponseMixin,
             mission_dic = dict(zip(print_entities, print_counts))
             entities = []
             print_entities = []
-            for entity_hash,entity_count in mission_dic.iteritems():
+            for entity_hash, entity_count in mission_dic.iteritems():
                 entities.append(get_entity_from_mission(entity_hash, entity_count))
 
             for entity_list in entities:
-              for entity_list_item in entity_list:
-                for entity in entity_list_item:
-                    entity.title = entity.title
-                    entity.qr_info = [entity.brand, entity.title, "", entity.price, 'http://' + host + entity.qrcode_url]
-                    print_entities.append(entity)
+                for entity_list_item in entity_list:
+                    for entity in entity_list_item:
+                        entity.title = entity.title
+                        entity.qr_info = [entity.brand, entity.title, "", entity.price,
+                                          'http://' + host + entity.qrcode_url]
+                        print_entities.append(entity)
 
             self.object_list = print_entities
-
-            # self.object_list = self.get_checked_entities(print_entities)
 
         else:
             self.object_list = self.get_queryset()
@@ -205,7 +202,6 @@ class IsAuthorizedSeller(UserPassesTestMixin):
         raise Http404
 
 
-
 class SellerManagementAddEntity(Add_local):
     template_name = 'web/seller_management/add_entity.html'
     form_class = AddEntityFormForSeller
@@ -216,6 +212,7 @@ class SellerManagementAddEntity(Add_local):
             entity = form.save()
             return HttpResponseRedirect(reverse('web_seller_management_entity_edit', args=[entity.id]))
         return render(request, self.template_name, {'forms': form})
+
 
 @login_required
 def image(request, entity_id,
@@ -247,14 +244,13 @@ def image(request, entity_id,
 
 @login_required
 def seller_management_entity_edit(request, entity_id, template='web/seller_management/edit_entity.html'):
-    #Todo 拆分模版
+    # Todo 拆分模版
     _update = None
     try:
         entity = Entity.objects.get(pk=entity_id)
     except Entity.DoesNotExist:
         raise Http404
     data = {
-        # 'id':entity.pk,
         'creator': entity.user.profile.nickname,
         'brand': entity.brand,
         'title': entity.title,
@@ -313,6 +309,8 @@ def seller_management_entity_edit(request, entity_id, template='web/seller_manag
         },
         context_instance=RequestContext(request)
     )
+
+
 @csrf_exempt
 @login_required
 def delete_image(request, entity_id):
@@ -362,30 +360,33 @@ class SellerManagementEntitySave(JSONResponseMixin, AjaxResponseMixin, View):
         except:
             return self.render_json_response({'status': '-1'}, 404)
 
+
 class SellerEntitySKUCreateView(EntityUserPassesTestMixin, CreateView):
     model = SKU
     form_class = SKUForm
     template_name = 'web/seller_management/create_sku.html'
+
     def get_success_url(self):
         return reverse('management_entity_skus', args=[self.entity_id])
 
     def get_initial(self):
         return {
-            'entity':self.entity_id
+            'entity': self.entity_id
         }
 
-class SKUStatusChangeView(EntityUserPassesTestMixin, JSONResponseMixin, UpdateView):
 
+class SKUStatusChangeView(EntityUserPassesTestMixin, JSONResponseMixin, UpdateView):
     form_class = SwitchSkuStatusForm
     model = SKU
     pk_url_kwarg = 'sku_id'
 
     def form_invalid(self, form):
-        res = {'error':1}
+        res = {'error': 1}
         return self.render_json_response(res)
+
     def form_valid(self, form):
         form.save()
-        res = {'error':0}
+        res = {'error': 0}
         return self.render_json_response(res)
 
 
@@ -402,10 +403,6 @@ class SKUListView(EntityUserPassesTestMixin, SortMixin, ListView):
         context['entity'] = get_object_or_404(Entity, id=self.entity_id)
         context['sort_by'] = self.get_sort_params()[0]
         context['extra_query'] = 'sort_by=' + context['sort_by']
-        # for sku in context['object_list']:
-        #     l = sku.attrs_display.split(';')
-        #     for item in l:
-        #         new = item.replace('_', ':')
 
         return context
 
@@ -431,21 +428,6 @@ class SKUListView(EntityUserPassesTestMixin, SortMixin, ListView):
         return qs
 
 
-#class SKUCreateView(EntityUserPassesTestMixin, CreateView):
-#    model = SKU
-#    form_class = SKUForm
-#    template_name = 'web/seller_management/add_sku.html'
-#    def get_success_url(self):
-#        return reverse('sku_list_management', args=[self.entity_id])
-#    def get_context_data(self, **kwargs):
-#        context = super(CreateView,self).get_context_data(**kwargs)
-#        context['entity_id']=self.entity_id
-#        return context
-#    def get_initial(self):
-#        return {
-#            'entity':self.entity_id
-#        }
-
 class SKUCreateView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView):
     model = SKU
     form_class = SKUForm
@@ -455,46 +437,50 @@ class SKUCreateView(EntityUserPassesTestMixin, AjaxResponseMixin, CreateView):
         _forms = SKUForm(request.POST)
         if _forms.is_valid():
             _forms.save()
-            return JSONResponse(data={'result': 1},status=200)
+            return JSONResponse(data={'result': 1}, status=200)
         elif _forms.repeatstatus:
-            return JSONResponse(data={'result': -1},status=406)
-        else :
-            return JSONResponse(data={'result': 0},status=400)
+            return JSONResponse(data={'result': -1}, status=406)
+        else:
+            return JSONResponse(data={'result': 0}, status=400)
 
     def get_success_url(self):
         return reverse('sku_list_management', args=[self.entity_id])
 
     def get_context_data(self, **kwargs):
-        context = super(SKUCreateView,self).get_context_data(**kwargs)
-        context['entity_id']=self.entity_id
+        context = super(SKUCreateView, self).get_context_data(**kwargs)
+        context['entity_id'] = self.entity_id
         return context
 
     def get_initial(self):
         initial_price = Entity.objects.get(pk=self.entity_id).price
         return {
-            'entity':self.entity_id,
-            'origin_price':initial_price,
-            'promo_price':initial_price
+            'entity': self.entity_id,
+            'origin_price': initial_price,
+            'promo_price': initial_price
         }
 
-class SKUUpdateView(SKUUserPassesTestMixin, AjaxResponseMixin,UpdateView):
+
+class SKUUpdateView(SKUUserPassesTestMixin, AjaxResponseMixin, UpdateView):
     model = SKU
     form_class = SKUForm
     template_name = 'web/seller_management/sku/sku_edit_template.html'
+
     def post_ajax(self, request, *args, **kwargs):
         instance = SKU.objects.get(pk=kwargs['pk'])
-        _forms = SKUForm(request.POST,instance=instance)
+        _forms = SKUForm(request.POST, instance=instance)
         if _forms.is_valid():
             _forms.save()
-            return JSONResponse(data={'result': 1},status=200)
+            return JSONResponse(data={'result': 1}, status=200)
         elif _forms.repeatstatus:
-            return JSONResponse(data={'result': -1},status=406)
+            return JSONResponse(data={'result': -1}, status=406)
         else:
-            return JSONResponse(data={'result': 0},status=400)
+            return JSONResponse(data={'result': 0}, status=400)
+
     def get_context_data(self, **kwargs):
-        context = super(SKUUpdateView,self).get_context_data(**kwargs)
-        context['entity_id']=self.entity_id
+        context = super(SKUUpdateView, self).get_context_data(**kwargs)
+        context['entity_id'] = self.entity_id
         return context
+
     def get_success_url(self):
         return reverse('sku_list_management', args=[self.entity_id])
 
@@ -535,15 +521,15 @@ class OrderDetailView(UserPassesTestMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(OrderDetailView, self).get_context_data(**kwargs)
         context['order_item'] = context['order'].items.all().filter(sku__entity__in=self.request.user.seller_entities)
-        context['order_number']=self.order_number
-        context['promo_total_price']=context['order'].promo_total_price
-        context['origin_total_price']=context['order'].grand_total_price
-        context['count']=context['order'].items.all().count()
+        context['order_number'] = self.order_number
+        context['promo_total_price'] = context['order'].promo_total_price
+        context['origin_total_price'] = context['order'].grand_total_price
+        context['count'] = context['order'].items.all().count()
         return context
 
 
-class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
-    default_sort_params = ('dnumber','desc')
+class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin, ListView):
+    default_sort_params = ('dnumber', 'desc')
     http_method_names = ['get']
     paginator_class = ExtentPaginator
     model = Order
@@ -552,7 +538,6 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
     wait_pay_status = [Order.address_unbind, Order.waiting_for_payment]
     paid_status = [Order.paid, Order.send, Order.closed]
     expired_status = [Order.expired]
-
 
     def get_queryset(self):
         entities = self.request.user.seller_entities
@@ -566,12 +551,10 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
             qs = qs.filter(status__in=self.paid_status)
 
         qs = self.apply_date_filter(qs)
-        return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
+        return self.sort_queryset(self.filter_queryset(qs, self.get_filter_param()), *self.get_sort_params())
 
     def filter_queryset(self, qs, filter_param):
         filter_field, filter_value = filter_param
-        #if filter_field == 'id':
-            #qs = qs.filter(id=filter_value.strip())
         if filter_field == 'number':
             qs = qs.filter(number__icontains=filter_value.strip())
         else:
@@ -594,12 +577,12 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
         return qs
 
     def get_sum_payment(self, order_list):
-        sum = 0
+        result = 0
         for order in order_list:
             if order.is_paid:
-                sum += order.order_total_value
+                result += order.order_total_value
 
-        return sum
+        return result
 
     def get_sum_payment_for_payment_source(self, order_list, payment_souce):
         order_ids = list(order_list.values_list('id', flat=True))
@@ -609,13 +592,6 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
     def get_context_data(self, **kwargs):
         context = super(SellerManagementOrders, self).get_context_data(**kwargs)
         context['status'] = self.status
-        sum_payment_all = 0
-        sum_alipay = 0
-        sum_weixin = 0
-        sum_pos = 0
-        sum_cash = 0
-        sum_other = 0
-
         paged_order_list = context['object_list']
 
         for order in paged_order_list:
@@ -651,8 +627,7 @@ class SellerManagementOrders(IsAuthorizedSeller, FilterMixin, SortMixin,  ListVi
         return order_list
 
 
-class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,  ListView):
-
+class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin, ListView):
     default_sort_params = ('dsold_count', 'desc')
     http_method_names = ['get']
     paginator_class = ExtentPaginator
@@ -674,21 +649,19 @@ class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,
                     sku_ids = list(order.items.values_list('sku'))
         if sku_ids:
             for i in range(len(sku_ids)):
-                sku_ids[i]=sku_ids[i][0]
-        #sku_ids = self.order_items.values_list('sku')
+                sku_ids[i] = sku_ids[i][0]
         qs = SKU.objects.filter(id__in=sku_ids).filter(entity_id__in=entities)
-        # qs = list(set([item.sku for item in self.order_items]))
-        return self.sort_queryset(self.filter_queryset(qs,self.get_filter_param()), *self.get_sort_params())
+        return self.sort_queryset(self.filter_queryset(qs, self.get_filter_param()), *self.get_sort_params())
 
     def sort_queryset(self, qs, sort_by, order):
-        d={}
+        d = {}
         for order in self.order_items:
             if order.sku.id not in d.keys():
                 d[order.sku.id] = order.volume
             else:
                 d[order.sku.id] += order.volume
         for i in qs:
-            i.sold_count=d[i.id]
+            i.sold_count = d[i.id]
         if sort_by == 'dsold_count':
             qs = sorted(qs, key=lambda x: x.sold_count, reverse=True)
         elif sort_by == 'usold_count':
@@ -704,7 +677,7 @@ class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,
     def get_context_data(self, **kwargs):
         context = super(SellerManagementSoldEntityList, self).get_context_data(**kwargs)
         for sku in context['object_list']:
-            sku.title=sku.entity.title[:15]
+            sku.title = sku.entity.title[:15]
 
         d = {}
         for order in self.orders:
@@ -713,8 +686,8 @@ class SellerManagementSoldEntityList(IsAuthorizedSeller, FilterMixin, SortMixin,
                     d[order_item.sku.id] = order_item.volume
                 else:
                     d[order_item.sku.id] += order_item.volume
-        for object in context['object_list']:
-            object.sold_count = d[object.id]
+        for obj in context['object_list']:
+            obj.sold_count = d[obj.id]
         context['sort_by'] = self.get_sort_params()[0]
         context['extra_query'] = 'sort_by=' + context['sort_by']
         return context
@@ -769,64 +742,71 @@ def get_time_range():
 
     return today_start, today_end
 
+
 from django.db import connection
+
+
 def get_finished_count(user_id):
     cursor = connection.cursor()
-    cursor.execute( "select date(created_datetime),count(*) as finished_count from( "\
-                    "select order_order.number,order_order.created_datetime,"\
-                    "order_sku.attrs "\
-                    "from order_order "\
-                    "join order_orderitem "\
-                    "on order_orderitem.order_id=order_order.id "\
-                    "join order_sku "\
-                    "on order_orderitem.sku_id=order_sku.id "\
-                    "join core_entity "\
-                    "on order_sku.entity_id=core_entity.id "\
-                    "where core_entity.user_id=%s "\
-                    "and order_order.status<6 and order_order.status>2 "\
-                    "group by order_order.id) as temp "\
-                    "group by date(created_datetime)", [user_id])  # find finished orders of this user
+    cursor.execute("select date(created_datetime),count(*) as finished_count from( " \
+                   "select order_order.number,order_order.created_datetime," \
+                   "order_sku.attrs " \
+                   "from order_order " \
+                   "join order_orderitem " \
+                   "on order_orderitem.order_id=order_order.id " \
+                   "join order_sku " \
+                   "on order_orderitem.sku_id=order_sku.id " \
+                   "join core_entity " \
+                   "on order_sku.entity_id=core_entity.id " \
+                   "where core_entity.user_id=%s " \
+                   "and order_order.status<6 and order_order.status>2 " \
+                   "group by order_order.id) as temp " \
+                   "group by date(created_datetime)", [user_id])  # find finished orders of this user
     res = cursor.fetchall()
     return parse_data(res)
 
+
 def get_income(user_id):
     cursor = connection.cursor()
-    cursor.execute( "select date(created_datetime),sum(income) from"\
-                    "(select order_order.created_datetime,order_sku.attrs,"\
-                    "order_orderitem.promo_total_price as income "\
-                    "from order_order join order_orderitem on order_order.id=order_orderitem.order_id join order_sku on order_orderitem.sku_id=order_sku.id "\
-                    "join core_entity on order_sku.entity_id=core_entity.id "\
-                    " where core_entity.user_id=%s "\
-                    "and order_order.status<6 and order_order.status>2 "\
-                    "order by date(created_datetime)) as temp  "\
-                    "group by date(created_datetime)",[user_id])
-    res=cursor.fetchall()
+    cursor.execute("select date(created_datetime),sum(income) from" \
+                   "(select order_order.created_datetime,order_sku.attrs," \
+                   "order_orderitem.promo_total_price as income " \
+                   "from order_order join order_orderitem on order_order.id=order_orderitem.order_id join order_sku on order_orderitem.sku_id=order_sku.id " \
+                   "join core_entity on order_sku.entity_id=core_entity.id " \
+                   " where core_entity.user_id=%s " \
+                   "and order_order.status<6 and order_order.status>2 " \
+                   "order by date(created_datetime)) as temp  " \
+                   "group by date(created_datetime)", [user_id])
+    res = cursor.fetchall()
     return parse_data(res)
+
+
 def parse_data(res):
     if res:
-        start=res[0][0]
-        key_list=[x[0] for x in res]
-        while(start<datetime.now().date()):
-            start=start+timedelta(1)
+        start = res[0][0]
+        key_list = [x[0] for x in res]
+        while start < datetime.now().date():
+            start = start + timedelta(1)
             if start not in key_list:
-                res+=(start,0),
-    res=sorted(res,key=lambda x:x[0])
+                res += (start, 0),
+    res = sorted(res, key=lambda x: x[0])
     return res
 
-class SellerManagementFinancialReport(IsAuthorizedSeller,ListView):
+
+class SellerManagementFinancialReport(IsAuthorizedSeller, ListView):
     model = Order
     template_name = 'web/seller_management/financial_report/seller_financial_report.html'
+
     def get_queryset(self):
         return Order.objects.none()
+
     def get_context_data(self, **kwargs):
         context = super(SellerManagementFinancialReport, self).get_context_data(**kwargs)
         user_id = self.request.user.id
         finished_count = get_finished_count(user_id)
         income = get_income(user_id)
-        context["finished_count_x"]=[str(x[0].day) for x in finished_count]
-      #  context['finished_count_x']=["Red", "Blue", "Yellow", "Green", "Purple", "Orange"]
-        context["finished_count_y"]=[int(x[1]) for x in finished_count]
-        context["income_x"]=[str(x[0].day) for x in income]
-        context['income_y']=[int(x[1]) for x in income]
+        context["finished_count_x"] = [str(x[0].day) for x in finished_count]
+        context["finished_count_y"] = [int(x[1]) for x in finished_count]
+        context["income_x"] = [str(x[0].day) for x in income]
+        context['income_y'] = [int(x[1]) for x in income]
         return context
-

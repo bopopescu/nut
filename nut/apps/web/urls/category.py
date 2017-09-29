@@ -1,7 +1,8 @@
 from django.conf.urls import url, patterns
-from apps.web.views.category import CategoryGroupListView, NewCategoryGroupListView
+
 from apps.web.views.category import CategoryDetailView
 from apps.web.views.category import CategoryListView
+from apps.web.views.category import NewCategoryGroupListView
 from apps.web.views.category import SubCategoryListView
 
 urlpatterns = patterns(
@@ -13,5 +14,3 @@ urlpatterns = patterns(
     url(r'^(?P<cid>\d+)/$', CategoryDetailView.as_view(), name='web_category_detail'),
     url(r'^(?P<cid>\d+)/(?P<order_by>[\w-]+)/$', CategoryDetailView.as_view(), name='web_category_detail_olike'),
 )
-
-__author__ = 'edison7500'

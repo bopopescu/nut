@@ -1,4 +1,4 @@
-# encoding: utf-8
+# coding=utf-8
 
 import json
 
@@ -19,16 +19,16 @@ class CheckDeskOrderExpireForm(forms.Form):
         self.request = kwargs.pop("request")
         super(CheckDeskOrderExpireForm, self).__init__(*args, **kwargs)
 
-    def clean_order_id(self,):
+    def clean_order_id(self, ):
         try:
             order_id = self.cleaned_data.get('order_id')
             order = get_object_or_404(Order, pk=order_id)
             return order_id
         except Exception as e:
             raise ValidationError(
-                    _('order id validation fail %s' % e.message),
-                    code='order_id_invalid',
-                    params={'order_id': order}
+                _('order id validation fail %s' % e.message),
+                code='order_id_invalid',
+                params={'order_id': order}
             )
 
     def get_order(self):
@@ -40,9 +40,7 @@ class CheckDeskOrderExpireForm(forms.Form):
         _order.set_expire(force=True)
 
 
-
 class CheckDeskOrderPayForm(forms.Form):
-
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")
         super(CheckDeskOrderPayForm, self).__init__(*args, **kwargs)
@@ -55,16 +53,16 @@ class CheckDeskOrderPayForm(forms.Form):
         order_id = self.cleaned_data.get('order_id')
         return get_object_or_404(Order, pk=order_id)
 
-    def clean_order_id(self,):
+    def clean_order_id(self, ):
         try:
             order_id = self.cleaned_data.get('order_id')
             order = get_object_or_404(Order, pk=order_id)
             return order_id
         except Exception as e:
             raise ValidationError(
-                    _('order id validation fail %s' % e.message),
-                    code='order_id_invalid',
-                    params={'order_id': order}
+                _('order id validation fail %s' % e.message),
+                code='order_id_invalid',
+                params={'order_id': order}
             )
 
     def clean(self):
@@ -108,7 +106,3 @@ class CheckDeskOrderPayForm(forms.Form):
             'payment_total': _order.order_total_value,
             'payment_note': self.cleaned_data.get('payment_note')
         }
-
-
-
-

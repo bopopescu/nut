@@ -1,8 +1,7 @@
-
+# coding=utf-8
 from django.conf.urls import url, patterns
-from apps.web.views.checkout import CheckoutOrderListView, CheckDeskPayView,\
-                                    CheckDeskAllOrderListView, CheckDeskOrderStatisticView,\
-                                    CheckoutOrderDetailView, SetOrderExpireView
+from apps.web.views.checkout import CheckoutOrderListView, CheckDeskPayView, CheckDeskAllOrderListView, \
+    CheckDeskOrderStatisticView, CheckoutOrderDetailView, SetOrderExpireView
 
 urlpatterns = patterns(
     'apps.web.views.checkout',
@@ -13,4 +12,4 @@ urlpatterns = patterns(
 
     url(r'^order_list/pay/$', CheckDeskPayView.as_view(), name="checkout_done"),
     url(r'^order_list/set_expire/$', SetOrderExpireView.as_view(), name="checkout_expire_order")
-    )
+)

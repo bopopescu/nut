@@ -1,10 +1,10 @@
+# coding=utf-8
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.core.urlresolvers import reverse
 from django.views.decorators.http import require_GET
 from django.contrib.auth.decorators import login_required
 
 from apps.core.models import Sina_Token, GKUser, User_Profile
-# from apps.web.forms.account import UserSignInForm, UserPasswordResetForm
 from apps.web.lib.account import sina
 from apps.web.lib.account.utils import login_without_password
 from django.utils.log import getLogger
@@ -15,11 +15,9 @@ log = getLogger('django')
 @require_GET
 def login_by_sina(request):
     request.session['auth_source'] = "login"
-    # next_url = request.GET.get('next', None)
     next_url = request.META.get('HTTP_REFERER', reverse('web_selection'))
     if 'login' in next_url:
         next_url = reverse('web_selection')
-    # log.info(next_url)
     if next_url:
         request.session['next_url'] = next_url
     return HttpResponseRedirect(sina.get_login_url())
@@ -32,10 +30,8 @@ def auth_by_sina(request):
     if code:
         _sina_data = sina.get_auth_data(code)
         next_url = request.session.get('next_url', reverse("web_selection"))
-        # del request.session['next_url']
-        # log.info(_sina_data)
         try:
-            weibo = Sina_Token.objects.get(sina_id = _sina_data['sina_id'])
+            weibo = Sina_Token.objects.get(sina_id=_sina_data['sina_id'])
             weibo.access_token = _sina_data['access_token']
             weibo.expires_in = _sina_data['expires_in']
             weibo.screen_name = _sina_data['screen_name']
@@ -46,14 +42,13 @@ def auth_by_sina(request):
         except Sina_Token.DoesNotExist:
             is_bind = request.session.get('is_bind', None)
             if request.user.is_authenticated() and is_bind:
-                # del request.session['next_url']
                 del request.session['is_bind']
                 Sina_Token.objects.create(
-                    user = request.user,
-                    sina_id = _sina_data['sina_id'],
-                    screen_name = _sina_data['screen_name'],
-                    access_token = _sina_data['access_token'],
-                    expires_in = _sina_data['expires_in'],
+                    user=request.user,
+                    sina_id=_sina_data['sina_id'],
+                    screen_name=_sina_data['screen_name'],
+                    access_token=_sina_data['access_token'],
+                    expires_in=_sina_data['expires_in'],
                 )
                 return HttpResponseRedirect(next_url)
             else:
@@ -64,29 +59,26 @@ def auth_by_sina(request):
                 User_Profile.objects.create(
                     user=user_obj,
                     nickname=user_key,
-                    avatar = _sina_data['avatar_large'],
+                    avatar=_sina_data['avatar_large'],
                 )
                 Sina_Token.objects.create(
-                    user = user_obj,
-                    sina_id = _sina_data['sina_id'],
-                    screen_name = _sina_data['screen_name'],
-                    access_token = _sina_data['access_token'],
-                    expires_in = _sina_data['expires_in'],
+                    user=user_obj,
+                    sina_id=_sina_data['sina_id'],
+                    screen_name=_sina_data['screen_name'],
+                    access_token=_sina_data['access_token'],
+                    expires_in=_sina_data['expires_in'],
                 )
                 login_without_password(request, user_obj)
                 return HttpResponseRedirect(next_url)
-                # return HttpResponseRedirect(reverse('web_register_from_three_part'))
     else:
         log.error("%s", error_uri)
         return HttpResponse("error")
-        # if weibo.user_id:
 
 
 @require_GET
 @login_required
 def bind(request):
     next_url = request.META.get('HTTP_REFERER', None)
-    # next_url = reverse('web_selection')
     if next_url:
         log.info(next_url)
         request.session['next_url'] = next_url
@@ -94,6 +86,7 @@ def bind(request):
         return HttpResponseRedirect(sina.get_login_url())
 
     raise Http404
+
 
 @require_GET
 @login_required
@@ -108,6 +101,3 @@ def unbind(request):
 
     token.delete()
     return HttpResponseRedirect(next_url)
-
-
-__author__ = 'edison'

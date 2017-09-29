@@ -1,29 +1,26 @@
 from django.conf.urls import url, include, patterns
 from django.views.generic import RedirectView
-from apps.web.views import AboutView, JobsView, Agreement, LinksView, FaqView, DownloadView, CooperateView\
-                           , ShopServiceView, FuGuListView
+from rest_framework.routers import DefaultRouter
+
+from apps.web.views import AboutView, JobsView, Agreement, FaqView, DownloadView, CooperateView,\
+    ShopServiceView, FuGuListView
 from apps.web.views.design_week import DesignWeekViewSet
 from apps.web.views.discover import DiscoverView, RecommendUserView
-from apps.web.views.main import SelectionEntityList, SiteMapView, IndexArticleTagView, IndexSelectionEntityTagView\
-                                ,IndexHotEntityView
 from apps.web.views.entity import EntityCard, EntityLikersView, EntitySaleView, NewEntityDetailView
-from apps.web.views.main import GKSearchView, PopularView,IndexView
 from apps.web.views.flink import FriendlyLinkListView
-from rest_framework.routers import DefaultRouter
+from apps.web.views.main import GKSearchView, PopularView, IndexView
+from apps.web.views.main import SelectionEntityList, SiteMapView, IndexArticleTagView, IndexSelectionEntityTagView,\
+    IndexHotEntityView
 
 urlpatterns = patterns(
     'apps.web.views',
-    # url(r'^$', 'main.index', name='web_index'),
     url(r'^$', IndexView.as_view(), name='web_index'),
     url(r'^index_article_tag', IndexArticleTagView.as_view(), name='web_index_article_tag'),
     url(r'^index_selection_entity_tag', IndexSelectionEntityTagView.as_view(), name='web_index_selection_entity_tag'),
     url(r'^index_hot_entity', IndexHotEntityView.as_view(), name='web_index_hot_entity'),
-    # url(r'^index/$', IndexView.as_view(), name='web_index'),
     url(r'^selection/$', RedirectView.as_view(url='/selected/')),
     url(r'^m/selection/$', RedirectView.as_view(url='/selected/')),
     url(r'^selected/$', SelectionEntityList.as_view(), name='web_selection'),
-    # url(r'^selected/$', 'main.selection', name='web_selection'),
-    # url(r'^selected/$',  RedirectView.as_view(url='/selection/'),
 
     url(r'^popular/$', PopularView.as_view(), name='web_popular'),
     url(r'^discover/$', DiscoverView.as_view(), name='web_discover'),
@@ -50,7 +47,6 @@ urlpatterns += patterns(
     url(r'^detail/(?P<entity_hash>\w+)/sale/$', EntitySaleView.as_view(), name='web_entity_sale'),
 )
 
-
 from apps.web.views.account import RegisterWizard
 from apps.web.forms.account import UserSignUpForm, UserSignUpBioForm
 
@@ -59,11 +55,10 @@ RegisterForms = [
     ('register-bio', UserSignUpBioForm),
 ]
 
-#account
+# account
 urlpatterns += patterns(
     'apps.web.views.account',
     url(r'^login/$', 'login', name='web_login'),
-    # url(r'^register/$', 'register', name='web_register'),
     url(r'^logout', 'logout', name='web_logout'),
     url(r'^register/$', RegisterWizard.as_view(RegisterForms), name='web_register'),
 
@@ -88,7 +83,7 @@ urlpatterns += patterns(
     'apps.web.views',
 
     url(r'^about/$', AboutView.as_view(), name='web_about'),
-     url(r'^shopservice/$', ShopServiceView.as_view(), name='web_shop_service'),
+    url(r'^shopservice/$', ShopServiceView.as_view(), name='web_shop_service'),
     url(r'^cooperate/$', CooperateView.as_view(), name='web_cooperate'),
     url(r'^jobs/$', JobsView.as_view(), name='web_jobs'),
     url(r'^agreement/$', Agreement.as_view(), name='web_agreement'),
@@ -97,8 +92,6 @@ urlpatterns += patterns(
     url(r'^download/$', DownloadView.as_view(), name='web_download'),
     url(r'^download/ios/$', 'download_ios'),
 )
-
-
 
 router = DefaultRouter()
 router.register(r'design_week/2016', DesignWeekViewSet, base_name="Entity")
@@ -113,61 +106,45 @@ urlpatterns += patterns(
     url(r'^account/', include('apps.web.urls.account')),
     url(r'^u/', include('apps.web.urls.user')),
     url(r'^event/', include('apps.web.urls.event')),
-    url(r'^articles/',include('apps.web.urls.article')),
-    url(r'^brand/',include('apps.web.urls.brand')),
+    url(r'^articles/', include('apps.web.urls.article')),
+    url(r'^brand/', include('apps.web.urls.brand')),
     url(r'^store/', include('apps.shop.urls.web')),
     url(r'^payment/', include('apps.payment.urls.web')),
     url(r'^cart/', include('apps.order.urls.cart_web')),
     url(r'^orders/', include('apps.order.urls.order_web')),
-    url(r'^checkout/',include('apps.web.urls.checkout')),
+    url(r'^checkout/', include('apps.web.urls.checkout')),
     url(r'^seller_management/', include('apps.web.urls.seller_management')),
     url(r'^offline_shop/', include('apps.offline_shop.urls')),
     url(r'^', include(router.urls))
 )
 
-
 # old url 301
 from apps.web.views.category import OldCategory
+
 urlpatterns += patterns(
     '',
     url(r'^c/(?P<cid>\d+)/$', OldCategory.as_view(), name='web_category_old_url'),
 )
 
-
-
 urlpatterns += patterns('',
-            url(r'^captcha/', include('captcha.urls')),
-)
-
-
+                        url(r'^captcha/', include('captcha.urls')),
+                        )
 
 # for seller 2015 page and happy new year page
 # this is temp, for single page app only
 #  do not add more url here
-from apps.seller.views.web import TrendRedirectView, SellerView,Seller2015RedirectView
+from apps.seller.views.web import TrendRedirectView, Seller2015RedirectView
 from apps.web.views import HappyNYView, FuGuView, MarketView
 
 urlpatterns += patterns('',
-            url(r'^trends/', include('apps.seller.urls.web')),
-            url(r'^trend/', TrendRedirectView.as_view(), name='trend_redirect_alter'),
-)
-
+                        url(r'^trends/', include('apps.seller.urls.web')),
+                        url(r'^trend/', TrendRedirectView.as_view(), name='trend_redirect_alter'),
+                        )
 
 urlpatterns += patterns('',
-            url(r'^store2015/', Seller2015RedirectView.as_view(), name='year_store_2015_old'),
-            # url(r'^store2016/', NewSellerView.as_view(), name='year_store_2016'),
-            # url(r'^shops2016/', ShopsView.as_view(), name='year_store_2016_shops'),
-            # url(r'^opinions2016/', OpinionsView.as_view(), name='year_store_2016_opinions'),
-            # url(r'^topics2016/$', TopicArticlesView.as_view(), name='year_store_2016_topics'),
-            # url(r'^topics2016/(?P<tag_name>.*?)/$', TopicArticlesView.as_view(), name='topic_articles_url'),
-            # url(r'^columns2016/', ColumnsView.as_view(), name='year_store_2016_columns'),
-            # url(r'^store/', SellerView.as_view(), name='web_store'),
-            url(r'^hou/', HappyNYView.as_view(), name='new_year_2015'),
-            url(r'guokuselectedshops2016/list/', FuGuListView.as_view(), name='fu_gu_da_hui_2016_list'),
-            url(r'guokuselectedshops2016/', FuGuView.as_view(), name='fu_gu_da_hui_2016'),
-            url(r'guokumarket2016',MarketView.as_view(),name='market_2016')
-
-        )
-
-
-__author__ = 'edison7500'
+                        url(r'^store2015/', Seller2015RedirectView.as_view(), name='year_store_2015_old'),
+                        url(r'^hou/', HappyNYView.as_view(), name='new_year_2015'),
+                        url(r'guokuselectedshops2016/list/', FuGuListView.as_view(), name='fu_gu_da_hui_2016_list'),
+                        url(r'guokuselectedshops2016/', FuGuView.as_view(), name='fu_gu_da_hui_2016'),
+                        url(r'guokumarket2016', MarketView.as_view(), name='market_2016')
+                        )
