@@ -12,7 +12,7 @@ from django.utils.encoding import smart_str
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 
-from wechat.handle import handle_reply, handle_event
+from apps.wechat.handle import handle_reply, handle_event
 
 click_replies = {
     'CLICK_CONTACT_US': u'商务合作请联系 bd@guoku.com',
