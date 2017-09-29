@@ -315,6 +315,7 @@ CAPTCHA_LENGTH = 8
 CAPTCHA_FONT_PATH = 'fonts/kai.ttf'
 CAPTCHA_FONT_SIZE = 30
 CAPTCHA_CHALLENGE_FUNCT = 'apps.core.utils.captcha.chinese_math_challenge'
+# CAPTCHA_CHALLENGE_FUNCT = 'apps.core.utils.captcha.chinese_math_challenge'
 
 # for debug server popular  category test
 DEFAULT_POPULAR_SCALE = 7
@@ -361,5 +362,5 @@ CLICK_HOST = 'http://click.guoku.com'
 
 # Sentry
 RAVEN_CONFIG = {
-    'dsn': 'http://93c33ee5ff4c4db1b8fc65d4a971e641:de869c769f8d405696285368d489bdfc@sentry.guoku.com/2',
+    'dsn': 'http://93c33ee5ff4c4db1b8fc65d4a971e641:de869c769f8d405696285368d489bdfc@sentry.guoku.com:9000/2',
 }
