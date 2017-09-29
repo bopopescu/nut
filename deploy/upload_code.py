@@ -13,7 +13,7 @@ Config.read('config.ini')
 
 root_dir = os.path.join(os.getcwd(), '..')
 
-env.hosts = ['10.0.2.46', '10.0.2.47']
+env.hosts = ['114.113.154.46:19324', '114.113.154.47:22']
 
 env.user = Config.get('global', 'user')
 env.key = os.path.expanduser(Config.get('global', 'key'))
