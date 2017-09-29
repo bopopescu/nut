@@ -1,5 +1,5 @@
 from django.conf.urls import url, patterns, include
-from apps.wechat.views import WeChatView
+from apps.wechat.views.reply import WeChatView
 from apps.wechat.views.bind import WeChatBindView, WeChatBindSuccessView
 
 urlpatterns = patterns(
