@@ -71,7 +71,7 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
                 {
                     "name": "每日精选",
                     "type": "view",
-                    "url": "http://guoku.com/selected/",
+                    "url": "http://guoku.me/selected/",
                 },
                 {
                     "name": "用户活动",
@@ -79,7 +79,7 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
                         {
                             "name": "果库活动",
                             "type": "view",
-                            "url": "http://m.guoku.com/event/20170809/"
+                            "url": "https://m.guoku.me/event/20170719/"
                         },
                         {
                             "name": "添加果库妹",
@@ -109,7 +109,7 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
                         {
                             "name": "添加商品须知",
                             "type": "view",
-                            "url": "http://www.guoku.com/articles/guo-ku-jun-shuo-ni-de-shang-pin-wei-shi-yao-ru-bu/"
+                            "url": "http://www.guoku.me/articles/guo-ku-jun-shuo-ni-de-shang-pin-wei-shi-yao-ru-bu/"
                         }
                     ]
                 }

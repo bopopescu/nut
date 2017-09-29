@@ -12,7 +12,11 @@ auto_replies = {
     u'转载': u'文章转载授权请联系 alka@guoku.com',
     u'糯言': u'''哈喽，果库妹给你送福利啦：
 <a href="https://taoquan.taobao.com/coupon/unify_apply.htm?sellerId=2186239207&activityId=fa282ab6e48b4c439dd223864059081a">糯言5.00元商品优惠劵</a>
-<a href="https://taoquan.taobao.com/coupon/unify_apply.htm?sellerId=2186239207&activityId=fc5cec52fd2646f5a4135c365fd49d54">糯言10.00元商品优惠劵</a>'''
+<a href="https://taoquan.taobao.com/coupon/unify_apply.htm?sellerId=2186239207&activityId=fc5cec52fd2646f5a4135c365fd49d54">糯言10.00元商品优惠劵</a>''',
+    u'果库商城': u'''Hi，等你很久啦~
+开心的事要分享，福利也要“分享”哦！
+请把这篇<a href="https://guoku.me">果库 X Fighting Pod 首发丨工位虽小，五脏俱全</a>文章，分享到朋友圈，
+然后截图发到微信后台，我们将在10月16日抽出4位朋友送出巧克力，让你和我们一起甜到心里~'''
 }
 
 log = getLogger('django')
