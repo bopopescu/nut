@@ -23,10 +23,9 @@ register.filter(enumerate_list)
 
 
 def smart_scheme(value, is_secure=False):
-    if not is_secure:
-        return value
-    else:
-        return value.replace('http://', 'https://')
+    if is_secure and 'guoku.com' in value:
+        value = value.replace('http://', 'https://')
+    return value
 
 
 register.filter(smart_scheme)
@@ -42,6 +41,7 @@ register.filter(safe_note)
 def https_image_cdn(value):
     http_host = settings.IMAGE_HOST
     https_host = http_host.replace('http://', 'https://')
+    value = value.replace(http_host, https_host)
     return value.replace(http_host, https_host)
 
 
