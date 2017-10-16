@@ -473,7 +473,10 @@ def report(request, eid, template="web/entity/report.html"):
     )
 
 
-class gotoBuyView(RedirectView):
+class GoToBuyView(RedirectView):
+    """
+    获取购买链接
+    """
     permanent = False
 
     def get_redirect_url(self, *args, **kwargs):
@@ -492,7 +495,7 @@ class gotoBuyView(RedirectView):
             raise Http404
         self.buy_id = kwargs.pop('buy_id', None)
         assert self.buy_id is not None
-        return super(gotoBuyView, self).get(request, *args, **kwargs)
+        return super(GoToBuyView, self).get(request, *args, **kwargs)
 
 
 # TODO: taobao recommendation api
