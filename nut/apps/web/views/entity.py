@@ -479,20 +479,27 @@ class GoToBuyView(RedirectView):
     """
     permanent = False
 
+    def __init__(self, **kwargs):
+        super(GoToBuyView, self).__init__(**kwargs)
+        self.buy_id = None
+
     def get_redirect_url(self, *args, **kwargs):
         b = Buy_Link.objects.get(pk=self.buy_id)
-
-        if "amazon" in b.origin_source:
-            return b.amazon_url
-        elif "kaola" in b.origin_source:
-            return b.kaola_url
-        return b.link
+        if 'amazon' in b.origin_source:
+            url = b.amazon_url
+        elif 'kaola' in b.origin_source:
+            url = b.kaola_url
+        else:
+            url = b.link
+        return url
 
     def get(self, request, *args, **kwargs):
-        if not request.META.has_key('HTTP_REFERER'):
+        if 'HTTP_REFERER' not in request.META:
             return HttpResponseForbidden()
-        if 'guoku.com' not in request.META['HTTP_REFERER']:
+        # TODO: 去除HOST硬编码
+        if 'guoku.com' not in request.META['HTTP_REFERER'] or 'guoku.me' not in request.META['HTTP_REFERER']:
             raise Http404
+
         self.buy_id = kwargs.pop('buy_id', None)
         assert self.buy_id is not None
         return super(GoToBuyView, self).get(request, *args, **kwargs)
