@@ -2383,3 +2383,11 @@ class EntityViewRecord(models.Model):
     user = models.ForeignKey(GKUser, related_name='entity_view_records')
     device_uuid = models.CharField(max_length=100)
     created_time = models.DateTimeField(auto_now_add=True)
+
+
+class StatOrder(models.Model):
+    class Meta:
+        db_table = 'stat_order'
+
+    origin_id = models.CharField(max_length=255)
+    create_time = models.DateTimeField()

@@ -69,24 +69,14 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
         data = {
             "button": [
                 {
-                    "name": "每日精选",
+                    "name": "Pod Shop",
                     "type": "view",
-                    "url": "http://guoku.me/selected/",
+                    "url": "https://h5.youzan.com/v2/showcase/homepage?kdt_id=19312503&reft=1508808840019&spm=f48404986",
                 },
                 {
-                    "name": "用户活动",
-                    "sub_button": [
-                        {
-                            "name": "果库活动",
-                            "type": "view",
-                            "url": "https://m.guoku.me/event/20170719/"
-                        },
-                        {
-                            "name": "添加果库妹",
-                            "type": "click",
-                            "key": "CLICK_APPLY"
-                        }
-                    ]
+                    "name": "每日精选",
+                    "type": "view",
+                    "url": "http://guoku.com/selected/",
                 },
                 {
                     "name": "App下载",
@@ -107,9 +97,9 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
                             "key": "CLICK_CONTACT_US"
                         },
                         {
-                            "name": "添加商品须知",
-                            "type": "view",
-                            "url": "http://www.guoku.me/articles/guo-ku-jun-shuo-ni-de-shang-pin-wei-shi-yao-ru-bu/"
+                            "name": "添加果库妹",
+                            "type": "click",
+                            "key": "CLICK_APPLY"
                         }
                     ]
                 }

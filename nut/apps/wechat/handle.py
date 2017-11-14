@@ -14,9 +14,17 @@ auto_replies = {
 <a href="https://taoquan.taobao.com/coupon/unify_apply.htm?sellerId=2186239207&activityId=fa282ab6e48b4c439dd223864059081a">糯言5.00元商品优惠劵</a>
 <a href="https://taoquan.taobao.com/coupon/unify_apply.htm?sellerId=2186239207&activityId=fc5cec52fd2646f5a4135c365fd49d54">糯言10.00元商品优惠劵</a>''',
     u'果库商城': u'''Hi，等你很久啦~
-开心的事要分享，福利也要“分享”哦！
-请把这篇<a href="https://guoku.me">果库 X Fighting Pod 首发丨工位虽小，五脏俱全</a>文章，分享到朋友圈，
-然后截图发到微信后台，我们将在10月16日抽出4位朋友送出巧克力，让你和我们一起甜到心里~'''
+开心的事要分享，福利也要“分享”哦！ 
+请把这篇【<a href="https://mp.weixin.qq.com/s?__biz=MjM5MzA3MzQ4MA==&mid=2651215910&idx=1&sn=be61af2f8b66fc3a5c355a920051398c&chksm=bd6e68018a19e1175218623e1c6f2b1d3bbc893ada391082719d8afd0a5332b3683fc838d78e#rd">果库 x 工位Pod设计原理丨暨果库Pod Shop上线预告</a>】文章，分享到朋友圈，然后截图发到微信后台。或晒出你的工位照片发给我们。两者选一个即可参与哦！我们将在10月24日抽出3位朋友随机送出果库商城正品~''',
+    u'兑换免单': u'''Hi，你终于来啦~
+为了不影响兑换环节，请把在<a href="https://h5.youzan.com/v2/feature/c7xbprra">果库Pod Shop</a>下单付款的截图发给我们（微信后台）哦！
+免单公布：活动结束后，果库妹将于10月26日在朋友圈公布免单朋友的名单，具体兑换方式将由当天告知！库妹微信：guoku_com
+
+当然，给力的活动远不止这些~我们还准备了2份50元的现金红包，准备在10月30日抽奖送给你们！
+参与方式：
+1.将<a href="https://h5.youzan.com/v2/feature/c7xbprra">果库Pod Shop</a>内你喜欢的任意商品，分享到微信朋友圈，截图发到微信后台。
+2.将【生活不将就，果库Pod Shop 强势上线】文章分享至微信朋友圈，截图发到微信后台。
+两个方式任选其一，即可完成活动参与~'''
 }
 
 log = getLogger('django')

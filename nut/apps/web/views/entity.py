@@ -494,15 +494,14 @@ class GoToBuyView(RedirectView):
         return url
 
     def get(self, request, *args, **kwargs):
-        if 'HTTP_REFERER' not in request.META:
-            return HttpResponseForbidden()
+        http_referer = request.META.get('HTTP_REFERER', '')
         # TODO: 去除HOST硬编码
-        if 'guoku.com' not in request.META['HTTP_REFERER'] or 'guoku.me' not in request.META['HTTP_REFERER']:
+        if http_referer and ('guoku.com' in http_referer or 'guoku.me' in http_referer):
+            self.buy_id = kwargs.pop('buy_id', None)
+            assert self.buy_id is not None
+            return super(GoToBuyView, self).get(request, *args, **kwargs)
+        else:
             raise Http404
-
-        self.buy_id = kwargs.pop('buy_id', None)
-        assert self.buy_id is not None
-        return super(GoToBuyView, self).get(request, *args, **kwargs)
 
 
 # TODO: taobao recommendation api

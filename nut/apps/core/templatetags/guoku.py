@@ -23,7 +23,7 @@ register.filter(enumerate_list)
 
 
 def smart_scheme(value, is_secure=False):
-    if is_secure and 'guoku.com' in value:
+    if value and is_secure and 'guoku.com' in value:
         value = value.replace('http://', 'https://')
     return value
 

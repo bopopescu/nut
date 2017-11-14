@@ -120,8 +120,8 @@ BAICHUAN_APP_SECRET = '5a9a26e067f33eea258510e3040caf17'
 # weibo
 SINA_APP_KEY = '2830558576'
 SINA_APP_SECRET = 'a4861c4ea9facd833eb5d828794a2fb2'
-SINA_BACK_URL = APP_HOST + '/sina/auth'
-# TAOBAO_BACK_URL = APP_HOST + "/taobao/auth"
+# SINA_BACK_URL = APP_HOST + '/sina/auth'
+SINA_BACK_URL = 'https://guoku.com/sina/auth'
 
 # production.py will override weibo setting
 

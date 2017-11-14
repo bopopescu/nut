@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
+# coding=utf-8
 
 import json
 
@@ -8,16 +8,18 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext, loader, Context
+from django.utils import timezone
 from django.utils.log import getLogger
 from django.core.urlresolvers import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, UpdateView
 
-from apps.core.models import EDM, Entity_Like, Entity, SD_Address_List
+from apps.core.models import EDM, Entity_Like, Entity, SD_Address_List, Note
 from apps.management.decorators import staff_only
 from apps.management.forms.edm import EDMDetailForm
 from sendcloud import template as sd_template
 
+from apps.tag.models import Content_Tags
 
 log = getLogger('django')
 
@@ -64,16 +66,29 @@ def edm_delete(request, edm_id):
 def preview_edm(request, edm_id, template='management/edm/preview.html'):
     if request.method == 'GET':
         edm = get_object_or_404(EDM, pk=edm_id)
-        popular_list = Entity_Like.objects.popular_random('monthly', 9)
-        entities = Entity.objects.filter(id__in=popular_list)
-        site_host = request.get_host()
+
+        if True:
+            popular_list = Entity_Like.objects.popular_random('monthly', 9)
+            entities = Entity.objects.filter(id__in=popular_list)
+        else:
+            note_ids = Content_Tags.objects.filter(
+                tag__hash='09cfac0ad9bcf81709c19264756cefea',
+                target_content_type=24).values_list('target_object_id', flat=True).using('slave')
+            entity_ids = Note.objects.filter(pk__in=list(note_ids)).values_list('entity_id', flat=True).using('slave')
+            entity_ids = list(set(entity_ids))
+            entities = Entity.objects.filter(
+                id__in=entity_ids,
+                status=Entity.selection,
+                selection_entity__is_published=True,
+                selection_entity__pub_time__lte=timezone.now
+            ).using('slave')
+
+        # TODO: 写到配置中
+        site_host = 'https://guoku.com'
         return render_to_response(
             template,
-            {'edm': edm,
-             'host': site_host,
-             'popular_entities': entities},
-            context_instance=RequestContext(request),
-        )
+            {'edm': edm, 'host': site_host, 'popular_entities': entities},
+            context_instance=RequestContext(request))
 
 
 @csrf_exempt
@@ -92,7 +107,7 @@ def send_edm(request, edm_id):
             to = address.address
             invoke_name = edm.sd_template_invoke_name
             sd_tm = sd_template.SendCloudTemplate(invoke_name=invoke_name,
-                                      edm_user=settings.MAIL_EDM_USER)
+                                                  edm_user=settings.MAIL_EDM_USER)
             result = sd_tm.send_to_list(edm.title,
                                         settings.GUOKU_MAIL,
                                         settings.GUOKU_NAME,
@@ -111,23 +126,6 @@ def send_edm(request, edm_id):
                 edm.save()
     return HttpResponse(json.dumps(response_data),
                         content_type="application/json")
-#
-#
-# @csrf_exempt
-# @login_required
-# @staff_only
-# def check_send_status(request, edm_id):
-#     response_data = {'result': 'succeed', 'message': ''}
-#     edm = get_object_or_404(EDM, pk=edm_id)
-#     if edm.status != edm.sending:
-#         response_data['result'] = 'failed'
-#         response_data['message'] = "This edm didn't sended anything."
-#     else:
-#         invoke_name = edm.sd_template_invoke_name
-#         sd_tm = SendCloudTemplate(invoke_name=invoke_name)
-#         sd_tm.check_task(edm.sd_task_id)
-#     return HttpResponse(json.dumps(response_data),
-#                         content_type="application/json")
 
 
 @csrf_exempt
@@ -140,24 +138,32 @@ def approval_edm(request, edm_id):
         response_data['result'] = 'failed'
         response_data['message'] = "This edm can't approval."
     else:
-        invoke_name = edm.sd_template_invoke_name
-        if not invoke_name:
-            invoke_name = 'edm-%d-%s' % (edm.id, str(edm.publish_time.date()))
-            invoke_name = invoke_name.replace('-', '_')
-            invoke_name = invoke_name.strip()
-            edm.sd_template_invoke_name = invoke_name
+        if not edm.sd_template_invoke_name:
+            edm.sd_template_invoke_name = 'edm_{}_{}'.format(edm.id, str(edm.publish_time.date())).replace('-', '_')
             edm.save()
 
-        sd_tm = sd_template.SendCloudTemplate(invoke_name=invoke_name,
-                                  edm_user=settings.MAIL_EDM_USER)
+        sd_tm = sd_template.SendCloudTemplate(invoke_name=edm.sd_template_invoke_name,
+                                              edm_user=settings.MAIL_EDM_USER)
         t = loader.get_template('management/edm/preview.html')
-        popular_list = Entity_Like.objects.popular_random('monthly', 9)
-        entities = Entity.objects.filter(id__in=popular_list)
-        site_host = request.get_host()
-        c = Context(
-            {'edm': edm, 'popular_entities': entities, 'host': site_host})
+        if True:
+            popular_list = Entity_Like.objects.popular_random('monthly', 9)
+            entities = Entity.objects.filter(id__in=popular_list)
+        else:
+            note_ids = Content_Tags.objects.filter(
+                tag__hash='09cfac0ad9bcf81709c19264756cefea',
+                target_content_type=24).values_list('target_object_id', flat=True).using('slave')
+            entity_ids = Note.objects.filter(pk__in=list(note_ids)).values_list('entity_id', flat=True).using('slave')
+            entity_ids = list(set(entity_ids))
+            entities = Entity.objects.filter(
+                id__in=entity_ids,
+                status=Entity.selection,
+                selection_entity__is_published=True,
+                selection_entity__pub_time__lte=timezone.now
+            ).using('slave')
+        # TODO: 写到配置中
+        site_host = 'https://guoku.com'
+        c = Context({'edm': edm, 'popular_entities': entities, 'host': site_host})
         html = t.render(c)
-
         data = {
             'name': u'edm - %s版' % str(edm.publish_time.date()).strip(),
             'html': html,
@@ -184,9 +190,7 @@ def sync_verify_status(request, edm_id):
         response_data['result'] = 'failed'
         response_data['message'] = "This edm can't sync status."
     else:
-        sd_tm = sd_template.SendCloudTemplate(
-            invoke_name=edm.sd_template_invoke_name,
-            edm_user=settings.MAIL_EDM_USER)
+        sd_tm = sd_template.SendCloudTemplate(invoke_name=edm.sd_template_invoke_name, edm_user=settings.MAIL_EDM_USER)
         status = sd_tm.get_status()
         if status == 1:
             edm.status = edm.sd_verify_succeed
