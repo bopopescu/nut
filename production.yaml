@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/production/Dockerfile
+    image: hub.initstack.cn/nut_prod:latest
+    command: /gunicorn.sh

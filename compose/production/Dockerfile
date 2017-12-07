@@ -6,7 +6,7 @@ RUN groupadd -r django \
     && useradd -r -g django django
 
 COPY ./requirements.txt /requirements.txt
-RUN pip install --no-cache-dir --index-url=https://pypi.doubanio.com/simple -r /production.txt \
+RUN pip install --no-cache-dir --index-url=https://pypi.doubanio.com/simple -r /requirements.txt \
     && rm -rf /requirements.txt
 
 COPY ./compose/production/gunicorn.sh /gunicorn.sh

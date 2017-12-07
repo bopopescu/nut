@@ -362,5 +362,5 @@ CLICK_HOST = 'http://click.guoku.com'
 
 # Sentry
 RAVEN_CONFIG = {
-    'dsn': 'http://93c33ee5ff4c4db1b8fc65d4a971e641:de869c769f8d405696285368d489bdfc@sentry.guoku.com:9000/2',
+    'dsn': 'https://562f3c643ffb4a3384a0bacbce38c87c:be8c376f3a29447ea4318f454f8a650a@sentry.frozenpear.net/3',
 }

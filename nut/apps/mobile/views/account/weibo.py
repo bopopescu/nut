@@ -4,8 +4,8 @@ from apps.mobile.forms.account import MobileWeiboSignUpForm, MobileWeiboLoginFor
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.log import getLogger
 
-log = getLogger('djang'
-                'o')
+log = getLogger('django')
+
 
 @csrf_exempt
 @check_sign
@@ -16,7 +16,7 @@ def login_by_weibo(request):
             res = _forms.login()
             return SuccessJsonResponse(res)
         return ErrorJsonResponse(status=409, data={
-            'type':'sina_id',
+            'type': 'sina_id',
         })
     return ErrorJsonResponse(status=400)
 
@@ -29,7 +29,7 @@ def register_by_weibo(request):
         if _forms.is_valid():
             _user = _forms.save()
             res = {
-                'user':_user.v3_toDict(),
+                'user': _user.v3_toDict(),
                 'session': _forms.get_session(),
             }
             return SuccessJsonResponse(res)
@@ -38,9 +38,6 @@ def register_by_weibo(request):
             # log.info("error %s" % error)
             return ErrorJsonResponse(status=409, data={
                 'type': error,
-                'message':'Error',
+                'message': 'Error',
             })
     return ErrorJsonResponse(status=400)
-
-
-__author__ = 'edison'

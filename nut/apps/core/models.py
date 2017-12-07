@@ -991,7 +991,10 @@ class Entity(BaseModel):
 
     @property
     def top_note_string(self):
-        return self.top_note.note
+        if self.top_note is not None:
+            return self.top_note.note
+        else:
+            return ''
 
     def get_absolute_url(self):
         return "/detail/%s/" % self.entity_hash
