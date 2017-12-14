@@ -10,9 +10,13 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
 import os
-
+import environ
 from secret_settings import *
 from celery.schedules import crontab
+
+env = environ.Env()
+
+ROOT_DIR = environ.Path(__file__) - 1
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -62,13 +66,6 @@ INSTALLED_APPS = (
     'apps.offline_shop',
 )
 
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://10.0.2.110:8983/solr/',
-        'INCLUDE_SPELLING': True,
-    }
-}
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
 HAYSTACK_CUSTOM_HIGHLIGHTER = 'apps.web.highlighter.MyHighlighter'
 
@@ -96,29 +93,10 @@ DATABASES = {
     }
 }
 
-PRODUCTION_REDIS_SERVER = True
-PRODUCTION_REDIS_SERVER_HOST = '10.0.2.46'
-
 CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": [
-            "redis://10.0.2.46:6379/1",
-            "redis://10.0.2.120:6379/1",
-            "redis://10.0.2.115:6379/1",
-        ],
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.ShardClient",
-            "PICKLE_VERSION": -1,
-            "SOCKET_CONNECT_TIMEOUT": 5,
-            "SOCKET_TIMEOUT": 5,  # in seconds
-            "COMPRESS_MIN_LEN": 10,
-            "CONNECTION_POOL_KWARGS": {"max_connections": 1024},
-            "PARSER_CLASS": "redis.connection.HiredisParser",
-        }
-    },
-
+    'default': env.cache('REDIS_CACHE_URL')
 }
+
 
 TIME_ZONE = 'Asia/Shanghai'
 
@@ -233,15 +211,7 @@ CAPTCHA_CHALLENGE_FUNCT = 'apps.core.utils.captcha.chinese_math_challenge'
 # for debug server popular  category test
 DEFAULT_POPULAR_SCALE = 7
 
-# config of site in redis.
-CONFIG_REDIS_HOST = 'localhost'
-CONFIG_REDIS_PORT = 6379
-CONFIG_REDIS_DB = 1
-
 INTERVAL_OF_SELECTION = 24
-
-# phantom
-PHANTOM_SERVER = 'http://10.0.2.49:5000/'
 
 # fetch articles
 SOGOU_PASSWORD = 'guoku1@#'
@@ -267,12 +237,21 @@ CELERYBEAT_SCHEDULE = {
 FETCH_INTERVAL = 20
 CURRENCY_SYMBOLS = (u'$', u'￥')
 
-TAOBAO_RECOMMEND_URL = 'http://10.0.2.120:10150/recommend'
-ARTICLE_TEXTRANK_URL = 'http://10.0.2.120:10150/article/'
-
 CLICK_HOST = 'http://click.guoku.com'
 
 # Sentry
 RAVEN_CONFIG = {
     'dsn': 'https://562f3c643ffb4a3384a0bacbce38c87c:be8c376f3a29447ea4318f454f8a650a@sentry.frozenpear.net/3',
 }
+
+CHECK_BUY_LINK_URL = env.str('CHECK_BUY_LINK_URL')
+
+OSS_REGION = env.str('OSS_REGION')
+OSS_ACCESS_KEY_ID = env.str('OSS_ACCESS_KEY_ID')
+OSS_ACCESS_KEY_SECRET = env.str('OSS_ACCESS_KEY_SECRET')
+OSS_BUCKET = env.str('OSS_BUCKET')
+OSS_ENDPOINT = env.str('OSS_ENDPOINT')
+
+MOGILEFS_MEDIA_URL = 'images/'
+
+FIXTURE_DIRS = []

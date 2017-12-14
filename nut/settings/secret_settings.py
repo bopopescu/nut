@@ -1,97 +1,12 @@
 
 django_secret_key = 'zl4j09adh-*tv7-b5&(zu!nkudhry*yy1b9--$%)&yh^4caq_7'
 
-production_master_database_name = 'core'
-production_master_database_user = 'guoku'
-production_master_database_pass = 'guoku!@#'
-production_master_database_host = '10.0.2.90'
-
-production_slave_database_name = 'core'
-production_slave_database_user = 'guoku'
-production_slave_database_pass = 'guoku!@#'
-production_slave_database_host = '10.0.2.95'
-
-test_master_database_name = 'core'
-test_master_database_user = 'guoku'
-test_master_database_pass = 'guoku1@#'
-test_master_database_host = '10.0.2.125'
-
-test_slave_database_name = 'core'
-test_slave_database_user = 'guoku'
-test_slave_database_pass = 'guoku1@#'
-test_slave_database_host = '10.0.2.125'
-
-
-PRODUCTION_DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': production_master_database_name,
-        'USER': production_master_database_user,
-        'PASSWORD': production_master_database_pass,
-        'HOST': production_master_database_host,
-        'PORT': '',
-        'OPTIONS': {
-            # 'use_unicode':'utf-8',
-            'charset': 'utf8mb4',
-            'init_command':'SET storage_engine=INNODB',
-        }
-    },
-
-    'slave': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': production_slave_database_name,
-        'USER': production_slave_database_user,
-        'PASSWORD': production_slave_database_pass,
-        'HOST': production_slave_database_host,
-        'PORT': '',
-        'OPTIONS': {
-            # 'use_unicode':'utf-8',
-            'charset': 'utf8mb4',
-            'init_command':'SET storage_engine=INNODB',
-        }
-    },
-}
-
-
-TESTING_DATABASE = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME':     test_master_database_name,
-        'USER':     test_master_database_user,
-        'PASSWORD': test_master_database_pass,
-        'HOST':     test_master_database_host,
-        'PORT': '',
-        'OPTIONS': {
-            # 'use_unicode':'utf-8',
-            'charset': 'utf8mb4',
-            'init_command':'SET storage_engine=INNODB',
-        }
-    },
-    'slave': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME':     test_slave_database_name,
-        'USER':     test_slave_database_user,
-        'PASSWORD': test_slave_database_pass,
-        'HOST':     test_slave_database_host,
-        'PORT': '',
-        'OPTIONS': {
-            # 'use_unicode':'utf-8',
-            'charset': 'utf8mb4',
-            'init_command':'SET storage_engine=INNODB',
-        }
-    },
-}
-
-# CELERY_RESULT_BACKEND = "redis://10.0.2.125:6379/0"
 CELERY_RESULT_BACKEND = "redis://:Pt2fkfAvPhqNPFwECBUZ36yagGfFGd2a3J9wLFGHjcfZCk4XuyWsdRKo2qr7jj9t@47.92.91.9:10086/1"
 CELERY_IGNORE_RESULT = False
 CELERY_TIMEZONE = 'Asia/Shanghai'
-BROKER_TRANSPORT = "librabbitmq"
-BROKER_HOST = "10.0.2.125"
-BROKER_USER = "raspberry"
-BROKER_PASSWORD = "raspberry1@#"
-BROKER_VHOST = "raspberry"
-BROKER_POOL_LIMIT = 10
+
+BROKER_URL = 'redis://:Pt2fkfAvPhqNPFwECBUZ36yagGfFGd2a3J9wLFGHjcfZCk4XuyWsdRKo2qr7jj9t@47.92.91.9:10086/2'
+
 CELERY_ACKS_LATE = True
 CELERYD_PREFETCH_MULTIPLIER = 1
 

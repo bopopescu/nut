@@ -14,11 +14,6 @@ BOT_NAME = 'spider'
 SPIDER_MODULES = ['spider.spiders']
 NEWSPIDER_MODULE = 'spider.spiders'
 
-# config of site in redis.
-CONFIG_REDIS_HOST = '10.0.2.95'
-CONFIG_REDIS_PORT = 6379
-CONFIG_REDIS_DB = 10
-
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.124 Safari/537.36"

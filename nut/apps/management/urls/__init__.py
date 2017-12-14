@@ -51,9 +51,6 @@ urlpatterns = patterns(
     url(r'^offline_shop/', include('apps.offline_shop.urls_manage')),
     url(r'^operation_report/', include('apps.management.urls.operation_report')),
 
-    # TODO: entity recommendation from taobao
-    url(r'^tbrecommend/', include('apps.management.urls.tbrecommend')),
-
     # TODO: statistics
     url(r'^statistics/', include('apps.management.urls.statistics')),
 )

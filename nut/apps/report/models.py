@@ -3,7 +3,6 @@ from django.conf import settings
 from django.contrib.contenttypes.generic import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
-from model_utils import Choices
 from django.db.models.signals import post_save
 import requests
 
@@ -83,7 +82,7 @@ def process_report(sender, instance, created, **kwargs):
                     'item_id': row.origin_id,
                 }
                 # print data
-                res = requests.post('http://10.0.2.49:6800/schedule.json', data=data)
+                res = requests.post(settings.CHECK_BUY_LINK_URL, data=data)
             # instance.process = Report.progress
             # instance.save()
 

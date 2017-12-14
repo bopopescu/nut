@@ -342,7 +342,7 @@ class CheckBuyLinkView(View):
             'setting': 'DOWNLOAD_DELAY=2',
             'item_id': b.origin_id,
         }
-        res = requests.post('http://10.0.2.49:6800/schedule.json', data=data)
+        res = requests.post(settings.CHECK_BUY_LINK_URL, data=data)
         if res.status_code == 200:
             return SuccessJsonResponse(data=res.json())
         else:

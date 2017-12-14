@@ -4,7 +4,7 @@ import datetime
 import requests
 from django.core.management.base import BaseCommand
 from django.db.models import Count
-
+from django.conf import settings
 from apps.core.models import Selection_Entity, Entity, Buy_Link
 
 
@@ -30,5 +30,5 @@ class Command(BaseCommand):
                 'setting': 'DOWNLOAD_DELAY=2',
                 'item_id': buy_link.origin_id,
             }
-            res = requests.post('http://10.0.2.49:6800/schedule.json', data=data)
+            res = requests.post(settings.CHECK_BUY_LINK_URL, data=data)
             self.stdout.write(u'{}: {}'.format(se.entity.title, res.text))

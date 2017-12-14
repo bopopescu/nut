@@ -29,16 +29,8 @@ class Command(BaseCommand):
                                           create_time__month=start_pub_time.month)
 
         orders = orders.values("origin_id").annotate(sale_amount=Count("origin_id")).order_by("-sale_amount")
-        # origin_ids = [order['origin_id'] for order in orders[:20]]
-        # ses2 = Selection_Entity.objects.filter(is_published=True,
-        #                                        entity__status=Entity.selection,
-        #                                        entity__buy_links__origin_id__in=origin_ids,
-        #                                        entity__buy_links__status=Buy_Link.sale,
-        #                                        pub_time__lt=start_pub_time.replace(month=1, day=1),
-        #                                        pub_time__month=start_pub_time.month)
-        # ses2 = ses2.iterator()
 
-        order_pub_times = datetime_range(start_pub_time, middle_pub_time, datetime.timedelta(minutes=30))
+        pub_times = datetime_range(start_pub_time, end_pub_time, datetime.timedelta(minutes=30))
         for order in orders:
             try:
                 origin_id = order['origin_id']
@@ -48,16 +40,18 @@ class Command(BaseCommand):
                                                            entity__buy_links__origin_id=origin_id)
                 if se_query.exists():
                     se = se_query.first()
-                    pub_time = next(order_pub_times)
+                    pub_time = next(pub_times)
                     self.stdout.write(u'{pub_time}: {new_pub_time}: {title}'.format(pub_time=se.pub_time,
                                                                                     new_pub_time=pub_time,
                                                                                     title=se.entity.title))
                     se.pub_time = pub_time
                     se.save()
+                    if pub_time >= middle_pub_time:
+                        break
             except StopIteration:
                 break
 
-        for pub_time in datetime_range(middle_pub_time, end_pub_time, datetime.timedelta(minutes=30)):
+        for pub_time in pub_times:
             # se = next(random.choice([ses, ses, ses2]))
             se = next(ses)
             self.stdout.write(u'{pub_time}: {new_pub_time}: {title}'.format(pub_time=se.pub_time,

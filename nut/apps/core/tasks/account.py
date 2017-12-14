@@ -8,7 +8,7 @@ from apps.core.utils.taobaoapi.user import TaobaoOpenUid
 
 from django.conf import settings
 
-image_path = getattr(settings, 'MOGILEFS_MEDIA_URL', 'avatar/')
+image_path = getattr(settings, 'MOGILEFS_MOGILEFS_MEDIA_URL', 'avatar/')
 image_host = getattr(settings, 'IMAGE_HOST', None)
 
 taobao_app_key = getattr(settings, 'TAOBAO_APP_KEY', None)

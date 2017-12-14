@@ -176,7 +176,7 @@ def register_from_three_part(request,
                 'nickname': screen_name
             })
         else:
-            raise
+            raise Exception
 
     return render_to_response(
         template,
