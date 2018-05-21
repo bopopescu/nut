@@ -69,11 +69,6 @@ class MenuCreateView(TemplateResponseMixin, ContextMixin, View):
         data = {
             "button": [
                 {
-                    "name": "Pod Shop",
-                    "type": "view",
-                    "url": "https://h5.youzan.com/v2/showcase/homepage?kdt_id=19312503&reft=1508808840019&spm=f48404986",
-                },
-                {
                     "name": "每日精选",
                     "type": "view",
                     "url": "http://guoku.com/selected/",

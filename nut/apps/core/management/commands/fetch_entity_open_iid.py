@@ -8,7 +8,6 @@ import top.api
 
 
 class Command(BaseCommand):
-    help = 'clean all blocked user\'s data'
 
     def handle(self, *args, **options):
         req = top.api.TaeItemsListRequest()

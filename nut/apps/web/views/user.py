@@ -1,3 +1,4 @@
+# coding=utf-8
 from hashlib import md5
 
 from braces.views import AjaxResponseMixin, JSONResponseMixin
@@ -584,7 +585,8 @@ class UserIndex(UserPageMixin, DetailView):
     def get_context_data(self, **kwargs):
         context_data = super(UserIndex, self).get_context_data(**kwargs)
         current_user = context_data['object']
-        context_data['recent_likes'] = current_user.likes.all()[:12]
+        # TODO: 优化喜爱数据
+        context_data['recent_likes'] = []
         context_data['recent_notes'] = current_user.note.all().filter(status__gte=0,
                                                                       entity__status__gt=Entity.remove).order_by(
             "-post_time")[:6]

@@ -1,13 +1,12 @@
+# coding=utf-8
 import random
 
 from django.db import models
 from django.db.models import Count
-from django.conf import settings
 from django.core.cache import cache
 from django.utils.log import getLogger
 from django.contrib.auth import get_user_model
 from datetime import datetime, timedelta
-
 
 log = getLogger('django')
 
@@ -25,23 +24,22 @@ class EntityQuerySet(models.query.QuerySet):
     def new_or_selection(self, category_id=None):
 
         if isinstance(category_id, list):
-            return self.using('slave').filter(category_id__in=category_id,\
+            return self.using('slave').filter(category_id__in=category_id, \
                                               status__gte=0)
 
-        elif isinstance(category_id, int) or isinstance(category_id ,str) or isinstance(category_id , long):
-            return self.using('slave').filter(category_id=category_id,\
+        elif isinstance(category_id, int) or isinstance(category_id, str) or isinstance(category_id, long):
+            return self.using('slave').filter(category_id=category_id, \
                                               status__gte=0)
         else:
-            #unicode
-            try :
+            # unicode
+            try:
                 category_id = int(category_id)
-                return self.using('slave').filter(category_id=category_id,\
-                                              status__gte=0)
+                return self.using('slave').filter(category_id=category_id, \
+                                                  status__gte=0)
             except Exception as e:
                 pass
 
             return self.using('slave').filter(status__gte=0)
-
 
     def sort(self, category_id, like=False):
         _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -55,13 +53,6 @@ class EntityQuerySet(models.query.QuerySet):
                 buy_links__status=2).distinct() \
                 .order_by('-selection_entity__pub_time')
 
-
-            # self.using('slave').filter(status=Entity.selection, selection_entity__pub_time__lte=_refresh_datetime, category=category_id)\
-            # .order_by('-selection_entity__pub_time').filter(buy_links__status=2)
-            # def get(self, *args, **kwargs):
-            # # print kwargs, args
-            # return super(EntityQuerySet, self).get(*args, **kwargs)
-
     def sort_group(self, gid, category_ids, like=False):
         _refresh_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         like_key = 'entity:list:sort:like:%s' % hash(gid)
@@ -69,8 +60,8 @@ class EntityQuerySet(models.query.QuerySet):
         if like:
 
             like_list = self.new_or_selection(category_ids).filter(
-                    selection_entity__pub_time__lte=_refresh_datetime,
-                    buy_links__status=2)
+                selection_entity__pub_time__lte=_refresh_datetime,
+                buy_links__status=2)
 
             # cache.set(like_key, like_list, timeout=3600*24)
             return like_list
@@ -78,7 +69,7 @@ class EntityQuerySet(models.query.QuerySet):
         else:
             return self.new_or_selection(category_ids).filter(
                 selection_entity__pub_time__lte=_refresh_datetime,
-                buy_links__status=2)\
+                buy_links__status=2) \
                 .order_by('-selection_entity__pub_time')
 
     def random_seller_entities(self):
@@ -89,8 +80,6 @@ class EntityQuerySet(models.query.QuerySet):
 
 
 class EntityManager(models.Manager):
-    # entity status: new:0,selection:1
-    # get the current seller's selection entities and order by created-time.
     def get_published_by_seller(self, seller):
         return self.get_query_set().using('slave').filter(status=1, user=seller).order_by('-created_time')
 
@@ -108,29 +97,13 @@ class EntityManager(models.Manager):
         rse = cache.get(key)
         if rse is None:
             rse = list(self.get_queryset().random_seller_entities())
-            #TODO change timeout to 3600
+            # TODO change timeout to 3600
             cache.set(key, rse, timeout=3600)
         else:
             pass
 
         return rse
 
-    # def get(self, *args, **kwargs):
-    # # print  kwargs
-    #
-    # entity_hash = kwargs['entity_hash']
-    # key = 'entity:%s' % entity_hash
-    # # print key
-    # res = cache.get(key)
-    # if res:
-    #         print "hit cache", type(res)
-    #         return res
-    #     else:
-    #         print "miss cache"
-    #         res = self.get_query_set().get(*args, **kwargs)
-    #         # key = 'entity:%s' % entity_hash
-    #         cache.set(key, res, timeout=86400)
-    #         return res
     def active(self):
         return self.get_queryset().active()
 
@@ -166,52 +139,23 @@ class EntityManager(models.Manager):
             entities = entity_list[:count]
         return entities
 
-        # def sort_with_list(self, category_id=None):
-        #     Entity_Like.objects.using('slave').filter(entity__category = 10).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')
-
-
-def isTestEnv():
-    return (settings.DATABASES['default']['NAME'] == 'test') or (
-        hasattr(settings, 'LOCAL_TEST_DB') and settings.LOCAL_TEST_DB)
-
 
 class EntityLikeQuerySet(models.query.QuerySet):
     def popular(self, scale):
-        dt = datetime.now()
-        weekly_days = 7
-        monthly_days = 30
-        # local test db  has NOT enough entity like data
-        # this is a temp workaround for local testing
-
-        if isTestEnv():
-            weekly_days = 7
-        if scale == 'weekly':
-            days = timedelta(days=weekly_days)
-        elif scale == 'monthly':
-            days = timedelta(days=monthly_days)
+        days = 7
+        key = 'entity:popular:{}'.format(days)
+        entity_ids = cache.get(key)
+        if entity_ids:
+            return list(entity_ids)
         else:
-            days = timedelta(days=1)
-
-        popular_time = (dt - days).strftime("%Y-%m-%d") + ' 00:00'
-        if isTestEnv:
-            return self.filter(created_time__gte=popular_time).values_list(
-                'entity', flat=True).annotate(
-                dcount=models.Count('entity')).order_by('-dcount')[:400]
-
-        user_innqs = get_user_model()._default_manager.filter(
-            is_active__gt=0).values_list('id', flat=True)
-        return self.filter(created_time__gte=popular_time,
-                           user_id__in=user_innqs).values_list('entity',
-                                                               flat=True).annotate(
-            dcount=models.Count('entity')).order_by('-dcount')[:400]
+            # TODO: update task
+            pass
 
     def user_like_list(self, user, entity_list):
 
         return self.filter(entity_id__in=entity_list, user=user).values_list(
             'entity_id', flat=True)
 
-        # def sort_with_list(self, category_id):
-        # return self.using('slave').filter(entity__category = category_id).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')
 
 class EntityLikeManager(models.Manager):
     def get_query_set(self):
@@ -221,17 +165,18 @@ class EntityLikeManager(models.Manager):
         return self.get_queryset().using('slave').filter(user=user)
 
     def active_entity_likes(self):
-        #TODO: maybe filter out some deactived user's like ?
+        # TODO: maybe filter out some deactived user's like ?
         return self.get_queryset().using('slave').filter(entity__status__gte=-1)
 
     def popular(self, scale='weekly'):
-        key = 'entity:popular:%s' % scale
-        res = cache.get(key)
-        if res:
-            return list(res)
-        res = self.get_query_set().popular(scale)
-        cache.set(key, res, timeout=86400)
-        return list(res)
+        days = 7
+        key = 'entity:popular:{}'.format(days)
+        entity_ids = cache.get(key)
+        if entity_ids:
+            return list(entity_ids)
+        else:
+            # TODO: update task
+            pass
 
     def popular_random(self, scale='weekly', out_count=60):
         key = 'entity:popular:random:%s' % scale
@@ -241,11 +186,9 @@ class EntityLikeManager(models.Manager):
         if res:
             return res
         source = self.popular(scale)
-        if isTestEnv():
-            out_count = 6
         try:
             res = random.sample(source, out_count)
-            cache.set(key, res, timeout=10800)
+            # cache.set(key, res, timeout=10800)
         except ValueError:
             res = source
         return res
@@ -261,13 +204,13 @@ class SelectionEntityQuerySet(models.query.QuerySet):
         return self.filter(is_published=True)
 
     def pending(self):
-        return self.filter(is_published=False).exclude(\
-            entity__status__lt=1,\
+        return self.filter(is_published=False).exclude( \
+            entity__status__lt=1, \
             entity__buy_links__status__in=(0, 1))
 
     def pending_and_removed(self):
-        return self.filter(is_published=False,\
-                           entity__buy_links__status__in=(0, 1),\
+        return self.filter(is_published=False, \
+                           entity__buy_links__status__in=(0, 1), \
                            entity__status__lt=1)
 
 
@@ -310,12 +253,7 @@ class SelectionEntityManager(models.Manager):
         return unread_count
 
     def category_sort_like(self, category_ids):
-        # return self.get_queryset().published().filter(entity__category__in=category_ids).annotate(lnumber=Count('entity__likes')).order_by('-lnumber')
         res = self.published().filter(
             entity__category__in=category_ids).annotate(
             lnumber=Count('entity__likes')).order_by('-lnumber')
-        # print res.query
         return res
-
-
-__author__ = 'edison'

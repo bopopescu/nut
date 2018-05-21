@@ -1,4 +1,5 @@
 # coding=utf-8
+from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 # from django.views.decorators.http import require_GET
 from django.core.paginator import Paginator, EmptyPage
@@ -21,6 +22,9 @@ from apps.v4.views import APIJsonView
 from apps.core.views import JSONResponseMixin
 
 from django.utils.log import getLogger
+
+from utils.open_search_api import V3Api
+
 log = getLogger('django')
 
 
@@ -190,16 +194,14 @@ class GuessEntityView(APIJsonView):
     http_method_names = ['get']
 
     def get_data(self, context):
-        res = list()
 
+        # 推荐规则： 同一分类下，获取count*10个，然后其中随机取出count个
         entities = APIEntity.objects.guess(category_id=self.category_id,
                                            count=self.count,
                                            exclude_id=self.entity_id)
 
-        for entity in entities:
-            res.append(entity.v4_toDict())
-
-        return res
+        result = [entity.v4_toDict() for entity in entities]
+        return result
 
     def get(self, request, *args, **kwargs):
         self.category_id = request.GET.get('cid', None)
@@ -262,38 +264,31 @@ class APIEntitySearchView(SearchView, JSONResponseMixin):
         return super(APIEntitySearchView, self).dispatch(request, *args, **kwargs)
 
 
+class APIEntitySearchView2(APIJsonView):
+    http_method_names = ['get']
 
-# class EntitySKUView(APIJsonView):
-#
-#     http_method_names = ['get']
-#
-#     def get_data(self, context):
-#         try:
-#             entity = APIEntity.objects.get(entity_hash = self.entity_hash)
-#         except APIEntity.DoesNotExist:
-#             raise
-#         print entity.skus.all()
-#
-#         entity_res = entity.v4_toDict()
-#         sku_list   = list()
-#         for row in entity.skus.filter(status=1):
-#             sku_list.append(
-#                 row.toDict(),
-#             )
-#         entity_res.update(
-#             {
-#                 'skus': sku_list,
-#             }
-#         )
-#
-#         return entity_res
-#
-#     def get(self, request, *args, **kwargs):
-#         self.entity_hash = kwargs.pop('entity_hash', None)
-#
-#         assert self.entity_hash is not None
-#         return super(EntitySKUView, self).get(request, *args, **kwargs)
+    def get_data(self, context):
+        keyword = self.request.GET.get('q')
+        api = V3Api(endpoint=settings.OPEN_SEARCH_ENDPOINT, access_key=settings.OPEN_SEARCH_ACCESS_KEY_ID,
+                    secret=settings.OPEN_SEARCH_ACCESS_KEY_SECRET, app_name=settings.OPEN_SEARCH_APP_NAME)
+        params = {
+            'query': u"config=start:0,hit:20&&query=default:'{}'".format(keyword),
+        }
 
+        data = api.search('entity', params)
+
+        ids = [d['id'] for d in data['result']['items']]
+
+        entities = Entity.objects.filter(pk__in=ids)
+
+        result = {
+            'stat': {
+                'all_count': entities.count(),
+                'like_count': 0,
+            },
+            'entity_list': [entity.v3_toDict() for entity in entities],
+        }
+        return result
 
 
 @csrf_exempt

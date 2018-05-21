@@ -8,5 +8,5 @@ set -o nounset
 #python /app/manage.py collectstatic --noinput
 #/usr/local/bin/gunicorn config.wsgi -w 4 -b 0.0.0.0:5000 --chdir=/app
 
-python manage.py run_gunicorn --settings=settings.production --bind 0.0.0.0:8000
+python manage.py run_gunicorn --settings=settings.production -c /etc/default/gunicorn
 

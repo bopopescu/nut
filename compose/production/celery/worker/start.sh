@@ -4,5 +4,4 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-
-celery -A bob.taskapp worker -l INFO
+python manage.py celery worker -l INFO

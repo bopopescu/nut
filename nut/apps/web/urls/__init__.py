@@ -8,7 +8,7 @@ from apps.web.views.design_week import DesignWeekViewSet
 from apps.web.views.discover import DiscoverView, RecommendUserView
 from apps.web.views.entity import EntityCard, EntityLikersView, EntitySaleView, NewEntityDetailView
 from apps.web.views.flink import FriendlyLinkListView
-from apps.web.views.main import GKSearchView, PopularView, IndexView
+from apps.web.views.main import PopularView, IndexView, GKSearchView3
 from apps.web.views.main import SelectionEntityList, SiteMapView, IndexArticleTagView, IndexSelectionEntityTagView,\
     IndexHotEntityView
 
@@ -26,7 +26,9 @@ urlpatterns = patterns(
     url(r'^discover/$', DiscoverView.as_view(), name='web_discover'),
     url(r'^discover/users/$', RecommendUserView.as_view(), name='web_recommend_users'),
 
-    url(r'^search/?$', GKSearchView.as_view(), name='web_search'),
+    # url(r'^search/?$', GKSearchView.as_view(), name='web_search'),
+    # url(r'^search2/?$', GKSearchView2.as_view(), name='web_search'),
+    url(r'^search/?$', GKSearchView3.as_view(), name='web_search'),
 
     url(r'^sitemap/$', SiteMapView.as_view(), name='web_sitemap_url'),
 

@@ -5,10 +5,11 @@ from braces.views import AjaxResponseMixin
 from braces.views import JSONResponseMixin
 from django.conf import settings
 from django.core import exceptions
+from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template import loader
 from django.utils.log import getLogger
-from django.views.generic import ListView
+from django.views.generic import ListView, View
 from django.views.generic import TemplateView
 from haystack.generic_views import SearchView
 from haystack.query import SearchQuerySet
@@ -29,6 +30,7 @@ from apps.offline_shop.models import Offline_Shop_Info
 from apps.shop.models import StorePageBanners
 from apps.site_banner.models import SiteBanner, Entity_Promotion
 from apps.tag.models import Tags
+from utils.open_search_api import V3Api
 
 log = getLogger('django')
 
@@ -307,6 +309,7 @@ class GKSearchView(SearchView):
     paginator_class = Jpaginator
 
     def form_valid(self, form):
+
         self.queryset = form.search(type=self.type)
         if 'u' in self.type:
             res = self.queryset.models(GKUser).order_by('-fans_count')
@@ -315,17 +318,19 @@ class GKSearchView(SearchView):
         elif 'a' in self.type:
             res = self.queryset.models(Article).order_by('-score', '-read_count')
         else:
+            # 搜索商品
+
             res = self.queryset.models(Entity).order_by('-like_count')
-        context = self.get_context_data(**{
-            self.form_name: form,
-            'query': form.cleaned_data.get(self.search_field),
-            'object_list': res,
-            'type': self.type,
-            'entity_count': form.get_entity_count(),
-            'user_count': form.get_user_count,
-            'tag_count': form.get_tag_count(),
-            'article_count': form.get_article_count(),
-        })
+        context = super(GKSearchView).get_context_data()
+        context['form_name'] = form
+        context['query'] = form.cleaned_data.get(self.search_field)
+        context['object_list'] = res
+        context['type'] = self.type
+        context['entity_count'] = form.get_entity_count()
+        context['user_count'] = form.get_user_count
+        context['tag_count'] = form.get_tag_count()
+        context['article_count'] = form.get_article_count()
+
         if self.type == "e" and self.request.user.is_authenticated():
             entity_id_list = map(lambda x: x.entity_id, context['page_obj'])
             el = Entity_Like.objects.user_like_list(user=self.request.user,
@@ -343,3 +348,53 @@ class GKSearchView(SearchView):
     def get(self, request, *args, **kwargs):
         self.type = request.GET.get('t', 'e')
         return super(GKSearchView, self).get(request, *args, **kwargs)
+
+
+class GKSearchView2(TemplateView):
+    template_name = 'web/main/search.html'
+    # paginator_class = Jpaginator
+
+    def get_context_data(self, **kwargs):
+        keyword = self.request.GET.get('q')
+
+        entities = Entity.objects.filter(title__icontains=keyword)
+
+        context = {
+            'query': keyword,
+            'object_list': entities[:15],
+            'entity_count': entities.count(),
+            'user_entity_likes': [],
+            'type': ''
+        }
+        return context
+
+
+class GKSearchView3(TemplateView):
+    template_name = 'web/main/search.html'
+
+    def get_context_data(self, **kwargs):
+
+        api = V3Api(endpoint=settings.OPEN_SEARCH_ENDPOINT, access_key=settings.OPEN_SEARCH_ACCESS_KEY_ID,
+                    secret=settings.OPEN_SEARCH_ACCESS_KEY_SECRET, app_name=settings.OPEN_SEARCH_APP_NAME)
+
+        keyword = self.request.GET.get('q')
+
+
+        params = {
+            'query': u"config=start:0,hit:20&&query=default:'{}'".format(keyword),
+        }
+
+        data = api.search('entity', params)
+
+        ids = [d['id'] for d in data['result']['items']]
+
+        entities = Entity.objects.filter(pk__in=ids)
+
+        context = {
+            'query': keyword,
+            'object_list': entities,
+            'entity_count': entities.count(),
+            'user_entity_likes': [],
+            'type': ''
+        }
+        return context

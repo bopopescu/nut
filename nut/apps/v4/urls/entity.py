@@ -1,12 +1,14 @@
 from django.conf.urls import url, patterns
-from apps.v4.views.entity import APIEntitySearchView, GuessEntityView, EntityDetailView, EntityLikerView
+from apps.v4.views.entity import GuessEntityView, EntityDetailView, EntityLikerView, \
+    APIEntitySearchView2
 from apps.v4.views.orders.entity_sku import EntitySKUView
 
 
 urlpatterns = patterns(
     'apps.v4.views.entity',
     url(r'^$', 'entity_list', name='v4_entity_list'),
-    url(r'^search/$', APIEntitySearchView.as_view(), name='v4_entity_search'),
+    url(r'^search/$', APIEntitySearchView2.as_view(), name='v4_entity_search'),
+    # url(r'^search2/$', APIEntitySearchView2.as_view(), name='v4_entity_search2'),
     # url(r'^search/$', 'search', name='v4_entity_search'),
     url(r'^guess/$', GuessEntityView.as_view(), name='v4_entity_guess'),
     url(r'^(?P<entity_id>\d+)/$', EntityDetailView.as_view(), name='v4_entity_detail'),

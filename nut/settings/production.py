@@ -1,5 +1,6 @@
 # coding=utf-8
 import environ
+import re
 from settings import *
 
 env = environ.Env()
@@ -7,7 +8,6 @@ env = environ.Env()
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-STATIC_URL = 'https://scdn.guoku.com/static/v4/3cdb8ef6099192963dee1318e9ba46e89d1cea20/'
 
 LANGUAGE_CODE = 'zh-cn'
 
@@ -153,3 +153,8 @@ JPUSH_SECRET = 'a0529d3efa544d1da51405b7'
 
 ALIPAY_MD5_KEY = 'sij86zv335q7fb2k54iznoxg6s2z19g2'
 ALIPAY_PID = '2088511535586742'
+
+
+DISALLOWED_USER_AGENTS = [
+    re.compile(r'Baiduspider')
+]

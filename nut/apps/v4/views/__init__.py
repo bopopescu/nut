@@ -1,6 +1,7 @@
 # coding=utf-8
 from datetime import datetime, timedelta
 
+from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.utils.log import getLogger
@@ -22,6 +23,7 @@ from apps.v4.models import APIUser, APISelection_Entity, APIEntity, APICategory,
 from apps.v4.schema.articles import ArticleSchema
 from apps.v4.schema.guoku_ad import GKADSchema
 from apps.v4.schema.offline_shop import OfflineShop
+from utils.open_search_api import V3Api
 
 log = getLogger('django')
 
@@ -151,6 +153,7 @@ class HomeView(APIJsonView):
 class DiscoverView(APIJsonView):
     """
     DiscoverView Class
+    APP中"发现"Tab页内容接口
     this is '/mobile/v4/discover/' url func
     """
 
@@ -360,6 +363,33 @@ class APISearchView(SearchView, JSONResponseMixin):
     @check_sign
     def dispatch(self, request, *args, **kwargs):
         return super(APISearchView, self).dispatch(request, *args, **kwargs)
+
+
+class APISearchView2(APIJsonView):
+    http_method_names = ['get']
+
+    def get_data(self, context):
+        keyword = self.request.GET.get('q')
+        api = V3Api(endpoint=settings.OPEN_SEARCH_ENDPOINT, access_key=settings.OPEN_SEARCH_ACCESS_KEY_ID,
+                    secret=settings.OPEN_SEARCH_ACCESS_KEY_SECRET, app_name=settings.OPEN_SEARCH_APP_NAME)
+        params = {
+            'query': u"config=start:0,hit:20&&query=default:'{}'".format(keyword),
+        }
+
+        data = api.search('entity', params)
+
+        ids = [d['id'] for d in data['result']['items']]
+
+        entities = Entity.objects.filter(pk__in=ids)
+        result = {
+            "entities": [entity.v3_toDict() for entity in entities],
+            "users": [],
+            "articles": []
+        }
+        return result
+
+    def get(self, request, *args, **kwargs):
+        return super(APISearchView2, self).get(request, *args, **kwargs)
 
 
 class APISearchHotWordView(APIJsonView):

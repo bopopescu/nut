@@ -290,9 +290,10 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
     def recent_likes(self):
         _key = 'user:likes:recent:%s' % self.id
         _rlikes = cache.get(_key, None)
-        if _rlikes is None:
-            _rlikes = Entity_Like.objects.active_entity_likes().filter(user=self).order_by('-created_time')[:3]
-            cache.set(_key, _rlikes, 3600 * 24)
+        # TODO: 性能瓶颈
+        # if _rlikes is None:
+        #     _rlikes = Entity_Like.objects.active_entity_likes().filter(user=self).order_by('-created_time')[:3]
+        #     cache.set(_key, _rlikes, 3600 * 24)
         return _rlikes
 
     @property
@@ -893,6 +894,7 @@ class Entity(BaseModel):
     created_time = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_time = models.DateTimeField(auto_now=True, db_index=True)
     status = models.IntegerField(choices=ENTITY_STATUS_CHOICES, default=selection, db_index=True)
+    is_sync = models.BooleanField('是否已同步到搜索引擎', default=False)
 
     objects = EntityManager()
 

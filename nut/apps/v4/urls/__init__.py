@@ -1,7 +1,7 @@
 from django.conf.urls import url, patterns, include
 from apps.v4.views import DiscoverView, HomeView, \
     AuthorizedUser, UnreadView, \
-    TopPopularView, PopularView, APISearchView, APISearchHotWordView, GADView
+    TopPopularView, PopularView, APISearchView, APISearchHotWordView, GADView, APISearchView2
 from apps.v4.views.marketing import LaunchBoardView
 
 
@@ -32,7 +32,8 @@ urlpatterns = patterns(
     url(r'^apns/token/$', 'apns_token', name='v4_apns_token'),
 
 # TODO: search API
-    url(r'^search/$', APISearchView.as_view(), name='v4_search'),
+#     url(r'^search/$', APISearchView.as_view(), name='v4_search'),
+    url(r'^search/$', APISearchView2.as_view(), name='v4_search'),
     url(r'^search/keywords/$', APISearchHotWordView.as_view(), name='v4_search_hot_word'),
 )
 

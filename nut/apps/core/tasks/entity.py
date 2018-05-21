@@ -1,5 +1,9 @@
+import arrow
 from celery.task import task
 from celery.utils.log import get_task_logger
+from django.contrib.auth import get_user_model
+from django.core.cache import cache
+from django.db.models import Count
 
 from apps.core.tasks import BaseTask, DebugTask
 
@@ -71,3 +75,18 @@ def record_entity_view_task(entity_id, user_id, device_uuid, **kwargs):
         EntityViewRecord.objects.create(entity_id=entity_id, user_id=user_id, device_uuid=device_uuid)
     except Exception as e:
         logger.error(e)
+
+
+@task(base=BaseTask)
+def update_popular_cache(days=7):
+    time_query_str = arrow.now().shift(days=-days).format('YYYY-MM-DD')
+    active_users = get_user_model()._default_manager.filter(is_active__gt=0).values_list('id', flat=True)
+    popular_ids = Entity_Like.objects.filter(created_time__gte=time_query_str, user_id__in=active_users)\
+        .values_list('entity', flat=True)\
+        .annotate(dcount=Count('entity'))\
+        .order_by('-dcount')[:400]
+
+    key = 'entity:popular:{}'.format(days)
+    cache.set(key, popular_ids, 86400)
+
+    return True

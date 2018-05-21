@@ -16,7 +16,7 @@ from celery.schedules import crontab
 
 env = environ.Env()
 
-ROOT_DIR = environ.Path(__file__) - 1
+ROOT_DIR = environ.Path(__file__) - 2
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -158,7 +158,7 @@ VERFICATION_EMAIL_TEMPLATE = 'verify_email'
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/tmp/static/'
+STATIC_ROOT = str(ROOT_DIR('staticfiles'))
 
 AUTH_USER_MODEL = 'core.GKUser'
 
@@ -255,3 +255,8 @@ OSS_ENDPOINT = env.str('OSS_ENDPOINT')
 MOGILEFS_MEDIA_URL = 'images/'
 
 FIXTURE_DIRS = []
+
+OPEN_SEARCH_ENDPOINT = env.str('OPEN_SEARCH_ENDPOINT')
+OPEN_SEARCH_ACCESS_KEY_ID = env.str('OPEN_SEARCH_ACCESS_KEY_ID')
+OPEN_SEARCH_ACCESS_KEY_SECRET = env.str('OPEN_SEARCH_ACCESS_KEY_SECRET')
+OPEN_SEARCH_APP_NAME = env.str('OPEN_SEARCH_APP_NAME')

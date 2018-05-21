@@ -60,7 +60,6 @@ class AlipayReturnView(TemplateView):
         # log.info('------- check alipay data end ----')
         return result
 
-
     def check_order_price(self):
         params = self.get_params()
         order_number = params.get('out_trade_no')

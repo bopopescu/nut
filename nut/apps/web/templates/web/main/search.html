@@ -61,10 +61,8 @@
                     {% include 'web/main/partial/search/article.html' with obj=row %}
                 {% endfor %}
             {% else %}
-                {% for row in object_list %}
-                    {% if row.object %}
-                        {% include 'web/main/partial/search_entity.html' with entity=row.object %}
-                    {% endif %}
+                {% for entity in object_list %}
+                    {% include 'web/main/partial/search_entity.html' with entity=entity %}
                 {% endfor %}
             {% endif %}
         </div>
