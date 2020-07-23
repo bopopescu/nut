@@ -432,7 +432,7 @@ class TopPopularView(APIJsonView):
         query = "select id, entity_id, count(*) as lcount from core_entity_like " \
                 "where created_time between '%s' and '%s' group by entity_id order by lcount desc" \
                 % (dt.strftime("%Y-%m-%d"), now_string)
-        _entity_list = Entity_Like.objects.raw(query).using('slave')
+        _entity_list = Entity_Like.objects.raw(query).using('subordinate')
 
         res = []
         for entity_like in _entity_list[:self.count]:

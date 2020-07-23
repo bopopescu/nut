@@ -276,28 +276,28 @@ class UserManagementListView(FilterMixin, SortMixin, UserPassesTestMixin,ListVie
         active = self.getActiveStatus()
 
         if active == '2':
-            user_list = querySet.editor().using('slave')
+            user_list = querySet.editor().using('subordinate')
         elif active == '1':
-            user_list = querySet.active().using('slave').order_by("-date_joined")
+            user_list = querySet.active().using('subordinate').order_by("-date_joined")
         elif active == '0':
-            user_list = querySet.blocked().using('slave')
+            user_list = querySet.blocked().using('subordinate')
         # elif active == '999':
         elif active == '3':
-            user_list = querySet.writer().using('slave')
+            user_list = querySet.writer().using('subordinate')
         elif active == '999':
-            user_list = querySet.deactive().using('slave')
+            user_list = querySet.deactive().using('subordinate')
         elif active == '888':
-            user_list = querySet.authorized_author().using('slave')
+            user_list = querySet.authorized_author().using('subordinate')
         elif active == '777':
-            user_list = querySet.admin().using('slave')
+            user_list = querySet.admin().using('subordinate')
         elif active == '666':
-            user_list = querySet.authorized_seller().using('slave')
+            user_list = querySet.authorized_seller().using('subordinate')
         elif active == '789':
-            user_list = querySet.authorized_user().using('slave')
+            user_list = querySet.authorized_user().using('subordinate')
         elif active == '600':
-            user_list = querySet.active_user().using('slave')
+            user_list = querySet.active_user().using('subordinate')
         elif active == '500':
-            user_list = querySet.offline_shops().using('slave')
+            user_list = querySet.offline_shops().using('subordinate')
         else:
             user_list= []
 
@@ -321,20 +321,20 @@ def list(request, active='1', template="management/users/list.html"):
     page = request.GET.get('page', 1)
 
     if active == '2':
-        user_list = GKUser.objects.editor().using('slave')
+        user_list = GKUser.objects.editor().using('subordinate')
     elif active == '1':
-        user_list = GKUser.objects.active().using('slave').order_by("-date_joined")
+        user_list = GKUser.objects.active().using('subordinate').order_by("-date_joined")
     elif active == '0':
-        user_list = GKUser.objects.blocked().using('slave')
+        user_list = GKUser.objects.blocked().using('subordinate')
     # elif active == '999':
     elif active == '3':
-        user_list = GKUser.objects.writer().using('slave')
+        user_list = GKUser.objects.writer().using('subordinate')
     elif active == '999':
-        user_list = GKUser.objects.deactive().using('slave')
+        user_list = GKUser.objects.deactive().using('subordinate')
     elif active == '888':
-        user_list = GKUser.objects.authorized_author().using('slave')
+        user_list = GKUser.objects.authorized_author().using('subordinate')
     elif active == '777':
-        user_list = GKUser.objects.admin().using('slave')
+        user_list = GKUser.objects.admin().using('subordinate')
     else:
         pass
 

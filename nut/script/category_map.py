@@ -7,7 +7,7 @@ from apps.core.models import Entity
 from hashlib import md5
 
 
-maping = Entity.objects.raw('select e.id, e.category_id, b.cid, b.origin_source, count(*) from core_entity as e join core_buy_link as b on e.id = b.entity_id where b.cid != -1 group by b.cid').using('slave')
+maping = Entity.objects.raw('select e.id, e.category_id, b.cid, b.origin_source, count(*) from core_entity as e join core_buy_link as b on e.id = b.entity_id where b.cid != -1 group by b.cid').using('subordinate')
 
 for row in maping:
     print row.category_id, row.cid, row.origin_source

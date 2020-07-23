@@ -26,7 +26,7 @@ sub_categorys = Sub_Category.objects.all()
 sub_category_like_count_list = []
 
 for sub_category in sub_categorys:
-    sub_c_count = Entity_Like.objects.using('slave')\
+    sub_c_count = Entity_Like.objects.using('subordinate')\
                  .filter(entity__category=sub_category)\
                   .count()
 
@@ -52,7 +52,7 @@ quit()
 # categorys = Category.objects.all()
 # category_like_count_list = []
 # for category in categorys:
-#     c_count = Entity_Like.objects.using('slave')\
+#     c_count = Entity_Like.objects.using('subordinate')\
 #                          .filter(entity__category__group=category)\
 #                          .count()
 #     category_like_count_list.append((category.title, c_count))

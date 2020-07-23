@@ -25,23 +25,23 @@ def dictfetchall(cursor):
 class ContentTagQuerySet(models.query.QuerySet):
     def user_tags(self, user):
         # deprecated , need add deprecate WARNING
-        content_tags  = self.using('slave').filter(creator=user).select_related('tag').annotate(tcount=Count('tag')).order_by('-tcount')
+        content_tags  = self.using('subordinate').filter(creator=user).select_related('tag').annotate(tcount=Count('tag')).order_by('-tcount')
         return content_tags
 
     def user_tags_unique(self, user):
-        content_tags  = self.using('slave').filter(creator=user).select_related('tag').annotate(tcount=Count('tag')).order_by('-tcount')
+        content_tags  = self.using('subordinate').filter(creator=user).select_related('tag').annotate(tcount=Count('tag')).order_by('-tcount')
         tags = [ct.tag for ct in content_tags]
         tags = set(tags)
         return list(tags)
 
     def popular(self):
-        return self.using('slave').annotate(tcount=Count('tag')).order_by('-tcount')[:300]
+        return self.using('subordinate').annotate(tcount=Count('tag')).order_by('-tcount')[:300]
 
     def entity_tags(self, nid_list):
-        return self.using('slave').filter(target_object_id__in=nid_list).values('tag','tag__name','tag__hash').annotate(ncount=Count('tag')).order_by('-ncount')
+        return self.using('subordinate').filter(target_object_id__in=nid_list).values('tag','tag__name','tag__hash').annotate(ncount=Count('tag')).order_by('-ncount')
 
     def article_tags(self, article_id):
-        _tag_list =  self.using('slave')\
+        _tag_list =  self.using('subordinate')\
                     .filter(target_object_id=article_id, target_content_type_id=31)\
                     .values_list('tag__name', flat=True)
         return sorted(list(set(list(_tag_list))))
@@ -138,7 +138,7 @@ class ContentTagManager(models.Manager):
 class TagsQueryset(models.query.QuerySet):
     def top_article_tags(self):
         #this list is set by editor
-        res = self.using('slave').filter(isTopArticleTag=True,content_tags__target_content_type_id=31).distinct()
+        res = self.using('subordinate').filter(isTopArticleTag=True,content_tags__target_content_type_id=31).distinct()
                                  # .annotate(acount=Count('content_tags')).order_by('-acount')
         return res
 

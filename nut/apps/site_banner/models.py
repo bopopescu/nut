@@ -9,10 +9,10 @@ from apps.core.models import Entity
 
 class SiteBannerQuerySet(models.query.QuerySet):
     def active_banners(self):
-        return self.using('slave').filter(active_status=True).order_by('position','-updated_time')
+        return self.using('subordinate').filter(active_status=True).order_by('position','-updated_time')
 
     def inactive_banners(self):
-        return self.using('slave').filter(active_status=False).order_by('position', '-updated_time')
+        return self.using('subordinate').filter(active_status=False).order_by('position', '-updated_time')
 
 
 class SiteBannerManager(models.Manager):

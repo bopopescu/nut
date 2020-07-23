@@ -78,7 +78,7 @@ class EntityDetailView(APIJsonView):
 
     def get_data(self, context):
         try:
-            entity = APIEntity.objects.using('slave').get(pk=self.entity_id, status__gte=Entity.freeze)
+            entity = APIEntity.objects.using('subordinate').get(pk=self.entity_id, status__gte=Entity.freeze)
         except APIEntity.DoesNotExist:
             return ErrorJsonResponse(status=404)
 

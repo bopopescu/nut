@@ -72,26 +72,26 @@ class ArticleManager(models.Manager):
 
     def get_published_by_user(self,user):
         # publish = 2   because  Article.published = 2, user 2 to avoid circular reference
-        return self.get_queryset().using('slave').filter(publish=2, creator=user).order_by('-created_datetime')
+        return self.get_queryset().using('subordinate').filter(publish=2, creator=user).order_by('-created_datetime')
 
     def get_drafted_by_user(self,user):
-        return self.get_queryset().using('slave').filter(publish=1, creator=user).order_by('-updated_datetime')
+        return self.get_queryset().using('subordinate').filter(publish=1, creator=user).order_by('-updated_datetime')
 
     def get_removed_by_user(self,user):
-        return self.get_queryset().using('slave').filter(publish=0, creator=user).order_by('-updated_datetime')
+        return self.get_queryset().using('subordinate').filter(publish=0, creator=user).order_by('-updated_datetime')
 
 
 class SelectionArticleQuerySet(models.query.QuerySet):
     def discover(self):
         start_date = datetime.now()
         end_date = start_date - timedelta(days=3)
-        return self.using('slave').filter(is_published=True, pub_time__range=(end_date, start_date)).order_by('-article__read_count')
+        return self.using('subordinate').filter(is_published=True, pub_time__range=(end_date, start_date)).order_by('-article__read_count')
 
     def published_from(self, from_time=None):
         if from_time is None:
             from_time = datetime.now()-timedelta(days=30)
 
-        return self.using('slave')\
+        return self.using('subordinate')\
                    .select_related('article')\
                    .filter(is_published=True, pub_time__lte=datetime.now(), pub_time__gte=from_time)\
                    .order_by('-article__read_count')
@@ -154,7 +154,7 @@ class SelectionArticleManager(models.Manager):
     def published_from(self, from_time=None):
         if from_time is None:
              from_time = datetime.now() - timedelta(days=30)
-        return self.get_queryset().using('slave').published_from(from_time=from_time)
+        return self.get_queryset().using('subordinate').published_from(from_time=from_time)
 
     def article_related(self, article, request_page=1):
         '''

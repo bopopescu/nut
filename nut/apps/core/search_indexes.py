@@ -14,7 +14,7 @@ class CategoryIndex(indexes.SearchIndex, indexes.Indexable):
         return Sub_Category
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.all().using('slave')
+        return self.get_model().objects.all().using('subordinate')
 
 
 class EntityIndex(indexes.SearchIndex, indexes.Indexable):
@@ -47,7 +47,7 @@ class EntityIndex(indexes.SearchIndex, indexes.Indexable):
         return brand
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.filter(status__gt=Entity.new).using('slave').\
+        return self.get_model().objects.filter(status__gt=Entity.new).using('subordinate').\
             filter(buy_links__status=2).distinct()
 
 
@@ -61,7 +61,7 @@ class UserIndex(indexes.SearchIndex, indexes.Indexable):
         return GKUser
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.filter(is_active__gte=GKUser.active).using('slave')
+        return self.get_model().objects.filter(is_active__gte=GKUser.active).using('subordinate')
 
 
 class TagIndex(indexes.SearchIndex, indexes.Indexable):
@@ -75,7 +75,7 @@ class TagIndex(indexes.SearchIndex, indexes.Indexable):
         return Tags
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.all().using('slave')
+        return self.get_model().objects.all().using('subordinate')
 #
 #
 class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
@@ -95,7 +95,7 @@ class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
         return Article
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.filter(publish=Article.published).using('slave')
+        return self.get_model().objects.filter(publish=Article.published).using('subordinate')
 
 
 __author__ = 'edison'

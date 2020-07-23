@@ -65,13 +65,13 @@ def event(request, slug, template='web/events/home'):
     hash_str = md5(event.tag.encode('utf-8')).hexdigest()
     tag = Tags.objects.get(hash=hash_str)
     inner_qs = Content_Tags.objects.filter(tag=tag, target_content_type=24) \
-        .values_list('target_object_id', flat=True).using('slave')
+        .values_list('target_object_id', flat=True).using('subordinate')
     log.info(inner_qs.query)
-    _eid_list = Note.objects.filter(pk__in=list(inner_qs)).values_list('entity_id', flat=True).using('slave')
+    _eid_list = Note.objects.filter(pk__in=list(inner_qs)).values_list('entity_id', flat=True).using('subordinate')
 
     _entity_list = Entity.objects.filter(id__in=list(set(_eid_list)), status=Entity.selection) \
         .filter(selection_entity__is_published=True, selection_entity__pub_time__lte=datetime.now()) \
-        .using('slave')
+        .using('subordinate')
 
     # here is some dirty code for 1111 event
     top_entities_list = None
@@ -85,22 +85,22 @@ def event(request, slug, template='web/events/home'):
             note_id_list = Content_Tags.objects \
                 .filter(tag=top_tag, target_content_type_id=24) \
                 .values_list("target_object_id", flat=True) \
-                .using('slave')
+                .using('subordinate')
 
             top_entities_id_list = Note.objects \
                 .filter(pk__in=list(note_id_list)) \
                 .values_list('entity_id', flat=True) \
-                .using('slave')
+                .using('subordinate')
 
             top_entities_filter = Q(pk__in=list(top_entities_id_list))
             top_entities_filter &= Q(selection_entity__is_published=True)
             top_entities_filter &= Q(selection_entity__pub_time__lte=datetime.now())
-            top_entities_list = Entity.objects.filter(top_entities_filter).using('slave')
+            top_entities_list = Entity.objects.filter(top_entities_filter).using('subordinate')
 
             if request.user.is_authenticated():
                 top_entities_list_like = Entity_Like.objects \
                     .filter(entity_id__in=top_entities_list, user=request.user) \
-                    .values_list('entity_id', flat=True).using('slave')
+                    .values_list('entity_id', flat=True).using('subordinate')
 
         except Tags.DoesNotExist as e:
             pass

@@ -44,6 +44,6 @@ class BrandDetailView(ListView):
         if self.request.user.is_authenticated():
             el = Entity_Like.objects.user_like_list(user=self.request.user,
                                                     entity_list=e_ids
-                                                    ).using('slave')
+                                                    ).using('subordinate')
         context['user_entity_likes'] = el
         return context

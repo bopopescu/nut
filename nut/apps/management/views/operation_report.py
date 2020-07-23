@@ -36,28 +36,28 @@ class OperationReportListView(UserPassesTestMixin, TemplateResponseMixin, View):
             self.start_time = 'lastweek'
             self.start_date, self.end_date = ((datetime.now() - timedelta(days=7)).strftime(TIME_FORMAT)), (
                 datetime.now() + timedelta(days=1)).strftime(TIME_FORMAT)
-        context['auth_seller_count'] = GKUser.objects.authorized_seller().using('slave').count()
-        context['auth_author_count'] = GKUser.objects.authorized_author().using('slave').count()
-        context['active_user_count'] = GKUser.objects.active_user().using('slave').count()
-        context['new_auth_seller_count'] = GKUser.objects.authorized_seller().using('slave').filter(
+        context['auth_seller_count'] = GKUser.objects.authorized_seller().using('subordinate').count()
+        context['auth_author_count'] = GKUser.objects.authorized_author().using('subordinate').count()
+        context['active_user_count'] = GKUser.objects.active_user().using('subordinate').count()
+        context['new_auth_seller_count'] = GKUser.objects.authorized_seller().using('subordinate').filter(
             date_joined__range=(self.start_date, self.end_date)).count()
-        context['new_auth_author_count'] = GKUser.objects.authorized_author().using('slave').filter(
+        context['new_auth_author_count'] = GKUser.objects.authorized_author().using('subordinate').filter(
             date_joined__range=(self.start_date, self.end_date)).count()
-        context['new_active_user_count'] = GKUser.objects.active_user().using('slave').filter(
+        context['new_active_user_count'] = GKUser.objects.active_user().using('subordinate').filter(
             date_joined__range=(self.start_date, self.end_date)).count()
-        context['entity_count'] = Entity.objects.using('slave').filter(
+        context['entity_count'] = Entity.objects.using('subordinate').filter(
             created_time__range=(self.start_date, self.end_date), status__gt=-1).count()
-        context['note_count'] = Note.objects.using('slave').filter(
+        context['note_count'] = Note.objects.using('subordinate').filter(
             post_time__range=(self.start_date, self.end_date)).count()
-        entitys = Entity.objects.using('slave').filter(likes__created_time__range=(self.start_date, self.end_date))
+        entitys = Entity.objects.using('subordinate').filter(likes__created_time__range=(self.start_date, self.end_date))
         context['entity_count_100'] = entitys.annotate(likes_count=Count('likes')).filter(likes_count__gte=100).count()
         context['entity_count_50'] = entitys.annotate(likes_count=Count('likes')).filter(likes_count__gte=50).count()
-        articles = Article.objects.using('slave').filter(updated_datetime__range=(self.start_date, self.end_date), publish=2)
+        articles = Article.objects.using('subordinate').filter(updated_datetime__range=(self.start_date, self.end_date), publish=2)
         context['article_count'] = articles.count()
         context['article_read'] = articles.filter(read_count__gt=1000).count()
-        context['article_dig'] = Article.objects.using('slave').filter(digs__created_time__range=(self.start_date, self.end_date)).\
+        context['article_dig'] = Article.objects.using('subordinate').filter(digs__created_time__range=(self.start_date, self.end_date)).\
             annotate(digs_count=Count('digs')).filter(digs_count__gte=10).count()
-        context['article_remark_count'] = Article_Remark.objects.using('slave').filter(
+        context['article_remark_count'] = Article_Remark.objects.using('subordinate').filter(
             create_time__range=(self.start_date, self.end_date)).count()
         context['status'] =  self.status
         context['start_date'] = self.start_date

@@ -77,12 +77,12 @@ class NewSelectionArticleList(JSONResponseMixin, AjaxResponseMixin, ListView):
             qs = Selection_Article.objects \
                 .published_until(until_time=self.get_refresh_time()) \
                 .order_by('-pub_time') \
-                .select_related('article').using('slave')
+                .select_related('article').using('subordinate')
         except exceptions.ValidationError as e:
             qs = Selection_Article.objects \
                 .published_until() \
                 .order_by('-pub_time') \
-                .select_related('article').using('slave')
+                .select_related('article').using('subordinate')
 
         return qs
 

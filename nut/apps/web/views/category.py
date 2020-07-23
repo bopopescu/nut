@@ -280,7 +280,7 @@ class CategoryDetailView(JSONResponseMixin, AjaxResponseMixin, ListView):
                 e_ids = list(entities.object_list.values_list('id'))
             el = Entity_Like.objects.user_like_list(user=self.request.user,
                                                     entity_list=e_ids
-                                                    ).using('slave')
+                                                    ).using('subordinate')
         context['cid'] = self.cid
         context['entities'] = entities
         context['sort_method'] = order_by

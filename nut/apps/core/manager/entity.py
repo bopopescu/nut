@@ -25,22 +25,22 @@ class EntityQuerySet(models.query.QuerySet):
     def new_or_selection(self, category_id=None):
 
         if isinstance(category_id, list):
-            return self.using('slave').filter(category_id__in=category_id,\
+            return self.using('subordinate').filter(category_id__in=category_id,\
                                               status__gte=0)
 
         elif isinstance(category_id, int) or isinstance(category_id ,str) or isinstance(category_id , long):
-            return self.using('slave').filter(category_id=category_id,\
+            return self.using('subordinate').filter(category_id=category_id,\
                                               status__gte=0)
         else:
             #unicode
             try :
                 category_id = int(category_id)
-                return self.using('slave').filter(category_id=category_id,\
+                return self.using('subordinate').filter(category_id=category_id,\
                                               status__gte=0)
             except Exception as e:
                 pass
 
-            return self.using('slave').filter(status__gte=0)
+            return self.using('subordinate').filter(status__gte=0)
 
 
     def sort(self, category_id, like=False):
@@ -56,7 +56,7 @@ class EntityQuerySet(models.query.QuerySet):
                 .order_by('-selection_entity__pub_time')
 
 
-            # self.using('slave').filter(status=Entity.selection, selection_entity__pub_time__lte=_refresh_datetime, category=category_id)\
+            # self.using('subordinate').filter(status=Entity.selection, selection_entity__pub_time__lte=_refresh_datetime, category=category_id)\
             # .order_by('-selection_entity__pub_time').filter(buy_links__status=2)
             # def get(self, *args, **kwargs):
             # # print kwargs, args
@@ -92,13 +92,13 @@ class EntityManager(models.Manager):
     # entity status: new:0,selection:1
     # get the current seller's selection entities and order by created-time.
     def get_published_by_seller(self, seller):
-        return self.get_query_set().using('slave').filter(status=1, user=seller).order_by('-created_time')
+        return self.get_query_set().using('subordinate').filter(status=1, user=seller).order_by('-created_time')
 
     def get_user_added_entities(self, user):
         return self.get_read_queryset().filter(status__gte=-1, user=user).order_by('-created_time')
 
     def get_read_queryset(self):
-        return EntityQuerySet(self.model).using('slave')
+        return EntityQuerySet(self.model).using('subordinate')
 
     def get_query_set(self):
         return EntityQuerySet(self.model, using=self._db)
@@ -167,7 +167,7 @@ class EntityManager(models.Manager):
         return entities
 
         # def sort_with_list(self, category_id=None):
-        #     Entity_Like.objects.using('slave').filter(entity__category = 10).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')
+        #     Entity_Like.objects.using('subordinate').filter(entity__category = 10).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')
 
 
 def isTestEnv():
@@ -211,18 +211,18 @@ class EntityLikeQuerySet(models.query.QuerySet):
             'entity_id', flat=True)
 
         # def sort_with_list(self, category_id):
-        # return self.using('slave').filter(entity__category = category_id).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')
+        # return self.using('subordinate').filter(entity__category = category_id).values_list('entity', flat=True).annotate(dcount=models.Count('entity')).order_by('-dcount')
 
 class EntityLikeManager(models.Manager):
     def get_query_set(self):
         return EntityLikeQuerySet(self.model, using=self._db)
 
     def user_likes_id_list(self, user):
-        return self.get_queryset().using('slave').filter(user=user)
+        return self.get_queryset().using('subordinate').filter(user=user)
 
     def active_entity_likes(self):
         #TODO: maybe filter out some deactived user's like ?
-        return self.get_queryset().using('slave').filter(entity__status__gte=-1)
+        return self.get_queryset().using('subordinate').filter(entity__status__gte=-1)
 
     def popular(self, scale='weekly'):
         key = 'entity:popular:%s' % scale

@@ -9,7 +9,7 @@ class UserSitemap(Sitemap):
     priority = 0.6
 
     def items(self):
-        return GKUser.objects.filter(is_active=GKUser.is_active).using('slave')
+        return GKUser.objects.filter(is_active=GKUser.is_active).using('subordinate')
 
     def lastmod(self, obj):
         return obj.date_joined
@@ -24,7 +24,7 @@ class EntitySitemap(Sitemap):
     now = datetime.now()
 
     def items(self):
-        return Entity.objects.filter(updated_time__lte=self.now, status__gte=Entity.freeze).using('slave')
+        return Entity.objects.filter(updated_time__lte=self.now, status__gte=Entity.freeze).using('subordinate')
 
     def lastmod(self, obj):
         return obj.updated_time
@@ -39,7 +39,7 @@ class TagSitemap(Sitemap):
     now = datetime.now()
 
     def items(self):
-        return Tags.objects.all().using('slave')
+        return Tags.objects.all().using('subordinate')
 
     def location(self, obj):
         return obj.get_absolute_url()
@@ -62,7 +62,7 @@ class ArticleSitemap(Sitemap):
 
     def items(self):
         return Article.objects.filter(publish=Article.published). \
-            order_by('-updated_datetime').using('slave')
+            order_by('-updated_datetime').using('subordinate')
 
     def location(self, obj):
         return obj.get_absolute_url()

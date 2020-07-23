@@ -12,7 +12,7 @@ day = timedelta(days=1)
 
 b = dt - day
 date_string = dt.strftime("%Y-%m-%d")
-selection = Selection_Entity.objects.raw("select id, count(*) as count from core_selection_entity where is_published = 1 and pub_time BETWEEN '%s' and '%s'" % (b.strftime("%Y-%m-%d"), date_string)).using('slave')
+selection = Selection_Entity.objects.raw("select id, count(*) as count from core_selection_entity where is_published = 1 and pub_time BETWEEN '%s' and '%s'" % (b.strftime("%Y-%m-%d"), date_string)).using('subordinate')
 # selection = Selection_Entity.objects.raw("select id, count(*) as count from core_selection_entity where is_published = 1 and pub_time BETWEEN '2015-01-27' and '2015-01-28'" )
 el = Entity_Like.objects.filter(created_time__range=(b.strftime("%Y-%m-%d"), date_string))
 # print selection.query

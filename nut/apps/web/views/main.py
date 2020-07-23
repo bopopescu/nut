@@ -48,7 +48,7 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin, TemplateView):
 
     def get_selection_entities(self):
         selections = Selection_Entity.objects.published_until_now() \
-            .select_related('entity').using('slave')
+            .select_related('entity').using('subordinate')
         return selections
 
     def get_top_promo_entity_list(self):
@@ -107,7 +107,7 @@ class IndexView(JSONResponseMixin, AjaxResponseMixin, TemplateView):
 class IndexHotEntityView(JSONResponseMixin, AjaxResponseMixin, ListView):
     def get_selection_entities(self):
         selections = Selection_Entity.objects.published_until_now() \
-            .select_related('entity').using('slave')
+            .select_related('entity').using('subordinate')
         return selections
 
     def get_context_data(self, **kwargs):
@@ -161,7 +161,7 @@ class IndexArticleTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
 class IndexSelectionEntityTagView(JSONResponseMixin, AjaxResponseMixin, ListView):
     def get_selection_entities(self):
         selections = Selection_Entity.objects.published_until_now() \
-            .select_related('entity').using('slave')
+            .select_related('entity').using('subordinate')
         return selections
 
     def get_top_promo_entity_list(self):
@@ -232,7 +232,7 @@ class SelectionEntityList(JSONResponseMixin, AjaxResponseMixin, ListView):
         if self.request.user.is_authenticated():
             entity_list = list(selections.object_list.values_list('entity_id', flat=True))
             el = Entity_Like.objects.user_like_list(user=self.request.user,
-                                                    entity_list=entity_list).using('slave')
+                                                    entity_list=entity_list).using('subordinate')
         context['user_entity_likes'] = el
         context['selections'] = selections
         return context

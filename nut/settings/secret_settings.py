@@ -1,34 +1,34 @@
 
 django_secret_key = 'zl4j09adh-*tv7-b5&(zu!nkudhry*yy1b9--$%)&yh^4caq_7'
 
-production_master_database_name = 'core'
-production_master_database_user = 'guoku'
-production_master_database_pass = 'guoku!@#'
-production_master_database_host = '10.0.2.90'
+production_main_database_name = 'core'
+production_main_database_user = 'guoku'
+production_main_database_pass = 'guoku!@#'
+production_main_database_host = '10.0.2.90'
 
-production_slave_database_name = 'core'
-production_slave_database_user = 'guoku'
-production_slave_database_pass = 'guoku!@#'
-production_slave_database_host = '10.0.2.95'
+production_subordinate_database_name = 'core'
+production_subordinate_database_user = 'guoku'
+production_subordinate_database_pass = 'guoku!@#'
+production_subordinate_database_host = '10.0.2.95'
 
-test_master_database_name = 'core'
-test_master_database_user = 'guoku'
-test_master_database_pass = 'guoku1@#'
-test_master_database_host = '10.0.2.125'
+test_main_database_name = 'core'
+test_main_database_user = 'guoku'
+test_main_database_pass = 'guoku1@#'
+test_main_database_host = '10.0.2.125'
 
-test_slave_database_name = 'core'
-test_slave_database_user = 'guoku'
-test_slave_database_pass = 'guoku1@#'
-test_slave_database_host = '10.0.2.125'
+test_subordinate_database_name = 'core'
+test_subordinate_database_user = 'guoku'
+test_subordinate_database_pass = 'guoku1@#'
+test_subordinate_database_host = '10.0.2.125'
 
 
 PRODUCTION_DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': production_master_database_name,
-        'USER': production_master_database_user,
-        'PASSWORD': production_master_database_pass,
-        'HOST': production_master_database_host,
+        'NAME': production_main_database_name,
+        'USER': production_main_database_user,
+        'PASSWORD': production_main_database_pass,
+        'HOST': production_main_database_host,
         'PORT': '',
         'OPTIONS': {
             # 'use_unicode':'utf-8',
@@ -37,12 +37,12 @@ PRODUCTION_DATABASES = {
         }
     },
 
-    'slave': {
+    'subordinate': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': production_slave_database_name,
-        'USER': production_slave_database_user,
-        'PASSWORD': production_slave_database_pass,
-        'HOST': production_slave_database_host,
+        'NAME': production_subordinate_database_name,
+        'USER': production_subordinate_database_user,
+        'PASSWORD': production_subordinate_database_pass,
+        'HOST': production_subordinate_database_host,
         'PORT': '',
         'OPTIONS': {
             # 'use_unicode':'utf-8',
@@ -56,10 +56,10 @@ PRODUCTION_DATABASES = {
 TESTING_DATABASE = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':     test_master_database_name,
-        'USER':     test_master_database_user,
-        'PASSWORD': test_master_database_pass,
-        'HOST':     test_master_database_host,
+        'NAME':     test_main_database_name,
+        'USER':     test_main_database_user,
+        'PASSWORD': test_main_database_pass,
+        'HOST':     test_main_database_host,
         'PORT': '',
         'OPTIONS': {
             # 'use_unicode':'utf-8',
@@ -67,12 +67,12 @@ TESTING_DATABASE = {
             'init_command':'SET storage_engine=INNODB',
         }
     },
-    'slave': {
+    'subordinate': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':     test_slave_database_name,
-        'USER':     test_slave_database_user,
-        'PASSWORD': test_slave_database_pass,
-        'HOST':     test_slave_database_host,
+        'NAME':     test_subordinate_database_name,
+        'USER':     test_subordinate_database_user,
+        'PASSWORD': test_subordinate_database_pass,
+        'HOST':     test_subordinate_database_host,
         'PORT': '',
         'OPTIONS': {
             # 'use_unicode':'utf-8',

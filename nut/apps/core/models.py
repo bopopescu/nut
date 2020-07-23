@@ -283,7 +283,7 @@ class GKUser(AbstractBaseUser, PermissionsMixin, BaseModel):
             .annotate(category_count=Count('entity__category__group')) \
             .values_list('entity__category__group', flat=True)
 
-        _category_list = Category.objects.using('slave').filter(pk__in=_category_id_list)
+        _category_list = Category.objects.using('subordinate').filter(pk__in=_category_id_list)
         return set(_category_list)
 
     @property
